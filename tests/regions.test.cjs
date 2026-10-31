@@ -7,7 +7,7 @@ function harness(){
   const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state;
   const messages=[];
   const ctx=vm.createContext({State:s,_:x=>x,Civilization:{notify:x=>messages.push(x)}});
-  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','src/postwar/population.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
   ctx.CivilRegions.init(s);
   const activate=()=>{s.civilization.tech.logistics=true;s.game.buildings.cartdepot=1;s.game.workers={transporter:2};ctx.CivilRegions.activate(s);return s.civilization.regions;};
   const step=(n=1,economy=false)=>{for(let i=0;i<n;i++){s.civilization.elapsed++;if(economy && s.civilization.elapsed%10===0)ctx.CivilRegions.settle(s);ctx.CivilRegions.tick(s);}};
@@ -168,4 +168,50 @@ test('neighbour service projects can feed their real subsequent children while h
     const n=x.nodes[id];assert.ok(x.routes[id].completedTrips>=15,id+' traded');assert.ok(n.health>=60,id+' health');assert.ok(n.stores.food>r.foodPopulation(n)*.24,id+' food');assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=r.workforce(n),id+' real labor');assert.ok(n.cohorts.some(c=>c.age<18),id+' children');
   }
   assert.doesNotThrow(()=>r.validate(s));
+});
+
+function advanceNodeYear(s,r,n){s.civilization.elapsed=(n.year+1)*600;r.annual(s,n);}
+test('existing regional saves initialize zero birth credit without replaying ages, people or supplies',()=>{
+  const {s,r,activate}=harness(),x=activate(),n=x.nodes.river;n.completedProjects.publicWorks=true;delete n.births;
+  const before=JSON.stringify({home:s.stores,stores:n.stores,cohorts:n.cohorts,population:n.population,year:n.year});
+  assert.doesNotThrow(()=>r.validate(s));r.init(s);
+  assert.equal(JSON.stringify({home:s.stores,stores:n.stores,cohorts:n.cohorts,population:n.population,year:n.year}),before);
+  assert.deepEqual(JSON.parse(JSON.stringify(n.births)),{scaled:true,credit:0,mutantCredit:0});
+  const initialized=JSON.stringify(x);r.init(s);assert.equal(JSON.stringify(x),initialized);
+  for(const value of [null,false,0,[],{}, {scaled:true,credit:1,mutantCredit:0},{scaled:true,credit:0,mutantCredit:-.1}]){
+    const copy=structuredClone(s);copy.civilization.regions.nodes.river.births=value;assert.throws(()=>r.validate(copy));
+  }
+});
+test('local newborns pay both food and medicine from their own warehouse before entering the cohort ledger',()=>{
+  const {s,r,activate}=harness(),n=activate().nodes.river;n.population=10;n.cohorts=[{age:25,count:10,identity:'human'}];n.stores={food:6,medicine:0};
+  const home=JSON.stringify(s.stores);advanceNodeYear(s,r,n);assert.equal(n.population,10);assert.equal(n.stores.food,6);
+  n.stores.medicine=.2;advanceNodeYear(s,r,n);assert.equal(n.population,11);assert.equal(n.stores.food,0);assert.equal(n.stores.medicine,0);
+  assert.equal(n.cohorts.at(-1).age,0);assert.equal(n.cohorts.at(-1).identity,'human');assert.equal(r.workforce(n),10);assert.equal(JSON.stringify(s.stores),home);
+  const paid=JSON.stringify(n);r.annual(s,n);assert.equal(JSON.stringify(n),paid,'same-year refresh cannot pay or deliver another child');r.validate(s);
+});
+test('regional identity inheritance uses reproductive parents rather than a calendar-based mutant quota',()=>{
+  for(const [parent,elder]of [['mutant','human'],['human','mutant']]){
+    const {s,r,activate}=harness(),n=activate().nodes.river;
+    n.population=10;n.cohorts=[{age:25,count:6,identity:parent},{age:65,count:4,identity:elder}];n.stores={food:100,medicine:10};n.year=19;
+    advanceNodeYear(s,r,n);assert.equal(n.year,20);assert.equal(n.cohorts.at(-1).age,0);assert.equal(n.cohorts.at(-1).identity,parent);assert.equal(n.population,11);
+  }
+  const {s,r,activate}=harness(),n=activate().nodes.river;n.population=10;n.cohorts=[{age:50,count:10,identity:'mutant'}];n.stores={food:100,medicine:10};
+  const stores=JSON.stringify(n.stores);advanceNodeYear(s,r,n);assert.equal(n.population,10);assert.equal(JSON.stringify(n.stores),stores,'working residents past reproductive age do not produce children');
+});
+test('the shared age transition makes children adults, retires workers and removes elders exactly once after reload',()=>{
+  const {s,r,activate}=harness(),n=activate().nodes.river;
+  n.population=9;n.cohorts=[{age:17,count:4,identity:'human'},{age:64,count:4,identity:'mutant'},{age:79,count:1,identity:'human'}];n.stores={food:100,medicine:10};
+  const original=n.cohorts,snapshot=JSON.stringify(original);s.civilization.elapsed=n.year*600+599;r.annual(s,n);assert.equal(JSON.stringify(n.cohorts),snapshot);
+  s.civilization.elapsed++;r.annual(s,n);assert.notEqual(n.cohorts,original);assert.equal(JSON.stringify(original),snapshot);assert.equal(n.population,8);assert.equal(r.workforce(n),4);assert.equal(r.foodPopulation(n),8);
+  assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=4);
+  const copy=structuredClone(s),loaded=copy.civilization.regions.nodes.river,before=JSON.stringify(loaded);r.init(copy);r.annual(copy,loaded);assert.equal(JSON.stringify(loaded),before);r.validate(copy);
+});
+test('paid local public works enable fractional births with real capacity, and shortages never bank missed children',()=>{
+  const {s,r,activate}=harness();activate();const n=r.createNode(s,'rail');n.completedProjects.publicWorks=true;n.stores={food:1000,medicine:100};
+  r.init(s);assert.equal(n.births.scaled,true);advanceNodeYear(s,r,n);assert.equal(n.population,34);near(n.stores.food,988);near(n.stores.medicine,99.6);near(n.births.credit,.56);
+  const reloaded=structuredClone(s),other=reloaded.civilization.regions.nodes.rail;r.init(reloaded);
+  for(let i=0;i<3;i++){advanceNodeYear(s,r,n);advanceNodeYear(reloaded,r,other);}assert.equal(JSON.stringify(other),JSON.stringify(n),'fractional local births survive serialization');
+  n.births.credit=.9;n.stores.medicine=0;const population=n.population;advanceNodeYear(s,r,n);assert.equal(n.population,population);assert.equal(n.births.credit,0);
+  n.stores.medicine=100;advanceNodeYear(s,r,n);assert.ok(n.population-population<=Math.ceil(population*.04));
+  for(let i=0;i<10;i++)advanceNodeYear(s,r,n);assert.ok(n.population<=44,'the original local housing limit remains authoritative');assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=r.workforce(n));r.validate(s);
 });

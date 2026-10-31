@@ -11,11 +11,16 @@ var CivilRegions={
   },
   init(s){
     if(s.civilization.regions===undefined)s.civilization.regions={schema:1,active:false,nextShipment:1,nodes:{},routes:{},shipments:[],projects:{},rights:null,rightsSince:0,archiveOnline:0,adminService:true,announced:false};
+    for(const n of Object.values(s.civilization.regions?.nodes||{}))this.initBirths(n);
+  },
+  initBirths(n){
+    if(n.births===undefined)n.births={scaled:false,credit:0,mutantCredit:0};
+    if(n.population>=80 || n.completedProjects.publicWorks)n.births.scaled=true;
   },
   node(id,s){return id==='home'?{stores:s.stores,population:s.game.population}:s.civilization.regions?.nodes[id];},
   discoveredCount(s){const r=s.civilization.regions;return Object.keys(r?.nodes||{}).length+(!r?.nodes.river && s.civilization.village?.riverKnown?1:0);},
-  workforce(n){return n.cohorts.filter(c=>c.age>=18 && c.age<65).reduce((a,c)=>a+c.count,0);},
-  foodPopulation(n){return n.cohorts.reduce((a,c)=>a+c.count*(c.age<18?2/3:1),0);},
+  workforce(n){return CivilPopulation.workforce(n.cohorts);},
+  foodPopulation(n){return CivilPopulation.foodPopulation(n.cohorts);},
   reservedTransport(s){return Object.values(s.civilization.regions?.routes||{}).reduce((n,r)=>n+r.assigned,0);},
   availableTransport(s){
     const total=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
@@ -45,6 +50,7 @@ var CivilRegions={
     const d=CivilRegionContent[id];if(!d)return null;
     const n=r.nodes[id]={discovered:true,control:'independent',relation:'contacted',population:d.population,cohorts:[],workers:{},stores:{...d.stores},health:80,trust:50,unrest:0,integration:0,autonomy:'local',rights:'resident',rightsSince:s.civilization.elapsed,promises:{},completedProjects:{},year:Math.floor(s.civilization.elapsed/600),stableSeconds:0};
     for(let i=0;i<d.population;i++)n.cohorts.push({age:20+i%24,count:1,identity:i<d.mutants?'mutant':'human'});
+    this.initBirths(n);
     this.planWorkers(s,id,n);
     r.routes[id]={node:id,enabled:false,assigned:0,travel:d.travel,capacity:64,condition:'open',dispatchIn:10,completedTrips:0,lastDeliveredAt:null,status:'尚未订约'};
     return n;
@@ -215,11 +221,18 @@ var CivilRegions={
   annual(s,n){
     const year=Math.floor(s.civilization.elapsed/600);
     const id=Object.keys(s.civilization.regions.nodes).find(id=>s.civilization.regions.nodes[id]===n);
+    this.initBirths(n);
     while(n.year<year){
-      n.year++;for(const c of n.cohorts)c.age++;
-      n.cohorts=n.cohorts.filter(c=>c.age<80);n.population=n.cohorts.reduce((a,c)=>a+c.count,0);
+      const yearStartPopulation=n.population;n.year++;
+      n.cohorts=CivilPopulation.age(n.cohorts).cohorts;n.population=CivilPopulation.count(n.cohorts);
       const cap=CivilRegionContent[id].population+(n.completedProjects.publicWorks?12:0);
-      if(this.workforce(n)>=6 && n.health>=60 && n.population<cap && this.canPay(n.stores,{food:6})){this.debit(n.stores,{food:6});n.cohorts.push({age:0,count:1,identity:n.year%4===0?'mutant':'human'});n.population++;}
+      const birth=CivilPopulation.births(n.cohorts,n.births,{
+        yearStartPopulation,beds:cap-n.population,health:n.health,
+        hunger:(n.stores.food||0)<this.foodPopulation(n)*.12,food:n.stores.food,medicine:n.stores.medicine
+      });
+      if(birth.count && this.canPay(n.stores,birth.cost)){
+        this.debit(n.stores,birth.cost);n.cohorts.push(...birth.cohorts);n.population+=birth.count;
+      }
     }
     this.planWorkers(s,id,n);
   },
@@ -316,7 +329,8 @@ var CivilRegions={
     for(const [id,n]of Object.entries(r.nodes)){
       if(!CivilRegionContent[id] || !obj(n) || n.discovered!==true || !['independent','shared'].includes(n.control) || !['contacted','trade','associated','integrated'].includes(n.relation)||!int(n.population)||!Array.isArray(n.cohorts)||!cargo(n.stores)||!obj(n.workers)||!obj(n.promises)||!obj(n.completedProjects)||!['local','coordinated'].includes(n.autonomy)||!['equal','resident','stratified'].includes(n.rights)||!num(n.rightsSince,s.civilization.elapsed)||!int(n.year)||n.year>Math.floor(s.civilization.elapsed/600))throw Error('地方节点无效');
       for(const cohort of n.cohorts)if(!obj(cohort)||!int(cohort.age,100)||!int(cohort.count)||cohort.count<1||!['human','mutant'].includes(cohort.identity))throw Error('地方年龄名册无效');
-      if(n.cohorts.reduce((a,c)=>a+c.count,0)!==n.population)throw Error('地方人口与名册不符');
+      if(CivilPopulation.count(n.cohorts)!==n.population)throw Error('地方人口与名册不符');
+      if(n.births!==undefined && (!obj(n.births) || typeof n.births.scaled!=='boolean' || ['credit','mutantCredit'].some(k=>!num(n.births[k],1) || n.births[k]>=1)))throw Error('地方出生记录无效');
       for(const key of ['health','trust','unrest','integration'])if(!num(n[key],100))throw Error('地方民情无效');
       if(!num(n.stableSeconds,600) || Object.entries(n.workers).some(([k,v])=>!['farmer','medic','builder','salvager','gatherer','teacher','smelter','machinist'].includes(k)||!int(v)) || Object.values(n.workers).reduce((a,b)=>a+b,0)>this.workforce(n))throw Error('地方劳动分配无效');
       if(['associated','integrated'].includes(n.relation)!==(n.control==='shared') || n.relation==='integrated' && (n.integration!==100 || !n.completedProjects.publicWorks || n.rights==='stratified'))throw Error('地方治理状态无效');

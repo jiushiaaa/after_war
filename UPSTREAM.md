@@ -18,3 +18,5 @@
 代际与工业扩展新增 `src/postwar/society.js`、`content/industry.js` 和 `src/postwar/industry.js`，继续通过adapter接入原生地点、事件、建造、岗位和库存。修改platform存档校验、rules人口与产出计算，以及Room的新资源小数显示。规则测试与自然游玩存档位于 `tests/`；全部保留MPL-2.0。
 
 地区与城市扩展新增 `content/regions.js`、`content/urban.js`、`src/postwar/regions.js`、`src/postwar/urban.js`，接入独立地区仓库、真实在途货物、共同服务与公民资格、有限来源迁入、公共设施、正式镇制及首城判定。Society新增真实育龄比例出生，adapter沿用原生事件与岗位接线并将镇制后的普通维修转为实付轮值。修改继续遵循MPL-2.0；没有开放上游原版太空结局。
+
+新增 `src/postwar/population.js` 共用年龄/出生规则与 `content/origins.js`、`src/postwar/origins.js` 有限人口来源，扩展原生旧公路/街区按钮及Urban迁徙分账、存档验证与回归。继续按MPL-2.0保留源码和修改说明。

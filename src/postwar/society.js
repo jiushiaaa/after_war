@@ -34,41 +34,25 @@ var CivilSociety = {
     if(s.game.population>=80 || c.urban?.chartered || c.tech.standards && b.publicclinic && b.publicschool)x.births.scaled=true;
   },
   newBirths(s,yearStartPopulation){
-    const x=s.civilization.society,c=s.civilization,b=x.births;
-    const parents=x.cohorts.filter(cohort=>cohort.age>=18 && cohort.age<=49);
-    const eligible=parents.reduce((n,cohort)=>n+cohort.count,0);
-    const mutants=parents.filter(cohort=>cohort.identity==='mutant').reduce((n,cohort)=>n+cohort.count,0);
-    if(!mutants)b.mutantCredit=0;
-    const beds=Math.max(0,Math.floor(typeof CivilUrban!=='undefined'?CivilUrban.availableBeds(s):CivilCatalog.capacity(s)-s.game.population));
-    if(eligible<2 || this.workforce(s)<6 || c.hunger || c.village.health<60 || !beds || !CivilRules.canPay(s,{food:6,medicine:.2})){
-      b.credit=0;return 0;
-    }
-    let wanted=1;
-    if(b.scaled){
-      const potential=eligible*.08+b.credit,whole=Math.floor(potential+1e-9);
-      b.credit=Math.max(0,Math.min(1-Number.EPSILON,potential-whole));
-      wanted=Math.min(whole,Math.max(1,Math.ceil(yearStartPopulation*.04)));
-    }else b.credit=0;
-    const count=Math.min(wanted,beds,Math.floor(((s.stores.food||0)+1e-8)/6),Math.floor(((s.stores.medicine||0)+1e-8)/.2));
-    // Missed years and unpaid/crowded births are not a backlog that can burst after recovery.
-    if(count<wanted)b.credit=0;
-    if(!count || !CivilRules.pay(s,{food:count*6,medicine:count*.2}))return 0;
-    const identityShare=count*mutants/eligible+b.mutantCredit,mutantBirths=Math.min(count,Math.floor(identityShare+1e-9));
-    b.mutantCredit=Math.max(0,Math.min(1-Number.EPSILON,identityShare-mutantBirths));
-    if(count>mutantBirths)x.cohorts.push({age:0,count:count-mutantBirths,identity:'human'});
-    if(mutantBirths)x.cohorts.push({age:0,count:mutantBirths,identity:'mutant'});
+    const x=s.civilization.society,c=s.civilization;
+    const {cohorts,count,cost}=CivilPopulation.births(x.cohorts,x.births,{
+      yearStartPopulation,beds:typeof CivilUrban!=='undefined'?CivilUrban.availableBeds(s):CivilCatalog.capacity(s)-s.game.population,
+      health:c.village.health,hunger:c.hunger,food:s.stores.food,medicine:s.stores.medicine
+    });
+    if(!count || !CivilRules.pay(s,cost))return 0;
+    x.cohorts.push(...cohorts);
     s.game.population+=count;
     this.note((count===1?'一名孩子':count+'名孩子')+'在聚落出生。口粮与药品已备好，家人把他们记入名册。');
     return count;
   },
-  total(x){return x.cohorts.reduce((n,c)=>n+c.count,0);},
+  total(x){return CivilPopulation.count(x.cohorts);},
   workforce(s){
     const x=s.civilization.society;if(!x)return s.game.population;
-    return x.cohorts.filter(c=>c.age>=18 && c.age<65).reduce((n,c)=>n+c.count,0)+Math.max(0,s.game.population-this.total(x));
+    return CivilPopulation.workforce(x.cohorts)+Math.max(0,s.game.population-this.total(x));
   },
   foodPopulation(s){
     const x=s.civilization.society;if(!x)return s.game.population;
-    return x.cohorts.reduce((n,c)=>n+c.count*(c.age<18?2/3:1),0)+Math.max(0,s.game.population-this.total(x));
+    return CivilPopulation.foodPopulation(x.cohorts)+Math.max(0,s.game.population-this.total(x));
   },
   sync(s){
     const x=s.civilization.society;if(!x)return;
@@ -85,8 +69,7 @@ var CivilSociety = {
   settle(s){const x=s.civilization.society;if(!x?.governed)return {};const cost=this.upkeep(s);x.service=CivilRules.pay(s,cost);return x.service?{'公共行政':Object.fromEntries(Object.entries(cost).map(([k,n])=>[k,-n]))}:{};},
   annual(s,random=Math.random){
     const x=s.civilization.society,c=s.civilization,yearStartPopulation=s.game.population;this.initBirths(s);x.year++;
-    for(const cohort of x.cohorts)cohort.age++;
-    const lost=x.cohorts.filter(v=>v.age>=80).reduce((n,v)=>n+v.count,0);x.cohorts=x.cohorts.filter(v=>v.age<80);s.game.population-=lost;
+    const aged=CivilPopulation.age(x.cohorts),lost=aged.deceased;x.cohorts=aged.cohorts;s.game.population-=lost;
     if(lost)this.note(lost+'位年长居民在这一年离世。他们留下的房屋与知识仍属于共同体。');
     this.newBirths(s,yearStartPopulation);
     this.trimJobs(s);x.heir.age++;
@@ -157,7 +140,7 @@ var CivilSociety = {
   refresh(){
     const s=State,x=s.civilization.society;if(!x || !s.civilization.village.town)return;
     if(!this.module){const m=this.module={onArrival(diff){document.title='议事屋';Engine.moveStoresView(null,diff);}};m.tab=Header.addLocation('议事屋','council',m);m.panel=$('<div>').attr('id','councilPanel').addClass('location').appendTo('#locationSlider');$('<div>').attr('id','councilRecord').appendTo(m.panel);Engine.updateSlider();}
-    const children=x.cohorts.filter(v=>v.age<18).reduce((n,v)=>n+v.count,0),elders=x.cohorts.filter(v=>v.age>=65).reduce((n,v)=>n+v.count,0);
+    const children=CivilPopulation.children(x.cohorts),elders=x.cohorts.filter(v=>v.age>=65).reduce((n,v)=>n+v.count,0);
     $('#councilRecord').text('重建 '+x.year+' 年 · 第'+x.generation+'任 '+x.leader.title+' · '+x.leader.age+'岁'+(x.leader.alive?'':'（待交接）')+'。可工作 '+this.workforce(s)+'，儿童 '+children+'，退休 '+elders+'。'+Object.entries(x.axes).map(([k,v])=>this.axes[k].choices[v].name).join(' · ')+(x.governed?'。认可 '+Math.floor(x.legitimate)+'，协调上限 '+this.capacity(s)+' 节点。'+(x.service?'公共行政正常。':'行政物资不足，产出减慢。'):'')+(x.training?' 继任培养还需 '+Math.ceil(x.training.remaining)+' 秒。':'') );
     if(x.governed){
       const retire=Civilization.button('retireButton','安排退休','#councilPanel',()=>{if(!Events.activeEvent() && !x.succession && x.year>x.leader.started){x.succession='retirement';Engine.saveGame();}});Button.setDisabled(retire,!!x.succession || x.year<=x.leader.started);

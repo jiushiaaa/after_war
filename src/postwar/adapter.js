@@ -15,6 +15,7 @@ var Civilization = {
     if(typeof CivilIndustry!=='undefined')CivilIndustry.init(State);
     if(typeof CivilRegions!=='undefined')CivilRegions.init(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.init(State);
+    if(typeof CivilOrigins!=='undefined')CivilOrigins.init(State);
   },
   init() {
     CivilClock.rate = State.civilization.speed;
@@ -43,6 +44,7 @@ var Civilization = {
     if(typeof CivilSociety!=='undefined')Object.assign(flow,CivilSociety.settle(s));
     if(typeof CivilIndustry!=='undefined')Object.assign(flow,CivilIndustry.settle(s));
     if(typeof CivilRegions!=='undefined')Object.assign(flow,CivilRegions.settle(s));
+    if(typeof CivilOrigins!=='undefined')Object.assign(flow,CivilOrigins.settle(s));
     const deltas={};
     for(const key of new Set([...Object.keys(before),...Object.keys(s.stores)]))deltas[key]=(s.stores[key]||0)-(before[key]||0);
     if(typeof CivilUrban!=='undefined')Object.assign(flow,CivilUrban.settle(s,{flow,deltas}));
@@ -98,6 +100,7 @@ var Civilization = {
     if(typeof CivilSociety!=='undefined')CivilSociety.tick(State);
     if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(typeof CivilRegions!=='undefined')CivilRegions.tick(State);
+    if(typeof CivilOrigins!=='undefined')CivilOrigins.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -108,6 +111,7 @@ var Civilization = {
       else if(c.station && !c.events.merchant) {c.pending='merchant';this.showPending();}
       else if(typeof CivilSociety!=='undefined' && CivilSociety.nextEvent(State)){c.pending=CivilSociety.nextEvent(State);this.showPending();}
       else if(typeof CivilRegions!=='undefined' && CivilRegions.nextEvent(State)){c.pending=CivilRegions.nextEvent(State);this.showPending();}
+      else if(typeof CivilOrigins!=='undefined' && CivilOrigins.nextEvent(State)){c.pending=CivilOrigins.nextEvent(State);this.showPending();}
       else if(typeof CivilUrban!=='undefined' && CivilUrban.nextEvent(State)){c.pending=CivilUrban.nextEvent(State);this.showPending();}
       else if(c.randomClock<=0 && State.game.population>0) this.randomEvent();
     }
@@ -199,7 +203,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -303,6 +307,7 @@ var Civilization = {
     CivilVillage.refresh(); if(typeof CivilSociety!=='undefined')CivilSociety.refresh(); Room.updateBuildButtons(); if(typeof CivilIndustry!=='undefined')CivilIndustry.refresh();
     if(typeof CivilRegions!=='undefined')CivilRegions.refresh();
     if(typeof CivilUrban!=='undefined')CivilUrban.refresh();
+    if(typeof CivilOrigins!=='undefined')CivilOrigins.refresh();
   },
   restart(state) {
     CivilClock.stop(); $('*').stop(true,true);
@@ -312,6 +317,7 @@ var Civilization = {
     this.roadModule=null;if(typeof CivilSociety!=='undefined')CivilSociety.module=null;if(typeof CivilIndustry!=='undefined')CivilIndustry.reset();Notifications.notifyQueue={};
     if(typeof CivilRegions!=='undefined')CivilRegions.reset();
     if(typeof CivilUrban!=='undefined')CivilUrban.reset();
+    if(typeof CivilOrigins!=='undefined')CivilOrigins.reset();
     $('.menu,#notifications,#event,#eventblocker').remove();$('#main').html('<div id="header"></div>');
     Engine.init({state});
   }

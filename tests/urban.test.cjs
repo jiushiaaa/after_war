@@ -6,7 +6,7 @@ const vm=require('node:vm');
 function harness(){
   const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state,messages=[];
   const ctx=vm.createContext({State:s,_:x=>x,Civilization:{notify:t=>messages.push(t)}});
-  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/population.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
   ctx.CivilSociety.init(s);ctx.CivilRegions.init(s);ctx.CivilUrban.init(s);return {s,ctx,u:ctx.CivilUrban,r:ctx.CivilRegions,messages};
 }
 function prepare(h){
@@ -124,4 +124,60 @@ test('the first city needs 400 local people, productive power, fulfilled service
 test('paid treatment is recognized even when it leaves no second treatment reserve',()=>{
   const h=citySetup(harness(),80),{s,u}=h;s.game.workers.medic=6;s.game.workers.teacher=2;s.stores.medicine=0;
   const result=settle(h);assert.ok(s.stores.medicine<.8);assert.equal(result.flow['诊所治疗'].medicine,-.8);assert.equal(s.civilization.urban.economy.treatment,true);
+});
+
+function contactSource(h){
+ const {s,ctx,u}=h,o=ctx.CivilOrigins;u.init(s);o.init(s);s.civilization.urban.enabled=false;
+ assert.equal(o.beginContact(s),true);
+ for(let i=0;i<240;i++){s.civilization.elapsed++;if(i%10===9)o.settle(s);o.tick(s);u.tick(s);}
+ assert.equal(s.civilization.origins.nodes.river_network.status,'contacted');return o;
+}
+function sourceTicks(h,seconds){for(let i=0;i<seconds;i++){h.s.civilization.elapsed++;if(i%10===9)h.ctx.CivilOrigins.settle(h.s);h.ctx.CivilOrigins.tick(h.s);h.u.tick(h.s);}}
+test('an exhausted old register and zero home workers can receive a real source adult with six gathered food',()=>{
+ const h=prepare(harness()),{s,ctx,u}=h,x=s.civilization.urban;
+ x.source=[];x.admitted=480;s.game.population=0;s.game.workers={};s.civilization.society.cohorts=[];s.civilization.trust=0;s.stores={food:6};
+ const before=JSON.stringify(s.stores),o=contactSource(h),n=s.civilization.origins.nodes.river_network;
+ assert.equal(JSON.stringify(s.stores),before);assert.equal(s.game.population,0);assert.equal(n.permit.paid,false);
+ x.activeSource='river_network';assert.equal(u.handleArrival(s),true);
+ assert.equal(s.game.population,1);assert.equal(ctx.CivilSociety.workforce(s),1);assert.equal(s.stores.food,0);
+ assert.equal(x.admitted,480);assert.equal(u.count(x.source),0);assert.equal(n.admitted,1);assert.equal(s.civilization.society.cohorts[0].originId,'river_network');
+ const once=JSON.stringify([n,s.game,s.stores]);o.init(s);u.handleArrival(s);assert.equal(JSON.stringify([n,s.game,s.stores]),once);
+ assert.doesNotThrow(()=>u.validate(s));assert.doesNotThrow(()=>o.validate(s));
+});
+test('legacy and new-source passengers share two crews while each population ledger stays separate',()=>{
+ const h=prepare(harness()),{s,ctx,u,r}=h,o=contactSource(h),x=s.civilization.urban,n=s.civilization.origins.nodes.river_network;
+ assert.equal(o.agree(s),true);x.enabled=true;const before=s.game.population,stores={...s.stores};
+ x.activeSource='dispersed';assert.equal(u.dispatch(s),true);x.activeSource='river_network';assert.equal(u.dispatch(s),true);
+ assert.equal(x.parties.length,2);assert.equal(u.reservedTransport(s),4);assert.equal(r.availableTransport(s),0);assert.equal(u.dispatch(s),false);
+ assert.equal(stores.food-s.stores.food,96);assert.ok(Math.abs(stores.medicine-s.stores.medicine-3.2)<1e-7);assert.equal(u.count(x.source),472);
+ assert.equal(o.inTransit(n),8);assert.equal(n.admitted,0);x.enabled=false;sourceTicks(h,120);
+ assert.equal(s.game.population,before+16);assert.equal(x.admitted,8);assert.equal(n.admitted,8);assert.equal(o.inTransit(n),0);
+ assert.equal(u.count(x.source)+x.admitted+x.deceased,480);assert.equal(n.baselinePopulation+n.born,n.population+n.sourceDeaths+n.transitDeaths+n.admitted);
+ assert.doesNotThrow(()=>u.validate(s));assert.doesNotThrow(()=>o.validate(s));
+ const resumed=JSON.parse(JSON.stringify(s));o.init(resumed);u.init(resumed);const pop=resumed.game.population;
+ for(let i=0;i<120;i++){resumed.civilization.elapsed++;o.tick(resumed);u.tick(resumed);}assert.equal(resumed.game.population,pop);assert.equal(resumed.civilization.urban.parties.length,0);
+});
+test('new-source passengers denied housing return to their own ageing census without refunding fares',()=>{
+ const h=prepare(harness()),{s,u}=h,o=contactSource(h),x=s.civilization.urban,n=s.civilization.origins.nodes.river_network;
+ o.agree(s);x.activeSource='river_network';x.enabled=true;assert.equal(u.dispatch(s),true);x.enabled=false;
+ const paid=s.stores.food,legacy=JSON.stringify(x.source);s.game.buildings.residential=0;
+ sourceTicks(h,120);assert.equal(x.parties[0].state,'held');sourceTicks(h,120);assert.equal(x.parties[0].state,'returning_people');sourceTicks(h,120);
+ assert.equal(x.parties.length,0);assert.equal(n.admitted,0);assert.equal(o.inTransit(n),0);assert.equal(o.remaining(s,'river_network'),1080);assert.equal(s.stores.food,paid);
+ assert.equal(u.count(x.source),480);assert.notEqual(JSON.stringify(x.source),legacy,'legacy census also ages, without receiving returned origin people');
+ assert.equal(n.baselinePopulation+n.born,n.population+n.sourceDeaths+n.transitDeaths);assert.doesNotThrow(()=>o.validate(s));
+});
+test('a real older source passenger dies once at the year boundary and the surviving party can still arrive',()=>{
+ const h=prepare(harness()),{s,u}=h,o=contactSource(h),x=s.civilization.urban,n=s.civilization.origins.nodes.river_network;
+ o.agree(s);n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));s.civilization.elapsed=Math.floor(s.civilization.elapsed/600)*600+599;
+ x.activeSource='river_network';x.enabled=true;assert.equal(u.dispatch(s),true);x.enabled=false;const before=s.game.population;
+ assert.equal(x.parties[0].cohorts.filter(c=>c.age===79).reduce((a,c)=>a+c.count,0),1);
+ sourceTicks(h,120);assert.equal(s.game.population,before+7);assert.equal(x.parties[0].state,'returning');assert.equal(n.transitDeaths,1);assert.equal(n.admitted,7);assert.equal(x.deceased,0);
+ assert.equal(n.baselinePopulation+n.born,n.population+n.sourceDeaths+n.transitDeaths+n.admitted);assert.doesNotThrow(()=>o.validate(s));
+});
+
+test('contact before the old family register keeps the new source separate and remains a valid save shape',()=>{
+ const h=harness(),{s,u}=h;s.game.buildings.hut=4;const o=contactSource(h),x=s.civilization.urban;
+ assert.equal(x.registered,false);assert.equal(u.sourceId(s),'dispersed');x.activeSource='river_network';const before=s.game.population;
+ assert.equal(u.handleArrival(s),true);assert.equal(s.game.population,before+1);assert.equal(x.admitted,0);assert.equal(u.count(x.source),0);
+ assert.doesNotThrow(()=>u.validate(s));assert.doesNotThrow(()=>o.validate(s));
 });
