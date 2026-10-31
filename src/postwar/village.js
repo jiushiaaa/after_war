@@ -34,7 +34,7 @@ var CivilVillage = {
       if(need>0 && CivilRules.pay(s,{medicine:need}))v.health=Math.min(100,v.health+.5);
       else v.health=Math.max(0,v.health-(c.hunger ? .5 : .15));
     }
-    if(v.riverAllied) {
+    if(v.riverAllied && !s.civilization.regions?.active) {
       // Twelve remote inhabitants, four tending fields. Production and their meals are settled there.
       v.riverFood=Math.min(240,v.riverFood+3.2-12*.12);
       v.convoyClock+=10;
@@ -42,6 +42,7 @@ var CivilVillage = {
     }
   },
   convoy(s) {
+    if(s.civilization.regions?.active)return false;
     const v=s.civilization.village,c=s.civilization;
     const cost={wood:1,food:c.tech.preservation?1:2,tools:1,medicine:.5};
     if(!s.game.buildings.road){v.routeStatus='等待修通道路';return false;}
@@ -75,7 +76,7 @@ var CivilVillage = {
   },
   refresh() {
     const c=State.civilization,v=c.village,b=State.game.buildings;
-    if(c.tech.trails) {
+    if(c.tech.trails && !c.regions?.active) {
       const id=v.riverKnown?'riverAid':'river',r=this.journeys[id];
       const btn=Civilization.button('riverButton',v.riverKnown?'援助河谷':'沿河勘察','#roadPanel',()=>Civilization.depart(v.riverKnown?'riverAid':'river'),r.cost);
       btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(v.riverKnown?'援助河谷':'沿河勘察'));
@@ -84,10 +85,11 @@ var CivilVillage = {
       if(v.aidDelivered && !v.riverAllied)Civilization.button('riverPact','商议互助','#roadPanel',()=>{if(!Events.activeEvent()){c.pending='riverAid';Civilization.showPending();}});
       $('#riverPact').toggle(!v.riverAllied);
     }
-    if(v.riverKnown){
+    if(v.riverKnown && !c.regions?.active){
       let note=$('#riverStatus');if(!note.length)note=$('<div>').attr('id','riverStatus').appendTo('#roadPanel');
       note.text(v.riverAllied?'河谷 · 12 位居民 · 粮食 '+Math.floor(v.riverFood)+' · 已收工具 '+v.riverTools+' / 药品 '+v.riverMedicine+' · 往返 '+v.convoys+' 次。'+v.routeStatus:'河谷有十二位居民，正在等待工具和修路援助。');
     }
+    if(c.regions?.active)$('#riverStatus,#riverButton,#riverPact').hide();
     if(State.game.population>=12 || b.clinic)$('#socialNote').append(document.createTextNode(' · 健康 '+Math.floor(v.health)+(v.health<30?'（工作减慢）':'')));
   }
 };

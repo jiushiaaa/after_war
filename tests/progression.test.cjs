@@ -8,7 +8,7 @@ function harness() {
  const Outside={getMaxPopulation:()=>state.game.buildings.hut*4,setTitle(){},updateVillage(){},updateWorkersView(){},killVillagers(n){state.game.population-=n;}};
  const Events={startEvent(e){active=e;},activeEvent:()=>active,buttonClick(){}};
  const ctx=vm.createContext({State:state,Room,Outside,Events,$SM:SM,AudioEngine:{},Notifications:{},CivilClock:{rate:1},CivilPlatform:{},Engine:{saveGame(){}},Math:Object.assign(Object.create(Math),{random:()=>.9}),_:s=>s,setTimeout,clearTimeout,console});
- for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','content/industry.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/village.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+ for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/village.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
  ctx.Outside.updateWorkersView=()=>{};ctx.Civilization.initState();ctx.Civilization.notify=t=>observed.push(t);ctx.Civilization.refresh=()=>{};ctx.Civilization.renderSpeed=()=>{};ctx.Civilization.updateIncome=()=>{};
  function step(n){for(let i=0;i<n;i++)ctx.Civilization.tick();}
  function choose(key){const b=active.scenes.start.buttons[key];assert.ok(b,'choice exists: '+key);b.onChoose?.();active=null;}
@@ -105,7 +105,7 @@ test('live adapter queues four constitutional decisions then the mineral discove
 });
 test('annual births and resident deaths publish the reconciled population to the native village view',()=>{
  for(const [cohorts,before,after]of [[[{age:30,count:6}],6,7],[[{age:79,count:1},{age:30,count:3}],4,3]]){
-  const h=harness(),s=h.state,c=s.civilization,updates=[];c.elapsed=599;c.policy='equal';s.game.population=before;c.society.cohorts=cohorts;
+  const h=harness(),s=h.state,c=s.civilization,updates=[];c.elapsed=599;c.policy='equal';s.stores.medicine=1;s.game.population=before;c.society.cohorts=cohorts;
   h.ctx.Outside.updateVillage=()=>updates.push({population:s.game.population,total:h.ctx.CivilSociety.total(c.society),assigned:Object.values(s.game.workers).reduce((n,v)=>n+v,0),workforce:h.ctx.CivilSociety.workforce(s)});
   h.step(1);assert.equal(s.game.population,after);assert.equal(updates.length,1);assert.equal(updates[0].population,after);assert.equal(updates[0].total,after);assert.ok(updates[0].assigned<=updates[0].workforce);
  }
@@ -124,4 +124,35 @@ test('mechanical service expansion restores real medical exports at thirty-six r
  assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'medic'),4);assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'teacher'),4);
  const knowledge=s.stores.knowledge;for(let i=0;i<60;i++){h.ctx.CivilRules.settle(s);h.ctx.CivilVillage.settle(s);}
  assert.equal(v.convoys,10);assert.ok(s.stores.medicine>8);assert.ok(s.stores.knowledge-knowledge>47);assert.equal(s.game.population,36);
+});
+
+function poweredHarness(){const h=harness();Object.assign(h.state,JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state);h.ctx.Civilization.initState();return h;}
+test('one shared settlement accounts for every home delta before and after regional activation',()=>{
+ const h=poweredHarness(),s=h.state,c=s.civilization;
+ for(const active of [false,true]){
+  if(active){c.tech.logistics=true;s.game.buildings.cartdepot=1;s.game.workers.transporter=2;assert.equal(h.ctx.CivilRegions.activate(s),true);}
+  c.village.convoyClock=50;const before={...s.stores},flow=h.ctx.Civilization.settleEconomy(s).flow,total={};
+  for(const deltas of Object.values(flow))for(const [key,n]of Object.entries(deltas))total[key]=(total[key]||0)+n;
+  for(const key of h.ctx.CivilCatalog.resources)assert.ok(Math.abs((s.stores[key]||0)-(before[key]||0)-(total[key]||0))<1e-7,key+' matches actual home inventory');
+  assert.equal(c.urban.economy.treatment,true);
+ }
+ const oldRiver=c.village.riverFood;h.ctx.Civilization.settleEconomy(s);assert.equal(c.village.riverFood,oldRiver,'legacy river cannot produce again after migration');
+});
+test('urban farm capacity changes actual base production without creating a second production loop',()=>{
+ const h=poweredHarness(),s=h.state;s.game.buildings.irrigatedfield=1;s.game.workers.farmer=10;
+ assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'farmer'),12);assert.equal(h.ctx.CivilRules.rates(s)['农夫'].food,20);
+ s.civilization.outpostSupplied=false;assert.equal(h.ctx.CivilRules.rates(s)['农夫'].food,14);
+});
+test('the live adapter reaches a second neighbour and queues its population register after the journey',()=>{
+ const h=poweredHarness(),s=h.state,c=s.civilization;h.ctx.Civilization.research('survey');assert.equal(c.research.id,'survey');
+ h.step(209);assert.equal(c.tech.survey,true);h.ctx.Civilization.depart('railSurvey');assert.equal(c.journey.id,'railSurvey');
+ h.step(240);assert.equal(c.pending,'railSurvey');h.choose('meet');assert.equal(c.regions.nodes.rail.population,32);assert.equal(c.regions.active,false,'legacy trade continues until staffed logistics');
+ h.step(1);assert.equal(c.pending,'urban_register');h.choose('register');assert.equal(c.urban.registered,true);assert.equal(h.ctx.CivilUrban.count(c.urban.source),480);assert.equal(s.game.population,44,'registration does not grant residents');
+});
+
+test('a chartered town pays staffed routine repairs while shortages and early settlements retain a recovery choice',()=>{
+ const h=poweredHarness(),s=h.state,c=s.civilization;h.ctx.Math.random=()=>.1;s.stores.wood=100;s.stores.tools=10;
+ c.urban.chartered=true;h.ctx.Civilization.randomEvent();assert.equal(h.active,null);assert.equal(s.stores.wood,90);assert.equal(s.stores.tools,9.5);
+ s.stores.wood=0;h.ctx.Civilization.randomEvent();assert.equal(c.pending,'cold');assert.equal(s.stores.tools,9.5);h.choose('hands');
+ s.stores.wood=100;c.urban.chartered=false;h.ctx.Civilization.randomEvent();assert.equal(c.pending,'cold');assert.equal(s.stores.wood,100);
 });

@@ -72,8 +72,8 @@ var CivilIndustry = {
   },
   validate(s) {
     const i=s.civilization.industry;
-    if(!i)return; // Older saves initialize a blank industrial state only after a successful decode.
-    if(i.schema!==1 || typeof i.mineKnown!=='boolean' || typeof i.online!=='boolean' || typeof i.announcedPower!=='boolean')throw Error('工业状态无效');
+    if(i===undefined)return; // Older saves initialize a blank industrial state only after a successful decode.
+    if(!i || typeof i!=='object' || Array.isArray(i) || i.schema!==1 || typeof i.mineKnown!=='boolean' || typeof i.online!=='boolean' || typeof i.announcedPower!=='boolean')throw Error('工业状态无效');
     for(const k of ['pollution','generation','demand','used'])if(!Number.isFinite(i[k]) || i[k]<0 || i[k]>100)throw Error('工业数值无效');
     if(i.used>i.generation+1e-8 || i.used>i.demand+1e-8)throw Error('电力负载无效');
     if(!i.blocked || typeof i.blocked!=='object' || Array.isArray(i.blocked))throw Error('工业岗位状态无效');

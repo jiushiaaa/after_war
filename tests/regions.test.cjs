@@ -1,0 +1,171 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+function harness(){
+  const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state;
+  const messages=[];
+  const ctx=vm.createContext({State:s,_:x=>x,Civilization:{notify:x=>messages.push(x)}});
+  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  ctx.CivilRegions.init(s);
+  const activate=()=>{s.civilization.tech.logistics=true;s.game.buildings.cartdepot=1;s.game.workers={transporter:2};ctx.CivilRegions.activate(s);return s.civilization.regions;};
+  const step=(n=1,economy=false)=>{for(let i=0;i<n;i++){s.civilization.elapsed++;if(economy && s.civilization.elapsed%10===0)ctx.CivilRegions.settle(s);ctx.CivilRegions.tick(s);}};
+  return {s,ctx,r:ctx.CivilRegions,messages,activate,step};
+}
+function totals(s){
+  const out={},r=s.civilization.regions;
+  const add=store=>{for(const [k,v]of Object.entries(store))out[k]=(out[k]||0)+v;};
+  add(s.stores);for(const n of Object.values(r.nodes))add(n.stores);for(const p of r.shipments)add(p.cargo);for(const p of Object.values(r.projects))add(p.buffer);
+  return out;
+}
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
+test('legacy river stays live until logistics, a depot and two available workers exist',()=>{
+  const {s,r}=harness();const before=JSON.stringify(s.stores),v=JSON.stringify(s.civilization.village);
+  r.tick(s);assert.equal(s.civilization.regions.active,false);assert.equal(JSON.stringify(s.stores),before);assert.equal(JSON.stringify(s.civilization.village),v);
+  s.civilization.tech.logistics=true;r.tick(s);assert.equal(s.civilization.regions.active,false);
+  s.game.buildings.cartdepot=1;s.game.workers.transporter=1;r.tick(s);assert.equal(s.civilization.regions.active,false);
+  s.game.workers.transporter=2;r.tick(s);assert.equal(s.civilization.regions.active,true);
+});
+test('activation copies existing recipient stocks and trip clock once without replaying old aid or deliveries',()=>{
+  const {s,r,activate}=harness(),v=s.civilization.village;v.riverFood=123.4;v.riverTools=44;v.riverMedicine=5.25;v.convoys=17;v.convoyClock=40;
+  const home=JSON.stringify(s.stores),x=activate();assert.deepEqual(JSON.parse(JSON.stringify(x.nodes.river.stores)),{food:123.4,tools:44,medicine:5.25});assert.equal(x.routes.river.completedTrips,17);assert.equal(x.routes.river.dispatchIn,20);assert.equal(x.shipments.length,0);assert.equal(JSON.stringify(s.stores),home);
+  x.nodes.river.stores.food=70;r.init(s);r.activate(s);assert.equal(x.nodes.river.stores.food,70);assert.equal(x.routes.river.completedTrips,17);assert.doesNotThrow(()=>r.validate(s));
+  const copy=JSON.parse(JSON.stringify(s));r.init(copy);r.activate(copy);assert.equal(copy.civilization.regions.nodes.river.stores.food,70);
+});
+test('preview-era aid migration runs before the new ledger and cannot be credited twice',()=>{
+  const {s,r,activate}=harness(),v=s.civilization.village;delete v.schema;v.riverFood=50;v.riverTools=4;v.riverAllied=true;
+  const x=activate();assert.equal(x.nodes.river.stores.food,90);assert.equal(x.nodes.river.stores.tools,16);r.activate(s);assert.equal(x.nodes.river.stores.tools,16);
+});
+test('source, shipment and recipient conserve cargo through a complete round trip; upkeep is spent once',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};x.nodes.river.stores.food=80;
+  const before=totals(s),homeFood=s.stores.food,remoteTools=x.nodes.river.stores.tools;
+  assert.equal(r.launch(s,'river'),true);assert.equal(x.shipments.length,1);assert.equal(s.stores.food,homeFood-1);assert.equal(x.nodes.river.stores.tools,remoteTools);
+  let t=totals(s);near(t.food,before.food-1);near(t.wood,before.wood-1);near(t.tools,before.tools);near(t.medicine,before.medicine);
+  r.setRoute(s,'river',false);assert.equal(x.routes.river.assigned,2);step(60);assert.equal(x.nodes.river.stores.tools,remoteTools+1);assert.equal(s.stores.food,homeFood-1);
+  step(61);assert.equal(x.shipments.length,0);assert.equal(s.stores.food,homeFood+11);assert.equal(x.routes.river.assigned,0);
+  t=totals(s);near(t.food,before.food-1);near(t.wood,before.wood-1);near(t.tools,before.tools);near(t.medicine,before.medicine);
+  const final=JSON.stringify(s.stores);step(120);assert.equal(JSON.stringify(s.stores),final);
+});
+test('a closed road holds actual cargo, and returning refunds only undelivered cargo',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};
+  const before=structuredClone(s.stores);assert.ok(r.launch(s,'river'));step(12);r.setRoad(s,'river',false);step(1);
+  const p=x.shipments[0];assert.equal(p.status,'held');const remaining=p.remaining;step(20);assert.equal(p.remaining,remaining);
+  assert.ok(r.returnShipment(s,p.id));step(12);assert.equal(x.shipments.length,0);assert.equal(s.stores.tools,before.tools);assert.equal(s.stores.medicine,before.medicine);assert.equal(s.stores.food,before.food-1);assert.equal(s.stores.wood,before.wood-1);
+  assert.equal(r.returnShipment(s,p.id),false);assert.equal(x.routes.river.enabled,false);
+});
+test('recipient shortage never fabricates barter goods and an empty return does not refund delivered exports',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};x.nodes.river.stores.food=0;
+  const oldTools=s.stores.tools;assert.ok(r.launch(s,'river'));step(61);assert.equal(x.shipments[0].status,'loading');assert.equal(s.stores.food,499);step(100);assert.equal(x.shipments[0].status,'loading');
+  assert.ok(r.returnShipment(s,x.shipments[0].id));step(60);assert.equal(s.stores.tools,oldTools-1);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.completedTrips,s.civilization.village.convoys);
+});
+test('retirement pauses future dispatch; an already paid trip survives a workforce shortage',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};assert.ok(r.launch(s,'river'));s.game.workers.transporter=0;
+  assert.doesNotThrow(()=>r.validate(s));step(121);assert.equal(x.shipments.length,0);const before=JSON.stringify(s.stores);step(20);assert.equal(JSON.stringify(s.stores),before);assert.match(x.routes.river.status,/不足/);
+  s.game.workers.transporter=2;step(10);assert.equal(x.shipments.length,1);
+});
+test('regional routes and urban parties share the same actual labor pool without double reservation',()=>{
+  const {s,r,ctx,activate}=harness(),x=activate();r.createNode(s,'rail');r.signTrade(s,'rail');s.game.workers.transporter=4;
+  ctx.CivilUrban={reservedTransport:()=>2};assert.equal(r.availableTransport(s),0);assert.equal(r.setRoute(s,'rail',true),false);
+  ctx.CivilUrban.reservedTransport=()=>0;assert.equal(r.availableTransport(s),2);assert.ok(r.setRoute(s,'rail',true));assert.equal(r.availableTransport(s),0);assert.equal(r.reservedTransport(s),4);
+  r.setRoute(s,'rail',false);assert.equal(r.availableTransport(s),2);assert.equal(x.routes.rail.assigned,0);
+});
+test('discoveries initialize independent nodes once and require actual research/travel gates',()=>{
+  const {s,r,ctx}=harness();assert.equal(r.journeys.railSurvey.allowed(s),false);s.civilization.tech.survey=true;assert.equal(r.journeys.railSurvey.allowed(s),true);
+  r.event('railSurvey',(text,fn)=>()=>fn()).buttons.meet.onChoose();assert.equal(s.civilization.regions.nodes.rail.population,32);assert.equal(r.journeys.railSurvey.allowed(s),false);assert.equal(r.journeys.highlandSurvey.allowed(s),true);
+  const before=JSON.stringify(s.civilization.regions.nodes.rail);r.createNode(s,'rail');assert.equal(JSON.stringify(s.civilization.regions.nodes.rail),before);
+  r.createNode(s,'highland');const high=s.civilization.regions.nodes.highland;assert.equal(high.cohorts.filter(c=>c.identity==='mutant').reduce((n,c)=>n+c.count,0),8);assert.equal(high.control,'independent');
+  assert.ok(ctx.CivilText.research.administration.requires.includes('standards'));assert.equal(r.discoveredCount(s),3);
+});
+test('remote industry pays inputs and population meals; the returned flow contains home changes only',()=>{
+  const {s,r,activate}=harness();activate();r.createNode(s,'rail');const n=s.civilization.regions.nodes.rail;
+  n.stores={food:50,coal:0,tools:0,scrap:0,iron:0,parts:0};s.game.buildings.archive=1;s.stores.knowledge=2;const before=structuredClone(s.stores);
+  const flow=r.settle(s);assert.equal(n.stores.iron,0);assert.equal(n.stores.parts,0);near(s.stores.knowledge,before.knowledge-.04);
+  assert.deepEqual(JSON.parse(JSON.stringify(flow)),{'地区档案':{knowledge:-.04}});assert.ok(n.stores.food<50+5*.8);
+  const snap=JSON.stringify(s),copy=structuredClone(s);r.settle(copy);assert.equal(JSON.stringify(s),snap);
+});
+test('public works require actual split deliveries and local construction labor before they complete',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.civilization.tech.administration=true;s.stores={food:1000,wood:300,tools:100,medicine:50,iron:20,knowledge:100};x.nodes.river.trust=70;x.routes.river.completedTrips=5;
+  const start=structuredClone(s.stores);assert.ok(r.startProject(s,'river'));assert.equal(s.stores.knowledge,start.knowledge-10);assert.equal(x.nodes.river.completedProjects.publicWorks,undefined);
+  assert.ok(r.launch(s,'river'));assert.equal(Object.values(x.shipments[0].cargo).reduce((a,b)=>a+b,0),64);
+  step(60);assert.equal(x.projects.river.status,'supplying');assert.equal(x.projects.river.buffer.wood,64);
+  step(131);assert.equal(x.projects.river.status,'building');assert.equal(x.nodes.river.workers.builder,2);assert.ok(Object.values(x.nodes.river.workers).reduce((a,b)=>a+b,0)<=r.workforce(x.nodes.river));
+  r.setRoute(s,'river',false);step(240);assert.equal(x.projects.river.status,'complete');assert.equal(x.nodes.river.completedProjects.publicWorks,true);assert.equal(x.nodes.river.workers.medic,2);assert.equal(x.nodes.river.workers.builder,undefined);
+  assert.equal(r.startProject(s,'river'),false);assert.doesNotThrow(()=>r.validate(s));
+});
+test('peaceful accession preserves local stocks, requires capacity and public rights, and survives succession',()=>{
+  const {s,r,ctx,activate,step}=harness(),x=activate();s.civilization.tech.administration=true;s.stores.knowledge=500;
+  const n=x.nodes.river;n.completedProjects.publicWorks=true;n.trust=80;x.routes.river.completedTrips=5;
+  assert.equal(r.associate(s,'river'),false);assert.ok(r.chooseRights(s,'equal'));const before=JSON.stringify(n.stores);assert.ok(r.associate(s,'river'));assert.equal(n.control,'shared');assert.equal(n.relation,'associated');assert.equal(JSON.stringify(n.stores),before);
+  s.civilization.society.succession='retirement';const regional=JSON.stringify(x);assert.ok(ctx.CivilSociety.succeed(s,'engineer'));assert.equal(JSON.stringify(x),regional);
+  r.setRoute(s,'river',false);step(100);assert.equal(n.integration,0);r.setRoute(s,'river',true);n.stores.food=200;s.stores.food=1000;s.stores.tools=100;s.stores.medicine=100;s.stores.wood=100;step(780,true);assert.equal(n.relation,'integrated');assert.equal(n.integration,100);
+});
+test('stratified status cannot silently become equal integration; reform offers a recoverable path',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.civilization.tech.administration=true;s.stores={knowledge:500,food:1000,tools:100,medicine:100,wood:100};const n=x.nodes.river;n.completedProjects.publicWorks=true;n.trust=80;x.routes.river.completedTrips=5;
+  r.chooseRights(s,'stratified');assert.ok(r.associate(s,'river'));step(610,true);assert.equal(n.relation,'associated');assert.equal(n.integration,0);
+  const k=s.stores.knowledge;assert.ok(r.chooseRights(s,'equal'));assert.equal(s.stores.knowledge,k-30);step(600,true);assert.equal(n.relation,'integrated');assert.ok(n.cohorts.some(c=>c.identity==='mutant'));
+});
+test('administrative overload pauses integration without deleting people or in-flight shipments',()=>{
+  const {s,r,activate}=harness(),x=activate();s.civilization.tech.administration=true;r.createNode(s,'rail');r.createNode(s,'highland');s.stores={food:1000,wood:100,tools:100,medicine:100,knowledge:0};
+  s.civilization.society.axes={structure:'city',devolution:'central'};
+  for(const n of Object.values(x.nodes)){n.relation='associated';n.control='shared';n.completedProjects.publicWorks=true;n.rights='equal';}x.rights='equal';
+  assert.ok(r.launch(s,'river'));const id=x.shipments[0].id;r.settle(s);assert.equal(r.load(s),4);assert.equal(r.capacity(s),2);assert.equal(x.adminService,false);r.tick(s);assert.equal(x.shipments[0].id,id);assert.equal(x.nodes.river.integration,0);
+  s.game.buildings.archive=1;s.stores.knowledge=10;r.settle(s);assert.equal(r.capacity(s),4);assert.equal(x.adminService,true);
+});
+test('save validation rejects forged inventory, duplicate shipments and broken population but accepts older saves',()=>{
+  const {s,r,activate}=harness();activate();s.stores={food:500,wood:100,tools:50,medicine:20};r.launch(s,'river');assert.doesNotThrow(()=>r.validate(s));
+  const change=fn=>{const bad=structuredClone(s);fn(bad.civilization.regions);assert.throws(()=>r.validate(bad));};
+  change(x=>x.nodes.river.stores.tools=-1);change(x=>x.shipments.push(structuredClone(x.shipments[0])));change(x=>x.nodes.river.population++);change(x=>x.shipments[0].cargo.unknown=1);change(x=>x.shipments[0].target='rail');change(x=>x.nextShipment=1);change(x=>x.nodes.river.control='occupied');
+  const old=structuredClone(s);delete old.civilization.regions;assert.doesNotThrow(()=>r.validate(old));
+  const malformed=structuredClone(s);malformed.civilization.regions=null;assert.throws(()=>r.validate(malformed));r.init(malformed);assert.equal(malformed.civilization.regions,null);
+});
+test('home trade commitments are conservative and never count undelivered imports as production',()=>{
+  const {s,r,activate}=harness();activate();const f=r.committedHomeFlow(s);near(f.medicine,-.5*10/130);near(f.food,-10/130);assert.equal(f.iron,undefined);r.setRoute(s,'river',false);assert.equal(Object.keys(r.committedHomeFlow(s)).length,0);
+});
+test('delivery callbacks cannot credit a removed shipment or a copied queue record twice',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};r.launch(s,'river');const p=x.shipments[0];
+  assert.equal(r.arrive(s,p),false);const copy=structuredClone(p);copy.remaining=0;assert.equal(r.arrive(s,copy),false);
+  r.setRoute(s,'river',false);step(121);const before=JSON.stringify(s.stores);assert.equal(r.arrive(s,p),false);assert.equal(JSON.stringify(s.stores),before);
+});
+test('an incoming convoy turns back to the remote warehouse; the empty cart cannot cross a blocked road',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:500,wood:100,tools:50,medicine:20};x.nodes.river.stores.food=80;r.launch(s,'river');step(81);
+  const p=x.shipments[0];assert.equal(p.phase,'inbound');assert.equal(p.remaining,40);assert.equal(x.nodes.river.stores.food,68);
+  r.setRoad(s,'river',false);step(1);assert.equal(p.status,'held');assert.ok(r.returnShipment(s,p.id));assert.equal(p.target,'river');step(20);
+  assert.equal(x.nodes.river.stores.food,80);assert.equal(s.stores.food,499);assert.equal(p.phase,'empty');assert.equal(p.status,'held');assert.equal(x.routes.river.assigned,2);assert.equal(r.returnShipment(s,p.id),false);assert.doesNotThrow(()=>r.validate(s));
+  const snapshot=JSON.stringify(s.stores);step(70);assert.equal(JSON.stringify(s.stores),snapshot);assert.equal(x.shipments.length,1);
+  assert.ok(r.repairRoad(s,'river'));step(60);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.assigned,0);assert.equal(s.stores.food,499);
+});
+test('stale historic trade is not treated as a presently supplied route',()=>{
+  const {s,r,activate,step}=harness();activate();assert.equal(r.tradeReady(s),true);s.stores={};step(181);assert.equal(r.tradeReady(s),false);
+});
+test('non-food return cargo still waits for the source community to retain its meal reserve',()=>{
+  for(const id of ['rail','highland']){
+    const {s,r,activate,step}=harness(),x=activate();r.setRoute(s,'river',false);r.createNode(s,id);r.signTrade(s,id);r.setRoute(s,id,true);s.stores={food:1000,wood:100,tools:100,coal:100};
+    assert.ok(r.launch(s,id));step(x.routes[id].travel);const p=x.shipments[0],n=x.nodes[id];n.stores.food=0;const before=JSON.stringify(n.stores);
+    assert.equal(r.loadReturn(s,p),false);assert.equal(p.status,'loading');assert.equal(JSON.stringify(n.stores),before);
+    n.stores.food=r.foodPopulation(n)*.24;r.setRoad(s,id,false);const closed=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),closed);
+    r.setRoad(s,id,true);assert.equal(r.loadReturn(s,p),true);assert.equal(p.status,'moving');const loaded=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),loaded);
+  }
+});
+test('residency qualification begins at that community accession, not the global policy date',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.civilization.tech.administration=true;s.stores={knowledge:1000,food:10000,tools:1000,medicine:1000,wood:1000};
+  r.chooseRights(s,'resident');step(610,true);const n=x.nodes.river;n.completedProjects.publicWorks=true;n.trust=80;x.routes.river.completedTrips=5;
+  assert.ok(r.associate(s,'river'));assert.equal(n.rightsSince,s.civilization.elapsed);step(599,true);assert.equal(n.integration,0);assert.equal(n.relation,'associated');step(601,true);assert.equal(n.relation,'integrated');
+});
+test('removing equal civil rights downgrades current integration but preserves people, stores and projects',()=>{
+  const {s,r,activate}=harness(),x=activate();s.civilization.tech.administration=true;s.stores.knowledge=1000;const n=x.nodes.river;
+  n.control='shared';n.relation='integrated';n.integration=100;n.stableSeconds=600;n.completedProjects.publicWorks=true;n.rights='equal';x.rights='equal';
+  const before=JSON.stringify({stores:n.stores,cohorts:n.cohorts,completed:n.completedProjects});assert.ok(r.chooseRights(s,'stratified'));assert.equal(n.relation,'associated');assert.equal(n.integration,0);assert.equal(JSON.stringify({stores:n.stores,cohorts:n.cohorts,completed:n.completedProjects}),before);
+  assert.doesNotThrow(()=>r.validate(s));
+});
+test('neighbour service projects can feed their real subsequent children while honoring all three contracts',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.game.workers.transporter=6;s.stores={food:10000,wood:10000,tools:10000,coal:10000,medicine:10000,knowledge:10000};
+  for(const id of ['river','rail','highland']){
+    const n=r.createNode(s,id);n.completedProjects.publicWorks=true;n.stores.food=200;if(id!=='river'){r.signTrade(s,id);assert.ok(r.setRoute(s,id,true));}
+  }
+  step(6000,true);
+  for(const id of ['river','rail','highland']){
+    const n=x.nodes[id];assert.ok(x.routes[id].completedTrips>=15,id+' traded');assert.ok(n.health>=60,id+' health');assert.ok(n.stores.food>r.foodPopulation(n)*.24,id+' food');assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=r.workforce(n),id+' real labor');assert.ok(n.cohorts.some(c=>c.age<18),id+' children');
+  }
+  assert.doesNotThrow(()=>r.validate(s));
+});

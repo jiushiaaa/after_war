@@ -18,13 +18,16 @@
     if(![1,2,4].includes(c.speed) || ![1,2,4].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
     if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
     const limits=CivilCatalog.limits;
-    for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>limits[key]) throw Error('建筑无效');
+    for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>(CivilCatalog.buildingLimit?CivilCatalog.buildingLimit(state,key):limits[key])) throw Error('建筑无效');
     for(const [key,value] of Object.entries(c.tech)) if(!Object.hasOwn(CivilText.research,key) || typeof value!=='boolean') throw Error('技术进度无效');
-    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession'].includes(c.pending)) throw Error('事件进度无效');
+    const regionPending=typeof CivilRegions!=='undefined'?(CivilRegions.pendingIds||[]):[],urbanPending=typeof CivilUrban!=='undefined'?(CivilUrban.pendingIds||[]):[];
+    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession',...regionPending,...urbanPending].includes(c.pending)) throw Error('事件进度无效');
     const pop = state.game.population || 0;
     if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
-    if(c.society)CivilSociety.validate(state);
-    if(c.industry)CivilIndustry.validate(state);
+    if(c.society!==undefined)CivilSociety.validate(state);
+    if(c.industry!==undefined)CivilIndustry.validate(state);
+    if(c.regions!==undefined)CivilRegions.validate(state);
+    if(c.urban!==undefined)CivilUrban.validate(state);
     const labor=c.society?CivilSociety.workforce(state):pop;
     const workers = Object.entries(state.game.workers);
     if(workers.some(([key,n]) => (!Object.hasOwn(CivilCatalog.jobs,key) || key==='gatherer') || !Number.isInteger(n) || n < 0) || workers.reduce((n,[,v])=>n+v,0)>labor) throw Error('岗位无效');
@@ -32,7 +35,8 @@
     if(c.policy && !['equal','ration','generous'].includes(c.policy)) throw Error('配给规则无效');
     for(const key of ['elapsed','hunger','trust','stableFor','populationClock','productionClock','randomClock','policyCooldown','residentTime']) if(!Number.isFinite(c[key]) || c[key] < 0) throw Error('存档计时无效');
     if(c.research && (!Object.hasOwn(CivilText.research,c.research.id) || !Number.isFinite(c.research.remaining) || c.research.remaining < 0)) throw Error('研究无效');
-    if(c.journey && (!['station','pump','salvage','river','riverAid','geology'].includes(c.journey.id) || !Number.isFinite(c.journey.remaining) || c.journey.remaining < 0)) throw Error('旅途无效');
+    const regionJourneys=typeof CivilRegions!=='undefined'?Object.keys(CivilRegions.journeys):[];
+    if(c.journey && (!['station','pump','salvage','river','riverAid','geology',...regionJourneys].includes(c.journey.id) || !Number.isFinite(c.journey.remaining) || c.journey.remaining < 0)) throw Error('旅途无效');
     if(c.village) {
       const v=c.village;
       for(const k of ['health','convoyClock','convoys','riverFood','riverTools','riverMedicine','townStable'])if(!Number.isFinite(v[k]) || v[k]<0)throw Error('村镇数据无效');

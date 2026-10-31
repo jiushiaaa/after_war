@@ -16,7 +16,7 @@
       '工匠': {wood:state.game.builder?.level >= 4 ? 2 : 0},
       '采木工': {wood:gatherers * factor},
       '猎人': {food:(jobs.hunter || 0) * .8 * factor, fur:(jobs.hunter || 0) * .3 * factor},
-      '农夫': {food:Math.min(jobs.farmer||0,(state.game.buildings.farm||0)*4)*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)*factor},
+      '农夫': {food:Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer'))*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)*factor},
       '回收工': {scrap:(jobs.salvager || 0) * (c.tech.metal ? .8 : .5) * factor},
       ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
       '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):p) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}

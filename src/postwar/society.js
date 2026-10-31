@@ -17,12 +17,49 @@ var CivilSociety = {
         for(const entry of x.history)if(entry.generation===1 && entry.title==='冰封者')entry.from=0;
       }
       if(x.reformPaid===undefined)x.reformPaid=x.reforming?(x.axes.charter==='constitution'?60:30):0;
+      this.initBirths(s);
       return;
     }
     const year=Math.floor(s.civilization.elapsed/this.YEAR);
     s.civilization.society={schema:1,year,cohorts:Array.from({length:s.game.population},(_,i)=>({age:18+i%30,count:1})),
       leader:{title:'冰封者',age:Math.min(64,28+year),started:0,termStarted:0,trait:'founder',alive:true},generation:1,history:[],axes:{},governed:false,
       legacyAgeGrace:28+year>64,legitimate:60,service:true,transition:0,reformCooldown:0,reforming:null,reformPaid:0,succession:null,training:null,heir:{age:18,trained:false},warned:false};
+    this.initBirths(s);
+  },
+  initBirths(s){
+    const x=s.civilization.society,c=s.civilization,b=s.game.buildings;
+    // Old saves start with no unfulfilled births or retroactive population grants.
+    if(x.births===undefined)x.births={scaled:false,credit:0,mutantCredit:0};
+    // Preserve the phase through later deaths or housing losses; 80 -> 79 must not reset it.
+    if(s.game.population>=80 || c.urban?.chartered || c.tech.standards && b.publicclinic && b.publicschool)x.births.scaled=true;
+  },
+  newBirths(s,yearStartPopulation){
+    const x=s.civilization.society,c=s.civilization,b=x.births;
+    const parents=x.cohorts.filter(cohort=>cohort.age>=18 && cohort.age<=49);
+    const eligible=parents.reduce((n,cohort)=>n+cohort.count,0);
+    const mutants=parents.filter(cohort=>cohort.identity==='mutant').reduce((n,cohort)=>n+cohort.count,0);
+    if(!mutants)b.mutantCredit=0;
+    const beds=Math.max(0,Math.floor(typeof CivilUrban!=='undefined'?CivilUrban.availableBeds(s):CivilCatalog.capacity(s)-s.game.population));
+    if(eligible<2 || this.workforce(s)<6 || c.hunger || c.village.health<60 || !beds || !CivilRules.canPay(s,{food:6,medicine:.2})){
+      b.credit=0;return 0;
+    }
+    let wanted=1;
+    if(b.scaled){
+      const potential=eligible*.08+b.credit,whole=Math.floor(potential+1e-9);
+      b.credit=Math.max(0,Math.min(1-Number.EPSILON,potential-whole));
+      wanted=Math.min(whole,Math.max(1,Math.ceil(yearStartPopulation*.04)));
+    }else b.credit=0;
+    const count=Math.min(wanted,beds,Math.floor(((s.stores.food||0)+1e-8)/6),Math.floor(((s.stores.medicine||0)+1e-8)/.2));
+    // Missed years and unpaid/crowded births are not a backlog that can burst after recovery.
+    if(count<wanted)b.credit=0;
+    if(!count || !CivilRules.pay(s,{food:count*6,medicine:count*.2}))return 0;
+    const identityShare=count*mutants/eligible+b.mutantCredit,mutantBirths=Math.min(count,Math.floor(identityShare+1e-9));
+    b.mutantCredit=Math.max(0,Math.min(1-Number.EPSILON,identityShare-mutantBirths));
+    if(count>mutantBirths)x.cohorts.push({age:0,count:count-mutantBirths,identity:'human'});
+    if(mutantBirths)x.cohorts.push({age:0,count:mutantBirths,identity:'mutant'});
+    s.game.population+=count;
+    this.note((count===1?'一名孩子':count+'名孩子')+'在聚落出生。口粮与药品已备好，家人把他们记入名册。');
+    return count;
   },
   total(x){return x.cohorts.reduce((n,c)=>n+c.count,0);},
   workforce(s){
@@ -47,14 +84,11 @@ var CivilSociety = {
   upkeep(s){const x=s.civilization.society;if(!x?.governed)return {};return {food:.1+(x.axes.structure==='empire'?.1:0)+(x.axes.devolution==='central'?.1:0),knowledge:({city:.02,league:.04,federation:.06,empire:.04}[x.axes.structure]||0)+(x.axes.charter==='constitution'?.04:0)+(x.axes.devolution==='local'?.04:0)};},
   settle(s){const x=s.civilization.society;if(!x?.governed)return {};const cost=this.upkeep(s);x.service=CivilRules.pay(s,cost);return x.service?{'公共行政':Object.fromEntries(Object.entries(cost).map(([k,n])=>[k,-n]))}:{};},
   annual(s,random=Math.random){
-    const x=s.civilization.society,c=s.civilization;x.year++;
+    const x=s.civilization.society,c=s.civilization,yearStartPopulation=s.game.population;this.initBirths(s);x.year++;
     for(const cohort of x.cohorts)cohort.age++;
     const lost=x.cohorts.filter(v=>v.age>=80).reduce((n,v)=>n+v.count,0);x.cohorts=x.cohorts.filter(v=>v.age<80);s.game.population-=lost;
     if(lost)this.note(lost+'位年长居民在这一年离世。他们留下的房屋与知识仍属于共同体。');
-    const adults=this.workforce(s);
-    if(adults>=6 && !c.hunger && c.village.health>=60 && s.game.population<CivilCatalog.capacity(s) && CivilRules.pay(s,{food:6})){
-      x.cohorts.push({age:0,count:1});s.game.population++;this.note('一名孩子在聚落出生。家人替孩子在名册上留下一行。');
-    }
+    this.newBirths(s,yearStartPopulation);
     this.trimJobs(s);x.heir.age++;
     const regency=x.leader.title==='摄政委员会';
     if(regency && x.axes.selection==='hereditary' && x.heir.age>=18 && !x.succession)x.succession='regency';
@@ -66,7 +100,7 @@ var CivilSociety = {
     if(x.governed){const delta=(x.axes.structure==='federation'?1:x.axes.structure==='empire'?-2:0)+(x.axes.charter==='constitution'?2:-1)+(x.axes.devolution==='local'?1:-1)+(x.service?0:-3);x.legitimate=Math.max(0,Math.min(100,x.legitimate+delta));c.trust=Math.max(0,Math.min(100,c.trust+delta));}
   },
   tick(s){
-    const x=s.civilization.society;if(!x)return;this.sync(s);
+    const x=s.civilization.society;if(!x)return;this.sync(s);this.initBirths(s);
     x.transition=Math.max(0,x.transition-1);x.reformCooldown=Math.max(0,x.reformCooldown-1);
     if(x.training){x.training.remaining=Math.max(0,x.training.remaining-1);if(!x.training.remaining){x.heir.trained=true;x.training=null;this.note('继任培养完成。账册、道路与公共服务已经有人熟悉。');}}
     if(Math.floor(s.civilization.elapsed/this.YEAR)>x.year)this.annual(s);
@@ -134,13 +168,15 @@ var CivilSociety = {
     }
     let history=$('#councilHistory');if(!history.length)history=$('<div>').attr('id','councilHistory').appendTo('#councilPanel');history.text(x.history.slice(-5).map(h=>'第'+h.generation+'任 '+h.title+'：'+h.from+'—'+h.to+'年，交接时'+h.age+'岁。').join(' '));
   },
-  validate(s){const x=s.civilization.society;if(!x)return;
+  validate(s){const x=s.civilization.society;if(x===undefined)return;
     const integer=(v,min=0,max=1e8)=>Number.isInteger(v)&&v>=min&&v<=max;
     const object=v=>v!==null && typeof v==='object' && !Array.isArray(v);
     const reasons=['death','retirement','election','regency'];
     if(!object(x)||x.schema!==1 || !integer(x.year)||!integer(x.generation,1)||!Array.isArray(x.cohorts))throw Error('人口名册无效');
     if(!Number.isFinite(s.civilization.elapsed)||x.year!==Math.floor(s.civilization.elapsed/this.YEAR))throw Error('历史年份与时间不符');
-    for(const c of x.cohorts)if(!object(c)||!integer(c.age,0,100)||!integer(c.count,1))throw Error('年龄组无效');
+    for(const c of x.cohorts)if(!object(c)||!integer(c.age,0,100)||!integer(c.count,1)||(c.identity!==undefined && !['human','mutant'].includes(c.identity)))throw Error('年龄组无效');
+    // Only an absent record is a legacy save; malformed new state must not be rebuilt.
+    if(x.births!==undefined && (!object(x.births) || typeof x.births.scaled!=='boolean' || ['credit','mutantCredit'].some(k=>!Number.isFinite(x.births[k]) || x.births[k]<0 || x.births[k]>=1)))throw Error('出生记录无效');
     if(this.total(x)!==s.game.population)throw Error('人口名册与居民数量不符');
     if(!object(x.axes))throw Error('制度无效');
     for(const [k,v]of Object.entries(x.axes))if(!this.axes[k]?.choices[v])throw Error('制度无效');
