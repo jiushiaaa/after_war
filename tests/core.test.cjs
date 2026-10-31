@@ -4,7 +4,7 @@ const vm=require('node:vm');
 const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
-function context(files,extra={}) {const ctx=vm.createContext({setTimeout,clearTimeout,setInterval,clearInterval,performance,TextDecoder,...extra});for(const file of files) vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});return ctx;}
+function context(files,extra={}) {const ctx=vm.createContext({setTimeout,clearTimeout,setInterval,clearInterval,performance,TextDecoder,_:s=>s,...extra});for(const file of ['content/zh.js','content/development.js',...files]) vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});return ctx;}
 function state() {return {game:{fire:{value:3},temperature:{value:3},builder:{level:4},buildings:{hut:2,lodge:1,granary:1},population:4,workers:{hunter:2}},stores:{wood:80,food:30,scrap:30},civilization:{elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:'equal',policySeen:{equal:true},trust:50,hunger:0,stableFor:0,populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{}},timers:{},cooldown:{}};}
 test('one simulation clock keeps in-flight fire, gathering, production, event and journey deadlines aligned across rate changes',()=>{
  const {SimulationClock}=context(['src/postwar/clock.js']);const clock=new SimulationClock();const calls=[];
@@ -76,4 +76,32 @@ test('saved natural-game checkpoint passes current validation and retains food/c
  const {CivilPlatform:p}=context(['src/postwar/platform.js']);
  const file=path.join(root,'tests/fixtures/natural-first-residents.json');
  const s=p.decode(fs.readFileSync(file,'utf8'));assert.equal(s.game.population,3);assert.equal(s.cooldown.gatherButton,30.1);assert.ok(s.stores.food>18);
+});
+test('outpost upkeep consumes real supplies, suspends without negative stores, then resumes',()=>{
+ const {CivilRules}=context(['src/postwar/rules.js']);const s=state();s.game.buildings.outpost=1;
+ const flow=CivilRules.rates(s);assert.equal(flow['外站维护'].wood,-.5);
+ CivilRules.settle(s);assert.equal(s.civilization.outpostSupplied,true);
+ s.game.population=0;s.game.workers={};s.game.builder.level=0;s.stores={wood:0,food:0};CivilRules.settle(s);assert.equal(s.civilization.outpostSupplied,false);assert.equal(s.stores.wood,0);assert.equal(s.stores.food,0);
+ s.stores={wood:1,food:1};CivilRules.settle(s);assert.equal(s.civilization.outpostSupplied,true);assert.equal(s.stores.wood,.5);assert.equal(s.stores.food,.8);
+});
+test('resident food takes precedence over outpost maintenance',()=>{
+ const {CivilRules}=context(['src/postwar/rules.js']);const s=state();s.game.workers={};s.game.buildings.outpost=1;s.stores.food=.48;
+ CivilRules.settle(s);assert.equal(s.civilization.hunger,0);assert.equal(s.civilization.outpostSupplied,false);assert.equal(s.stores.food,0);
+});
+test('natural outpost checkpoint preserves both technologies and permanent 4x entitlement',()=>{
+ const {CivilPlatform:p}=context(['src/postwar/platform.js']);const s=p.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-outpost.json'),'utf8'));
+ assert.equal(s.civilization.maxSpeed,4);assert.equal(s.civilization.tech.water,true);assert.equal(s.civilization.tech.metal,true);assert.equal(s.game.population,8);assert.equal(s.game.buildings.outpost,1);
+});
+test('village save resumes new jobs, industrial stock, health and exact in-flight research time',()=>{
+ const {CivilPlatform:p}=context(['src/postwar/platform.js']);const s=p.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-village-research.json'),'utf8'));
+ assert.equal(s.game.population,12);assert.equal(s.game.workers.farmer,2);assert.equal(s.game.workers.smith,2);assert.equal(s.civilization.research.id,'sanitation');assert.equal(s.civilization.research.remaining,166);assert.equal(s.stores.tools,8.5);assert.ok(s.civilization.village.health<80);
+ const malformed=structuredClone(s);malformed.game.workers.farmer=5;malformed.game.workers.hunter=0;assert.throws(()=>p.validate(malformed));
+ malformed.game.workers.farmer=2;malformed.civilization.village.health=101;assert.throws(()=>p.validate(malformed));
+});
+test('natural town checkpoint retains the separate neighbour and does not replay the aid migration',()=>{
+ const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-river-town.json'),'utf8')).state;
+ const {CivilPlatform:p,CivilVillage:v}=context(['src/postwar/rules.js','src/postwar/village.js','src/postwar/platform.js']);
+ assert.doesNotThrow(()=>p.validate(s));assert.equal(s.game.population,20);assert.equal(s.civilization.village.town,true);assert.equal(s.civilization.village.schema,1);
+ assert.equal(s.civilization.village.riverTools,s.civilization.village.convoys+12);
+ const received=s.civilization.village.riverTools;v.init(s);assert.equal(s.civilization.village.riverTools,received);
 });

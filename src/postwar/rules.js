@@ -9,20 +9,43 @@
     const p = state.game.population || 0, jobs = state.game.workers || {}, c = state.civilization;
     const policy = policies[c.policy] || policies.equal;
     const hunger = c.hunger >= 30 ? .65 : 1;
-    const factor = policy.output * hunger;
+    const health = (c.village?.health ?? 80)<30?.75:1;
+    const factor = policy.output * hunger * health;
     const gatherers = Math.max(0, p - Object.values(jobs).reduce((a,b) => a+b,0));
     return {
       '工匠': {wood:state.game.builder?.level >= 4 ? 2 : 0},
       '采木工': {wood:gatherers * factor},
       '猎人': {food:(jobs.hunter || 0) * .8 * factor, fur:(jobs.hunter || 0) * .3 * factor},
+      '农夫': {food:Math.min(jobs.farmer||0,(state.game.buildings.farm||0)*4)*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)*factor},
       '回收工': {scrap:(jobs.salvager || 0) * (c.tech.metal ? .8 : .5) * factor},
+      ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
       '口粮': {food:-p * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
     };
+  }
+  function industry(state) {
+    const j=state.game.workers,c=state.civilization;
+    const factor=(policies[c.policy]||policies.equal).output*(c.hunger>=30?.65:1)*((c.village?.health??80)<30?.75:1);
+    return {
+      '制器工':{count:j.smith||0,cost:{scrap:.6,wood:.2},output:{tools:.25*factor}},
+      '医护':{count:j.medic||0,cost:{food:.2,scrap:.1},output:{medicine:.15*factor}},
+      '教师':{count:j.teacher||0,cost:{wood:.1},output:{knowledge:.2*factor}}
+    };
+  }
+  function settleIndustry(state,consume) {
+    const flows={};
+    for(const [name,r]of Object.entries(industry(state))){
+      let n=r.count;for(const [key,cost]of Object.entries(r.cost))n=Math.min(n,Math.floor(((state.stores[key]||0)+1e-8)/cost));
+      flows[name]={};
+      for(const [key,amount]of Object.entries(r.cost))flows[name][key]=-amount*n;
+      for(const [key,amount]of Object.entries(r.output))flows[name][key]=amount*n;
+      if(consume)for(const [key,amount]of Object.entries(flows[name]))if(amount)state.stores[key]=Math.max(0,(state.stores[key]||0)+amount);
+    }
+    return flows;
   }
   function settle(state) {
     const flow = rates(state), stores = state.stores, c = state.civilization;
     for (const [source, values] of Object.entries(flow)) {
-      if(source === '口粮') continue;
+      if(source === '口粮' || source === '外站维护') continue;
       for (const [key, amount] of Object.entries(values)) if(amount) stores[key] = (stores[key] || 0) + amount;
     }
     const need = -flow['口粮'].food;
@@ -31,6 +54,14 @@
     c.hunger = hungry ? c.hunger + 10 : Math.max(0,c.hunger - 20);
     if(hungry) c.trust = Math.max(0,c.trust - 1);
     else if(state.game.population > 0) c.trust = Math.min(100,c.trust + .1);
+    Object.assign(flow,settleIndustry(state,true));
+    // Resident food has priority over remote upkeep.
+    if(flow['外站维护']) {
+      const upkeep=flow['外站维护'];
+      c.outpostSupplied=Object.entries(upkeep).every(([key,n])=>(stores[key] || 0)+n>=0);
+      if(c.outpostSupplied) for(const [key,n] of Object.entries(upkeep))stores[key]+=n;
+      else flow['外站维护']={wood:0,food:0};
+    }
     return {hungry, need, flow};
   }
   function stable(state) {
@@ -39,5 +70,5 @@
   }
   function canPay(state,cost) { return Object.entries(cost).every(([key,n]) => (state.stores[key] || 0) + 1e-8 >= n); }
   function pay(state,cost) { if(!canPay(state,cost)) return false; for(const [key,n] of Object.entries(cost)) state.stores[key] = Math.max(0,state.stores[key] - n); return true; }
-  root.CivilRules = {policies, rates, settle, stable, canPay, pay};
+  root.CivilRules = {policies, rates, industry, settleIndustry, settle, stable, canPay, pay};
 })(globalThis);

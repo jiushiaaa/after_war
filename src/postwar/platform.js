@@ -11,24 +11,31 @@
         walk(v[k],depth+1);
       }
     }; walk(state);
-    for(const [key,value] of Object.entries(state.stores)) if(!['wood','food','fur','scrap'].includes(key) || typeof value !== 'number' || value < 0 || value > 1e12) throw Error('库存无效');
+    for(const [key,value] of Object.entries(state.stores)) if(!CivilCatalog.resources.includes(key) || typeof value !== 'number' || value < 0 || value > 1e12) throw Error('库存无效');
     for(const key of ['fire','temperature']) if(!Number.isInteger(state.game[key]?.value) || state.game[key].value < 0 || state.game[key].value > 4) throw Error('火或温度无效');
     if(!Number.isInteger(state.game.builder?.level) || state.game.builder.level < -1 || state.game.builder.level > 4) throw Error('工匠进度无效');
     const c = state.civilization;
     if(![1,2,4].includes(c.speed) || ![1,2,4].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
     if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
-    const limits={trap:5,cart:1,hut:4,lodge:1,granary:1,workshop:1,cistern:1,outpost:1};
+    const limits=CivilCatalog.limits;
     for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>limits[key]) throw Error('建筑无效');
-    for(const [key,value] of Object.entries(c.tech)) if(!['water','metal'].includes(key) || typeof value!=='boolean') throw Error('技术进度无效');
-    if(![null,'policy','station','pump','salvage','merchant','cold'].includes(c.pending)) throw Error('事件进度无效');
+    for(const [key,value] of Object.entries(c.tech)) if(!Object.hasOwn(CivilText.research,key) || typeof value!=='boolean') throw Error('技术进度无效');
+    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid'].includes(c.pending)) throw Error('事件进度无效');
     const pop = state.game.population || 0;
-    if(!Number.isInteger(pop) || pop < 0 || pop > (state.game.buildings.hut || 0)*4) throw Error('人口无效');
+    if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
     const workers = Object.entries(state.game.workers);
-    if(workers.some(([key,n]) => !['hunter','salvager'].includes(key) || !Number.isInteger(n) || n < 0) || workers.reduce((n,[,v])=>n+v,0)>pop) throw Error('岗位无效');
+    if(workers.some(([key,n]) => (!Object.hasOwn(CivilCatalog.jobs,key) || key==='gatherer') || !Number.isInteger(n) || n < 0) || workers.reduce((n,[,v])=>n+v,0)>pop) throw Error('岗位无效');
+    for(const [job,n]of workers)if(n>CivilCatalog.jobCapacity(state,job))throw Error('超过岗位容量');
     if(c.policy && !['equal','ration','generous'].includes(c.policy)) throw Error('配给规则无效');
     for(const key of ['elapsed','hunger','trust','stableFor','populationClock','productionClock','randomClock','policyCooldown','residentTime']) if(!Number.isFinite(c[key]) || c[key] < 0) throw Error('存档计时无效');
-    if(c.research && (!['water','metal'].includes(c.research.id) || !Number.isFinite(c.research.remaining) || c.research.remaining < 0)) throw Error('研究无效');
-    if(c.journey && (!['station','pump','salvage'].includes(c.journey.id) || !Number.isFinite(c.journey.remaining) || c.journey.remaining < 0)) throw Error('旅途无效');
+    if(c.research && (!Object.hasOwn(CivilText.research,c.research.id) || !Number.isFinite(c.research.remaining) || c.research.remaining < 0)) throw Error('研究无效');
+    if(c.journey && (!['station','pump','salvage','river','riverAid'].includes(c.journey.id) || !Number.isFinite(c.journey.remaining) || c.journey.remaining < 0)) throw Error('旅途无效');
+    if(c.village) {
+      const v=c.village;
+      for(const k of ['health','convoyClock','convoys','riverFood','riverTools','riverMedicine','townStable'])if(!Number.isFinite(v[k]) || v[k]<0)throw Error('村镇数据无效');
+      if(v.health>100 || v.riverFood>240 || !Number.isInteger(v.convoys))throw Error('村镇数值越界');
+      for(const k of ['riverKnown','riverAllied','town'])if(typeof v[k]!=='boolean')throw Error('村镇状态无效');
+    }
     if(!state.cooldown || typeof state.cooldown !== 'object' || !state.timers || typeof state.timers !== 'object') throw Error('计时数据缺失');
     for(const n of Object.values(state.cooldown)) if(!Number.isFinite(n) || n<0 || n>3600) throw Error('冷却无效');
     for(const n of Object.values(state.timers.civilClock || {})) if(!Number.isFinite(n) || n<0 || n>3600000) throw Error('计时无效');

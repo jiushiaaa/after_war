@@ -12,3 +12,6 @@
 #event textarea { width:100%; box-sizing:border-box; min-height:130px; }
 #startupError { margin:60px auto; width:500px; line-height:1.8; }
 .button:focus-visible,.menuBtn:focus-visible { outline:1px dashed #555; outline-offset:3px; }
+
+#riverStatus { width:410px; margin-top:25px; line-height:1.8; font-size:14px; }
+#socialNote { bottom:auto; }

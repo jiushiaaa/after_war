@@ -8,7 +8,7 @@ function harness() {
  const Outside={getMaxPopulation:()=>state.game.buildings.hut*4,setTitle(){},updateVillage(){},updateWorkersView(){},killVillagers(n){state.game.population-=n;}};
  const Events={startEvent(e){active=e;},activeEvent:()=>active,buttonClick(){}};
  const ctx=vm.createContext({State:state,Room,Outside,Events,$SM:SM,AudioEngine:{},Notifications:{},CivilClock:{rate:1},CivilPlatform:{},Engine:{saveGame(){}},Math:Object.assign(Object.create(Math),{random:()=>.9}),_:s=>s,setTimeout,clearTimeout,console});
- for(const file of ['src/postwar/rules.js','content/zh.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+ for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','src/postwar/village.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
  ctx.Civilization.initState();ctx.Civilization.notify=t=>observed.push(t);ctx.Civilization.refresh=()=>{};ctx.Civilization.renderSpeed=()=>{};ctx.Civilization.updateIncome=()=>{};
  function step(n){for(let i=0;i<n;i++)ctx.Civilization.tick();}
  function choose(key){const b=active.scenes.start.buttons[key];assert.ok(b,'choice exists: '+key);b.onChoose?.();active=null;}
@@ -46,4 +46,53 @@ test('an unresolved incidental event cannot erase an arriving mainline discovery
  h.ctx.Civilization.depart('station');c.pending='cold';h.ctx.Civilization.showPending();
  h.step(120);assert.equal(c.pending,'cold');assert.equal(c.journey.remaining,0);
  h.choose('hands');h.step(1);assert.equal(c.pending,'station');assert.equal(h.active.title,'旧交通站');
+});
+
+test('village technologies respect prerequisites and old saves gain defaults without losing progress',()=>{
+ const h=harness(),s=h.state,c=s.civilization;s.game.buildings.workshop=1;s.stores={wood:1000,food:1000,scrap:1000,tools:100};
+ assert.equal(c.village.health,80);h.ctx.Civilization.research('agronomy');assert.equal(c.research,null);
+ c.tech.water=true;c.pump=true;h.ctx.Civilization.research('agronomy');assert.equal(c.research.id,'agronomy');h.step(180);assert.equal(c.tech.agronomy,true);
+ h.ctx.Civilization.research('school');assert.equal(c.research,null);c.tech.records=true;c.tech.preservation=true;h.ctx.Civilization.research('school');assert.equal(c.research.id,'school');
+});
+test('industry stops atomically on missing inputs and resident meals precede medical manufacture',()=>{
+ const h=harness(),s=h.state;s.game.workers={smith:2,medic:1};s.stores={wood:10,scrap:.6,food:.48};
+ h.ctx.CivilRules.settle(s);assert.equal(s.civilization.hunger,0);assert.equal(s.stores.tools,.25);assert.equal(s.stores.medicine,undefined);assert.ok(s.stores.scrap>=0);assert.equal(s.stores.food,0);
+ s.stores={wood:0,scrap:10,food:10};s.game.builder.level=0;s.game.workers={smith:4};h.ctx.CivilRules.settle(s);assert.equal(s.stores.scrap,10);assert.equal(s.stores.tools,undefined);
+});
+test('irrigation depends on maintained supply and farm capacity limits output',()=>{
+ const h=harness(),s=h.state;s.game.buildings.farm=1;s.game.workers={farmer:8};s.game.population=8;s.civilization.tech.irrigation=true;s.civilization.outpostSupplied=true;
+ assert.equal(h.ctx.CivilRules.rates(s)['农夫'].food,8);s.civilization.outpostSupplied=false;assert.equal(h.ctx.CivilRules.rates(s)['农夫'].food,5.6);
+});
+test('convoys conserve remote food and delivered goods, suspend without payment, and resume',()=>{
+ const h=harness(),s=h.state,c=s.civilization,v=c.village;c.outpostSupplied=true;v.riverAllied=true;s.game.buildings.road=1;s.stores={wood:20,food:20,tools:0,medicine:2};
+ const before=JSON.stringify(s.stores);assert.equal(h.ctx.CivilVillage.convoy(s),false);assert.equal(JSON.stringify(s.stores),before);assert.equal(v.riverFood,80);
+ s.stores.tools=2;assert.equal(h.ctx.CivilVillage.convoy(s),true);assert.equal(s.stores.tools,1);assert.equal(s.stores.medicine,1.5);assert.equal(s.stores.food,30);assert.equal(v.riverFood,68);assert.equal(v.riverTools,1);assert.equal(v.convoys,1);
+ c.outpostSupplied=false;assert.equal(h.ctx.CivilVillage.convoy(s),false);assert.equal(v.convoys,1);
+ c.outpostSupplied=true;v.riverFood=20;assert.equal(h.ctx.CivilVillage.convoy(s),false);assert.equal(v.riverFood,20);
+});
+test('river aid remains a separate polity and deferring pact does not require a second paid expedition',()=>{
+ const h=harness(),s=h.state,c=s.civilization;s.game.buildings.workshop=1;s.game.buildings.outpost=1;c.tech.trails=true;c.policy='equal';s.stores={wood:100,food:200,tools:30,scrap:100};
+ h.ctx.Civilization.depart('river');h.step(180);h.choose('meet');assert.equal(c.village.riverKnown,true);assert.equal(s.game.population,7);
+ h.ctx.Civilization.depart('riverAid');h.step(180);h.choose('defer');assert.equal(c.village.riverFood,120);assert.equal(c.village.riverTools,12);const paid=s.stores.tools;h.ctx.Civilization.depart('riverAid');assert.equal(c.journey,null);assert.equal(s.stores.tools,paid);
+ c.pending='riverAid';h.ctx.Civilization.showPending();h.choose('agree');assert.equal(c.village.riverAllied,true);assert.equal(c.village.riverTools,12);assert.equal(s.game.population,8);
+});
+test('town unlock requires sustained services and transported supplies, not merely a large population',()=>{
+ const h=harness(),s=h.state,c=s.civilization,v=c.village;s.game.population=20;s.game.buildings.clinic=1;s.game.buildings.schoolhouse=1;s.stores={food:100,tools:20};
+ for(let i=0;i<120;i++)h.ctx.CivilVillage.tick(s);assert.equal(v.town,false);
+ v.convoys=3;v.riverAllied=true;c.outpostSupplied=true;v.routeStatus='往返正常';for(let i=0;i<119;i++)h.ctx.CivilVillage.tick(s);assert.equal(v.town,false);h.ctx.CivilVillage.tick(s);assert.equal(v.town,true);
+});
+test('medical care spends medicine, restores health, and consumes nothing when unavailable',()=>{
+ const h=harness(),s=h.state;s.game.population=20;s.game.buildings.clinic=1;s.game.workers={medic:2};s.stores.medicine=1;
+ h.ctx.CivilVillage.settle(s);assert.equal(s.stores.medicine,.8);assert.equal(s.civilization.village.health,80.5);
+ s.stores.medicine=.1;h.ctx.CivilVillage.settle(s);assert.equal(s.stores.medicine,.1);assert.ok(s.civilization.village.health<80.5);
+});
+test('an open event does not exhaust the gap to the next random event while research continues',()=>{
+ const h=harness(),s=h.state,c=s.civilization;s.game.buildings.workshop=1;c.policy='equal';c.randomClock=120;
+ h.ctx.Civilization.research('water');c.pending='cold';h.ctx.Civilization.showPending();h.step(60);
+ assert.equal(c.randomClock,120);assert.equal(c.research.remaining,60);h.choose('hands');h.step(1);assert.equal(c.randomClock,119);
+});
+test('the early aid-accounting migration credits the recipient exactly once',()=>{
+ const h=harness(),s=h.state,v=s.civilization.village;delete v.schema;v.riverAllied=true;
+ h.ctx.CivilVillage.init(s);assert.equal(v.riverFood,120);assert.equal(v.riverTools,12);assert.equal(v.aidDelivered,true);
+ h.ctx.CivilVillage.init(s);assert.equal(v.riverFood,120);assert.equal(v.riverTools,12);
 });
