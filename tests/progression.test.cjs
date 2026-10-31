@@ -8,8 +8,8 @@ function harness() {
  const Outside={getMaxPopulation:()=>state.game.buildings.hut*4,setTitle(){},updateVillage(){},updateWorkersView(){},killVillagers(n){state.game.population-=n;}};
  const Events={startEvent(e){active=e;},activeEvent:()=>active,buttonClick(){}};
  const ctx=vm.createContext({State:state,Room,Outside,Events,$SM:SM,AudioEngine:{},Notifications:{},CivilClock:{rate:1},CivilPlatform:{},Engine:{saveGame(){}},Math:Object.assign(Object.create(Math),{random:()=>.9}),_:s=>s,setTimeout,clearTimeout,console});
- for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','src/postwar/village.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
- ctx.Civilization.initState();ctx.Civilization.notify=t=>observed.push(t);ctx.Civilization.refresh=()=>{};ctx.Civilization.renderSpeed=()=>{};ctx.Civilization.updateIncome=()=>{};
+ for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','content/industry.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/village.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+ ctx.Outside.updateWorkersView=()=>{};ctx.Civilization.initState();ctx.Civilization.notify=t=>observed.push(t);ctx.Civilization.refresh=()=>{};ctx.Civilization.renderSpeed=()=>{};ctx.Civilization.updateIncome=()=>{};
  function step(n){for(let i=0;i<n;i++)ctx.Civilization.tick();}
  function choose(key){const b=active.scenes.start.buttons[key];assert.ok(b,'choice exists: '+key);b.onChoose?.();active=null;}
  return {ctx,state,step,choose,observed,get active(){return active;}};
@@ -95,4 +95,33 @@ test('the early aid-accounting migration credits the recipient exactly once',()=
  const h=harness(),s=h.state,v=s.civilization.village;delete v.schema;v.riverAllied=true;
  h.ctx.CivilVillage.init(s);assert.equal(v.riverFood,120);assert.equal(v.riverTools,12);assert.equal(v.aidDelivered,true);
  h.ctx.CivilVillage.init(s);assert.equal(v.riverFood,120);assert.equal(v.riverTools,12);
+});
+test('live adapter queues four constitutional decisions then the mineral discovery without losing voyages',()=>{
+ const h=harness(),s=h.state,c=s.civilization;c.village.town=true;c.policy='equal';s.game.buildings.workshop=1;s.stores={wood:500,food:500,tools:50,knowledge:100,scrap:100};
+ for(const [axis,choice]of [['structure','federation'],['selection','election'],['charter','constitution'],['devolution','local']]){h.step(1);assert.equal(c.pending,'constitution_'+axis);h.choose(choice);}
+ assert.equal(c.society.governed,true);c.tech.records=true;c.tech.handtools=true;
+ h.ctx.Civilization.depart('geology');assert.equal(c.journey.remaining,240);h.step(240);assert.equal(c.pending,'geology');h.choose('survey');assert.equal(c.industry.mineKnown,true);
+ h.ctx.Civilization.research('mining');assert.equal(c.research.id,'mining');h.step(240);assert.equal(c.tech.mining,true);
+});
+test('annual births and resident deaths publish the reconciled population to the native village view',()=>{
+ for(const [cohorts,before,after]of [[[{age:30,count:6}],6,7],[[{age:79,count:1},{age:30,count:3}],4,3]]){
+  const h=harness(),s=h.state,c=s.civilization,updates=[];c.elapsed=599;c.policy='equal';s.game.population=before;c.society.cohorts=cohorts;
+  h.ctx.Outside.updateVillage=()=>updates.push({population:s.game.population,total:h.ctx.CivilSociety.total(c.society),assigned:Object.values(s.game.workers).reduce((n,v)=>n+v,0),workforce:h.ctx.CivilSociety.workforce(s)});
+  h.step(1);assert.equal(s.game.population,after);assert.equal(updates.length,1);assert.equal(updates[0].population,after);assert.equal(updates[0].total,after);assert.ok(updates[0].assigned<=updates[0].workforce);
+ }
+});
+test('mechanical service expansion restores real medical exports at thirty-six residents',()=>{
+ const h=harness(),s=h.state,c=s.civilization,v=c.village;
+ s.game.population=36;s.game.workers={medic:2,teacher:2};s.game.buildings={hut:2,longhouse:4,clinic:1,schoolhouse:1,road:1,outpost:1};h.ctx.CivilSociety.sync(s);
+ s.stores={wood:2000,food:2000,scrap:2000,tools:100,medicine:0,knowledge:0};c.policy='equal';c.tech.sanitation=true;c.tech.school=true;c.tech.preservation=true;v.riverAllied=true;v.riverFood=240;
+ const clinic=h.ctx.CivilVillage.buildings.clinic,school=h.ctx.CivilVillage.buildings.schoolhouse;
+ assert.equal(Boolean(clinic.gate()),false);assert.equal(Boolean(school.gate()),false);assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'medic'),2);
+ for(let i=0;i<60;i++){h.ctx.CivilRules.settle(s);h.ctx.CivilVillage.settle(s);}assert.equal(v.convoys,0);
+ c.tech.mechanics=true;assert.equal(clinic.gate(),true);assert.equal(school.gate(),true);
+ assert.ok(clinic.cost().parts>0);assert.ok(school.cost().iron>0);assert.equal(h.ctx.CivilRules.pay(s,clinic.cost()),false);
+ s.stores.iron=30;s.stores.parts=12;assert.equal(h.ctx.CivilRules.pay(s,clinic.cost()),true);s.game.buildings.clinic++;
+ assert.equal(h.ctx.CivilRules.pay(s,school.cost()),true);s.game.buildings.schoolhouse++;s.game.workers.medic=4;s.game.workers.teacher=4;
+ assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'medic'),4);assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'teacher'),4);
+ const knowledge=s.stores.knowledge;for(let i=0;i<60;i++){h.ctx.CivilRules.settle(s);h.ctx.CivilVillage.settle(s);}
+ assert.equal(v.convoys,10);assert.ok(s.stores.medicine>8);assert.ok(s.stores.knowledge-knowledge>47);assert.equal(s.game.population,36);
 });

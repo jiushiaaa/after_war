@@ -11,6 +11,8 @@ var Civilization = {
     State.game = State.game || {}; State.game.buildings = State.game.buildings || {};
     State.game.population = State.game.population || 0; State.game.workers=State.game.workers || {};
     CivilVillage.init(State);
+    if(typeof CivilSociety!=='undefined')CivilSociety.init(State);
+    if(typeof CivilIndustry!=='undefined')CivilIndustry.init(State);
   },
   init() {
     CivilClock.rate = State.civilization.speed;
@@ -38,6 +40,8 @@ var Civilization = {
     if(c.productionClock>=10) {
       c.productionClock-=10;
       const before=c.hunger, wasSupplied=c.outpostSupplied; CivilRules.settle(State); CivilVillage.settle(State);
+      if(typeof CivilSociety!=='undefined')CivilSociety.settle(State);
+      if(typeof CivilIndustry!=='undefined')CivilIndustry.settle(State);
       if(c.outpostSupplied===false && wasSupplied!==false) this.notify('补给外站缺少维护物资。联系暂时中断；备足食物和木料后会恢复。');
       if(c.outpostSupplied===true && wasSupplied===false) this.notify('补给再次送到了外站。管线巡视恢复了。');
       if(c.hunger>=30 && before<30) this.notify('口粮不够了。居民空着肚子工作，动作慢了下来。');
@@ -59,7 +63,7 @@ var Civilization = {
       }
     }
     if(c.research) {
-      c.research.remaining=Math.max(0,c.research.remaining-1);
+      c.research.remaining=Math.max(0,c.research.remaining-(typeof CivilSociety!=='undefined'?CivilSociety.researchSpeed(State):1));
       if(c.research.remaining===0) {
         const id=c.research.id;c.tech[id]=true;c.research=null;
         this.notify(CivilText.research[id].done); this.updateIncome();
@@ -71,19 +75,27 @@ var Civilization = {
         c.pending=c.journey.id; c.journey=null;
       }
     }
+    if(typeof CivilSociety!=='undefined'){
+      const populationBefore=State.game.population;
+      CivilSociety.tick(State);
+      // Annual changes bypass $SM; publish only after cohorts and jobs agree.
+      if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
+    }
+    if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(!Events.activeEvent()) {
       if(c.pending) this.showPending();
       else if(!c.policy && State.game.population>=2 && ((State.stores.food || 0)<16 || c.residentTime>=60)) this.policyEvent();
       else if(c.station && !c.events.merchant) {c.pending='merchant';this.showPending();}
+      else if(typeof CivilSociety!=='undefined' && CivilSociety.nextEvent(State)){c.pending=CivilSociety.nextEvent(State);this.showPending();}
       else if(c.randomClock<=0 && State.game.population>0) this.randomEvent();
     }
-    CivilVillage.tick(State); this.refresh(); Engine.saveGame();
+    Outside.updateWorkersView(); CivilVillage.tick(State); this.refresh(); Engine.saveGame();
   },
   arrivals() {
     const c=State.civilization, capacity=Outside.getMaxPopulation(), p=State.game.population;
     if(p>=capacity || $SM.get('game.temperature.value',true)<2 || (State.stores.food || 0)<6 || (p>0 && c.trust<15) || c.hunger) return;
     const n=Math.min(p===0?2:1,capacity-p);
-    $SM.add('game.population',n); c.populationClock=0;
+    $SM.add('game.population',n); if(typeof CivilSociety!=='undefined')CivilSociety.sync(State); c.populationClock=0;
     this.notify(p===0?'两位拾荒者循着炊烟而来。他们带着空行囊，愿意留下做工。':'一位流浪者走进聚落，问这里是否还有床位。');
     if(p===0) this.notify('添了人口，也添了吃饭的嘴。居民每 10 秒领取口粮；猎棚能让人专门寻找食物。');
   },
@@ -92,6 +104,9 @@ var Civilization = {
     const flow=CivilRules.settle(forecast).flow;
     const care=CivilVillage.treatment(forecast);
     if(care)flow['诊所治疗']={medicine:-care};
+    CivilVillage.settle(forecast);
+    if(typeof CivilSociety!=='undefined')Object.assign(flow,CivilSociety.settle(forecast));
+    if(typeof CivilIndustry!=='undefined')Object.assign(flow,CivilIndustry.settle(forecast));
     State.income={};
     for(const [name,stores] of Object.entries(flow)) if(Object.values(stores).some(n=>n!==0)) State.income[name]={delay:10,stores};
     Room.updateIncomeView();
@@ -158,7 +173,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -176,13 +191,13 @@ var Civilization = {
   },
   depart(id) {
     const c=State.civilization;
-    const extra=CivilVillage.journeys[id];
+    const extra=CivilVillage.journeys[id] || (typeof CivilIndustry!=='undefined'?CivilIndustry.journeys[id]:null);
     if(extra && !extra.allowed(State))return;
     if(!extra && !['station','pump','salvage'].includes(id))return;
     const cost=extra?extra.cost:id==='pump'?{food:8,wood:20,scrap:12}:{food:id==='salvage'?4:8};
     if(c.journey || c.pending || Events.activeEvent() || (id==='pump' && (!c.station || !c.tech.water || c.pump)) || !State.game.buildings.workshop || !this.spend(cost)) return;
     c.journey={id,remaining:extra?extra.duration:id==='pump'?180:120};
-    this.notify(extra?'队伍带上物资，沿河谷的路标出发。':id==='pump'?'维修队带上管件，沿着旧管线出发。':'你带上口粮，沿旧公路走向交通站。');
+    this.notify(extra?(id==='geology'?'勘察队带上工具和旧地图，走向山坡下的矿带。':'队伍带上物资，沿河谷的路标出发。'):id==='pump'?'维修队带上管件，沿着旧管线出发。':'你带上口粮，沿旧公路走向交通站。');
     this.refresh();Engine.saveGame();
   },
   button(id,text,parent,handler,cost,cooldown) {
@@ -243,7 +258,7 @@ var Civilization = {
         Button.setDisabled(pump,c.pump || !c.tech.water || !!c.journey || !!c.pending || !CivilRules.canPay(State,{food:8,wood:20,scrap:12}));
         pump.attr('title',c.pump?'泵站已经恢复':!c.tech.water?'需要先掌握净水工艺':'携带维修材料出发');
       }
-      $('#journeyStatus').text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'已经抵达，队伍等待你处理眼前的事。'):c.pending && ['station','salvage','pump','river','riverAid'].includes(c.pending)?'已经抵达，等待处理发现。':c.pump?'泵站已恢复。补给与维护将决定它能运转多久。':'旧公路穿过荒林，通向废弃的交通站。');
+      $('#journeyStatus').text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'已经抵达，队伍等待你处理眼前的事。'):c.pending && ['station','salvage','pump','river','riverAid','geology'].includes(c.pending)?'已经抵达，等待处理发现。':c.pump?'泵站已恢复。补给与维护将决定它能运转多久。':'旧公路穿过荒林，通向废弃的交通站。');
       if(c.events.merchant && !c.trade) this.button('contactButton','联系商队','#roadPanel',()=>{if(!Events.activeEvent()){c.pending='merchant';this.showPending();}});
       $('#contactButton').toggle(!c.trade);
       if(c.trade) {
@@ -253,14 +268,14 @@ var Civilization = {
         Button.setDisabled(trade,!CivilRules.canPay(State,{food:10}));
       }
     }
-    CivilVillage.refresh(); Room.updateBuildButtons();
+    CivilVillage.refresh(); if(typeof CivilSociety!=='undefined')CivilSociety.refresh(); Room.updateBuildButtons(); if(typeof CivilIndustry!=='undefined')CivilIndustry.refresh();
   },
   restart(state) {
     CivilClock.stop(); $('*').stop(true,true);
     Engine.topics={};Engine.activeModule=null;Engine.keyLock=false;Engine.tabNavigation=true;
     Room.buttons={};Room.changed=false;Room.pathDiscovery=false;Outside._popTimeout=undefined;
     for(const item of Object.values(Room.Craftables)) item.button=null;
-    this.roadModule=null;Notifications.notifyQueue={};
+    this.roadModule=null;if(typeof CivilSociety!=='undefined')CivilSociety.module=null;if(typeof CivilIndustry!=='undefined')CivilIndustry.reset();Notifications.notifyQueue={};
     $('.menu,#notifications,#event,#eventblocker').remove();$('#main').html('<div id="header"></div>');
     Engine.init({state});
   }
@@ -278,7 +293,7 @@ const buildDefs={
   cistern:{cost:()=>({wood:80,scrap:16}),max:1,gate:()=>State.civilization.tech.water && State.civilization.station},
   outpost:{cost:()=>({wood:120,scrap:20,food:20}),max:1,gate:()=>State.civilization.pump && State.civilization.tech.metal && State.game.buildings.cistern && State.game.population>=8}
 };
-Object.assign(buildDefs,CivilVillage.buildings);
+Object.assign(buildDefs,CivilVillage.buildings,typeof CivilIndustry!=='undefined'?CivilIndustry.buildings:{});
 for(const [id,def] of Object.entries(buildDefs)) Room.Craftables[id]={name:_(id),button:null,type:'building',maximum:def.max,cost:def.cost,availableMsg:CivilText.buildings[id][0],buildMsg:CivilText.buildings[id][1]};
 Room.craftUnlocked=function(id) {
   if(Room.buttons[id] || State.civilization.buildingsSeen?.[id]) {Room.buttons[id]=true;return true;}
@@ -304,7 +319,7 @@ const adrBuildButtons=Room.updateBuildButtons;
 Room.updateBuildButtons=function() {
   adrBuildButtons();
   for(const [id,item] of Object.entries(Room.Craftables)) if(item.button) {
-    Button.setDisabled(item.button,(State.game.buildings[id] || 0)>=item.maximum || !CivilRules.canPay(State,item.cost()) || $SM.get('game.temperature.value',true)<2);
+    Button.setDisabled(item.button,!buildDefs[id].gate() || (State.game.buildings[id] || 0)>=item.maximum || !CivilRules.canPay(State,item.cost()) || $SM.get('game.temperature.value',true)<2);
   }
 };
 Outside._INCOME={gatherer:{name:'采木工',delay:10,stores:{wood:1}},hunter:{name:'猎人',delay:10,stores:{food:.8,fur:.3}},salvager:{name:'回收工',delay:10,stores:{scrap:.5}}};
@@ -316,9 +331,11 @@ Outside.increaseWorker=function(event){
   const n=Math.min(Outside.getNumGatherers(),Number(event.data),cap-(State.game.workers[job]||0));
   if(n>0)$SM.add('game.workers.'+job,n);
 };
+Outside.getNumGatherers=function(){return (typeof CivilSociety!=='undefined'?CivilSociety.workforce(State):State.game.population)-Object.values(State.game.workers).reduce((a,b)=>a+b,0);};
 const adrWorkersView=Outside.updateWorkersView;
 Outside.updateWorkersView=function(){
   adrWorkersView();
+  $('#workers_row_gatherer > .row_val > span').text(Outside.getNumGatherers());
   for(const [job,n]of Object.entries(State.game.workers)){
     const cap=CivilCatalog.jobCapacity(State,job);
     $('#workers_row_'+job+' .upBtn,#workers_row_'+job+' .upManyBtn').toggleClass('disabled',n>=cap || Outside.getNumGatherers()<=0);

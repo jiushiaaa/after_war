@@ -10,8 +10,8 @@
     const policy = policies[c.policy] || policies.equal;
     const hunger = c.hunger >= 30 ? .65 : 1;
     const health = (c.village?.health ?? 80)<30?.75:1;
-    const factor = policy.output * hunger * health;
-    const gatherers = Math.max(0, p - Object.values(jobs).reduce((a,b) => a+b,0));
+    const factor = policy.output * hunger * health*(typeof CivilSociety!=='undefined'?CivilSociety.outputFactor(state):1);
+    const gatherers = Math.max(0, (typeof CivilSociety!=='undefined'?CivilSociety.workforce(state):p) - Object.values(jobs).reduce((a,b) => a+b,0));
     return {
       '工匠': {wood:state.game.builder?.level >= 4 ? 2 : 0},
       '采木工': {wood:gatherers * factor},
@@ -19,12 +19,12 @@
       '农夫': {food:Math.min(jobs.farmer||0,(state.game.buildings.farm||0)*4)*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)*factor},
       '回收工': {scrap:(jobs.salvager || 0) * (c.tech.metal ? .8 : .5) * factor},
       ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
-      '口粮': {food:-p * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
+      '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):p) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
     };
   }
   function industry(state) {
     const j=state.game.workers,c=state.civilization;
-    const factor=(policies[c.policy]||policies.equal).output*(c.hunger>=30?.65:1)*((c.village?.health??80)<30?.75:1);
+    const factor=(policies[c.policy]||policies.equal).output*(c.hunger>=30?.65:1)*((c.village?.health??80)<30?.75:1)*(typeof CivilSociety!=='undefined'?CivilSociety.outputFactor(state):1);
     return {
       '制器工':{count:j.smith||0,cost:{scrap:.6,wood:.2},output:{tools:.25*factor}},
       '医护':{count:j.medic||0,cost:{food:.2,scrap:.1},output:{medicine:.15*factor}},

@@ -3,8 +3,8 @@ var CivilCatalog = {
   resources:['wood','food','fur','scrap','tools','medicine','knowledge'],
   jobs:{gatherer:'采木工',hunter:'猎人',salvager:'回收工',farmer:'农夫',smith:'制器工',medic:'医护',teacher:'教师'},
   jobBuildings:{lodge:'hunter',workshop:'salvager',farm:'farmer',toolshop:'smith',clinic:'medic',schoolhouse:'teacher'},
-  limits:{trap:5,cart:1,hut:4,lodge:1,granary:1,workshop:1,cistern:1,outpost:1,farm:4,toolshop:1,longhouse:4,clinic:1,schoolhouse:1,road:1},
-  jobCapacity(s,job){return job==='farmer'?(s.game.buildings.farm||0)*4:job==='smith'?4:job==='medic'||job==='teacher'?2:Infinity;},
+  limits:{trap:5,cart:1,hut:4,lodge:1,granary:1,workshop:1,cistern:1,outpost:1,farm:4,toolshop:1,longhouse:4,clinic:2,schoolhouse:2,road:1},
+  jobCapacity(s,job){return job==='farmer'?(s.game.buildings.farm||0)*4:job==='smith'?4:job==='medic'?(s.game.buildings.clinic||0)*2:job==='teacher'?(s.game.buildings.schoolhouse||0)*2:Infinity;},
   capacity(s){return (s.game.buildings.hut||0)*4+(s.game.buildings.longhouse||0)*8;},
   researchAvailable(s,id){
     const r=CivilText.research[id];

@@ -14,8 +14,8 @@ var CivilVillage = {
     farm:{cost:()=>({wood:80+(State.game.buildings.farm||0)*30,scrap:10}),max:4,gate:()=>State.civilization.tech.agronomy},
     toolshop:{cost:()=>({wood:80,scrap:30}),max:1,gate:()=>State.civilization.tech.handtools},
     longhouse:{cost:()=>({wood:180+(State.game.buildings.longhouse||0)*60,tools:12}),max:4,gate:()=>State.civilization.tech.handtools && State.game.buildings.farm},
-    clinic:{cost:()=>({wood:120,scrap:25,tools:10}),max:1,gate:()=>State.civilization.tech.sanitation},
-    schoolhouse:{cost:()=>({wood:120,tools:12}),max:1,gate:()=>State.civilization.tech.school},
+    clinic:{cost:()=>State.game.buildings.clinic && State.civilization.tech.mechanics?{wood:180,iron:12,parts:6,tools:12}:{wood:120,scrap:25,tools:10},max:2,gate:()=>State.civilization.tech.sanitation && (!State.game.buildings.clinic || State.civilization.tech.mechanics)},
+    schoolhouse:{cost:()=>State.game.buildings.schoolhouse && State.civilization.tech.mechanics?{wood:160,iron:10,parts:5,tools:12}:{wood:120,tools:12},max:2,gate:()=>State.civilization.tech.school && (!State.game.buildings.schoolhouse || State.civilization.tech.mechanics)},
     road:{cost:()=>({wood:160,scrap:30,tools:10}),max:1,gate:()=>State.civilization.tech.trails && State.civilization.village.riverKnown}
   },
   journeys:{
@@ -53,6 +53,7 @@ var CivilVillage = {
   },
   tick(s) {
     const v=s.civilization.village,b=s.game.buildings,c=s.civilization;
+    if(c.tech.mechanics && !c.events.serviceExpansion){c.events.serviceExpansion=true;Civilization.notify('新制的器具能供另一座诊所和学堂使用。扩建需要铁锭与机械零件，也要安排更多医护和教师。');}
     const ready=s.game.population>=20 && b.clinic && b.schoolhouse && v.health>=60 && v.convoys>=3 && v.riverAllied && c.outpostSupplied===true && v.routeStatus==='往返正常' && c.hunger===0 && (s.stores.food||0)>=40 && (s.stores.tools||0)>=10;
     if(!v.town){v.townStable=ready?v.townStable+1:0;if(v.townStable>=120){v.town=true;Civilization.notify('课堂传来读书声，车队带回河谷的粮食。这里已经是一座小镇。居民开始讨论，谁来代表越来越多的人。');Outside.setTitle();}}
   },

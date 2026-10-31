@@ -14,3 +14,5 @@
 《这游戏也太真实了》内容改编依据用户提供的作者授权；已核实题材与本作新增设定分别见 `../设计/01_世界观来源与待核实项.md`。新文案不冒充原著原文或原著已核实年表。
 
 村镇扩展新增 `content/development.js` 与 `src/postwar/village.js`，修改adapter/rules/platform及少量附加CSS；全部沿用本工程MPL-2.0来源约束。
+
+代际与工业扩展新增 `src/postwar/society.js`、`content/industry.js` 和 `src/postwar/industry.js`，继续通过adapter接入原生地点、事件、建造、岗位和库存。修改platform存档校验、rules人口与产出计算，以及Room的新资源小数显示。规则测试与自然游玩存档位于 `tests/`；全部保留MPL-2.0。

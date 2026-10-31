@@ -105,3 +105,25 @@ test('natural town checkpoint retains the separate neighbour and does not replay
  assert.equal(s.civilization.village.riverTools,s.civilization.village.convoys+12);
  const received=s.civilization.village.riverTools;v.init(s);assert.equal(s.civilization.village.riverTools,received);
 });
+
+test('natural second-leader save preserves the child, constitution, completed handover and mineral research',()=>{
+ const {CivilPlatform:p,CivilSociety:society}=context(['content/industry.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/platform.js']);
+ const s=p.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-second-leader-mining.json'),'utf8'));
+ assert.equal(s.game.population,28);assert.equal(society.workforce(s),27);assert.equal(s.civilization.society.cohorts.filter(c=>c.age<18).reduce((n,c)=>n+c.count,0),1);
+ assert.equal(s.civilization.society.generation,2);assert.equal(s.civilization.society.leader.title,'工程代表');assert.equal(s.civilization.society.history[0].reason,'retirement');
+ assert.equal(s.civilization.society.axes.structure,'federation');assert.equal(s.civilization.society.axes.selection,'election');assert.equal(s.civilization.society.governed,true);
+ assert.equal(s.civilization.industry.mineKnown,true);assert.equal(s.civilization.research.id,'mining');assert.equal(s.civilization.research.remaining,91);assert.equal(s.civilization.village.convoys,38);
+ society.init(s);assert.equal(s.civilization.society.history[0].from,0);assert.equal(s.civilization.society.leader.termStarted,12);
+ const before=JSON.stringify(s.civilization.society);society.init(s);society.tick(s);assert.equal(JSON.stringify(s.civilization.society),before);
+});
+
+test('natural powered town reloads the third leader, expanded services and a sustainable seven-unit load',()=>{
+ const ctx=context(['content/industry.js','src/postwar/society.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/industry.js','src/postwar/platform.js']);
+ const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8'));
+ assert.equal(s.game.population,44);assert.equal(ctx.CivilSociety.workforce(s),42);assert.equal(s.civilization.society.generation,3);assert.equal(s.civilization.society.history[1].reason,'election');
+ assert.equal(s.game.buildings.clinic,2);assert.equal(s.game.buildings.schoolhouse,2);assert.equal(s.game.workers.medic,4);assert.equal(s.game.workers.teacher,4);assert.equal(s.civilization.tech.power,true);
+ assert.equal(s.civilization.industry.generation,8);assert.equal(s.civilization.industry.used,7);assert.equal(s.civilization.industry.announcedPower,true);
+ const pollution=s.civilization.industry.pollution,convoys=s.civilization.village.convoys,parts=s.stores.parts;
+ for(let i=0;i<12;i++){ctx.CivilRules.settle(s);ctx.CivilVillage.settle(s);ctx.CivilSociety.settle(s);ctx.CivilIndustry.settle(s);}
+ assert.equal(s.civilization.hunger,0);assert.equal(s.civilization.industry.used,7);assert.ok(s.civilization.industry.pollution<pollution);assert.ok(s.stores.parts>parts);assert.equal(s.civilization.village.convoys,convoys+2);ctx.CivilPlatform.validate(s);
+});
