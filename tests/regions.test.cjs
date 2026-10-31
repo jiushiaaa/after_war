@@ -17,6 +17,7 @@ function totals(s){
   const out={},r=s.civilization.regions;
   const add=store=>{for(const [k,v]of Object.entries(store))out[k]=(out[k]||0)+v;};
   add(s.stores);for(const n of Object.values(r.nodes))add(n.stores);for(const p of r.shipments)add(p.cargo);for(const p of Object.values(r.projects))add(p.buffer);
+  for(const m of Object.values(s.civilization.municipal?.nodes||{}))if(m.project)add(m.project.buffer);
   return out;
 }
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
@@ -214,4 +215,64 @@ test('paid local public works enable fractional births with real capacity, and s
   n.births.credit=.9;n.stores.medicine=0;const population=n.population;advanceNodeYear(s,r,n);assert.equal(n.population,population);assert.equal(n.births.credit,0);
   n.stores.medicine=100;advanceNodeYear(s,r,n);assert.ok(n.population-population<=Math.ceil(population*.04));
   for(let i=0;i<10;i++)advanceNodeYear(s,r,n);assert.ok(n.population<=44,'the original local housing limit remains authoritative');assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=r.workforce(n));r.validate(s);
+});
+
+function municipalHarness(){
+  const h=harness(),{s,ctx,r}=h,x=h.activate(),n=x.nodes.river;
+  for(const file of ['content/municipal.js','src/postwar/municipal.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  s.civilization.urban={city:true,parties:[]};s.civilization.tech.urbanworks=true;s.civilization.tech.administration=true;
+  n.completedProjects.publicWorks=true;n.relation='associated';n.control='shared';n.cohorts.forEach(c=>c.age=50);r.planWorkers(s,'river',n);
+  s.stores={food:5000,wood:5000,tools:5000,medicine:5000,iron:5000,parts:5000,knowledge:5000};n.stores.food=1000;
+  const m=ctx.CivilMunicipal;assert.equal(m.activate(s,'river'),true);
+  const step=seconds=>{for(let i=0;i<seconds;i++){s.civilization.elapsed++;r.tick(s);m.tick(s);}};
+  return {...h,x,n,m,step,municipal:s.civilization.municipal.nodes.river};
+}
+test('municipal materials occupy real freight capacity and reach a project buffer exactly once before the cart returns empty',()=>{
+  const {s,r,x,n,m,step,municipal}=municipalHarness();assert.equal(m.startProject(s,'river','farmland'),true);
+  const before=totals(s),remote=JSON.stringify(n.stores);assert.equal(r.launch(s,'river'),true);const p=x.shipments[0];
+  assert.equal(p.purpose,'municipal');assert.equal(p.projectId,1);assert.equal(p.cargo.wood,64);assert.equal(municipal.project.buffer.wood,undefined);assert.equal(JSON.stringify(n.stores),remote);
+  let after=totals(s);near(after.wood,before.wood-1);near(after.food,before.food-1);assert.equal(r.arrive(s,{...p,remaining:0}),false);
+  r.setRoute(s,'river',false);step(60);assert.equal(municipal.project.buffer.wood,64);assert.equal(p.phase,'empty');assert.equal(Object.keys(p.cargo).length,0);assert.equal(JSON.stringify(n.stores),remote);
+  const received=JSON.stringify(municipal.project);assert.equal(r.arrive(s,p),false);assert.equal(m.receiveCargo(s,'river',{wood:64},1),false);assert.equal(JSON.stringify(municipal.project),received);
+  r.validate(s);m.validate(s);step(60);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.assigned,0);assert.equal(r.arrive(s,p),false);
+  after=totals(s);near(after.wood,before.wood-1);near(after.food,before.food-1);assert.equal(municipal.buildings.farmland,undefined);
+});
+test('blocked municipal materials return to the home warehouse once without building, crediting the destination or refunding upkeep',()=>{
+  const {s,r,x,n,m,step,municipal}=municipalHarness();m.startProject(s,'river','farmland');const home={...s.stores},remote=JSON.stringify(n.stores);
+  r.launch(s,'river');const p=x.shipments[0];step(20);r.setRoad(s,'river',false);step(1);assert.equal(p.status,'held');assert.equal(r.returnShipment(s,p.id),true);assert.equal(p.phase,'returning');assert.equal(p.target,'home');assert.equal(p.source,'home');r.validate(s);m.validate(s);
+  step(20);assert.equal(x.shipments.length,0);assert.equal(s.stores.wood,home.wood-1);assert.equal(s.stores.food,home.food-1);assert.equal(JSON.stringify(n.stores),remote);assert.equal(Object.keys(municipal.project.buffer).length,0);assert.equal(municipal.project.status,'supplying');assert.equal(r.arrive(s,p),false);assert.equal(x.routes.river.assigned,0);
+  r.validate(s);m.validate(s);
+});
+test('municipal construction alternates with ordinary trade and an old empty cart remains valid after the next project starts',()=>{
+  const {s,r,x,n,m,step,municipal}=municipalHarness();m.startProject(s,'river','woodlot');
+  assert.equal(r.launch(s,'river'),true);const first=x.shipments[0];assert.equal(first.purpose,'municipal');r.setRoute(s,'river',false);step(120);assert.equal(municipal.project.buffer.wood,64);
+  r.setRoute(s,'river',true);assert.equal(r.launch(s,'river'),true);assert.equal(x.shipments[0].purpose,'trade');r.setRoute(s,'river',false);step(121);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.lastPurpose,'trade');
+  r.setRoute(s,'river',true);assert.equal(r.launch(s,'river'),true);const last=x.shipments[0];assert.equal(last.purpose,'municipal');assert.equal(last.cargo.wood,16);assert.equal(last.cargo.tools,8);r.setRoute(s,'river',false);step(60);assert.equal(municipal.project.status,'building');assert.equal(Object.values(municipal.project.buffer).some(Boolean),false);
+  r.setRoad(s,'river',false);step(120);assert.equal(last.phase,'empty');assert.equal(last.status,'held');assert.equal(municipal.buildings.woodlot,1);assert.equal(municipal.project.status,'complete');assert.equal(m.startProject(s,'river','farmland'),true);assert.equal(municipal.project.id,2);
+  r.validate(s);m.validate(s);const local=JSON.stringify(n.stores),home=JSON.stringify(s.stores);assert.equal(r.arrive(s,last),false);r.setRoad(s,'river',true);step(60);
+  assert.equal(x.shipments.length,0);assert.equal(JSON.stringify(n.stores),local);assert.equal(JSON.stringify(s.stores),home);assert.equal(municipal.project.status,'supplying');r.validate(s);m.validate(s);
+});
+test('municipal freight import rejects wrong endpoints, project identities and fabricated nonempty return cargo',()=>{
+  const {s,r,x,m}=municipalHarness();m.startProject(s,'river','farmland');r.launch(s,'river');r.validate(s);m.validate(s);
+  for(const mutate of [p=>p.target='home',p=>p.source='river',p=>p.projectId=99,p=>p.cargo={iron:7},p=>{p.phase='empty';p.source='river';p.target='home';}]){
+    const bad=structuredClone(s);mutate(bad.civilization.regions.shipments[0]);assert.throws(()=>r.validate(bad));
+  }
+  const p=x.shipments[0];p.remaining=0;r.arrive(s,p);const bad=structuredClone(s);bad.civilization.regions.shipments[0].cargo={wood:1};assert.throws(()=>r.validate(bad));
+  const jobs=structuredClone(s);jobs.civilization.regions.nodes.river.workers.miner=1;assert.throws(()=>r.validate(jobs),'new occupations require paid municipal capacity');
+});
+test('regional births reserve beds only for that destination and release them when its living passengers turn back',()=>{
+  const {s,ctx,r,n,m}=municipalHarness();
+  for(const file of ['content/urban.js','src/postwar/urban.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  const u=ctx.CivilUrban;n.population=20;n.cohorts=[{age:25,count:20,identity:'human'}];n.stores={food:1000,medicine:100};n.births={scaled:true,credit:.9,mutantCredit:0};r.planWorkers(s,'river',n);
+  s.civilization.urban.parties=[{id:1,target:'river',state:'held',cohorts:[{age:24,count:4,identity:'human'}]},{id:2,target:'home',state:'outbound',cohorts:[{age:24,count:8,identity:'human'}]}];
+  assert.equal(m.capacity(s,'river'),24);assert.equal(u.reservedBeds(s,'river'),4);assert.equal(u.reservedBeds(s),8);const before={...n.stores};advanceNodeYear(s,r,n);
+  assert.equal(n.population,20);assert.equal(n.stores.food,before.food);assert.equal(n.stores.medicine,before.medicine);assert.equal(u.availableBeds(s,'river'),0);
+  s.civilization.urban.parties[0].state='returning_people';assert.equal(u.reservedBeds(s,'river'),0);advanceNodeYear(s,r,n);assert.equal(n.population,21);assert.equal(n.cohorts.at(-1).age,0);assert.equal(n.stores.food,before.food-6);near(n.stores.medicine,before.medicine-.2);assert.equal(u.reservedBeds(s),8);r.validate(s);m.validate(s);
+});
+test('Regions delegates municipal production once and its forecast does not mutate either real warehouse',()=>{
+  const {s,r,n,m,municipal}=municipalHarness(),copy=structuredClone(s),home={...s.stores},before=JSON.stringify(s);
+  m.forecast(s,'river',[{age:26,count:4,identity:'human'}]);assert.equal(JSON.stringify(s),before);
+  m.settleNode(copy,'river');const expected=copy.civilization.regions.nodes.river;
+  r.settle(s);assert.equal(JSON.stringify(n.stores),JSON.stringify(expected.stores));assert.equal(n.health,expected.health);assert.equal(JSON.stringify(municipal.economy),JSON.stringify(copy.civilization.municipal.nodes.river.economy));
+  for(const key of ['food','wood','tools','medicine','iron','parts'])assert.equal(s.stores[key],home[key]);
 });

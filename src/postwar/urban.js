@@ -18,6 +18,23 @@ var CivilUrban = {
   sourceIds(s){return ['dispersed',...Object.entries(s.civilization.origins?.nodes||{}).filter(([,n])=>['contacted','agreed'].includes(n.status)).map(([id])=>id)];},
   sourceId(s){return s.civilization.urban.activeSource || 'dispersed';},
   sourceName(id){return id==='dispersed'?'沿路名册':typeof CivilOriginContent!=='undefined' && CivilOriginContent[id]?.name || '河网散居圈';},
+  targetId(s){return s.civilization.urban.activeTarget || 'home';},
+  hasTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id);},
+  canAcceptTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.canAccept(s,id);},
+  targetIds(s){return ['home',...Object.keys(s.civilization.regions?.nodes||{}).filter(id=>this.canAcceptTarget(s,id))];},
+  targetName(s,id){return id==='home'?(s.civilization.urban.city?'炉火城':'本地聚落'):typeof CivilRegionContent!=='undefined' && CivilRegionContent[id]?.name || id;},
+  setTarget(s,id){
+    if(!this.targetIds(s).includes(id))return false;
+    s.civilization.urban.activeTarget=id;s.civilization.urban.dispatchClock=0;
+    s.civilization.urban.status=this.targetName(s,id)+'等待检查住房与供养';return true;
+  },
+  targetPopulation(s,id){return id==='home'?s.game.population:s.civilization.regions?.nodes[id]?.population||0;},
+  targetCapacity(s,id){return id==='home'?CivilCatalog.capacity(s):this.hasTarget(s,id)?CivilMunicipal.capacity(s,id):0;},
+  roadOpen(s,id){
+    if(id==='home')return true;
+    const route=s.civilization.regions?.routes[id];
+    return !!route && route.condition==='open' && (id!=='river' || !!s.game.buildings.road && s.civilization.outpostSupplied===true);
+  },
   quote(s,id,max,mode){
     if(id==='dispersed'){
       const u=s.civilization.urban;if(!u.registered)return null;
@@ -25,16 +42,18 @@ var CivilUrban = {
     }
     return typeof CivilOrigins!=='undefined'?CivilOrigins.quoteParty(s,id,max,{mode}):null;
   },
-  commitSource(s,quote,id){
+  commitSource(s,quote,id,target='home'){
     if(quote.originId==='dispersed'){this.take(s.civilization.urban.source,quote.count);return true;}
-    return typeof CivilOrigins!=='undefined' && CivilOrigins.commitDeparture(s,quote,id);
+    return typeof CivilOrigins!=='undefined' && CivilOrigins.commitDeparture(s,quote,id,target);
   },
   receive(s,party){
+    const target=party.target,n=this.count(party.cohorts);
+    if(!this.canAcceptTarget(s,target) || this.targetPopulation(s,target)+n>this.targetCapacity(s,target))return false;
     if(party.source!=='dispersed' && (typeof CivilOrigins==='undefined' || !CivilOrigins.recordArrival(s,party)))return false;
-    this.admit(s,party.cohorts,party.source);return true;
+    return this.admit(s,party.cohorts,party.source,target)===n;
   },
-  reservedBeds(s){return (s.civilization.urban?.parties||[]).filter(p=>['outbound','held'].includes(p.state)).reduce((n,p)=>n+this.count(p.cohorts),0);},
-  availableBeds(s){return Math.max(0,CivilCatalog.capacity(s)-s.game.population-this.reservedBeds(s));},
+  reservedBeds(s,target='home'){return (s.civilization.urban?.parties||[]).filter(p=>p.target===target && ['outbound','held'].includes(p.state)).reduce((n,p)=>n+this.count(p.cohorts),0);},
+  availableBeds(s,target='home'){return Math.max(0,this.targetCapacity(s,target)-this.targetPopulation(s,target)-this.reservedBeds(s,target));},
   reservedTransport(s){return (s.civilization.urban?.parties.length||0)*2;},
   publicServices(s){return !!s.game.buildings.publicclinic && !!s.game.buildings.publicschool && (s.game.workers.medic||0)>0 && (s.game.workers.teacher||0)>0;},
   discovered(s){return typeof CivilRegions!=='undefined'?CivilRegions.discoveredCount(s):Object.values(s.civilization.regions?.nodes||{}).filter(n=>n.discovered).length;},
@@ -48,9 +67,12 @@ var CivilUrban = {
     const result=[];for(const cohort of source){if(!number)break;const n=Math.min(number,cohort.count);result.push({...cohort,count:n});cohort.count-=n;number-=n;}
     for(let i=source.length-1;i>=0;i--)if(!source[i].count)source.splice(i,1);return result;
   },
-  admit(s,cohorts,source='dispersed'){
+  admit(s,cohorts,source='dispersed',target='home'){
     // Update the ledger and the native total together, before any Society.sync can run.
-    const n=this.count(cohorts);s.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));s.game.population+=n;if(source==='dispersed')s.civilization.urban.admitted+=n;CivilSociety.sync(s);return n;
+    let n;
+    if(target==='home'){n=this.count(cohorts);s.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));s.game.population+=n;CivilSociety.sync(s);}
+    else n=CivilMunicipal.admit(s,target,cohorts);
+    if(source==='dispersed')s.civilization.urban.admitted+=n;return n;
   },
   handleArrival(s){
     const u=s.civilization.urban;if(!u)return false;
@@ -80,7 +102,7 @@ var CivilUrban = {
     const added=cohorts.reduce((n,c)=>n+c.count*(c.age<18?2/3:1),0),policy=CivilRules.policies[s.civilization.policy]||CivilRules.policies.equal;
     return (CivilSociety.foodPopulation(s)+added)*.12*policy.food*(s.game.buildings.cistern?.9:1)*12;
   },
-  waiting(s){return s.civilization.urban.parties.filter(p=>['outbound','held'].includes(p.state)).flatMap(p=>p.cohorts);},
+  waiting(s,target='home'){return s.civilization.urban.parties.filter(p=>p.target===target && ['outbound','held'].includes(p.state)).flatMap(p=>p.cohorts);},
   serviceCheck(s,cohorts){
     if(!this.publicServices(s))return '公共诊疗站和学舍需要实际岗位';
     if(s.civilization.hunger || s.civilization.village.health<60)return '先恢复居民口粮和健康';
@@ -103,20 +125,29 @@ var CivilUrban = {
     const stop=reason=>{u.status=reason;return false;};
     if(!s.game.buildings.cartdepot || !s.civilization.tech.logistics)return stop('接纳需要车队场与运输组织');
     if(u.parties.length>=2 || typeof CivilRegions==='undefined' || CivilRegions.availableTransport(s)<2)return stop('等待两名运输工与返程车队');
-    const source=this.sourceId(s),beds=Math.min(8,this.availableBeds(s));if(!beds)return stop('等待空余床位');
+    const target=this.targetId(s);
+    if(!this.canAcceptTarget(s,target))return stop('目的地尚未同意接纳安排');
+    if(!this.roadOpen(s,target))return stop(this.targetName(s,target)+'的接纳道路中断或待维护');
+    const source=this.sourceId(s),beds=Math.min(8,this.availableBeds(s,target));if(!beds)return stop(this.targetName(s,target)+'等待空余床位');
     const quote=this.quote(s,source,beds,'convoy');if(!quote)return stop(source==='dispersed'?'登记的居民已全部安置':'来源需要迁居议约、留守居民与实际供养');
-    const n=quote.count,sample=quote.cohorts,all=[...this.waiting(s),...sample],cost={food:n*6,medicine:n*.2,tools:n*.2};
+    const n=quote.count,sample=quote.cohorts,all=[...this.waiting(s,target),...sample],cost={food:n*6,medicine:n*.2,tools:n*.2};
     if(!CivilRules.canPay(s,cost))return stop('待备旅费：每人6粮、0.2药品、0.2工具');
-    if((s.stores.food||0)-cost.food+1e-8<this.foodReserve(s,all))return stop('安置后须留下120秒居民口粮');
-    const reason=this.serviceCheck(s,all);if(reason)return stop(reason);
+    const homeWaiting=target==='home'?all:this.waiting(s);
+    if((s.stores.food||0)-cost.food+1e-8<this.foodReserve(s,homeWaiting))return stop('本地支付旅费后须留下120秒居民口粮');
+    if(target!=='home' && (s.civilization.regions.nodes[target].stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,target,all))return stop(this.targetName(s,target)+'须自行留下安置后120秒口粮');
+    const reason=target==='home'?this.serviceCheck(s,all):CivilMunicipal.serviceCheck(s,target,all);if(reason)return stop(reason);
     CivilRules.pay(s,cost);
-    if(!this.commitSource(s,quote,u.nextParty)){for(const [key,value]of Object.entries(cost))s.stores[key]+=value;return stop('来源名册已经变化，下一趟重新核对');}
-    u.parties.push({id:u.nextParty++,source,target:'home',state:'outbound',remaining:120,heldFor:0,cohorts:quote.cohorts,rations:n*6});u.dispatchClock=120;u.status=n+'位居民已经启程，住房已预留';return true;
+    if(!this.commitSource(s,quote,u.nextParty,target)){for(const [key,value]of Object.entries(cost))s.stores[key]+=value;return stop('来源名册已经变化，下一趟重新核对');}
+    u.parties.push({id:u.nextParty++,source,target,state:'outbound',remaining:120,heldFor:0,cohorts:quote.cohorts,rations:n*6});u.dispatchClock=120;u.status=n+'位居民前往'+this.targetName(s,target)+'，住房已预留';return true;
   },
   returnParty(s,id){
     const party=s.civilization.urban.parties.find(p=>p.id===id);
     if(!party || !['outbound','held'].includes(party.state))return false;
-    party.state='returning_people';party.remaining=120;party.heldFor=0;return true;
+    // Before reaching a remote settlement, retreat only over the section already travelled.
+    // A party already at its destination must wait for that road to reopen before returning.
+    if(party.target!=='home'){party.returnNeedsRoad=party.remaining===0;party.remaining=120-party.remaining;}
+    else party.remaining=120;
+    party.state='returning_people';party.heldFor=0;delete party.holdReason;return true;
   },
   tick(s){
     const u=s.civilization.urban;if(!u)return {populationChanged:false,storesChanged:false};
@@ -131,20 +162,39 @@ var CivilUrban = {
       }
     }
     for(const p of [...u.parties]){
-      if(p.state==='held')p.heldFor++;else p.remaining=Math.max(0,p.remaining-1);
-      if(['outbound','held'].includes(p.state) && !p.remaining){
-        const n=this.count(p.cohorts);
-        if(s.game.population+n<=CivilCatalog.capacity(s)){
-          if(!this.receive(s,p)){u.status='接纳名册等待核对';continue;}
-          p.cohorts=[];p.state='returning';p.remaining=120;p.heldFor=0;p.rations=0;u.status=n+'位居民已安置，车队正在返回';this.note(n+'位居民按名册住进了聚落。儿童、成人和老人各自留下了一行。');
-        }else {p.state='held';u.status='接纳点候床，居民仍有途中补给';if(p.heldFor>=120 || p.rations<=0)this.returnParty(s,p.id);}
-      }else if(['returning','returning_people'].includes(p.state) && !p.remaining){
-        if(p.state==='returning_people'){
-          if(p.source==='dispersed')u.source.push(...p.cohorts);else if(!CivilOrigins.returnPeople(s,p)){u.status='返程名册等待核对';continue;}
-          u.status='居民已返回原接纳点，旅费不退回';
+      const remote=p.target!=='home',name=this.targetName(s,p.target);
+      if(['outbound','held'].includes(p.state)){
+        if(p.remaining>0 && !this.roadOpen(s,p.target)){
+          p.state='held';p.holdReason='road';p.heldFor=Math.min(120,p.heldFor+1);u.status='赴'+name+'的道路中断，旅队原地待行';
+          if(p.heldFor>=120 || p.rations<=0)this.returnParty(s,p.id);
+          continue;
         }
-        u.parties.splice(u.parties.indexOf(p),1);
+        if(p.state==='held' && p.holdReason==='road'){p.state='outbound';p.heldFor=0;delete p.holdReason;}
+        if(p.state==='outbound')p.remaining=Math.max(0,p.remaining-1);
+        if(p.remaining>0)continue;
+        const n=this.count(p.cohorts);
+        let reason=!this.canAcceptTarget(s,p.target)?'acceptance':this.targetPopulation(s,p.target)+n>this.targetCapacity(s,p.target)?'housing':null;
+        if(!reason && remote && n && CivilMunicipal.serviceCheck(s,p.target,this.waiting(s,p.target)))reason='services';
+        if(reason){
+          if(p.state==='held')p.heldFor=Math.min(120,p.heldFor+1);
+          p.state='held';p.holdReason=reason;u.status=name+(reason==='housing'?'接纳点候床':'接纳点等待公共服务与安置许可');
+          if(p.heldFor>=120 || p.rations<=0)this.returnParty(s,p.id);
+          continue;
+        }
+        if(!this.receive(s,p)){u.status='接纳名册等待核对';continue;}
+        p.cohorts=[];p.state='returning';p.remaining=120;p.heldFor=0;p.rations=0;delete p.holdReason;
+        if(remote)p.returnNeedsRoad=true;
+        u.status=n+'位居民已在'+name+'安置，车队正在返回';if(n)this.note(n+'位居民按名册住进了'+name+'。儿童、成人和老人各自留下了一行。');
+        continue;
       }
+      // An empty return, or a passenger return started at the destination, cannot cross a closed road.
+      if(remote && p.returnNeedsRoad && !this.roadOpen(s,p.target)){u.status=name+'返程道路中断，车队等待修通';continue;}
+      p.remaining=Math.max(0,p.remaining-1);if(p.remaining)continue;
+      if(p.state==='returning_people'){
+        if(p.source==='dispersed')u.source.push(...p.cohorts);else if(!CivilOrigins.returnPeople(s,p)){u.status='返程名册等待核对';continue;}
+        u.status='居民已返回原接纳点，旅费不退回';
+      }
+      u.parties.splice(u.parties.indexOf(p),1);
     }
     u.dispatchClock=Math.max(0,u.dispatchClock-1);let sent=false;
     if(u.enabled && !u.dispatchClock){sent=this.dispatch(s);if(!sent)u.dispatchClock=10;}
@@ -190,7 +240,7 @@ var CivilUrban = {
   reset(){this.module=null;},
   refresh(){
     const s=State,u=s.civilization.urban;if(!u)return;
-    const sources=this.sourceIds(s),current=this.sourceId(s);
+    const sources=this.sourceIds(s),current=this.sourceId(s),targets=this.targetIds(s),target=this.targetId(s);
     if(sources.length>1){
       const select=Civilization.button('urbanSource','接纳来源：'+this.sourceName(current),'#roadPanel',()=>{
         const ids=this.sourceIds(s),at=ids.indexOf(this.sourceId(s));u.activeSource=ids[(at+1)%ids.length];u.dispatchClock=0;Engine.saveGame();this.refresh();
@@ -202,18 +252,39 @@ var CivilUrban = {
     if(!this.module){const m=this.module={onArrival(diff){document.title='街区';Engine.moveStoresView(null,diff);}};m.tab=Header.addLocation('街区','urban',m);m.panel=$('<div>').attr('id','urbanPanel').addClass('location').appendTo('#locationSlider');$('<div>').attr('id','urbanRecord').css({width:'410px',lineHeight:'1.8',marginBottom:'20px'}).appendTo(m.panel);const cols=$('<div>').css('position','relative').appendTo(m.panel);$('<div>').attr({'id':'urbanBuildBtns','data-legend':'建设：'}).appendTo(cols);$('<div>').attr('id','urbanStructures').css({position:'absolute',left:'160px',top:0,width:'150px'}).appendTo(cols);$('<div>').attr('id','urbanPlans').appendTo(m.panel);Engine.updateSlider();}
     for(const id of Object.keys(this.buildings)){const button=Room.Craftables[id]?.button;if(button?.length && button.parent().attr('id')!=='urbanBuildBtns')button.appendTo('#urbanBuildBtns');$('#building_row_'+id).hide();let row=$('#urban_count_'+id);const n=s.game.buildings[id]||0;if(n && !row.length){row=$('<div>').addClass('storeRow').attr('id','urban_count_'+id).appendTo('#urbanStructures');$('<div>').addClass('row_key').text(_(id)).appendTo(row);$('<div>').addClass('row_val').appendTo(row);$('<div>').addClass('clear').appendTo(row);}row.toggle(n>0).find('.row_val').text(n);}
     const origin=s.civilization.origins?.nodes[current],sourceText=current==='dispersed'?'沿路名册待安置 '+this.count(u.source)+' 人':this.sourceName(current)+'现存 '+this.count(origin?.cohorts||[])+' 人（含留守居民）';
-    const e=u.economy;$('#urbanRecord').text((u.city?'炉火城':u.chartered?'正式镇制':'街区')+' · 居民 '+s.game.population+' / '+CivilCatalog.capacity(s)+'，途中预留 '+this.reservedBeds(s)+' 床。'+(e?'每10秒供养余量：粮 '+Number(e.food.toFixed(2))+'，药 '+Number(e.medicine.toFixed(2))+'；儿童教学'+(e.education?'已覆盖':'不足')+'。':'')+(!u.chartered?' 镇制需要80位居民，供养、课堂与往返道路稳定180秒：'+u.townStable+'/180。':!u.city && s.civilization.tech.urbanworks?' 城市需要400位居民、健康70、低烟尘、工业实际用电4与已兑现的邻地公共项目，口粮和药品持续有余：'+u.cityStable+'/300秒。':'')+(u.registered || current!=='dispersed'?' '+sourceText+'，车队 '+u.parties.length+' 组。'+(u.enabled?u.status:'批次接纳已暂停；已启程旅队继续前行，零星到访仍按所选名册接纳。'):''));
+    const destination=target==='home'?'':' 后续批次赴'+this.targetName(s,target)+'：当地居民 '+this.targetPopulation(s,target)+' / '+this.targetCapacity(s,target)+'，预留 '+this.reservedBeds(s,target)+' 床。';
+    const e=u.economy;$('#urbanRecord').text((u.city?'炉火城':u.chartered?'正式镇制':'街区')+' · 居民 '+s.game.population+' / '+CivilCatalog.capacity(s)+'，途中预留 '+this.reservedBeds(s)+' 床。'+(e?'每10秒供养余量：粮 '+Number(e.food.toFixed(2))+'，药 '+Number(e.medicine.toFixed(2))+'；儿童教学'+(e.education?'已覆盖':'不足')+'。':'')+(!u.chartered?' 镇制需要80位居民，供养、课堂与往返道路稳定180秒：'+u.townStable+'/180。':!u.city && s.civilization.tech.urbanworks?' 城市需要400位居民、健康70、低烟尘、工业实际用电4与已兑现的邻地公共项目，口粮和药品持续有余：'+u.cityStable+'/300秒。':'')+(u.registered || current!=='dispersed'?' '+sourceText+'，车队 '+u.parties.length+' 组。'+(u.enabled?u.status:'批次接纳已暂停；已启程旅队继续前行，零星到访仍按所选名册接纳到本地。'):'')+destination);
     if(sources.length>1)$('#urbanSource').appendTo('#urbanPlans');
-    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{u.enabled=!u.enabled;u.dispatchClock=0;Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','每批最多8人，每人6粮、0.2药、0.2工具；占2运输工往返240秒，最多2组；须预留住房和120秒口粮');}
+    if(targets.length>1){
+      const select=Civilization.button('urbanTarget','接纳目的地：'+this.targetName(s,target),'#urbanPlans',()=>{const ids=this.targetIds(s),at=ids.indexOf(this.targetId(s));if(this.setTarget(s,ids[(at+1)%ids.length])){Engine.saveGame();this.refresh();}});
+      select.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode('接纳目的地：'+this.targetName(s,target)));
+      select.attr('title','只切换后续批次；已启程居民保留原目的地，零星到访仍来本地。旅费由本地支付，住房与安置供养由目的地准备。');
+    }
+    $('#urbanTarget').toggle(targets.length>1);
+    $('.urbanReturn').hide();
+    for(const party of u.parties.filter(p=>p.target!=='home' && p.state==='held')){
+      const button=Civilization.button('urbanReturn_'+party.id,'带回赴'+this.targetName(s,party.target)+'的旅队','#urbanPlans',()=>{if(this.returnParty(s,party.id)){Engine.saveGame();this.refresh();}});
+      button.addClass('urbanReturn').show().attr('title','沿已经走过的路返回原来源，旅费不退；已到目的地的旅队须等返程道路修通。');
+    }
+    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{u.enabled=!u.enabled;u.dispatchClock=0;Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','来源直接到选定聚落的接纳旅程，去返各120秒，与物资运输路线时长不同；每批最多8人，每人6粮、0.2药、0.2工具；共用本地运输工，所有目的地合计最多2组；两端各留足120秒口粮');}
   },
   validate(s){
     const u=s.civilization.urban;if(u===undefined)return;
     const obj=v=>v!==null && typeof v==='object' && !Array.isArray(v),integer=(v,min=0,max=1e8)=>Number.isInteger(v)&&v>=min&&v<=max,number=(v,min=0,max=1e8)=>Number.isFinite(v)&&v>=min&&v<=max;
     if(!obj(u)||u.schema!==1 || !['registered','enabled','chartered','city'].every(k=>typeof u[k]==='boolean') || (u.city&&!u.chartered) || !integer(u.year) || u.year!==Math.floor(s.civilization.elapsed/600))throw Error('城镇状态无效');
     if(u.activeSource!==undefined && !this.sourceIds(s).includes(u.activeSource))throw Error('接纳来源无效');
+    if(u.activeTarget!==undefined && (typeof u.activeTarget!=='string' || !this.hasTarget(s,u.activeTarget)))throw Error('接纳目的地无效');
     const cohorts=arr=>Array.isArray(arr)&&arr.length<=480&&arr.every(c=>obj(c)&&integer(c.age,0,79)&&integer(c.count,1,480)&&['human','mutant'].includes(c.identity));
     if(!cohorts(u.source)||!Array.isArray(u.parties)||u.parties.length>2||!integer(u.admitted,0,480)||!integer(u.deceased,0,480)||!integer(u.nextParty,1)||!number(u.dispatchClock,0,120)||typeof u.status!=='string'||u.status.length>200)throw Error('接纳名册无效');
-    const ids=new Set();for(const p of u.parties){if(!obj(p)||!integer(p.id,1,u.nextParty-1)||ids.has(p.id)||!this.sourceIds(s).includes(p.source)||p.target!=='home'||!['outbound','held','returning','returning_people'].includes(p.state)||!cohorts(p.cohorts)||this.count(p.cohorts)>8||!number(p.remaining,0,120)||!integer(p.heldFor,0,120)||!number(p.rations,0,48)||(p.state==='returning'&&p.cohorts.length)||(p.state==='held'&&p.remaining!==0))throw Error('在途接纳无效');ids.add(p.id);}
+    const ids=new Set();for(const p of u.parties){
+      if(!obj(p)||!integer(p.id,1,u.nextParty-1)||ids.has(p.id)||!this.sourceIds(s).includes(p.source)||typeof p.target!=='string'||!this.hasTarget(s,p.target)||!['outbound','held','returning','returning_people'].includes(p.state)||!cohorts(p.cohorts)||this.count(p.cohorts)>8||!number(p.remaining,0,120)||!integer(p.heldFor,0,120)||!number(p.rations,0,48)||(p.state==='returning'&&p.cohorts.length))throw Error('在途接纳无效');
+      if(p.holdReason!==undefined && (p.state!=='held' || !['road','housing','services','acceptance'].includes(p.holdReason)))throw Error('接纳停留原因无效');
+      if(p.state==='held' && p.remaining!==0 && (p.target==='home' || p.holdReason!=='road'))throw Error('候床与道路位置不符');
+      if(p.target!=='home' && p.state==='held' && p.holdReason===undefined)throw Error('地方接纳停留记录无效');
+      if(p.returnNeedsRoad!==undefined && (p.target==='home' || typeof p.returnNeedsRoad!=='boolean' || !['returning','returning_people'].includes(p.state)))throw Error('接纳返程位置无效');
+      if(p.target!=='home' && (p.state==='returning' && p.returnNeedsRoad!==true || p.state==='returning_people' && (typeof p.returnNeedsRoad!=='boolean' || !p.returnNeedsRoad && p.remaining>=120)))throw Error('地方返程不能越过断路');
+      ids.add(p.id);
+    }
     const ledger=this.count(u.source)+u.parties.filter(p=>p.source==='dispersed').reduce((n,p)=>n+this.count(p.cohorts),0)+u.admitted+u.deceased;
     if(ledger!==(u.registered?480:0)||(!u.registered && this.sourceIds(s).length===1 && (u.enabled||u.parties.length||u.nextParty!==1)))throw Error('迁徙人口总账不符');
     if(!number(u.townStable,0,180)||!number(u.cityStable,0,300))throw Error('城镇稳定度无效');

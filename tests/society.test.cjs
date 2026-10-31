@@ -60,7 +60,7 @@ test('birth identities come only from current reproductive cohorts, never retire
 });
 test('paid passenger reservations and newborns cannot consume the same available beds',()=>{
   const h=familySetup([{age:25,count:620}]),{s,r,ctx}=h,x=s.civilization.society;
-  s.civilization.urban.parties=[{state:'outbound',cohorts:[{age:25,count:4,identity:'human'}]}];x.births.credit=.9;const food=s.stores.food;familyYear(h);
+  s.civilization.urban.parties=[{target:'home',state:'outbound',cohorts:[{age:25,count:4,identity:'human'}]}];x.births.credit=.9;const food=s.stores.food;familyYear(h);
   assert.equal(newborns(s),0);assert.equal(s.game.population,620);assert.equal(x.births.credit,0);assert.equal(s.stores.food,food);assert.equal(ctx.CivilUrban.availableBeds(s),0);
   s.civilization.urban.parties[0].cohorts[0].count=2;familyYear(h);assert.equal(newborns(s),2);assert.equal(s.game.population+ctx.CivilUrban.reservedBeds(s),624);assert.equal(r.workforce(s),620);
 });

@@ -2,7 +2,13 @@
 var CivilOrigins={
   pendingIds:['originContact','originAgreement'],
   init(s){
-    if(s.civilization.origins!==undefined)return;
+    if(s.civilization.origins!==undefined){
+      // Existing receipts predate regional destinations; migration must not reissue residents.
+      const r=s.civilization.origins,obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
+      if(obj(r)&&obj(r.nodes))for(const n of Object.values(r.nodes))if(obj(n)&&obj(n.departures))
+        for(const d of Object.values(n.departures))if(obj(d)&&d.target===undefined)d.target='home';
+      return;
+    }
     const year=Math.floor(s.civilization.elapsed/600),cohorts=[];
     // 40 ages with 23 residents and 40 with 22: a living society, not 1800 new adult workers.
     for(let age=0;age<80;age++){
@@ -115,21 +121,24 @@ var CivilOrigins={
     }
     return null;
   },
-  commitDeparture(s,quote,partyId){
+  target(d){return d.target===undefined?'home':d.target;},
+  validTarget(s,target){return target==='home' || typeof target==='string' && typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,target);},
+  commitDeparture(s,quote,partyId,target='home'){
     const n=s.civilization.origins?.nodes[quote?.originId];
     if(!n || !Number.isInteger(partyId)||partyId<1 || n.departures['p'+partyId] || quote.revision!==n.revision)return false;
+    if(!this.validTarget(s,target) || target!=='home' && (quote.mode==='singleton' || !CivilMunicipal.canAccept(s,target)))return false;
     const fresh=this.quoteParty(s,quote.originId,quote.count,{mode:quote.mode});
     if(!fresh || JSON.stringify(fresh.cohorts)!==JSON.stringify(quote.cohorts) || fresh.count!==quote.count)return false;
     const next=n.cohorts.map(c=>({...c}));
     for(const item of quote.cohorts){const c=next.find(c=>c.cohortId===item.cohortId);if(!c || c.age!==item.age || c.identity!==item.identity || c.count<item.count)return false;c.count-=item.count;}
     n.cohorts=next.filter(c=>c.count>0);n.population=CivilPopulation.count(n.cohorts);n.revision++;
-    n.departures['p'+partyId]={partyId,status:'travel',initial:quote.count,alive:quote.count,dead:0,mode:quote.mode,deathsByYear:{},
+    n.departures['p'+partyId]={partyId,target,status:'travel',initial:quote.count,alive:quote.count,dead:0,mode:quote.mode,deathsByYear:{},
       cohorts:quote.cohorts.map(c=>({...c})),startedYear:s.civilization.urban?.year ?? n.year,closedYear:null};
     this.assign(s,quote.originId);return true;
   },
   departure(s,party){
     const n=s.civilization.origins?.nodes[party?.source],d=n?.departures['p'+party?.id];
-    return n && d && party.target==='home'?{n,d}:null;
+    return n && d && this.validTarget(s,this.target(d)) && party.target===this.target(d)?{n,d}:null;
   },
   expected(d,year){return d.cohorts.map(c=>({...c,age:c.age+year-d.startedYear})).filter(c=>c.age<80);},
   sameCohorts(a,b){
@@ -232,6 +241,8 @@ var CivilOrigins={
       let arrived=0,dead=0,travel=0;
       for(const [key,d]of Object.entries(n.departures)){
         if(!obj(d)||!int(d.partyId)||d.partyId<1||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,8)||!d.initial||!int(d.alive,8)||!int(d.dead,8)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(r.introducedAt/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||d.cohorts.length>8)throw Error('来源迁出记录无效');
+        const target=this.target(d);
+        if(!this.validTarget(s,target) || d.mode==='singleton' && target!=='home')throw Error('来源迁出目的地无效');
         const originals=new Set();
         for(const c of d.cohorts){if(!obj(c)||typeof c.cohortId!=='string'||!c.cohortId.startsWith(id+'_')||originals.has(c.cohortId)||!int(c.age,79)||!int(c.count,8)||!c.count||!['human','mutant'].includes(c.identity)||c.originId!==id)throw Error('迁出原始名册无效');originals.add(c.cohortId);}
         if(CivilPopulation.count(d.cohorts)!==d.initial || d.status==='travel' && d.closedYear!==null || d.status!=='travel' && (!int(d.closedYear,year)||d.closedYear<d.startedYear))throw Error('迁出时间记录无效');
@@ -243,8 +254,8 @@ var CivilOrigins={
         }
         if(perYear!==d.dead)throw Error('在途死亡计数不符');
         const parties=(u.parties||[]).filter(p=>p.source===id&&p.id===d.partyId);
-        if(d.status==='travel' && (d.mode!=='convoy'||parties.length!==1||!['outbound','held','returning_people'].includes(parties[0].state)||parties[0].target!=='home'||!this.sameCohorts(parties[0].cohorts,expected)) ||
-          d.status==='arrived' && (parties.length>1||parties.some(p=>d.mode!=='convoy'||p.state!=='returning'||p.target!=='home'||p.cohorts.length)) ||
+        if(d.status==='travel' && (d.mode!=='convoy'||parties.length!==1||!['outbound','held','returning_people'].includes(parties[0].state)||parties[0].target!==target||!this.sameCohorts(parties[0].cohorts,expected)) ||
+          d.status==='arrived' && (parties.length>1||parties.some(p=>d.mode!=='convoy'||p.state!=='returning'||p.target!==target||p.cohorts.length)) ||
           d.status==='returned' && parties.length)throw Error('来源与在途名册不符');
         dead+=d.dead;if(d.status==='arrived')arrived+=d.alive;if(d.status==='travel')travel+=d.alive;
       }

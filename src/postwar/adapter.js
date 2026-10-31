@@ -16,6 +16,7 @@ var Civilization = {
     if(typeof CivilRegions!=='undefined')CivilRegions.init(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.init(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.init(State);
+    if(typeof CivilMunicipal!=='undefined')CivilMunicipal.init(State);
   },
   init() {
     CivilClock.rate = State.civilization.speed;
@@ -101,6 +102,7 @@ var Civilization = {
     if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(typeof CivilRegions!=='undefined')CivilRegions.tick(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.tick(State);
+    if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -112,6 +114,7 @@ var Civilization = {
       else if(typeof CivilSociety!=='undefined' && CivilSociety.nextEvent(State)){c.pending=CivilSociety.nextEvent(State);this.showPending();}
       else if(typeof CivilRegions!=='undefined' && CivilRegions.nextEvent(State)){c.pending=CivilRegions.nextEvent(State);this.showPending();}
       else if(typeof CivilOrigins!=='undefined' && CivilOrigins.nextEvent(State)){c.pending=CivilOrigins.nextEvent(State);this.showPending();}
+      else if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.nextEvent(State)){c.pending=CivilMunicipal.nextEvent(State);this.showPending();}
       else if(typeof CivilUrban!=='undefined' && CivilUrban.nextEvent(State)){c.pending=CivilUrban.nextEvent(State);this.showPending();}
       else if(c.randomClock<=0 && State.game.population>0) this.randomEvent();
     }
@@ -203,7 +206,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -308,6 +311,8 @@ var Civilization = {
     if(typeof CivilRegions!=='undefined')CivilRegions.refresh();
     if(typeof CivilUrban!=='undefined')CivilUrban.refresh();
     if(typeof CivilOrigins!=='undefined')CivilOrigins.refresh();
+    if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
+    $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
     CivilClock.stop(); $('*').stop(true,true);
@@ -318,6 +323,7 @@ var Civilization = {
     if(typeof CivilRegions!=='undefined')CivilRegions.reset();
     if(typeof CivilUrban!=='undefined')CivilUrban.reset();
     if(typeof CivilOrigins!=='undefined')CivilOrigins.reset();
+    if(typeof CivilMunicipal!=='undefined')CivilMunicipal.reset();
     $('.menu,#notifications,#event,#eventblocker').remove();$('#main').html('<div id="header"></div>');
     Engine.init({state});
   }

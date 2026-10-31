@@ -129,22 +129,22 @@ test('natural powered town reloads the third leader, expanded services and a sus
 });
 
 test('regional and urban modules upgrade a natural powered save without gifts and reject explicitly malformed optional state',()=>{
- const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/platform.js']);
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
  const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8'));
  const population=s.game.population,stores=JSON.stringify(s.stores);
- for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins'])ctx[name].init(s);
+ for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal'])ctx[name].init(s);
  assert.equal(s.game.population,population);assert.equal(JSON.stringify(s.stores),stores);
  ctx.CivilPlatform.validate(s);ctx.State=s;
  const resumed=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());
  assert.equal(JSON.stringify(resumed.civilization.regions),JSON.stringify(s.civilization.regions));
  assert.equal(JSON.stringify(resumed.civilization.urban),JSON.stringify(s.civilization.urban));
- for(const field of ['society','industry','regions','urban','origins'])for(const value of [null,false,0,[]]){
+ for(const field of ['society','industry','regions','urban','origins','municipal'])for(const value of [null,false,0,[]]){
   const bad=structuredClone(s);bad.civilization[field]=value;assert.throws(()=>ctx.CivilPlatform.validate(bad),field+' must reject '+JSON.stringify(value));
  }
 });
 
 test('unaltered natural town charter retains finite families, separate neighbours, fulfilled public works and cargo in transit',()=>{
- const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/platform.js']);
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
  const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-chartered-town.json'),'utf8')),c=s.civilization;
  assert.equal(s.game.population,92);assert.equal(c.urban.chartered,true);assert.equal(c.urban.city,false);
  assert.equal(c.urban.admitted,46);assert.equal(ctx.CivilUrban.count(c.urban.source),434);assert.equal(c.urban.parties.length,0);
@@ -160,7 +160,7 @@ test('unaltered natural town charter retains finite families, separate neighbour
 });
 
 test('natural regional growth preserves paid births, three freight routes and two independently reserved passenger crews',()=>{
- const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/platform.js']);
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
  const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-regional-growth.json'),'utf8')),c=s.civilization;
  assert.equal(s.game.population,246);assert.equal(ctx.CivilSociety.workforce(s),162);assert.equal(c.society.generation,5);assert.equal(c.society.births.scaled,true);assert.ok(c.society.births.credit>0);
  assert.equal(ctx.CivilUrban.count(c.urban.source),295);assert.equal(c.urban.admitted,177);assert.equal(ctx.CivilUrban.reservedBeds(s),8);
@@ -173,7 +173,7 @@ test('natural regional growth preserves paid births, three freight routes and tw
 });
 
 test('the unaltered natural first city retains its sixth leader, earned charter and finite population ledger after reload',()=>{
- const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/platform.js']);
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
  const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-city.json'),'utf8')),c=s.civilization,u=c.urban;
  assert.equal(s.game.population,450);assert.equal(ctx.CivilSociety.workforce(s),305);assert.equal(c.society.generation,6);assert.equal(c.society.history.length,5);
  assert.equal(u.city,true);assert.equal(u.chartered,true);assert.equal(u.cityStable,300);assert.equal(ctx.CivilUrban.developmentReady(s,true),true);
@@ -188,14 +188,31 @@ test('the unaltered natural first city retains its sixth leader, earned charter 
 });
 
 test('natural river-network migration reloads the same source, paid permit and two distinct passenger receipts',()=>{
- const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/platform.js']);
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
  const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-origin-migration.json'),'utf8')),c=s.civilization,u=c.urban,n=c.origins.nodes.river_network;
  assert.equal(s.game.population,508);assert.equal(ctx.CivilSociety.workforce(s),373);assert.equal(c.society.generation,6);assert.equal(u.city,true);assert.equal(ctx.CivilUrban.sourceId(s),'river_network');
  assert.equal(n.population,1816);assert.equal(n.born,58);assert.equal(n.sourceDeaths,22);assert.equal(n.transitDeaths,0);assert.equal(n.admitted,12);assert.equal(n.permit.paid,true);
  assert.equal(ctx.CivilOrigins.inTransit(n),8);assert.equal(ctx.CivilOrigins.remaining(s,'river_network'),1060);assert.equal(ctx.CivilUrban.reservedTransport(s),4);
  assert.equal(u.admitted,369);assert.equal(u.deceased,5);assert.equal(ctx.CivilUrban.count(u.source),106);
  assert.equal(u.parties[0].id,39);assert.equal(u.parties[0].state,'returning');assert.equal(u.parties[1].id,42);assert.equal(u.parties[1].remaining,110);
+ ctx.CivilOrigins.init(s);assert.ok(Object.values(n.departures).every(p=>p.target==='home'));
  const before=JSON.stringify(s);for(const module of ['CivilSociety','CivilRegions','CivilUrban','CivilOrigins'])ctx[module].init(s);assert.equal(JSON.stringify(s),before);
  ctx.State=s;const restored=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());assert.equal(JSON.stringify(restored.civilization.origins),JSON.stringify(c.origins));
  const broken=structuredClone(s);broken.civilization.urban.parties.pop();assert.throws(()=>ctx.CivilPlatform.validate(broken),'a source receipt cannot silently lose its real passengers');
+});
+
+test('unaltered natural municipal construction retains paid local facilities, in-flight materials and actual builder time',()=>{
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/platform.js']);
+ const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-municipal-construction.json'),'utf8')),c=s.civilization,m=c.municipal.nodes;
+ assert.equal(c.elapsed,28508);assert.equal(s.game.population,524);assert.equal(c.society.generation,7);
+ assert.equal(c.regions.nodes.river.population,24);assert.equal(c.regions.nodes.rail.population,44);assert.equal(c.regions.nodes.highland.population,28);
+ assert.equal(m.river.buildings.farmland,1);assert.equal(m.river.buildings.clinic,1);assert.equal(m.river.completed.length,2);
+ assert.equal(m.rail.buildings.farmland,1);assert.equal(m.rail.project.id,2);assert.equal(m.rail.project.status,'supplying');assert.equal(Object.keys(m.rail.project.buffer).length,0);
+ assert.equal(m.highland.project.status,'building');assert.equal(m.highland.project.remaining,60);assert.equal(c.regions.nodes.highland.workers.builder,2);
+ const materials=c.regions.shipments.find(p=>p.route==='rail');assert.equal(materials.purpose,'municipal');assert.equal(materials.projectId,2);assert.equal(materials.cargo.wood,64);assert.equal(materials.remaining,66);
+ const returning=c.regions.shipments.find(p=>p.route==='highland');assert.equal(returning.phase,'empty');assert.equal(returning.remaining,1);
+ assert.equal(Object.values(m).some(n=>n.town||n.city),false);assert.equal(c.origins.nodes.river_network.admitted,28);
+ const before=JSON.stringify(s);for(const name of ['CivilSociety','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal'])ctx[name].init(s);assert.equal(JSON.stringify(s),before);
+ ctx.State=s;const loaded=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());assert.equal(JSON.stringify(loaded.civilization.municipal),JSON.stringify(c.municipal));
+ const bad=structuredClone(s);bad.civilization.municipal.nodes.river.buildings.residential=1;assert.throws(()=>ctx.CivilPlatform.validate(bad),'unpaid facilities cannot be added on import');
 });

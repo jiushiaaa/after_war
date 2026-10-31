@@ -11,10 +11,16 @@ function harness(){
 }
 function tick(h,seconds){for(let i=0;i<seconds;i++){h.s.civilization.elapsed++;if(h.s.civilization.elapsed%10===0)h.o.settle(h.s);h.s.civilization.urban.year=Math.floor(h.s.civilization.elapsed/600);h.o.tick(h.s);}}
 function contact(h,agree=false){assert.equal(h.o.beginContact(h.s),true);tick(h,240);if(agree)assert.equal(h.o.agree(h.s),true);return h;}
-function depart(h,mode='convoy',max=8){
+function municipal(h){
+  h.s.civilization.municipal={nodes:{river:{admitted:0},rail:{admitted:0}}};
+  h.s.civilization.regions={nodes:{river:{relation:'associated',population:60},rail:{relation:'integrated',population:32}}};
+  h.ctx.CivilMunicipal={has:(s,id)=>Object.hasOwn(s.civilization.municipal.nodes,id),canAccept:(s,id)=>['associated','integrated'].includes(s.civilization.regions.nodes[id]?.relation)};
+  return h;
+}
+function depart(h,mode='convoy',max=8,target='home'){
   const q=h.o.quoteParty(h.s,'river_network',max,{mode});if(!q)return null;
-  const u=h.s.civilization.urban,id=u.nextParty++;assert.equal(h.o.commitDeparture(h.s,q,id),true);
-  const party={id,source:'river_network',target:'home',cohorts:q.cohorts.map(c=>({...c})),state:'outbound',remaining:120};
+  const u=h.s.civilization.urban,id=u.nextParty++;assert.equal(h.o.commitDeparture(h.s,q,id,target),true);
+  const party={id,source:'river_network',target,cohorts:q.cohorts.map(c=>({...c})),state:'outbound',remaining:120};
   if(mode==='convoy')u.parties.push(party);return party;
 }
 function admit(h,party){assert.equal(h.o.recordArrival(h.s,party),true);if(party.state){party.cohorts=[];party.state='returning';}return party;}
@@ -54,6 +60,48 @@ test('arrival and return settle source ledgers only once and do not grant home r
 });
 test('a singleton has a real departure receipt but no persistent travel party after its atomic arrival',()=>{
   const h=contact(harness()),{s,o,n}=h,p=depart(h,'singleton',1);assert.equal(o.recordArrival(s,p),true);assert.equal(n.admitted,1);assert.equal(s.game.population,0);assert.equal(s.civilization.urban.parties.length,0);assert.doesNotThrow(()=>o.validate(s));
+});
+test('regional departures require an agreed destination at commitment without changing the source quote or charging stores',()=>{
+  const h=contact(municipal(harness()),true),{s,o,n}=h,q=o.quoteParty(s,'river_network',8,{mode:'convoy'}),before=JSON.stringify(s);
+  for(const target of [null,false,0,'','unknown','river_network']){assert.equal(o.commitDeparture(s,q,1,target),false);assert.equal(JSON.stringify(s),before);}
+  s.civilization.regions.nodes.river.relation='trade';const inactive=JSON.stringify(s);assert.equal(o.commitDeparture(s,q,1,'river'),false);assert.equal(JSON.stringify(s),inactive);
+  const singleton=o.quoteParty(s,'river_network',1,{mode:'singleton'});assert.equal(o.commitDeparture(s,singleton,1,'rail'),false);assert.equal(JSON.stringify(s),inactive);
+  s.civilization.regions.nodes.river.relation='associated';const stock=JSON.stringify(s.stores),party=depart(h,'convoy',8,'river');
+  assert.equal(n.departures.p1.target,'river');assert.equal(n.population,1792);assert.equal(JSON.stringify(s.stores),stock);assert.equal(party.target,'river');assert.doesNotThrow(()=>o.validate(s));
+  const withoutModule=contact(harness(),true),quote=withoutModule.o.quoteParty(withoutModule.s,'river_network',8,{mode:'convoy'}),snapshot=JSON.stringify(withoutModule.s);
+  assert.equal(withoutModule.o.commitDeparture(withoutModule.s,quote,1,'river'),false);assert.equal(JSON.stringify(withoutModule.s),snapshot);
+});
+test('regional arrivals count the source boundary once without writing home or destination residents and cannot be redirected',()=>{
+  const h=contact(municipal(harness()),true),{s,o,n}=h,party=depart(h,'convoy',8,'river'),before=JSON.stringify(s),local=JSON.stringify([s.game,s.stores,s.civilization.regions,s.civilization.municipal]);
+  for(const target of ['home','rail']){const diverted={...party,target};assert.equal(o.recordArrival(s,diverted),false);assert.equal(o.returnPeople(s,diverted),false);assert.equal(JSON.stringify(s),before);}
+  assert.equal(o.recordArrival(s,party),true);assert.equal(n.admitted,8);assert.equal(o.recordArrival(s,party),false);assert.equal(o.returnPeople(s,party),false);assert.equal(JSON.stringify([s.game,s.stores,s.civilization.regions,s.civilization.municipal]),local);
+  party.cohorts=[];party.state='returning';assert.doesNotThrow(()=>o.validate(s));
+  const wrong=structuredClone(s);wrong.civilization.urban.parties[0].target='rail';assert.throws(()=>o.validate(wrong));
+  s.civilization.urban.parties=[];assert.doesNotThrow(()=>o.validate(s));assert.equal(n.admitted,8);
+});
+test('a regional party ages once and returns living passengers to its source after destination eligibility is lost',()=>{
+  const h=contact(municipal(harness()),true),{s,o,n,p}=h;n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));const party=depart(h,'convoy',8,'river');
+  s.civilization.regions.nodes.river.relation='trade';s.civilization.elapsed=600;o.annual(s,'river_network');s.civilization.urban.year=1;
+  const aged=p.age(party.cohorts),before=JSON.stringify(s);assert.equal(aged.deceased,1);assert.equal(o.recordTransitDeath(s,{...party,target:'rail'},1),false);assert.equal(JSON.stringify(s),before);
+  assert.equal(o.recordTransitDeath(s,party,1),true);party.cohorts=aged.cohorts;party.state='returning_people';assert.doesNotThrow(()=>o.validate(s));
+  const population=n.population,local=JSON.stringify([s.game,s.stores,s.civilization.regions,s.civilization.municipal]);
+  assert.equal(o.returnPeople(s,party),true);assert.equal(n.population,population+7);assert.equal(n.transitDeaths,1);assert.equal(n.admitted,0);assert.equal(n.departures.p1.target,'river');assert.equal(party.target,'river');assert.equal(o.returnPeople(s,party),false);
+  assert.equal(JSON.stringify([s.game,s.stores,s.civilization.regions,s.civilization.municipal]),local);s.civilization.urban.parties=[];assert.doesNotThrow(()=>o.validate(s));assert.equal(o.remaining(s,'river_network'),1079);
+});
+test('imports reject explicit invalid or mismatched destinations but accept historical municipal receipts during service loss',()=>{
+  const h=contact(municipal(harness()),true),{s,o}=h;depart(h,'convoy',8,'river');
+  for(const target of [null,false,0,'','unknown','river_network','home','rail']){const bad=structuredClone(s);bad.civilization.origins.nodes.river_network.departures.p1.target=target;assert.throws(()=>o.validate(bad));}
+  const missing=structuredClone(s);delete missing.civilization.origins.nodes.river_network.departures.p1.target;assert.throws(()=>o.validate(missing),'legacy home receipt cannot bind regional passengers');
+  s.civilization.regions.nodes.river.relation='trade';assert.doesNotThrow(()=>o.validate(s));const saved=JSON.parse(JSON.stringify(s)),before=JSON.stringify(saved);o.init(saved);assert.equal(JSON.stringify(saved),before);assert.doesNotThrow(()=>o.validate(saved));
+});
+test('the natural 508-resident save accepts missing home targets and migrates only destination receipts once',()=>{
+  const {o}=harness(),s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-origin-migration.json'),'utf8')).state,expected=structuredClone(s);
+  assert.equal(s.game.population,508);assert.doesNotThrow(()=>o.validate(s));
+  for(const d of Object.values(expected.civilization.origins.nodes.river_network.departures))d.target='home';
+  o.init(s);assert.deepEqual(s,expected);assert.doesNotThrow(()=>o.validate(s));const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);
+  const restored=JSON.parse(JSON.stringify(s));o.init(restored);assert.equal(JSON.stringify(restored),before);assert.doesNotThrow(()=>o.validate(restored));
+  const legacy=structuredClone(s);for(const d of Object.values(legacy.civilization.origins.nodes.river_network.departures))delete d.target;
+  const party=legacy.civilization.urban.parties.find(p=>p.state==='outbound');assert.equal(o.recordArrival(legacy,party),true);party.cohorts=[];party.state='returning';assert.equal(legacy.game.population,508);assert.equal(legacy.civilization.origins.nodes.river_network.admitted,20);assert.doesNotThrow(()=>o.validate(legacy));
 });
 test('old ages are aged by Urban exactly once; equal death counts in successive years have separate receipts',()=>{
   const h=contact(harness(),true),{s,o,n,p}=h;

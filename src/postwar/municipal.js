@@ -1,0 +1,242 @@
+/* MPL-2.0 — Local construction and economy; Regions alone owns residents, stores and workers. */
+var CivilMunicipal={
+  pendingIds:['municipalConsent_river','municipalConsent_rail','municipalConsent_highland','municipalTown_river','municipalTown_rail','municipalTown_highland','municipalCity_river','municipalCity_rail','municipalCity_highland'],
+  init(s){if(s.civilization.municipal===undefined)s.civilization.municipal={schema:1,nodes:{}};},
+  has(s,id){const nodes=s.civilization.municipal?.nodes;return typeof id==='string'&&Object.hasOwn(CivilRegionContent,id)&&!!nodes&&Object.hasOwn(nodes,id)&&!!nodes[id];},
+  node(s,id){return s.civilization.regions?.nodes[id];},
+  data(s,id){return s.civilization.municipal?.nodes[id];},
+  eligible(s,id){const n=this.node(s,id);return !!(s.civilization.urban?.city && s.civilization.tech.urbanworks && n?.completedProjects.publicWorks && ['associated','integrated'].includes(n.relation));},
+  activate(s,id){
+    this.init(s);if(this.has(s,id)||!this.eligible(s,id)||!CivilRules.pay(s,CivilMunicipalContent.agreementCost))return false;
+    const n=this.node(s,id),baseWorkers={};
+    for(const [job,count]of Object.entries(n.workers))if(job!=='builder' && count)baseWorkers[job]=count;
+    s.civilization.municipal.nodes[id]={agreedAt:s.civilization.elapsed,baseHousing:CivilRegionContent[id].population+12,baseWorkers,buildings:{},nextProject:1,project:null,completed:[],town:false,city:false,townStable:0,cityStable:0,pollution:0,power:{generation:0,used:0,demand:0},economy:null};
+    this.planWorkers(s,id);return true;
+  },
+  capacity(s,id){const m=this.data(s,id);return m?m.baseHousing+(m.buildings.residential||0)*24+(m.buildings.blockhousing||0)*96:CivilRegionContent[id]?.population+(this.node(s,id)?.completedProjects.publicWorks?12:0);},
+  legacyJobLimits(id){
+    const cfg=CivilRegionContent[id],maxPopulation=cfg.population+12,limits={...cfg.workers,...cfg.service};
+    limits.medic=Math.max(limits.medic||0,Math.ceil((maxPopulation*.01+(cfg.back.medicine||0)*10/(cfg.travel*2+10))/.15));
+    limits.farmer+=Math.ceil(Math.max(0,12*.12+(limits.medic-(cfg.service.medic||cfg.workers.medic||0))*.2)/.8);
+    return limits;
+  },
+  jobCapacity(s,id){
+    const m=this.data(s,id);if(!m)return {};
+    const result={...m.baseWorkers};for(const [key,count]of Object.entries(m.buildings))for(const [job,cap]of Object.entries(CivilMunicipalContent.facilities[key].jobs||{}))result[job]=(result[job]||0)+count*cap;
+    result.builder=m.project?.status==='building'?2:0;return result;
+  },
+  canAccept(s,id){return this.has(s,id) && ['associated','integrated'].includes(this.node(s,id)?.relation);},
+  tradeExports(s,id){
+    const route=s.civilization.regions?.routes[id],out={};if(route?.enabled && route.assigned>=2)for(const [key,value]of Object.entries(CivilRegionContent[id].back))out[key]=value*10/(route.travel*2+10);
+    return out; // Conservative: never treat an expected delivery from home as local production.
+  },
+  planWorkers(s,id){
+    const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
+    const cap=this.jobCapacity(s,id),base=m.baseWorkers,exp=this.tradeExports(s,id),desired={},p=n.population;
+    const positive=(job,value)=>Math.min(cap[job]||0,Math.max(base[job]||0,Math.ceil(value)));
+    desired.medic=positive('medic',(p*.01+(exp.medicine||0)+.15)/.15);
+    desired.teacher=positive('teacher',CivilPopulation.children(n.cohorts)/20);
+    desired.farmer=positive('farmer',(CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+(exp.food||0)+.5+(base.farmer||0)*.6)/1.4);
+    for(const job of ['miner','collier','smelter','machinist'])desired[job]=positive(job,Math.max(2,Math.ceil(p/100)));
+    desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0))/4);
+    const toolNeed=Math.max(0,desired.farmer-(base.farmer||0))*.01+(desired.miner+desired.collier)*.03+(desired.smelter+desired.machinist)*.01;
+    desired.smith=positive('smith',(toolNeed+.05)/.25);
+    desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
+    desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0))/.5+1);
+    desired.builder=cap.builder;
+    let left=CivilPopulation.workforce(n.cohorts);n.workers={};
+    for(const job of ['farmer','medic','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    return n.workers;
+  },
+  pay(stores,cost){if(Object.entries(cost).some(([key,n])=>(stores[key]||0)+1e-8<n))return false;for(const [key,n]of Object.entries(cost))stores[key]=Math.max(0,(stores[key]||0)-n);return true;},
+  settleNode(s,id){
+    const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
+    this.planWorkers(s,id);const st=n.stores,w=n.workers,base=m.baseWorkers,b=m.buildings,before={...st},produced={},ran={};
+    const factor=(n.health<30?.75:1)*((st.food||0)<CivilPopulation.foodPopulation(n.cohorts)*.12?.65:1);
+    const run=(label,count,cost,output,reserve={})=>{
+      let batches=count;for(const [key,value]of Object.entries(cost))batches=Math.min(batches,Math.floor((Math.max(0,(st[key]||0)-(reserve[key]||0))+1e-8)/value));
+      this.pay(st,Object.fromEntries(Object.entries(cost).map(([key,v])=>[key,v*batches])));
+      for(const [key,v]of Object.entries(output)){const amount=v*batches*factor;st[key]=(st[key]||0)+amount;produced[key]=(produced[key]||0)+amount;}
+      ran[label]=(ran[label]||0)+batches;return batches;
+    };
+    const old=job=>Math.min(w[job]||0,base[job]||0),added=job=>Math.max(0,(w[job]||0)-old(job));
+    run('gatherer',w.gatherer||0,{}, {wood:.5});run('salvager',w.salvager||0,{}, {scrap:.8});run('smith',w.smith||0,{wood:.2,scrap:.6},{tools:.25});
+    run('farmer',old('farmer'),{},{food:.8});run('farmer',added('farmer'),{tools:.01},{food:1.4});
+    const meal=CivilPopulation.foodPopulation(n.cohorts)*.12,ate=this.pay(st,{food:meal});if(!ate)st.food=0;
+    run('medic',old('medic'),{food:.2,scrap:.1,...(id==='highland'?{coal:.01}:{})},{medicine:.15});
+    run('medic',added('medic'),{food:.2,scrap:.1},{medicine:.15});
+    run('teacher',w.teacher||0,{wood:.1},{knowledge:.2});
+    run('legacySmelter',old('smelter'),{scrap:1,coal:.2,tools:.01},{iron:.6});
+    run('legacyMachinist',old('machinist'),{iron:.5,scrap:.2,tools:.01},{parts:.3},{iron:CivilRegionContent[id].back.iron||0});
+    const mine=run('miner',added('miner'),{tools:.03},{ore:1.2}),coal=run('collier',added('collier'),{tools:.03},{coal:1});
+    const smelt=run('smelter',added('smelter'),{ore:1.2,coal:.6,tools:.01},{iron:.6});
+    const generators=run('electrician',added('electrician'),{coal:.6,parts:.02},{}),machines=added('machinist');
+    m.power={generation:generators*4*factor,used:0,demand:machines*2+(b.scrubber?1:0)};let power=m.power.generation,scrubbed=false;
+    if(b.scrubber && power>=1 && this.pay(st,{wood:.2,parts:.01})){power--;m.power.used++;scrubbed=true;}
+    const powered=run('poweredMachine',Math.min(machines,Math.floor((power+1e-8)/2)),{iron:.5,scrap:.2,tools:.01},{parts:.5});
+    m.power.used+=powered*2;const manual=run('manualMachine',machines-powered,{iron:.5,scrap:.2,tools:.01},{parts:.3});
+    m.pollution=Math.max(0,Math.min(100,m.pollution+smelt*.05+generators*.03-(scrubbed?.4:.02)));
+    const care=n.population*.01,treated=(w.medic||0)>0 && this.pay(st,{medicine:care});
+    n.health=Math.max(0,Math.min(100,n.health+(ate&&treated?.25:ate?-.02:-.4)-(m.pollution>=40?.05*(1+m.pollution/50):0)));
+    n.unrest=Math.max(0,Math.min(100,n.unrest+(ate?-.02:.1)+(CivilRegions.load(s)>CivilRegions.capacity(s)?.1:0)));
+    const deltas={};for(const key of new Set([...Object.keys(before),...Object.keys(st)]))deltas[key]=(st[key]||0)-(before[key]||0);
+    const exports=this.tradeExports(s,id),previousAt=m.economy?.at;
+    m.economy={at:s.civilization.elapsed,food:(deltas.food||0)-(exports.food||0),medicine:(deltas.medicine||0)-(exports.medicine||0),
+      treatment:ate&&treated&&(produced.medicine||0)+1e-8>=care,education:CivilPopulation.children(n.cohorts)<=(ran.teacher||0)*20,
+      productivePower:powered*2,industry:mine>0&&coal>0&&smelt>0&&powered+manual>0,deltas};
+    if(previousAt!==s.civilization.elapsed){m.townStable=this.developmentReady(s,id)?Math.min(180,m.townStable+10):0;m.cityStable=this.developmentReady(s,id,true)?Math.min(300,m.cityStable+10):0;}
+    return {};
+  },
+  foodReserve(s,id,cohorts=[]){return (CivilPopulation.foodPopulation(this.node(s,id).cohorts)+CivilPopulation.foodPopulation(cohorts))*.12*12;},
+  forecast(s,id,cohorts=[]){
+    if(!this.has(s,id))return {reason:'地方尚未同意市政工程'};
+    const copy=JSON.parse(JSON.stringify(s)),n=this.node(copy,id);n.cohorts.push(...cohorts.map(c=>({...c})));n.population=CivilPopulation.count(n.cohorts);
+    this.settleNode(copy,id);const e=this.data(copy,id).economy;
+    return {copy,deltas:{...e.deltas},food:e.food,medicine:e.medicine,education:e.education,treatment:e.treatment,productivePower:e.productivePower,industry:e.industry,reason:null};
+  },
+  serviceCheck(s,id,cohorts=[]){
+    if(!this.canAccept(s,id))return '地方尚未同意共同接纳';const n=this.node(s,id),m=this.data(s,id);
+    if(n.health<60)return '先恢复地方健康';
+    if(!(m.buildings.clinic && m.buildings.school && m.buildings.farmland))return '先建设地方田片、诊疗站和学舍';
+    if((n.stores.food||0)+1e-8<this.foodReserve(s,id,cohorts))return '地方须留下120秒居民口粮';
+    const f=this.forecast(s,id,cohorts);
+    if(!f.education)return '地方教师或教材不能覆盖新增儿童';
+    if(!f.treatment || f.medicine<-1e-8)return '地方药品生产不足以持续治疗';
+    if(f.food<-1e-8)return '地方农田与工具还不能持续供养';
+    if(s.civilization.regions.adminService===false)return '地方公共行政暂未维持';return null;
+  },
+  admit(s,id,cohorts){const n=this.node(s,id);if(!this.has(s,id)||!n)return 0;const count=CivilPopulation.count(cohorts);n.cohorts.push(...cohorts.map(c=>({...c})));n.population+=count;this.planWorkers(s,id);return count;},
+  developmentReady(s,id,city=false){
+    const n=this.node(s,id),m=this.data(s,id),e=m?.economy,r=s.civilization.regions,route=r?.routes[id];
+    if(!this.canAccept(s,id)||!e||s.civilization.elapsed-e.at>10||n.population<(city?400:80)||n.population>this.capacity(s,id)||n.health<(city?70:60)||!e.education||!e.treatment||e.food<-1e-8||e.medicine<-1e-8||r.adminService===false||!m.buildings.farmland||!m.buildings.clinic||!m.buildings.school)return false;
+    const connected=route?.enabled&&route.condition==='open'&&CivilRegions.staffedRoutes(s).has(id)&&route.completedTrips>0&&route.lastDeliveredAt!==null&&s.civilization.elapsed-route.lastDeliveredAt<=Math.max(180,route.travel*2+30);
+    if(!connected)return false;
+    return !city || !!(m.town && e.industry && e.productivePower>=4 && m.pollution<40 && (n.stores.food||0)+1e-8>=this.foodReserve(s,id) && n.stores.tools>=40 && n.stores.iron>=40 && n.stores.parts>=20);
+  },
+  facilityGate(s,id,type){
+    const m=this.data(s,id),d=CivilMunicipalContent.facilities[type];if(!m||!d||!this.canAccept(s,id)||(m.buildings[type]||0)>=d.max)return false;
+    const b=m.buildings,t=s.civilization.tech;
+    if(type==='residential')return !!(b.farmland&&b.clinic&&b.school);
+    if(type==='blockhousing')return !!(m.town&&b.farmland&&b.clinic&&b.school);
+    if(['mine','coalpit'].includes(type))return !!(m.town&&t.mining&&t.survey);
+    if(type==='furnace')return !!(b.mine&&b.coalpit&&t.furnace);
+    if(type==='machineworks')return !!(b.furnace&&t.mechanics);
+    if(type==='powerhouse')return !!(b.machineworks&&t.power);
+    if(type==='scrubber')return !!(b.powerhouse&&t.water);
+    return true;
+  },
+  startProject(s,id,type){
+    const m=this.data(s,id),d=CivilMunicipalContent.facilities[type];
+    if(!this.facilityGate(s,id,type)||m.project&&m.project.status!=='complete')return false;
+    m.project={id:m.nextProject++,type,status:'supplying',required:{...d.cost},buffer:{},remaining:0,receipts:[]};
+    this.planWorkers(s,id);return true;
+  },
+  nextCargo(s,id,capacity){
+    const m=this.data(s,id),p=m?.project;if(!p||p.status!=='supplying'||!Number.isFinite(capacity)||capacity<=0)return null;
+    const inflight={};for(const shipment of s.civilization.regions.shipments)if(shipment.purpose==='municipal'&&shipment.route===id&&shipment.projectId===p.id&&shipment.phase==='outbound')for(const [key,n]of Object.entries(shipment.cargo))inflight[key]=(inflight[key]||0)+n;
+    let room=Math.min(64,capacity);const cargo={};
+    for(const [key,required]of Object.entries(p.required)){
+      const count=Math.min(room,Math.max(0,required-(p.buffer[key]||0)-(inflight[key]||0)),s.stores[key]||0);
+      if(count>0){cargo[key]=count;room-=count;}
+    }
+    return Object.keys(cargo).length?{projectId:p.id,cargo}:null;
+  },
+  receiveCargo(s,id,cargo,projectId){
+    const m=this.data(s,id),p=m?.project;if(!p||p.id!==projectId||p.status!=='supplying')return false;
+    const shipment=s.civilization.regions.shipments.find(x=>x.route===id&&x.projectId===projectId&&x.purpose==='municipal'&&x.cargo===cargo&&x.phase==='outbound'&&x.source==='home'&&x.target===id&&x.status==='moving'&&x.remaining===0);
+    if(!shipment||p.receipts.includes(shipment.id)||!Object.keys(cargo).length||Object.entries(cargo).some(([key,n])=>!Number.isFinite(n)||n<=0||!Object.hasOwn(p.required,key)||(p.buffer[key]||0)+n>p.required[key]+1e-8))return false;
+    for(const [key,n]of Object.entries(cargo))p.buffer[key]=(p.buffer[key]||0)+n;p.receipts.push(shipment.id);
+    if(Object.entries(p.required).every(([key,n])=>(p.buffer[key]||0)+1e-8>=n)){this.pay(p.buffer,p.required);p.status='building';p.remaining=CivilMunicipalContent.facilities[p.type].duration;this.planWorkers(s,id);}
+    return true;
+  },
+  validShipment(s,shipment){
+    const m=this.data(s,shipment?.route);if(!m||shipment.purpose!=='municipal'||!Number.isInteger(shipment.projectId)||shipment.projectId<1)return false;
+    const p=m.project?.id===shipment.projectId?m.project:null,completed=m.completed.find(x=>x.id===shipment.projectId),type=p?.type||completed?.type;if(!type)return false;
+    if(shipment.phase==='empty')return shipment.source===shipment.route&&shipment.target==='home'&&Object.values(shipment.cargo).every(n=>n===0);
+    if(!p||p.status!=='supplying'||!['outbound','returning'].includes(shipment.phase))return false;
+    const cost=CivilMunicipalContent.facilities[type].cost;
+    return Object.entries(shipment.cargo).every(([key,n])=>Object.hasOwn(cost,key)&&Number.isFinite(n)&&n>=0&&n+(p.buffer[key]||0)<=cost[key]+1e-8);
+  },
+  tick(s){
+    this.init(s);for(const [id,m]of Object.entries(s.civilization.municipal.nodes)){
+      const n=this.node(s,id),p=m.project;this.planWorkers(s,id);
+      if(p?.status==='building' && this.canAccept(s,id) && n.health>=30 && n.workers.builder>=2){
+        p.remaining=Math.max(0,p.remaining-1);
+        if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;m.completed.push({id:p.id,type:p.type,completedAt:s.civilization.elapsed});this.planWorkers(s,id);this.note(CivilRegionContent[id].name+'的'+CivilMunicipalContent.facilities[p.type].name+'已经建成。当地居民开始接管新的设施。');}
+      }
+    }
+    return {storesChanged:false,populationChanged:false};
+  },
+  nextEvent(s){
+    for(const [id,m]of Object.entries(s.civilization.municipal?.nodes||{})){
+      if(!m.town&&m.townStable>=180&&this.developmentReady(s,id))return 'municipalTown_'+id;
+      if(!m.city&&m.cityStable>=300&&this.developmentReady(s,id,true))return 'municipalCity_'+id;
+    }
+    return null; // Consent is a deliberate native button, not an unsolicited automatic annexation.
+  },
+  event(eventId,done){
+    const match=/^municipal(Consent|Town|City)_(river|rail|highland)$/.exec(eventId);if(!match)return null;
+    const [,kind,id]=match,s=State,n=this.node(s,id),m=this.data(s,id);if(!n)return null;
+    const title=CivilRegionContent[id].name;
+    if(kind==='Consent'){
+      if(!this.eligible(s,id)||m)return null;
+      return {title:title+'的城市工程议约',text:['地方代表带来了新的营建计划。田地、诊疗与课堂需要扩建，居民也想为更多家庭留出住处。','整理图纸与公共约定需要20知识。先登记约定，再从炉火城运来建材，由当地居民施工。','大家决定先修农田、诊疗站和学舍，再筹办新的住宅与工坊。'],buttons:{agree:{text:'登记市政议约（20知识）',nextScene:'end',onChoose:()=>{const ok=this.activate(s,id);return done(ok?title+'同意了营建计划，代表开始核对第一批建材。':'议约尚未完成，代表留下图纸等待商议。')();}},later:{text:'暂缓议约',nextScene:'end',onChoose:done('代表收好图纸，约定日后再议。')}}};
+    }
+    if(!m)return null;const city=kind==='City',field=city?'city':'town',threshold=city?300:180;
+    return {title:title+(city?'的城市职责':'的镇制'),text:[city?'四百位居民住进了这片家园。田地供应口粮，诊疗与课堂照看家庭，矿井和工坊在自己的电站下运转。':'八十位居民的日常渐渐安定。口粮送进仓库，诊疗站有人值守，课堂里响起了孩子们的声音。','代表们翻开公共记录，准备把新的职责留给这一代与下一代居民。'],buttons:{record:{text:city?'登记地方城市':'登记地方镇制',nextScene:'end',onChoose:()=>{const ready=!m[field]&&m[city?'cityStable':'townStable']>=threshold&&this.developmentReady(s,id,city);return done(ready?title+'的'+(city?'城市职责':'镇制')+'已经登记。':'供养条件已有变化，恢复稳定后再登记。',()=>{if(ready)m[field]=true;})();}}}};
+  },
+  note(message){if(typeof Civilization!=='undefined'&&Civilization.notify)Civilization.notify(message);},
+  reset(){this.module=null;this.selected=null;},
+  refresh(){
+    const s=State,c=s.civilization;if(!c.urban?.city||!c.tech.urbanworks)return;
+    const ids=Object.keys(c.regions?.nodes||{}).filter(id=>this.has(s,id)||this.eligible(s,id));if(!ids.length)return;
+    if(!this.module){
+      const module=this.module={onArrival(diff){document.title='市政';Engine.moveStoresView(null,diff);}};
+      module.tab=Header.addLocation('市政','municipal',module);module.panel=$('<div>').attr('id','municipalPanel').addClass('location').appendTo('#locationSlider');
+      $('<div>').attr('id','municipalSelect').appendTo(module.panel);
+      $('<div>').attr('id','municipalStatus').css({width:'420px',lineHeight:'1.8',margin:'20px 0'}).appendTo(module.panel);
+      const columns=$('<div>').css({position:'relative',minHeight:'160px'}).appendTo(module.panel);
+      $('<div>').attr('id','municipalBuild').appendTo(columns);$('<div>').attr('id','municipalStructures').css({position:'absolute',left:'160px',top:0,width:'175px'}).appendTo(columns);
+      $('<div>').attr('id','municipalProject').css({width:'420px',lineHeight:'1.8',marginTop:'20px'}).appendTo(module.panel);Engine.updateSlider();
+    }
+    if(!ids.includes(this.selected))this.selected=ids[0];
+    for(const id of ids){const button=Civilization.button('municipalSelect_'+id,CivilRegionContent[id].name,'#municipalSelect',()=>{this.selected=id;this.refresh();});Button.setDisabled(button,this.selected===id);}
+    const id=this.selected,n=this.node(s,id),m=this.data(s,id),fmt=obj=>Object.entries(obj).filter(([,v])=>v>0).map(([key,v])=>_(key)+' '+Number(v.toFixed(2))).join('、');
+    const consent=Civilization.button('municipalConsent','商议城市工程','#municipalBuild',()=>{if(!Events.activeEvent()&&!c.pending){c.pending='municipalConsent_'+this.selected;Civilization.showPending();}},{knowledge:20});consent.toggle(!m);Button.setDisabled(consent,!!m||!CivilRules.canPay(s,{knowledge:20}));
+    $('#municipalStatus').text(CivilRegionContent[id].name+' · '+n.population+' / '+this.capacity(s,id)+'居民 · 健康'+Math.floor(n.health)+'。'+(m?(m.city?'地方城市。':m.town?'正式镇制。':'地方共同体。')+'烟尘'+Math.floor(m.pollution)+'，生产用电'+(m.economy?.productivePower||0)+' / '+Number(m.power.generation.toFixed(2))+'。'+(m.economy?'每10秒供养余量：粮'+Number(m.economy.food.toFixed(2))+'、药'+Number(m.economy.medicine.toFixed(2))+'。':''):'代表正在等待营建计划。'));
+    for(const [type,d]of Object.entries(CivilMunicipalContent.facilities)){
+      const bid='municipalBuild_'+type;let button=$('#'+bid);const show=!!m&&this.facilityGate(s,id,type);
+      if(show){button=Civilization.button(bid,'建'+d.name,'#municipalBuild',()=>{if(this.startProject(s,this.selected,type)){Engine.saveGame();this.refresh();}});button.attr('title',fmt(d.cost)+'；建材运到后，由当地2名施工者施工'+d.duration+'秒');Button.setDisabled(button,!!m.project&&m.project.status!=='complete');}
+      button.toggle(show);
+      let row=$('#municipalCount_'+type);if(!row.length){row=$('<div>').attr('id','municipalCount_'+type).addClass('storeRow').appendTo('#municipalStructures');$('<div>').addClass('row_key').text(d.name).appendTo(row);$('<div>').addClass('row_val').appendTo(row);$('<div>').addClass('clear').appendTo(row);}
+      const count=m?.buildings[type]||0;row.toggle(count>0).find('.row_val').text(count);
+    }
+    if(m)$('#municipalStatus').append($('<div>').text('地方储备：食物 '+Math.floor(n.stores.food||0)+'、药品 '+Number((n.stores.medicine||0).toFixed(1))+'、工具 '+Number((n.stores.tools||0).toFixed(1))+'。'));
+    const p=m?.project;
+    $('#municipalProject').text(p?'当前工程：'+CivilMunicipalContent.facilities[p.type].name+'；'+({supplying:'材料分批在途，已到：'+(fmt(p.buffer)||'尚无')+'。所需：'+fmt(p.required),building:'当地施工 '+Math.ceil(p.remaining)+' 秒；施工者 '+(n.workers.builder||0)+' / 2',complete:'已经完工，可筹办下一项'}[p.status])+'。'+(m&&!m.town?'镇制稳定 '+m.townStable+' / 180秒。':m&&!m.city?'城市稳定 '+m.cityStable+' / 300秒。':''):'先建公共服务，再扩住房。工程和贸易交替使用原有货车。');
+  },
+  validate(s){
+    const all=s.civilization.municipal;if(all===undefined)return;
+    const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x),num=(x,max=1e12)=>Number.isFinite(x)&&x>=0&&x<=max,int=(x,max=1e8)=>Number.isInteger(x)&&num(x,max),fac=CivilMunicipalContent.facilities;
+    const cargo=x=>obj(x)&&Object.entries(x).every(([k,v])=>CivilCatalog.resources.includes(k)&&num(v));
+    if(!obj(all)||all.schema!==1||!obj(all.nodes))throw Error('市政总账无效');
+    for(const [id,m]of Object.entries(all.nodes)){
+      const n=this.node(s,id),cfg=CivilRegionContent[id];
+      if(!cfg||!n||!obj(m)||!num(m.agreedAt,s.civilization.elapsed)||m.baseHousing!==cfg.population+12||!obj(m.baseWorkers)||!obj(m.buildings)||!int(m.nextProject)||m.nextProject<1||!Array.isArray(m.completed)||typeof m.town!=='boolean'||typeof m.city!=='boolean'||m.city&&!m.town||!num(m.townStable,180)||!num(m.cityStable,300)||!num(m.pollution,100)||!obj(m.power)||['generation','used','demand'].some(k=>!num(m.power[k],100))||m.power.used>m.power.generation+1e-8||m.power.used>m.power.demand+1e-8)throw Error('地方市政状态无效');
+      const legacy=this.legacyJobLimits(id);
+      if(Object.entries(m.baseWorkers).some(([job,count])=>!Object.hasOwn(legacy,job)||!int(count,legacy[job]))||Object.entries(m.buildings).some(([type,count])=>!fac[type]||!int(count,fac[type].max)))throw Error('市政设施容量无效');
+      const completed=new Set(),totals={};
+      for(const p of m.completed){if(!obj(p)||!int(p.id)||p.id<1||p.id>=m.nextProject||completed.has(p.id)||!fac[p.type]||!num(p.completedAt,s.civilization.elapsed))throw Error('市政完工记录无效');completed.add(p.id);totals[p.type]=(totals[p.type]||0)+1;}
+      for(const type of Object.keys(fac))if((totals[type]||0)!==(m.buildings[type]||0))throw Error('市政完工与设施不符');
+      const p=m.project;
+      if(p!==null){
+        const d=fac[p?.type];if(!obj(p)||!d||!int(p.id)||p.id!==m.nextProject-1||!['supplying','building','complete'].includes(p.status)||!cargo(p.required)||JSON.stringify(p.required)!==JSON.stringify(d.cost)||!cargo(p.buffer)||!num(p.remaining,d.duration)||!Array.isArray(p.receipts)||new Set(p.receipts).size!==p.receipts.length||p.receipts.some(x=>!int(x)||x<1||x>=s.civilization.regions.nextShipment))throw Error('市政工程无效');
+        if(Object.entries(p.buffer).some(([key,n])=>n>(p.required[key]||0)+1e-8)||p.status!=='supplying'&&Object.values(p.buffer).some(Boolean)||p.status==='supplying'&&p.remaining!==0||p.status==='building'&&!p.remaining||p.status==='complete'&&(p.remaining!==0||!completed.has(p.id))||p.status!=='complete'&&completed.has(p.id))throw Error('市政材料或工期无效');
+      }
+      const expected=m.completed.length+(p&&p.status!=='complete'?1:0);if(m.nextProject!==expected+1||!p&&expected)throw Error('市政工程序号无效');
+      const caps=this.jobCapacity(s,id);if(Object.entries(n.workers).some(([job,count])=>!CivilMunicipalContent.jobs.includes(job)||!int(count,caps[job]||0))||Object.values(n.workers).reduce((sum,x)=>sum+x,0)>CivilPopulation.workforce(n.cohorts)||n.population>this.capacity(s,id))throw Error('地方岗位或住房超额');
+      const e=m.economy;if(e!==null&&(!obj(e)||!num(e.at,s.civilization.elapsed)||!Number.isFinite(e.food)||!Number.isFinite(e.medicine)||typeof e.treatment!=='boolean'||typeof e.education!=='boolean'||typeof e.industry!=='boolean'||!num(e.productivePower,100)||e.productivePower>m.power.used+1e-8||!obj(e.deltas)||Object.entries(e.deltas).some(([key,x])=>!CivilCatalog.resources.includes(key)||!Number.isFinite(x))))throw Error('地方经济证据无效');
+      for(const shipment of s.civilization.regions.shipments)if(shipment.route===id&&shipment.purpose==='municipal'&&!this.validShipment(s,shipment))throw Error('市政工程在途记录无效');
+    }
+  }
+};

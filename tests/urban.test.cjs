@@ -6,8 +6,8 @@ const vm=require('node:vm');
 function harness(){
   const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state,messages=[];
   const ctx=vm.createContext({State:s,_:x=>x,Civilization:{notify:t=>messages.push(t)}});
-  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/population.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
-  ctx.CivilSociety.init(s);ctx.CivilRegions.init(s);ctx.CivilUrban.init(s);return {s,ctx,u:ctx.CivilUrban,r:ctx.CivilRegions,messages};
+  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/population.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  ctx.CivilSociety.init(s);ctx.CivilRegions.init(s);ctx.CivilUrban.init(s);ctx.CivilMunicipal.init(s);return {s,ctx,u:ctx.CivilUrban,r:ctx.CivilRegions,messages};
 }
 function prepare(h){
   const {s,u,r}=h;
@@ -180,4 +180,117 @@ test('contact before the old family register keeps the new source separate and r
  assert.equal(x.registered,false);assert.equal(u.sourceId(s),'dispersed');x.activeSource='river_network';const before=s.game.population;
  assert.equal(u.handleArrival(s),true);assert.equal(s.game.population,before+1);assert.equal(x.admitted,0);assert.equal(u.count(x.source),0);
  assert.doesNotThrow(()=>u.validate(s));assert.doesNotThrow(()=>o.validate(s));
+});
+
+function municipalTarget(h=prepare(harness()),id='rail'){
+  const {s,u,r,ctx}=h,m=ctx.CivilMunicipal,n=s.civilization.regions.nodes[id]||r.createNode(s,id);
+  s.civilization.urban.city=true;s.civilization.urban.chartered=true;s.civilization.tech.urbanworks=true;
+  n.completedProjects.publicWorks=true;n.relation='associated';n.control='shared';n.rights='equal';r.planWorkers(s,id,n);
+  assert.equal(m.activate(s,id),true);
+  // Economic destination fixture: paid municipal construction is covered in municipal.test.cjs.
+  Object.assign(m.data(s,id).buildings,{farmland:2,clinic:2,school:1,toolworks:1,salvageyard:2,woodlot:1,residential:2});
+  for(const key of ctx.CivilCatalog.resources)n.stores[key]=1000;
+  n.health=100;m.planWorkers(s,id);assert.equal(u.setTarget(s,id),true);
+  return {...h,m,n,id,local:m.data(s,id),route:s.civilization.regions.routes[id]};
+}
+function municipalTicks(h,seconds){
+  for(let i=0;i<seconds;i++){
+    h.s.civilization.elapsed++;
+    for(const n of Object.values(h.s.civilization.regions.nodes))h.r.annual(h.s,n);
+    if(h.s.civilization.origins)h.ctx.CivilOrigins.tick(h.s);
+    if(i%10===9)h.u.settle(h.s);
+    h.u.tick(h.s);
+  }
+}
+test('508-person natural saves preserve home as the default target without a migration grant or rewritten party',()=>{
+  const {u}=harness(),s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-origin-migration.json'),'utf8')).state;
+  const before=JSON.stringify(s);assert.equal(s.game.population,508);assert.equal(s.civilization.urban.activeTarget,undefined);
+  assert.doesNotThrow(()=>u.validate(s));u.init(s);assert.equal(u.targetId(s),'home');assert.equal(JSON.stringify(s),before);
+  assert.equal(u.reservedBeds(s),u.reservedBeds(s,'home'));
+});
+test('choosing a consented destination isolates reserved beds, fixes existing party targets and keeps singleton arrivals at home',()=>{
+  const h=municipalTarget(),{s,u,m,n,id}=h,x=s.civilization.urban;
+  assert.deepEqual(Array.from(u.targetIds(s)),['home','rail']);assert.equal(u.setTarget(s,'highland'),false);
+  const local=n.population,home=s.game.population,homeBeds=u.availableBeds(s),localBeds=u.availableBeds(s,id),localStores=JSON.stringify(n.stores),homeFood=s.stores.food;
+  assert.equal(u.dispatch(s),true);assert.equal(s.stores.food,homeFood-48);assert.equal(JSON.stringify(n.stores),localStores);
+  assert.equal(u.reservedBeds(s),0);assert.equal(u.reservedBeds(s,id),8);assert.equal(u.availableBeds(s),homeBeds);assert.equal(u.availableBeds(s,id),localBeds-8);
+  assert.equal(u.waiting(s).length,0);assert.equal(u.count(u.waiting(s,id)),8);
+  assert.equal(u.handleArrival(s),true);assert.equal(s.game.population,home+1);assert.equal(n.population,local,'singleton ignores the selected remote target');
+  assert.equal(u.setTarget(s,'home'),true);assert.equal(x.parties[0].target,id);assert.equal(u.dispatch(s),true);assert.equal(x.parties.length,2);assert.equal(u.reservedBeds(s),8);assert.equal(u.dispatch(s),false);
+  x.enabled=false;municipalTicks(h,120);assert.equal(n.population,local+8);assert.equal(s.game.population,home+9);assert.equal(x.admitted,17);
+  assert.equal(u.reservedBeds(s,id),0);assert.equal(u.reservedBeds(s),0);assert.equal(u.reservedTransport(s),4);assert.equal(m.data(s,id).city,false);assert.doesNotThrow(()=>u.validate(s));
+});
+test('remote admission requires its own food and working services while home retains its own post-fare reserve',()=>{
+  for(const shortage of ['localFood','homeFood','medicine','teaching','foodProduction']){
+    const h=municipalTarget(),{s,u,n,local}=h;
+    if(shortage==='localFood'){n.stores.food=0;s.stores.food=1e6;}
+    if(shortage==='homeFood')s.stores.food=48+u.foodReserve(s)-1;
+    if(shortage==='medicine'||shortage==='foodProduction'){
+      n.cohorts=[{age:25,count:120,identity:'human'}];n.population=120;local.buildings.residential=4;
+      if(shortage==='medicine')local.buildings.clinic=1;else {local.buildings.clinic=4;local.buildings.farmland=1;}
+    }
+    if(shortage==='teaching'){n.cohorts=[{age:8,count:70,identity:'human'},{age:25,count:10,identity:'human'}];n.population=80;local.buildings.residential=4;}
+    const before=JSON.stringify([s.stores,n.stores,s.civilization.urban.source,s.civilization.urban.nextParty]);
+    assert.equal(u.dispatch(s),false,shortage);assert.equal(JSON.stringify([s.stores,n.stores,s.civilization.urban.source,s.civilization.urban.nextParty]),before);assert.equal(s.civilization.urban.parties.length,0);
+  }
+});
+test('local road closure blocks payment, river maintenance matters, and pausing trade alone does not block a separate passenger crew',()=>{
+  const h=municipalTarget(),{s,u,route}=h;route.enabled=false;route.assigned=0;route.condition='closed';const before=JSON.stringify([s.stores,s.civilization.urban.source]);
+  assert.equal(u.dispatch(s),false);assert.equal(JSON.stringify([s.stores,s.civilization.urban.source]),before);
+  route.condition='open';s.civilization.outpostSupplied=false;assert.equal(u.dispatch(s),true,'the rail destination does not borrow the home pump');
+  const river=municipalTarget(prepare(harness()),'river');river.s.civilization.outpostSupplied=false;assert.equal(river.u.dispatch(river.s),false);
+  river.s.civilization.outpostSupplied=true;river.s.game.buildings.road=0;assert.equal(river.u.dispatch(river.s),false);
+});
+test('a blocked outbound party consumes prepaid provisions, saves its position, and retreats only over its travelled section',()=>{
+  const h=municipalTarget(),{s,u,n,route}=h,x=s.civilization.urban,local=n.population,home=s.game.population;
+  assert.equal(u.dispatch(s),true);x.enabled=false;municipalTicks(h,30);route.condition='closed';const p=x.parties[0];assert.equal(p.remaining,90);
+  const rations=p.rations;municipalTicks(h,20);assert.equal(p.state,'held');assert.equal(p.holdReason,'road');assert.equal(p.remaining,90);assert.ok(p.rations<rations);assert.equal(n.population,local);assert.equal(s.game.population,home);
+  const saved=JSON.parse(JSON.stringify(s));assert.doesNotThrow(()=>u.validate(saved));assert.equal(u.returnParty(saved,p.id),true);
+  const back=saved.civilization.urban.parties[0];assert.equal(back.remaining,30);assert.equal(back.returnNeedsRoad,false);assert.equal(u.reservedBeds(saved,'rail'),0);
+  const restored={...h,s:saved};municipalTicks(restored,29);assert.equal(saved.civilization.urban.parties.length,1);municipalTicks(restored,1);
+  assert.equal(saved.civilization.urban.parties.length,0);assert.equal(u.count(saved.civilization.urban.source),480);assert.equal(saved.civilization.regions.nodes.rail.population,local);assert.equal(saved.game.population,home);assert.equal(saved.stores.food,s.stores.food);
+});
+test('an empty crew and a passenger return started at the destination cannot cross a road that closes behind them',()=>{
+  const h=municipalTarget(),{s,u,n,route}=h,x=s.civilization.urban;assert.equal(u.dispatch(s),true);x.enabled=false;municipalTicks(h,120);
+  const admitted=n.population;n.stores.medicine=0;route.condition='closed';municipalTicks(h,150);assert.equal(x.parties[0].state,'returning');assert.equal(x.parties[0].remaining,120);assert.equal(u.reservedTransport(s),2);assert.equal(n.population,admitted);
+  route.condition='open';municipalTicks(h,120);assert.equal(x.parties.length,0);assert.equal(n.population,admitted);
+  const held=municipalTarget(),y=held.s.civilization.urban;assert.equal(held.u.dispatch(held.s),true);y.enabled=false;held.n.stores.food=0;municipalTicks(held,120);
+  assert.equal(y.parties[0].state,'held');assert.equal(y.parties[0].holdReason,'services');assert.equal(y.parties[0].remaining,0);
+  held.route.condition='closed';assert.equal(held.u.returnParty(held.s,y.parties[0].id),true);assert.equal(y.parties[0].returnNeedsRoad,true);municipalTicks(held,150);assert.equal(y.parties[0].remaining,120);assert.equal(held.n.population,32);
+  held.route.condition='open';municipalTicks(held,120);assert.equal(y.parties.length,0);assert.equal(held.u.count(y.source),480);assert.equal(y.admitted,0);
+});
+test('year-boundary delivery ages a traveller only once, while a local death releases only that destinations bed',()=>{
+  const h=municipalTarget(),{s,u,r,n,id}=h,x=s.civilization.urban;
+  x.source[0].age=17;n.cohorts[0].age=79;n.stores.medicine=0;s.civilization.elapsed=(x.year+1)*600-120;
+  const local=n.population;assert.equal(u.dispatch(s),true);x.enabled=false;const beds=u.availableBeds(s,id);
+  municipalTicks(h,120);assert.equal(n.population,local-1+8);assert.equal(n.cohorts.find(c=>c.age===18 && c.count===4)?.identity,'human');assert.equal(u.availableBeds(s,id),beds+1);
+  const before=JSON.stringify(n.cohorts);r.annual(s,n);u.tick(s);assert.equal(JSON.stringify(n.cohorts),before);assert.doesNotThrow(()=>u.validate(s));
+});
+test('new-source remote arrivals close their own ledger once and preserve the chosen destination through reload',()=>{
+  const h=municipalTarget(),{s,u,n,id}=h,o=contactSource(h),x=s.civilization.urban,source=s.civilization.origins.nodes.river_network;
+  assert.equal(o.agree(s),true);x.activeSource='river_network';x.enabled=true;const oldLegacy=x.admitted,local=n.population,home=s.game.population;
+  assert.equal(u.dispatch(s),true);x.enabled=false;n.stores.medicine=0;assert.equal(source.departures['p'+x.parties[0].id].target,id);
+  municipalTicks(h,60);const loaded=JSON.parse(JSON.stringify(s)),resumed={...h,s:loaded};assert.doesNotThrow(()=>u.validate(loaded));assert.doesNotThrow(()=>o.validate(loaded));
+  municipalTicks(resumed,180);const next=loaded.civilization.origins.nodes.river_network;
+  assert.equal(loaded.civilization.regions.nodes[id].population,local+8);assert.equal(loaded.game.population,home);assert.equal(next.admitted,8);assert.equal(loaded.civilization.urban.admitted,oldLegacy);assert.equal(loaded.civilization.urban.parties.length,0);
+  assert.equal(next.baselinePopulation+next.born,next.population+next.sourceDeaths+next.transitDeaths+next.admitted);assert.doesNotThrow(()=>o.validate(loaded));
+});
+test('source passengers dying in transit are recorded at their source, never as residents of the selected destination',()=>{
+  const h=municipalTarget(),{s,u,n}=h,o=contactSource(h),x=s.civilization.urban,source=s.civilization.origins.nodes.river_network;
+  o.agree(s);source.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));s.civilization.elapsed=Math.floor(s.civilization.elapsed/600)*600+599;
+  x.activeSource='river_network';x.enabled=true;n.stores.medicine=0;assert.equal(u.dispatch(s),true);x.enabled=false;const local=n.population;
+  municipalTicks(h,120);assert.equal(n.population,local+7);assert.equal(source.transitDeaths,1);assert.equal(source.admitted,7);assert.equal(x.deceased,0);assert.equal(x.admitted,0);assert.doesNotThrow(()=>o.validate(s));
+});
+test('a destinations population and in-transit families cannot satisfy the home first-city threshold',()=>{
+  const h=municipalTarget(citySetup(harness(),399)),{s,u,n}=h;s.civilization.urban.chartered=true;s.civilization.urban.enabled=true;
+  assert.equal(u.dispatch(s),true);s.civilization.urban.enabled=false;municipalTicks(h,120);settle(h);
+  assert.equal(s.game.population,399);assert.ok(n.population+s.game.population>=400);assert.equal(u.developmentReady(s,true),false);assert.equal(s.civilization.urban.cityStable,0);
+  assert.equal(h.m.developmentReady(s,h.id,true),false,'a small remote settlement is not a city because home owns industry');
+});
+test('invalid targets and forged return positions are rejected, while temporary service loss does not corrupt a real travelling save',()=>{
+  const h=municipalTarget(),{s,u,n}=h;assert.equal(u.dispatch(s),true);s.civilization.urban.enabled=false;
+  n.relation='trade';assert.doesNotThrow(()=>u.validate(s));n.relation='associated';
+  for(const mutate of [x=>x.activeTarget='unknown',x=>x.parties[0].target='highland',x=>{x.parties[0].state='held';x.parties[0].holdReason='housing';},x=>{x.parties[0].state='returning_people';x.parties[0].returnNeedsRoad=false;x.parties[0].remaining=120;}]){
+    const bad=JSON.parse(JSON.stringify(s));mutate(bad.civilization.urban);assert.throws(()=>u.validate(bad));
+  }
 });

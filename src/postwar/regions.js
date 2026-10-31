@@ -72,6 +72,7 @@ var CivilRegions={
     r.active=true;return true;
   },
   planWorkers(s,id,n){
+    if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id))return CivilMunicipal.planWorkers(s,id);
     const d=CivilRegionContent[id],desired={...d.workers,...(n.completedProjects.publicWorks?d.service:{})};
     if(n.completedProjects.publicWorks){
       // The paid water/service project opens local plots and care places; actual adult workers still staff them.
@@ -99,6 +100,7 @@ var CivilRegions={
     return flow;
   },
   settleNode(s,id,n){
+    if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id))return CivilMunicipal.settleNode(s,id);
     this.planWorkers(s,id,n);const w=n.workers,st=n.stores;
     const hungry=(st.food||0)<this.foodPopulation(n)*.12;
     const f=(n.health<30?.75:1)*(hungry?.65:1);
@@ -136,7 +138,7 @@ var CivilRegions={
     const r=s.civilization.regions,route=r.routes[id];
     if(!r.active || !route?.enabled || route.condition!=='open' || this.routeBusy(s,id) || !this.staffedRoutes(s).has(id))return false;
     if(id==='river' && (!s.game.buildings.road || s.civilization.outpostSupplied!==true)){route.status='道路或外站待维护';return false;}
-    const project=r.projects[id];let purpose='trade',cargo={...CivilRegionContent[id].out};
+    const project=r.projects[id];let purpose='trade',cargo={...CivilRegionContent[id].out},projectId;
     if(project?.status==='supplying'){
       purpose='project';cargo={};let room=route.capacity;
       for(const [k,need]of Object.entries(project.required)){
@@ -144,19 +146,32 @@ var CivilRegions={
         if(amount>0){cargo[k]=amount;room-=amount;}
       }
       if(!Object.keys(cargo).length){route.status='公共项目等待材料';return false;}
+    }else if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id) && route.lastPurpose!=='municipal'){
+      const next=CivilMunicipal.nextCargo(s,id,route.capacity);
+      if(next){
+        const trimmed={...next.cargo},reserve=(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(s):s.game.population)*.24;
+        for(const [key,kept]of Object.entries({wood:1,food:reserve+(s.civilization.tech.preservation?1:2)}))if(trimmed[key]){
+          trimmed[key]=Math.min(trimmed[key],Math.max(0,(s.stores[key]||0)-kept));if(!trimmed[key])delete trimmed[key];
+        }
+        if(Object.keys(trimmed).length){purpose='municipal';projectId=next.projectId;cargo=trimmed;}
+      }
     }
     const cost=this.dispatchCost(s,id,cargo);
     if(!this.canPay(s.stores,cost,(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(s):s.game.population)*.24)){route.status='待补足货物与本地口粮';return false;}
     this.debit(s.stores,cost);
-    r.shipments.push({id:r.nextShipment++,route:id,source:'home',target:id,cargo,remaining:route.travel,phase:'outbound',status:'moving',purpose});
-    route.status=purpose==='project'?'项目材料在途':'货物在途';return true;
+    r.shipments.push({id:r.nextShipment++,route:id,source:'home',target:id,cargo,remaining:route.travel,phase:'outbound',status:'moving',purpose,...(projectId===undefined?{}:{projectId})});
+    route.lastPurpose=purpose;
+    route.status=purpose==='project'?'项目材料在途':purpose==='municipal'?'市政材料在途':'货物在途';return true;
   },
   arrive(s,p){
     const r=s.civilization.regions;
     if(!p || !r.shipments.some(x=>x===p) || p.status!=='moving' || p.remaining!==0)return false;
     const route=r.routes[p.route],n=r.nodes[p.route];
     if(p.phase==='outbound'){
-      if(p.purpose==='project'){
+      if(p.purpose==='municipal'){
+        if(!CivilMunicipal.receiveCargo(s,p.route,p.cargo,p.projectId))return false;
+        p.cargo={};p.phase='empty';p.source=p.route;p.target='home';p.remaining=route.travel;p.status='moving';route.status='市政车队返程';
+      }else if(p.purpose==='project'){
         const project=r.projects[p.route];this.credit(project.buffer,p.cargo);
         if(Object.entries(project.required).every(([k,v])=>(project.buffer[k]||0)+1e-8>=v)){
           this.debit(project.buffer,project.required);project.status='building';project.remaining=CivilRegionContent[p.route].project.duration;this.planWorkers(s,p.route,n);
@@ -225,9 +240,10 @@ var CivilRegions={
     while(n.year<year){
       const yearStartPopulation=n.population;n.year++;
       n.cohorts=CivilPopulation.age(n.cohorts).cohorts;n.population=CivilPopulation.count(n.cohorts);
-      const cap=CivilRegionContent[id].population+(n.completedProjects.publicWorks?12:0);
+      const cap=typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id)?CivilMunicipal.capacity(s,id):CivilRegionContent[id].population+(n.completedProjects.publicWorks?12:0);
+      const reserved=typeof CivilUrban!=='undefined' && CivilUrban.reservedBeds?CivilUrban.reservedBeds(s,id):0;
       const birth=CivilPopulation.births(n.cohorts,n.births,{
-        yearStartPopulation,beds:cap-n.population,health:n.health,
+        yearStartPopulation,beds:cap-n.population-reserved,health:n.health,
         hunger:(n.stores.food||0)<this.foodPopulation(n)*.12,food:n.stores.food,medicine:n.stores.medicine
       });
       if(birth.count && this.canPay(n.stores,birth.cost)){
@@ -332,17 +348,20 @@ var CivilRegions={
       if(CivilPopulation.count(n.cohorts)!==n.population)throw Error('地方人口与名册不符');
       if(n.births!==undefined && (!obj(n.births) || typeof n.births.scaled!=='boolean' || ['credit','mutantCredit'].some(k=>!num(n.births[k],1) || n.births[k]>=1)))throw Error('地方出生记录无效');
       for(const key of ['health','trust','unrest','integration'])if(!num(n[key],100))throw Error('地方民情无效');
-      if(!num(n.stableSeconds,600) || Object.entries(n.workers).some(([k,v])=>!['farmer','medic','builder','salvager','gatherer','teacher','smelter','machinist'].includes(k)||!int(v)) || Object.values(n.workers).reduce((a,b)=>a+b,0)>this.workforce(n))throw Error('地方劳动分配无效');
+      if(!num(n.stableSeconds,600) || Object.entries(n.workers).some(([k,v])=>!(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id)?CivilMunicipalContent.jobs:['farmer','medic','builder','salvager','gatherer','teacher','smelter','machinist']).includes(k)||!int(v)) || Object.values(n.workers).reduce((a,b)=>a+b,0)>this.workforce(n))throw Error('地方劳动分配无效');
+      if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id)){const caps=CivilMunicipal.jobCapacity(s,id);if(Object.entries(n.workers).some(([job,count])=>count>(caps[job]||0)))throw Error('地方岗位超过设施容量');}
       if(['associated','integrated'].includes(n.relation)!==(n.control==='shared') || n.relation==='integrated' && (n.integration!==100 || !n.completedProjects.publicWorks || n.rights==='stratified'))throw Error('地方治理状态无效');
       for(const v of Object.values(n.promises).concat(Object.values(n.completedProjects)))if(typeof v!=='boolean')throw Error('地方承诺无效');
     }
-    for(const [id,route]of Object.entries(r.routes))if(!r.nodes[id]||!obj(route)||route.node!==id||typeof route.enabled!=='boolean'||![0,2].includes(route.assigned)||route.travel!==CivilRegionContent[id].travel||route.capacity!==64||!['open','closed'].includes(route.condition)||!num(route.dispatchIn,60)||!int(route.completedTrips)||(route.lastDeliveredAt!==null&&!num(route.lastDeliveredAt,s.civilization.elapsed))||typeof route.status!=='string'||route.status.length>100)throw Error('运输路线无效');
+    for(const [id,route]of Object.entries(r.routes))if(!r.nodes[id]||!obj(route)||route.node!==id||typeof route.enabled!=='boolean'||![0,2].includes(route.assigned)||route.travel!==CivilRegionContent[id].travel||route.capacity!==64||!['open','closed'].includes(route.condition)||!num(route.dispatchIn,60)||!int(route.completedTrips)||(route.lastDeliveredAt!==null&&!num(route.lastDeliveredAt,s.civilization.elapsed))||typeof route.status!=='string'||route.status.length>100||route.lastPurpose!==undefined && !['trade','project','municipal'].includes(route.lastPurpose))throw Error('运输路线无效');
     if(Object.keys(r.routes).length!==Object.keys(r.nodes).length)throw Error('地方缺少路线');
     const ids=new Set(),routes=new Set();
     for(const p of r.shipments){
       const route=r.routes[p.route];
-      if(!obj(p)||!route||!int(p.id)||p.id<1||p.id>=r.nextShipment||ids.has(p.id)||routes.has(p.route)||!['home',p.route].includes(p.source)||!['home',p.route].includes(p.target)||!cargo(p.cargo)||Object.values(p.cargo).reduce((a,b)=>a+b,0)>64+1e-8||!num(p.remaining,route.travel)||!['outbound','inbound','returning','empty'].includes(p.phase)||!['moving','held','loading'].includes(p.status)||!['trade','project'].includes(p.purpose)||route.assigned!==2)throw Error('在途货物无效');
+      if(!obj(p)||!route||!int(p.id)||p.id<1||p.id>=r.nextShipment||ids.has(p.id)||routes.has(p.route)||!['home',p.route].includes(p.source)||!['home',p.route].includes(p.target)||!cargo(p.cargo)||Object.values(p.cargo).reduce((a,b)=>a+b,0)>64+1e-8||!num(p.remaining,route.travel)||!['outbound','inbound','returning','empty'].includes(p.phase)||!['moving','held','loading'].includes(p.status)||!['trade','project','municipal'].includes(p.purpose)||route.assigned!==2)throw Error('在途货物无效');
       if(p.phase==='outbound' && (p.source!=='home'||p.target!==p.route)||['inbound','empty'].includes(p.phase) && (p.target!=='home'||p.source!==p.route)||p.phase==='returning' && p.target!==p.source||p.phase==='empty' && Object.values(p.cargo).some(Boolean)||p.status==='loading' && (p.phase!=='inbound'||Object.keys(p.cargo).length)||p.purpose==='project' && !r.projects[p.route])throw Error('货物方向无效');
+      if(p.purpose==='municipal' && (typeof CivilMunicipal==='undefined' || !CivilMunicipal.validShipment(s,p)))throw Error('市政材料无效');
+      if(p.purpose!=='municipal' && p.projectId!==undefined)throw Error('货运工程编号无效');
       ids.add(p.id);routes.add(p.route);
     }
     for(const [id,p]of Object.entries(r.projects)){

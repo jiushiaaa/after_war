@@ -8,7 +8,7 @@ function harness() {
  const Outside={getMaxPopulation:()=>state.game.buildings.hut*4,setTitle(){},updateVillage(){},updateWorkersView(){},killVillagers(n){state.game.population-=n;}};
  const Events={startEvent(e){active=e;},activeEvent:()=>active,buttonClick(){}};
  const ctx=vm.createContext({State:state,Room,Outside,Events,$SM:SM,AudioEngine:{},Notifications:{},CivilClock:{rate:1},CivilPlatform:{},Engine:{saveGame(){}},Math:Object.assign(Object.create(Math),{random:()=>.9}),_:s=>s,setTimeout,clearTimeout,console});
- for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/origins.js','src/postwar/population.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/village.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+ for(const file of ['src/postwar/rules.js','content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','src/postwar/population.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/village.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/adapter.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
  ctx.Outside.updateWorkersView=()=>{};ctx.Civilization.initState();ctx.Civilization.notify=t=>observed.push(t);ctx.Civilization.refresh=()=>{};ctx.Civilization.renderSpeed=()=>{};ctx.Civilization.updateIncome=()=>{};
  function step(n){for(let i=0;i<n;i++)ctx.Civilization.tick();}
  function choose(key){const b=active.scenes.start.buttons[key];assert.ok(b,'choice exists: '+key);b.onChoose?.();active=null;}
@@ -155,4 +155,19 @@ test('a chartered town pays staffed routine repairs while shortages and early se
  c.urban.chartered=true;h.ctx.Civilization.randomEvent();assert.equal(h.active,null);assert.equal(s.stores.wood,90);assert.equal(s.stores.tools,9.5);
  s.stores.wood=0;h.ctx.Civilization.randomEvent();assert.equal(c.pending,'cold');assert.equal(s.stores.tools,9.5);h.choose('hands');
  s.stores.wood=100;c.urban.chartered=false;h.ctx.Civilization.randomEvent();assert.equal(c.pending,'cold');assert.equal(s.stores.wood,100);
+});
+
+test('the live adapter transports a municipal project from the natural first city and completes it with local labor',()=>{
+ const h=harness(),s=h.state;Object.assign(s,JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-city.json'),'utf8')).state);h.ctx.Civilization.initState();
+ const c=s.civilization,m=h.ctx.CivilMunicipal,n=c.regions.nodes.river,knowledge=s.stores.knowledge;
+ assert.equal(m.activate(s,'river'),true);assert.equal(s.stores.knowledge,knowledge-20);assert.equal(m.capacity(s,'river'),24);
+ assert.equal(m.startProject(s,'river','farmland'),true);const p=m.data(s,'river').project;
+ for(let i=0;i<1800 && p.status!=='complete';i++)h.step(1);
+ assert.equal(p.status,'complete','adapter must run transport and municipal construction, not just their separate unit APIs');
+ assert.equal(m.data(s,'river').buildings.farmland,1);assert.ok(p.receipts.length>=3,'138 units require multiple real 64-unit shipments');
+ assert.equal(m.capacity(s,'river'),24,'a field does not grant housing');assert.ok(n.population<=24);
+ assert.ok(c.regions.routes.river.completedTrips>0);assert.ok(m.data(s,'river').economy,'shared economic tick updates local evidence');
+ const before={...s.stores},flow=h.ctx.Civilization.settleEconomy(s).flow,total={};
+ for(const deltas of Object.values(flow))for(const [key,value]of Object.entries(deltas))total[key]=(total[key]||0)+value;
+ for(const key of h.ctx.CivilCatalog.resources)assert.ok(Math.abs((s.stores[key]||0)-(before[key]||0)-(total[key]||0))<1e-7,key+' remains a home-only income flow');
 });
