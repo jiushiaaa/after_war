@@ -714,7 +714,7 @@ var Room = {
 			Notifications.notify(Room, _("the light from the fire spills from the windows, out into the dark"));
 			Engine.setTimeout(Room.updateBuilderState, Room._BUILDER_STATE_DELAY);
 		}
-		window.clearTimeout(Room._fireTimer);
+		Engine.clearTimeout(Room._fireTimer);
 		Room._fireTimer = Engine.setTimeout(Room.coolFire, Room._FIRE_COOL_DELAY);
 		Room.updateButton();
 		Room.setTitle();

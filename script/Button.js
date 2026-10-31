@@ -11,6 +11,8 @@ var Button = {
 		var el = $('<div>')
 			.attr('id', typeof(options.id) != 'undefined' ? options.id : "BTN_" + Engine.getGuid())
 			.addClass('button')
+      .attr({role:'button',tabindex:0})
+      .keydown(function(event) { if(event.key==='Enter' || event.key===' ') {event.preventDefault();$(this).click();} })
 			.text(typeof(options.text) != 'undefined' ? options.text : "button")
 			.click(function() {
 				if(!$(this).hasClass('disabled')) {
@@ -56,7 +58,8 @@ var Button = {
 			} else if(disabled) {
 				btn.addClass('disabled');
 			}
-			btn.data('disabled', disabled);
+			btn.data('disabled', disabled).attr('aria-disabled',disabled || !!btn.data('onCooldown'));
+
 		}
 	},
 
@@ -68,64 +71,27 @@ var Button = {
 	},
 
 	cooldown: function(btn, option) {
-		var cd = btn.data("cooldown");
-		if (btn.data('boosted')()) {
-			cd /= 2;
-		}
-		var id = 'cooldown.'+ btn.attr('id');
-		if(cd > 0) {
-			if(typeof option == 'number') {
-				cd = option;
-			}
-			// param "start" takes value from cooldown time if not specified
-			var start, left;
-			switch(option){
-				// a switch will allow for several uses of cooldown function
-				case 'state':
-					if(!$SM.get(id)){
-						return;
-					}
-					start = Math.min($SM.get(id), cd);
-					left = (start / cd).toFixed(4);
-					break;
-				default:
-					start = cd;
-					left = 1;
-			}
-			Button.clearCooldown(btn);
-			if(Button.saveCooldown){
-				$SM.set(id,start);
-				// residual value is measured in seconds
-				// saves program performance
-				btn.data('countdown', Engine.setInterval(function(){
-					$SM.set(id, $SM.get(id, true) - 0.5, true);
-				},500));
-			}
-			var time = start;
-			if (Engine.options.doubleTime){
-				time /= 2;
-			}
-			$('div.cooldown', btn).width(left * 100 +"%").animate({width: '0%'}, time * 1000, 'linear', function() {
-				Button.clearCooldown(btn, true);
-			});
-			btn.addClass('disabled');
-			btn.data('onCooldown', true);
-		}
-	},
-
-	clearCooldown: function(btn, cooldownEnded) {
-		var ended = cooldownEnded || false;
-		if(!ended){
-			$('div.cooldown', btn).stop(true, true);
-		}
-		btn.data('onCooldown', false);
-		if(btn.data('countdown')){
-			window.clearInterval(btn.data('countdown'));
-			$SM.remove('cooldown.'+ btn.attr('id'));
-			btn.removeData('countdown');
-		}
-		if(!btn.data('disabled')) {
-			btn.removeClass('disabled');
-		}
-	}
+    const cd=btn.data('cooldown'), id='cooldown.'+btn.attr('id');
+    if(!(cd>0)) return;
+    let left=option==='state' ? $SM.get(id,true) : typeof option==='number' ? option : cd;
+    if(left<=0) return;
+    Button.clearCooldown(btn);
+    btn.addClass('disabled').data('onCooldown',true).attr('aria-disabled','true');
+    $SM.set(id,left,true);
+    const end=CivilClock.time+left*1000;
+    const update=()=>{
+      const remaining=Math.max(0,(end-CivilClock.time)/1000);
+      $SM.set(id,remaining,true);
+      $('div.cooldown',btn).width(Math.min(100,remaining/cd*100)+'%');
+      if(remaining<=0) Button.clearCooldown(btn,true);
+    };
+    btn.data('countdown',Engine.setInterval(update,100));update();
+  },
+  clearCooldown: function(btn) {
+    if(btn.data('countdown')) Engine.clearInterval(btn.data('countdown'));
+    btn.removeData('countdown').data('onCooldown',false);
+    $SM.remove('cooldown.'+btn.attr('id'),true);
+    $('div.cooldown',btn).stop(true).width('0%');
+    if(!btn.data('disabled'))btn.removeClass('disabled').attr('aria-disabled','false');
+  }
 };

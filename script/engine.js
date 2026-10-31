@@ -86,172 +86,20 @@
       this._debug = this.options.debug;
       this._log = this.options.log;
 
-      // Check for HTML5 support
-      if(!Engine.browserValid()) {
-        window.location = 'browserWarning.html';
-      }
-
-      // Check for mobile
-      if(Engine.isMobile()) {
-        window.location = 'mobileWarning.html';
-      }
-
-      Engine.disableSelection();
-
-      if(this.options.state != null) {
-        window.State = this.options.state;
-      } else {
-        Engine.loadGame();
-      }
-
-      // start loading music and events early
-      for (var key in AudioLibrary) {
-        if (
-          key.toString().indexOf('MUSIC_') > -1 ||
-          key.toString().indexOf('EVENT_') > -1) {
-            AudioEngine.loadAudioFile(AudioLibrary[key]);
-          }
-      }
-
+      window.State = this.options.state || {};
+      Civilization.initState();
+      window.CivilClock = new SimulationClock();
+      CivilClock.restored = State.timers?.civilClock || {};
       $('<div>').attr('id', 'locationSlider').appendTo('#main');
-
-      var menu = $('<div>')
-        .addClass('menu')
-        .appendTo('body');
-
-      if(typeof langs != 'undefined'){
-        var customSelect = $('<span>')
-          .addClass('customSelect')
-          .addClass('menuBtn')
-          .appendTo(menu);
-        var selectOptions = $('<span>')
-          .addClass('customSelectOptions')
-          .appendTo(customSelect);
-        var optionsList = $('<ul>')
-          .appendTo(selectOptions);
-        $('<li>')
-          .text("language.")
-          .appendTo(optionsList);
-
-        $.each(langs, function(name,display){
-          $('<li>')
-            .text(display)
-            .attr('data-language', name)
-            .on("click", function() { Engine.switchLanguage(this); })
-            .appendTo(optionsList);
-        });
-      }
-
-      $('<span>')
-        .addClass('volume menuBtn')
-        .text(_('sound on.'))
-        .click(() => Engine.toggleVolume())
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('appStore menuBtn')
-        .text(_('get the app.'))
-        .click(Engine.getApp)
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('lightsOff menuBtn')
-        .text(_('lights off.'))
-        .click(Engine.turnLightsOff)
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('hyper menuBtn')
-        .text(_('hyper.'))
-        .click(Engine.confirmHyperMode)
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('menuBtn')
-        .text(_('restart.'))
-        .click(Engine.confirmDelete)
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('menuBtn')
-        .text(_('share.'))
-        .click(Engine.share)
-        .appendTo(menu);
-
-      $('<span>')
-        .addClass('menuBtn')
-        .text(_('save.'))
-        .click(Engine.exportImport)
-        .appendTo(menu);
-
-      if(this.options.dropbox && Engine.Dropbox) {
-        this.dropbox = Engine.Dropbox.init();
-
-        $('<span>')
-          .addClass('menuBtn')
-          .text(_('dropbox.'))
-          .click(Engine.Dropbox.startDropbox)
-          .appendTo(menu);
-      }
-
-      $('<span>')
-        .addClass('menuBtn')
-        .text(_('github.'))
-        .click(function() { window.open('https://github.com/doublespeakgames/adarkroom'); })
-        .appendTo(menu);
-
-      // Register keypress handlers
+      $.Dispatch('stateUpdate').subscribe(Engine.handleStateUpdates);
+      $SM.init(); Notifications.init(); Events.init(); Room.init();
+      if(typeof $SM.get('stores.wood') !== 'undefined') Outside.init();
+      else if($SM.get('game.builder.level') >= 1) Engine.setTimeout(Room.unlockForest, Room._NEED_WOOD_DELAY);
       $('body').off('keydown').keydown(Engine.keyDown);
       $('body').off('keyup').keyup(Engine.keyUp);
-
-      // Register swipe handlers
-      swipeElement = $('#outerSlider');
-      swipeElement.on('swipeleft', Engine.swipeLeft);
-      swipeElement.on('swiperight', Engine.swipeRight);
-      swipeElement.on('swipeup', Engine.swipeUp);
-      swipeElement.on('swipedown', Engine.swipeDown);
-
-      // subscribe to stateUpdates
-      $.Dispatch('stateUpdate').subscribe(Engine.handleStateUpdates);
-
-      $SM.init();
-      AudioEngine.init();
-      Notifications.init();
-      Events.init();
-      Room.init();
-
-
-      if(typeof $SM.get('stores.wood') != 'undefined') {
-        Outside.init();
-      }
-      if($SM.get('stores.compass', true) > 0) {
-        Path.init();
-      }
-      if ($SM.get('features.location.fabricator')) {
-        Fabricator.init();
-      }
-      if($SM.get('features.location.spaceShip')) {
-        Ship.init();
-      }
-
-      if($SM.get('config.lightsOff', true)){
-        Engine.turnLightsOff();
-      }
-
-      if($SM.get('config.hyperMode', true)){
-        Engine.triggerHyperMode();
-      }
-
-      Engine.toggleVolume(Boolean($SM.get('config.soundOn')));
-      if(!AudioEngine.isAudioContextRunning()){
-        document.addEventListener('click', Engine.resumeAudioContext, true);
-      }
-      
-      Engine.saveLanguage();
       Engine.travelTo(Room);
-
-      setTimeout(notifyAboutSound, 3000);
-
+      Civilization.init();
+      CivilClock.start();
     },
     resumeAudioContext: function () {
       AudioEngine.tryResumingAudioContext();
@@ -269,253 +117,9 @@
       return ( location.search.indexOf( 'ignorebrowser=true' ) < 0 && /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test( navigator.userAgent ) );
     },
 
-    saveGame: function() {
-      if(typeof Storage != 'undefined' && localStorage) {
-        if(Engine._saveTimer != null) {
-          clearTimeout(Engine._saveTimer);
-        }
-        if(typeof Engine._lastNotify == 'undefined' || Date.now() - Engine._lastNotify > Engine.SAVE_DISPLAY){
-          $('#saveNotify').css('opacity', 1).animate({opacity: 0}, 1000, 'linear');
-          Engine._lastNotify = Date.now();
-        }
-        localStorage.gameState = JSON.stringify(State);
-      }
-    },
-
-    loadGame: function() {
-      try {
-        var savedState = JSON.parse(localStorage.gameState);
-        if(savedState) {
-          State = savedState;
-          $SM.updateOldState();
-          Engine.log("loaded save!");
-        }
-      } catch(e) {
-        State = {};
-        $SM.set('version', Engine.VERSION);
-        Engine.event('progress', 'new game');
-      }
-    },
-
-    exportImport: function() {
-      Events.startEvent({
-        title: _('Export / Import'),
-        scenes: {
-          start: {
-            text: [
-              _('export or import save data, for backing up'),
-              _('or migrating computers')
-            ],
-            buttons: {
-              'export': {
-                text: _('export'),
-                nextScene: {1: 'inputExport'}
-              },
-              'import': {
-                text: _('import'),
-                nextScene: {1: 'confirm'}
-              },
-              'cancel': {
-                text: _('cancel'),
-                nextScene: 'end'
-              }
-            }
-          },
-          'inputExport': {
-            text: [_('save this.')],
-            textarea: Engine.export64(),
-            onLoad: function() { Engine.event('progress', 'export'); },
-            readonly: true,
-            buttons: {
-              'done': {
-                text: _('got it'),
-                nextScene: 'end',
-                onChoose: Engine.disableSelection
-              }
-            }
-          },
-          'confirm': {
-            text: [
-              _('are you sure?'),
-              _('if the code is invalid, all data will be lost.'),
-              _('this is irreversible.')
-            ],
-            buttons: {
-              'yes': {
-                text: _('yes'),
-                nextScene: {1: 'inputImport'},
-                onChoose: Engine.enableSelection
-              },
-              'no': {
-                text: _('no'),
-                nextScene: {1: 'start'}
-              }
-            }
-          },
-          'inputImport': {
-            text: [_('put the save code here.')],
-            textarea: '',
-            buttons: {
-              'okay': {
-                text: _('import'),
-                nextScene: 'end',
-                onChoose: Engine.import64
-              },
-              'cancel': {
-                text: _('cancel'),
-                nextScene: 'end'
-              }
-            }
-          }
-        }
-      });
-    },
-
-    generateExport64: function(){
-      var string64 = Base64.encode(localStorage.gameState);
-      string64 = string64.replace(/\s/g, '');
-      string64 = string64.replace(/\./g, '');
-      string64 = string64.replace(/\n/g, '');
-
-      return string64;
-    },
-
-    export64: function() {
-      Engine.saveGame();
-      Engine.enableSelection();
-      return Engine.generateExport64();
-    },
-
-    import64: function(string64) {
-      Engine.event('progress', 'import');
-      Engine.disableSelection();
-      string64 = string64.replace(/\s/g, '');
-      string64 = string64.replace(/\./g, '');
-      string64 = string64.replace(/\n/g, '');
-      var decodedSave = Base64.decode(string64);
-      localStorage.gameState = decodedSave;
-      location.reload();
-    },
-
-    event: function(cat, act) {
-      if(typeof ga === 'function') {
-        ga('send', 'event', cat, act);
-      }
-    },
-
-    confirmDelete: function() {
-      Events.startEvent({
-        title: _('Restart?'),
-        scenes: {
-          start: {
-            text: [_('restart the game?')],
-            buttons: {
-              'yes': {
-                text: _('yes'),
-                nextScene: 'end',
-                onChoose: Engine.deleteSave
-              },
-              'no': {
-                text: _('no'),
-                nextScene: 'end'
-              }
-            }
-          }
-        }
-      });
-    },
-
-    deleteSave: function(noReload) {
-      if(typeof Storage != 'undefined' && localStorage) {
-        var prestige = Prestige.get();
-        window.State = {};
-        localStorage.clear();
-        Prestige.set(prestige);
-      }
-      if(!noReload) {
-        location.reload();
-      }
-    },
-
-    getApp: function() {
-      Events.startEvent({
-        title: _('Get the App'),
-        scenes: {
-          start: {
-            text: [_('bring the room with you.')],
-            buttons: {
-              'ios': {
-                text: _('ios'),
-                nextScene: 'end',
-                onChoose: function () {
-                  window.open('https://itunes.apple.com/app/apple-store/id736683061?pt=2073437&ct=adrproper&mt=8');
-                }
-              },
-              'android': {
-                text: _('android'),
-                nextScene: 'end',
-                onChoose: function() {
-                  window.open('https://play.google.com/store/apps/details?id=com.yourcompany.adarkroom');
-                }
-              },
-              'close': {
-                text: _('close'),
-                nextScene: 'end'
-              }
-            }
-          }
-        }
-      });
-    },
-
-    share: function() {
-      Events.startEvent({
-        title: _('Share'),
-        scenes: {
-          start: {
-            text: [_('bring your friends.')],
-            buttons: {
-              'facebook': {
-                text: _('facebook'),
-                nextScene: 'end',
-                onChoose: function() {
-                  window.open('https://www.facebook.com/sharer/sharer.php?u=' + Engine.SITE_URL, 'sharer', 'width=626,height=436,location=no,menubar=no,resizable=no,scrollbars=no,status=no,toolbar=no');
-                }
-              },
-              'google': {
-                text:_('google+'),
-                nextScene: 'end',
-                onChoose: function() {
-                  window.open('https://plus.google.com/share?url=' + Engine.SITE_URL, 'sharer', 'width=480,height=436,location=no,menubar=no,resizable=no,scrollbars=no,status=no,toolbar=no');
-                }
-              },
-              'twitter': {
-                text: _('twitter'),
-                nextScene: 'end',
-                onChoose: function() {
-                  window.open('https://twitter.com/intent/tweet?text=A%20Dark%20Room&url=' + Engine.SITE_URL, 'sharer', 'width=660,height=260,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-                }
-              },
-              'reddit': {
-                text: _('reddit'),
-                nextScene: 'end',
-                onChoose: function() {
-                  window.open('http://www.reddit.com/submit?url=' + Engine.SITE_URL, 'sharer', 'width=960,height=700,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-                }
-              },
-              'close': {
-                text: _('close'),
-                nextScene: 'end'
-              }
-            }
-          }
-        }
-      },
-      {
-        width: '400px'
-      });
-    },
-
+    saveGame: function() { if(window.CivilPlatform) CivilPlatform.changed(); },
+    loadGame: function() { throw Error('Use CivilPlatform.load before Engine.init'); },
+    event: function() {}, // No analytics in this adaptation.
     findStylesheet: function(title) {
       for(var i=0; i<document.styleSheets.length; i++) {
         var sheet = document.styleSheets[i];
@@ -680,7 +284,7 @@
     },
 
     getIncomeMsg: function(num, delay) {
-      return _("{0} per {1}s", (num > 0 ? "+" : "") + num, delay);
+      return (num > 0 ? "+" : "") + Number(num.toFixed(2)) + " / " + Number((delay / (window.CivilClock?.rate || 1)).toFixed(2)) + "秒";
       //return (num > 0 ? "+" : "") + num + " per " + delay + "s";
     },
 
@@ -800,57 +404,17 @@
 
     },
 
-    switchLanguage: function(dom){
-      var lang = $(dom).data("language");
-      if(document.location.href.search(/[\?\&]lang=[a-z_]+/) != -1){
-        document.location.href = document.location.href.replace( /([\?\&]lang=)([a-z_]+)/gi , "$1"+lang );
-      }else{
-        document.location.href = document.location.href + ( (document.location.href.search(/\?/) != -1 )?"&":"?") + "lang="+lang;
-      }
+    setInterval: function(callback, interval, skipDouble, key) {
+      return CivilClock.add(callback, interval, interval, key);
     },
-
-    saveLanguage: function(){
-      var lang = decodeURIComponent((new RegExp('[?|&]lang=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-      if(lang && typeof Storage != 'undefined' && localStorage) {
-        localStorage.lang = lang;
-      }
+    setTimeout: function(callback, timeout, skipDouble) {
+      const keys = [[Room.coolFire,'fire'],[Room.adjustTemp,'temperature'],[Room.updateBuilderState,'builder'],[Room.unlockForest,'forest']];
+      const key=keys.find(pair=>pair[0]===callback)?.[1];
+      return CivilClock.add(callback,timeout,0,key);
     },
+    clearTimeout: function(id) { CivilClock.clear(id); },
+    clearInterval: function(id) { CivilClock.clear(id); }
 
-    toggleVolume: function(enabled /* optional */) {
-      if (enabled == null) {
-        enabled = !$SM.get('config.soundOn');
-      }
-      if (!enabled) {
-        $('.volume').text(_('sound on.'));
-        $SM.set('config.soundOn', false);
-        AudioEngine.setMasterVolume(0.0);
-      } else {
-        $('.volume').text(_('sound off.'));
-        $SM.set('config.soundOn', true);
-        AudioEngine.setMasterVolume(1.0);
-      }
-    },
-
-    setInterval: function(callback, interval, skipDouble){
-      if( Engine.options.doubleTime && !skipDouble ){
-        Engine.log('Double time, cutting interval in half');
-        interval /= 2;
-      }
-
-      return setInterval(callback, interval);
-
-    },
-
-    setTimeout: function(callback, timeout, skipDouble){
-
-      if( Engine.options.doubleTime && !skipDouble ){
-        Engine.log('Double time, cutting timeout in half');
-        timeout /= 2;
-      }
-
-      return setTimeout(callback, timeout);
-
-    }
   };
 
   function eventNullifier(e) {
@@ -938,5 +502,15 @@ $.Dispatch = function( id ) {
 };
 
 $(function() {
-  Engine.init();
+  async function boot() {
+    try { const state=await CivilPlatform.load(); $('#startupError').remove(); Engine.init({state}); }
+    catch(error) {
+      $('#startupError').remove();
+      const box=$('<div>').attr('id','startupError').appendTo('body');
+      $('<p>').text('没有读到云端进度，游戏尚未开始。原存档不会被覆盖。').appendTo(box);
+      $('<p>').text(error.message).appendTo(box);
+      $('<button>').text('重试读取').on('click',async function(){this.disabled=true;await boot();}).appendTo(box);
+    }
+  }
+  boot();
 });

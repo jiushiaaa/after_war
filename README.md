@@ -1,47 +1,23 @@
-A Dark Room
-===========
-> "awake. head throbbing. vision blurry. come light the fire."
+# 战后文明
 
-a minimalist text adventure game for your browser
+直接基于 A Dark Room 官方源码的科幻废土文游。工作名未定稿。开局只有生火，随温度、物资、人口和设施自然展开；沿用原作地点、按钮、冷却、左侧记录、右侧库存和事件窗口。
 
-[Click to play](http://adarkroom.doublespeakgames.com)
+## 本地运行
 
-<table>
-<tr><th colspan=4>Available Languages</tr>
-<tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=zh_cn">Chinese (Simplified)</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=zh_tw">Chinese (Traditional)</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=en">English</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=fr">French</a></td>
-</tr><tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=de">German</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=el">Greek</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=id">Indonesian</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=it">Italian</a></td>
-</tr><tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=ja">Japanese</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=ko">Korean</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=nb">Norwegian</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=pl">Polish</a></td>
-</tr><tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=pt">Portuguese</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=pt_br">Portuguese (Brazil)</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=ru">Russian</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=es">Spanish</a></td>
-</tr><tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=sv">Swedish</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=th">Thai</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=tr">Turkish</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=uk">Ukrainian</a></td>
-</tr><tr>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=vi">Vietnamese</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=lt_LT">Lithuanian</a></td>
-	<td><a href="http://adarkroom.doublespeakgames.com/?lang=gl">Galician</a></td>
-</tr>
-</table>
+安装Node.js后在本目录执行 `npm run dev`，打开 `http://127.0.0.1:4180/`。不需要安装额外依赖；可用 `PORT=4181 npm run dev` 指定其他端口。`npm test` 运行规则与存档边界测试。
 
-or play the latest on [GitHub](http://doublespeakgames.github.io/adarkroom)
+当前已编写的首段功能：火/室温/工匠、采木采食、建屋与居民岗位、持续口粮和配给、稳定聚落条件、工坊研究、交通站/泵站旅行、商队贸易、补给外站与发展解锁倍率。完整自然游玩验证仍在进行，具体证据与问题见上层 `设计/08_开发与实玩记录.md`。
 
-<a href="https://itunes.apple.com/us/app/a-dark-room/id736683061"><img src="http://i.imgur.com/DMdnDYq.png" height="50"></a>
-<a href="https://play.google.com/store/apps/details?id=com.yourcompany.adarkroom"><img src="http://i.imgur.com/bLWWj4r.png" height="50"></a>
-<a href="https://store.steampowered.com/app/2460660/A_Dark_Room/"><img src="https://i.imgur.com/yz6cnU0.png" height="50"></a>
+尚未实现：完整农业工业城镇、代际寿命/继承、正式政治体系、区域战争与外交整合、城市群/国家/地球统一、首航结局。规格见上层设计04至06。不要把原版遗留World/Space模块当成本作已实现的内容。
+
+## 存档
+
+本地预览没有平台宿主，只在本次页面中保存内存进度；右下角“存档”可导出JSON，重开后粘贴导入并确认替换。不要在未导出时刷新或关闭。
+
+幻光宿主通过注入的 `window.LumiMakerSdk` 提供云存档；工程不手动引入SDK。启动必须先读，只有成功返回null才新开；失败停住，不覆盖原档。写入串行并合并等待期间的新进度。本地接口测试不等于真实平台验收。本项目没有发布到平台。
+
+## 来源与许可
+
+上游：[doublespeakgames/adarkroom](https://github.com/doublespeakgames/adarkroom)，基线 `1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7`。保留 [MPL-2.0](LICENSE.md)，修改范围与对应源码分发说明见 [UPSTREAM.md](UPSTREAM.md)。
+
+本作地火战争与冰封者是用户指定改编，原著核验边界见上层设计01。不宣称已经通读原著。

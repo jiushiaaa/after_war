@@ -413,7 +413,7 @@ var Outside = {
 			if(curPrev == null) {
 				row.prependTo(village);
 			} else {
-				row.insertAfter('#' + curPrev);
+				row.insertAfter(village.find('#' + curPrev));
 			}
 		} else if(num > 0) {
 			$('div#' + row.attr('id') + ' > div.row_val', village).text(num);

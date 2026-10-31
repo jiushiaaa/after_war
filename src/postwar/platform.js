@@ -1,0 +1,102 @@
+/* MPL-2.0 — LumiMaker asynchronous single-slot persistence. No browser-storage fallback. */
+(function(root) {
+  const id = 'postwar-civilization';
+  function validate(state) {
+    if(!state || typeof state !== 'object' || Array.isArray(state) || !state.civilization || !state.game || !state.stores) throw Error('这不是战后文明存档');
+    const walk = (v,depth=0) => {
+      if(depth > 30) throw Error('存档层级过深');
+      if(typeof v === 'number' && !Number.isFinite(v)) throw Error('存档含无效数值');
+      if(v && typeof v === 'object') for(const k of Object.keys(v)) {
+        if(!/^[\p{L}\p{N}_ -]+$/u.test(k) || ['__proto__','constructor','prototype'].includes(k)) throw Error('存档字段无效');
+        walk(v[k],depth+1);
+      }
+    }; walk(state);
+    for(const [key,value] of Object.entries(state.stores)) if(!['wood','food','fur','scrap'].includes(key) || typeof value !== 'number' || value < 0 || value > 1e12) throw Error('库存无效');
+    for(const key of ['fire','temperature']) if(!Number.isInteger(state.game[key]?.value) || state.game[key].value < 0 || state.game[key].value > 4) throw Error('火或温度无效');
+    if(!Number.isInteger(state.game.builder?.level) || state.game.builder.level < -1 || state.game.builder.level > 4) throw Error('工匠进度无效');
+    const c = state.civilization;
+    if(![1,2,4].includes(c.speed) || ![1,2,4].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
+    if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
+    const limits={trap:5,cart:1,hut:4,lodge:1,granary:1,workshop:1,cistern:1,outpost:1};
+    for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>limits[key]) throw Error('建筑无效');
+    for(const [key,value] of Object.entries(c.tech)) if(!['water','metal'].includes(key) || typeof value!=='boolean') throw Error('技术进度无效');
+    if(![null,'policy','station','pump','salvage','merchant','cold'].includes(c.pending)) throw Error('事件进度无效');
+    const pop = state.game.population || 0;
+    if(!Number.isInteger(pop) || pop < 0 || pop > (state.game.buildings.hut || 0)*4) throw Error('人口无效');
+    const workers = Object.entries(state.game.workers);
+    if(workers.some(([key,n]) => !['hunter','salvager'].includes(key) || !Number.isInteger(n) || n < 0) || workers.reduce((n,[,v])=>n+v,0)>pop) throw Error('岗位无效');
+    if(c.policy && !['equal','ration','generous'].includes(c.policy)) throw Error('配给规则无效');
+    for(const key of ['elapsed','hunger','trust','stableFor','populationClock','productionClock','randomClock','policyCooldown','residentTime']) if(!Number.isFinite(c[key]) || c[key] < 0) throw Error('存档计时无效');
+    if(c.research && (!['water','metal'].includes(c.research.id) || !Number.isFinite(c.research.remaining) || c.research.remaining < 0)) throw Error('研究无效');
+    if(c.journey && (!['station','pump','salvage'].includes(c.journey.id) || !Number.isFinite(c.journey.remaining) || c.journey.remaining < 0)) throw Error('旅途无效');
+    if(!state.cooldown || typeof state.cooldown !== 'object' || !state.timers || typeof state.timers !== 'object') throw Error('计时数据缺失');
+    for(const n of Object.values(state.cooldown)) if(!Number.isFinite(n) || n<0 || n>3600) throw Error('冷却无效');
+    for(const n of Object.values(state.timers.civilClock || {})) if(!Number.isFinite(n) || n<0 || n>3600000) throw Error('计时无效');
+    return state;
+  }
+  function decode(text) {
+    if(text.length > 9e6) throw Error('存档太大');
+    const save = JSON.parse(text);
+    if(save.format !== id || save.version !== 1) throw Error('存档版本不兼容');
+    // v1 previews allowed the random-event wait to pass below zero before population existed.
+    if(Number.isFinite(save.state?.civilization?.randomClock)) save.state.civilization.randomClock=Math.max(0,save.state.civilization.randomClock);
+    return validate(save.state);
+  }
+  const Platform = root.CivilPlatform = {
+    sdk:null, loaded:false, busy:false, dirty:false, timer:null, error:null,
+    validate, decode,
+    async load() {
+      const sdk = root.LumiMakerSdk;
+      if(!sdk) { this.loaded=true; return {}; }
+      this.sdk = sdk;
+      const ready = await sdk.ready();
+      if(!ready.ready) throw Error(ready.error || '尚未连接存档服务');
+      const bytes = await sdk.readSave(); // Only null means no save. A rejection must block startup.
+      const state = bytes === null ? {} : decode(new TextDecoder().decode(bytes));
+      this.loaded = true; this.error=null; return state;
+    },
+    serialize() {
+      if(root.CivilClock) State.timers.civilClock = CivilClock.snapshot();
+      // JSON deliberately omits optional undefined values from ADR income records.
+      return JSON.stringify({format:id,version:1,savedAt:new Date().toISOString(),state:State});
+    },
+    changed() {
+      if(!this.loaded || !root.State?.civilization) return;
+      this.dirty=true;
+      if(this.sdk && !this.timer && !this.busy) this.timer=setTimeout(()=>{this.timer=null;this.flush();},2500);
+    },
+    async flush() {
+      if(!this.sdk || !this.loaded || this.busy || !this.dirty) return;
+      this.busy=true; this.dirty=false;
+      try { await this.sdk.writeSave(this.serialize()); this.error=null; this.status('云端已保存'); }
+      catch(error) { this.dirty=true; this.error=error; this.status('云端未保存，打开存档重试'); }
+      finally { this.busy=false; if(this.dirty && !this.error) this.changed(); }
+    },
+    status(message) { $('#saveNotify').text(message).stop(true).css('opacity',1).delay(2200).animate({opacity:0},700); },
+    download() {
+      const blob = new Blob([this.serialize()],{type:'application/json'}), url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='战后文明-存档.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+      this.status('存档已导出');
+    },
+    menu() {
+      if(Events.activeEvent()) return;
+      const cloud = this.sdk ? (this.error?'云端保存失败。当前进度仍在，请导出备份或重试。':'已连接云存档。进度自动保存。') : '本地预览没有云存档。刷新或关闭前，请导出进度；下次可导入继续。';
+      Events.startEvent({title:'存档', scenes:{start:{text:[cloud],buttons:{
+        download:{text:'导出进度',onChoose:()=>this.download()},
+        import:{text:'导入进度',nextScene:{1:'import'}},
+        ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
+        close:{text:'关闭',nextScene:'end'}
+      }},import:{text:['粘贴存档文件中的完整内容。检查通过后，会再次确认是否替换当前进度。'],textarea:'',buttons:{
+        inspect:{text:'检查存档',onChoose:text=>{
+          try { this.pending=decode(text); setTimeout(()=>{
+            Events.loadScene('confirm');
+          },0); } catch(error) { Notifications.notify(null,'导入未执行：'+error.message); }
+        }},cancel:{text:'取消',nextScene:'end'}
+      }},confirm:{text:['用这份存档替换当前进度？替换前可以先导出当前进度。'],buttons:{
+        backup:{text:'导出当前进度',onChoose:()=>this.download()},
+        replace:{text:'替换当前进度',onChoose:()=>{const next=this.pending;this.pending=null;setTimeout(()=>Civilization.restart(next),0);}},
+        cancel:{text:'取消',nextScene:'end'}
+      }}}});
+    }
+  };
+})(globalThis);
