@@ -286,12 +286,29 @@ test('unaltered natural advanced-service save preserves actual water, medicine, 
  assert.equal(c.regions.nodes.river.population,72);assert.equal(c.municipal.nodes.river.buildings.clinic,2);assert.equal(c.municipal.nodes.river.project.buffer.tools,2);assert.equal(c.municipal.nodes.river.project.required.tools,12);
  const returning=c.regions.shipments.find(x=>x.route==='river');assert.equal(returning.phase,'empty');assert.equal(returning.capacity,128);assert.equal(returning.remaining,19);
  assert.equal(c.origins.nodes.river_network.admitted,51);assert.equal(c.origins.nodes.river_network.schooling.completed.length,1);assert.equal(ctx.CivilOrigins.schoolCapacity(s,'river_network'),50);
- const originMigration=JSON.parse(JSON.stringify(c.origins));originMigration.nodes.river_network.legacyHousingOverflow=0;
- ctx.CivilOrigins.init(s);assert.equal(JSON.stringify(c.origins),JSON.stringify(originMigration),'legacy housing migration preserves the census, stores, births and departure receipts');
+ const riverMigration=JSON.parse(JSON.stringify(c.origins.nodes.river_network));riverMigration.legacyHousingOverflow=0;riverMigration.introducedAt=c.origins.introducedAt;
+ ctx.CivilOrigins.init(s);assert.equal(c.origins.schema,2);assert.equal(JSON.stringify(c.origins.nodes.river_network),JSON.stringify(riverMigration),'multi-source migration preserves the original river census, stores, births and departure receipts');
+ for(const [id,population] of [['old_city_fringe',2000],['mountain_settlements',1600]]){
+  const origin=c.origins.nodes[id];assert.equal(origin.introducedAt,c.elapsed);assert.equal(origin.year,61);assert.equal(origin.population,population);assert.equal(origin.born,0);assert.equal(origin.sourceDeaths,0);assert.equal(origin.admitted,0);assert.equal(origin.status,'unknown');
+ }
  const assets=JSON.stringify([s.game,s.stores,c.services,c.advanced,c.regions,c.origins,c.municipal]);
  for(const name of ['CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices'])ctx[name].init(s);
  assert.equal(c.society.heir.alive,true);assert.equal(JSON.stringify([s.game,s.stores,c.services,c.advanced,c.regions,c.origins,c.municipal]),assets);
  const once=JSON.stringify(s);ctx.CivilServices.tick(s);assert.equal(JSON.stringify(s),once,'same saved second cannot grant construction work');
  ctx.State=s;const restored=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());assert.equal(JSON.stringify(restored),JSON.stringify(s));
  restored.civilization.elapsed=36772;assert.equal(ctx.CivilServices.begin(restored).waterCapacity,600);assert.equal(ctx.CivilServices.begin(restored).waterCapacity,0);assert.equal(restored.stores.steel,s.stores.steel);assert.equal(restored.game.population,524);
+});
+
+test('unaltered natural three-source save resumes the same messenger and independent censuses without replaying model introduction',()=>{
+ const ctx=context(['content/industry.js','content/regions.js','content/urban.js','content/origins.js','content/municipal.js','content/advanced.js','content/services.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/urban.js','src/postwar/origins.js','src/postwar/municipal.js','src/postwar/advanced.js','src/postwar/services.js','src/postwar/platform.js']);
+ const s=ctx.CivilPlatform.decode(fs.readFileSync(path.join(__dirname,'fixtures/natural-multi-origin-contact.json'),'utf8')),c=s.civilization,r=c.origins;
+ assert.equal(c.elapsed,44488);assert.equal(s.game.population,899);assert.equal(c.society.generation,11);assert.equal(ctx.CivilCatalog.capacity(s),1004);assert.equal(r.schema,2);
+ assert.equal(r.contactTrip.source,'old_city_fringe');assert.equal(r.contactTrip.remaining,327);assert.equal(r.contactTrip.lastWorkedAt,c.elapsed);
+ for(const [id,population,born,deaths,status] of [['old_city_fringe',2039,64,25,'contacting'],['mountain_settlements',1631,51,20,'unknown']]){
+  const n=r.nodes[id];assert.equal(n.introducedAt,44306);assert.equal(n.year,74);assert.equal(n.population,population);assert.equal(n.born,born);assert.equal(n.sourceDeaths,deaths);assert.equal(n.admitted,0);assert.equal(n.status,status);assert.equal(n.agreement,null);assert.equal(n.legacyHousingOverflow,0);
+  assert.equal(c.society.cohorts.some(cohort=>cohort.originId===id),false,'source contact never grants home residents');
+ }
+ assert.equal(r.nodes.river_network.introducedAt,24051);assert.equal(r.nodes.river_network.admitted,414);
+ const before=JSON.stringify(s);ctx.CivilOrigins.init(s);ctx.CivilOrigins.tick(s);assert.equal(JSON.stringify(s),before,'reload and repeated callback do not move the messenger or replay a birthday');
+ ctx.State=s;const restored=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());assert.equal(JSON.stringify(restored),before);
 });

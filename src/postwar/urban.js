@@ -17,7 +17,7 @@ var CivilUrban = {
   children(cohorts){return cohorts.filter(c=>c.age<18).reduce((n,c)=>n+c.count,0);},
   sourceIds(s){return ['dispersed',...Object.entries(s.civilization.origins?.nodes||{}).filter(([,n])=>['contacted','agreed'].includes(n.status)).map(([id])=>id)];},
   sourceId(s){return s.civilization.urban.activeSource || 'dispersed';},
-  sourceName(id){return id==='dispersed'?'沿路名册':typeof CivilOriginContent!=='undefined' && CivilOriginContent[id]?.name || '河网散居圈';},
+  sourceName(id){return id==='dispersed'?'沿路名册':typeof CivilOriginContent!=='undefined' && CivilOriginContent[id]?.name || '未登记来源';},
   targetId(s){return s.civilization.urban.activeTarget || 'home';},
   hasTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id);},
   canAcceptTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.canAccept(s,id);},

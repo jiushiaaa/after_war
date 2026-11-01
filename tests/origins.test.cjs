@@ -25,6 +25,8 @@ function depart(h,mode='convoy',max=8,target='home'){
 }
 function admit(h,party){assert.equal(h.o.recordArrival(h.s,party),true);if(party.state){party.cohorts=[];party.state='returning';}return party;}
 function advanceYears(h,years){for(let i=0;i<years*60;i++){h.s.civilization.elapsed+=10;h.o.settle(h.s);h.s.civilization.urban.year=Math.floor(h.s.civilization.elapsed/600);h.o.tick(h.s);}}
+function annualSources(h){for(const id of Object.keys(h.s.civilization.origins.nodes))h.o.annual(h.s,id);}
+function asLegacy(s){const r=s.civilization.origins,n=r.nodes.river_network;r.schema=1;r.nodes={river_network:n};delete n.introducedAt;delete n.agreement;if(r.contactTrip)delete r.contactTrip.lastWorkedAt;return s;}
 test('one finite source is introduced once without changing the old 480 ledger, home stores or population',()=>{
   const h=harness(),{s,o,n,p}=h;assert.equal(n.population,1800);assert.equal(p.count(n.cohorts),1800);assert.equal(n.cohorts.length,160);
   const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);assert.doesNotThrow(()=>o.validate(s));
@@ -81,7 +83,7 @@ test('regional arrivals count the source boundary once without writing home or d
 });
 test('a regional party ages once and returns living passengers to its source after destination eligibility is lost',()=>{
   const h=contact(municipal(harness()),true),{s,o,n,p}=h;n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));const party=depart(h,'convoy',8,'river');
-  s.civilization.regions.nodes.river.relation='trade';s.civilization.elapsed=600;o.annual(s,'river_network');s.civilization.urban.year=1;
+  s.civilization.regions.nodes.river.relation='trade';s.civilization.elapsed=600;annualSources(h);s.civilization.urban.year=1;
   const aged=p.age(party.cohorts),before=JSON.stringify(s);assert.equal(aged.deceased,1);assert.equal(o.recordTransitDeath(s,{...party,target:'rail'},1),false);assert.equal(JSON.stringify(s),before);
   assert.equal(o.recordTransitDeath(s,party,1),true);party.cohorts=aged.cohorts;party.state='returning_people';assert.doesNotThrow(()=>o.validate(s));
   const population=n.population,local=JSON.stringify([s.game,s.stores,s.civilization.regions,s.civilization.municipal]);
@@ -100,16 +102,17 @@ test('the natural 508-resident save accepts missing home targets and migrates on
   for(const d of Object.values(expected.civilization.origins.nodes.river_network.departures))d.target='home';
   expected.civilization.origins.nodes.river_network.schooling={schema:1,completed:[],project:null};
   expected.civilization.origins.nodes.river_network.legacyHousingOverflow=0;
-  o.init(s);assert.deepEqual(JSON.parse(JSON.stringify(s)),expected);assert.doesNotThrow(()=>o.validate(s));const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);
+  expected.civilization.origins.nodes.river_network.introducedAt=expected.civilization.origins.introducedAt;
+  o.init(s);const preserved=JSON.parse(JSON.stringify(s));preserved.civilization.origins.schema=1;delete preserved.civilization.origins.nodes.old_city_fringe;delete preserved.civilization.origins.nodes.mountain_settlements;assert.deepEqual(preserved,expected);assert.doesNotThrow(()=>o.validate(s));const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);
   const restored=JSON.parse(JSON.stringify(s));o.init(restored);assert.equal(JSON.stringify(restored),before);assert.doesNotThrow(()=>o.validate(restored));
-  const legacy=structuredClone(s);for(const d of Object.values(legacy.civilization.origins.nodes.river_network.departures))delete d.target;
+  const legacy=asLegacy(structuredClone(s));for(const d of Object.values(legacy.civilization.origins.nodes.river_network.departures))delete d.target;
   const party=legacy.civilization.urban.parties.find(p=>p.state==='outbound');assert.equal(o.recordArrival(legacy,party),true);party.cohorts=[];party.state='returning';assert.equal(legacy.game.population,508);assert.equal(legacy.civilization.origins.nodes.river_network.admitted,20);assert.doesNotThrow(()=>o.validate(legacy));
 });
 test('old ages are aged by Urban exactly once; equal death counts in successive years have separate receipts',()=>{
   const h=contact(harness(),true),{s,o,n,p}=h;
   n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));const first=depart(h);n.cohorts.sort((a,b)=>(b.age===78)-(a.age===78));const second=depart(h);
   for(let year=1;year<=2;year++){
-    s.civilization.elapsed=year*600;o.annual(s,'river_network');s.civilization.urban.year=year;
+    s.civilization.elapsed=year*600;annualSources(h);s.civilization.urban.year=year;
     for(const party of [first,second]){const aged=p.age(party.cohorts);if(aged.deceased){assert.equal(o.recordTransitDeath(s,party,aged.deceased),true);assert.equal(o.recordTransitDeath(s,party,aged.deceased),false);}party.cohorts=aged.cohorts;}
     assert.doesNotThrow(()=>o.validate(s));
   }
@@ -129,7 +132,7 @@ test('a nominally balanced forged traveller is rejected by immutable departure a
 test('a party whose real passengers all age out retains its empty travel receipt and accepts each annual death once',()=>{
   const h=contact(harness(),true),{s,o,n,p}=h,party=depart(h),counts=[];
   for(let year=1;year<=80;year++){
-    s.civilization.elapsed=year*600;o.annual(s,'river_network');s.civilization.urban.year=year;
+    s.civilization.elapsed=year*600;annualSources(h);s.civilization.urban.year=year;
     const aged=p.age(party.cohorts);if(aged.deceased){counts.push(aged.deceased);assert.equal(o.recordTransitDeath(s,party,aged.deceased),true);assert.equal(o.recordTransitDeath(s,party,aged.deceased),false);}party.cohorts=aged.cohorts;
     assert.doesNotThrow(()=>o.validate(s));
   }
@@ -195,7 +198,7 @@ test('source schools wait for their own materials, spare adults and reserves, an
   n.cohorts=saved;s.civilization.elapsed++;o.tickSchool(s,'river_network');assert.equal(p.remaining,179);const once=JSON.stringify(s);o.tickSchool(s,'river_network');assert.equal(JSON.stringify(s),once);
 });
 test('school migration is idempotent and partial construction survives reload; explicit corruption is rejected rather than reset',()=>{
-  const h=crowdedSchool(),{s,o,n}=h;delete n.schooling;const old=JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]);assert.doesNotThrow(()=>o.validate(s));o.init(s);assert.equal(o.schoolCapacity(s,'river_network'),40);assert.equal(JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]),old);
+  const h=crowdedSchool(),{s,o,n}=h;asLegacy(s);delete n.schooling;const old=JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]);assert.doesNotThrow(()=>o.validate(s));o.init(s);assert.equal(o.schoolCapacity(s,'river_network'),40);assert.equal(JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]),old);
   o.startSchool(s,'river_network');tick(h,37);const loaded=JSON.parse(JSON.stringify(s)),before=JSON.stringify(loaded);o.init(loaded);o.tickSchool(loaded,'river_network');assert.equal(JSON.stringify(loaded),before);assert.doesNotThrow(()=>o.validate(loaded));
   for(const mutate of [x=>x.schooling=null,x=>x.schooling.completed.push({startedAt:0,completedAt:1,paid:{wood:120,tools:12,knowledge:20}}),x=>x.schooling.project.paid.tools--,x=>x.schooling.project.remaining=0,x=>x.schooling.project.lastWorkedAt=s.civilization.elapsed+1]){const bad=structuredClone(s);mutate(bad.civilization.origins.nodes.river_network);o.init(bad);assert.throws(()=>o.validate(bad));}
 });
@@ -211,7 +214,7 @@ function fullSource(){
   const h=contact(harness(),true);advanceYears(h,15);assert.equal(h.n.population,h.n.housing);return h;
 }
 function ageSourceAndPassengers(h){
-  const {s,o,p}=h;s.civilization.elapsed=(h.n.year+1)*600;o.annual(s,'river_network');s.civilization.urban.year=h.n.year;
+  const {s,o,p}=h;s.civilization.elapsed=(h.n.year+1)*600;annualSources(h);s.civilization.urban.year=h.n.year;
   for(const party of s.civilization.urban.parties){const aged=p.age(party.cohorts);if(aged.deceased)assert.equal(o.recordTransitDeath(s,party,aged.deceased),true);party.cohorts=aged.cohorts;}
 }
 function urbanJourney(h){
@@ -228,7 +231,7 @@ function oldBirthsFillVacantBeds(h){
   const {s,o,n,p}=h,birth=p.births(n.cohorts,n.births,{yearStartPopulation:n.population,beds:n.housing-n.population,health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
   assert.equal(o.pay(n.stores,birth.cost),true);
   for(const c of birth.cohorts)n.cohorts.push({...c,cohortId:'river_network_legacy_birth_'+n.year+'_'+c.identity,originId:'river_network'});
-  n.born+=birth.count;n.population+=birth.count;delete n.legacyHousingOverflow;o.assign(s,'river_network');return birth.count;
+  n.born+=birth.count;n.population+=birth.count;delete n.legacyHousingOverflow;o.assign(s,'river_network');asLegacy(s);return birth.count;
 }
 test('a full source preserves return beds across a real Urban year, destination wait and passenger return',()=>{
   const h=fullSource(),{s,o,n,p}=h;s.civilization.elapsed=(n.year+1)*600-10;
@@ -245,7 +248,7 @@ test('a full source preserves return beds across a real Urban year, destination 
 });
 test('only an actual passenger death releases its source bed and empty return vehicles reserve no beds',()=>{
   const h=fullSource(),{s,o,n,p}=h;n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));const party=depart(h);
-  s.civilization.elapsed=(n.year+1)*600;o.annual(s,'river_network');s.civilization.urban.year=n.year;
+  s.civilization.elapsed=(n.year+1)*600;annualSources(h);s.civilization.urban.year=n.year;
   const aged=p.age(party.cohorts);assert.equal(aged.deceased,1);assert.equal(o.reservedBeds(s,'river_network'),8);assert.equal(o.availableBeds(s,'river_network'),0);
   assert.equal(o.recordTransitDeath(s,party,1),true);assert.equal(o.reservedBeds(s,'river_network'),7);assert.equal(o.availableBeds(s,'river_network'),1);
   assert.equal(o.recordTransitDeath(s,party,1),false);assert.equal(o.availableBeds(s,'river_network'),1);party.cohorts=aged.cohorts;
@@ -267,19 +270,85 @@ test('old overbooked saves return every real resident, then extinguish housing d
 test('an old save made after overbooked passengers really returned imports without deleting residents or changing housing',()=>{
   const h=fullSource(),{s,o,n}=h,party=depart(h);ageSourceAndPassengers(h);oldBirthsFillVacantBeds(h);
   assert.equal(o.returnPeople(s,party),true);s.civilization.urban.parties=[];assert.equal(n.population,2208);assert.equal(n.legacyHousingOverflow,undefined);assert.equal(n.departures['p'+party.id].status,'returned');
-  const saved=JSON.parse(JSON.stringify(s)),expected=structuredClone(saved);assert.doesNotThrow(()=>o.validate(saved));expected.civilization.origins.nodes.river_network.legacyHousingOverflow=8;
-  o.init(saved);assert.deepEqual(JSON.parse(JSON.stringify(saved)),expected);assert.doesNotThrow(()=>o.validate(saved));const once=JSON.stringify(saved);o.init(saved);assert.equal(JSON.stringify(saved),once);
+  const saved=JSON.parse(JSON.stringify(s)),expected=structuredClone(saved.civilization.origins.nodes.river_network);assert.doesNotThrow(()=>o.validate(saved));expected.legacyHousingOverflow=8;expected.introducedAt=saved.civilization.origins.introducedAt;
+  o.init(saved);assert.deepEqual(JSON.parse(JSON.stringify(saved.civilization.origins.nodes.river_network)),expected);assert.doesNotThrow(()=>o.validate(saved));const once=JSON.stringify(saved);o.init(saved);assert.equal(JSON.stringify(saved),once);
   const broken=structuredClone(saved);broken.civilization.origins.nodes.river_network.cohorts[0].count--;assert.throws(()=>o.validate(broken),'legacy capacity does not excuse missing actual people');
-  const excessive=structuredClone(saved),x=excessive.civilization.origins.nodes.river_network;delete x.legacyHousingOverflow;x.cohorts[0].count+=9;x.population+=9;x.born+=9;assert.throws(()=>o.validate(excessive),'legacy import never grants more than the two existing eight-seat parties');
-  const invented=fullSource(),y=invented.n;delete y.legacyHousingOverflow;y.cohorts[0].count+=8;y.population+=8;y.born+=8;assert.throws(()=>invented.o.validate(invented.s),'an old birth total alone cannot invent a historical return reservation');
+  const excessive=asLegacy(structuredClone(saved)),x=excessive.civilization.origins.nodes.river_network;delete x.legacyHousingOverflow;x.cohorts[0].count+=9;x.population+=9;x.born+=9;assert.throws(()=>o.validate(excessive),'legacy import never grants more than the two existing eight-seat parties');
+  const invented=fullSource(),y=invented.n;asLegacy(invented.s);delete y.legacyHousingOverflow;y.cohorts[0].count+=8;y.population+=8;y.born+=8;assert.throws(()=>invented.o.validate(invented.s),'an old birth total alone cannot invent a historical return reservation');
 });
 test('historical housing squeeze shrinks only by living arrivals or actual deaths, never by returning passengers',()=>{
   const h=contact(harness(),true),{s,o,n,p}=h;
   n.cohorts=[{age:78,count:1},{age:10,count:600},{age:25,count:500},{age:35,count:400},{age:45,count:300},{age:55,count:300},{age:69,count:99}].map((c,i)=>({...c,identity:'human',originId:'river_network',cohortId:'river_network_return_'+i}));n.population=2200;n.born=400;n.health=100;for(const key of Object.keys(n.stores))n.stores[key]=10000;o.assign(s,'river_network');
   const first=depart(h),second=depart(h);ageSourceAndPassengers(h);assert.equal(oldBirthsFillVacantBeds(h),16);o.init(s);assert.equal(n.legacyHousingOverflow,16);assert.doesNotThrow(()=>o.validate(s));
   admit(h,second);assert.equal(n.legacyHousingOverflow,8);assert.equal(o.availableBeds(s,'river_network'),0);
-  const born=n.born,food=n.stores.food,medicine=n.stores.medicine;s.civilization.elapsed=(n.year+1)*600;o.annual(s,'river_network');s.civilization.urban.year=n.year;
+  const born=n.born,food=n.stores.food,medicine=n.stores.medicine;s.civilization.elapsed=(n.year+1)*600;annualSources(h);s.civilization.urban.year=n.year;
   assert.equal(n.born,born);assert.equal(n.stores.food,food);assert.equal(n.stores.medicine,medicine);assert.equal(n.legacyHousingOverflow,8);
   const aged=p.age(first.cohorts);assert.equal(aged.deceased,1);assert.equal(o.recordTransitDeath(s,first,1),true);first.cohorts=aged.cohorts;assert.equal(n.legacyHousingOverflow,7);assert.equal(o.reservedBeds(s,'river_network'),7);assert.equal(o.availableBeds(s,'river_network'),0);assert.doesNotThrow(()=>o.validate(s));
   assert.equal(o.returnPeople(s,first),true);s.civilization.urban.parties=s.civilization.urban.parties.filter(x=>x!==first);assert.equal(n.population,2207);assert.equal(n.legacyHousingOverflow,7);assert.doesNotThrow(()=>o.validate(s));
+});
+
+function unlockSources(h=harness()){
+  h.s.civilization.urban.city=true;h.s.civilization.regions={nodes:{river:{discovered:true},highland:{discovered:true}}};return h;
+}
+function contactSource(h,id,agree=false){assert.equal(h.o.beginContact(h.s,id),true);tick(h,h.ctx.CivilOriginContent[id].contactDuration);if(agree)assert.equal(h.o.agree(h.s,id),true);return h;}
+test('schema two creates three independent finite age and identity censuses with their own exact initial support',()=>{
+  const {s,o,p}=harness(),r=s.civilization.origins;assert.equal(r.schema,2);assert.deepEqual(Object.keys(r.nodes),['river_network','old_city_fringe','mountain_settlements']);
+  for(const [id,expect]of Object.entries({old_city_fringe:{population:2000,children:450,workforce:1175,parents:800,mutants:400,food:3664,medicine:290,housing:2400,permit:1200},mountain_settlements:{population:1600,children:360,workforce:940,parents:640,mutants:560,food:3131.2,medicine:242,housing:2000,permit:960}})){
+    const n=r.nodes[id];assert.equal(n.population,expect.population);assert.equal(p.children(n.cohorts),expect.children);assert.equal(p.workforce(n.cohorts),expect.workforce);assert.equal(p.count(n.cohorts.filter(c=>c.age>=18&&c.age<=49)),expect.parents);assert.equal(p.count(n.cohorts.filter(c=>c.identity==='mutant')),expect.mutants);assert.ok(Math.abs(n.stores.food-expect.food)<1e-8);assert.equal(n.stores.medicine,expect.medicine);assert.equal(n.housing,expect.housing);assert.equal(n.permit.limit,expect.permit);assert.equal(n.introducedAt,0);assert.equal(n.year,0);assert.equal(n.status,'unknown');assert.equal(n.agreement,null);assert.equal(n.legacyHousingOverflow,0);assert.equal(n.born,0);assert.equal(n.sourceDeaths,0);assert.equal(o.schoolCapacity(s,id),40);assert.ok(n.cohorts.every(c=>c.cohortId.startsWith(id+'_initial_')&&c.originId===id));
+  }
+  assert.notEqual(r.nodes.old_city_fringe.stores,r.nodes.mountain_settlements.stores);assert.notEqual(r.nodes.old_city_fringe.births,r.nodes.mountain_settlements.births);assert.equal(s.game.population,0);assert.equal(s.stores.food,6000);assert.equal(s.civilization.urban.admitted,480);const once=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),once);assert.doesNotThrow(()=>o.validate(s));
+});
+test('historical city and discovered neighbours reveal each source without requiring current people, power or materials',()=>{
+  const h=harness(),{s,o}=h;assert.deepEqual(Array.from(o.visibleIds(s)),['river_network']);assert.equal(o.beginContact(s,'old_city_fringe'),false);assert.equal(o.beginContact(s,'mountain_settlements'),false);
+  s.civilization.urban.city=true;s.civilization.regions={nodes:{river:{discovered:true}}};assert.equal(o.discoverable(s,'old_city_fringe'),false);assert.equal(o.discoverable(s,'mountain_settlements'),false);
+  s.civilization.regions.nodes.rail={discovered:true};assert.equal(o.discoverable(s,'old_city_fringe'),true);assert.equal(o.discoverable(s,'mountain_settlements'),false);
+  s.civilization.regions.nodes.highland={discovered:true};assert.equal(o.discoverable(s,'mountain_settlements'),true);s.stores={};s.game.workers={};assert.equal(s.game.population,0);assert.equal(o.beginContact(s,'old_city_fringe'),true);assert.equal(o.reservedLabor(s),0);assert.doesNotThrow(()=>o.validate(s));
+});
+test('one source pays a 480-second contact, pauses for real food health or adult shortage, and resumes once per saved second',()=>{
+  const h=unlockSources(),{s,o,p}=h,n=s.civilization.origins.nodes.old_city_fringe,other=JSON.stringify([s.civilization.origins.nodes.river_network,s.civilization.origins.nodes.mountain_settlements]),stock={...n.stores},home=JSON.stringify([s.game,s.stores]);
+  assert.equal(o.beginContact(s,'old_city_fringe'),true);assert.equal(stock.food-n.stores.food,12);assert.equal(stock.tools-n.stores.tools,1);assert.equal(o.sourceStaff(s,'old_city_fringe'),2);assert.equal(o.sourceStaff(s,'river_network'),0);assert.equal(JSON.stringify([s.civilization.origins.nodes.river_network,s.civilization.origins.nodes.mountain_settlements]),other);assert.equal(o.beginContact(s,'mountain_settlements'),false);
+  tick(h,120);assert.equal(s.civilization.origins.contactTrip.remaining,360);let before=JSON.stringify(s);o.tick(s);assert.equal(JSON.stringify(s),before);const restored=JSON.parse(before);o.init(restored);assert.equal(JSON.stringify(restored),before);assert.doesNotThrow(()=>o.validate(restored));
+  const reserve={food:n.stores.food,medicine:n.stores.medicine,health:n.health,cohorts:n.cohorts};n.stores.food=0;s.civilization.elapsed++;o.tick(s);assert.equal(s.civilization.origins.contactTrip.remaining,360);assert.match(o.contactWorkReason(s,'old_city_fringe'),/粮药/);n.stores.food=reserve.food;
+  n.health=59;s.civilization.elapsed++;o.tick(s);assert.equal(s.civilization.origins.contactTrip.remaining,360);n.health=reserve.health;
+  n.cohorts=n.cohorts.map(c=>({...c,age:70}));s.civilization.elapsed++;o.tick(s);assert.equal(p.workforce(n.cohorts),0);assert.equal(o.sourceStaff(s,'old_city_fringe'),0);assert.equal(s.civilization.origins.contactTrip.remaining,360);n.cohorts=reserve.cohorts;
+  tick(h,359);assert.equal(n.status,'contacting');tick(h,1);assert.equal(n.status,'contacted');assert.equal(s.civilization.origins.contactTrip,null);assert.equal(o.sourceStaff(s,'old_city_fringe'),0);assert.equal(o.nextEvent(s),'originContact_old_city_fringe');assert.equal(JSON.stringify([s.game,s.stores]),home);assert.doesNotThrow(()=>o.validate(s));
+});
+test('new-source agreements charge both inventories atomically and stale event buttons cannot claim unpaid success',()=>{
+  for(const id of ['old_city_fringe','mountain_settlements']){
+    const h=contactSource(unlockSources(),id),{s,o}=h,n=s.civilization.origins.nodes[id],notes=[],done=(message,fn)=>()=>{fn?.();notes.push(message);s.civilization.pending=null;return true;};
+    const original=JSON.stringify(n.cohorts);n.stores.wood=9;let before=JSON.stringify(s);assert.equal(o.agree(s,id),false);assert.equal(JSON.stringify(s),before);n.stores.wood=10;n.stores.knowledge=9;before=JSON.stringify(s);assert.equal(o.agree(s,id),false);assert.equal(JSON.stringify(s),before);
+    n.stores.knowledge=10;s.stores.knowledge=19;before=JSON.stringify(s);assert.equal(o.agree(s,id),false);assert.equal(JSON.stringify(s),before);s.stores.knowledge=20;
+    s.civilization.pending=o.eventId('Agreement',id);const event=o.event(s.civilization.pending,done);n.stores.knowledge=0;assert.doesNotThrow(()=>o.validate(s));assert.equal(event.buttons.agree.onChoose(),true);assert.match(notes.at(-1),/本次未扣款/);assert.equal(n.permit.paid,false);assert.equal(s.stores.knowledge,20);assert.equal(n.stores.wood,10);n.stores.knowledge=10;
+    assert.equal(o.agree(s,id),true);assert.equal(s.stores.knowledge,0);assert.equal(n.stores.wood,0);assert.equal(n.stores.knowledge,0);assert.equal(JSON.stringify(n.cohorts),original);assert.deepEqual(JSON.parse(JSON.stringify(n.agreement)),{agreedAt:s.civilization.elapsed,home:{knowledge:20},source:{wood:10,knowledge:10}});before=JSON.stringify(s);assert.equal(o.agree(s,id),false);assert.equal(JSON.stringify(s),before);assert.doesNotThrow(()=>o.validate(s));
+    for(const change of [x=>x.agreement.source.knowledge=9,x=>x.agreement.home.knowledge=19,x=>x.agreement.agreedAt=s.civilization.elapsed+1,x=>x.agreement=null,x=>delete x.agreement]){const bad=structuredClone(s);change(bad.civilization.origins.nodes[id]);assert.throws(()=>o.validate(bad));}
+  }
+});
+test('each source owns its one-through-eight quotes, fertility floors and finite paid school capacity',()=>{
+  const h=unlockSources(),{s,o,p,ctx}=h;contact(h,true);for(const id of ['old_city_fringe','mountain_settlements'])contactSource(h,id,true);
+  for(const id of Object.keys(ctx.CivilOriginContent)){
+    const n=s.civilization.origins.nodes[id],cfg=ctx.CivilOriginContent[id];
+    for(let limit=1;limit<=8;limit++){const before=JSON.stringify(s),q=o.quoteParty(s,id,limit,{mode:'convoy'}),choice=o.choose(n.cohorts,limit,'convoy',id);assert.equal(q.count,limit);assert.equal(o.quoteReason(s,id,limit,{mode:'convoy'}),null);assert.equal(p.count(choice.selected)+p.count(choice.remaining),n.population);assert.ok([...choice.selected,...choice.remaining].every(c=>c.count>0&&Number.isInteger(c.count)&&c.originId===id));assert.equal(JSON.stringify(s),before);}
+    const floors=cfg.fertilityBands.map((b,i)=>({age:b.min,count:b.retained,identity:'human',originId:id,cohortId:id+'_floor_'+i}));const atFloor=o.choose(floors,1,'singleton',id);assert.equal(atFloor.selected.length,0);floors[0].count++;assert.equal(o.choose(floors,1,'singleton',id).selected[0].count,1);
+    const cap=n.schooling;n.schooling={schema:1,completed:Array.from({length:cfg.school.max},()=>({})),project:null};assert.equal(o.schoolCapacity(s,id),n.housing/20);assert.equal(o.startSchool(s,id),false);n.schooling=cap;
+  }
+  assert.doesNotThrow(()=>o.validate(s));
+});
+test('unknown sources age and support real next generations for a century without rediscovery reseeding them',()=>{
+  const h=unlockSources(),{s,o,p}=h,home=JSON.stringify([s.game,s.stores]);advanceYears(h,100);
+  for(const id of ['old_city_fringe','mountain_settlements']){const n=s.civilization.origins.nodes[id];assert.equal(n.status,'unknown');assert.equal(n.introducedAt,0);assert.equal(n.year,100);assert.ok(n.born>n.baselinePopulation);assert.ok(n.sourceDeaths>=n.baselinePopulation);assert.ok(n.cohorts.every(c=>c.cohortId.startsWith(id+'_born_')));assert.ok(p.workforce(n.cohorts)>200);assert.ok(n.health>=60);assert.equal(n.hunger,0);assert.equal(n.admitted,0);assert.equal(o.remaining(s,id),n.permit.limit);assert.equal(n.legacyHousingOverflow,0);}
+  assert.equal(JSON.stringify([s.game,s.stores]),home);const people=JSON.stringify(s.civilization.origins.nodes.old_city_fringe.cohorts);assert.equal(o.beginContact(s,'old_city_fringe'),true);assert.equal(JSON.stringify(s.civilization.origins.nodes.old_city_fringe.cohorts),people);assert.doesNotThrow(()=>o.validate(s));
+});
+test('only valid legacy schema one can add new models; schema two refuses deleted nodes and missing required records',()=>{
+  const {o,ctx}=harness();ctx.CivilMunicipal={has:(s,id)=>!!s.civilization.municipal?.nodes[id]};const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-advanced-services.json'),'utf8')).state,before=JSON.stringify(raw.civilization.origins.nodes.river_network);assert.equal(raw.civilization.origins.schema,1);o.init(raw);
+  const original=JSON.parse(before);original.legacyHousingOverflow=0;original.introducedAt=raw.civilization.origins.introducedAt;assert.deepEqual(JSON.parse(JSON.stringify(raw.civilization.origins.nodes.river_network)),original);
+  for(const id of ['old_city_fringe','mountain_settlements']){const n=raw.civilization.origins.nodes[id];assert.equal(n.introducedAt,36765);assert.equal(n.year,61);assert.equal(n.born,0);assert.equal(n.sourceDeaths,0);assert.equal(n.population,n.baselinePopulation);assert.ok(n.cohorts.some(c=>c.age===79));}
+  const migrated=JSON.stringify(raw);o.init(raw);assert.equal(JSON.stringify(raw),migrated);
+  const modern=harness().s;
+  for(const mutate of [x=>delete x.nodes.old_city_fringe,x=>x.nodes.old_city_fringe=null,x=>x.nodes.fake=x.nodes.mountain_settlements,x=>delete x.nodes.old_city_fringe.introducedAt,x=>delete x.nodes.river_network.schooling,x=>delete x.nodes.river_network.legacyHousingOverflow,x=>x.nodes.old_city_fringe.legacyHousingOverflow=1]){const bad=structuredClone(modern);mutate(bad.civilization.origins);const snapshot=JSON.stringify(bad);o.init(bad);assert.equal(JSON.stringify(bad),snapshot);assert.throws(()=>o.validate(bad));}
+  const badLegacy=asLegacy(structuredClone(modern));badLegacy.civilization.origins.nodes.river_network.population++;const snapshot=JSON.stringify(badLegacy);assert.throws(()=>o.init(badLegacy));assert.equal(JSON.stringify(badLegacy),snapshot);
+});
+test('native source events stay bound to their own origin and validate the queued contact or agreement state',()=>{
+  const h=unlockSources(),{s,o}=h;contactSource(h,'old_city_fringe');contactSource(h,'mountain_settlements');assert.equal(o.pendingIds.length,6);assert.ok(o.pendingIds.includes('originContact'));assert.ok(o.pendingIds.includes('originAgreement_mountain_settlements'));
+  const notes=[],done=(message,fn)=>()=>{fn?.();notes.push(message);s.civilization.pending=null;return true;};s.civilization.pending=o.nextEvent(s);assert.equal(s.civilization.pending,'originContact_old_city_fringe');const event=o.event(s.civilization.pending,done);o.selection='mountain_settlements';event.buttons.record.onChoose();assert.equal(s.civilization.origins.nodes.old_city_fringe.announced,true);assert.equal(s.civilization.origins.nodes.mountain_settlements.announced,false);assert.equal(o.nextEvent(s),'originContact_mountain_settlements');assert.match(notes[0],/旧城外缘/);
+  s.civilization.pending='originContact_old_city_fringe';assert.throws(()=>o.validate(s));s.civilization.pending='originContact_mountain_settlements';assert.doesNotThrow(()=>o.validate(s));s.civilization.pending='originAgreement';assert.throws(()=>o.validate(s));s.civilization.pending='originAgreement_mountain_settlements';s.stores.knowledge=0;assert.doesNotThrow(()=>o.validate(s));
 });

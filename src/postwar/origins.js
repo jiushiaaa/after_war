@@ -1,31 +1,36 @@
 /* MPL-2.0 — Permanent source census, bounded emigration and source-owned support. */
 var CivilOrigins={
-  pendingIds:['originContact','originAgreement'],
+  pendingIds:Object.keys(CivilOriginContent).flatMap(id=>['originContact','originAgreement'].map(kind=>kind+(id==='river_network'?'':'_'+id))),
   init(s){
-    if(s.civilization.origins!==undefined){
-      // Existing receipts predate regional destinations; migration must not reissue residents.
-      const r=s.civilization.origins,obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
-      if(obj(r)&&obj(r.nodes))for(const n of Object.values(r.nodes))if(obj(n)){
-        this.initSchool(n);this.initHousing(n);if(obj(n.departures))for(const d of Object.values(n.departures))if(obj(d)&&d.target===undefined)d.target='home';
-      }
-      return;
+    let r=s.civilization.origins;
+    if(r!==undefined){
+      // Only a valid one-source legacy save can introduce additional societies. A damaged
+      // schema-2 save is never repaired by reissuing residents, assets or permits.
+      if(r?.schema!==1)return;
+      this.validate(s);const n=r.nodes.river_network;
+      this.initSchool(n);this.initHousing(n);n.introducedAt=r.introducedAt;
+      for(const d of Object.values(n.departures))if(d.target===undefined)d.target='home';
+      if(r.contactTrip)r.contactTrip.lastWorkedAt=s.civilization.elapsed;
+      for(const id of Object.keys(CivilOriginContent))if(id!=='river_network')r.nodes[id]=this.createNode(s,id);
+      r.schema=2;for(const id of Object.keys(CivilOriginContent))if(id!=='river_network')this.assign(s,id);return;
     }
+    r=s.civilization.origins={schema:2,introducedAt:s.civilization.elapsed,contactTrip:null,warned:false,nodes:{}};
+    for(const id of Object.keys(CivilOriginContent))r.nodes[id]=this.createNode(s,id);
+    for(const id of Object.keys(r.nodes))this.assign(s,id);
+  },
+  createNode(s,id){
+    const cfg=CivilOriginContent[id];
     const year=Math.floor(s.civilization.elapsed/600),cohorts=[];
-    // 40 ages with 23 residents and 40 with 22: a living society, not 1800 new adult workers.
-    for(let age=0;age<80;age++){
-      const count=age<40?23:22,mutants=age%4===0?5:4;
-      cohorts.push({cohortId:'river_network_initial_'+age+'_human',age,count:count-mutants,identity:'human',originId:'river_network'});
-      cohorts.push({cohortId:'river_network_initial_'+age+'_mutant',age,count:mutants,identity:'mutant',originId:'river_network'});
-    }
+    for(let age=0;age<80;age++)for(const [identity,count]of Object.entries(cfg.initial(age)))if(count)cohorts.push({cohortId:id+'_initial_'+age+'_'+identity,age,count,identity,originId:id});
     const population=CivilPopulation.count(cohorts),meal=CivilPopulation.foodPopulation(cohorts)*.12;
-    const n={status:'unknown',baselinePopulation:1800,year,revision:0,cohorts,population,housing:2200,
+    return {status:'unknown',introducedAt:s.civilization.elapsed,baselinePopulation:cfg.baseline,year,revision:0,cohorts,population,housing:cfg.housing,
       stores:{food:meal*12+1000,medicine:population*.01*12+50,tools:120,scrap:300,wood:200,knowledge:0},workers:{},health:80,hunger:0,
       births:{scaled:true,credit:0,mutantCredit:0},born:0,sourceDeaths:0,transitDeaths:0,admitted:0,
-      permit:{limit:1080,paid:false},departures:{},announced:false,discarded:{}};
-    s.civilization.origins={schema:1,introducedAt:s.civilization.elapsed,contactTrip:null,warned:false,nodes:{river_network:n}};
-    this.initSchool(n);this.initHousing(n);this.assign(s,'river_network');
+      permit:{limit:cfg.permit,paid:false},agreement:null,departures:{},announced:false,discarded:{},schooling:{schema:1,completed:[],project:null},legacyHousingOverflow:0};
   },
-  discoverable(s){const c=s.civilization;return !!(c.urban?.registered || c.village?.riverKnown || c.regions?.nodes.river?.discovered);},
+  discoverable(s,id='river_network'){return !!CivilOriginContent[id]?.discover(s);},
+  visibleIds(s){return Object.keys(CivilOriginContent).filter(id=>s.civilization.origins?.nodes[id] && (s.civilization.origins.nodes[id].status!=='unknown' || this.discoverable(s,id)));},
+  introducedAt(s,id){return s.civilization.origins.nodes[id].introducedAt ?? s.civilization.origins.introducedAt;},
   reservedLabor(){return 0;}, // Contact staff belong to the source; a town with no working adults can still answer.
   initSchool(n){if(n.schooling===undefined)n.schooling={schema:1,completed:[],project:null};},
   schoolCapacity(s,id){return CivilOriginContent[id].limits.teacher+(s.civilization.origins.nodes[id].schooling?.completed.length||0)*CivilOriginContent[id].school.places;},
@@ -38,7 +43,7 @@ var CivilOrigins={
     return null;
   },
   schoolBuilders(s,id){return s.civilization.origins.nodes[id].schooling?.project&&!this.schoolWorkReason(s,id)?2:0;},
-  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id?2:0)+this.schoolBuilders(s,id);},
+  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id && !this.contactWorkReason(s,id)?2:0)+this.schoolBuilders(s,id);},
   startSchool(s,id){
     const n=s.civilization.origins.nodes[id],cfg=CivilOriginContent[id].school;this.initSchool(n);const e=n.schooling;
     if(e.project||e.completed.length>=cfg.max||this.plan(n.cohorts).teacher<=this.schoolCapacity(s,id)||this.schoolWorkReason(s,id)||!this.pay(n.stores,cfg.cost))return false;
@@ -93,16 +98,40 @@ var CivilOrigins={
     }
     return {}; // No source material or income is available to the home inventory.
   },
-  beginContact(s){
-    this.init(s);const r=s.civilization.origins,n=r.nodes.river_network,d=CivilOriginContent.river_network;
-    if(!this.discoverable(s)||r.contactTrip||n.status!=='unknown')return false;
+  contactWorkReason(s,id){
+    const n=s.civilization.origins?.nodes[id];if(!n)return '尚未取得这条来源线索';
+    if(n.health<60 || n.hunger)return '来源人员先恢复健康与口粮，联络暂缓';
     const needed=Object.values(this.plan(n.cohorts)).reduce((a,b)=>a+b,0);
-    if(CivilPopulation.workforce(n.cohorts)<needed+2+this.schoolBuilders(s,'river_network') || !this.pay(n.stores,d.contactCost))return false;
-    r.contactTrip={source:'river_network',remaining:d.contactDuration};n.status='contacting';this.assign(s,'river_network');return true;
+    if(CivilPopulation.workforce(n.cohorts)<needed+2+this.schoolBuilders(s,id))return '来源须先维持供养与教学，联络尚缺2名空余成人';
+    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(n.cohorts)*.12*12 || (n.stores.medicine||0)+1e-8<n.population*.01*12)return '来源先备足120秒粮药，联络暂缓';
+    return null;
+  },
+  contactReason(s,id='river_network'){
+    const r=s.civilization.origins,n=r?.nodes[id],cfg=CivilOriginContent[id];
+    if(!n || !cfg || !this.discoverable(s,id))return '尚未取得这条来源线索';
+    if(r.contactTrip)return r.contactTrip.source===id?this.contactWorkReason(s,id)||'联络人员仍在途中':'等待上一支联络队回来';
+    if(n.status!=='unknown')return '这条来源已经取得联系';
+    return this.contactWorkReason(s,id) || (!this.canPay(n.stores,cfg.contactCost)?'来源先备足联络旅粮和工具':null);
+  },
+  beginContact(s,id='river_network'){
+    this.init(s);const r=s.civilization.origins,n=r.nodes[id],d=CivilOriginContent[id];
+    if(this.contactReason(s,id) || !this.pay(n.stores,d.contactCost))return false;
+    r.contactTrip={source:id,remaining:d.contactDuration,lastWorkedAt:s.civilization.elapsed};n.status='contacting';this.assign(s,id);return true;
+  },
+  agreementReason(s,id='river_network'){
+    const n=s.civilization.origins?.nodes[id],d=CivilOriginContent[id];
+    if(!n || !d || n.status!=='contacted' || n.permit.paid)return '来源尚未完成联络，或协议已经登记';
+    if(!this.canPay(s.stores,d.agreementCost))return '本地尚缺登记知识';
+    if(!this.canPay(n.stores,d.sourceAgreementCost))return d.name+'尚缺自己的名册木料或知识';
+    return null;
   },
   agree(s,id='river_network'){
     const n=s.civilization.origins?.nodes[id],d=CivilOriginContent[id];
-    if(!n || !d || n.status!=='contacted' || n.permit.paid || !CivilRules.pay(s,d.agreementCost))return false;
+    if(this.agreementReason(s,id))return false;
+    // Check both independent inventories before either is charged; no asynchronous step
+    // can intervene between this check and these two payments.
+    this.pay(s.stores,d.agreementCost);this.pay(n.stores,d.sourceAgreementCost);
+    n.agreement={agreedAt:s.civilization.elapsed,home:{...d.agreementCost},source:{...d.sourceAgreementCost}};
     n.status='agreed';n.permit.paid=true;n.revision++;return true;
   },
   inTransit(n){return Object.values(n.departures).filter(d=>d.status==='travel').reduce((sum,d)=>sum+d.alive,0);},
@@ -133,10 +162,10 @@ var CivilOrigins={
     return null;
   },
   sustainable(s,id,cohorts){return this.sustainabilityReason(s,id,cohorts)===null;},
-  choose(cohorts,limit,mode){
+  choose(cohorts,limit,mode,id='river_network'){
     const remaining=cohorts.map(c=>({...c})),selected=[];
-    if(!Number.isInteger(limit)||limit<1||limit>8||!['singleton','convoy'].includes(mode))return {selected,remaining};
-    const bands=CivilOriginContent.river_network.fertilityBands;
+    if(!CivilOriginContent[id]||!Number.isInteger(limit)||limit<1||limit>8||!['singleton','convoy'].includes(mode))return {selected,remaining};
+    const bands=CivilOriginContent[id].fertilityBands;
     const excess=b=>Math.max(0,CivilPopulation.count(remaining.filter(c=>c.age>=b.min&&c.age<=b.max))-b.retained);
     const take=(test,count)=>{
       while(count>0){
@@ -167,7 +196,7 @@ var CivilOrigins={
     if(!n || !['singleton','convoy'].includes(mode) || !['contacted','agreed'].includes(n.status) || mode==='convoy' && n.status!=='agreed' || !Number.isInteger(maxPeople)||maxPeople<1)return null;
     const max=Math.min(mode==='singleton'?1:8,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
     for(let count=max;count>0;count--){
-      const {selected,remaining}=this.choose(n.cohorts,count,mode),actual=CivilPopulation.count(selected);
+      const {selected,remaining}=this.choose(n.cohorts,count,mode,id),actual=CivilPopulation.count(selected);
       if(!actual || actual!==count || !this.sustainable(s,id,remaining))continue;
       return {originId:id,revision:n.revision,mode,cohorts:selected,count:actual,cost:mode==='singleton'?{food:actual*6}:{food:actual*6,medicine:actual*.2,tools:actual*.2}};
     }
@@ -183,14 +212,14 @@ var CivilOrigins={
     if(this.remaining(s,id)<=0)return '来源的累计迁居额度已经用完';
     const max=Math.min(mode==='singleton'?1:8,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
     if(max<=0)return '来源至少需要留守'+CivilOriginContent[id].retained+'位居民';
-    for(let count=max;count>0;count--){const choice=this.choose(n.cohorts,count,mode);if(CivilPopulation.count(choice.selected)===count){const reason=this.sustainabilityReason(s,id,choice.remaining);if(reason)return reason;}}
+    for(let count=max;count>0;count--){const choice=this.choose(n.cohorts,count,mode,id);if(CivilPopulation.count(choice.selected)===count){const reason=this.sustainabilityReason(s,id,choice.remaining);if(reason)return reason.replace(/^来源/,CivilOriginContent[id].name);}}
     return '来源须保留各年龄段的育龄居民，暂不能组成迁居家庭';
   },
   target(d){return d.target===undefined?'home':d.target;},
   validTarget(s,target){return target==='home' || typeof target==='string' && typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,target);},
   commitDeparture(s,quote,partyId,target='home'){
     const n=s.civilization.origins?.nodes[quote?.originId];
-    if(!n || !Number.isInteger(partyId)||partyId<1 || n.departures['p'+partyId] || quote.revision!==n.revision)return false;
+    if(!n || !Number.isInteger(partyId)||partyId<1 || Object.values(s.civilization.origins.nodes).some(node=>node.departures['p'+partyId]) || quote.revision!==n.revision)return false;
     if(!this.validTarget(s,target) || target!=='home' && (quote.mode==='singleton' || !CivilMunicipal.canAccept(s,target)))return false;
     const fresh=this.quoteParty(s,quote.originId,quote.count,{mode:quote.mode});
     if(!fresh || JSON.stringify(fresh.cohorts)!==JSON.stringify(quote.cohorts) || fresh.count!==quote.count)return false;
@@ -246,9 +275,11 @@ var CivilOrigins={
   tick(s){
     this.init(s);const r=s.civilization.origins;
     for(const id of Object.keys(r.nodes)){this.annual(s,id);this.tickSchool(s,id);}
-    if(r.contactTrip){
-      r.contactTrip.remaining=Math.max(0,r.contactTrip.remaining-1);
-      if(!r.contactTrip.remaining){const id=r.contactTrip.source;r.nodes[id].status='contacted';r.nodes[id].revision++;r.contactTrip=null;this.assign(s,id);}
+    if(r.contactTrip && r.contactTrip.lastWorkedAt<s.civilization.elapsed){
+      const trip=r.contactTrip,id=trip.source;trip.lastWorkedAt=s.civilization.elapsed;
+      if(!this.contactWorkReason(s,id))trip.remaining=Math.max(0,trip.remaining-1);
+      if(!trip.remaining){r.nodes[id].status='contacted';r.nodes[id].revision++;r.contactTrip=null;}
+      this.assign(s,id);
     }
     const u=s.civilization.urban;
     if(u?.registered && !r.warned && (CivilPopulation.count(u.source)===0 || u.source.filter(c=>c.age>=18&&c.age<=49).reduce((a,c)=>a+c.count,0)<16)){
@@ -256,42 +287,47 @@ var CivilOrigins={
     }
     return {storesChanged:false,populationChanged:false};
   },
-  nextEvent(s){const n=s.civilization.origins?.nodes.river_network;return n?.status==='contacted' && !n.announced?'originContact':null;},
+  eventId(kind,id){return 'origin'+kind+(id==='river_network'?'':'_'+id);},
+  eventSource(eventId){return Object.keys(CivilOriginContent).find(id=>['Contact','Agreement'].some(kind=>this.eventId(kind,id)===eventId));},
+  nextEvent(s){const id=Object.keys(CivilOriginContent).find(id=>{const n=s.civilization.origins?.nodes[id];return n && ['contacted','agreed'].includes(n.status) && !n.announced;});return id?this.eventId('Contact',id):null;},
+  costText(cost){const labels={food:'粮食',tools:'工具',wood:'木料',knowledge:'知识',medicine:'药品'};return Object.entries(cost).map(([id,n])=>n+(labels[id]||id)).join('、');},
   event(id,done){
-    const s=State,n=s.civilization.origins?.nodes.river_network;if(!n)return null;
-    if(id==='originContact')return {title:'河网另一头的名册',text:[
-      '河网的联络站用自己的值守人员与旅粮确认了这条路。那里分布着许多已有家庭，孩子会长大，老人也会离世。',
+    const s=State,source=this.eventSource(id),n=s.civilization.origins?.nodes[source],cfg=CivilOriginContent[source];if(!n || !cfg)return null;
+    if(id===this.eventId('Contact',source) && ['contacted','agreed'].includes(n.status))return {title:cfg.name+'的名册',text:[
+      cfg.name+'的联络人员用自己的旅粮确认了这条路。名册上现有'+n.population+'位居民，孩子会长大，老人也会离世。',
       '这次联系不会给聚落增加任何居民。已联系的来源可逐人到访，每人实际支付6食物；即使本地已没有成年劳动力，也可先手动备粮恢复。',
-      '批次接纳需另花20知识登记协议，仍按车队、床位、粮药与教学能力发车。最多迁出1080人，并保证来源至少留下720人及必要供养岗位。'
-    ],buttons:{record:{text:'记录来源与接纳条件',nextScene:'end',onChoose:done('河网来源已记录。选择来源后才按真实费用接纳，原名册与已离世者保持原账。',()=>{n.announced=true;})}}};
-    if(id==='originAgreement' && n.status==='contacted')return {title:'河网迁居登记',text:[
-      '登记批次迁居需要20知识。费用支付一次，协议总额1080，不随读档、出生或换任重置。',
+      '批次接纳由本地支付'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，对方自己支付'+this.costText(cfg.sourceAgreementCost):'')+'登记。最多迁出'+cfg.permit+'人，并保证来源至少留下'+cfg.retained+'人及必要供养岗位。'
+    ],buttons:{record:{text:'记录来源与接纳条件',nextScene:'end',onChoose:done(cfg.name+'的名册已记录。居民按真实费用、住房与供养逐步安置。',()=>{n.announced=true;})}}};
+    if(id===this.eventId('Agreement',source) && n.status==='contacted')return {title:cfg.name+'迁居登记',text:[
+      '本地支付'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，'+cfg.name+'自己支付'+this.costText(cfg.sourceAgreementCost):'')+'。双方材料齐备才一起登记；协议总额'+cfg.permit+'，不随出生或换任重新分配。',
       '登记后每批仍需每人6食物、0.2药品、0.2工具，两名实际运输工和已预留床位。逐人到访不要求先签这份批次协议。'
-    ],buttons:{agree:{text:'登记批次协议（20知识）',nextScene:'end',onChoose:()=>{const ok=this.agree(s);return done(ok?'批次迁居协议已经登记。':'当前知识不足或协议已经登记，未重复扣款。')();}},later:{text:'先维持逐人到访',nextScene:'end',onChoose:done('保留逐人到访，稍后再商议批次接纳。')}}};
+    ],buttons:{agree:{text:'登记批次协议（'+this.costText(cfg.agreementCost)+'）',nextScene:'end',onChoose:()=>{const reason=this.agreementReason(s,source),ok=!reason && this.agree(s,source);return done(ok?cfg.name+'的批次迁居协议已经登记。':(reason||'登记条件已变化')+'，本次未扣款。')();}},later:{text:'先维持逐人到访',nextScene:'end',onChoose:done('保留逐人到访，稍后再商议批次接纳。')}}};
     return null;
   },
   note(message){if(typeof Civilization!=='undefined' && Civilization.notify)Civilization.notify(message);},
-  reset(){this.panelReady=false;},
+  reset(){this.panelReady=false;this.selection=null;},
+  selected(s){const ids=this.visibleIds(s);return ids.includes(this.selection)?this.selection:ids[0];},
   refresh(){
-    const s=State,r=s.civilization.origins;if(!r || !this.discoverable(s) || !$('#roadPanel').length)return;
-    const n=r.nodes.river_network;
-    const start=Civilization.button('originContactButton','沿河网联络','#roadPanel',()=>{if(this.beginContact(s)){Engine.saveGame();this.refresh();}});
-    start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,n.status!=='unknown');start.attr('title','来源社会承担2名值守人员、12粮与1工具；240秒后取得联系，本地不需成年探访员');
+    const s=State,r=s.civilization.origins,ids=this.visibleIds(s),id=this.selected(s);if(!r || !id || !$('#roadPanel').length)return;
+    const n=r.nodes[id],cfg=CivilOriginContent[id];
+    const select=Civilization.button('originSourceButton','来源线索：'+cfg.name,'#roadPanel',()=>{const available=this.visibleIds(State),current=this.selected(State);this.selection=available[(available.indexOf(current)+1)%available.length];this.refresh();});
+    select.text('来源线索：'+cfg.name+'（'+(ids.indexOf(id)+1)+'/'+ids.length+'）').toggle(ids.length>1);select.attr('title','切换已经发现的来源线索；在途旅队仍按原来源和目的地行进');
+    const start=Civilization.button('originContactButton','派出联络信使','#roadPanel',()=>{if(this.beginContact(State,this.selected(State))){Engine.saveGame();this.refresh();}});
+    start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,!!this.contactReason(s,id));start.attr('title',cfg.name+'自己承担2名联络人员、'+this.costText(cfg.contactCost)+'；'+cfg.contactDuration+'个实际工作秒后取得联系');
     let info=$('#originSourceInfo');if(!info.length)info=$('<div>').attr('id','originSourceInfo').css({width:'410px',lineHeight:'1.8',marginTop:'15px'}).appendTo('#roadPanel');
-    info.text(r.contactTrip?'河网人员正在联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。':n.status==='unknown'?'河谷之外仍有散居家庭。来源人员可以建立联系，接触不会赠送居民。':
-      '河网来源：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,'river_network')?'为未安置旅客保留 '+this.reservedBeds(s,'river_network')+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,'river_network')+'；至少留守720人。'+(n.status==='agreed'?(this.quoteReason(s,'river_network',8,{mode:'convoy'})||'可安排批次接纳。'):'已可逐人到访，每人6粮；批次需登记。')+' '+this.schoolStatus(s,'river_network'));
-    if(n.status==='contacted'){
-      const agree=Civilization.button('originAgreementButton','商议批次接纳','#roadPanel',()=>{if(!Events.activeEvent() && !s.civilization.pending){s.civilization.pending='originAgreement';Civilization.showPending();}},{knowledge:20});Button.setDisabled(agree,!CivilRules.canPay(s,{knowledge:20}));
-    }
+    info.text(n.status==='contacting'?cfg.name+'的人员正在联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。'+(this.contactWorkReason(s,id)||''):n.status==='unknown'?cfg.name+'留下了可以联络的线索。由当地人员自备旅粮勘路，取得联系后再核对真实名册。'+(this.contactReason(s,id)||''):
+      cfg.name+'：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,id)?'为未安置旅客保留 '+this.reservedBeds(s,id)+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,id)+'；至少留守'+cfg.retained+'人。'+(n.status==='agreed'?(this.quoteReason(s,id,8,{mode:'convoy'})||'可安排批次接纳。'):'已可逐人到访，每人6粮；批次需登记。'+(this.agreementReason(s,id)||''))+' '+this.schoolStatus(s,id));
+    const agree=Civilization.button('originAgreementButton','商议批次接纳','#roadPanel',()=>{const selected=this.selected(State);if(!Events.activeEvent() && !State.civilization.pending && State.civilization.origins.nodes[selected].status==='contacted'){State.civilization.pending=this.eventId('Agreement',selected);Civilization.showPending();}});
+    Button.setDisabled(agree,!!this.agreementReason(s,id));agree.attr('title','本地：'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'；来源：'+this.costText(cfg.sourceAgreementCost):''));
     $('#originAgreementButton').toggle(n.status==='contacted');
   },
   validateSchool(s,id,n){
     const e=n.schooling;if(e===undefined)return;
     const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x),cfg=CivilOriginContent[id].school,t=s.civilization.elapsed;
-    const time=x=>Number.isFinite(x)&&x>=s.civilization.origins.introducedAt&&x<=t;
+    const time=x=>Number.isFinite(x)&&x>=this.introducedAt(s,id)&&x<=t;
     const paid=x=>obj(x)&&Object.keys(x).length===Object.keys(cfg.cost).length&&Object.entries(cfg.cost).every(([k,v])=>x[k]===v);
     if(!obj(e)||e.schema!==1||!Array.isArray(e.completed)||e.completed.length>cfg.max)throw Error('来源扩班记录无效');
-    let last=s.civilization.origins.introducedAt;
+    let last=this.introducedAt(s,id);
     for(const x of e.completed){if(!obj(x)||!time(x.startedAt)||!time(x.completedAt)||x.startedAt<last||x.completedAt-x.startedAt<cfg.duration||!paid(x.paid))throw Error('来源学舍竣工记录无效');last=x.completedAt;}
     const p=e.project;
     if(p!==null&&(!obj(p)||e.completed.length>=cfg.max||!time(p.startedAt)||p.startedAt<last||!time(p.lastWorkedAt)||p.lastWorkedAt<p.startedAt||!Number.isInteger(p.remaining)||p.remaining<1||p.remaining>cfg.duration||p.lastWorkedAt-p.startedAt<cfg.duration-p.remaining||!paid(p.paid)))throw Error('来源扩班施工无效');
@@ -300,15 +336,24 @@ var CivilOrigins={
     const r=s.civilization.origins;if(r===undefined)return;
     const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x),int=(x,max=1e9)=>Number.isInteger(x)&&x>=0&&x<=max,num=(x,max=1e12)=>Number.isFinite(x)&&x>=0&&x<=max;
     const year=Math.floor(s.civilization.elapsed/600),u=s.civilization.urban;
-    if(!obj(r)||r.schema!==1||!num(r.introducedAt,s.civilization.elapsed)||typeof r.warned!=='boolean'||!obj(r.nodes)||Object.keys(r.nodes).length!==1||!r.nodes.river_network)throw Error('来源总账无效');
-    if(r.contactTrip!==null && (!obj(r.contactTrip)||r.contactTrip.source!=='river_network'||!int(r.contactTrip.remaining,240)))throw Error('来源联络无效');
+    if(!obj(r)||![1,2].includes(r.schema)||!num(r.introducedAt,s.civilization.elapsed)||typeof r.warned!=='boolean'||!obj(r.nodes))throw Error('来源总账无效');
+    const ids=r.schema===1?['river_network']:Object.keys(CivilOriginContent),keys=Object.keys(r.nodes),partyIds=new Set();
+    if(keys.length!==ids.length || ids.some(id=>!obj(r.nodes[id])) || keys.some(id=>!ids.includes(id)))throw Error('来源节点缺失或未知');
+    if(r.contactTrip!==null && (!obj(r.contactTrip)||!ids.includes(r.contactTrip.source)||!int(r.contactTrip.remaining,CivilOriginContent[r.contactTrip.source].contactDuration)||r.schema===2&&(!num(r.contactTrip.lastWorkedAt,s.civilization.elapsed)||r.contactTrip.lastWorkedAt<this.introducedAt(s,r.contactTrip.source))))throw Error('来源联络无效');
     for(const [id,n]of Object.entries(r.nodes)){
       const cfg=CivilOriginContent[id];
       // A pre-fix save can already contain returned passengers. At most two eight-seat
       // parties caused this legacy squeeze; the full population/receipt ledger still applies.
-      const allowance=n?.legacyHousingOverflow===undefined?16:Number.isInteger(n?.legacyHousingOverflow)?n.legacyHousingOverflow:0;
+      const allowance=r.schema===1 && n.legacyHousingOverflow===undefined?16:Number.isInteger(n.legacyHousingOverflow)?n.legacyHousingOverflow:0;
       if(!cfg||!obj(n)||!['unknown','contacting','contacted','agreed'].includes(n.status)||n.baselinePopulation!==cfg.baseline||n.housing!==cfg.housing||n.year!==year||!int(n.revision)||!Array.isArray(n.cohorts)||n.cohorts.length>400||!int(n.population,n.housing+allowance)||!obj(n.stores)||!obj(n.workers)||!num(n.health,100)||!num(n.hunger)||!obj(n.departures)||typeof n.announced!=='boolean'||!obj(n.discarded))throw Error('来源状态无效');
-      if((n.status==='contacting')!==!!r.contactTrip || !obj(n.permit)||n.permit.limit!==cfg.permit||typeof n.permit.paid!=='boolean'||(n.status==='agreed')!==n.permit.paid)throw Error('来源协议无效');
+      if(r.schema===2 && (!num(n.introducedAt,s.civilization.elapsed)||n.introducedAt<r.introducedAt||id==='river_network'&&n.introducedAt!==r.introducedAt||n.schooling===undefined||n.legacyHousingOverflow===undefined))throw Error('来源建模时间或记录缺失');
+      if(id!=='river_network' && n.legacyHousingOverflow!==0)throw Error('新来源没有历史住房挤压');
+      if(r.schema===1 && n.introducedAt!==undefined && n.introducedAt!==r.introducedAt)throw Error('旧来源建模时间无效');
+      if((n.status==='contacting')!==(r.contactTrip?.source===id) || !obj(n.permit)||n.permit.limit!==cfg.permit||typeof n.permit.paid!=='boolean'||(n.status==='agreed')!==n.permit.paid)throw Error('来源协议无效');
+      const agreement=n.agreement,paid=(x,cost)=>obj(x)&&Object.keys(x).length===Object.keys(cost).length&&Object.entries(cost).every(([k,v])=>x[k]===v);
+      if(agreement===undefined){if(id!=='river_network')throw Error('来源议约记录缺失');}
+      else if(agreement===null){if(n.permit.paid)throw Error('来源议约付款缺失');}
+      else if(!obj(agreement)||!n.permit.paid||!num(agreement.agreedAt,s.civilization.elapsed)||agreement.agreedAt<this.introducedAt(s,id)||!paid(agreement.home,cfg.agreementCost)||!paid(agreement.source,cfg.sourceAgreementCost))throw Error('来源议约付款无效');
       if(!obj(n.births)||n.births.scaled!==true||['credit','mutantCredit'].some(k=>!num(n.births[k],1)||n.births[k]>=1))throw Error('来源出生记录无效');
       const cohortIds=new Set();
       for(const c of n.cohorts){if(!obj(c)||typeof c.cohortId!=='string'||!c.cohortId.startsWith(id+'_')||cohortIds.has(c.cohortId)||!int(c.age,79)||!int(c.count,n.housing)||!c.count||!['human','mutant'].includes(c.identity)||c.originId!==id)throw Error('来源年龄名册无效');cohortIds.add(c.cohortId);}
@@ -320,7 +365,8 @@ var CivilOrigins={
       for(const key of ['born','sourceDeaths','transitDeaths','admitted'])if(!int(n[key]))throw Error('来源流量无效');
       let arrived=0,dead=0,travel=0,returned=0;
       for(const [key,d]of Object.entries(n.departures)){
-        if(!obj(d)||!int(d.partyId)||d.partyId<1||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,8)||!d.initial||!int(d.alive,8)||!int(d.dead,8)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(r.introducedAt/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||d.cohorts.length>8)throw Error('来源迁出记录无效');
+        if(!obj(d)||!int(d.partyId)||d.partyId<1||partyIds.has(d.partyId)||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,8)||!d.initial||!int(d.alive,8)||!int(d.dead,8)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(this.introducedAt(s,id)/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||d.cohorts.length>8||r.schema===2&&d.target===undefined)throw Error('来源迁出记录无效');
+        partyIds.add(d.partyId);
         const target=this.target(d);
         if(!this.validTarget(s,target) || d.mode==='singleton' && target!=='home')throw Error('来源迁出目的地无效');
         const originals=new Set();
@@ -344,5 +390,8 @@ var CivilOrigins={
       if(overflow>Math.min(16,travel+returned) || n.legacyHousingOverflow!==undefined && (!int(n.legacyHousingOverflow,16)||n.legacyHousingOverflow!==overflow))throw Error('来源返乡床位记录无效');
       if((u?.parties||[]).some(p=>p.source===id&&!n.departures['p'+p.id]))throw Error('在途居民没有来源记录');
     }
+    const pendingSource=this.eventSource(s.civilization.pending);
+    if(pendingSource){const n=r.nodes[pendingSource],contact=s.civilization.pending===this.eventId('Contact',pendingSource);
+      if(!n || (contact? !['contacted','agreed'].includes(n.status)||n.announced : n.status!=='contacted'))throw Error('来源待办与联络状态不符');}
   }
 };
