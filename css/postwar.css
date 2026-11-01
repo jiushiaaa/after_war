@@ -20,3 +20,7 @@
 
 #councilRecord,#councilHistory { width:410px; margin-bottom:25px; line-height:1.8; }
 #councilHistory { margin-top:25px; font-size:13px; }
+.civil-development { width:420px; max-width:100%; margin:16px 0; }
+.civil-development-row { margin:12px 0; padding-bottom:8px; border-bottom:1px solid #ddd; }
+.civil-development-row strong { font-weight:normal; }
+.civil-development-row p { margin:4px 0 0; color:#666; font-size:13px; line-height:1.6; }

@@ -50,6 +50,15 @@ var CivilInterface={
   },
   renderUrban(s){this.summary('#urbanRecord',this.urbanSummary(s));},
   renderMunicipal(s,id){this.summary('#municipalStatus',this.municipalSummary(s,id));},
+  development(s,id,visible){
+    let box=$('#civilDevelopment');if(!box.length){box=$('<details>').attr('id','civilDevelopment').addClass('civil-details civil-development').insertAfter('#civilTabs_municipal');$('<summary>').appendTo(box);$('<p>').appendTo(box);$('<div>').addClass('civil-development-missing').appendTo(box);const done=$('<details>').addClass('civil-details').appendTo(box);$('<summary>').appendTo(done);$('<div>').appendTo(done);}
+    const m=CivilMunicipal.data(s,id);box.toggle(visible&&!!m&&!m.city);if(!visible||!m||m.city)return;
+    const city=m.town,rows=CivilMunicipal.developmentChecks(s,id,city),missing=rows.filter(x=>!x.ready),passed=rows.filter(x=>x.ready),seconds=city?300:180,stable=city?m.cityStable:m.townStable;
+    box.children('summary').text('发展条件 · '+(city?'城市':'镇制')+(missing.length?'还差 '+missing.length+' 项':'条件已齐备'));
+    box.children('p').text('所有条件须同时保持 '+seconds+' 秒；当前 '+stable+' / '+seconds+' 秒。完成后由地方代表提出登记。');
+    const fill=(root,list,detail)=>{while(root.children().length<list.length){const row=$('<div>').addClass('civil-development-row').appendTo(root);$('<strong>').appendTo(row);$('<p>').appendTo(row);}root.children().slice(list.length).remove();list.forEach((r,i)=>{const row=root.children().eq(i);row.children('strong').text(r.label+' · '+r.value);row.children('p').text(detail?r.hint:'').toggle(detail);});};
+    fill(box.children('.civil-development-missing'),missing,true);const done=box.children('details');done.children('summary').text('已满足（'+passed.length+'）');fill(done.children('div'),passed,false);
+  },
   select(key,view){this.views[key]=view;this.refresh(State);},
   tabs(key,anchor,choices){
     let bar=$('#civilTabs_'+key);if(!bar.length)bar=$('<div>').attr({id:'civilTabs_'+key,role:'group','aria-label':'查看分类'}).addClass('civil-tabs').insertAfter(anchor);
@@ -85,9 +94,10 @@ var CivilInterface={
   municipal(s,renderSummary=true){
     if(!$('#municipalPanel').length)return;
     const id=CivilMunicipal.selected,m=CivilMunicipal.data(s,id);if(!id)return;if(renderSummary)this.renderMunicipal(s,id);
-    if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief,#civilCultureStatus').hide();$('#municipalBuild').parent().show();return;}
+    if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief,#civilCultureStatus,#civilDevelopment').hide();$('#municipalBuild').parent().show();return;}
     const available=['overview','housing','care','materials','industry','power','culture'].filter(group=>group==='overview'||group==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||CivilCulture.data(s,id))||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
     $('#civilTabs_municipal').show();const active=this.tabs('municipal','#municipalStatus',available);
+    this.development(s,id,active==='overview');
     $('#municipalBuild').parent().addClass('civil-build-columns').toggle(active!=='overview');
     $('#cultureButton').toggle(active==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||!!CivilCulture.data(s,id)));
     let commons=$('#civilCultureStatus');if(!commons.length)commons=$('<div>').attr('id','civilCultureStatus').insertAfter('#civilTabs_municipal');

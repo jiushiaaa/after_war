@@ -42,6 +42,20 @@ function fullTown(population=400){
   fill(h,population);return h;
 }
 function settle(h){h.s.civilization.elapsed+=10;h.route.lastDeliveredAt=h.s.civilization.elapsed;h.m.settleNode(h.s,h.id);}
+test('development checklist uses actual local production and inventory, is read-only, and does not count power capacity as productive work',()=>{
+ const h=fullTown(),{s,m,id,n}=h;settle(h);const before=JSON.stringify(s),rows=m.developmentChecks(s,id,true);
+ assert.ok(rows.every(r=>r.ready));assert.equal(m.developmentReady(s,id,true),true);assert.equal(JSON.stringify(s),before);
+ const local=m.data(s,id);local.economy.productivePower=0;assert.equal(m.developmentChecks(s,id,true).find(r=>r.id==='power').ready,false);assert.equal(m.developmentReady(s,id,true),false);
+ local.economy.productivePower=4;n.stores.iron=39;assert.equal(m.developmentChecks(s,id,true).find(r=>r.id==='reserve_iron').ready,false);assert.equal(m.developmentReady(s,id,true),false);
+ n.stores.iron=40;local.economy.at=s.civilization.elapsed-11;assert.equal(m.developmentChecks(s,id,true).find(r=>r.id==='receipt').ready,false);assert.equal(m.developmentReady(s,id,true),false);
+});
+test('development checklist keeps town requirements separate and reports service failures without inventing missing history',()=>{
+ const h=fullTown(80),{s,m,id}=h;settle(h);const local=m.data(s,id);local.town=false;
+ assert.equal(m.developmentReady(s,id),true);assert.ok(!m.developmentChecks(s,id).some(r=>r.id==='power'||r.id==='reserve_iron'));
+ for(const [field,key]of [['education','education'],['treatment','treatment']]){const old=local.economy[field];local.economy[field]=false;assert.equal(m.developmentChecks(s,id).find(r=>r.id===key).ready,false);assert.equal(m.developmentReady(s,id),false);local.economy[field]=old;}
+ h.route.condition='closed';assert.equal(m.developmentChecks(s,id).find(r=>r.id==='route').ready,false);assert.equal(m.developmentReady(s,id),false);
+ assert.equal(m.developmentReady(s,'missing'),false);
+});
 test('local engineering needs a first city, public works and consent; initialization never grants a resident or material',()=>{
   const h=harness(),{s,m,n,id}=h,before=JSON.stringify([n.cohorts,n.stores,n.workers]),home={...s.stores};
   s.civilization.urban.city=false;assert.equal(m.activate(s,id),false);s.civilization.urban.city=true;n.relation='trade';assert.equal(m.activate(s,id),false);n.relation='associated';

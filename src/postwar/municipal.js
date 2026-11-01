@@ -159,11 +159,34 @@ var CivilMunicipal={
   },
   admit(s,id,cohorts){const n=this.node(s,id);if(!this.has(s,id)||!n)return 0;const count=CivilPopulation.count(cohorts);n.cohorts.push(...cohorts.map(c=>({...c})));n.population+=count;this.planWorkers(s,id);return count;},
   developmentReady(s,id,city=false){
+    return this.developmentChecks(s,id,city).every(row=>row.ready);
+  },
+  developmentChecks(s,id,city=false){
     const n=this.node(s,id),m=this.data(s,id),e=m?.economy,r=s.civilization.regions;
-    if(!this.canAccept(s,id)||!e||s.civilization.elapsed-e.at>10||n.population<(city?400:80)||n.population>this.capacity(s,id)||n.health<(city?70:60)||!e.education||!e.treatment||e.food<-1e-8||e.medicine<-1e-8||r.adminService===false||!m.buildings.farmland||!m.buildings.clinic||!m.buildings.school)return false;
-    if(typeof CivilHeating!=='undefined'&&!CivilHeating.covered(s,id))return false;
-    if(!CivilRegions.serviceReady(s,id))return false;
-    return !city || !!(m.town && e.industry && e.productivePower>=4 && m.pollution<40 && (n.stores.food||0)+1e-8>=this.foodReserve(s,id) && n.stores.tools>=40 && n.stores.iron>=40 && n.stores.parts>=20);
+    const rows=[],add=(id,label,ready,value,hint)=>rows.push({id,label,ready:!!ready,value,hint}),number=x=>Number((Number(x)||0).toFixed(2));
+    add('agreement','地方议约',this.canAccept(s,id),this.canAccept(s,id)?'共同营建有效':'尚未同意共同营建','先取得地方同意');
+    if(!n||!m)return rows;
+    add('population','实住居民',n.population>=(city?400:80),n.population+' / '+(city?400:80),'扩建住房并维持供养后接纳家庭；在途不计入');
+    add('housing','住房容量',n.population<=this.capacity(s,id),n.population+' / '+this.capacity(s,id),'住房分类查看可扩建住区');
+    add('health','居民健康',n.health>=(city?70:60),number(n.health)+' / '+(city?70:60),'先恢复口粮、诊疗与药品');
+    add('receipt','近期供养记录',!!e&&s.civilization.elapsed-e.at<=10,e?'距今 '+number(s.civilization.elapsed-e.at)+' 秒':'尚未生产结算','等待下一轮真实生产结算');
+    add('facilities','基础公共设施',m.buildings.farmland&&m.buildings.clinic&&m.buildings.school,['farmland','clinic','school'].map(k=>CivilMunicipalContent.facilities[k].name+' '+(m.buildings[k]||0)).join('、'),'供养分类补齐田片、诊疗站和学舍');
+    add('education','儿童教学',e?.education,e?.education?'已覆盖':'未覆盖','需实际教师、学舍和木料教材');
+    add('treatment','持续治疗',e?.treatment,e?.treatment?'已覆盖':'未覆盖','需实际医护、当轮产药与药品支出');
+    add('food','粮食净供给',!!e&&e.food>=-1e-8,e?number(e.food)+' / 10秒':'无近期记录','补田片、农工与工具，并承担现有贸易义务');
+    add('medicine','药品净供给',!!e&&e.medicine>=-1e-8,e?number(e.medicine)+' / 10秒':'无近期记录','补诊疗产能、食物和废料；药剂另需供电与化学品');
+    add('administration','公共行政',r.adminService!==false,r.adminService===false?'物资不足':'正常','维持公共行政的实际物资支出');
+    add('heating','已交接供暖',typeof CivilHeating==='undefined'||CivilHeating.covered(s,id),typeof CivilHeating!=='undefined'&&CivilHeating.handed(s,id)?CivilHeating.capacity(s,id)+' / '+n.population+' 人份':'尚未交接集中供暖','供养分类检查供热站、燃料、值守和供电');
+    add('route','通路与交付',CivilRegions.serviceReady(s,id),CivilRegions.serviceReady(s,id)?'近期实际交付有效':'通路或交付不足','保持通路启用、班组与实际货物到达；建设运材也可证明服务');
+    if(city){
+      add('town','正式镇制',m.town,m.town?'已登记':'尚未登记','先完成镇制的持续供养与登记');
+      add('industry','地方工业链',e?.industry,e?.industry?'当轮实际运行':'尚未完整运行','需地方采矿、产煤、冶炼与机械生产同时实际运行');
+      add('power','机械生产用电',(e?.productivePower||0)>=4,number(e?.productivePower)+' / 4','至少2位新增机械工实际用电；地方随实住人口与维护需求配工，先保障供养与扩居');
+      add('pollution','地方烟尘',m.pollution<40,number(m.pollution)+' / 小于40','能源分类建设烟尘处理并保持材料和供电');
+      add('reserve_food','居民口粮储备',(n.stores.food||0)+1e-8>=this.foodReserve(s,id),number(n.stores.food)+' / '+number(this.foodReserve(s,id)),'至少留下120秒实际居民口粮');
+      for(const [key,amount]of Object.entries({tools:40,iron:40,parts:20}))add('reserve_'+key,(CivilText.labels[key]||key)+'储备',n.stores[key]>=amount,number(n.stores[key])+' / '+amount,'当地仓库实际存量；在途、主城库存均不计入');
+    }
+    return rows;
   },
   facilityGate(s,id,type){
     const m=this.data(s,id),d=CivilMunicipalContent.facilities[type];if(!m||!d||!this.canAccept(s,id)||(m.buildings[type]||0)>=d.max)return false;
