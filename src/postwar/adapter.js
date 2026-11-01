@@ -22,8 +22,10 @@ var Civilization = {
     if(typeof CivilPassenger!=='undefined')CivilPassenger.init(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.init(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.init(State);
+    if(typeof CivilIncidents!=='undefined')CivilIncidents.init(State);
   },
   init() {
+    this.resetViewRefresh();
     CivilClock.rate = State.civilization.speed;
     const menu=$('<div>').addClass('menu').appendTo('body');
     $('<span>').addClass('menuBtn').attr({id:'saveMenu',role:'button',tabindex:0}).text('存档').click(()=>CivilPlatform.menu()).appendTo(menu);
@@ -109,6 +111,7 @@ var Civilization = {
     if(typeof CivilSociety!=='undefined')CivilSociety.tick(State);
     if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.tick(State);
+    if(typeof CivilIncidents!=='undefined')CivilIncidents.tick(State,!Events.activeEvent()&&!c.pending);
     if(typeof CivilRegions!=='undefined')CivilRegions.tick(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.tick(State);
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
@@ -131,9 +134,10 @@ var Civilization = {
       else if(typeof CivilUrban!=='undefined' && CivilUrban.nextEvent(State)){c.pending=CivilUrban.nextEvent(State);this.showPending();}
       else if(typeof CivilFinance!=='undefined' && CivilFinance.nextEvent(State)){c.pending=CivilFinance.nextEvent(State);this.showPending();}
       else if(typeof CivilMetro!=='undefined' && CivilMetro.nextEvent(State)){c.pending=CivilMetro.nextEvent(State);this.showPending();}
+      else if(typeof CivilIncidents!=='undefined' && CivilIncidents.nextEvent(State)){c.pending=CivilIncidents.nextEvent(State);this.showPending();}
       else if(c.randomClock<=0 && State.game.population>0) this.randomEvent();
     }
-    Outside.updateWorkersView(); CivilVillage.tick(State); this.refresh(); Engine.saveGame();
+    CivilVillage.tick(State); this.refreshPeriodic(); Engine.saveGame();
   },
   arrivals() {
     const c=State.civilization, p=State.game.population;
@@ -261,7 +265,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -317,7 +321,18 @@ var Civilization = {
     $('<div>').attr('id','journeyStatus').appendTo(module.panel);
     Engine.updateSlider();
   },
+  viewNow() { return typeof performance!=='undefined'?performance.now():Date.now(); },
+  resetViewRefresh() { this.lastViewRefreshAt=undefined; },
+  refreshPeriodic() {
+    const now=this.viewNow();
+    // Presentation follows wall time; every simulation tick and event still runs.
+    if(this.lastViewRefreshAt!==undefined && now>=this.lastViewRefreshAt && now-this.lastViewRefreshAt<150)return false;
+    this.lastViewRefreshAt=now;
+    Outside.updateWorkersView();this.refresh();return true;
+  },
   refresh() {
+    // User actions call this directly and always receive an immediate fresh view.
+    this.lastViewRefreshAt=this.viewNow();
     const c=State.civilization,b=State.game.buildings;
     if($('#outsidePanel').length) {
       if($SM.get('game.builder.level')>=4) this.button('forageButton','采集食物','#outsidePanel',()=>{
@@ -380,14 +395,16 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.refresh();
     if(typeof CivilServices!=='undefined')CivilServices.refresh();
-    if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State);
+    if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State,{summaries:false});
     if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.refresh(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.refresh();
+    if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
+    this.resetViewRefresh();
     CivilClock.stop(); $('*').stop(true,true);
     Engine.topics={};Engine.activeModule=null;Engine.keyLock=false;Engine.tabNavigation=true;
     Room.buttons={};Room.changed=false;Room.pathDiscovery=false;Outside._popTimeout=undefined;

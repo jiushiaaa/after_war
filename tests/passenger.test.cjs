@@ -1,6 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.join(__dirname,'..'),clone=x=>JSON.parse(JSON.stringify(x)),near=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 const files=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>x.startsWith('content/')||x.startsWith('src/postwar/'));
+const {emptyIncidents}=require('./helpers/incidents-migration.cjs');
 function emptyMetro(at){return {schema:1,introducedAt:at,agreementId:null,members:[],samples:[],lastObservedAt:null,stableSince:null,stableSeconds:0,formedAt:null,formedAgreementId:null,formedMembers:[],formedStableSince:null,offered:false};}
 function harness(saved,initialize=true){
  const s=clone(saved||JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-two-towns.json'),'utf8')).state),notes=[];
@@ -36,7 +37,8 @@ test('natural old exports gain only passenger metadata; in-flight eight-person r
  const once=JSON.stringify(s);assert.equal(s.civilization.finance,undefined);ctx.Civilization.initState();
  assert.deepEqual(clone(s.civilization.finance),{schema:1,introducedAt:48712,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
  assert.deepEqual(clone(s.civilization.metro),emptyMetro(s.civilization.elapsed));
-  const legacy=clone(s);delete legacy.civilization.finance;delete legacy.civilization.metro;assert.equal(JSON.stringify(legacy),once);
+ assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(s.civilization.elapsed));
+  const legacy=clone(s);delete legacy.civilization.finance;delete legacy.civilization.metro;delete legacy.civilization.incidents;assert.equal(JSON.stringify(legacy),once);
  const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);valid(h);
  for(const value of [null,false,[],{schema:2}]){const bad=clone(s);bad.civilization.passenger=value;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
 });
@@ -124,7 +126,8 @@ test('the unmodified natural construction export restores 62 paid work seconds, 
  ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);assert.equal(s.civilization.finance,undefined);ctx.Civilization.initState();v.tick(s);ctx.CivilPlatform.validate(s);
  assert.deepEqual(clone(s.civilization.finance),{schema:1,introducedAt:53708,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
  assert.deepEqual(clone(s.civilization.metro),emptyMetro(s.civilization.elapsed));
-  const legacy=clone(s);delete legacy.civilization.finance;delete legacy.civilization.metro;assert.equal(JSON.stringify(legacy),before);
+ assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(s.civilization.elapsed));
+  const legacy=clone(s);delete legacy.civilization.finance;delete legacy.civilization.metro;delete legacy.civilization.incidents;assert.equal(JSON.stringify(legacy),before);
  const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);
  assert.equal(s.civilization.elapsed,53708);assert.equal(s.game.population,1006);assert.equal(s.civilization.tech.passenger_transport,true);
  const project=v.data(s).project;assert.equal(project.type,'passengerfleet');assert.equal(project.remaining,298);assert.equal(project.workedSeconds,62);assert.equal(project.startedAt,53600);assert.equal(project.lastWorkedAt,53708);

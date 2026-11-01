@@ -152,6 +152,7 @@ var CivilUrban = {
     if(u.parties.length>=2 || typeof CivilRegions==='undefined' || CivilRegions.availableTransport(s)<2)return stop('等待两名运输工与返程车队');
     const target=this.targetId(s);
     if(!this.canAcceptTarget(s,target))return stop('目的地尚未同意接纳安排');
+    if(typeof CivilIncidents!=='undefined'&&CivilIncidents.holds(s,target))return stop(this.targetName(s,target)+'暂停新迁居出发，等道路检修');
     if(!this.roadOpen(s,target))return stop(this.targetName(s,target)+'的接纳道路中断或待维护');
     const source=this.sourceId(s),beds=Math.min(8,this.availableBeds(s,target));if(!beds)return stop(this.targetName(s,target)+'等待空余床位');
     const quote=this.quote(s,source,beds,'convoy');if(!quote)return stop(source==='dispersed'?'登记的居民已全部安置':typeof CivilOrigins.quoteReason==='function'?CivilOrigins.quoteReason(s,source,beds,{mode:'convoy'})||'来源暂不能安排这批迁居':'来源需要迁居议约、留守居民与实际供养');

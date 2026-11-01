@@ -62,6 +62,7 @@ var CivilPassenger={
     if(!s.game.buildings.cartdepot||!c.tech.logistics)return fail('接纳需要车队场与运输组织');
     if(x.parties.length>=2||this.availableWorkers(s)<2)return fail('等待完整运输班组与返程车队');
     if(!u.canAcceptTarget(s,target))return fail('目的地尚未同意接纳安排');
+    if(typeof CivilIncidents!=='undefined'&&CivilIncidents.holds(s,target))return fail(u.targetName(s,target)+'暂停新迁居出发，等道路检修');
     if(!u.roadOpen(s,target))return fail(u.targetName(s,target)+'的接纳道路中断或待维护');
     const beds=u.availableBeds(s,target);if(!beds)return fail(u.targetName(s,target)+'等待空余床位');
     const asset=this.availableAsset(s),large=preference==='auto'&&!!c.tech.passenger_transport&&!!asset&&this.availableWorkers(s)>=4;

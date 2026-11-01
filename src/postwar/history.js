@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群'},
+  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -66,6 +66,13 @@ var CivilHistory={
     if(c.metro?.formedAt!==null&&Number.isFinite(c.metro?.formedAt)){
       const members=(c.metro.formedMembers||[]).map(id=>this.place(s,id)).join('、');
       add('metro_charter','metro','城市群共同职责登记',members+'。以连续供养和实付互助共同承担公共职责；仍须维持各城服务。',c.metro.formedAt);
+    }
+    for(const r of c.incidents?.records||[]){
+      const place=this.place(s,r.route);
+      add('road_warning_'+r.id,'incidents',place+'道路预警','巡路人员发现松动路基，提出加固或交通安排。',r.createdAt);
+      if(r.chosenAt!==null)add('road_choice_'+r.id,'incidents',place+'道路安排',r.choice==='hold'?'暂停新发车，等已有货车与迁居队归来后封路待修。':'维持运输，接受180秒后的封路期限。',r.chosenAt);
+      if(r.closedAt!==null)add('road_closed_'+r.id,'incidents',place+'道路封闭',r.choice==='hold'?'原有货车与迁居队归来后，封闭道路等待材料。':'观察期限已过，道路封闭，在途运输等待恢复。',r.closedAt);
+      if(r.resolvedAt!==null)add('road_repair_'+r.id,'incidents',place+(r.outcome==='prevented'?'提前加固':'道路修复'),'实际支出：木20、工具4。'+(r.payment.mode==='auto'?'依常设维护安排付款。':'居民决定付款修复。'),r.resolvedAt);
     }
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};

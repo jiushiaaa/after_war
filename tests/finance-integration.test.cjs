@@ -3,6 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
+const {emptyIncidents}=require('./helpers/incidents-migration.cjs');
 const root=path.join(__dirname,'..'),clone=x=>JSON.parse(JSON.stringify(x));
 const near=(a,b,label='quantity')=>assert.ok(Math.abs(a-b)<1e-6,`${label}: ${a} != ${b}`);
 const exact=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-two-towns.json'),'utf8')).state;
@@ -147,7 +148,9 @@ test('the saved charter snapshot preserves the actual sixty-second publication i
 });
 test('the new raw browser common-freight checkpoint reloads byte-for-byte and its two existing paid carts finish exactly once',()=>{
   const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-common-freight.json'),'utf8')).state,h=harness(raw),{s,ctx,f}=h;
-  ctx.CivilPlatform.validate(raw);assert.equal(raw.civilization.metro,undefined);assert.deepEqual(clone(s.civilization.metro),emptyMetro(raw.civilization.elapsed));const legacy=clone(s);delete legacy.civilization.metro;assert.equal(JSON.stringify(legacy),JSON.stringify(raw));assert.equal(s.civilization.elapsed,73944);assert.equal(s.civilization.society.generation,19);
+  ctx.CivilPlatform.validate(raw);assert.equal(raw.civilization.metro,undefined);assert.equal(raw.civilization.incidents,undefined);
+  assert.deepEqual(clone(s.civilization.metro),emptyMetro(raw.civilization.elapsed));assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(raw.civilization.elapsed));
+  const legacy=clone(s);delete legacy.civilization.metro;delete legacy.civilization.incidents;assert.equal(JSON.stringify(legacy),JSON.stringify(raw));assert.equal(s.civilization.elapsed,73944);assert.equal(s.civilization.society.generation,19);
   const existing=clone(f.data(s).orders),ids=existing.filter(o=>o.status==='outbound').map(o=>o.id);assert.equal(ids.length,2);assert.deepEqual(existing.filter(o=>o.status==='outbound').map(o=>o.shipmentId),[942,943]);
   h.step(45);const loaded=h.roundtrip();h.step(145);loaded.step(145);assert.deepEqual(clone(loaded.s),clone(h.s));
   assert.equal(f.data(s).orders.length,existing.length);for(const id of ids){const o=f.data(s).orders.find(o=>o.id===id),old=existing.find(o=>o.id===id);assert.equal(o.status,'complete');assert.deepEqual(clone(o.paid),old.paid);assert.equal(o.dispatchedAt,old.dispatchedAt);assert.equal(o.shipmentId,old.shipmentId);assert.equal(f.data(s).receipts.filter(r=>r.orderId===id).length,2);}

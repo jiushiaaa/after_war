@@ -1,6 +1,7 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const {emptyIncidents}=require('./helpers/incidents-migration.cjs');
 const root=path.join(__dirname,'..'),clone=x=>JSON.parse(JSON.stringify(x));
 
 // Only the native DOM/button primitives and unrelated presentation are inert.
@@ -27,7 +28,8 @@ function harness(fixture){
   for(const file of files)vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});
   for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices','CivilInterface','CivilHearth','CivilFinance','CivilHistory'])if(ctx[name])ctx[name].refresh=()=>{};
   ctx.Room.updateBuildButtons=()=>{};ctx.Civilization.roadModule={};ctx.Civilization.updateIncome=()=>{};
-  ctx.Civilization.initState();ctx.CivilPlatform.validate(s);
+  assert.equal(s.civilization.incidents,undefined);ctx.Civilization.initState();ctx.CivilPlatform.validate(s);
+  assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(s.civilization.elapsed));
   return {s,ctx,elements,get active(){return active;},close(){active.scenes.start.buttons.close.onChoose();active=null;}};
 }
 

@@ -65,18 +65,18 @@ var CivilInterface={
     const project=m?.project,fmt=values=>Object.entries(values||{}).map(([key,n])=>(CivilText.labels[key]||key)+' '+this.number(n)).join('、');
     details.children('p').text((e?'近轮供水 '+water+' 人份；药剂产出 '+this.number(e.medicine)+'；公用用电 '+this.number(e.used)+' / '+this.number(e.demand)+'。':'')+(project&&project.status!=='complete'?'工程所需：'+fmt(project.required)+'；已到：'+(fmt(project.buffer)||'尚无')+'。需2名实际建设者。':''));details.toggle(!!e||!!p);
   },
-  urban(s){
+  urban(s,renderSummary=true){
     if(!$('#urbanPanel').length)return;
-    this.renderUrban(s);const choices=['overview','housing','care'];if(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1)choices.push('migration');const active=this.tabs('urban','#urbanRecord',choices);
+    if(renderSummary)this.renderUrban(s);const choices=['overview','housing','care'];if(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1)choices.push('migration');const active=this.tabs('urban','#urbanRecord',choices);
     $('#urbanBuildBtns').parent().addClass('civil-build-columns').toggle(['housing','care'].includes(active));
     for(const type of Object.keys(CivilUrban.buildings)){const kind=this.kinds[type]||'care';this.filter('#build_'+type,kind,active);this.filter('#urban_count_'+type,kind,active);}
     $('#urbanPlans').toggle(active==='migration');this.serviceGroups('home',active);
     let jump=$('#civilUrbanJump');if(!jump.length){jump=$('<div>').attr('id','civilUrbanJump').addClass('civil-jump').insertAfter('#civilTabs_urban');Civilization.button('civilUrbanBuild','查看住房','#civilUrbanJump',()=>this.select('urban','housing'));Civilization.button('civilUrbanMigration','安排迁居','#civilUrbanJump',()=>this.select('urban','migration'));}
     jump.toggle(active==='overview');$('#civilUrbanMigration').toggle(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1);
   },
-  municipal(s){
+  municipal(s,renderSummary=true){
     if(!$('#municipalPanel').length)return;
-    const id=CivilMunicipal.selected,m=CivilMunicipal.data(s,id);if(!id)return;this.renderMunicipal(s,id);
+    const id=CivilMunicipal.selected,m=CivilMunicipal.data(s,id);if(!id)return;if(renderSummary)this.renderMunicipal(s,id);
     if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').hide();$('#municipalBuild').parent().show();return;}
     const available=['overview','housing','care','materials','industry','power'].filter(group=>group==='overview'||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
     $('#civilTabs_municipal').show();const active=this.tabs('municipal','#municipalStatus',available);
@@ -127,6 +127,8 @@ var CivilInterface={
     const rows=this.researchRows(s),signature=JSON.stringify(rows);if(tree.attr('data-tech')===signature)return;tree.attr('data-tech',signature);const list=tree.children('div').empty();
     for(const r of rows){const item=$('<details>').addClass('civil-tech-row').appendTo(list);$('<summary>').text(r.name+' · '+(r.done?'已掌握':r.active?'试制中':r.available?'可研究':'待前置')).appendTo(item);$('<p>').text('前置：'+(r.requires.length?r.requires.map(x=>x.name+(x.done?' ✓':'（未完成）')).join('、'):'工坊')).appendTo(item);$('<p>').text('投入：'+Object.entries(r.cost).map(([key,n])=>(CivilText.labels[key]||key)+' '+n).join('、')+'；试制 '+r.duration+' 秒').appendTo(item);$('<p>').text(r.detail).appendTo(item);}
   },
-  refresh(s){this.urban(s);this.municipal(s);this.industry(s);this.research(s);this.construction(s);if($('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
+  // Whole-page refresh already rendered these summaries in their owning modules.
+  // Direct category clicks retain the default immediate summary update.
+  refresh(s,{summaries=true}={}){this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
   reset(){this.views={};this.researchModule=null;}
 };

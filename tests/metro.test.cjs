@@ -3,6 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const {harness,ready,clone,near}=require('./helpers/metro-fixture.cjs');
+const {emptyIncidents}=require('./helpers/incidents-migration.cjs');
 // Positive evidence is produced by the shipped economy and real Finance trips
 // from an explicitly synthetic, prebuilt three-city fixture. Negative cases below
 // mutate one predicate; none is presented as natural play or historical service.
@@ -12,7 +13,8 @@ test('the unchanged natural second-city export retains earned 16x, all assets an
   const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-second-city.json'),'utf8')).state,h=harness(raw),{s,metro}=h;
   assert.equal(raw.civilization.elapsed,88082);assert.equal(s.civilization.speed,16);assert.equal(s.civilization.maxSpeed,16);
   assert.equal(s.civilization.municipal.nodes.river.city,true);assert.equal(s.civilization.regions.nodes.river.population,408);
-  const migrated=clone(s);delete migrated.civilization.metro;assert.equal(JSON.stringify(migrated),JSON.stringify(raw));
+  assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(raw.civilization.elapsed));
+  const migrated=clone(s);delete migrated.civilization.metro;delete migrated.civilization.incidents;assert.equal(JSON.stringify(migrated),JSON.stringify(raw));
   assert.equal(s.civilization.metro.samples.length,0);assert.equal(metro.canRegister(s),false);h.roundtrip();
   assert.equal(h.ctx.CivilHistory.snapshot(s).counts.metro,0);
   h.step(30);assert.equal(s.civilization.metro.stableSeconds,0);assert.equal(s.civilization.metro.formedAt,null);
@@ -22,7 +24,9 @@ test('the unchanged natural second-city export retains earned 16x, all assets an
 test('Metro migrates missing history to an empty observation without touching any old asset or retroactively recording service',()=>{
   const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-common-freight.json'),'utf8')).state,h=harness(raw),{s,metro}=h;
   assert.equal(s.civilization.metro.introducedAt,raw.civilization.elapsed);assert.equal(s.civilization.metro.samples.length,0);assert.equal(s.civilization.metro.stableSeconds,0);assert.equal(s.civilization.metro.formedAt,null);
-  const m=s.civilization.metro;delete s.civilization.metro;assert.equal(JSON.stringify(s),JSON.stringify(raw));s.civilization.metro=m;const before=JSON.stringify(s);metro.init(s);assert.equal(JSON.stringify(s),before);assert.ok(metro.validate(s));
+  assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(raw.civilization.elapsed));
+  const old=clone(s);delete old.civilization.metro;delete old.civilization.incidents;assert.equal(JSON.stringify(old),JSON.stringify(raw));
+  const before=JSON.stringify(s);metro.init(s);h.ctx.Civilization.initState();assert.equal(JSON.stringify(s),before);assert.ok(metro.validate(s));
   for(const bad of [null,false,0,{},[]]){const copy=clone(s);copy.civilization.metro=bad;metro.init(copy);assert.throws(()=>metro.validate(copy));}
   for(const pending of metro.pendingIds){const copy=clone(s);delete copy.civilization.metro;copy.civilization.pending=pending;assert.throws(()=>metro.init(copy));assert.throws(()=>metro.validate(copy));}
 });

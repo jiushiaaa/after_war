@@ -25,6 +25,14 @@ function harness(saved){
     chooseRoutine(){if(!active)return;const pending=s.civilization.pending,buttons=active.scenes.start.buttons;if(pending==='metroCharter'||pending==='metroStatus')return;
       if(pending==='succession'){this.click(Object.hasOwn(buttons,'engineer')?'engineer':Object.keys(buttons)[0]);return;}
       if(pending==='cold'){this.click('wood');return;}
+      // The test operator pays each real warning through its native choice;
+      // no random incidents, costs or automatic-maintenance decisions are skipped.
+      if(pending==='roadIncident'){
+        const record=ctx.CivilIncidents.active(s),before={wood:s.stores.wood,tools:s.stores.tools};
+        assert.ok(ctx.CivilRules.canPay(s,ctx.CivilIncidents.cost),'fixture cannot afford the real road repair');
+        this.click('repair');assert.equal(record.phase,'resolved');
+        near(s.stores.wood,before.wood-20,'paid road wood');near(s.stores.tools,before.tools-4,'paid road tools');return;
+      }
       if(pending==='financeOffer'){this.click('later');return;}
       if(pending?.startsWith('municipalTown_')||pending?.startsWith('municipalCity_')){this.click('record');return;}
       throw Error('unexpected fixture event '+pending);
