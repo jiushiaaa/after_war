@@ -57,9 +57,9 @@ test('development checklist keeps town requirements separate and reports service
  assert.equal(m.developmentReady(s,'missing'),false);
 });
 test('local engineering needs a first city, public works and consent; initialization never grants a resident or material',()=>{
-  const h=harness(),{s,m,n,id}=h,before=JSON.stringify([n.cohorts,n.stores,n.workers]),home={...s.stores};
+  const h=harness(),{s,m,n,id}=h,before=structuredClone([n.cohorts,n.stores,n.workers]),home={...s.stores};
   s.civilization.urban.city=false;assert.equal(m.activate(s,id),false);s.civilization.urban.city=true;n.relation='trade';assert.equal(m.activate(s,id),false);n.relation='associated';
-  assert.equal(m.activate(s,id),true);assert.equal(s.stores.knowledge,home.knowledge-20);assert.equal(JSON.stringify([n.cohorts,n.stores,n.workers]),before);assert.equal(m.capacity(s,id),24);assert.equal(m.data(s,id).baseHousing,24);assert.equal(Object.keys(m.data(s,id).buildings).length,0);
+  assert.equal(m.activate(s,id),true);assert.equal(s.stores.knowledge,home.knowledge-20);assert.deepEqual(structuredClone([n.cohorts,n.stores,n.workers]),before);assert.equal(m.capacity(s,id),24);assert.equal(m.data(s,id).baseHousing,24);assert.equal(Object.keys(m.data(s,id).buildings).length,0);
   assert.equal(m.activate(s,id),false);assert.equal(s.stores.knowledge,home.knowledge-20);const saved=JSON.stringify(s);m.init(s);assert.equal(JSON.stringify(s),saved);assert.doesNotThrow(()=>m.validate(s));
   for(const fake of ['home','__proto__','constructor','missing'])assert.equal(m.has(s,fake),false);
 });

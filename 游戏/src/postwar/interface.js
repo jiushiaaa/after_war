@@ -113,7 +113,8 @@ var CivilInterface={
     this.serviceGroups('local',active);
     if(!$('#civilMunicipalProjectDetails').length){const details=$('<details>').attr('id','civilMunicipalProjectDetails').addClass('civil-details civil-project-details').insertBefore('#municipalProject');$('<summary>').text('工程与材料明细').appendTo(details);$('#municipalProject').appendTo(details);}
     $('#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').show();const p=m.project;let brief=$('#civilMunicipalProjectBrief');if(!brief.length)brief=$('<div>').attr('id','civilMunicipalProjectBrief').addClass('civil-brief').insertBefore('#civilMunicipalProjectDetails');
-    brief.text(p&&p.status!=='complete'?CivilMunicipalContent.facilities[p.type].name+' · '+(p.status==='supplying'?'材料运输中':'施工余 '+Math.ceil(p.remaining)+' 秒'):'当前工程已完成，可选择下一类建设');
+    const upgrade=typeof CivilRegions!=='undefined'?CivilRegions.upgrade(State,id):null,service=this.projectText(State,id);
+    brief.text(upgrade&&upgrade.status!=='complete'?'货车改装 · '+(upgrade.status==='supplying'?'材料运输中，完成前暂不开新工程':'当地施工余 '+Math.ceil(upgrade.remaining)+' 秒'):p&&p.status!=='complete'?CivilMunicipalContent.facilities[p.type].name+' · '+(p.status==='supplying'?'材料运输中':'施工余 '+Math.ceil(p.remaining)+' 秒'):service||'当前没有在建工程，可选择下一类建设');
     if(active==='exploration')$('#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').hide();
   },
   industry(s){

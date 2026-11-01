@@ -42,8 +42,9 @@ var CivilMunicipal={
     const cap=this.jobCapacity(s,id),base=m.baseWorkers,exp=this.tradeExports(s,id),desired={},p=n.population;
     if(typeof CivilNation!=='undefined')for(const [key,value]of Object.entries(CivilNation.costs(s)[id]||{}))exp[key]=(exp[key]||0)+value;
     const positive=(job,value)=>Math.min(cap[job]||0,Math.max(base[job]||0,Math.ceil(value)));
-    desired.medic=positive('medic',(p*.01+(exp.medicine||0)+.15)/.15);
-    desired.teacher=positive('teacher',CivilPopulation.children(n.cohorts)/20);
+    // Legacy posts are capacities, not compulsory headcounts after residents retire.
+    desired.medic=Math.min(cap.medic||0,Math.ceil((p*.01+(exp.medicine||0)+.15)/.15));
+    desired.teacher=Math.min(cap.teacher||0,Math.max(1,Math.ceil(CivilPopulation.children(n.cohorts)/20)));
     const service=typeof CivilServices!=='undefined'?CivilServices.data(s,id):null;
     desired.pharmacist=positive('pharmacist',Math.max(1,(p*.01+(exp.medicine||0)+.3-desired.medic*.15)/.4));
     desired.waterworker=positive('waterworker',Math.ceil((p+160)/(service?.manualWater?300:600))*(service?.manualWater?8:4));
@@ -58,7 +59,7 @@ var CivilMunicipal={
     // previewing that budget must not advance the authoritative fractional birth ledger.
     const contract=typeof CivilCooperative!=='undefined'&&CivilCooperative.contractRunning(s,id);
     const farmFactor=this.outputFactor(s,id),foodNeed=CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+desired.pharmacist*.2+(exp.food||0)+birthPlan.cost.food/60+.5+(contract?6:0);
-    desired.farmer=Math.min(oldFarm,cap.farmer||0);
+    desired.farmer=0;
     while(desired.farmer<(cap.farmer||0)&&farmFood(desired.farmer)*farmFactor<foodNeed)desired.farmer++;
     for(const job of ['miner','collier','smelter','machinist'])desired[job]=positive(job,Math.max(2,Math.ceil(p/100)));
     desired.precisionworker=positive('precisionworker',2);desired.electronicsworker=positive('electronicsworker',2);
@@ -91,8 +92,15 @@ var CivilMunicipal={
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2+(contract?4:0))/.8+1);
     desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0)+(contract?4/3:0))/.5+1);
     desired.coopsmith=typeof CivilCooperative!=='undefined'&&CivilCooperative.productionReady(s,id)?4:0;desired.windworker=cap.windworker||0;desired.builder=cap.builder;
-    let left=CivilPopulation.workforce(n.cohorts);n.workers={};
-    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist','precisionworker','electronicsworker']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    let left=CivilPopulation.workforce(n.cohorts);
+    if(['farmer','medic','waterworker','pharmacist','heatingworker','builder','teacher'].reduce((sum,job)=>sum+(desired[job]||0),0)>left){
+      // Keep actual meals, births and exports funded before producing optional surpluses.
+      const medics=desired.medic;
+      desired.medic=Math.min(cap.medic||0,Math.ceil((p*.01+(exp.medicine||0))/.15));
+      while(desired.farmer>0&&farmFood(desired.farmer-1)*farmFactor>=foodNeed-.5-(medics-desired.medic)*.2)desired.farmer--;
+    }
+    n.workers={};
+    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','teacher','coopsmith','smith','salvager','gatherer','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist','precisionworker','electronicsworker']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     // Two organisers and twelve adult participants come only from the actual
     // labour remaining after production, care, teaching and construction.
     if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id)){n.workers.communityworker=14;left-=14;}
