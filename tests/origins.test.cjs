@@ -221,7 +221,8 @@ function urbanJourney(h){
   // Only destination capacity is supplied by the harness; travel, waiting, annual passenger
   // aging and the return receipt are the real Urban controller, with source births first.
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../src/postwar/urban.js'),'utf8'),h.ctx,{filename:'src/postwar/urban.js'});
-  h.ctx.CivilCatalog={capacity:()=>0};const u=h.s.civilization.urban;u.enabled=false;u.dispatchClock=0;
+  h.ctx.CivilCatalog={capacity:()=>0,jobCapacity:()=>4};h.s.game.workers.transporter=4;
+  h.s.civilization.society={cohorts:[{age:30,count:4,identity:'human'}]};const u=h.s.civilization.urban;u.enabled=false;u.dispatchClock=0;
   for(const party of u.parties){party.heldFor=0;party.rations=48;}
   return seconds=>{for(let i=0;i<seconds;i++){h.s.civilization.elapsed++;h.o.tick(h.s);h.ctx.CivilUrban.tick(h.s);}};
 }
@@ -236,9 +237,9 @@ function oldBirthsFillVacantBeds(h){
 test('a full source preserves return beds across a real Urban year, destination wait and passenger return',()=>{
   const h=fullSource(),{s,o,n,p}=h;s.civilization.elapsed=(n.year+1)*600-10;
   const quote=o.quoteParty(s,'river_network',8,{mode:'convoy'});s.stores.medicine=100;s.stores.tools=100;assert.equal(h.ctx.CivilRules.pay(s,quote.cost),true);
-  const home=JSON.stringify([s.game,s.stores]),party=depart(h),people=structuredClone(party.cohorts),born=n.born,deaths=n.sourceDeaths;
+  const party=depart(h),people=structuredClone(party.cohorts),born=n.born,deaths=n.sourceDeaths;
   assert.equal(n.population,2192);assert.equal(o.reservedBeds(s,'river_network'),8);assert.equal(o.availableBeds(s,'river_network'),0);
-  const step=urbanJourney(h);step(10);
+  const step=urbanJourney(h),home=JSON.stringify([s.game,s.stores]);step(10);
   assert.equal(n.population,2192);assert.equal(n.born-born,n.sourceDeaths-deaths);assert.equal(o.reservedBeds(s,'river_network'),8);assert.equal(o.availableBeds(s,'river_network'),0);assert.equal(n.legacyHousingOverflow,0);
   assert.deepEqual(JSON.parse(JSON.stringify(party.cohorts)),people.map(c=>({...c,age:c.age+1})));assert.doesNotThrow(()=>o.validate(s));
   step(110);assert.equal(party.state,'held');assert.equal(o.reservedBeds(s,'river_network'),8);
@@ -351,4 +352,103 @@ test('native source events stay bound to their own origin and validate the queue
   const h=unlockSources(),{s,o}=h;contactSource(h,'old_city_fringe');contactSource(h,'mountain_settlements');assert.equal(o.pendingIds.length,6);assert.ok(o.pendingIds.includes('originContact'));assert.ok(o.pendingIds.includes('originAgreement_mountain_settlements'));
   const notes=[],done=(message,fn)=>()=>{fn?.();notes.push(message);s.civilization.pending=null;return true;};s.civilization.pending=o.nextEvent(s);assert.equal(s.civilization.pending,'originContact_old_city_fringe');const event=o.event(s.civilization.pending,done);o.selection='mountain_settlements';event.buttons.record.onChoose();assert.equal(s.civilization.origins.nodes.old_city_fringe.announced,true);assert.equal(s.civilization.origins.nodes.mountain_settlements.announced,false);assert.equal(o.nextEvent(s),'originContact_mountain_settlements');assert.match(notes[0],/旧城外缘/);
   s.civilization.pending='originContact_old_city_fringe';assert.throws(()=>o.validate(s));s.civilization.pending='originContact_mountain_settlements';assert.doesNotThrow(()=>o.validate(s));s.civilization.pending='originAgreement';assert.throws(()=>o.validate(s));s.civilization.pending='originAgreement_mountain_settlements';s.stores.knowledge=0;assert.doesNotThrow(()=>o.validate(s));
+});
+
+function passenger(h=contact(harness(),true)){
+  // Use the real Passenger provenance, capacity, payment-formula and crew checks.
+  // These fixtures supply finished equipment and a staffed home; Urban owns actual fare payment.
+  const {s,ctx}=h,c=s.civilization;tick(h,Math.max(0,360-c.elapsed));c.tech={};c.services={nodes:{home:{completed:[]}}};
+  c.society={cohorts:[{age:30,count:16,identity:'human'}]};s.game.workers.transporter=16;
+  ctx.CivilCatalog={jobCapacity:()=>16};ctx.CivilServices={data:(s,id)=>s.civilization.services.nodes[id]};
+  ctx.CivilUrban={reservedTransport:s=>s.civilization.urban.parties.reduce((sum,p)=>sum+(p.transport?.crew||2),0)};
+  ctx.CivilRegions={reservedTransport:()=>0};ctx.CivilText={research:{}};
+  const equipmentCost={wood:180,iron:40,steel:24,parts:16,tools:20};ctx.CivilServiceContent={facilities:{passengerfleet:{cost:equipmentCost}}};
+  for(const file of ['content/passenger.js','src/postwar/passenger.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  h.passenger=ctx.CivilPassenger;h.passenger.init(s);c.tech.passenger_transport=true;
+  c.services.nodes.home.completed=[1,2].map(id=>({id,type:'passengerfleet',startedAt:0,completedAt:360,lastWorkedAt:360,workedSeconds:360,paid:{...equipmentCost}}));return h;
+}
+function modernQuote(h,count=24,source='river_network'){
+  const capacity=count>8?24:8,profile=count>8?'road24':'road8',q=h.o.quoteParty(h.s,source,count,{mode:'convoy',capacity});
+  const transport={schema:1,profile,capacity,crew:count>8?4:2,assetId:count>8?h.passenger.availableAsset(h.s).id:null,departedAt:h.s.civilization.elapsed,initial:q.count,paid:h.passenger.cost(profile,q.count)};
+  return {q,transport};
+}
+function modernDepart(h,count=24,source='river_network'){
+  const {q,transport}=modernQuote(h,count,source),u=h.s.civilization.urban,id=u.nextParty;
+  assert.equal(h.o.commitDeparture(h.s,q,id,'home',transport),true);u.nextParty++;
+  const party={id,source,target:'home',cohorts:q.cohorts.map(c=>({...c})),state:'outbound',remaining:120,transport:structuredClone(transport)};
+  u.parties.push(party);h.s.civilization.passenger.lastDepartureAt=h.s.civilization.elapsed;return party;
+}
+test('all three sources quote every one-through-twenty-four seat count without mutating or duplicating a resident',()=>{
+  const h=unlockSources(),{s,o,p}=h;contact(h,true);contactSource(h,'old_city_fringe',true);contactSource(h,'mountain_settlements',true);
+  for(const id of Object.keys(s.civilization.origins.nodes)){
+    const n=s.civilization.origins.nodes[id],before=JSON.stringify(s);
+    for(let limit=1;limit<=24;limit++){
+      const q=o.quoteParty(s,id,limit,{mode:'convoy',capacity:24}),choice=o.choose(n.cohorts,limit,'convoy',id);
+      assert.equal(q.count,limit);assert.equal(q.capacity,24);assert.equal(o.quoteReason(s,id,limit,{mode:'convoy',capacity:24}),null);
+      assert.equal(p.count(choice.selected),limit);assert.equal(p.count(choice.remaining)+limit,n.population);assert.equal(new Set(q.cohorts.map(c=>c.cohortId)).size,q.cohorts.length);
+      assert.ok([...choice.selected,...choice.remaining].every(c=>Number.isInteger(c.count)&&c.count>0&&c.originId===id));
+      for(const c of n.cohorts){const selected=choice.selected.find(x=>x.cohortId===c.cohortId),remaining=choice.remaining.find(x=>x.cohortId===c.cohortId);assert.equal((selected?.count||0)+(remaining?.count||0),c.count);for(const x of [selected,remaining].filter(Boolean)){assert.equal(x.age,c.age);assert.equal(x.identity,c.identity);}}
+      assert.equal(JSON.stringify(s),before);
+    }
+    const full=o.quoteParty(s,id,24,{mode:'convoy',capacity:24});assert.equal(p.workforce(full.cohorts),15);assert.equal(p.children(full.cohorts),6);assert.equal(p.count(full.cohorts.filter(c=>c.age>=65)),3);
+    assert.equal(o.quoteParty(s,id,24,{mode:'convoy'}).count,8);assert.equal(o.quoteParty(s,id,24,{mode:'singleton'}).count,1);
+    for(const capacity of [0,1,9,16,25,null,'24']){assert.equal(o.quoteParty(s,id,24,{mode:'convoy',capacity}),null);assert.match(o.quoteReason(s,id,24,{mode:'convoy',capacity}),/运力无效/);}
+    for(const capacity of [8,24])assert.equal(o.quoteParty(s,id,1,{mode:'singleton',capacity}),null);
+  }
+});
+test('three family selections share fertility floors and an unfillable partial group restores the untouched census',()=>{
+  const {o,p,ctx}=harness(),id='river_network',bands=ctx.CivilOriginContent[id].fertilityBands;
+  const census=[...bands.map((b,i)=>({age:b.min,count:b.retained,cohortId:id+'_floor_'+i})),{age:50,count:10,cohortId:id+'_older_adults'},{age:5,count:6,cohortId:id+'_children'},{age:70,count:3,cohortId:id+'_elders'}].map(c=>({...c,identity:'human',originId:id})),before=JSON.stringify(census);
+  const two=o.choose(census,16,'convoy',id);assert.equal(p.count(two.selected),16);for(const b of bands)assert.equal(p.count(two.remaining.filter(c=>c.age>=b.min&&c.age<=b.max)),b.retained);
+  const three=o.choose(census,24,'convoy',id);assert.equal(three.selected.length,0);assert.equal(JSON.stringify(three.remaining),before);assert.equal(JSON.stringify(census),before);
+});
+test('a large source quote conveys no vehicle authority and failed live commitments leave every source field unchanged',()=>{
+  const old=contact(harness(),true),large=old.o.quoteParty(old.s,'river_network',24,{mode:'convoy',capacity:24}),before=JSON.stringify(old.s);assert.equal(old.o.commitDeparture(old.s,large,1),false);assert.equal(JSON.stringify(old.s),before);
+  const h=passenger(),{s,o}=h,{q,transport}=modernQuote(h),snapshot=JSON.stringify(s);
+  for(const bad of [undefined,null,{...transport,capacity:8},{...transport,crew:2},{...transport,assetId:'service_project_99'},{...transport,initial:23},{...transport,departedAt:transport.departedAt-1},{...transport,paid:{...transport.paid,parts:0}}]){assert.equal(o.commitDeparture(s,q,1,'home',bad),false);assert.equal(JSON.stringify(s),snapshot);}
+  assert.equal(o.commitDeparture(s,{...q,capacity:8},1,'home',transport),false);assert.equal(o.commitDeparture(s,q,2,'home',transport),false);assert.equal(JSON.stringify(s),snapshot);
+  s.game.workers.transporter=3;const understaffed=JSON.stringify(s);assert.equal(o.commitDeparture(s,q,1,'home',transport),false);assert.equal(JSON.stringify(s),understaffed);
+  s.game.workers.transporter=4;const home=JSON.stringify(s.stores);assert.equal(o.commitDeparture(s,q,1,'home',transport),true);assert.equal(JSON.stringify(s.stores),home,'Origins never charges a second fare after Urban payment');
+  transport.paid.food=0;assert.equal(s.civilization.origins.nodes.river_network.departures.p1.transport.paid.food,144,'receipt owns a detached immutable departure snapshot');
+});
+test('new large receipts survive lost current crew and stores but reject altered arrival, return and death snapshots',()=>{
+  const h=passenger(),{s,o,n}=h,party=modernDepart(h),receipt=n.departures.p1;assert.equal(receipt.initial,24);assert.equal(o.reservedBeds(s,'river_network'),24);assert.doesNotThrow(()=>o.validate(s));
+  const before=JSON.stringify(s);for(const field of ['crew','capacity','initial','departedAt']){const bad=structuredClone(party);bad.transport[field]++;assert.equal(o.recordArrival(s,bad),false);assert.equal(o.returnPeople(s,bad),false);assert.equal(o.recordTransitDeath(s,bad,1),false);assert.equal(JSON.stringify(s),before);}
+  const badSave=structuredClone(s);badSave.civilization.urban.parties[0].transport.paid.tools=0;assert.throws(()=>o.validate(badSave));
+  s.game.workers.transporter=0;s.stores={};assert.doesNotThrow(()=>o.validate(s));assert.equal(o.recordArrival(s,party),true);party.cohorts=[];party.state='returning';assert.equal(n.admitted,24);assert.equal(o.reservedBeds(s,'river_network'),0);assert.doesNotThrow(()=>o.validate(s));
+  const departed=JSON.stringify(receipt);s.civilization.urban.parties=[];assert.doesNotThrow(()=>o.validate(s));assert.equal(JSON.stringify(receipt),departed);
+});
+test('passenger cutoffs preserve genuine old eight-seat receipts but never admit a new missing snapshot or enlarge old capacity',()=>{
+  const h=contact(harness(),true),{s,o,n}=h,oldParty=depart(h),oldRecord=JSON.stringify(n.departures.p1);passenger(h);assert.equal(s.civilization.passenger.legacyBeforePartyId,2);assert.equal(JSON.stringify(n.departures.p1),oldRecord);assert.equal(h.passenger.capacityFor(s,n.departures.p1),8);assert.doesNotThrow(()=>o.validate(s));
+  const tooLarge=structuredClone(s),d=tooLarge.civilization.origins.nodes.river_network.departures.p1;d.initial=9;d.alive=9;assert.throws(()=>o.validate(tooLarge),/容量/);
+  const fresh=modernDepart(h,8);assert.equal(fresh.transport.profile,'road8');assert.equal(oldParty.transport,undefined);assert.doesNotThrow(()=>o.validate(s));
+  const deleted=structuredClone(s);delete deleted.civilization.origins.nodes.river_network.departures.p2.transport;delete deleted.civilization.urban.parties.find(x=>x.id===2).transport;assert.throws(()=>o.validate(deleted),/新批次/);
+  const inflated=structuredClone(s);inflated.civilization.origins.nodes.river_network.legacyHousingOverflow=17;assert.throws(()=>o.validate(inflated),'large seats never enlarge the legacy sixteen-bed ceiling');
+});
+test('new singleton recovery stores null transport and requires no modern crew equipment or batch maintenance',()=>{
+  const h=passenger(contact(harness())),{s,o,n}=h;s.game.workers.transporter=0;s.civilization.services.nodes.home.completed=[];s.stores={food:6};
+  const q=o.quoteParty(s,'river_network',1,{mode:'singleton',capacity:1});assert.equal(q.count,1);assert.deepEqual(JSON.parse(JSON.stringify(q.cost)),{food:6});
+  assert.equal(o.commitDeparture(s,q,1,'home',null),true);s.civilization.urban.nextParty++;assert.equal(n.departures.p1.transport,null);
+  const party={id:1,source:'river_network',target:'home',cohorts:q.cohorts,transport:null};assert.equal(o.recordArrival(s,party),true);assert.doesNotThrow(()=>o.validate(s));
+  const missing=structuredClone(s);delete missing.civilization.origins.nodes.river_network.departures.p1.transport;assert.throws(()=>o.validate(missing),/单人/);
+});
+test('two real large departures reserve forty-eight return beds across annual births and release only actual passenger deaths',()=>{
+  const h=passenger(fullSource()),{s,o,n,p}=h;n.cohorts.sort((a,b)=>(b.age===79)-(a.age===79));const first=modernDepart(h);s.civilization.elapsed+=120;const second=modernDepart(h),population=n.population;
+  assert.equal(population,2152);assert.equal(o.reservedBeds(s,'river_network'),48);assert.equal(o.availableBeds(s,'river_network'),0);assert.doesNotThrow(()=>o.validate(s));
+  const beforeBorn=n.born,beforeDead=n.sourceDeaths;s.civilization.elapsed=(n.year+1)*600;annualSources(h);s.civilization.urban.year=n.year;
+  assert.equal(n.born-beforeBorn,n.sourceDeaths-beforeDead);assert.equal(n.population,population);assert.equal(o.availableBeds(s,'river_network'),0);
+  let died=0;for(const party of [first,second]){const aged=p.age(party.cohorts);if(aged.deceased){assert.equal(o.recordTransitDeath(s,party,aged.deceased),true);assert.equal(o.recordTransitDeath(s,party,aged.deceased),false);died+=aged.deceased;}party.cohorts=aged.cohorts;}
+  assert.equal(died,6);assert.equal(o.reservedBeds(s,'river_network'),48-died);assert.equal(o.availableBeds(s,'river_network'),died);assert.equal(n.transitDeaths,died);assert.doesNotThrow(()=>o.validate(s));
+  for(const party of [first,second]){assert.equal(o.returnPeople(s,party),true);s.civilization.urban.parties=s.civilization.urban.parties.filter(x=>x.id!==party.id);}
+  assert.equal(n.population,2200-died);assert.equal(o.reservedBeds(s,'river_network'),0);assert.equal(n.legacyHousingOverflow,0);assert.equal(n.housing,2200);assert.doesNotThrow(()=>o.validate(s));
+});
+test('a large receipt accepts its real nine-person annual death cohort without rewriting original capacity or paid fares',()=>{
+  const h=passenger(),{s,o,n,p}=h,party=modernDepart(h),transport=JSON.stringify(party.transport),deaths=[];
+  for(let year=1;year<=80;year++){
+    s.civilization.elapsed=year*600;annualSources(h);s.civilization.urban.year=year;
+    const aged=p.age(party.cohorts);if(aged.deceased){deaths.push(aged.deceased);assert.equal(o.recordTransitDeath(s,party,aged.deceased),true);assert.equal(o.recordTransitDeath(s,party,aged.deceased),false);}party.cohorts=aged.cohorts;
+    assert.doesNotThrow(()=>o.validate(s));assert.equal(JSON.stringify(n.departures.p1.transport),transport);
+  }
+  assert.ok(deaths.some(n=>n>8));assert.equal(n.transitDeaths,24);assert.equal(n.departures.p1.initial,24);assert.equal(n.departures.p1.alive,0);assert.equal(p.count(party.cohorts),0);assert.equal(o.reservedBeds(s,'river_network'),0);
+  admit(h,party);assert.equal(n.admitted,0);assert.doesNotThrow(()=>o.validate(s));
 });

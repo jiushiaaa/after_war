@@ -20,7 +20,7 @@ var CivilServices={
   },
   jobs(s,id='home'){
     const m=this.data(s,id),result={};if(!m)return result;
-    for(const [type,n]of Object.entries(m.buildings))for(const [job,cap]of Object.entries(CivilServiceContent.facilities[type].jobs||{}))result[job]=(result[job]||0)+n*cap;
+    for(const [type,n]of Object.entries(m.buildings)){const d=CivilServiceContent.facilities[type];if(d.homeOnly&&id!=='home')continue;for(const [job,cap]of Object.entries(d.jobs||{}))result[job]=(result[job]||0)+n*cap;}
     if(m.project?.status==='building')result[id==='home'?'servicebuilder':'builder']=2;
     return result;
   },
@@ -44,7 +44,7 @@ var CivilServices={
   },
   facilityGate(s,id,type){
     const d=CivilServiceContent.facilities[type],m=this.data(s,id);
-    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
+    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.homeOnly&&id!=='home'||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
     if(type==='pharmacy')return this.publicServices(s,id);
     if(type==='irrigationworks')return !!m?.buildings.waterfield;
     if(type==='densehousing')return this.publicServices(s,id)&&this.health(s,id)>=60&&this.waterCapacity(s,id)+1e-8>=this.population(s,id)+d.beds;
@@ -57,17 +57,18 @@ var CivilServices={
     if(id==='home'&&!this.pay(s.stores,d.cost))return false;
     this.init(s);const all=s.civilization.services.nodes,m=all[id]||(all[id]={buildings:{},nextProject:1,project:null,completed:[],manualWater:false,economy:null,water:null,irrigation:null});
     m.project={id:m.nextProject++,type,status:id==='home'?'building':'supplying',required:{...d.cost},buffer:{},receipts:[],remaining:id==='home'?d.duration:0,startedAt:s.civilization.elapsed,lastWorkedAt:s.civilization.elapsed};
+    if(type==='passengerfleet'){m.project.paid={...d.cost};m.project.workedSeconds=0;}
     this.syncWorkers(s,id);return true;
   },
   nextCargo(s,id,capacity){
-    const p=this.data(s,id)?.project;if(id==='home'||p?.status!=='supplying'||!Number.isFinite(capacity)||capacity<=0)return null;
+    const p=this.data(s,id)?.project;if(id==='home'||p?.status!=='supplying'||CivilServiceContent.facilities[p.type]?.homeOnly||!Number.isFinite(capacity)||capacity<=0)return null;
     const inflight={};for(const ship of s.civilization.regions.shipments)if(ship.purpose==='services'&&ship.route===id&&ship.serviceProjectId===p.id&&ship.phase==='outbound')for(const [k,n]of Object.entries(ship.cargo))inflight[k]=(inflight[k]||0)+n;
     let room=Math.min(capacity,s.civilization.regions.routes[id]?.capacity||64);const cargo={};
     for(const [k,required]of Object.entries(p.required)){const n=Math.min(room,Math.max(0,required-(p.buffer[k]||0)-(inflight[k]||0)),s.stores[k]||0);if(n>0){cargo[k]=n;room-=n;}}
     return Object.keys(cargo).length?{projectId:p.id,cargo}:null;
   },
   receiveCargo(s,id,cargo,projectId){
-    const p=this.data(s,id)?.project;if(id==='home'||p?.id!==projectId||p.status!=='supplying')return false;
+    const p=this.data(s,id)?.project;if(id==='home'||p?.id!==projectId||p.status!=='supplying'||CivilServiceContent.facilities[p.type]?.homeOnly)return false;
     const shipment=s.civilization.regions.shipments.find(x=>x.route===id&&x.serviceProjectId===p.id&&x.purpose==='services'&&x.cargo===cargo&&x.phase==='outbound'&&x.source==='home'&&x.target===id&&x.status==='moving'&&x.remaining===0);
     if(!shipment||p.receipts.includes(shipment.id)||!Object.keys(cargo).length||Object.entries(cargo).some(([k,n])=>!Number.isFinite(n)||n<=0||!Object.hasOwn(p.required,k)||(p.buffer[k]||0)+n>p.required[k]+1e-8))return false;
     for(const [k,n]of Object.entries(cargo))p.buffer[k]=(p.buffer[k]||0)+n;p.receipts.push(shipment.id);
@@ -76,7 +77,7 @@ var CivilServices={
   },
   validShipment(s,ship){
     const m=this.data(s,ship?.route);if(!m||ship.purpose!=='services'||!Number.isInteger(ship.serviceProjectId)||ship.serviceProjectId<1)return false;
-    const p=m.project?.id===ship.serviceProjectId?m.project:null,old=m.completed.find(x=>x.id===ship.serviceProjectId),type=p?.type||old?.type;if(!type)return false;
+    const p=m.project?.id===ship.serviceProjectId?m.project:null,old=m.completed.find(x=>x.id===ship.serviceProjectId),type=p?.type||old?.type;if(!type||CivilServiceContent.facilities[type]?.homeOnly)return false;
     if(ship.phase==='empty')return ship.source===ship.route&&ship.target==='home'&&Object.values(ship.cargo).every(n=>n===0);
     if(!p||p.status!=='supplying'||!['outbound','returning'].includes(ship.phase))return false;
     if(ship.phase==='outbound'&&(ship.source!=='home'||ship.target!==ship.route)||ship.phase==='returning'&&(ship.source!=='home'||ship.target!=='home'))return false;
@@ -122,9 +123,11 @@ var CivilServices={
       // Even a stalled project records this attempt; loading or calling twice cannot grant work.
       p.lastWorkedAt=t;
       if(!this.permitted(s,id)||this.health(s,id)<30||this.labor(s,id,id==='home'?'servicebuilder':'builder')<2)continue;
+      if(p.type==='passengerfleet'&&(id!=='home'||s.civilization.hunger>0))continue;
       if(p.type==='densehousing'&&(!this.publicServices(s,id)||this.waterCapacity(s,id)+1e-8<this.population(s,id)+160))continue;
       p.remaining=Math.max(0,p.remaining-1);
-      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;m.completed.push({id:p.id,type:p.type,completedAt:t});this.syncWorkers(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
+      if(p.type==='passengerfleet')p.workedSeconds++;
+      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;const record={id:p.id,type:p.type,completedAt:t};if(p.type==='passengerfleet')Object.assign(record,{paid:{...p.paid},workedSeconds:p.workedSeconds,startedAt:p.startedAt,lastWorkedAt:p.lastWorkedAt});m.completed.push(record);this.syncWorkers(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
     }
     return {storesChanged:false,populationChanged:false};
   },
@@ -134,7 +137,7 @@ var CivilServices={
     const s=State,fac=CivilServiceContent.facilities;
     for(const [id,parent]of [['home','#urbanPanel'],[typeof CivilMunicipal!=='undefined'?CivilMunicipal.selected:null,'#municipalPanel']]){
       const prefix=parent==='#urbanPanel'?'home':'local',rootId='services_'+prefix;let box=$('#'+rootId);
-      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>d.requires.every(k=>s.civilization.tech[k]));
+      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>(!d.homeOnly||id==='home')&&d.requires.every(k=>s.civilization.tech[k]));
       if(!visible){box.hide();continue;}
       if(!box.length){box=$('<div>').attr('id',rootId).css({marginTop:'20px',width:'410px'}).appendTo(parent);$('<div>').attr('id',rootId+'_status').css({lineHeight:'1.8',marginBottom:'12px'}).appendTo(box);$('<div>').attr('id',rootId+'_build').appendTo(box);}
       box.show();const m=this.data(s,id),p=m?.project,e=m?.economy;
@@ -142,11 +145,11 @@ var CivilServices={
       const buildings=Object.entries(m?.buildings||{}).filter(([,n])=>n).map(([type,n])=>fac[type].name+' '+n).join('，');
       $('#'+rootId+'_status').text((buildings?buildings+'。':'')+(e?'近轮供水 '+this.waterCapacity(s,id)+' 人份；药剂产出 '+Number(e.medicine.toFixed(2))+'；公用负载 '+e.used+' / '+e.demand+'。':'')+(p&&p.status!=='complete'?fac[p.type].name+'：'+(p.status==='supplying'?'材料分批运输，已到 '+(fmt(p.buffer)||'暂无')+'；需 '+fmt(p.required):'施工剩余 '+Math.ceil(p.remaining)+' 秒，需要2位'+(id==='home'?'营建工':'当地建设者'))+'。':''));
       for(const [type,d]of Object.entries(fac)){
-        const buttonId=rootId+'_'+type;const show=d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
+        const buttonId=rootId+'_'+type;const show=(!d.homeOnly||id==='home')&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
         if(!show){$('#'+buttonId).hide();continue;}
         const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;if(this.startProject(State,target,type)){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();this.refresh();}});
         button.show();Button.setDisabled(button,!this.projectAvailable(s,id)||!this.facilityGate(s,id,type)||id==='home'&&!Object.entries(d.cost).every(([k,n])=>(s.stores[k]||0)+1e-8>=n));
-        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':''));
+        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':''));
       }
       const manualId=rootId+'_manual';
       if(m?.buildings.waterworks){const button=Civilization.button(manualId,m.manualWater?'恢复电动水务':'安排手动水务','#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;this.setManualWater(State,target,!this.data(State,target).manualWater);Engine.saveGame();this.refresh();});button.show();button.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(m.manualWater?'恢复电动水务':'安排手动水务'));button.attr('title','每站电动：4水务工、4电，供600人；手动：8水务工，供300人。两种方式每轮都需0.2化学品、0.02零件。');}else $('#'+manualId).hide();
@@ -155,20 +158,28 @@ var CivilServices={
   validate(s){
     const r=s.civilization.services;if(r===undefined)return;
     const obj=v=>v!==null&&typeof v==='object'&&!Array.isArray(v),num=(v,max=1e8)=>Number.isFinite(v)&&v>=0&&v<=max,int=(v,max=1e8)=>Number.isInteger(v)&&num(v,max),t=s.civilization.elapsed,fac=CivilServiceContent.facilities;
+    const validFleetWork=(x,complete)=>{
+      const d=fac.passengerfleet;
+      return obj(x.paid)&&Object.keys(x.paid).length===Object.keys(d.cost).length&&Object.entries(d.cost).every(([k,n])=>x.paid[k]===n)&&int(x.startedAt,t)&&int(x.lastWorkedAt,t)&&x.lastWorkedAt>=x.startedAt&&int(x.workedSeconds,d.duration)&&x.workedSeconds<=x.lastWorkedAt-x.startedAt&&(complete?x.workedSeconds===d.duration&&x.lastWorkedAt===x.completedAt:x.workedSeconds+x.remaining===d.duration);
+    };
     if(!obj(r)||r.schema!==1||!obj(r.nodes)||Object.keys(r.nodes).length>4)throw Error('公用服务状态无效');
     for(const [id,m]of Object.entries(r.nodes)){
       if(!this.validNode(s,id)||!obj(m)||!obj(m.buildings)||!Array.isArray(m.completed)||m.completed.length>Object.values(fac).reduce((sum,d)=>sum+d.max,0)||!int(m.nextProject)||m.nextProject<1||typeof m.manualWater!=='boolean')throw Error('公用设施记录无效');
       const counts={},ids=new Set();
-      for(const x of m.completed){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
-      for(const [type,n]of Object.entries(m.buildings))if(!Object.hasOwn(fac,type)||!int(n,fac[type].max)||n!==(counts[type]||0))throw Error('公用设施不能凭空增加');
+      for(const [index,x]of m.completed.entries()){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||fac[x.type].homeOnly&&id!=='home'||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');if(x.type==='passengerfleet'&&(!s.civilization.tech.passenger_transport||!validFleetWork(x,true)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('迁居装备缺少实付材料或施工记录');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
+      for(const [type,n]of Object.entries(m.buildings))if(!Object.hasOwn(fac,type)||fac[type].homeOnly&&id!=='home'||!int(n,fac[type].max)||n!==(counts[type]||0))throw Error('公用设施不能凭空增加');
       for(const [type,n]of Object.entries(counts))if(n!==m.buildings[type])throw Error('公用设施缺少竣工记录');
       const p=m.project;
       if(p!==null){
         const d=obj(p)&&Object.hasOwn(fac,p.type)&&fac[p.type];
-        if(!d||!int(p.id,m.nextProject-1)||p.id<1||p.id!==m.nextProject-1||!['supplying','building','complete'].includes(p.status)||!obj(p.required)||!obj(p.buffer)||!Array.isArray(p.receipts)||new Set(p.receipts).size!==p.receipts.length||p.receipts.some(x=>!int(x)||x<1||x>=s.civilization.regions.nextShipment)||!num(p.startedAt,t)||!num(p.lastWorkedAt,t)||p.lastWorkedAt<p.startedAt||!num(p.remaining,d.duration))throw Error('公用工程事务无效');
+        if(!d||d.homeOnly&&id!=='home'||!int(p.id,m.nextProject-1)||p.id<1||p.id!==m.nextProject-1||!['supplying','building','complete'].includes(p.status)||!obj(p.required)||!obj(p.buffer)||!Array.isArray(p.receipts)||new Set(p.receipts).size!==p.receipts.length||p.receipts.some(x=>!int(x)||x<1||x>=s.civilization.regions.nextShipment)||!num(p.startedAt,t)||!num(p.lastWorkedAt,t)||p.lastWorkedAt<p.startedAt||!num(p.remaining,d.duration))throw Error('公用工程事务无效');
         if(Object.keys(p.required).length!==Object.keys(d.cost).length||Object.entries(d.cost).some(([k,n])=>p.required[k]!==n)||Object.entries(p.buffer).some(([k,n])=>!Object.hasOwn(d.cost,k)||!num(n,d.cost[k])))throw Error('公用工程材料无效');
         if(p.status==='supplying'&&(id==='home'||p.remaining!==0||ids.has(p.id))||p.status==='building'&&(p.remaining<=0||ids.has(p.id)||Object.values(p.buffer).some(n=>n!==0))||p.status==='complete'&&(p.remaining!==0||!ids.has(p.id)||m.completed.find(x=>x.id===p.id)?.type!==p.type||Object.values(p.buffer).some(n=>n!==0)))throw Error('公用工程进度无效');
         if(id==='home'&&p.receipts.length)throw Error('本地工程不能借用运材回执');
+        if(p.type==='passengerfleet'){
+          if(!s.civilization.tech.passenger_transport||!validFleetWork(p,false)||Object.keys(p.buffer).length||p.status!=='complete'&&((m.buildings.passengerfleet||0)>=d.max||m.completed.length>0&&p.startedAt<m.completed[m.completed.length-1].completedAt))throw Error('迁居装备施工记录无效');
+          if(p.status==='complete'){const x=m.completed.find(x=>x.id===p.id);if(x.startedAt!==p.startedAt||x.lastWorkedAt!==p.lastWorkedAt||x.workedSeconds!==p.workedSeconds||Object.entries(p.paid).some(([k,n])=>x.paid[k]!==n))throw Error('迁居装备与竣工资产不符');}
+        }
         if(id!=='home'&&p.status!=='complete'&&([s.civilization.municipal?.nodes[id]?.project,s.civilization.regions?.projects[id]].some(x=>['supplying','building'].includes(x?.status))||typeof CivilRegions!=='undefined'&&CivilRegions.upgradeActive&&CivilRegions.upgradeActive(s,id)))throw Error('地方建设者不能同时施工');
       }
       if(m.nextProject!==m.completed.length+(p&&p.status!=='complete'?1:0)+1||m.completed.some((x,index)=>x.id!==index+1))throw Error('公用工程序号无效');

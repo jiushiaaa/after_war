@@ -19,6 +19,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.init(State);
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.init(State);
     if(typeof CivilServices!=='undefined')CivilServices.init(State);
+    if(typeof CivilPassenger!=='undefined')CivilPassenger.init(State);
   },
   init() {
     CivilClock.rate = State.civilization.speed;

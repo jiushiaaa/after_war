@@ -35,16 +35,16 @@ var CivilUrban = {
     const route=s.civilization.regions?.routes[id];
     return !!route && route.condition==='open' && (id!=='river' || !!s.game.buildings.road && s.civilization.outpostSupplied===true);
   },
-  quote(s,id,max,mode){
+  quote(s,id,max,mode,capacity=mode==='singleton'?1:8){
     if(id==='dispersed'){
       const u=s.civilization.urban;if(!u.registered)return null;
       const cohorts=this.take(u.source.map(c=>({...c})),Math.min(max,this.count(u.source)));return cohorts.length?{originId:id,cohorts,count:this.count(cohorts)}:null;
     }
-    return typeof CivilOrigins!=='undefined'?CivilOrigins.quoteParty(s,id,max,{mode}):null;
+    return typeof CivilOrigins!=='undefined'?CivilOrigins.quoteParty(s,id,max,{mode,capacity}):null;
   },
-  commitSource(s,quote,id,target='home'){
+  commitSource(s,quote,id,target='home',transport){
     if(quote.originId==='dispersed'){this.take(s.civilization.urban.source,quote.count);return true;}
-    return typeof CivilOrigins!=='undefined' && CivilOrigins.commitDeparture(s,quote,id,target);
+    return typeof CivilOrigins!=='undefined' && CivilOrigins.commitDeparture(s,quote,id,target,transport);
   },
   receive(s,party){
     const target=party.target,n=this.count(party.cohorts);
@@ -54,7 +54,12 @@ var CivilUrban = {
   },
   reservedBeds(s,target='home'){return (s.civilization.urban?.parties||[]).filter(p=>p.target===target && ['outbound','held'].includes(p.state)).reduce((n,p)=>n+this.count(p.cohorts),0);},
   availableBeds(s,target='home'){return Math.max(0,this.targetCapacity(s,target)-this.targetPopulation(s,target)-this.reservedBeds(s,target));},
-  reservedTransport(s){return (s.civilization.urban?.parties.length||0)*2;},
+  reservedTransport(s){return (s.civilization.urban?.parties||[]).reduce((n,p)=>n+(p.transport?.crew||2),0);},
+  staffedParties(s){
+    if(typeof CivilPassenger!=='undefined')return CivilPassenger.staffedParties(s);
+    let left=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));const result=new Set();
+    for(const p of [...(s.civilization.urban?.parties||[])].sort((a,b)=>a.id-b.id)){const crew=p.transport?.crew||2;if(left>=crew)result.add(p.id);left=Math.max(0,left-crew);}return result;
+  },
   publicServices(s){return !!s.game.buildings.publicclinic && !!s.game.buildings.publicschool && (s.game.workers.medic||0)>0 && (s.game.workers.teacher||0)>0;},
   discovered(s){return typeof CivilRegions!=='undefined'?CivilRegions.discoveredCount(s):Object.values(s.civilization.regions?.nodes||{}).filter(n=>n.discovered).length;},
   register(s){
@@ -80,9 +85,9 @@ var CivilUrban = {
     if(!this.availableBeds(s) || s.civilization.hunger || s.game.temperature.value<2 || (s.game.population>0 && s.civilization.trust<15))return true;
     const quote=this.quote(s,source,1,'singleton');if(!quote || !CivilRules.pay(s,{food:6}))return true;
     const id=u.nextParty;
-    if(!this.commitSource(s,quote,id)){s.stores.food+=6;return true;}
+    if(!this.commitSource(s,quote,id,'home',typeof CivilPassenger!=='undefined'?null:undefined)){s.stores.food+=6;return true;}
     if(source!=='dispersed')u.nextParty++;
-    const party={id,source,target:'home',cohorts:quote.cohorts};
+    const party={id,source,target:'home',cohorts:quote.cohorts};if(typeof CivilPassenger!=='undefined')party.transport=null;
     if(!this.receive(s,party)){CivilOrigins.returnPeople(s,party);s.stores.food+=6;return true;}
     this.note('一位来自'+this.sourceName(source)+'的居民沿路来到聚落，带来了自己的经历。');return true;
   },
@@ -124,6 +129,17 @@ var CivilUrban = {
     const u=s.civilization.urban;
     if(!u || !u.enabled)return false;
     const stop=reason=>{u.status=reason;return false;};
+    if(typeof CivilPassenger!=='undefined'){
+      if(u.dispatchClock>0||s.civilization.elapsed<s.civilization.passenger.legacyReadyAt||s.civilization.passenger.lastDepartureAt!==null&&s.civilization.elapsed-s.civilization.passenger.lastDepartureAt<120)return stop('等待下一批次启程');
+      const plan=CivilPassenger.quote(s);if(plan.reason)return stop(plan.reason);
+      const source=this.sourceId(s),target=this.targetId(s),cost=Object.fromEntries(Object.entries(plan.cost).filter(([,n])=>n>0));
+      if(!CivilPassenger.canDepart(s,plan.transport,u.nextParty,source))return stop('运输班组或装备已经变化');
+      const before=Object.fromEntries(Object.keys(cost).map(k=>[k,{had:Object.hasOwn(s.stores,k),value:s.stores[k]}]));
+      if(!CivilRules.pay(s,cost))return stop('出发旅费尚未备足');
+      if(!this.commitSource(s,plan.sourceQuote,u.nextParty,target,plan.transport)){for(const [k,v]of Object.entries(before)){if(v.had)s.stores[k]=v.value;else delete s.stores[k];}return stop('来源名册已经变化，下一趟重新核对');}
+      u.parties.push({id:u.nextParty++,source,target,state:'outbound',remaining:120,heldFor:0,cohorts:plan.sourceQuote.cohorts,rations:plan.sourceQuote.count*6,transport:JSON.parse(JSON.stringify(plan.transport))});
+      s.civilization.passenger.lastDepartureAt=s.civilization.elapsed;u.dispatchClock=120;u.status=(plan.fallback?'本次按小队接纳（'+plan.fallback+'）。':'')+plan.sourceQuote.count+'位居民前往'+this.targetName(s,target)+'，住房已预留';return true;
+    }
     if(!s.game.buildings.cartdepot || !s.civilization.tech.logistics)return stop('接纳需要车队场与运输组织');
     if(u.parties.length>=2 || typeof CivilRegions==='undefined' || CivilRegions.availableTransport(s)<2)return stop('等待两名运输工与返程车队');
     const target=this.targetId(s);
@@ -162,7 +178,9 @@ var CivilUrban = {
         party.cohorts=agedParty.cohorts;
       }
     }
+    const staffed=this.staffedParties(s);
     for(const p of [...u.parties]){
+      if(!staffed.has(p.id)){u.status='第'+p.id+'支旅队等待完整运输班组，居民与车组留在原处';if(p.rations<=0&&['outbound','held'].includes(p.state))this.returnParty(s,p.id);continue;}
       const remote=p.target!=='home',name=this.targetName(s,p.target);
       if(['outbound','held'].includes(p.state)){
         if(p.remaining>0 && !this.roadOpen(s,p.target)){
@@ -267,7 +285,8 @@ var CivilUrban = {
       const button=Civilization.button('urbanReturn_'+party.id,'带回赴'+this.targetName(s,party.target)+'的旅队','#urbanPlans',()=>{if(this.returnParty(s,party.id)){Engine.saveGame();this.refresh();}});
       button.addClass('urbanReturn').show().attr('title','沿已经走过的路返回原来源，旅费不退；已到目的地的旅队须等返程道路修通。');
     }
-    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{u.enabled=!u.enabled;u.dispatchClock=0;Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','来源直接到选定聚落的接纳旅程，去返各120秒，与物资运输路线时长不同；每批最多8人，每人6粮、0.2药、0.2工具；共用本地运输工，所有目的地合计最多2组；两端各留足120秒口粮');}
+    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{u.enabled=!u.enabled;u.dispatchClock=0;Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','来源直接到选定聚落的接纳旅程，去返各120秒；'+(s.civilization.tech.passenger_transport?'原小队最多8人，建成迁居装备后可安排24人大队，大队另付装备维护；':'每批最多8人；')+'每人6粮、0.2药、0.2工具；共用本地运输工，所有目的地合计最多2组；两端各留足120秒口粮');}
+    if(typeof CivilPassenger!=='undefined')CivilPassenger.refresh();
   },
   validate(s){
     const u=s.civilization.urban;if(u===undefined)return;
@@ -278,7 +297,10 @@ var CivilUrban = {
     const cohorts=arr=>Array.isArray(arr)&&arr.length<=480&&arr.every(c=>obj(c)&&integer(c.age,0,79)&&integer(c.count,1,480)&&['human','mutant'].includes(c.identity));
     if(!cohorts(u.source)||!Array.isArray(u.parties)||u.parties.length>2||!integer(u.admitted,0,480)||!integer(u.deceased,0,480)||!integer(u.nextParty,1)||!number(u.dispatchClock,0,120)||typeof u.status!=='string'||u.status.length>200)throw Error('接纳名册无效');
     const ids=new Set();for(const p of u.parties){
-      if(!obj(p)||!integer(p.id,1,u.nextParty-1)||ids.has(p.id)||!this.sourceIds(s).includes(p.source)||typeof p.target!=='string'||!this.hasTarget(s,p.target)||!['outbound','held','returning','returning_people'].includes(p.state)||!cohorts(p.cohorts)||this.count(p.cohorts)>8||!number(p.remaining,0,120)||!integer(p.heldFor,0,120)||!number(p.rations,0,48)||(p.state==='returning'&&p.cohorts.length))throw Error('在途接纳无效');
+      if(!obj(p))throw Error('在途接纳无效');
+      if(typeof CivilPassenger!=='undefined')CivilPassenger.validateTransport(s,p.transport,p.id,p.source);
+      const capacity=typeof CivilPassenger!=='undefined'?CivilPassenger.capacityFor(s,p):8,rations=p.transport?p.transport.initial*6:48;
+      if(!obj(p)||!integer(p.id,1,u.nextParty-1)||ids.has(p.id)||!this.sourceIds(s).includes(p.source)||typeof p.target!=='string'||!this.hasTarget(s,p.target)||!['outbound','held','returning','returning_people'].includes(p.state)||!cohorts(p.cohorts)||this.count(p.cohorts)>capacity||p.transport&&this.count(p.cohorts)>p.transport.initial||!number(p.remaining,0,120)||!integer(p.heldFor,0,120)||!number(p.rations,0,rations)||(p.state==='returning'&&p.cohorts.length))throw Error('在途接纳无效');
       if(p.holdReason!==undefined && (p.state!=='held' || !['road','housing','services','acceptance'].includes(p.holdReason)))throw Error('接纳停留原因无效');
       if(p.state==='held' && p.remaining!==0 && (p.target==='home' || p.holdReason!=='road'))throw Error('候床与道路位置不符');
       if(p.target!=='home' && p.state==='held' && p.holdReason===undefined)throw Error('地方接纳停留记录无效');
@@ -286,6 +308,7 @@ var CivilUrban = {
       if(p.target!=='home' && (p.state==='returning' && p.returnNeedsRoad!==true || p.state==='returning_people' && (typeof p.returnNeedsRoad!=='boolean' || !p.returnNeedsRoad && p.remaining>=120)))throw Error('地方返程不能越过断路');
       ids.add(p.id);
     }
+    if(typeof CivilPassenger!=='undefined')CivilPassenger.validate(s);
     const ledger=this.count(u.source)+u.parties.filter(p=>p.source==='dispersed').reduce((n,p)=>n+this.count(p.cohorts),0)+u.admitted+u.deceased;
     if(ledger!==(u.registered?480:0)||(!u.registered && this.sourceIds(s).length===1 && (u.enabled||u.parties.length||u.nextParty!==1)))throw Error('迁徙人口总账不符');
     if(!number(u.townStable,0,180)||!number(u.cityStable,0,300))throw Error('城镇稳定度无效');

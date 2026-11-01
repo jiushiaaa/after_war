@@ -110,16 +110,25 @@ test('a 480-second messenger is source-funded, paused by source shortage, and is
 });
 
 test('two real Urban crews keep different sources and destinations while sharing one global crew and fare budget',()=>{
-  const h=ready(),{s,o,u}=h,x=s.civilization.urban,home=s.game.population,local=s.civilization.regions.nodes.river.population,legacy=x.admitted,stores={...s.stores};
-  const a=dispatch(h,'old_city_fringe','home'),b=dispatch(h,'mountain_settlements','river');
-  assert.notEqual(a.id,b.id);assert.equal(count(h,a.cohorts),8);assert.equal(count(h,b.cohorts),8);assert.equal(u.reservedTransport(s),4);assert.equal(u.reservedBeds(s,'home'),8);assert.equal(u.reservedBeds(s,'river'),8);
-  near(stores.food-s.stores.food,96);near(stores.medicine-s.stores.medicine,3.2);near(stores.tools-s.stores.tools,3.2);
+  const h=ready(),{s,o,u}=h,x=s.civilization.urban;
+  // Keep this fare/arrival check inside one demographic year; annual behavior has
+  // its own real two-source test below. Waiting still runs every owning controller.
+  if(s.civilization.elapsed%600+360>=600)h.step(600-s.civilization.elapsed%600+1);
+  const home=s.game.population,local=s.civilization.regions.nodes.river.population,legacy=x.admitted,stores={...s.stores};
+  const a=dispatch(h,'old_city_fringe','home'),originalA=clone(a);
+  near(stores.food-s.stores.food,48);near(stores.medicine-s.stores.medicine,1.6);near(stores.tools-s.stores.tools,1.6);
+  x.activeSource='mountain_settlements';u.setTarget(s,'river');x.enabled=true;
+  const waiting=JSON.stringify([s.stores,x.parties,x.nextParty,s.civilization.origins.nodes,s.civilization.passenger]);assert.equal(u.dispatch(s),false);assert.equal(JSON.stringify([s.stores,x.parties,x.nextParty,s.civilization.origins.nodes,s.civilization.passenger]),waiting,'changing either selector cannot bypass the global departure interval');x.enabled=false;
+  h.step(120);assert.equal(a.state,'returning');assert.equal(s.game.population,home+8);
+  const secondStores={...s.stores},b=dispatch(h,'mountain_settlements','river'),originalB=clone(b);
+  assert.equal(b.transport.departedAt-a.transport.departedAt,120);assert.notEqual(a.id,b.id);assert.equal(count(h,a.cohorts),0);assert.equal(count(h,b.cohorts),8);assert.equal(u.reservedTransport(s),4);assert.equal(u.reservedBeds(s,'home'),0);assert.equal(u.reservedBeds(s,'river'),8);
+  near(secondStores.food-s.stores.food,48);near(secondStores.medicine-s.stores.medicine,1.6);near(secondStores.tools-s.stores.tools,1.6);
   x.enabled=true;
   const assets=()=>JSON.stringify([s.stores,x.parties,x.nextParty,s.civilization.origins.nodes]);
   const before=assets();assert.equal(u.dispatch(s),false);assert.equal(assets(),before,'the enabled plan cannot pay or reserve a third crew');
-  assert.match(x.status,/等待两名运输工与返程车队/);x.enabled=false;
+  assert.match(x.status,/等待/);x.enabled=false;
   x.activeSource='old_city_fringe';u.setTarget(s,'home');assert.equal(b.source,'mountain_settlements');assert.equal(b.target,'river');
-  const originalA=clone(a),originalB=clone(b);h.step(120);
+  h.step(120);
   assert.equal(s.game.population,home+8);assert.equal(s.civilization.regions.nodes.river.population,local+8);assert.equal(x.admitted,legacy);
   assert.equal(s.civilization.origins.nodes.old_city_fringe.admitted,8);assert.equal(s.civilization.origins.nodes.mountain_settlements.admitted,8);
   const once=JSON.stringify([s.game,s.civilization.regions.nodes.river.population]);assert.equal(o.recordArrival(s,originalA),false);assert.equal(o.recordArrival(s,originalB),false);assert.equal(JSON.stringify([s.game,s.civilization.regions.nodes.river.population]),once);
@@ -129,22 +138,24 @@ test('two real Urban crews keep different sources and destinations while sharing
 test('global party identities cannot be reused across sources, including already-closed historical receipts',()=>{
   const h=ready(),{s,o}=h,a=dispatch(h,'old_city_fringe','home');
   const q=o.quoteParty(s,'mountain_settlements',8,{mode:'convoy'}),before=JSON.stringify(s);assert.equal(o.commitDeparture(s,q,a.id,'river'),false);assert.equal(JSON.stringify(s),before);
-  const b=dispatch(h,'mountain_settlements','river');h.step(240);assertLedgers(h);
+  h.step(120);const b=dispatch(h,'mountain_settlements','river');h.step(240);assertLedgers(h);
   const bad=clone(s),node=bad.civilization.origins.nodes.mountain_settlements,d=node.departures['p'+b.id];delete node.departures['p'+b.id];d.partyId=a.id;node.departures['p'+a.id]=d;
   assert.throws(()=>o.validate(bad),'even two closed, individually balanced source receipts may not share an Urban party ID');
 });
 
 test('Urban alone ages passengers from two sources and a reversed party returns to its recorded source after selection changes',()=>{
   const h=ready(),{s,o,u,ctx}=h,x=s.civilization.urban;
+  h.step((600-s.civilization.elapsed%600-121+600)%600);
   for(const id of ['old_city_fringe','mountain_settlements'])s.civilization.origins.nodes[id].cohorts.sort((a,b)=>(b.age===79)-(a.age===79));
-  s.civilization.elapsed=(x.year+1)*600-1;
-  const a=dispatch(h,'old_city_fringe','home'),b=dispatch(h,'mountain_settlements','river'),original=[clone(a),clone(b)];h.step(1);
+  const a=dispatch(h,'old_city_fringe','river'),originalA=clone(a);h.step(30);
+  s.civilization.regions.routes.river.condition='closed';h.step(90);assert.equal(a.state,'held');assert.equal(a.remaining,90);assert.equal(a.heldFor,90);
+  const b=dispatch(h,'mountain_settlements','home'),original=[originalA,clone(b)];assert.equal(b.transport.departedAt-a.transport.departedAt,120);h.step(1);
   for(const [index,p]of [a,b].entries()){
     const expected=ctx.CivilPopulation.age(original[index].cohorts);assert.equal(expected.deceased,1);assert.deepEqual(clone(p.cohorts),clone(expected.cohorts));assert.equal(s.civilization.origins.nodes[p.source].transitDeaths,1);
   }
   const ages=JSON.stringify(x.parties.map(p=>p.cohorts));for(const id of ids)o.annual(s,id);u.tick(s);assert.equal(JSON.stringify(x.parties.map(p=>p.cohorts)),ages);
   const target=b.target,source=b.source,identity=clone(b.cohorts),beforeReturn=s.civilization.origins.nodes[source].population;
-  x.activeSource='old_city_fringe';u.setTarget(s,'home');assert.equal(u.returnParty(s,b.id),true);assert.equal(b.target,target);assert.equal(b.source,source);assert.equal(u.reservedBeds(s,'river'),0);
+  x.activeSource='old_city_fringe';u.setTarget(s,'river');assert.equal(u.returnParty(s,b.id),true);assert.equal(b.target,target);assert.equal(b.source,source);assert.equal(u.reservedBeds(s,'home'),0);assert.equal(u.reservedBeds(s,'river'),7);
   h.step(b.remaining);assert.equal(s.civilization.origins.nodes[source].population,beforeReturn+7);
   for(const c of identity){const returned=s.civilization.origins.nodes[source].cohorts.find(v=>v.cohortId===c.cohortId);assert.ok(returned);assert.equal(returned.age,c.age);assert.equal(returned.identity,c.identity);}
   assert.equal(s.civilization.origins.nodes[source].departures['p'+b.id].status,'returned');assert.equal(o.returnPeople(s,b),false);assertLedgers(h);

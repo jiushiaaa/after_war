@@ -32,6 +32,7 @@
     if(c.municipal!==undefined)CivilMunicipal.validate(state);
     if(c.advanced!==undefined)CivilAdvanced.validate(state);
     if(c.services!==undefined)CivilServices.validate(state);
+    if(typeof CivilPassenger!=='undefined')CivilPassenger.validate(state);
     const labor=c.society?CivilSociety.workforce(state):pop;
     const workers = Object.entries(state.game.workers);
     if(workers.some(([key,n]) => (!Object.hasOwn(CivilCatalog.jobs,key) || key==='gatherer') || !Number.isInteger(n) || n < 0) || workers.reduce((n,[,v])=>n+v,0)>labor) throw Error('岗位无效');

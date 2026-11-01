@@ -49,7 +49,7 @@ test('the discovered family source is initialized once and each paid batch keeps
 test('route and passenger crews share one pool, including empty returns and retirement shortages',()=>{
   const h=prepare(harness()),{s,u,r}=h;
   s.game.workers.transporter=4;assert.equal(r.availableTransport(s),2);assert.equal(u.dispatch(s),true);assert.equal(r.availableTransport(s),0);assert.equal(u.dispatch(s),false);
-  s.civilization.urban.enabled=false;s.game.workers.transporter=0;tick(h,120);assert.equal(s.game.population,52);assert.equal(u.reservedTransport(s),2);assert.equal(r.availableTransport(s),0);tick(h,120);assert.equal(u.reservedTransport(s),0);
+  s.civilization.urban.enabled=false;s.game.workers.transporter=0;tick(h,120);assert.equal(s.game.population,44);assert.equal(s.civilization.urban.parties[0].remaining,120);assert.equal(u.reservedTransport(s),2);assert.equal(r.availableTransport(s),0);s.game.workers.transporter=4;tick(h,120);assert.equal(s.game.population,52);assert.equal(u.reservedTransport(s),2);tick(h,120);assert.equal(u.reservedTransport(s),0);
 });
 test('reserved beds stop annual births and singleton arrivals; the legacy arrival entry is always handled after registration',()=>{
   const h=prepare(harness()),{s,u,ctx}=h;s.game.buildings.residential=0;s.game.buildings.hut=4;

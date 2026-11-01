@@ -162,7 +162,7 @@ var CivilOrigins={
     return null;
   },
   sustainable(s,id,cohorts){return this.sustainabilityReason(s,id,cohorts)===null;},
-  choose(cohorts,limit,mode,id='river_network'){
+  chooseFamily(cohorts,limit,mode,id='river_network'){
     const remaining=cohorts.map(c=>({...c})),selected=[];
     if(!CivilOriginContent[id]||!Number.isInteger(limit)||limit<1||limit>8||!['singleton','convoy'].includes(mode))return {selected,remaining};
     const bands=CivilOriginContent[id].fertilityBands;
@@ -191,48 +191,97 @@ var CivilOrigins={
     }
     return {selected,remaining:remaining.filter(c=>c.count>0)};
   },
+  choose(cohorts,limit,mode,id='river_network'){
+    const original=cohorts.map(c=>({...c})),selected=[];let remaining=original;
+    if(!CivilOriginContent[id] || !Number.isInteger(limit) || limit<1 || limit>24 || !['singleton','convoy'].includes(mode))return {selected,remaining};
+    if(mode==='singleton')return this.chooseFamily(cohorts,1,mode,id);
+    // Larger convoys carry up to three ordinary family groups. Apply each selection to
+    // the same diminishing census so fertility floors are never spent three times.
+    for(let left=limit;left>0;){
+      const seats=Math.min(8,left),group=this.chooseFamily(remaining,seats,'convoy',id);
+      if(CivilPopulation.count(group.selected)!==seats)return {selected:[],remaining:original};
+      for(const c of group.selected){const old=selected.find(x=>x.cohortId===c.cohortId);if(old)old.count+=c.count;else selected.push({...c});}
+      remaining=group.remaining;left-=seats;
+    }
+    return {selected,remaining};
+  },
+  quoteCapacity(options){
+    if(!options || !['singleton','convoy'].includes(options.mode))return null;
+    const capacity=options.capacity===undefined?(options.mode==='singleton'?1:8):options.capacity;
+    return options.mode==='singleton'?(capacity===1?1:null):[8,24].includes(capacity)?capacity:null;
+  },
   quoteParty(s,id,maxPeople,options={mode:'convoy'}){
-    const n=s.civilization.origins?.nodes[id],mode=options.mode;
-    if(!n || !['singleton','convoy'].includes(mode) || !['contacted','agreed'].includes(n.status) || mode==='convoy' && n.status!=='agreed' || !Number.isInteger(maxPeople)||maxPeople<1)return null;
-    const max=Math.min(mode==='singleton'?1:8,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
+    const n=s.civilization.origins?.nodes[id],mode=options?.mode,capacity=this.quoteCapacity(options);
+    if(!n || !capacity || !['contacted','agreed'].includes(n.status) || mode==='convoy' && n.status!=='agreed' || !Number.isInteger(maxPeople)||maxPeople<1)return null;
+    const max=Math.min(capacity,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
     for(let count=max;count>0;count--){
       const {selected,remaining}=this.choose(n.cohorts,count,mode,id),actual=CivilPopulation.count(selected);
       if(!actual || actual!==count || !this.sustainable(s,id,remaining))continue;
-      return {originId:id,revision:n.revision,mode,cohorts:selected,count:actual,cost:mode==='singleton'?{food:actual*6}:{food:actual*6,medicine:actual*.2,tools:actual*.2}};
+      return {originId:id,revision:n.revision,mode,capacity,cohorts:selected,count:actual,cost:mode==='singleton'?{food:actual*6}:{food:actual*6,medicine:actual*.2,tools:actual*.2}};
     }
     return null;
   },
   quoteReason(s,id,maxPeople=8,options={mode:'convoy'}){
-    const n=s.civilization.origins?.nodes[id],mode=options.mode;
+    const n=s.civilization.origins?.nodes[id],mode=options?.mode,capacity=this.quoteCapacity(options);
     if(!n)return '尚未取得来源名册';
-    if(!['singleton','convoy'].includes(mode)||!Number.isInteger(maxPeople)||maxPeople<1)return '接纳人数或方式无效';
+    if(!capacity||!Number.isInteger(maxPeople)||maxPeople<1)return '接纳人数、方式或运力无效';
     if(!['contacted','agreed'].includes(n.status))return '来源联络尚未完成';
     if(mode==='convoy'&&n.status!=='agreed')return '来源尚未登记批次迁居协议';
     if(this.quoteParty(s,id,maxPeople,options))return null;
     if(this.remaining(s,id)<=0)return '来源的累计迁居额度已经用完';
-    const max=Math.min(mode==='singleton'?1:8,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
+    const max=Math.min(capacity,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
     if(max<=0)return '来源至少需要留守'+CivilOriginContent[id].retained+'位居民';
     for(let count=max;count>0;count--){const choice=this.choose(n.cohorts,count,mode,id);if(CivilPopulation.count(choice.selected)===count){const reason=this.sustainabilityReason(s,id,choice.remaining);if(reason)return reason.replace(/^来源/,CivilOriginContent[id].name);}}
     return '来源须保留各年龄段的育龄居民，暂不能组成迁居家庭';
   },
   target(d){return d.target===undefined?'home':d.target;},
   validTarget(s,target){return target==='home' || typeof target==='string' && typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,target);},
-  commitDeparture(s,quote,partyId,target='home'){
+  receiptCapacity(s,d,sourceId){
+    const passenger=typeof CivilPassenger!=='undefined'?CivilPassenger:null,legacy=!passenger || passenger.legacyParty(s,d.partyId);
+    if(d.mode==='singleton'){
+      if(d.transport!==null && !(d.transport===undefined && legacy))throw Error('单人到访不能占用客运装备');
+      return 1;
+    }
+    if(!passenger){if(d.transport!==undefined)throw Error('客运快照缺少校验模块');return 8;}
+    passenger.validateTransport(s,d.transport,d.partyId,sourceId);
+    const capacity=passenger.capacityFor(s,d);
+    if(![8,24].includes(capacity) || d.transport && (d.transport.initial!==d.initial || Math.floor(d.transport.departedAt/600)!==d.startedYear))throw Error('来源与客运出发快照不符');
+    return capacity;
+  },
+  sameTransport(a,b){
+    if(a===undefined || b===undefined || a===null || b===null)return a===b;
+    const canonical=x=>x && typeof x==='object' && !Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,k==='paid'?canonical(x[k]):x[k]])):x;
+    return JSON.stringify(canonical(a))===JSON.stringify(canonical(b));
+  },
+  matchesTransport(s,party,d){
+    // A standalone legacy caller did not carry a vehicle field on its immediate singleton.
+    if(typeof CivilPassenger==='undefined' && d.mode==='singleton' && d.transport===null && party.transport===undefined)return true;
+    return this.sameTransport(party.transport,d.transport);
+  },
+  commitDeparture(s,quote,partyId,target='home',transport){
     const n=s.civilization.origins?.nodes[quote?.originId];
     if(!n || !Number.isInteger(partyId)||partyId<1 || Object.values(s.civilization.origins.nodes).some(node=>node.departures['p'+partyId]) || quote.revision!==n.revision)return false;
     if(!this.validTarget(s,target) || target!=='home' && (quote.mode==='singleton' || !CivilMunicipal.canAccept(s,target)))return false;
-    const fresh=this.quoteParty(s,quote.originId,quote.count,{mode:quote.mode});
+    const startedYear=s.civilization.urban?.year ?? n.year,storedTransport=quote.mode==='singleton'?null:transport;
+    if(quote.mode==='singleton' && transport!==undefined && transport!==null)return false;
+    let capacity;
+    try{capacity=this.receiptCapacity(s,{partyId,initial:quote.count,mode:quote.mode,transport:storedTransport,startedYear},quote.originId);}catch{return false;}
+    if(quote.capacity!==undefined && quote.capacity!==capacity || quote.count>capacity)return false;
+    if(quote.mode==='convoy' && typeof CivilPassenger!=='undefined' && !CivilPassenger.canDepart(s,transport,partyId,quote.originId))return false;
+    const fresh=this.quoteParty(s,quote.originId,quote.count,{mode:quote.mode,capacity});
     if(!fresh || JSON.stringify(fresh.cohorts)!==JSON.stringify(quote.cohorts) || fresh.count!==quote.count)return false;
     const next=n.cohorts.map(c=>({...c}));
     for(const item of quote.cohorts){const c=next.find(c=>c.cohortId===item.cohortId);if(!c || c.age!==item.age || c.identity!==item.identity || c.count<item.count)return false;c.count-=item.count;}
     n.cohorts=next.filter(c=>c.count>0);n.population=CivilPopulation.count(n.cohorts);n.revision++;
     n.departures['p'+partyId]={partyId,target,status:'travel',initial:quote.count,alive:quote.count,dead:0,mode:quote.mode,deathsByYear:{},
-      cohorts:quote.cohorts.map(c=>({...c})),startedYear:s.civilization.urban?.year ?? n.year,closedYear:null};
+      cohorts:quote.cohorts.map(c=>({...c})),startedYear,closedYear:null};
+    if(storedTransport!==undefined)n.departures['p'+partyId].transport=storedTransport===null?null:JSON.parse(JSON.stringify(storedTransport));
     this.assign(s,quote.originId);return true;
   },
   departure(s,party){
     const n=s.civilization.origins?.nodes[party?.source],d=n?.departures['p'+party?.id];
-    return n && d && this.validTarget(s,this.target(d)) && party.target===this.target(d)?{n,d}:null;
+    if(!n || !d || !this.validTarget(s,this.target(d)) || party.target!==this.target(d) || !this.matchesTransport(s,party,d))return null;
+    try{this.receiptCapacity(s,d,party.source);}catch{return null;}return {n,d};
   },
   expected(d,year){return d.cohorts.map(c=>({...c,age:c.age+year-d.startedYear})).filter(c=>c.age<80);},
   sameCohorts(a,b){
@@ -300,7 +349,7 @@ var CivilOrigins={
     ],buttons:{record:{text:'记录来源与接纳条件',nextScene:'end',onChoose:done(cfg.name+'的名册已记录。居民按真实费用、住房与供养逐步安置。',()=>{n.announced=true;})}}};
     if(id===this.eventId('Agreement',source) && n.status==='contacted')return {title:cfg.name+'迁居登记',text:[
       '本地支付'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，'+cfg.name+'自己支付'+this.costText(cfg.sourceAgreementCost):'')+'。双方材料齐备才一起登记；协议总额'+cfg.permit+'，不随出生或换任重新分配。',
-      '登记后每批仍需每人6食物、0.2药品、0.2工具，两名实际运输工和已预留床位。逐人到访不要求先签这份批次协议。'
+      '登记后每人仍需6食物、0.2药品、0.2工具和已预留床位。小队需要两名实际运输工'+(s.civilization.tech.passenger_transport?'，扩容大队需要四人及装备维护':'')+'。逐人到访不要求先签这份批次协议。'
     ],buttons:{agree:{text:'登记批次协议（'+this.costText(cfg.agreementCost)+'）',nextScene:'end',onChoose:()=>{const reason=this.agreementReason(s,source),ok=!reason && this.agree(s,source);return done(ok?cfg.name+'的批次迁居协议已经登记。':(reason||'登记条件已变化')+'，本次未扣款。')();}},later:{text:'先维持逐人到访',nextScene:'end',onChoose:done('保留逐人到访，稍后再商议批次接纳。')}}};
     return null;
   },
@@ -316,7 +365,7 @@ var CivilOrigins={
     start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,!!this.contactReason(s,id));start.attr('title',cfg.name+'自己承担2名联络人员、'+this.costText(cfg.contactCost)+'；'+cfg.contactDuration+'个实际工作秒后取得联系');
     let info=$('#originSourceInfo');if(!info.length)info=$('<div>').attr('id','originSourceInfo').css({width:'410px',lineHeight:'1.8',marginTop:'15px'}).appendTo('#roadPanel');
     info.text(n.status==='contacting'?cfg.name+'的人员正在联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。'+(this.contactWorkReason(s,id)||''):n.status==='unknown'?cfg.name+'留下了可以联络的线索。由当地人员自备旅粮勘路，取得联系后再核对真实名册。'+(this.contactReason(s,id)||''):
-      cfg.name+'：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,id)?'为未安置旅客保留 '+this.reservedBeds(s,id)+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,id)+'；至少留守'+cfg.retained+'人。'+(n.status==='agreed'?(this.quoteReason(s,id,8,{mode:'convoy'})||'可安排批次接纳。'):'已可逐人到访，每人6粮；批次需登记。'+(this.agreementReason(s,id)||''))+' '+this.schoolStatus(s,id));
+      cfg.name+'：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,id)?'为未安置旅客保留 '+this.reservedBeds(s,id)+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,id)+'；至少留守'+cfg.retained+'人。'+(n.status==='agreed'?(this.quoteReason(s,id,s.civilization.tech.passenger_transport?24:8,{mode:'convoy',capacity:s.civilization.tech.passenger_transport?24:8})||'来源可安排迁居家庭；实际规模仍由车组、旅费与目的地供养决定。'):'已可逐人到访，每人6粮；批次需登记。'+(this.agreementReason(s,id)||''))+' '+this.schoolStatus(s,id));
     const agree=Civilization.button('originAgreementButton','商议批次接纳','#roadPanel',()=>{const selected=this.selected(State);if(!Events.activeEvent() && !State.civilization.pending && State.civilization.origins.nodes[selected].status==='contacted'){State.civilization.pending=this.eventId('Agreement',selected);Civilization.showPending();}});
     Button.setDisabled(agree,!!this.agreementReason(s,id));agree.attr('title','本地：'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'；来源：'+this.costText(cfg.sourceAgreementCost):''));
     $('#originAgreementButton').toggle(n.status==='contacted');
@@ -365,21 +414,24 @@ var CivilOrigins={
       for(const key of ['born','sourceDeaths','transitDeaths','admitted'])if(!int(n[key]))throw Error('来源流量无效');
       let arrived=0,dead=0,travel=0,returned=0;
       for(const [key,d]of Object.entries(n.departures)){
-        if(!obj(d)||!int(d.partyId)||d.partyId<1||partyIds.has(d.partyId)||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,8)||!d.initial||!int(d.alive,8)||!int(d.dead,8)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(this.introducedAt(s,id)/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||d.cohorts.length>8||r.schema===2&&d.target===undefined)throw Error('来源迁出记录无效');
+        if(!obj(d)||!int(d.partyId)||d.partyId<1||partyIds.has(d.partyId)||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,24)||!d.initial||!int(d.alive,24)||!int(d.dead,24)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(this.introducedAt(s,id)/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||r.schema===2&&d.target===undefined)throw Error('来源迁出记录无效');
         partyIds.add(d.partyId);
+        const capacity=this.receiptCapacity(s,d,id);
+        if(d.initial>capacity || d.alive>capacity || d.dead>capacity || d.cohorts.length>capacity)throw Error('来源回执超出原客运容量');
         const target=this.target(d);
         if(!this.validTarget(s,target) || d.mode==='singleton' && target!=='home')throw Error('来源迁出目的地无效');
         const originals=new Set();
-        for(const c of d.cohorts){if(!obj(c)||typeof c.cohortId!=='string'||!c.cohortId.startsWith(id+'_')||originals.has(c.cohortId)||!int(c.age,79)||!int(c.count,8)||!c.count||!['human','mutant'].includes(c.identity)||c.originId!==id)throw Error('迁出原始名册无效');originals.add(c.cohortId);}
+        for(const c of d.cohorts){if(!obj(c)||typeof c.cohortId!=='string'||!c.cohortId.startsWith(id+'_')||originals.has(c.cohortId)||!int(c.age,79)||!int(c.count,capacity)||!c.count||!['human','mutant'].includes(c.identity)||c.originId!==id)throw Error('迁出原始名册无效');originals.add(c.cohortId);}
         if(CivilPopulation.count(d.cohorts)!==d.initial || d.status==='travel' && d.closedYear!==null || d.status!=='travel' && (!int(d.closedYear,year)||d.closedYear<d.startedYear))throw Error('迁出时间记录无效');
         const censusYear=d.status==='travel'?u.year:d.closedYear,expected=this.expected(d,censusYear);
         if(!int(censusYear,year)||censusYear<d.startedYear||CivilPopulation.count(expected)!==d.alive)throw Error('迁出年龄总账不符');
         let perYear=0;for(const [k,v]of Object.entries(d.deathsByYear)){
           const deathYear=Number(k.slice(1));
-          if(!/^y\d+$/.test(k)||deathYear>d.startedYear+80||deathYear>censusYear||deathYear<=d.startedYear||!int(v,8)||!v||CivilPopulation.count(d.cohorts.filter(c=>c.age+deathYear-d.startedYear===80))!==v)throw Error('在途死亡记录无效');perYear+=v;
+          if(!/^y\d+$/.test(k)||deathYear>d.startedYear+80||deathYear>censusYear||deathYear<=d.startedYear||!int(v,capacity)||!v||CivilPopulation.count(d.cohorts.filter(c=>c.age+deathYear-d.startedYear===80))!==v)throw Error('在途死亡记录无效');perYear+=v;
         }
         if(perYear!==d.dead)throw Error('在途死亡计数不符');
         const parties=(u.parties||[]).filter(p=>p.source===id&&p.id===d.partyId);
+        if(parties.some(p=>!this.matchesTransport(s,p,d)))throw Error('来源与在途客运快照不符');
         if(d.status==='travel' && (d.mode!=='convoy'||parties.length!==1||!['outbound','held','returning_people'].includes(parties[0].state)||parties[0].target!==target||!this.sameCohorts(parties[0].cohorts,expected)) ||
           d.status==='arrived' && (parties.length>1||parties.some(p=>d.mode!=='convoy'||p.state!=='returning'||p.target!==target||p.cohorts.length)) ||
           d.status==='returned' && parties.length)throw Error('来源与在途名册不符');

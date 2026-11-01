@@ -173,8 +173,91 @@ test('four paid district schools are the exact new cap and completed-history val
   const h=harness(),{s,v,ctx}=h,base=ctx.CivilCatalog.jobCapacity(s,'teacher');for(let i=0;i<4;i++)finish(h,'districtschool');
   assert.equal(ctx.CivilCatalog.jobCapacity(s,'teacher'),base+48);const before=JSON.stringify(s);assert.equal(v.startProject(s,'home','districtschool'),false);assert.equal(JSON.stringify(s),before);assert.equal(s.game.population,200);assert.doesNotThrow(()=>v.validate(s));
   const full=structuredClone(s),node=v.data(full);node.buildings={};node.completed=[];let nextId=1;
-  for(const [type,facility]of Object.entries(ctx.CivilServiceContent.facilities)){node.buildings[type]=facility.max;for(let i=0;i<facility.max;i++)node.completed.push({id:nextId++,type,completedAt:full.civilization.elapsed});}
-  node.nextProject=nextId;node.project=null;assert.equal(node.completed.length,33);assert.doesNotThrow(()=>v.validate(full));
+  let at=0;full.civilization.tech.passenger_transport=true;
+  for(const [type,facility]of Object.entries(ctx.CivilServiceContent.facilities)){node.buildings[type]=facility.max;for(let i=0;i<facility.max;i++){const record={id:nextId++,type,completedAt:at};if(type==='passengerfleet'){Object.assign(record,{paid:{...facility.cost},workedSeconds:360,startedAt:at,lastWorkedAt:at+360,completedAt:at+360});at+=360;}node.completed.push(record);}}
+  node.nextProject=nextId;node.project=null;assert.equal(node.completed.length,35);assert.doesNotThrow(()=>v.validate(full));
   const excessive=structuredClone(full);v.data(excessive).buildings.districtschool=5;assert.throws(()=>v.validate(excessive));
   const extraHistory=structuredClone(full);v.data(extraHistory).completed.push({id:nextId,type:'districtschool',completedAt:s.civilization.elapsed});v.data(extraHistory).nextProject++;assert.throws(()=>v.validate(extraHistory));
+});
+
+test('passenger equipment starts only after research and atomically pays every material without reserving free workers',()=>{
+  const h=harness(),{s,v,ctx}=h,d=ctx.CivilServiceContent.facilities.passengerfleet;
+  let before=JSON.stringify(s);assert.equal(v.startProject(s,'home','passengerfleet'),false);assert.equal(JSON.stringify(s),before);
+  s.civilization.tech.passenger_transport=true;
+  for(const [key,cost]of Object.entries(d.cost)){
+    const copy=structuredClone(s);copy.stores[key]=cost-.01;before=JSON.stringify(copy);
+    assert.equal(v.startProject(copy,'home','passengerfleet'),false,key);assert.equal(JSON.stringify(copy),before,key+' shortage debits nothing');
+  }
+  const stock={...s.stores},workers=JSON.stringify(s.game.workers),people=JSON.stringify(s.civilization.society.cohorts),base=ctx.CivilCatalog.jobCapacity(s,'transporter');
+  assert.equal(v.startProject(s,'home','passengerfleet'),true);
+  for(const [key,cost]of Object.entries(d.cost))assert.equal(s.stores[key],stock[key]-cost);
+  const p=v.data(s).project;assert.equal(JSON.stringify(p.paid),JSON.stringify(d.cost));assert.equal(p.workedSeconds,0);assert.equal(p.remaining,360);assert.equal(ctx.CivilCatalog.jobCapacity(s,'transporter'),base);
+  assert.equal(s.game.workers.servicebuilder,0);assert.equal(JSON.stringify(s.civilization.society.cohorts),people);assert.equal(s.game.workers.transporter,JSON.parse(workers).transporter);
+  before=JSON.stringify(s);assert.equal(v.startProject(s,'home','waterfield'),false);assert.equal(JSON.stringify(s),before);assert.doesNotThrow(()=>v.validate(s));
+});
+
+test('passenger construction counts only actual supplied work seconds, pauses for lost labor and never catches up on reload',()=>{
+  const h=harness(),{s,v}=h;s.civilization.tech.passenger_transport=true;assert.equal(v.startProject(s,'home','passengerfleet'),true);
+  let p=v.data(s).project;
+  const attempt=()=>{s.civilization.elapsed++;v.tick(s);v.tick(s);assert.equal(p.workedSeconds,0);assert.equal(p.remaining,360);assert.doesNotThrow(()=>v.validate(s));};
+  attempt();s.game.workers.servicebuilder=1;attempt();s.game.workers.servicebuilder=2;
+  s.civilization.society.cohorts[0].age=65;attempt();s.civilization.society.cohorts[0].age=30;
+  s.game.workers.teacher=199;attempt();s.game.workers.teacher=2;
+  s.civilization.hunger=10;attempt();s.civilization.hunger=0;s.civilization.village.health=29;attempt();s.civilization.village.health=100;
+  for(let i=0;i<17;i++){s.civilization.elapsed++;v.tick(s);v.tick(s);}assert.equal(p.workedSeconds,17);
+  const loaded=JSON.parse(JSON.stringify(s)),before=JSON.stringify(loaded);v.init(loaded);v.tick(loaded);assert.equal(JSON.stringify(loaded),before);assert.doesNotThrow(()=>v.validate(loaded));
+  // A skipped clock interval is not a batch of worked seconds.
+  loaded.civilization.elapsed+=100;v.tick(loaded);p=v.data(loaded).project;assert.equal(p.workedSeconds,18);assert.equal(p.remaining,342);
+  for(let i=0;i<342;i++){loaded.civilization.elapsed++;v.tick(loaded);}assert.equal(p.status,'complete');assert.equal(p.workedSeconds,360);
+  const record=v.data(loaded).completed[0];assert.equal(record.startedAt,p.startedAt);assert.equal(record.lastWorkedAt,loaded.civilization.elapsed);assert.equal(record.completedAt,record.lastWorkedAt);assert.ok(record.completedAt-record.startedAt>360);assert.equal(record.workedSeconds,360);assert.doesNotThrow(()=>v.validate(loaded));
+  const completed=JSON.stringify(loaded);v.init(loaded);v.tick(loaded);assert.equal(JSON.stringify(loaded),completed);
+});
+
+test('two completed passenger sets supply exactly four transport slots while preserving people and assigned transport workers',()=>{
+  const h=harness(),{s,v,ctx}=h;s.civilization.tech.passenger_transport=true;
+  const before={...s.stores},base=ctx.CivilCatalog.jobCapacity(s,'transporter'),population=s.game.population,cohorts=JSON.stringify(s.civilization.society.cohorts);s.game.workers.transporter=2;
+  for(let i=1;i<=2;i++){finish(h,'passengerfleet');assert.equal(ctx.CivilCatalog.jobCapacity(s,'transporter'),base+i*2);assert.equal(s.game.workers.transporter,2);assert.equal(s.game.population,population);assert.equal(JSON.stringify(s.civilization.society.cohorts),cohorts);assert.doesNotThrow(()=>v.validate(s));}
+  for(const [key,cost]of Object.entries(ctx.CivilServiceContent.facilities.passengerfleet.cost))assert.equal(s.stores[key],before[key]-2*cost);
+  assert.equal(s.stores.food,before.food);assert.deepEqual(Array.from(v.data(s).completed,x=>'service_project_'+x.id),['service_project_1','service_project_2']);
+  const final=JSON.stringify(s);assert.equal(v.startProject(s,'home','passengerfleet'),false);assert.equal(JSON.stringify(s),final);
+});
+
+test('passenger saves require paid and worked asset evidence, matching progress and one sequential construction slot',()=>{
+  const h=harness(),{s,v}=h;s.civilization.tech.passenger_transport=true;finish(h,'passengerfleet');assert.equal(v.startProject(s,'home','passengerfleet'),true);
+  const reject=mutate=>{const bad=structuredClone(s);mutate(v.data(bad),bad);assert.throws(()=>v.validate(bad));};
+  for(const field of ['paid','workedSeconds','startedAt','lastWorkedAt']){
+    reject(m=>{delete m.completed[0][field];});reject(m=>{delete m.project[field];});
+  }
+  reject(m=>m.completed[0].paid.steel--);reject(m=>m.completed[0].paid.food=0);reject(m=>m.project.paid.parts--);
+  reject(m=>m.project.workedSeconds=1);reject(m=>m.project.remaining=359);reject(m=>m.completed[0].workedSeconds=359);
+  reject(m=>m.completed[0].startedAt=m.completed[0].completedAt-359);reject(m=>m.completed[0].lastWorkedAt--);
+  reject(m=>{m.project.startedAt--;});reject((m,bad)=>bad.civilization.tech.passenger_transport=false);
+  s.game.workers.servicebuilder=2;for(let i=0;i<360;i++){s.civilization.elapsed++;v.tick(s);}assert.doesNotThrow(()=>v.validate(s));
+  const complete=structuredClone(s);v.data(complete).project.paid.tools--;assert.throws(()=>v.validate(complete));
+  const third=structuredClone(s),m=v.data(third),last=m.project;m.project={...last,id:m.nextProject++,status:'building',remaining:360,workedSeconds:0,startedAt:third.civilization.elapsed,lastWorkedAt:third.civilization.elapsed};assert.throws(()=>v.validate(third));
+});
+
+test('passenger equipment cannot start, carry construction cargo, grant jobs or import as a remote facility',()=>{
+  const h=local(harness()),{s,v,id}=h;s.civilization.tech.passenger_transport=true;const before=JSON.stringify(s);
+  assert.equal(v.facilityGate(s,id,'passengerfleet'),false);assert.equal(v.startProject(s,id,'passengerfleet'),false);assert.equal(JSON.stringify(s),before);
+  finish(h,'passengerfleet');const forged=structuredClone(s);forged.civilization.services.nodes[id]=structuredClone(v.data(forged));delete forged.civilization.services.nodes.home;
+  assert.equal(v.jobs(forged,id).transporter,undefined);assert.throws(()=>v.validate(forged));
+  const remote=v.data(forged,id);remote.project.status='supplying';remote.project.remaining=0;remote.project.workedSeconds=0;remote.buildings={};remote.completed=[];
+  assert.equal(v.nextCargo(forged,id,64),null);assert.equal(v.receiveCargo(forged,id,{wood:64},remote.project.id),false);
+  assert.equal(v.validShipment(forged,{route:id,purpose:'services',serviceProjectId:remote.project.id,phase:'empty',source:id,target:'home',cargo:{}}),false);assert.throws(()=>v.validate(forged));
+});
+
+test('native service controls reveal passenger construction only at home after its research',()=>{
+  const h=local(harness()),{s,v,ctx,id}=h,elements=new Map(),buttons=new Map();
+  ctx.$=selector=>{
+    if(!elements.has(selector))elements.set(selector,{length:1,visible:false,attrs:{},hide(){this.visible=false;return this;},show(){this.visible=true;return this;},text(value){this.value=value;return this;},attr(key,value){this.attrs[key]=value;return this;}});
+    return elements.get(selector);
+  };
+  ctx.Button={setDisabled(button,value){button.disabled=value;}};
+  ctx.Civilization.button=(id,label,parent,action)=>{const button=ctx.$('#'+id);buttons.set(id,{label,parent,action,button});return button;};
+  ctx.Engine={saveGame(){}};ctx.CivilMunicipal.selected=id;
+  v.refresh();assert.equal(buttons.has('services_home_passengerfleet'),false);assert.equal(buttons.has('services_local_passengerfleet'),false);
+  s.civilization.tech.passenger_transport=true;v.refresh();const native=buttons.get('services_home_passengerfleet');
+  assert.equal(native.label,'迁居车组装备');assert.equal(native.parent,'#services_home_build');assert.equal(native.button.visible,true);assert.equal(native.button.disabled,false);assert.equal(buttons.has('services_local_passengerfleet'),false);assert.equal(elements.get('#services_local_passengerfleet').visible,false);
+  native.action();assert.equal(v.data(s).project.type,'passengerfleet');assert.equal(v.data(s,id),undefined);assert.equal(buttons.get('services_home_passengerfleet').button.disabled,true);
 });

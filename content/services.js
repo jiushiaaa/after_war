@@ -6,6 +6,7 @@ var CivilServiceContent={
     waterfield:{name:'水务田片',requires:['municipal_engineering'],cost:{wood:160,iron:12,tools:18},duration:180,max:10,jobs:{farmer:8}},
     irrigationworks:{name:'田片灌溉改造',requires:['municipal_engineering'],cost:{wood:180,steel:12,glass:4,parts:8,tools:20},duration:240,max:1},
     districtschool:{name:'街区学校',requires:['municipal_engineering'],cost:{wood:200,steel:16,glass:12,parts:8,tools:12},duration:240,max:4,jobs:{teacher:12}},
+    passengerfleet:{name:'迁居车组装备',requires:['passenger_transport'],homeOnly:true,cost:{wood:180,iron:40,steel:24,parts:16,tools:20},duration:360,max:2,jobs:{transporter:2}},
     densehousing:{name:'密集住区',requires:['municipal_engineering'],cost:{wood:300,steel:90,glass:40,parts:30,tools:20},duration:360,max:6,beds:160}
   },
   jobs:{pharmacist:'药剂师',waterworker:'水务工',servicebuilder:'营建工'}
