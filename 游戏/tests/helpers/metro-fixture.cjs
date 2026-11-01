@@ -34,6 +34,7 @@ function harness(saved){
         near(s.stores.wood,before.wood-20,'paid road wood');near(s.stores.tools,before.tools-4,'paid road tools');return;
       }
       if(pending==='financeOffer'){this.click('later');return;}
+      if(pending==='roadDefense'){this.click('detour');return;}
       if(pending?.startsWith('municipalTown_')||pending?.startsWith('municipalCity_')){this.click('record');return;}
       throw Error('unexpected fixture event '+pending);
     },

@@ -11,9 +11,11 @@ var CivilCommerce={
   plan(s){const d=this.data(s),p=d?.plans.at(-1);return p&&p.cancelledAt===null&&d.orders.filter(o=>o.planId===p.id).length<p.limit?p:null;},
   reservedTransport(s){return this.active(s)?2:0;},
   obligation(s){return this.data(s)?1:0;},
-  staffed(s){return CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)>=2;},
+  staffed(s){return CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)>=2&&(typeof CivilSecurity==='undefined'||CivilSecurity.staffed(s,this.active(s)));},
   busy(s,corridor){return !!this.active(s)&&this.route(s)?.corridor===corridor;},
-  paid(){const cost={...CivilCommerceContent.cargo};for(const [k,v]of Object.entries(CivilCommerceContent.travelCost))cost[k]=(cost[k]||0)+v;return cost;},
+  paid(profile=null){const cost={...CivilCommerceContent.cargo};for(const extra of [CivilCommerceContent.travelCost,...(profile?[CivilSecurityContent.modes[profile.mode].homeCost]:[])])for(const [k,v]of Object.entries(extra))cost[k]=(cost[k]||0)+v;return cost;},
+  profile(s){return typeof CivilSecurity!=='undefined'?CivilSecurity.profile(s):null;},
+  duration(s,o){return o?.security?.duration||this.route(s).duration;},
   agreementReason(s){
     if(!this.available(s))return '先成立国家并签订独立来源居留公约';
     if(!CivilDiplomacy.operational(s))return '先恢复国家与居留公约的实际履约';
@@ -44,22 +46,26 @@ var CivilCommerce={
     if(!this.asset(s))return '先实付建造对外商队装备，并安排两名营建工施工';
     if(!this.plan(s))return '尚无剩余委托，可安排最多六趟';
     if(this.active(s))return '等待本趟商队返程';
+    const profile=this.profile(s),security=typeof CivilSecurity!=='undefined'?CivilSecurity.departureReason(s,profile):null;if(security)return security;
     if(!this.staffed(s))return '等待两名空闲运输工；地区与客运班组优先';
     const road=this.roadReason(s,true);if(road)return road;
-    if(!CivilFinance.reserveCheck(s,'home',this.paid()))return '本城须备足工具、旅费与居民供养储备';
-    if(!CivilDiplomacy.reserve(s,this.sourceId(s),CivilCommerceContent.returnCargo))return '对方须先备足交换食物和自身120秒供养';
+    if(!CivilFinance.reserveCheck(s,'home',this.paid(profile)))return '本城须备足工具、旅费与居民供养储备';
+    const sourceCost={...CivilCommerceContent.returnCargo};for(const [k,v]of Object.entries(profile?.sourcePaid||{}))sourceCost[k]=(sourceCost[k]||0)+v;
+    if(!CivilDiplomacy.reserve(s,this.sourceId(s),sourceCost))return '对方须先备足交换食物、护送费用和自身120秒供养';
     return null;
   },
   dispatch(s){
-    if(this.dispatchReason(s))return false;const d=this.data(s),at=s.civilization.elapsed,p=this.plan(s),paid=this.paid();
+    if(this.dispatchReason(s))return false;const d=this.data(s),at=s.civilization.elapsed,p=this.plan(s),profile=this.profile(s),paid=this.paid(profile);
     CivilServices.pay(s.stores,paid);
-    d.orders.push({id:d.nextId++,planId:p.id,assetId:this.asset(s).id,departedAt:at,arrivedAt:null,returnedAt:null,outboundSeconds:0,inboundSeconds:0,lastMovedAt:at,exchange:null,paid:{...paid},cargo:{...CivilCommerceContent.cargo}});return true;
+    if(profile)CivilServices.pay(this.source(s).stores,profile.sourcePaid);
+    d.orders.push({id:d.nextId++,planId:p.id,assetId:this.asset(s).id,departedAt:at,arrivedAt:null,returnedAt:null,outboundSeconds:0,inboundSeconds:0,lastMovedAt:at,exchange:null,paid:{...paid},cargo:{...CivilCommerceContent.cargo},...(profile?{security:profile}:{})});
+    if(profile?.sourceGuard)CivilOrigins.assign(s,this.sourceId(s));return true;
   },
   tick(s){
     const d=this.data(s),at=s.civilization.elapsed;if(!d||d.lastTickAt!==null&&at<=d.lastTickAt)return;
     d.lastTickAt=at;const o=this.active(s);if(!o){this.dispatch(s);return;}
     if(!this.staffed(s)||this.roadReason(s))return;
-    o.lastMovedAt=at;const duration=this.route(s).duration;
+    o.lastMovedAt=at;const duration=this.duration(s,o);if(typeof CivilSecurity!=='undefined'&&CivilSecurity.delay(s,o))return;
     if(o.arrivedAt===null){
       o.outboundSeconds++;
       if(o.outboundSeconds===duration){
@@ -73,13 +79,14 @@ var CivilCommerce={
       }
     }else {
       o.inboundSeconds++;
-      if(o.inboundSeconds===duration){for(const [k,v]of Object.entries(o.cargo))s.stores[k]=(s.stores[k]||0)+v;o.cargo={};o.returnedAt=at;Civilization.notify(o.exchange?'商队返城，食物120已进入本城原仓。':'商队返城，未成交的工具12已归还。');}
+      if(o.inboundSeconds===duration){for(const [k,v]of Object.entries(o.cargo))s.stores[k]=(s.stores[k]||0)+v;o.cargo={};o.returnedAt=at;if(o.security?.sourceGuard)CivilOrigins.assign(s,d.sourceId);Civilization.notify(o.exchange?'商队返城，食物120已进入本城原仓。':'商队返城，未成交的工具12已归还。');}
     }
   },
   status(s){
     const d=this.data(s),o=this.active(s),p=this.plan(s);if(!d)return this.agreementReason(s)||'双方可实付登记贸易，居民与仓库仍各自独立';
     const base=CivilDiplomacy.name(d.sourceId)+' · 已返城'+d.orders.filter(x=>x.returnedAt!==null).length+'趟；';
-    if(o)return base+(this.roadReason(s)||(!this.staffed(s)?'等待完整运输班组':o.arrivedAt===null?'工具运出途中，尚余'+(this.route(s).duration-o.outboundSeconds)+'秒':(o.exchange?'食物':'未成交工具')+'返程，尚余'+(this.route(s).duration-o.inboundSeconds)+'秒'))+'；'+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程':'不再追加出发');
+    if(o){const duration=this.duration(s,o),delay=(o.security?.delay||0)-(o.security?.encounterSeconds||0),encounter=delay>0&&o.outboundSeconds===Math.floor(duration/2)&&o.arrivedAt===null;
+      return base+(this.roadReason(s)||(!this.staffed(s)?'等待完整运输与护送班组':encounter?'护送队正在驱离兽群，还需'+delay+'秒':o.arrivedAt===null?'工具运出途中，尚余'+(duration-o.outboundSeconds+delay)+'秒':(o.exchange?'食物':'未成交工具')+'返程，尚余'+(duration-o.inboundSeconds)+'秒'))+'；'+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程':'不再追加出发');}
     const project=CivilServices.data(s,'home')?.project;
     if(!this.asset(s)&&project?.type==='foreigncaravan'&&project.status!=='complete')return base+'商队装备实际施工剩余'+project.remaining+'秒，请在聚落安排两名营建工';
     return base+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程；':'')+(this.dispatchReason(s)||'班组与物资就绪，等待启程');
@@ -91,7 +98,7 @@ var CivilCommerce={
     else if(this.plan(s))buttons.cancel={text:'撤销尚未出发的委托',nextScene:'end',onChoose:()=>finish(this.cancel(s),'剩余委托已撤销。已出发的商队照常完成往返，旅费不退。')};
     else buttons.schedule={text:'委托最多六趟实物贸易',nextScene:'end',onChoose:()=>finish(this.schedule(s),'已登记六趟委托，每次实际发车才支付货物与旅费；条件不足时等待。')};
     buttons.close={text:'合上贸易账册',nextScene:'end',onChoose:done('双方的原仓库与在途回执继续记账。')};
-    return {title:'独立聚居圈实物贸易',text:[this.status(s)+'。','登记实付：本城知识60，对方知识30。商队装备实耗木80、钢60、零件20、工具10；两名营建工施工360秒。','每趟携工具12，另付食物6、木2、工具0.1、零件0.1旅费。到达后换对方食物120，实际返程才入本城仓。对方储备不足会拒绝成交，工具运回，旅费不退。','独立装备占两名现有空闲运输工；'+(this.route(s)?'沿'+CivilRegionContent[this.route(s).corridor].name+'联络道，单程'+this.route(s).duration+'秒。':'')+'封路或缺员暂停；已出发货物保留。每批最多六趟，可撤销剩余委托，公约或国家治理中断则暂停新发车。'],buttons};
+    return {title:'独立聚居圈实物贸易',text:[this.status(s)+'。','登记实付：本城知识60，对方知识30。商队装备实耗木80、钢60、零件20、工具10；两名营建工施工360秒。','每趟携工具12，另付食物6、木2、工具0.1、零件0.1旅费。到达后换对方食物120，实际返程才入本城仓。对方储备不足会拒绝成交，工具运回，旅费不退。','独立装备占两名现有空闲运输工；'+(this.route(s)?'沿'+CivilRegionContent[this.route(s).corridor].name+'联络道，单程'+this.route(s).duration+'秒。':'')+(this.profile(s)?'新委托采用'+CivilSecurityContent.modes[this.profile(s).mode].name+'，实际单程'+this.profile(s).duration+'秒，另付 '+CivilHistory.costText(CivilSecurityContent.modes[this.profile(s).mode].homeCost)+'。':'')+'封路或缺员暂停；已出发货物保留。每批最多六趟，可撤销剩余委托，公约或国家治理中断则暂停新发车。'],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;
@@ -111,9 +118,11 @@ var CivilCommerce={
       const orders=d.orders.filter(o=>o.planId===p.id);if(orders.length>6||orders.some(o=>o.departedAt<p.at||p.cancelledAt!==null&&o.departedAt>p.cancelledAt))fail();
       if(prior&&prior.cancelledAt===null&&d.orders.filter(o=>o.planId===prior.id&&o.departedAt<=p.at).length!==6||prior?.cancelledAt!==null&&prior&&p.at<prior.cancelledAt)fail();prior=p;
     }
-    prior=null;const duration=this.route(s).duration;
+    prior=null;
     for(const [i,o]of d.orders.entries()){
-      if(!obj(o)||o.id!==i+1||!Number.isSafeInteger(o.planId)||o.planId<1||o.planId>d.plans.length||!asset||o.assetId!==asset.id||!time(o.departedAt)||o.departedAt<asset.completedAt||!nullable(o.arrivedAt)||!nullable(o.returnedAt)||!time(o.lastMovedAt)||o.lastMovedAt<o.departedAt||!same(o.paid,this.paid())||!obj(o.cargo)||![null,true,false].includes(o.exchange)||prior&&(prior.returnedAt===null||o.departedAt<=prior.returnedAt||o.planId<prior.planId))fail();
+      if(typeof CivilSecurity!=='undefined')CivilSecurity.validateOrder(s,o);
+      const duration=this.duration(s,o);
+      if(!obj(o)||o.id!==i+1||!Number.isSafeInteger(o.planId)||o.planId<1||o.planId>d.plans.length||!asset||o.assetId!==asset.id||!time(o.departedAt)||o.departedAt<asset.completedAt||!nullable(o.arrivedAt)||!nullable(o.returnedAt)||!time(o.lastMovedAt)||o.lastMovedAt<o.departedAt||!same(o.paid,this.paid(o.security||null))||!obj(o.cargo)||![null,true,false].includes(o.exchange)||prior&&(prior.returnedAt===null||o.departedAt<=prior.returnedAt||o.planId<prior.planId))fail();
       if(![o.outboundSeconds,o.inboundSeconds].every(v=>Number.isSafeInteger(v)&&v>=0&&v<=duration)||o.lastMovedAt-o.departedAt<o.outboundSeconds+o.inboundSeconds||d.lastTickAt===null||d.lastTickAt<o.lastMovedAt)fail();
       if(o.arrivedAt===null){if(o.outboundSeconds>=duration||o.inboundSeconds!==0||o.exchange!==null||o.returnedAt!==null||!same(o.cargo,CivilCommerceContent.cargo))fail();}
       else {

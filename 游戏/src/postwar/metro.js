@@ -56,6 +56,7 @@ var CivilMetro={
     if(typeof CivilCooperative!=='undefined')for(const [key,n]of Object.entries(CivilCooperative.contractReserve(s,id,300)))need[key]=(need[key]||0)+n;
     if(typeof CivilNation!=='undefined')for(const [key,n]of Object.entries(CivilNation.costs(s)[id]||{}))need[key]=(need[key]||0)+n*30;
     if(id==='home'&&typeof CivilDiplomacy!=='undefined'&&CivilDiplomacy.data(s)?.active)for(const [key,n]of Object.entries(CivilDiplomacy.fees.home))need[key]=(need[key]||0)+n*30;
+    if(id==='home'&&typeof CivilSecurity!=='undefined')for(const [key,n]of Object.entries(CivilSecurity.cost(CivilSecurity.guards(s))))need[key]=(need[key]||0)+n*30;
     need.tools=Math.max(40,need.tools);need.iron=Math.max(40,need.iron||0);need.parts=Math.max(20,need.parts);
     return need;
   },

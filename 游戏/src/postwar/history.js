@@ -103,9 +103,17 @@ var CivilHistory={
       for(const p of d.plans){add('commerce_plan_'+p.id,'transport','六趟商队委托',name+'；每次发车实际扣货物与旅费。',p.at);if(p.cancelledAt!==null)add('commerce_cancel_'+p.id,'transport','剩余商队委托撤销','已经启程的商队继续往返，旅费不退。',p.cancelledAt);}
       for(const o of d.orders){
         add('commerce_depart_'+o.id,'transport','对外商队出发',name+'；本城实付 '+this.costText(o.paid)+'，其中工具12为货物，其余为旅费。',o.departedAt);
+        if(o.security)add('commerce_security_'+o.id,'transport',CivilSecurityContent.modes[o.security.mode].name,'本城守备'+o.security.homeGuard+'人、来源护路'+o.security.sourceGuard+'人；单程'+o.security.duration+'秒，来源实付 '+this.costText(o.security.sourcePaid)+'。',o.departedAt);
+        if(o.security?.delay&&o.arrivedAt!==null)add('commerce_guarded_'+o.id,'transport','护送通行完成','足额班组实际停留'+o.security.encounterSeconds+'秒驱离兽群，商队抵达对方。',o.arrivedAt);
         if(o.arrivedAt!==null)add('commerce_exchange_'+o.id,'transport',o.exchange?'对外商队成交':'对方保留供养，商队未成交',o.exchange?'对方实收工具12，实付食物120；食物随车返程。':'工具12随原车返回；已消耗旅费不退。',o.arrivedAt);
         if(o.returnedAt!==null)add('commerce_return_'+o.id,'transport','对外商队返城',o.exchange?'食物120进入本城原仓。':'未成交工具12归还本城原仓。',o.returnedAt);
       }
+    }
+    if(c.security){
+      const d=c.security;
+      d.changes.forEach((r,i)=>add('security_choice_'+i,'transport',CivilSecurityContent.modes[r.mode].name,'方案仅用于此后出发的商队，旧运单不改写。',r.at));
+      if(d.pact)add('security_pact','diplomacy','共同护送约定','本城实付知识120、来源60；双方人口与仓库独立，出行仍需真实守备和军需。',d.pact.at);
+      const trained=d.records.find(r=>r.readiness===300);if(trained)add('security_training','transport','守备训练准备完成','实际居民在已付费训练场积累300秒准备；继续值勤仍需供给，欠费或缺员会流失准备。',trained.at);
     }
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);
