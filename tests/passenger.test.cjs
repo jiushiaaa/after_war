@@ -32,7 +32,10 @@ test('natural old exports gain only passenger metadata; in-flight eight-person r
  const h=harness(undefined,false),{s,p,ctx}=h,before=clone(s),cutoff=s.civilization.urban.nextParty;
  ctx.CivilPlatform.validate(s);p.init(s);const metadata=clone(s.civilization.passenger);delete s.civilization.passenger;assert.deepEqual(s,before);s.civilization.passenger=metadata;
  assert.deepEqual(metadata,{schema:1,introducedAt:48712,legacyBeforePartyId:cutoff,preference:'auto',lastDepartureAt:null,legacyReadyAt:48712+s.civilization.urban.dispatchClock});assert.equal(p.assets(s).length,0);
- const once=JSON.stringify(s);ctx.Civilization.initState();ctx.Civilization.initState();assert.equal(JSON.stringify(s),once);valid(h);
+ const once=JSON.stringify(s);assert.equal(s.civilization.finance,undefined);ctx.Civilization.initState();
+ assert.deepEqual(clone(s.civilization.finance),{schema:1,introducedAt:48712,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
+ const legacy=clone(s);delete legacy.civilization.finance;assert.equal(JSON.stringify(legacy),once);
+ const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);valid(h);
  for(const value of [null,false,[],{schema:2}]){const bad=clone(s);bad.civilization.passenger=value;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
 });
 test('new transport evidence cannot masquerade as a legacy save by deleting the module',()=>{
@@ -116,7 +119,10 @@ test('visible departure receipts prevent erasing or rolling back the shared depa
 
 test('the unmodified natural construction export restores 62 paid work seconds, no finished asset and no extra transport seats',()=>{
  const saved=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-passenger-construction.json'),'utf8')).state,h=harness(saved,false),{s,ctx,p,v}=h;
- ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);ctx.Civilization.initState();v.tick(s);ctx.CivilPlatform.validate(s);assert.equal(JSON.stringify(s),before);
+ ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);assert.equal(s.civilization.finance,undefined);ctx.Civilization.initState();v.tick(s);ctx.CivilPlatform.validate(s);
+ assert.deepEqual(clone(s.civilization.finance),{schema:1,introducedAt:53708,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
+ const legacy=clone(s);delete legacy.civilization.finance;assert.equal(JSON.stringify(legacy),before);
+ const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);
  assert.equal(s.civilization.elapsed,53708);assert.equal(s.game.population,1006);assert.equal(s.civilization.tech.passenger_transport,true);
  const project=v.data(s).project;assert.equal(project.type,'passengerfleet');assert.equal(project.remaining,298);assert.equal(project.workedSeconds,62);assert.equal(project.startedAt,53600);assert.equal(project.lastWorkedAt,53708);
  assert.deepEqual(clone(project.paid),{wood:180,iron:40,steel:24,parts:16,tools:20});assert.equal(p.assets(s).length,0);assert.equal(ctx.CivilCatalog.jobCapacity(s,'transporter'),12);assert.equal(s.game.workers.transporter,10);

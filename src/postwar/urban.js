@@ -91,18 +91,26 @@ var CivilUrban = {
     if(!this.receive(s,party)){CivilOrigins.returnPeople(s,party);s.stores.food+=6;return true;}
     this.note('一位来自'+this.sourceName(source)+'的居民沿路来到聚落，带来了自己的经历。');return true;
   },
-  commitments(s){return typeof CivilRegions!=='undefined' && CivilRegions.committedHomeFlow?CivilRegions.committedHomeFlow(s):{};},
+  commitments(s){return typeof CivilRegions==='undefined'?{}:CivilRegions.committedFlow?CivilRegions.committedFlow(s,'home'):CivilRegions.committedHomeFlow?CivilRegions.committedHomeFlow(s):{};},
+  // A producing job's inputs stay separate from its outputs and from other jobs.
+  // Transport, administration and the requested (possibly unpaid) meal are not maintenance.
+  inputEvidence(s,flow){
+    const names=new Set([...Object.values(CivilCatalog.jobs),'外站维护','烟尘处理','工区净化']),resources={};
+    for(const [name,values]of Object.entries(flow))if(names.has(name))for(const [key,n]of Object.entries(values))if(CivilCatalog.resources.includes(key)&&n<0)resources[key]=(resources[key]||0)-n;
+    return {paidInputs:{at:s.civilization.elapsed,resources},treatmentInputs:{at:s.civilization.elapsed,resources:{medicine:Math.max(0,-(flow['诊所治疗']?.medicine||0))}}};
+  },
   forecast(s,cohorts=[]){
     const copy=JSON.parse(JSON.stringify(s)),before={...copy.stores};
-    if(typeof CivilServices!=='undefined'&&CivilServices.data(copy,'home'))copy.civilization.elapsed=CivilServices.nextSettlementAt(copy,'home');
+    copy.civilization.elapsed=typeof CivilServices!=='undefined'?CivilServices.nextSettlementAt(copy,'home'):copy.civilization.elapsed+10-(copy.civilization.productionClock||0);
     copy.game.population+=this.count(cohorts);copy.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));
     const flow=CivilRules.settle(copy).flow;
     const treatment=CivilVillage.treatment(copy);CivilVillage.settle(copy);if(treatment)flow['诊所治疗']={medicine:-treatment};
     Object.assign(flow,CivilSociety.settle(copy),CivilIndustry.settle(copy));
     if(typeof CivilRegions!=='undefined')Object.assign(flow,CivilRegions.settle(copy));
     if(typeof CivilOrigins!=='undefined')Object.assign(flow,CivilOrigins.settle(copy));
+    if(typeof CivilFinance!=='undefined'){const paid=CivilFinance.settle(copy);if(Object.keys(paid).length)flow['共同记录']=paid;}
     const deltas={};for(const k of CivilCatalog.resources)deltas[k]=(copy.stores[k]||0)-(before[k]||0);
-    return {copy,flow,deltas};
+    return {copy,flow,deltas,...this.inputEvidence(copy,flow)};
   },
   foodReserve(s,cohorts=[]){
     const added=cohorts.reduce((n,c)=>n+c.count*(c.age<18?2/3:1),0),policy=CivilRules.policies[s.civilization.policy]||CivilRules.policies.equal;
@@ -243,7 +251,7 @@ var CivilUrban = {
       treatment:(f['医护']?.medicine||0)+(f['药剂师']?.medicine||0)+1e-8>=s.game.population*.01 && -(f['诊所治疗']?.medicine||0)+1e-8>=s.game.population*.01,
       education:this.children(s.civilization.society.cohorts)<=((f['教师']?.knowledge||0)/(.2*CivilIndustry.factor(s)))*20+1e-8,
       industrial:(f['采矿工']?.ore||0)>0 && (f['采煤工']?.coal||0)>0 && (f['冶炼工']?.iron||0)>0 && (f['机械工']?.parts||0)>0,
-      productionPower:i.productionPower||0};
+      productionPower:i.productionPower||0,...this.inputEvidence(s,f)};
     u.townStable=this.developmentReady(s)?Math.min(180,u.townStable+10):0;
     u.cityStable=this.developmentReady(s,true)?Math.min(300,u.cityStable+10):0;return flow;
   },
@@ -313,6 +321,9 @@ var CivilUrban = {
     if(ledger!==(u.registered?480:0)||(!u.registered && this.sourceIds(s).length===1 && (u.enabled||u.parties.length||u.nextParty!==1)))throw Error('迁徙人口总账不符');
     if(!number(u.townStable,0,180)||!number(u.cityStable,0,300))throw Error('城镇稳定度无效');
     if(u.economy!==null && (!obj(u.economy)||!number(u.economy.at,0,s.civilization.elapsed)||!number(u.economy.food,-1e8)||!number(u.economy.medicine,-1e8)||!number(u.economy.productionPower,0,CivilCatalog.jobCapacity(s,'machinist')*2)||!['treatment','education','industrial'].every(k=>typeof u.economy[k]==='boolean')))throw Error('城市供养记录无效');
+    if(u.economy)for(const field of ['paidInputs','treatmentInputs']){
+      const paid=u.economy[field];if(paid!==undefined&&(!obj(paid)||paid.at!==u.economy.at||!obj(paid.resources)||Object.entries(paid.resources).some(([key,n])=>!CivilCatalog.resources.includes(key)||!number(n,0,1e8)||field==='treatmentInputs'&&key!=='medicine')))throw Error('城市实际投入记录无效');
+    }
     if(s.civilization.pending==='urban_register' && (u.registered || this.discovered(s)<2))throw Error('登记待办无效');
     if(s.civilization.pending==='urban_charter' && u.chartered || s.civilization.pending==='urban_city' && u.city)throw Error('建制待办重复');
   }

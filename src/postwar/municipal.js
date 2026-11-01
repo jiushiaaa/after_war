@@ -30,6 +30,7 @@ var CivilMunicipal={
   },
   canAccept(s,id){return this.has(s,id) && ['associated','integrated'].includes(this.node(s,id)?.relation);},
   tradeExports(s,id){
+    if(typeof CivilRegions!=='undefined'&&CivilRegions.committedFlow){const flow=CivilRegions.committedFlow(s,id);return Object.fromEntries(Object.entries(flow).filter(([,n])=>n<0).map(([key,n])=>[key,-n]));}
     const route=s.civilization.regions?.routes[id],out={};if(route?.enabled && route.assigned>=2)for(const [key,value]of Object.entries(CivilRegionContent[id].back))out[key]=value*10/(route.travel*2+10);
     return out; // Conservative: never treat an expected delivery from home as local production.
   },
@@ -68,9 +69,9 @@ var CivilMunicipal={
     if(desired.smelter)desired.miner=positive('miner',Math.max(desired.miner,desired.smelter-(base.smelter||0)));
     if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+.2));
     const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01;
-    desired.smith=positive('smith',(toolNeed+.05)/.25);
+    desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
-    desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2)/.5+1);
+    desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0))/.5+1);
     desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
     for(const job of ['farmer','medic','waterworker','pharmacist','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
@@ -80,11 +81,12 @@ var CivilMunicipal={
   settleNode(s,id){
     const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
     if(typeof CivilServices!=='undefined')CivilServices.begin(s,id);
-    this.planWorkers(s,id);const st=n.stores,w=n.workers,base=m.baseWorkers,b=m.buildings,before={...st},produced={},ran={};
+    this.planWorkers(s,id);const st=n.stores,w=n.workers,base=m.baseWorkers,b=m.buildings,before={...st},produced={},ran={},paidInputs={};
+    const recordInputs=cost=>{for(const [key,v]of Object.entries(cost))paidInputs[key]=(paidInputs[key]||0)+v;};
     const factor=(n.health<30?.75:1)*((st.food||0)<CivilPopulation.foodPopulation(n.cohorts)*.12?.65:1);
     const run=(label,count,cost,output,reserve={},scale=true)=>{
       let batches=count;for(const [key,value]of Object.entries(cost))batches=Math.min(batches,Math.floor((Math.max(0,(st[key]||0)-(reserve[key]||0))+1e-8)/value));
-      this.pay(st,Object.fromEntries(Object.entries(cost).map(([key,v])=>[key,v*batches])));
+      const actual=Object.fromEntries(Object.entries(cost).map(([key,v])=>[key,v*batches]));this.pay(st,actual);recordInputs(actual);
       for(const [key,v]of Object.entries(output)){const amount=v*batches*(scale?factor:1);st[key]=(st[key]||0)+amount;produced[key]=(produced[key]||0)+amount;}
       ran[label]=(ran[label]||0)+batches;return batches;
     };
@@ -93,7 +95,7 @@ var CivilMunicipal={
     const farmBase=(m.buildings.farmland||0)*8,oldNewFarmers=Math.min(added('farmer'),farmBase),serviceFarmers=Math.max(0,added('farmer')-farmBase);
     run('farmer',old('farmer'),{},{food:.8});run('farmer',oldNewFarmers,{tools:.01},{food:1.4});
     if(serviceFarmers)run('farmer',serviceFarmers,{tools:.01},{food:typeof CivilServices!=='undefined'?CivilServices.farmRate(s,id):1.4});
-    const meal=CivilPopulation.foodPopulation(n.cohorts)*.12,ate=this.pay(st,{food:meal});if(!ate)st.food=0;
+    const meal=CivilPopulation.foodPopulation(n.cohorts)*.12,mealPaid=Math.min(meal,st.food||0),ate=this.pay(st,{food:meal});if(!ate)st.food=0;
     run('medic',old('medic'),{food:.2,scrap:.1,...(id==='highland'?{coal:.01}:{})},{medicine:.15});
     run('medic',added('medic'),{food:.2,scrap:.1},{medicine:.15});
     run('teacher',w.teacher||0,{wood:.1},{knowledge:.2});
@@ -107,7 +109,7 @@ var CivilMunicipal={
     m.power={generation:generators*4*factor+extra.generation,used:0,demand:machines*2+(b.scrubber?1:0)};let power=m.power.generation,scrubbed=false;
     const service=typeof CivilServices!=='undefined'?CivilServices.run(s,id,{factor,run:rawRun,powerAvailable:power}):{used:0,demand:0};
     power-=service.used;m.power.used+=service.used;m.power.demand+=service.demand;
-    if(b.scrubber && power>=1 && this.pay(st,{wood:.2,parts:.01})){power--;m.power.used++;scrubbed=true;}
+    if(b.scrubber && power>=1 && this.pay(st,{wood:.2,parts:.01})){recordInputs({wood:.2,parts:.01});power--;m.power.used++;scrubbed=true;}
     const advanced=typeof CivilAdvanced!=='undefined'?CivilAdvanced.run(s,{factor,run:rawRun,powerAvailable:power},id):{used:0,demand:0,pollution:0};
     power-=advanced.used;m.power.used+=advanced.used;m.power.demand+=advanced.demand;
     const powered=run('poweredMachine',Math.min(machines,Math.floor((power+1e-8)/2)),{iron:.5,scrap:.2,tools:.01},{parts:.5});
@@ -120,16 +122,19 @@ var CivilMunicipal={
     const exports=this.tradeExports(s,id),previousAt=m.economy?.at;
     m.economy={at:s.civilization.elapsed,food:(deltas.food||0)-(exports.food||0),medicine:(deltas.medicine||0)-(exports.medicine||0),
       treatment:ate&&treated&&(produced.medicine||0)+1e-8>=care,education:CivilPopulation.children(n.cohorts)<=(ran.teacher||0)*20,
-      productivePower:powered*2,industry:mine>0&&coal>0&&smelt>0&&powered+manual>0,deltas};
+      productivePower:powered*2,industry:mine>0&&coal>0&&smelt>0&&powered+manual>0,deltas,
+      paidInputs:{at:s.civilization.elapsed,resources:paidInputs},treatmentInputs:{at:s.civilization.elapsed,resources:{medicine:treated?care:0}},mealInputs:{at:s.civilization.elapsed,resources:{food:mealPaid}}};
     if(previousAt!==s.civilization.elapsed){m.townStable=this.developmentReady(s,id)?Math.min(180,m.townStable+10):0;m.cityStable=this.developmentReady(s,id,true)?Math.min(300,m.cityStable+10):0;}
     return {};
   },
   foodReserve(s,id,cohorts=[]){return (CivilPopulation.foodPopulation(this.node(s,id).cohorts)+CivilPopulation.foodPopulation(cohorts))*.12*12;},
   forecast(s,id,cohorts=[]){
     if(!this.has(s,id))return {reason:'地方尚未同意市政工程'};
-    const copy=JSON.parse(JSON.stringify(s)),n=this.node(copy,id);if(typeof CivilServices!=='undefined'&&CivilServices.data(copy,id))copy.civilization.elapsed=CivilServices.nextSettlementAt(copy,id);n.cohorts.push(...cohorts.map(c=>({...c})));n.population=CivilPopulation.count(n.cohorts);
+    const copy=JSON.parse(JSON.stringify(s)),n=this.node(copy,id),before={...n.stores};copy.civilization.elapsed=typeof CivilServices!=='undefined'?CivilServices.nextSettlementAt(copy,id):copy.civilization.elapsed+10-(copy.civilization.productionClock||0);n.cohorts.push(...cohorts.map(c=>({...c})));n.population=CivilPopulation.count(n.cohorts);
     this.settleNode(copy,id);const e=this.data(copy,id).economy;
-    return {copy,deltas:{...e.deltas},food:e.food,medicine:e.medicine,education:e.education,treatment:e.treatment,productivePower:e.productivePower,industry:e.industry,reason:null};
+    if(typeof CivilFinance!=='undefined')CivilFinance.settle(copy);
+    const deltas={};for(const key of new Set([...Object.keys(before),...Object.keys(n.stores)]))deltas[key]=(n.stores[key]||0)-(before[key]||0);
+    return {copy,deltas,food:e.food,medicine:e.medicine,education:e.education,treatment:e.treatment,productivePower:e.productivePower,industry:e.industry,paidInputs:e.paidInputs,treatmentInputs:e.treatmentInputs,mealInputs:e.mealInputs,reason:null};
   },
   serviceCheck(s,id,cohorts=[]){
     if(!this.canAccept(s,id))return '地方尚未同意共同接纳';const n=this.node(s,id),m=this.data(s,id);
@@ -285,6 +290,7 @@ var CivilMunicipal={
       const expected=m.completed.length+(p&&p.status!=='complete'?1:0);if(m.nextProject!==expected+1||!p&&expected)throw Error('市政工程序号无效');
       const caps=this.jobCapacity(s,id);if(Object.entries(n.workers).some(([job,count])=>!CivilMunicipalContent.jobs.includes(job)||!int(count,caps[job]||0))||Object.values(n.workers).reduce((sum,x)=>sum+x,0)>CivilPopulation.workforce(n.cohorts)||n.population>this.capacity(s,id))throw Error('地方岗位或住房超额');
       const e=m.economy;if(e!==null&&(!obj(e)||!num(e.at,s.civilization.elapsed)||!Number.isFinite(e.food)||!Number.isFinite(e.medicine)||typeof e.treatment!=='boolean'||typeof e.education!=='boolean'||typeof e.industry!=='boolean'||!num(e.productivePower,Math.max(0,(this.jobCapacity(s,id).machinist||0)-(m.baseWorkers.machinist||0))*2)||e.productivePower>m.power.used+1e-8||!obj(e.deltas)||Object.entries(e.deltas).some(([key,x])=>!CivilCatalog.resources.includes(key)||!Number.isFinite(x))))throw Error('地方经济证据无效');
+      if(e)for(const field of ['paidInputs','treatmentInputs','mealInputs']){const paid=e[field];if(paid!==undefined&&(!obj(paid)||paid.at!==e.at||!cargo(paid.resources)||Object.keys(paid.resources).some(key=>field==='treatmentInputs'&&key!=='medicine'||field==='mealInputs'&&key!=='food')))throw Error('地方实际投入记录无效');}
       for(const shipment of s.civilization.regions.shipments)if(shipment.route===id&&shipment.purpose==='municipal'&&!this.validShipment(s,shipment))throw Error('市政工程在途记录无效');
     }
   }

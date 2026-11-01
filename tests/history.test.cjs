@@ -83,3 +83,8 @@ test('history scene transitions reset the text scroll position without modifying
  ctx.Events.eventPanel=()=>({id:'event'});ctx.$=(selector,panel)=>{assert.equal(selector,'#description');assert.equal(panel.id,'event');return {scrollTop(n){scrolls.push(n);}};};
  const event=history.event(s);for(const scene of Object.values(event.scenes))scene.onLoad();assert.ok(scrolls.length>1);assert.ok(scrolls.every(n=>n===0));assert.equal(JSON.stringify(s),before);
 });
+
+test('common agreements and exits use their actual transaction dates without presenting promised deliveries as completed history',()=>{
+ const {s,history}=harness(),at=s.civilization.elapsed;s.civilization.finance={agreements:[{id:1,members:['home','river','rail'],approvals:{home:30,river:10,rail:10},approvedAt:at-100,exitedAt:at-20}]};const before=JSON.stringify(s);
+ const view=history.snapshot(s),records=view.entries.filter(e=>e.category==='budgets');assert.equal(records.length,2);assert.equal(records[0].at,at-100);assert.equal(records[1].at,at-20);assert.match(records[0].detail,/30知识/);assert.ok(!records[0].detail.includes('已送达'));assert.equal(JSON.stringify(s),before);
+});

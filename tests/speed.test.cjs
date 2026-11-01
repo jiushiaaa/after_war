@@ -37,7 +37,10 @@ test('one native speed entry lists only earned choices and never interrupts anot
 
 test('unmodified natural 4x saves initialize byte-for-byte and unlock 8x on the next ordinary tick without changing selected speed',()=>{
   const h=harness(),{s,ctx}=h,c=s.civilization;assert.equal(c.maxSpeed,4);assert.equal(c.urban.city,true);assert.equal(c.tech.passenger_transport,true);
-  ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),before);
+  ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);assert.equal(c.finance,undefined);ctx.Civilization.initState();
+  assert.deepEqual(copy(c.finance),{schema:1,introducedAt:53708,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
+  const legacy=copy(s);delete legacy.civilization.finance;assert.equal(JSON.stringify(legacy),before);
+  const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);
   h.blockEvent();ctx.Civilization.tick();assert.equal(c.maxSpeed,8);assert.equal(c.speed,4);assert.equal(ctx.CivilClock.rate,4);assert.equal(h.notes.filter(n=>n.includes('8×')).length,1);ctx.CivilPlatform.validate(s);
   ctx.Civilization.tick();assert.equal(h.notes.filter(n=>n.includes('8×')).length,1);
 });

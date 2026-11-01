@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程'},
+  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -58,6 +58,11 @@ var CivilHistory={
       add('public_project_'+id,'projects',name,'公共工程已完成。',p.completedAt);
     }
     for(const [id,p]of Object.entries(c.regions?.upgrades?.projects||{}))if(this.knownPlace(s,id)&&p.status==='complete')add('freight_upgrade_'+id+'_'+p.id,'projects',this.place(s,id)+' · 加固货车','原货车的付费改装已经完成。',p.completedAt);
+    for(const a of c.finance?.agreements||[]){
+      const members=a.members.map(id=>this.place(s,id)).join('、'),costs=Object.entries(a.approvals||{}).map(([id,n])=>this.place(s,id)+' '+n+'知识').join('；');
+      add('common_agreement_'+a.id,'budgets','第'+a.id+'份诊疗与道路互助约定',members+'。议约实际支出：'+costs+'。各地仍保管自己的仓库。',a.approvedAt);
+      if(a.exitedAt!==null)add('common_exit_'+a.id,'budgets','第'+a.id+'份互助约定退出','停止新承诺；旧车队和实付记录按原账保留。',a.exitedAt);
+    }
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};
   },
