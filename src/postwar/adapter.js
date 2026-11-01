@@ -17,6 +17,8 @@ var Civilization = {
     if(typeof CivilUrban!=='undefined')CivilUrban.init(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.init(State);
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.init(State);
+    if(typeof CivilAdvanced!=='undefined')CivilAdvanced.init(State);
+    if(typeof CivilServices!=='undefined')CivilServices.init(State);
   },
   init() {
     CivilClock.rate = State.civilization.speed;
@@ -103,10 +105,12 @@ var Civilization = {
     if(typeof CivilRegions!=='undefined')CivilRegions.tick(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.tick(State);
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
+    if(typeof CivilServices!=='undefined')CivilServices.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
     if(Object.keys(State.stores).some(k=>State.stores[k]!==storesBefore[k])){$SM.fireUpdate('stores');this.updateIncome();}
+    this.refreshSuccessionEvent();
     if(!Events.activeEvent()) {
       if(c.pending) this.showPending();
       else if(!c.policy && State.game.population>=2 && ((State.stores.food || 0)<16 || c.residentTime>=60)) this.policyEvent();
@@ -135,6 +139,7 @@ var Civilization = {
   },
   updateIncome() {
     const forecast=JSON.parse(JSON.stringify(State));
+    if(typeof CivilServices!=='undefined'&&CivilServices.data(forecast,'home'))forecast.civilization.elapsed=CivilServices.nextSettlementAt(forecast,'home');
     const flow=this.settleEconomy(forecast).flow;
     if(typeof CivilRegions!=='undefined' && State.civilization.regions?.active)flow['车队合同均摊']=CivilRegions.committedHomeFlow(State);
     State.income={};
@@ -179,12 +184,21 @@ var Civilization = {
       '紧缩会伤害信任。改议后需要 120 秒才能再次调整。'
     ],buttons}}});
   },
-  showPending() {
+  refreshSuccessionEvent() {
+    const active=Events.activeEvent();
+    if(State.civilization.pending!=='succession'||active?.civilPending!=='succession'||typeof CivilSociety==='undefined')return false;
+    if(active.civilSignature===CivilSociety.successionSignature(State))return false;
+    this.showPending(true);return true;
+  },
+  showPending(refresh=false) {
     const c=State.civilization,id=c.pending;
     if(id==='policy') return this.policyEvent();
     const done=(message,fn)=>()=>{
-      fn?.();c.pending=null;this.notify(message);
+      const result=fn?.();
+      if(id==='succession' && result!==true){this.refreshSuccessionEvent();return false;}
+      c.pending=null;this.notify(message);
       $SM.fireUpdate('stores');Outside.updateVillage();this.updateIncome();this.refresh();Engine.saveGame();
+      return true;
     };
     let title,text,buttons;
     if(id==='station') {
@@ -210,7 +224,18 @@ var Civilization = {
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
-    Events.startEvent({title,scenes:{start:{text,buttons}}});
+    const event={title,scenes:{start:{text,buttons}}};
+    if(id==='succession'){
+      event.civilPending=id;event.civilSignature=CivilSociety.successionSignature(State);
+      const active=Events.activeEvent();
+      if(refresh && active?.civilPending===id){
+        Object.assign(active,event);
+        if(active.eventPanel)active.eventPanel.find('.eventTitle').text(title);
+        if(typeof Events.loadScene==='function')Events.loadScene('start');
+        return;
+      }
+    }
+    Events.startEvent(event);
   },
   randomEvent() {
     const c=State.civilization; c.randomClock=180+Math.floor(Math.random()*181);
@@ -312,6 +337,8 @@ var Civilization = {
     if(typeof CivilUrban!=='undefined')CivilUrban.refresh();
     if(typeof CivilOrigins!=='undefined')CivilOrigins.refresh();
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
+    if(typeof CivilAdvanced!=='undefined')CivilAdvanced.refresh();
+    if(typeof CivilServices!=='undefined')CivilServices.refresh();
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
@@ -324,6 +351,8 @@ var Civilization = {
     if(typeof CivilUrban!=='undefined')CivilUrban.reset();
     if(typeof CivilOrigins!=='undefined')CivilOrigins.reset();
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.reset();
+    if(typeof CivilAdvanced!=='undefined')CivilAdvanced.reset();
+    if(typeof CivilServices!=='undefined')CivilServices.reset();
     $('.menu,#notifications,#event,#eventblocker').remove();$('#main').html('<div id="header"></div>');
     Engine.init({state});
   }
@@ -341,7 +370,7 @@ const buildDefs={
   cistern:{cost:()=>({wood:80,scrap:16}),max:1,gate:()=>State.civilization.tech.water && State.civilization.station},
   outpost:{cost:()=>({wood:120,scrap:20,food:20}),max:1,gate:()=>State.civilization.pump && State.civilization.tech.metal && State.game.buildings.cistern && State.game.population>=8}
 };
-Object.assign(buildDefs,CivilVillage.buildings,typeof CivilIndustry!=='undefined'?CivilIndustry.buildings:{},typeof CivilRegions!=='undefined'?CivilRegions.buildings:{},typeof CivilUrban!=='undefined'?CivilUrban.buildings:{});
+Object.assign(buildDefs,CivilVillage.buildings,typeof CivilIndustry!=='undefined'?CivilIndustry.buildings:{},typeof CivilRegions!=='undefined'?CivilRegions.buildings:{},typeof CivilUrban!=='undefined'?CivilUrban.buildings:{},typeof CivilAdvanced!=='undefined'?CivilAdvanced.buildings:{});
 for(const [id,def] of Object.entries(buildDefs)) Room.Craftables[id]={name:_(id),button:null,type:'building',maximum:def.max,cost:def.cost,availableMsg:CivilText.buildings[id][0],buildMsg:CivilText.buildings[id][1]};
 Room.craftUnlocked=function(id) {
   if(Room.buttons[id] || State.civilization.buildingsSeen?.[id]) {Room.buttons[id]=true;return true;}
@@ -407,7 +436,19 @@ $SM.collectIncome=function() {}; // Atomic food + production settlement replaces
 Events.init=function() { Events.eventStack=[];$.Dispatch('stateUpdate').subscribe(Events.handleStateUpdates); };
 // Prevent double choices during the native event fade-out.
 const adrEventClick=Events.buttonClick;
-Events.buttonClick=function(btn) {if(Events._choosing)return;Events._choosing=true;try{adrEventClick(btn);}finally{setTimeout(()=>{Events._choosing=false;},250);}};
+Events.buttonClick=function(btn) {
+  if(Events._choosing)return;
+  if(Events.activeEvent()?.civilPending==='succession'){
+    // A stale DOM click must not select a replacement option or close a failed handover.
+    if(Civilization.refreshSuccessionEvent())return;
+    const info=Events.activeEvent().scenes.start.buttons[btn.attr('id')];if(!info)return;
+    Events._choosing=true;
+    try{if(info.onChoose()===true)Events.endEvent();}
+    finally{setTimeout(()=>{Events._choosing=false;},250);}
+    return;
+  }
+  Events._choosing=true;try{adrEventClick(btn);}finally{setTimeout(()=>{Events._choosing=false;},250);}
+};
 const adrEventStart=Events.startEvent;
 Events.startEvent=function(event,options) {if(Events.activeEvent())return;adrEventStart(event,options);};
 // Audio is deliberately absent until this adaptation has its own working sound design.

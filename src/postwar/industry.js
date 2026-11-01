@@ -1,7 +1,7 @@
 /* MPL-2.0 — Tick-based industrial material conversion and instantaneous electrical capacity. */
 var CivilIndustry = {
   init(s) {
-    if(!s.civilization.industry)s.civilization.industry={schema:1,mineKnown:false,pollution:0,generation:0,demand:0,used:0,online:false,announcedPower:false,blocked:{}};
+    if(s.civilization.industry===undefined)s.civilization.industry={schema:1,mineKnown:false,pollution:0,generation:0,demand:0,used:0,productionPower:0,online:false,announcedPower:false,blocked:{}};
   },
   buildings:{
     mine:{cost:()=>({wood:160+(State.game.buildings.mine||0)*80,tools:15}),max:2,gate:()=>State.civilization.tech.mining},
@@ -29,7 +29,7 @@ var CivilIndustry = {
     this.init(s);
     const i=s.civilization.industry,b=s.game.buildings,flow={},factor=this.factor(s);
     const oldPollution=i.pollution;
-    i.blocked={};i.generation=0;i.demand=0;i.used=0;i.online=false;
+    i.blocked={};i.generation=0;i.demand=0;i.used=0;i.productionPower=0;i.online=false;
     const run=(job,count,cost,output) => {
       const name=CivilCatalog.jobs[job]||job;
       if(!count)return 0;
@@ -47,22 +47,32 @@ var CivilIndustry = {
     run('collier',this.jobCount(s,'collier'),{tools:.03},{coal:factor});
     const smelting=run('smelter',this.jobCount(s,'smelter'),{ore:1.2,coal:.6,tools:.01},{iron:.6*factor});
     const generators=run('electrician',this.jobCount(s,'electrician'),{coal:.6,parts:.02},{});
+    const advanced=typeof CivilAdvanced!=='undefined'?CivilAdvanced:null;
+    const prepared=advanced?advanced.prepare(s,{factor,run}):{generation:0,pollution:0};
     // Output debuffs affect generation too; unused capacity is discarded at the next settlement.
-    i.generation=generators*4*factor;i.online=i.generation>0;
+    i.generation=generators*4*factor+prepared.generation;i.online=i.generation>0;
     let remainingPower=i.generation;
     const machines=this.jobCount(s,'machinist');
-    i.demand=machines*2+(b.scrubber?1:0);
+    i.demand=machines*2+(b.scrubber?1:0)+(advanced?advanced.demand(s):0);
+    if(typeof CivilServices!=='undefined'&&CivilServices.run){
+      const service=CivilServices.run(s,'home',{factor,run,powerAvailable:remainingPower});
+      if(!Number.isFinite(service.used)||service.used<0||service.used>remainingPower+1e-8||!Number.isFinite(service.demand)||service.demand<service.used)throw Error('公共服务电力预算无效');
+      remainingPower-=service.used;i.used+=service.used;i.demand+=service.demand;
+    }
     let scrubbed=false;
     if(b.scrubber && remainingPower>=1 && CivilRules.pay(s,{wood:.2,parts:.01})) {
       remainingPower-=1;i.used+=1;scrubbed=true;flow['烟尘处理']={wood:-.2,parts:-.01};
     }
+    const materials=advanced?advanced.run(s,{factor,run,powerAvailable:remainingPower}):{used:0,pollution:0};
+    if(materials.used<0||materials.used>remainingPower+1e-8)throw Error('先进工序电力预算无效');
+    remainingPower-=materials.used;i.used+=materials.used;
     // Manual production remains possible if the coal/maintenance chain is interrupted.
     const powered=Math.min(machines,Math.floor((remainingPower+1e-8)/2));
     const poweredRuns=run('machinist',powered,{iron:.5,scrap:.2,tools:.01},{parts:.5*factor});
-    i.used+=poweredRuns*2;
+    i.productionPower=poweredRuns*2;i.used+=i.productionPower;
     const manualRuns=run('machinist',machines-poweredRuns,{iron:.5,scrap:.2,tools:.01},{parts:.3*factor});
     if(machines>powered && machines>0 && !i.blocked.machinist)i.blocked.machinist='电力不足，部分岗位改用手动工序';
-    i.pollution=Math.max(0,Math.min(100,oldPollution+smelting*.05+generators*.03-(scrubbed?.4:.02)));
+    i.pollution=Math.max(0,Math.min(100,oldPollution+smelting*.05+generators*.03+prepared.pollution+materials.pollution-(scrubbed?.4:.02)));
     if(i.pollution>=40 && s.civilization.village)s.civilization.village.health=Math.max(0,s.civilization.village.health-.05*(1+i.pollution/50));
     return flow;
   },
@@ -74,10 +84,18 @@ var CivilIndustry = {
     const i=s.civilization.industry;
     if(i===undefined)return; // Older saves initialize a blank industrial state only after a successful decode.
     if(!i || typeof i!=='object' || Array.isArray(i) || i.schema!==1 || typeof i.mineKnown!=='boolean' || typeof i.online!=='boolean' || typeof i.announcedPower!=='boolean')throw Error('工业状态无效');
-    for(const k of ['pollution','generation','demand','used'])if(!Number.isFinite(i[k]) || i[k]<0 || i[k]>100)throw Error('工业数值无效');
+    // Last-tick evidence can outlive worker reassignment or a policy change. Bound it by built capacity and all legal output bonuses.
+    const maxFactor=Math.max(...Object.values(CivilRules.policies).map(p=>p.output))*1.18;
+    const generationCapacity=CivilCatalog.jobCapacity(s,'electrician')*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s):0);
+    const demandCapacity=CivilCatalog.jobCapacity(s,'machinist')*2+(s.game.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s):0)+(typeof CivilServices!=='undefined'&&CivilServices.demandCapacity?CivilServices.demandCapacity(s,'home'):0);
+    const limits={pollution:100,generation:generationCapacity*maxFactor,demand:demandCapacity,used:Math.min(generationCapacity*maxFactor,demandCapacity)};
+    for(const [key,limit]of Object.entries(limits))if(!Number.isFinite(i[key])||i[key]<0||i[key]>limit+1e-8)throw Error('工业数值超过设施容量');
     if(i.used>i.generation+1e-8 || i.used>i.demand+1e-8)throw Error('电力负载无效');
+    // Older saves had no dedicated machine-load evidence. Do not infer it from other industrial/service consumption.
+    if(i.productionPower!==undefined&&(!Number.isFinite(i.productionPower)||i.productionPower<0||i.productionPower>CivilCatalog.jobCapacity(s,'machinist')*2+1e-8||i.productionPower>i.used+1e-8))throw Error('机械生产用电无效');
+    if(i.online!==(i.generation>0))throw Error('电站状态无效');
     if(!i.blocked || typeof i.blocked!=='object' || Array.isArray(i.blocked))throw Error('工业岗位状态无效');
-    for(const [job,reason]of Object.entries(i.blocked))if(!['miner','collier','smelter','machinist','electrician'].includes(job) || typeof reason!=='string')throw Error('工业岗位状态无效');
+    for(const [job,reason]of Object.entries(i.blocked))if(!Object.hasOwn(CivilCatalog.jobs,job)&&job!=='工区净化' || typeof reason!=='string')throw Error('工业岗位状态无效');
   },
   reset() {this.module=null;},
   ensureLocation() {
@@ -120,7 +138,7 @@ var CivilIndustry = {
     if(Engine.activeModule===Outside && $('#village').length)$('#storesContainer').css('top',($('#village').height()+26+Outside._STORES_OFFSET)+'px');
     let text='矿带已记录。原料、燃料和加工岗位必须相互配合。';
     if(s.game.buildings.furnace)text+=' 烟尘 '+Math.floor(i.pollution)+(i.pollution>=40?'，正在影响居民健康。':'。');
-    if(s.game.buildings.powerhouse)text+=' 电力 '+Number(i.used.toFixed(2))+' / '+Number(i.generation.toFixed(2))+'，需求 '+Number(i.demand.toFixed(2))+'；每轮即时使用。';
+    if(s.game.buildings.powerhouse||s.game.buildings.utilitypower)text+=' 电力 '+Number(i.used.toFixed(2))+' / '+Number(i.generation.toFixed(2))+'，需求 '+Number(i.demand.toFixed(2))+'；每轮即时使用。';
     $('#industryStatus').text(text);
     for(const [job,reason]of Object.entries(i.blocked))$('#workers_row_'+job).attr('title',reason+'；岗位上限 '+CivilCatalog.jobCapacity(s,job));
   }

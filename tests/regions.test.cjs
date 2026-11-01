@@ -18,6 +18,7 @@ function totals(s){
   const add=store=>{for(const [k,v]of Object.entries(store))out[k]=(out[k]||0)+v;};
   add(s.stores);for(const n of Object.values(r.nodes))add(n.stores);for(const p of r.shipments)add(p.cargo);for(const p of Object.values(r.projects))add(p.buffer);
   for(const m of Object.values(s.civilization.municipal?.nodes||{}))if(m.project)add(m.project.buffer);
+  for(const p of Object.values(s.civilization.regions.upgrades?.projects||{}))add(p.buffer);
   return out;
 }
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
@@ -90,6 +91,7 @@ test('public works require actual split deliveries and local construction labor 
   const start=structuredClone(s.stores);assert.ok(r.startProject(s,'river'));assert.equal(s.stores.knowledge,start.knowledge-10);assert.equal(x.nodes.river.completedProjects.publicWorks,undefined);
   assert.ok(r.launch(s,'river'));assert.equal(Object.values(x.shipments[0].cargo).reduce((a,b)=>a+b,0),64);
   step(60);assert.equal(x.projects.river.status,'supplying');assert.equal(x.projects.river.buffer.wood,64);
+  step(131);assert.equal(x.projects.river.status,'supplying');assert.equal(x.shipments[0].purpose,'trade','the food contract runs between material loads');
   step(131);assert.equal(x.projects.river.status,'building');assert.equal(x.nodes.river.workers.builder,2);assert.ok(Object.values(x.nodes.river.workers).reduce((a,b)=>a+b,0)<=r.workforce(x.nodes.river));
   r.setRoute(s,'river',false);step(240);assert.equal(x.projects.river.status,'complete');assert.equal(x.nodes.river.completedProjects.publicWorks,true);assert.equal(x.nodes.river.workers.medic,2);assert.equal(x.nodes.river.workers.builder,undefined);
   assert.equal(r.startProject(s,'river'),false);assert.doesNotThrow(()=>r.validate(s));
@@ -275,4 +277,87 @@ test('Regions delegates municipal production once and its forecast does not muta
   m.settleNode(copy,'river');const expected=copy.civilization.regions.nodes.river;
   r.settle(s);assert.equal(JSON.stringify(n.stores),JSON.stringify(expected.stores));assert.equal(n.health,expected.health);assert.equal(JSON.stringify(municipal.economy),JSON.stringify(copy.civilization.municipal.nodes.river.economy));
   for(const key of ['food','wood','tools','medicine','iron','parts'])assert.equal(s.stores[key],home[key]);
+});
+
+function upgradeHarness(){
+  const h=harness(),{s,r}=h,x=h.activate(),n=x.nodes.river;
+  s.civilization.urban={city:true};s.civilization.tech.urbanworks=true;s.civilization.tech.administration=true;
+  n.completedProjects.publicWorks=true;n.control='shared';n.relation='associated';n.cohorts.forEach(c=>c.age=50);n.stores.food=1000;r.init(s);r.planWorkers(s,'river',n);
+  s.stores={food:5000,wood:5000,iron:5000,parts:5000,tools:5000,medicine:5000,knowledge:5000};
+  return {...h,x,n};
+}
+function finishUpgrade(h){
+  assert.equal(h.r.startUpgrade(h.s,'river'),true);const p=h.r.upgrade(h.s,'river');
+  for(let i=0;i<2000&&p.status!=='complete';i++)h.step(1);
+  assert.equal(p.status,'complete');return p;
+}
+test('cart reinforcement is an optional paid project with real gates, independent IDs and no instant warehouse or capacity grant',()=>{
+  const {s,r,x,n,ctx}=upgradeHarness();assert.equal(x.upgrades,undefined);const original=JSON.stringify(x);r.init(s);assert.equal(JSON.stringify(x),original);
+  for(const mutate of [c=>c.civilization.urban.city=false,c=>c.civilization.tech.urbanworks=false,c=>c.civilization.regions.nodes.river.completedProjects.publicWorks=false,c=>c.civilization.regions.nodes.river.relation='trade']){
+    const bad=structuredClone(s);mutate(bad);const before=JSON.stringify(bad);assert.equal(r.startUpgrade(bad,'river'),false);assert.equal(JSON.stringify(bad),before);
+  }
+  ctx.CivilServices={projectAvailable:()=>false};assert.equal(r.startUpgrade(s,'river'),false);delete ctx.CivilServices;
+  s.civilization.municipal={nodes:{river:{project:{status:'building'}}}};assert.equal(r.startUpgrade(s,'river'),false);delete s.civilization.municipal;
+  const previous={status:'complete',required:{...ctx.CivilRegionContent.river.project.cost},buffer:{},remaining:0};x.projects.river=previous;
+  const stores=JSON.stringify([s.stores,n.stores,n.cohorts]),before=JSON.stringify(previous);assert.equal(r.startUpgrade(s,'river'),true);assert.equal(x.routes.river.capacity,64);assert.equal(x.shipments.length,0);assert.equal(JSON.stringify([s.stores,n.stores,n.cohorts]),stores);assert.equal(JSON.stringify(previous),before);
+  assert.equal(r.upgradeActive(s,'river'),true);assert.equal(r.startUpgrade(s,'river'),false);assert.equal(r.upgrade(s,'river').id,1);r.validate(s);
+});
+test('upgrade materials travel in the original 64 cart, enter only its buffer and cannot be received twice',()=>{
+  const {s,r,x,n,step}=upgradeHarness();r.startUpgrade(s,'river');const total=totals(s),remote=JSON.stringify(n.stores);r.launch(s,'river');const p=x.shipments[0],project=r.upgrade(s,'river');
+  assert.equal(p.purpose,'upgrade');assert.equal(p.capacity,64);assert.equal(p.upgradeId,project.id);assert.equal(p.cargo.wood,64);assert.equal(x.routes.river.assigned,2);assert.equal(x.routes.river.capacity,64);
+  const afterLaunch=totals(s);near(afterLaunch.wood,total.wood-1);near(afterLaunch.food,total.food-1);near(afterLaunch.parts,total.parts);
+  r.setRoute(s,'river',false);step(60);assert.equal(project.buffer.wood,64);assert.equal(project.status,'supplying');assert.equal(project.receipts.length,1);assert.equal(JSON.stringify(n.stores),remote);assert.equal(p.phase,'empty');
+  const before=JSON.stringify(project);assert.equal(r.receiveUpgradeCargo(s,'river',{wood:64},project.id),false);assert.equal(r.arrive(s,p),false);assert.equal(r.arrive(s,{...p,remaining:0}),false);assert.equal(JSON.stringify(project),before);r.validate(s);
+  step(60);assert.equal(x.shipments.length,0);assert.equal(r.arrive(s,p),false);const after=totals(s);near(after.wood,total.wood-1);near(after.food,total.food-1);near(after.parts,total.parts);
+});
+test('a blocked upgrade returns only undelivered materials and retains both the public project and the remaining refit request',()=>{
+  const {s,r,x,n,step}=upgradeHarness();r.startUpgrade(s,'river');const home={...s.stores},remote=JSON.stringify(n.stores);r.launch(s,'river');const p=x.shipments[0];step(20);r.setRoad(s,'river',false);step(1);assert.equal(r.returnShipment(s,p.id),true);r.validate(s);step(20);
+  assert.equal(x.shipments.length,0);assert.equal(s.stores.wood,home.wood-1);assert.equal(s.stores.food,home.food-1);assert.equal(s.stores.parts,home.parts);assert.equal(JSON.stringify(n.stores),remote);assert.equal(r.upgrade(s,'river').receipts.length,0);assert.equal(Object.keys(r.upgrade(s,'river').buffer).length,0);assert.equal(x.routes.river.capacity,64);r.validate(s);
+});
+test('the same cart stays at the refit site until two real builders finish; retirement and reload cannot advance or duplicate it',()=>{
+  const h=upgradeHarness(),{s,r,x,n,step}=h;r.startUpgrade(s,'river');const p=r.upgrade(s,'river');for(let i=0;i<1500&&p.status!=='building';i++)step(1);
+  assert.equal(p.status,'building');assert.equal(p.remaining,180);assert.equal(n.workers.builder,2);assert.equal(x.shipments.length,1);const vehicle=x.shipments[0];assert.equal(vehicle.id,p.refitShipmentId);assert.equal(vehicle.status,'refitting');assert.equal(vehicle.remaining,60);assert.equal(vehicle.capacity,64);assert.equal(r.launch(s,'river'),false);
+  const stores=JSON.stringify([s.stores,n.stores]);n.cohorts.forEach(c=>c.age=70);step(10);assert.equal(p.remaining,180);assert.equal(vehicle.remaining,60);assert.equal(x.routes.river.capacity,64);assert.equal(JSON.stringify([s.stores,n.stores]),stores);assert.equal(n.workers.builder,undefined);r.validate(s);
+  const loaded=structuredClone(s),before=JSON.stringify(loaded);r.init(loaded);assert.equal(JSON.stringify(loaded),before);r.validate(loaded);
+  n.cohorts.forEach(c=>c.age=50);r.setRoad(s,'river',false);step(180);assert.equal(p.status,'complete');assert.equal(x.routes.river.capacity,128);assert.equal(vehicle.status,'held');assert.equal(vehicle.capacity,64);assert.equal(s.stores.parts,JSON.parse(stores)[0].parts);assert.equal(n.workers.builder,undefined);assert.equal(r.startUpgrade(s,'river'),false);r.validate(s);
+  r.setRoute(s,'river',false);r.setRoad(s,'river',true);step(60);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.assigned,0);r.validate(s);
+});
+test('only the completed route gains 128 capacity and each future departure prepays its additional parts exactly once',()=>{
+  const h=upgradeHarness(),{s,r,x,step}=h;const p=finishUpgrade(h);r.createNode(s,'rail');assert.equal(x.routes.river.capacity,128);assert.equal(x.routes.rail.capacity,64);assert.equal(r.upgradeActive(s,'river'),false);
+  r.setRoute(s,'river',false);step(60);r.setRoute(s,'river',true);s.stores.parts=.049;const before=JSON.stringify(s.stores);assert.equal(r.launch(s,'river'),false);assert.equal(JSON.stringify(s.stores),before);
+  s.stores.parts=.05;assert.equal(r.launch(s,'river'),true);assert.equal(s.stores.parts,0);const vehicle=x.shipments[0];assert.equal(vehicle.capacity,128);assert.equal(r.launch(s,'river'),false);assert.equal(s.stores.parts,0);r.setRoute(s,'river',false);step(121);assert.equal(s.stores.parts,0);assert.equal(x.shipments.length,0);assert.equal(r.arrive(s,vehicle),false);r.validate(s);
+  const f=structuredClone(s);f.civilization.regions.routes.river.enabled=true;f.civilization.regions.routes.river.assigned=2;near(r.committedHomeFlow(f).parts,-.05*10/130);assert.equal(p.receipts.reduce((sum,x)=>sum+Object.values(x.cargo).reduce((a,b)=>a+b,0),0),156);
+});
+test('imports preserve legacy 64 cargo while rejecting free capacity, missing refit vehicles, forged receipts and malformed upgrade fields',()=>{
+  const h=upgradeHarness(),{s,r,x,step}=h;r.startUpgrade(s,'river');r.launch(s,'river');const old=structuredClone(s);delete old.civilization.regions.shipments[0].capacity;r.validate(old);
+  const missing=structuredClone(s);delete missing.civilization.regions.upgrades;assert.throws(()=>r.validate(missing));
+  for(const mutate of [q=>q.civilization.regions.routes.river.capacity=128,q=>q.civilization.regions.shipments[0].capacity=128,q=>q.civilization.regions.shipments[0].upgradeId=999,q=>q.civilization.regions.shipments[0].target='home',q=>q.civilization.regions.upgrades.projects.river.buffer.wood=64]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>r.validate(bad));}
+  for(const value of [null,false,0,[],{}]){const bad=structuredClone(s);bad.civilization.regions.upgrades=value;r.init(bad);assert.equal(bad.civilization.regions.upgrades,value);assert.throws(()=>r.validate(bad));}
+  for(let i=0;i<1500&&r.upgrade(s,'river').status!=='building';i++)step(1);r.validate(s);
+  for(const mutate of [q=>q.civilization.regions.shipments=[],q=>q.civilization.regions.upgrades.projects.river.receipts.pop(),q=>q.civilization.regions.shipments[0].status='moving',q=>q.civilization.regions.upgrades.projects.river.receipts[0].cargo.wood++]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>r.validate(bad));}
+  step(180);const loaded=JSON.parse(JSON.stringify(s)),before=JSON.stringify(loaded);r.init(loaded);assert.equal(JSON.stringify(loaded),before);r.validate(loaded);
+});
+test('a finished physical upgrade delivers 128 municipal materials on the same route after its mandatory trade turn',()=>{
+  const h=municipalHarness(),{s,r,x,m,step,municipal}=h;const upgrade=finishUpgrade(h),oldCart=x.shipments[0];
+  assert.equal(m.startProject(s,'river','farmland'),true);assert.equal(oldCart.purpose,'upgrade');assert.equal(oldCart.capacity,64);r.validate(s);m.validate(s);
+  r.setRoute(s,'river',false);step(60);r.setRoute(s,'river',true);r.launch(s,'river');assert.equal(x.shipments[0].purpose,'trade');r.setRoute(s,'river',false);step(121);
+  const quoted=m.nextCargo(s,'river',x.routes.river.capacity);assert.equal(Object.values(quoted.cargo).reduce((a,b)=>a+b,0),128);
+  const stock={...s.stores};r.setRoute(s,'river',true);assert.equal(r.launch(s,'river'),true);const p=x.shipments[0];assert.equal(p.purpose,'municipal');assert.equal(p.capacity,128);assert.equal(Object.values(p.cargo).reduce((a,b)=>a+b,0),128);near(s.stores.parts,stock.parts-.05);assert.equal(x.routes.river.assigned,2);assert.equal(x.shipments.length,1);
+  r.setRoute(s,'river',false);step(60);assert.equal(municipal.project.buffer.wood,120);assert.equal(municipal.project.buffer.iron,6);assert.equal(municipal.project.buffer.tools,2);assert.equal(upgrade.status,'complete');r.validate(s);m.validate(s);
+  const bad=structuredClone(s);bad.civilization.regions.routes.river.capacity=64;assert.throws(()=>r.validate(bad));
+});
+test('upgrade, municipal and service engineering exclude one another while service material uses the same real 128 cart',()=>{
+  const h=municipalHarness(),{s,ctx,r,x,m,step}=h;
+  for(const file of ['content/services.js','src/postwar/services.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  const service=ctx.CivilServices;s.civilization.tech.municipal_engineering=true;service.init(s);
+  assert.equal(m.startProject(s,'river','farmland'),true);assert.equal(r.startUpgrade(s,'river'),false);assert.equal(service.startProject(s,'river','waterfield'),false);
+  // A separate clean fixture exercises the opposite entry direction without cancelling paid construction.
+  const fresh=municipalHarness(),f=fresh.s;for(const file of ['content/services.js','src/postwar/services.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),fresh.ctx,{filename:file});
+  const v=fresh.ctx.CivilServices;f.civilization.tech.municipal_engineering=true;v.init(f);assert.equal(fresh.r.startUpgrade(f,'river'),true);assert.equal(fresh.m.startProject(f,'river','farmland'),false);assert.equal(v.startProject(f,'river','waterfield'),false);
+  const u=fresh.r.upgrade(f,'river');for(let i=0;i<2000&&u.status!=='complete';i++)fresh.step(1);assert.equal(u.status,'complete');assert.equal(v.startProject(f,'river','waterfield'),true);assert.equal(fresh.m.startProject(f,'river','farmland'),false);assert.equal(fresh.r.canUpgrade(f,'river'),false);
+  fresh.r.setRoute(f,'river',false);fresh.step(60);fresh.r.setRoute(f,'river',true);fresh.r.launch(f,'river');assert.equal(fresh.x.shipments[0].purpose,'trade');fresh.r.setRoute(f,'river',false);fresh.step(121);
+  const before=JSON.stringify(f.civilization.regions.nodes.river.stores);fresh.r.setRoute(f,'river',true);assert.equal(fresh.r.launch(f,'river'),true);const p=fresh.x.shipments[0];assert.equal(p.purpose,'services');assert.equal(p.serviceProjectId,v.data(f,'river').project.id);assert.equal(p.capacity,128);assert.equal(p.cargo.wood,128);
+  fresh.r.setRoute(f,'river',false);fresh.step(60);assert.equal(v.data(f,'river').project.buffer.wood,128);assert.equal(JSON.stringify(f.civilization.regions.nodes.river.stores),before);assert.equal(fresh.r.arrive(f,p),false);assert.equal(v.receiveCargo(f,'river',{wood:128},p.serviceProjectId),false);fresh.r.validate(f);fresh.m.validate(f);v.validate(f);
+  const bad=structuredClone(f);bad.civilization.regions.shipments[0].serviceProjectId=999;assert.throws(()=>fresh.r.validate(bad));
+  const plain=upgradeHarness();for(const file of ['content/services.js','src/postwar/services.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),plain.ctx,{filename:file});assert.equal(plain.r.startUpgrade(plain.s,'river'),true,'an associated public-works route need not sign an unrelated municipal agreement first');
 });

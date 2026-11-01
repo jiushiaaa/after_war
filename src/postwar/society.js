@@ -17,15 +17,29 @@ var CivilSociety = {
         for(const entry of x.history)if(entry.generation===1 && entry.title==='冰封者')entry.from=0;
       }
       if(x.reformPaid===undefined)x.reformPaid=x.reforming?(x.axes.charter==='constitution'?60:30):0;
+      this.initHeir(s);
       this.initBirths(s);
       return;
     }
     const year=Math.floor(s.civilization.elapsed/this.YEAR);
     s.civilization.society={schema:1,year,cohorts:Array.from({length:s.game.population},(_,i)=>({age:18+i%30,count:1})),
       leader:{title:'冰封者',age:Math.min(64,28+year),started:0,termStarted:0,trait:'founder',alive:true},generation:1,history:[],axes:{},governed:false,
-      legacyAgeGrace:28+year>64,legitimate:60,service:true,transition:0,reformCooldown:0,reforming:null,reformPaid:0,succession:null,training:null,heir:{age:18,trained:false},warned:false};
+      legacyAgeGrace:28+year>64,legitimate:60,service:true,transition:0,reformCooldown:0,reforming:null,reformPaid:0,succession:null,training:null,heir:{age:18,trained:false,alive:true},warned:false};
     this.initBirths(s);
   },
+  initHeir(s){
+    const x=s.civilization.society;
+    // A missing flag is a legacy candidate, not a replacement family or a new resident.
+    if(x.heir.alive===undefined){x.heir.alive=x.heir.age<85;if(!x.heir.alive)x.training=null;}
+  },
+  heirAlive(s){const h=s.civilization.society.heir;return h.alive===undefined?h.age<85:h.alive;},
+  successionOptions(s){
+    const x=s.civilization.society;if(!x.succession)return {};
+    if(x.axes.selection!=='hereditary')return {engineer:'支持工程代表',scholar:'支持教师代表'};
+    if(!this.heirAlive(s))return {family:'由家系重新推举代表'};
+    return x.heir.age<18?{regent:'委员会摄政'}:{heir:'见证继承'};
+  },
+  successionSignature(s){const x=s.civilization.society;return JSON.stringify([x.generation,x.succession,x.axes.selection,Object.keys(this.successionOptions(s))]);},
   initBirths(s){
     const x=s.civilization.society,c=s.civilization,b=s.game.buildings;
     // Old saves start with no unfulfilled births or retroactive population grants.
@@ -72,7 +86,8 @@ var CivilSociety = {
     const aged=CivilPopulation.age(x.cohorts),lost=aged.deceased;x.cohorts=aged.cohorts;s.game.population-=lost;
     if(lost)this.note(lost+'位年长居民在这一年离世。他们留下的房屋与知识仍属于共同体。');
     this.newBirths(s,yearStartPopulation);
-    this.trimJobs(s);x.heir.age++;
+    this.trimJobs(s);this.initHeir(s);
+    if(x.heir.alive){x.heir.age++;if(x.heir.age>=85){x.heir.alive=false;x.training=null;this.note('登记的家系代表已经离世。家系的交接规则仍在，下一次交接须由居民确认新的代表。');}}
     const regency=x.leader.title==='摄政委员会';
     if(regency && x.axes.selection==='hereditary' && x.heir.age>=18 && !x.succession)x.succession='regency';
     if(x.leader.alive && !regency){x.leader.age++;
@@ -114,21 +129,20 @@ var CivilSociety = {
   },
   succeed(s,kind){
     const x=s.civilization.society;if(!x.succession)return false;
-    const reason=x.succession,hereditary=x.axes.selection==='hereditary',regent=hereditary && x.heir.age<18;
-    if(hereditary && kind!==(regent?'regent':'heir'))return false;
-    if(!hereditary && !['engineer','scholar'].includes(kind))return false;
+    if(!Object.hasOwn(this.successionOptions(s),kind))return false;
+    const reason=x.succession,hereditary=x.axes.selection==='hereditary';
     x.history.push({generation:x.generation,title:x.leader.title,age:x.leader.age,from:x.leader.started,to:x.year,reason});
     const age=kind==='heir'?x.heir.age:kind==='scholar'?34:40;
-    x.leader={title:kind==='heir'?'继承人':kind==='regent'?'摄政委员会':kind==='scholar'?'教师代表':'工程代表',age,started:x.year,termStarted:x.year,trait:kind==='scholar'?'scholar':'steward',alive:true};
-    x.transition=x.heir.trained?30:hereditary?180:60;x.generation++;x.succession=null;x.warned=false;
-    if(kind!=='regent'){x.heir={age:12,trained:false};x.training=null;}
+    x.leader={title:kind==='heir'?'继承人':kind==='family'?'家系代表':kind==='regent'?'摄政委员会':kind==='scholar'?'教师代表':'工程代表',age,started:x.year,termStarted:x.year,trait:kind==='scholar'?'scholar':'steward',alive:true};
+    x.transition=kind!=='family'&&this.heirAlive(s)&&x.heir.trained?30:hereditary?180:60;x.generation++;x.succession=null;x.warned=false;
+    if(kind!=='regent'){x.heir={age:12,trained:false,alive:true};x.training=null;}
     this.note('第'+x.generation+'任接过了公共记录。技术、条约、库存与居民都继续留在共同体中。');return true;
   },
   event(id,done){
     const s=State,x=s.civilization.society;
     if(id==='succession'){
-      const hereditary=x.axes.selection==='hereditary';const options=hereditary?(x.heir.age<18?{regent:'委员会摄政'}:{heir:'见证继承'}):{engineer:'支持工程代表',scholar:'支持教师代表'};
-      return {title:x.succession==='death'?'炉火仍在':'职责的交接',text:[x.succession==='death'?'领袖已经离世。共同体的历史不会在这里结束。':x.succession==='election'?'六年任期已到。居民讨论下一任的施政方案。':x.succession==='regency'?'继承家系的代表已经成年，摄政职责可以结束。':'领袖决定把职责交给下一任。',hereditary?'按继承规则安排交接。成年继承人接任；未成年时由委员会摄政。':'工程代表让劳动产出增加5%；教师代表让研究加快15%。交接后有60秒磨合，产出暂减一成。'],buttons:Object.fromEntries(Object.entries(options).map(([k,text])=>[k,{text,nextScene:'end',onChoose:done('交接记入了共同体的历史。',()=>this.succeed(s,k))}]))};
+      const hereditary=x.axes.selection==='hereditary',expired=hereditary&&!this.heirAlive(s),options=this.successionOptions(s);
+      return {title:x.succession==='death'?'炉火仍在':'职责的交接',text:[x.succession==='death'?'领袖已经离世。共同体的历史不会在这里结束。':x.succession==='election'?'六年任期已到。居民讨论下一任的施政方案。':x.succession==='regency'?(expired?'登记的家系代表已经离世，摄政委员会等待新的交接确认。':'继承家系的代表已经成年，摄政职责可以结束。'):'领袖决定把职责交给下一任。',expired?'原候选已经离世。家系推举了一位40岁的成年代表，等候共同体确认。新任需要180秒熟悉职责，产出暂减一成。':hereditary?'按继承规则安排交接。成年继承人接任；未成年时由委员会摄政。':'工程代表让劳动产出增加5%；教师代表让研究加快15%。交接后有60秒磨合，产出暂减一成。'],buttons:Object.fromEntries(Object.entries(options).map(([k,text])=>[k,{text,nextScene:'end',onChoose:done('交接记入了共同体的历史。',()=>this.succeed(s,k))}]))};
     }
     if(!id.startsWith('constitution_'))return null;
     const axis=id.slice(13),def=this.axes[axis];if(!def)return null;
@@ -144,7 +158,7 @@ var CivilSociety = {
     $('#councilRecord').text('重建 '+x.year+' 年 · 第'+x.generation+'任 '+x.leader.title+' · '+x.leader.age+'岁'+(x.leader.alive?'':'（待交接）')+'。可工作 '+this.workforce(s)+'，儿童 '+children+'，退休 '+elders+'。'+Object.entries(x.axes).map(([k,v])=>this.axes[k].choices[v].name).join(' · ')+(x.governed?'。认可 '+Math.floor(x.legitimate)+'，协调上限 '+this.capacity(s)+' 节点。'+(x.service?'公共行政正常。':'行政物资不足，产出减慢。'):'')+(x.training?' 继任培养还需 '+Math.ceil(x.training.remaining)+' 秒。':'') );
     if(x.governed){
       const retire=Civilization.button('retireButton','安排退休','#councilPanel',()=>{if(!Events.activeEvent() && !x.succession && x.year>x.leader.started){x.succession='retirement';Engine.saveGame();}});Button.setDisabled(retire,!!x.succession || x.year<=x.leader.started);
-      const train=Civilization.button('trainHeir','培养继任者','#councilPanel',()=>{if(!x.training && !x.heir.trained && Civilization.spend({knowledge:30,food:15})){x.training={remaining:300};Engine.saveGame();}},{knowledge:30,food:15});Button.setDisabled(train,!!x.training || x.heir.trained || !CivilRules.canPay(s,{knowledge:30,food:15}));
+      const train=Civilization.button('trainHeir','培养继任者','#councilPanel',()=>{if(this.heirAlive(s) && !x.training && !x.heir.trained && Civilization.spend({knowledge:30,food:15})){x.training={remaining:300};Engine.saveGame();}},{knowledge:30,food:15});Button.setDisabled(train,!this.heirAlive(s) || !!x.training || x.heir.trained || !CivilRules.canPay(s,{knowledge:30,food:15}));
       for(const [axis,def]of Object.entries(this.axes)){const cost={knowledge:x.axes.charter==='constitution'?60:30};const btn=Civilization.button('reform_'+axis,'重议：'+def.title,'#councilPanel',()=>{if(!Events.activeEvent() && this.beginReform(s,axis)){Civilization.showPending();Engine.saveGame();}},cost);
         btn.find('.tooltip .row_val').text(cost.knowledge);btn.attr('title',x.reformCooldown>0?'还需 '+Math.ceil(x.reformCooldown)+' 秒才能重议':'预留 '+cost.knowledge+' 知识；可保留现制并退回');
         Button.setDisabled(btn,x.reformCooldown>0 || !!x.reforming || !!x.succession || !!s.civilization.pending || !CivilRules.canPay(s,cost));}
@@ -170,6 +184,7 @@ var CivilSociety = {
     if(leader.termStarted!==undefined && !integer(leader.termStarted,leader.started,x.year))throw Error('领袖任期无效');
     for(const [k,max]of [['transition',300],['reformCooldown',600],['legitimate',100]])if(!Number.isFinite(x[k])||x[k]<0||x[k]>max)throw Error('治理数值无效');
     if(!object(x.heir)||!integer(x.heir.age,0,10000)||typeof x.heir.trained!=='boolean'||!Array.isArray(x.history)||x.history.length!==x.generation-1)throw Error('传承记录无效');
+    if(x.heir.alive!==undefined && (typeof x.heir.alive!=='boolean'||x.heir.alive!==(x.heir.age<85)||!x.heir.alive&&x.training!==null))throw Error('家系候选状态无效');
     for(const [i,h]of x.history.entries())if(!object(h)||h.generation!==i+1||typeof h.title!=='string'||!h.title.length||h.title.length>80||!integer(h.age,0,10000)||!integer(h.from,0,x.year)||!integer(h.to,h.from,x.year)||!reasons.includes(h.reason))throw Error('历任记录无效');
     if(x.training && (!object(x.training)||!Number.isFinite(x.training.remaining)||x.training.remaining<0||x.training.remaining>300))throw Error('培养进度无效');
     if(![null,...reasons].includes(x.succession)|| !(x.reforming===null || Object.hasOwn(this.axes,x.reforming)))throw Error('交接进度无效');

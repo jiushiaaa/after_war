@@ -20,6 +20,28 @@ test('unaltered second-leader preview migrates the founder history from year ele
 test('broken lineage, frozen years and missing succession are rejected before import',()=>{for(const mutate of [x=>{x.generation=2;x.history=[null];},x=>{x.year+=100;},x=>{x.leader.alive=false;},x=>{x.leader.termStarted=x.year+1;}]){const {s,r}=setup();mutate(s.civilization.society);assert.throws(()=>r.validate(s));}});
 test('a reserved reform must have the matching recoverable pending event',()=>{const {s,r}=setup(),x=s.civilization.society;for(const [a,v]of Object.entries({structure:'city',selection:'election',charter:'constitution',devolution:'local'}))r.chooseAxis(s,a,v);x.reformCooldown=0;s.civilization.pending=null;s.stores.knowledge=100;r.beginReform(s,'structure');assert.doesNotThrow(()=>r.validate(s));const encoded=JSON.stringify(s),restored=JSON.parse(encoded);r.validate(restored);r.init(restored);assert.equal(restored.civilization.society.reformPaid,60);s.civilization.pending=null;assert.throws(()=>r.validate(s));s.civilization.pending='constitution_structure';x.reformPaid=0;assert.throws(()=>r.validate(s));});
 
+test('an old overage family candidate migrates once without altering census, assets or history',()=>{
+  const {s,r}=setup(),x=s.civilization.society;x.heir={age:90,trained:true};x.training={remaining:120};
+  const before=JSON.stringify([s.game,s.stores,x.cohorts,x.history]);assert.doesNotThrow(()=>r.validate(s));r.init(s);
+  assert.equal(x.heir.age,90);assert.equal(x.heir.alive,false);assert.equal(x.heir.trained,true);assert.equal(x.training,null);
+  assert.equal(JSON.stringify([s.game,s.stores,x.cohorts,x.history]),before);const once=JSON.stringify(s);r.init(s);assert.equal(JSON.stringify(s),once);r.validate(s);
+  for(const alive of [null,0,'false',true]){const copy=JSON.parse(JSON.stringify(s));copy.civilization.society.heir.alive=alive;r.init(copy);assert.equal(copy.civilization.society.heir.alive,alive);assert.throws(()=>r.validate(copy));}
+});
+test('a family candidate expires at eighty-five while society continues and replacement needs a player decision',()=>{
+  const {s,r}=setup(),x=s.civilization.society;x.axes.selection='hereditary';x.leader.alive=false;x.succession='death';x.heir={age:84,trained:true,alive:true};x.training={remaining:180};
+  r.annual(s,()=>1);s.civilization.elapsed=x.year*600;assert.equal(x.heir.age,85);assert.equal(x.heir.alive,false);assert.equal(x.training,null);
+  const generation=x.generation;for(let j=0;j<20;j++)r.annual(s,()=>1);s.civilization.elapsed=x.year*600;
+  assert.equal(x.heir.age,85);assert.equal(x.generation,generation);assert.equal(x.succession,'death');assert.equal(r.succeed(s,'heir'),false);assert.equal(r.succeed(s,'regent'),false);
+  const census=JSON.stringify([s.game,s.stores,x.cohorts]);assert.equal(r.succeed(s,'family'),true);
+  assert.equal(x.axes.selection,'hereditary');assert.equal(x.leader.title,'家系代表');assert.equal(x.leader.age,40);assert.equal(x.transition,180);assert.equal(x.heir.age,12);assert.equal(x.heir.alive,true);
+  assert.equal(JSON.stringify([s.game,s.stores,x.cohorts]),census);assert.equal(r.succeed(s,'family'),false);r.validate(s);
+});
+test('succession signatures change only when the reason or eligible choices change',()=>{
+  const {s,r}=setup(),x=s.civilization.society;x.axes.selection='hereditary';x.leader.alive=false;x.succession='death';x.heir={age:17,trained:false,alive:true};
+  const minor=r.successionSignature(s);x.heir.age=18;assert.notEqual(r.successionSignature(s),minor);const adult=r.successionSignature(s);x.heir.age=19;assert.equal(r.successionSignature(s),adult);
+  x.heir.age=85;x.heir.alive=false;assert.notEqual(r.successionSignature(s),adult);assert.deepEqual(Object.keys(r.successionOptions(s)),['family']);
+});
+
 function familySetup(cohorts){
   const h=setup(),{s,r,ctx}=h;
   for(const f of ['content/industry.js','content/regions.js','content/urban.js','src/postwar/urban.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',f),'utf8'),ctx);

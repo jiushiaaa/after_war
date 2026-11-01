@@ -98,7 +98,8 @@ test('the natural 508-resident save accepts missing home targets and migrates on
   const {o}=harness(),s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-origin-migration.json'),'utf8')).state,expected=structuredClone(s);
   assert.equal(s.game.population,508);assert.doesNotThrow(()=>o.validate(s));
   for(const d of Object.values(expected.civilization.origins.nodes.river_network.departures))d.target='home';
-  o.init(s);assert.deepEqual(s,expected);assert.doesNotThrow(()=>o.validate(s));const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);
+  expected.civilization.origins.nodes.river_network.schooling={schema:1,completed:[],project:null};
+  o.init(s);assert.deepEqual(JSON.parse(JSON.stringify(s)),expected);assert.doesNotThrow(()=>o.validate(s));const before=JSON.stringify(s);o.init(s);assert.equal(JSON.stringify(s),before);
   const restored=JSON.parse(JSON.stringify(s));o.init(restored);assert.equal(JSON.stringify(restored),before);assert.doesNotThrow(()=>o.validate(restored));
   const legacy=structuredClone(s);for(const d of Object.values(legacy.civilization.origins.nodes.river_network.departures))delete d.target;
   const party=legacy.civilization.urban.parties.find(p=>p.state==='outbound');assert.equal(o.recordArrival(legacy,party),true);party.cohorts=[];party.state='returning';assert.equal(legacy.game.population,508);assert.equal(legacy.civilization.origins.nodes.river_network.admitted,20);assert.doesNotThrow(()=>o.validate(legacy));
@@ -159,4 +160,48 @@ test('1080 family emigrations preserve 720 actual residents and paid generationa
 });
 test('a century before contact retains a living census rather than silently refreshing initial adults',()=>{
   const h=harness(),{s,o,n}=h;advanceYears(h,100);assert.ok(n.born>1800);assert.ok(n.sourceDeaths>=1800);assert.ok(n.population>=720);assert.ok(n.cohorts.every(c=>c.cohortId.includes('_born_')));assert.equal(o.beginContact(s),true);tick(h,240);assert.ok(o.quoteParty(s,'river_network',1,{mode:'singleton'}));assert.doesNotThrow(()=>o.validate(s));
+});
+function crowdedSchool(){
+  const h=contact(harness(),true),{n,o,s}=h;
+  n.cohorts=[{age:8,count:822},{age:24,count:276},{age:35,count:221},{age:45,count:227},{age:55,count:327},{age:70,count:327}].map((c,i)=>({...c,identity:'human',originId:'river_network',cohortId:'river_network_school_'+i}));
+  n.population=2200;n.born=400;n.health=100;n.hunger=0;for(const key of Object.keys(n.stores))n.stores[key]=10000;o.assign(s,'river_network');return h;
+}
+test('every convoy seat limit from one through eight preserves positive integer cohorts and exact source conservation',()=>{
+  for(let limit=1;limit<=8;limit++){
+    const h=contact(harness(),true),{s,o,n,p}=h,before=JSON.stringify(n.cohorts),choice=o.choose(n.cohorts,limit,'convoy');
+    assert.equal(JSON.stringify(n.cohorts),before);assert.equal(p.count(choice.selected),limit);assert.equal(p.count(choice.selected)+p.count(choice.remaining),n.population);
+    assert.ok([...choice.selected,...choice.remaining].every(c=>Number.isInteger(c.count)&&c.count>0));
+    for(const cohort of n.cohorts)assert.equal([...choice.selected,...choice.remaining].filter(c=>c.cohortId===cohort.cohortId).reduce((sum,c)=>sum+c.count,0),cohort.count);
+    const quote=o.quoteParty(s,'river_network',limit,{mode:'convoy'});assert.equal(quote.count,limit);assert.equal(o.quoteReason(s,'river_network',limit,{mode:'convoy'}),null);
+    const party=depart(h,'convoy',limit);assert.equal(p.count(party.cohorts),limit);assert.doesNotThrow(()=>o.validate(s));
+  }
+});
+test('822 real children expose the exact teacher shortage, then source-paid expansion restores migration after 180 actual work seconds',()=>{
+  const h=crowdedSchool(),{s,o,n}=h,home=JSON.stringify([s.game,s.stores,s.civilization.urban]),people=JSON.stringify(n.cohorts),stock={...n.stores};
+  assert.equal(n.workers.teacher,40);assert.equal(o.quoteParty(s,'river_network',8,{mode:'convoy'}),null);assert.match(o.quoteReason(s,'river_network',8,{mode:'convoy'}),/40.*820.*41/);
+  const before=JSON.stringify(s);o.quoteReason(s,'river_network',1,{mode:'singleton'});assert.equal(JSON.stringify(s),before);
+  assert.equal(o.startSchool(s,'river_network'),true);assert.equal(stock.wood-n.stores.wood,120);assert.equal(stock.tools-n.stores.tools,12);assert.equal(stock.knowledge-n.stores.knowledge,20);assert.equal(o.sourceStaff(s,'river_network'),2);assert.equal(JSON.stringify(n.cohorts),people);
+  const paid=JSON.stringify(n.stores);assert.equal(o.startSchool(s,'river_network'),false);assert.equal(JSON.stringify(n.stores),paid);assert.match(o.quoteReason(s,'river_network',8,{mode:'convoy'}),/180秒/);
+  tick(h,179);assert.equal(o.schoolCapacity(s,'river_network'),40);assert.equal(n.schooling.project.remaining,1);tick(h,1);
+  assert.equal(o.schoolCapacity(s,'river_network'),50);assert.equal(n.schooling.project,null);assert.equal(n.workers.teacher,42);assert.equal(o.sourceStaff(s,'river_network'),0);assert.equal(o.quoteParty(s,'river_network',8,{mode:'convoy'}).count,8);assert.equal(o.quoteReason(s,'river_network',8,{mode:'convoy'}),null);
+  assert.equal(JSON.stringify(n.cohorts),people);assert.equal(JSON.stringify([s.game,s.stores,s.civilization.urban]),home);assert.doesNotThrow(()=>o.validate(s));
+});
+test('source schools wait for their own materials, spare adults and reserves, and retirement pauses a paid project without a refund',()=>{
+  const h=crowdedSchool(),{s,o,n}=h;n.stores.tools=11;const noTools=JSON.stringify(n.stores);assert.equal(o.startSchool(s,'river_network'),false);assert.equal(JSON.stringify(n.stores),noTools);assert.match(o.schoolStatus(s,'river_network'),/工具12/);
+  n.stores.tools=12;n.stores.food=0;assert.equal(o.startSchool(s,'river_network'),false);assert.match(o.schoolStatus(s,'river_network'),/120秒粮药/);
+  n.stores.food=10000;assert.equal(o.startSchool(s,'river_network'),true);const p=n.schooling.project,stock=JSON.stringify(n.stores),saved=n.cohorts.map(c=>({...c}));n.cohorts.forEach(c=>c.age=70);
+  s.civilization.elapsed++;o.tickSchool(s,'river_network');assert.equal(p.remaining,180);assert.equal(o.schoolBuilders(s,'river_network'),0);assert.equal(JSON.stringify(n.stores),stock);
+  n.cohorts=saved;s.civilization.elapsed++;o.tickSchool(s,'river_network');assert.equal(p.remaining,179);const once=JSON.stringify(s);o.tickSchool(s,'river_network');assert.equal(JSON.stringify(s),once);
+});
+test('school migration is idempotent and partial construction survives reload; explicit corruption is rejected rather than reset',()=>{
+  const h=crowdedSchool(),{s,o,n}=h;delete n.schooling;const old=JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]);assert.doesNotThrow(()=>o.validate(s));o.init(s);assert.equal(o.schoolCapacity(s,'river_network'),40);assert.equal(JSON.stringify([n.cohorts,n.stores,n.births,n.born,n.sourceDeaths]),old);
+  o.startSchool(s,'river_network');tick(h,37);const loaded=JSON.parse(JSON.stringify(s)),before=JSON.stringify(loaded);o.init(loaded);o.tickSchool(loaded,'river_network');assert.equal(JSON.stringify(loaded),before);assert.doesNotThrow(()=>o.validate(loaded));
+  for(const mutate of [x=>x.schooling=null,x=>x.schooling.completed.push({startedAt:0,completedAt:1,paid:{wood:120,tools:12,knowledge:20}}),x=>x.schooling.project.paid.tools--,x=>x.schooling.project.remaining=0,x=>x.schooling.project.lastWorkedAt=s.civilization.elapsed+1]){const bad=structuredClone(s);mutate(bad.civilization.origins.nodes.river_network);o.init(bad);assert.throws(()=>o.validate(bad));}
+});
+test('school expansion has a finite paid cap matching source housing, and quota or fertility reasons remain distinct from teaching',()=>{
+  const h=crowdedSchool(),{s,o,n,ctx}=h,cfg=ctx.CivilOriginContent.river_network.school;
+  n.cohorts=[{age:5,count:1800,identity:'human',originId:'river_network',cohortId:'river_network_school_children'},{age:25,count:400,identity:'human',originId:'river_network',cohortId:'river_network_school_adults'}];o.assign(s,'river_network');
+  assert.equal(o.startSchool(s,'river_network'),false,'400 adults cannot staff production, classrooms and builders');
+  n.schooling.completed=Array.from({length:cfg.max},(_,i)=>({startedAt:i*180,completedAt:(i+1)*180,paid:{...cfg.cost}}));assert.equal(o.schoolCapacity(s,'river_network'),110);assert.equal(o.startSchool(s,'river_network'),false);assert.equal(o.schoolCapacity(s,'river_network')*20,n.housing);
+  const untouched=contact(harness(),true);untouched.n.permit.limit=0;assert.match(untouched.o.quoteReason(untouched.s,'river_network',8,{mode:'convoy'}),/额度/);
 });

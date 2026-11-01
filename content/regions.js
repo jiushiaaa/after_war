@@ -19,3 +19,4 @@ var CivilRegionContent={
   rail:{name:'铁轨镇',population:32,mutants:4,travel:90,stores:{food:120,coal:20,tools:16,scrap:60,iron:12,parts:4,medicine:8,wood:40},workers:{farmer:5,salvager:4,smelter:2,machinist:2,gatherer:1},service:{medic:3,teacher:1},out:{food:12,coal:2,tools:1},back:{iron:3,parts:1},project:{name:'货场诊疗与水务',cost:{food:80,wood:60,tools:16,parts:6},duration:300}},
   highland:{name:'高地收容所',population:18,mutants:8,travel:120,stores:{food:150,coal:12,tools:12,scrap:25,medicine:12,knowledge:20,wood:60},workers:{farmer:2,salvager:1,medic:2,teacher:1,gatherer:1},service:{},out:{food:24,coal:1,tools:1},back:{medicine:2,knowledge:4},project:{name:'山路与公共课堂',cost:{food:80,iron:10,parts:6,medicine:4},duration:300}}
 };
+var CivilRouteUpgradeContent={name:'加固货车',cost:{wood:120,iron:20,parts:8,tools:8},duration:180,capacity:128,partsPerTrip:.05};

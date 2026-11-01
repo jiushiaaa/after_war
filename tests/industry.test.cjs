@@ -35,7 +35,7 @@ test('manual mechanical production can bootstrap a generator and recover from to
  const {s,i}=harness();s.game.workers={machinist:2};s.game.buildings.machineworks=1;s.stores={iron:10,scrap:10,tools:10,parts:0,coal:0};
  i.settle(s);assert.equal(s.stores.parts,.6);assert.equal(s.civilization.industry.generation,0);assert.equal(s.civilization.industry.used,0);assert.match(s.civilization.industry.blocked.machinist,/手动/);
  s.game.buildings.powerhouse=1;s.game.workers.electrician=1;s.stores.coal=1;
- i.settle(s);assert.equal(s.civilization.industry.generation,4);assert.equal(s.civilization.industry.used,4);assert.ok(Math.abs(s.stores.parts-1.58)<1e-8);
+ i.settle(s);assert.equal(s.civilization.industry.generation,4);assert.equal(s.civilization.industry.used,4);assert.equal(s.civilization.industry.productionPower,4);assert.ok(Math.abs(s.stores.parts-1.58)<1e-8);
 });
 test('power is a per-settlement capacity with paid fuel and maintenance, never an accumulating resource',()=>{
  const {s,i}=harness();s.game.workers={electrician:1};s.game.buildings.powerhouse=1;s.stores={coal:.6,parts:.02};
@@ -79,4 +79,15 @@ test('the full mine-to-powered-workshop chain is affordable from the natural tow
  assert.equal(s.civilization.industry.online,true);assert.equal(s.civilization.industry.used,4);
  assert.ok(s.stores.ore>=0 && s.stores.coal>=0 && s.stores.iron>=0 && s.stores.parts>=0);
  assert.equal(Object.values(s.game.workers).reduce((a,b)=>a+b,0),20);assert.equal(s.civilization.hunger,0);
+});
+test('null industrial state is rejected rather than reset and power evidence remains bounded by actual installed plant',()=>{
+ const {s,i}=harness();for(const value of [null,false,0]){const bad=structuredClone(s);bad.civilization.industry=value;i.init(bad);assert.equal(bad.civilization.industry,value);assert.throws(()=>i.validate(bad));}
+ s.civilization.industry.generation=10;s.civilization.industry.online=true;s.game.buildings.powerhouse=0;assert.throws(()=>i.validate(s));
+});
+test('mechanical power is actual powered output only and old missing evidence is neither fabricated nor required',()=>{
+ const {s,i}=harness();s.game.buildings.powerhouse=1;s.game.buildings.machineworks=1;s.game.buildings.scrubber=1;s.game.workers={electrician:2,machinist:2};s.stores={coal:10,parts:10,wood:10,iron:.5,scrap:10,tools:10};
+ i.settle(s);assert.equal(s.civilization.industry.used,3);assert.equal(s.civilization.industry.productionPower,2);assert.doesNotThrow(()=>i.validate(s));
+ const legacy=structuredClone(s);delete legacy.civilization.industry.productionPower;const before=JSON.stringify(legacy);i.init(legacy);assert.equal(JSON.stringify(legacy),before);assert.doesNotThrow(()=>i.validate(legacy));
+ for(const value of [-1,4,7,NaN,null]){const bad=structuredClone(s);bad.civilization.industry.productionPower=value;assert.throws(()=>i.validate(bad));}
+ s.game.workers.electrician=0;i.settle(s);assert.equal(s.civilization.industry.productionPower,0);
 });

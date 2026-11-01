@@ -12,11 +12,13 @@
     const health = (c.village?.health ?? 80)<30?.75:1;
     const factor = policy.output * hunger * health*(typeof CivilSociety!=='undefined'?CivilSociety.outputFactor(state):1);
     const gatherers = Math.max(0, (typeof CivilSociety!=='undefined'?CivilSociety.workforce(state):p) - Object.values(jobs).reduce((a,b) => a+b,0));
+    const farmers=Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer')),serviceCap=typeof CivilServices!=='undefined'?(CivilServices.jobs(state,'home').farmer||0):0,legacyCap=CivilCatalog.jobCapacity(state,'farmer')-serviceCap;
+    const legacyFarmers=Math.min(farmers,legacyCap),serviceFarmers=Math.min(Math.max(0,farmers-legacyCap),Math.floor(((state.stores.tools||0)+1e-8)/.01)),serviceRate=typeof CivilServices!=='undefined'?CivilServices.farmRate(state,'home'):1.4;
     return {
       '工匠': {wood:state.game.builder?.level >= 4 ? 2 : 0},
       '采木工': {wood:gatherers * factor},
       '猎人': {food:(jobs.hunter || 0) * .8 * factor, fur:(jobs.hunter || 0) * .3 * factor},
-      '农夫': {food:Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer'))*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)*factor},
+      '农夫': {food:(legacyFarmers*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)+serviceFarmers*serviceRate)*factor,...(serviceFarmers?{tools:-serviceFarmers*.01}:{})},
       '回收工': {scrap:(jobs.salvager || 0) * (c.tech.metal ? .8 : .5) * factor},
       ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
       '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):p) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
@@ -43,10 +45,11 @@
     return flows;
   }
   function settle(state) {
+    if(typeof CivilServices!=='undefined')CivilServices.begin(state,'home');
     const flow = rates(state), stores = state.stores, c = state.civilization;
     for (const [source, values] of Object.entries(flow)) {
       if(source === '口粮' || source === '外站维护') continue;
-      for (const [key, amount] of Object.entries(values)) if(amount) stores[key] = (stores[key] || 0) + amount;
+      for (const [key, amount] of Object.entries(values)) if(amount) stores[key] = Math.max(0,(stores[key] || 0) + amount);
     }
     const need = -flow['口粮'].food;
     const hungry = (stores.food || 0) + 1e-8 < need;

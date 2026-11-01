@@ -879,7 +879,7 @@ var Room = {
 			if (row.length === 0) {
 				row = $('<div>').attr('id', id).addClass('storeRow');
 				$('<div>').addClass('row_key').text(lk).appendTo(row);
-				$('<div>').addClass('row_val').text(['tools','medicine','knowledge','ore','coal','iron','parts'].includes(k) ? Math.floor((num + 1e-8) * 100) / 100 : Math.floor(num)).appendTo(row);
+				$('<div>').addClass('row_val').text(['tools','medicine','knowledge','ore','coal','iron','parts','minerals','chemicals','steel','glass'].includes(k) ? Math.floor((num + 1e-8) * 100) / 100 : Math.floor(num)).appendTo(row);
 				$('<div>').addClass('clear').appendTo(row);
 				var curPrev = null;
 				location.children().each(function (i) {
@@ -896,7 +896,7 @@ var Room = {
 				}
 				newRow = true;
 			} else {
-				$('div#' + row.attr('id') + ' > div.row_val', location).text(['tools','medicine','knowledge','ore','coal','iron','parts'].includes(k) ? Math.floor((num + 1e-8) * 100) / 100 : Math.floor(num));
+				$('div#' + row.attr('id') + ' > div.row_val', location).text(['tools','medicine','knowledge','ore','coal','iron','parts','minerals','chemicals','steel','glass'].includes(k) ? Math.floor((num + 1e-8) * 100) / 100 : Math.floor(num));
 			}
 		}
 

@@ -6,7 +6,7 @@ const vm=require('node:vm');
 function harness(id='river'){
   const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-first-power.json'),'utf8')).state,messages=[];
   const ctx=vm.createContext({State:s,_:x=>x,Civilization:{notify:x=>messages.push(x)}});
-  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/municipal.js','src/postwar/population.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/municipal.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
+  for(const file of ['content/zh.js','content/development.js','content/industry.js','content/regions.js','content/urban.js','content/municipal.js','content/advanced.js','content/services.js','src/postwar/population.js','src/postwar/rules.js','src/postwar/village.js','src/postwar/society.js','src/postwar/industry.js','src/postwar/regions.js','src/postwar/municipal.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),ctx,{filename:file});
   const r=ctx.CivilRegions,m=ctx.CivilMunicipal;r.init(s);s.civilization.regions.active=true;s.civilization.urban={city:true,chartered:true};
   Object.assign(s.civilization.tech,{logistics:true,administration:true,standards:true,urbanworks:true,survey:true,mining:true,furnace:true,mechanics:true,power:true,water:true});
   s.game.buildings.cartdepot=2;s.game.workers.transporter=6;

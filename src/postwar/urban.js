@@ -89,6 +89,7 @@ var CivilUrban = {
   commitments(s){return typeof CivilRegions!=='undefined' && CivilRegions.committedHomeFlow?CivilRegions.committedHomeFlow(s):{};},
   forecast(s,cohorts=[]){
     const copy=JSON.parse(JSON.stringify(s)),before={...copy.stores};
+    if(typeof CivilServices!=='undefined'&&CivilServices.data(copy,'home'))copy.civilization.elapsed=CivilServices.nextSettlementAt(copy,'home');
     copy.game.population+=this.count(cohorts);copy.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));
     const flow=CivilRules.settle(copy).flow;
     const treatment=CivilVillage.treatment(copy);CivilVillage.settle(copy);if(treatment)flow['诊所治疗']={medicine:-treatment};
@@ -112,7 +113,7 @@ var CivilUrban = {
     const teaching=(result.flow['教师']?.knowledge||0)/(.2*CivilIndustry.factor(s));
     if(totalChildren>teaching*20+1e-8)return '教学缺少纸材或实际值守';
     if((result.deltas.medicine||0)+(commit.medicine||0)<-1e-8 || !result.copy.civilization.society.service)return '药品净供给或公共行政不足';
-    if((result.flow['医护']?.medicine||0)+1e-8<(s.game.population+this.count(cohorts))*.01)return '医护原料不足以完成新增治疗';
+    if((result.flow['医护']?.medicine||0)+(result.flow['药剂师']?.medicine||0)+1e-8<(s.game.population+this.count(cohorts))*.01)return '医护原料不足以完成新增治疗';
     return null;
   },
   housingReady(s){
@@ -129,7 +130,7 @@ var CivilUrban = {
     if(!this.canAcceptTarget(s,target))return stop('目的地尚未同意接纳安排');
     if(!this.roadOpen(s,target))return stop(this.targetName(s,target)+'的接纳道路中断或待维护');
     const source=this.sourceId(s),beds=Math.min(8,this.availableBeds(s,target));if(!beds)return stop(this.targetName(s,target)+'等待空余床位');
-    const quote=this.quote(s,source,beds,'convoy');if(!quote)return stop(source==='dispersed'?'登记的居民已全部安置':'来源需要迁居议约、留守居民与实际供养');
+    const quote=this.quote(s,source,beds,'convoy');if(!quote)return stop(source==='dispersed'?'登记的居民已全部安置':typeof CivilOrigins.quoteReason==='function'?CivilOrigins.quoteReason(s,source,beds,{mode:'convoy'})||'来源暂不能安排这批迁居':'来源需要迁居议约、留守居民与实际供养');
     const n=quote.count,sample=quote.cohorts,all=[...this.waiting(s,target),...sample],cost={food:n*6,medicine:n*.2,tools:n*.2};
     if(!CivilRules.canPay(s,cost))return stop('待备旅费：每人6粮、0.2药品、0.2工具');
     const homeWaiting=target==='home'?all:this.waiting(s);
@@ -221,10 +222,10 @@ var CivilUrban = {
     const f=evidence.flow||{},d=evidence.deltas||{},commit=this.commitments(s),i=s.civilization.industry;
     const medicine=(d.medicine||0)+(commit.medicine||0),food=(d.food||0)+(commit.food||0);
     u.economy={at:s.civilization.elapsed,medicine,food,
-      treatment:(f['医护']?.medicine||0)+1e-8>=s.game.population*.01 && -(f['诊所治疗']?.medicine||0)+1e-8>=s.game.population*.01,
+      treatment:(f['医护']?.medicine||0)+(f['药剂师']?.medicine||0)+1e-8>=s.game.population*.01 && -(f['诊所治疗']?.medicine||0)+1e-8>=s.game.population*.01,
       education:this.children(s.civilization.society.cohorts)<=((f['教师']?.knowledge||0)/(.2*CivilIndustry.factor(s)))*20+1e-8,
       industrial:(f['采矿工']?.ore||0)>0 && (f['采煤工']?.coal||0)>0 && (f['冶炼工']?.iron||0)>0 && (f['机械工']?.parts||0)>0,
-      productionPower:Math.max(0,i.used-(f['烟尘处理']?1:0))};
+      productionPower:i.productionPower||0};
     u.townStable=this.developmentReady(s)?Math.min(180,u.townStable+10):0;
     u.cityStable=this.developmentReady(s,true)?Math.min(300,u.cityStable+10):0;return flow;
   },
@@ -243,7 +244,7 @@ var CivilUrban = {
     const sources=this.sourceIds(s),current=this.sourceId(s),targets=this.targetIds(s),target=this.targetId(s);
     if(sources.length>1){
       const select=Civilization.button('urbanSource','接纳来源：'+this.sourceName(current),'#roadPanel',()=>{
-        const ids=this.sourceIds(s),at=ids.indexOf(this.sourceId(s));u.activeSource=ids[(at+1)%ids.length];u.dispatchClock=0;Engine.saveGame();this.refresh();
+        const ids=this.sourceIds(s),at=ids.indexOf(this.sourceId(s));u.activeSource=ids[(at+1)%ids.length];u.dispatchClock=0;u.status='等待核对'+this.sourceName(u.activeSource)+'的名册与供养';Engine.saveGame();this.refresh();
       });
       select.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode('接纳来源：'+this.sourceName(current)));
       select.attr('title','切换后续接纳来源；已经启程的居民继续原旅程。新来源保留留守居民，不会重建沿路480人名册。');
@@ -288,7 +289,7 @@ var CivilUrban = {
     const ledger=this.count(u.source)+u.parties.filter(p=>p.source==='dispersed').reduce((n,p)=>n+this.count(p.cohorts),0)+u.admitted+u.deceased;
     if(ledger!==(u.registered?480:0)||(!u.registered && this.sourceIds(s).length===1 && (u.enabled||u.parties.length||u.nextParty!==1)))throw Error('迁徙人口总账不符');
     if(!number(u.townStable,0,180)||!number(u.cityStable,0,300))throw Error('城镇稳定度无效');
-    if(u.economy!==null && (!obj(u.economy)||!number(u.economy.at,0,s.civilization.elapsed)||!number(u.economy.food,-1e8)||!number(u.economy.medicine,-1e8)||!number(u.economy.productionPower,0,100)||!['treatment','education','industrial'].every(k=>typeof u.economy[k]==='boolean')))throw Error('城市供养记录无效');
+    if(u.economy!==null && (!obj(u.economy)||!number(u.economy.at,0,s.civilization.elapsed)||!number(u.economy.food,-1e8)||!number(u.economy.medicine,-1e8)||!number(u.economy.productionPower,0,CivilCatalog.jobCapacity(s,'machinist')*2)||!['treatment','education','industrial'].every(k=>typeof u.economy[k]==='boolean')))throw Error('城市供养记录无效');
     if(s.civilization.pending==='urban_register' && (u.registered || this.discovered(s)<2))throw Error('登记待办无效');
     if(s.civilization.pending==='urban_charter' && u.chartered || s.civilization.pending==='urban_city' && u.city)throw Error('建制待办重复');
   }
