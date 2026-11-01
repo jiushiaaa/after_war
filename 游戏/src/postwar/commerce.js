@@ -9,7 +9,7 @@ var CivilCommerce={
   route(s){return CivilCommerceContent.routes[this.sourceId(s)];},
   active(s){const o=this.data(s)?.orders.at(-1);return o&&o.returnedAt===null?o:null;},
   plan(s){const d=this.data(s),p=d?.plans.at(-1);return p&&p.cancelledAt===null&&d.orders.filter(o=>o.planId===p.id).length<p.limit?p:null;},
-  reservedTransport(s){return this.active(s)?2:0;},
+  reservedTransport(s){return (this.active(s)?2:0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.reservedTransport(s):0);},
   obligation(s){return this.data(s)?1:0;},
   staffed(s){return CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)>=2&&(typeof CivilSecurity==='undefined'||CivilSecurity.staffed(s,this.active(s)));},
   busy(s,corridor){return !!this.active(s)&&this.route(s)?.corridor===corridor;},
@@ -48,6 +48,7 @@ var CivilCommerce={
     if(!this.asset(s))return '先实付建造对外商队装备，并安排两名营建工施工';
     if(!this.plan(s))return '尚无剩余委托，可安排最多六趟';
     if(this.active(s))return '等待本趟商队返程';
+    if(typeof CivilFrontier!=='undefined'&&CivilFrontier.active(s))return '原商车正在渡口往返，等待原车返城';
     const profile=this.profile(s),security=typeof CivilSecurity!=='undefined'?CivilSecurity.departureReason(s,profile):null;if(security)return security;
     if(!this.staffed(s))return '等待两名空闲运输工；地区与客运班组优先';
     const road=this.roadReason(s,true);if(road)return road;

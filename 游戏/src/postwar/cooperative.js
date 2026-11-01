@@ -2,7 +2,7 @@
 CivilMunicipalContent.jobs.push('coopsmith');
 CivilText.labels.coopsmith='合作制器工';
 var CivilCooperative={
-  pendingIds:['cooperative_river','cooperative_rail','cooperative_highland'],
+  pendingIds:['cooperative_river','cooperative_rail','cooperative_highland','cooperative_ford'],
   grant:{wood:20,scrap:60,food:24,tools:0},
   data(s,id){return s.civilization.cooperative?.nodes[id];},
   eligible(s,id){const m=CivilMunicipal.data(s,id),n=CivilMunicipal.node(s,id);return !!(m?.city&&m.buildings.toolworks&&CivilMunicipal.canAccept(s,id)&&n.health>=60&&s.civilization.tech.records&&s.civilization.tech.administration);},
@@ -66,7 +66,7 @@ var CivilCooperative={
       details:[['所有权','合作社拥有1处已建制器间，产出归社仓'],['工作餐','近轮实付食物 '+fmt(d.last?.meal||0)+'，抵扣同额公共口粮'],['生产用料','每人每10秒：木0.2、废料0.6、食物0.1；产工具0.25，受当地生产状况影响'],['公库采购','支付食物6，收取工具2；保留120秒公共口粮'],['社仓进料','支付食物6，收取木4、废料12'],['已成交',d.trades.length+' 批']]};
   },
   event(eventId){
-    const match=/^cooperative_(river|rail|highland)$/.exec(eventId);if(!match)return null;
+    const match=/^cooperative_(river|rail|highland|ford)$/.exec(eventId);if(!match)return null;
     const s=State,id=match[1],d=this.data(s,id);if(!d&&!this.eligible(s,id))return null;
     const signature=()=>JSON.stringify([!!this.data(s,id),this.data(s,id)?.controls.length||0,this.data(s,id)?.trades.filter(t=>t.standing===undefined).length||0,this.data(s,id)?.standing?.controls.length||0]),expected=signature();
     const action=fn=>()=>{if(s.civilization.pending!==eventId||signature()!==expected||!fn())return false;s.civilization.pending=null;Civilization.refresh();Engine.saveGame();return true;};

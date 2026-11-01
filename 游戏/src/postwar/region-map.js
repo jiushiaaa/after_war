@@ -30,7 +30,7 @@ var CivilRegionMap={
         const missing=Object.entries(p.required||{}).filter(([key,value])=>value>(p.buffer?.[key]||0)+1e-8).map(([key,value])=>({resource:key,amount:this.number(value-(p.buffer?.[key]||0))}));
         projects.push({name:facility?.name||kind,status:p.status,remaining:Math.ceil(p.remaining||0),missing});
       }
-      return {id,name:home?(c.urban?.city?'炉火城':c.urban?.chartered?'炉火镇':'本地聚落'):(typeof CivilRegionContent!=='undefined'?CivilRegionContent[id]?.name:id)||id,population,capacity,health:this.number(health),workforce:typeof CivilPopulation!=='undefined'&&cohorts?CivilPopulation.workforce(cohorts):population,relation:home?'共同体所在地':labels[n.relation]||'已知聚居地',stores:Object.fromEntries(Object.entries(stores||{}).map(([k,v])=>[k,this.number(v)])),economy:e&&c.elapsed-e.at<=10?{food:this.number(e.food),medicine:this.number(e.medicine)}:null,projects,issues};
+      return {id,name:home?(c.urban?.city?'炉火城':c.urban?.chartered?'炉火镇':'本地聚落'):(typeof CivilRegionContent!=='undefined'?CivilRegionContent[id]?.name:id)||id,population,capacity,health:this.number(health),workforce:typeof CivilPopulation!=='undefined'&&cohorts?CivilPopulation.workforce(cohorts):population,relation:home?'共同体所在地':(id==='ford'&&typeof CivilFrontier!=='undefined'?CivilFrontier.relation(s):null)||labels[n.relation]||'已知聚居地',stores:Object.fromEntries(Object.entries(stores||{}).map(([k,v])=>[k,this.number(v)])),economy:e&&c.elapsed-e.at<=10?{food:this.number(e.food),medicine:this.number(e.medicine)}:null,projects,issues};
     };
     const nodes=[makeNode('home',null),...shown.map(([id,n])=>makeNode(id,n))],known=new Set(nodes.map(n=>n.id)),routes=[];
     for(const [id,route]of Object.entries(r.routes||{})){

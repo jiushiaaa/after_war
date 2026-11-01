@@ -29,7 +29,7 @@ var CivilSecurity={
   },
   settle(s){
     const d=this.data(s),at=s.civilization.elapsed;if(!d||!this.asset(s)||d.lastSettledAt!==null&&at-d.lastSettledAt<10)return {};
-    const staff=this.guards(s),cost=this.cost(staff),paid=staff>0&&CivilFinance.reserveCheck(s,'home',cost),o=CivilCommerce.active(s),away=!!o?.security?.homeGuard;
+    const staff=this.guards(s),cost=this.cost(staff),paid=staff>0&&CivilFinance.reserveCheck(s,'home',cost),o=CivilCommerce.active(s),away=!!o?.security?.homeGuard||(typeof CivilFrontier!=='undefined'&&CivilFrontier.guardFloor(s)>0);
     if(paid)CivilServices.pay(s.stores,cost);
     const row={at,staff,away,paid,costs:paid?cost:{},readiness:0};row.readiness=this.nextReadiness(d.readiness,d.records.at(-1),row);d.readiness=row.readiness;d.lastSettledAt=at;d.records.push(row);
     return paid?Object.fromEntries(Object.entries(cost).map(([k,v])=>[k,-v])):{};
@@ -39,6 +39,7 @@ var CivilSecurity={
   departureReason(s,p){
     if(this.available(s)&&!this.data(s))return '先在议事屋议定商路绕行或护送';
     if(!p)return null;
+    if(p.homeGuard&&typeof CivilFrontier!=='undefined'&&CivilSecurity.guards(s)-CivilFrontier.guardFloor(s)<p.homeGuard)return '守备仍承担渡口职责，须先结束驻防或等分队返城';
     const d=this.data(s),r=d.records.at(-1);
     if(p.homeGuard&&(!this.asset(s)||d.readiness<300||!r?.paid||s.civilization.elapsed-r.at>10||this.guards(s)<p.homeGuard))return '先安排足额守备，实付训练至300秒并维持值勤费用';
     if(p.sourceGuard&&(!d.pact||this.sourceFree(s)<p.sourceGuard))return '共同护送须有对方约定和两名空余成年护路人员';
@@ -47,7 +48,7 @@ var CivilSecurity={
   },
   staffed(s,o){
     const p=o?.security;if(!p)return true;
-    if(this.guards(s)<p.homeGuard)return false;
+    if(this.guards(s)-(typeof CivilFrontier!=='undefined'?CivilFrontier.guardFloor(s):0)<p.homeGuard)return false;
     if(p.sourceGuard){const n=CivilCommerce.source(s),id=CivilCommerce.sourceId(s);if(CivilPopulation.workforce(n.cohorts)<CivilOrigins.sourceStaff(s,id))return false;}
     return true;
   },
@@ -108,7 +109,7 @@ var CivilSecurity={
     for(const r of d.records){
       if(!obj(r)||!asset||!time(r.at)||r.at<asset.completedAt||previous&&r.at-previous.at<10||!Number.isSafeInteger(r.staff)||r.staff<0||r.staff>4||typeof r.paid!=='boolean'||typeof r.away!=='boolean'||r.paid&&!r.staff||!same(r.costs,r.paid?this.cost(r.staff):{}))fail();
       // Settlement precedes this second's convoy movement and dispatch.
-      const away=c.commerce.orders.some(o=>o.security?.homeGuard&&o.departedAt<r.at&&(o.returnedAt===null||o.returnedAt>=r.at));if(r.away!==away)fail();
+      const away=c.commerce.orders.some(o=>o.security?.homeGuard&&o.departedAt<r.at&&(o.returnedAt===null||o.returnedAt>=r.at));if(r.away!==(away||(typeof CivilFrontier!=='undefined'&&CivilFrontier.awayAt(s,r.at))))fail();
       readiness=this.nextReadiness(readiness,previous,r);if(r.readiness!==readiness)fail();previous=r;
     }
     if(d.readiness!==readiness||d.lastSettledAt!==(previous?.at??null))fail();

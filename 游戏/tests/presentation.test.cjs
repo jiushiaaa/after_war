@@ -23,7 +23,7 @@ test('1x and 16x retain identical real economic, population, travel and event pr
   assert.deepEqual(fast.s,slow.s);assert.deepEqual(fast.events,slow.events);
   assert.deepEqual(fast.settlements,slow.settlements);assert.equal(fast.settlements.length,16);
   assert.equal(slow.villageTicks,160);assert.equal(fast.villageTicks,160);
-  assert.equal(slow.workers,160);assert.equal(fast.workers,50);
+  assert.equal(slow.workers,160);assert.equal(fast.workers,20);
   assert.equal(slow.views-slow.workers,1);assert.equal(fast.views-fast.workers,1,'the same routine event still refreshes immediately');
   assert.ok(fast.s.civilization.society.year>natural().civilization.society.year,'a real annual census occurred');
 });
@@ -33,7 +33,7 @@ test('periodic rendering is bounded by wall time, not changed simulation seconds
   ctx.performance={now:()=>now};C.refresh=()=>{views++;};ctx.Outside.updateWorkersView=()=>{workers++;};
   const before=JSON.stringify(s);
   assert.equal(C.refreshPeriodic(),true);for(let i=0;i<16;i++)assert.equal(C.refreshPeriodic(),false);
-  now=249;assert.equal(C.refreshPeriodic(),false);now=250;assert.equal(C.refreshPeriodic(),true);
+  now=599;assert.equal(C.refreshPeriodic(),false);now=600;assert.equal(C.refreshPeriodic(),true);
   C.resetViewRefresh();assert.equal(C.refreshPeriodic(),true);assert.equal(views,3);assert.equal(workers,3);
   assert.equal(JSON.stringify(s),before,'presentation timing is never stored in the game');
   now=1;assert.equal(C.refreshPeriodic(),true,'a replaced/reset monotonic time source does not strand the UI');
@@ -73,7 +73,7 @@ test('a native button refresh remains immediate inside the periodic quiet window
   const button=C.button('presentationClick','查看','#roomPanel',()=>C.refresh());
   h.time(101);button.handlers.click();button.handlers.click();assert.equal(calls.renders,3);
   assert.equal(C.refreshPeriodic(),false);assert.equal(calls.workers,1);
-  h.time(250);assert.equal(C.refreshPeriodic(),false);h.time(251);assert.equal(C.refreshPeriodic(),true);
+  h.time(600);assert.equal(C.refreshPeriodic(),false);h.time(601);assert.equal(C.refreshPeriodic(),true);
   assert.equal(calls.renders,4);assert.equal(JSON.stringify(s),before);
 });
 

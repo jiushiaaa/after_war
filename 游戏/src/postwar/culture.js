@@ -1,6 +1,6 @@
 /* MPL-2.0 — A paid local commons; no invented residents, faith census or global buffs. */
 var CivilCulture={
-  pendingIds:['culture_river','culture_rail','culture_highland'],
+  pendingIds:['culture_river','culture_rail','culture_highland','culture_ford'],
   modes:{shared:'共享轮用',archive:'公共档案专用'},
   kinds:{archive:'口述档案交流',memorial:'守灯纪念'},
   cost:{wood:4,food:6},duration:180,interval:600,
@@ -65,7 +65,7 @@ var CivilCulture={
     return this.modes[this.agreement(s,id).mode]+' · 已完成'+completed.length+'次。'+(r?this.kinds[r.kind]+'还需'+r.remaining+'工秒；'+(this.reason(s,id)||'2位组织者与12位参与者在场'):!this.enabled(s,id)?'后续活动已停办。':s.civilization.elapsed<this.due(s,id)?'下次筹备还有'+Math.ceil(this.due(s,id)-s.civilization.elapsed)+'秒。':this.reason(s,id)||'等候地方备齐4木料、6食物和口粮储备。');
   },
   event(eventId){
-    const match=/^culture_(river|rail|highland)$/.exec(eventId);if(!match)return null;
+    const match=/^culture_(river|rail|highland|ford)$/.exec(eventId);if(!match)return null;
     const s=State,id=match[1],d=this.data(s,id);if(!d&&!this.eligible(s,id))return null;
     const snapshot=()=>JSON.stringify([this.agreement(s,id)?.id||0,this.enabled(s,id),this.active(s,id)?.id||0]),offered=snapshot();
     const run=(fn,lease=snapshot,expected=offered)=>()=>{if(s.civilization.pending!==eventId||lease()!==expected||!fn())return false;s.civilization.pending=null;Civilization.refresh();Engine.saveGame();return true;};

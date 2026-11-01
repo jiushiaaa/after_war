@@ -117,6 +117,18 @@ var CivilHistory={
       const trained=d.records.find(r=>r.readiness===300);if(trained)add('security_training','transport','守备训练准备完成','实际居民在已付费训练场积累300秒准备；继续值勤仍需供给，欠费或缺员会流失准备。',trained.at);
     }
     if(c.accession){const d=c.accession;for(const [id,a]of Object.entries(d.approvals))add('accession_approval_'+id,'nation',(id==='home'?'本城':this.sourceName(d.sourceId))+'加盟议约','实付 '+this.costText(a.cost)+'；当地现有人口与仓库保留。',a.at);if(d.joinedAt!==null)add('accession_joined','nation',this.sourceName(d.sourceId)+'共同法加盟','实际双方议约、当地记录人员和连续履约完成；公共补助与地方贡献仍需原车运输。',d.joinedAt);d.controls.forEach((x,i)=>add('accession_control_'+i,'nation',x.enabled?'恢复加盟共同行政':'暂缓加盟共同行政','人口与历史保留；已启程的实物承诺继续履行。',x.at));}
+    if(c.frontier){
+      const d=c.frontier;
+      for(const m of d.missions){
+        add('ford_depart_'+m.id,'transport',m.kind==='scout'?'旧渡口勘察启程':'四人渡口分队启程','原守备'+m.guards+'人与司机2人，用已有商车携带 '+this.costText(m.paid)+'；消耗与余额分别记账。',m.departedAt);
+        if(m.battle)add('ford_battle_'+m.id,'diplomacy','渡口冲突停火','实际行动180秒；本城死亡'+m.battle.dead.length+'、负伤'+m.battle.wounded.length+'，地方死亡'+m.battle.localDead.length+'。仅形成驻防，不取得地方仓库或公民资格。',m.battle.at);
+        if(m.returnedAt!==null)add('ford_return_'+m.id,'transport','渡口原车返城','实际回仓余量：'+this.costText(m.refunded)+'；已消耗军需不退款。',m.returnedAt);
+      }
+      if(d.peace)add('ford_peace','diplomacy',d.peace.kind==='peace'?'渡口和平议约':'渡口战后自治','本城实付 '+this.costText(d.peace.costs.home)+'；当地实付 '+this.costText(d.peace.costs.local)+'。共同治理仍须实际公民资格与连续履约。',d.peace.at);
+      if(d.occupation?.retreatAt!==null&&d.occupation?.retreatAt!==undefined)add('ford_retreat','transport','驻防守备徒步返城','返程仍需180秒，占员持续至抵达；准备支出 '+this.costText(d.occupation.retreatCost)+'。',d.occupation.retreatAt);
+      if(d.occupation?.endedAt!==null&&d.occupation?.endedAt!==undefined)add('ford_garrison_return','transport','驻防守备实际返抵','已走完180秒返程，释放两人驻防职责，原居民可重新分工。',d.occupation.endedAt);
+      for(const p of d.patients)if(p.recoveredAt!==null)add('ford_recovery_'+p.missionId,'nation','返城伤员恢复','原伤员完成120秒实付治疗，回到原居民名册；没有新增人口。',p.recoveredAt);
+    }
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);
       add('road_warning_'+r.id,'incidents',place+'道路预警','巡路人员发现松动路基，提出加固或交通安排。',r.createdAt);

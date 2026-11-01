@@ -53,7 +53,7 @@ var CivilUrban = {
     if(party.source!=='dispersed' && (typeof CivilOrigins==='undefined' || !CivilOrigins.recordArrival(s,party)))return false;
     return this.admit(s,party.cohorts,party.source,target)===n;
   },
-  reservedBeds(s,target='home'){return (s.civilization.urban?.parties||[]).filter(p=>p.target===target && ['outbound','held'].includes(p.state)).reduce((n,p)=>n+this.count(p.cohorts),0);},
+  reservedBeds(s,target='home'){return (target==='home'&&typeof CivilFrontier!=='undefined'?CivilFrontier.wounded(s):0)+(s.civilization.urban?.parties||[]).filter(p=>p.target===target && ['outbound','held'].includes(p.state)).reduce((n,p)=>n+this.count(p.cohorts),0);},
   availableBeds(s,target='home'){return Math.max(0,this.targetCapacity(s,target)-this.targetPopulation(s,target)-this.reservedBeds(s,target));},
   reservedTransport(s){return (s.civilization.urban?.parties||[]).reduce((n,p)=>n+(p.transport?.crew||2),0);},
   staffedParties(s){

@@ -58,6 +58,7 @@ var Civilization = {
     if(typeof CivilDiplomacy!=='undefined'){const paid=CivilDiplomacy.settle(s);if(Object.keys(paid).length)flow['居留公约记录']=paid;}
     if(typeof CivilSecurity!=='undefined'){const paid=CivilSecurity.settle(s);if(Object.keys(paid).length)flow['守备']=paid;}
     if(typeof CivilAccession!=='undefined'){const paid=CivilAccession.settle(s);if(Object.keys(paid).length)flow['加盟共同记录']=paid;}
+    if(typeof CivilFrontier!=='undefined'){const paid=CivilFrontier.settle(s);if(Object.keys(paid).length)flow['渡口驻防与伤员']=paid;}
     const deltas={};
     for(const key of new Set([...Object.keys(before),...Object.keys(s.stores)]))deltas[key]=(s.stores[key]||0)-(before[key]||0);
     if(typeof CivilUrban!=='undefined')Object.assign(flow,CivilUrban.settle(s,{flow,deltas}));
@@ -131,6 +132,7 @@ var Civilization = {
     if(typeof CivilDiplomacy!=='undefined')CivilDiplomacy.observe(State);
     if(typeof CivilAccession!=='undefined')CivilAccession.observe(State);
     if(typeof CivilCommerce!=='undefined')CivilCommerce.tick(State);
+    if(typeof CivilFrontier!=='undefined')CivilFrontier.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -284,7 +286,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -346,7 +348,7 @@ var Civilization = {
   refreshPeriodic() {
     const now=this.viewNow();
     // Presentation follows wall time; every simulation tick and event still runs.
-    if(this.lastViewRefreshAt!==undefined && now>=this.lastViewRefreshAt && now-this.lastViewRefreshAt<150)return false;
+    if(this.lastViewRefreshAt!==undefined && now>=this.lastViewRefreshAt && now-this.lastViewRefreshAt<500)return false;
     this.lastViewRefreshAt=now;
     Outside.updateWorkersView();this.refresh();return true;
   },
@@ -427,6 +429,7 @@ var Civilization = {
     if(typeof CivilCommerce!=='undefined')CivilCommerce.refresh();
     if(typeof CivilSecurity!=='undefined')CivilSecurity.refresh();
     if(typeof CivilAccession!=='undefined')CivilAccession.refresh();
+    if(typeof CivilFrontier!=='undefined')CivilFrontier.refresh();
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
@@ -503,6 +506,12 @@ Outside.increaseWorker=function(event){
   const n=Math.min(Outside.getNumGatherers(),Number(event.data),cap-(State.game.workers[job]||0));
   if(n>0)$SM.add('game.workers.'+job,n);
 };
+const adrDecreaseWorker=Outside.decreaseWorker;
+Outside.decreaseWorker=function(event){
+  const job=$(this).closest('.workerRow').attr('key'),floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
+  if(!floor)return adrDecreaseWorker.call(this,event);
+  const n=Math.min(Number(event.data),Math.max(0,(State.game.workers[job]||0)-floor));if(n>0)$SM.add('game.workers.'+job,-n);
+};
 Outside.getNumGatherers=function(){return (typeof CivilSociety!=='undefined'?CivilSociety.workforce(State):State.game.population)-Object.values(State.game.workers).reduce((a,b)=>a+b,0);};
 const adrWorkersView=Outside.updateWorkersView;
 Outside.updateWorkersView=function(){
@@ -511,7 +520,9 @@ Outside.updateWorkersView=function(){
   for(const [job,n]of Object.entries(State.game.workers)){
     const cap=CivilCatalog.jobCapacity(State,job);
     $('#workers_row_'+job+' .upBtn,#workers_row_'+job+' .upManyBtn').toggleClass('disabled',n>=cap || Outside.getNumGatherers()<=0);
-    $('#workers_row_'+job).attr('title',Number.isFinite(cap)?'岗位上限 '+cap:'');
+    const floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
+    if(floor)$('#workers_row_'+job+' .dnBtn,#workers_row_'+job+' .dnManyBtn').toggleClass('disabled',n<=floor);
+    $('#workers_row_'+job).attr('title',(Number.isFinite(cap)?'岗位上限 '+cap:'')+(floor?'；在外职责至少占 '+floor+' 人':''));
   }
 };
 Outside.checkWorker=function(name) {

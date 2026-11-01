@@ -2,7 +2,7 @@
 if(typeof CivilAdvancedContent!=='undefined'){Object.assign(CivilMunicipalContent.facilities,CivilAdvancedContent.facilities);CivilMunicipalContent.jobs.push(...Object.keys(CivilAdvancedContent.jobs));}
 if(typeof CivilServiceContent!=='undefined')CivilMunicipalContent.jobs.push(...Object.keys(CivilServiceContent.jobs).filter(k=>k!=='servicebuilder'));
 var CivilMunicipal={
-  pendingIds:['municipalConsent_river','municipalConsent_rail','municipalConsent_highland','municipalTown_river','municipalTown_rail','municipalTown_highland','municipalCity_river','municipalCity_rail','municipalCity_highland'],
+  pendingIds:['municipalConsent_river','municipalConsent_rail','municipalConsent_highland','municipalTown_river','municipalTown_rail','municipalTown_highland','municipalCity_river','municipalCity_rail','municipalCity_highland','municipalConsent_ford','municipalTown_ford','municipalCity_ford'],
   init(s){if(s.civilization.municipal===undefined)s.civilization.municipal={schema:1,nodes:{}};},
   has(s,id){const nodes=s.civilization.municipal?.nodes;return typeof id==='string'&&Object.hasOwn(CivilRegionContent,id)&&!!nodes&&Object.hasOwn(nodes,id)&&!!nodes[id];},
   node(s,id){return s.civilization.regions?.nodes[id];},
@@ -271,7 +271,7 @@ var CivilMunicipal={
     return null; // Consent is a deliberate native button, not an unsolicited automatic annexation.
   },
   event(eventId,done){
-    const match=/^municipal(Consent|Town|City)_(river|rail|highland)$/.exec(eventId);if(!match)return null;
+    const match=/^municipal(Consent|Town|City)_(river|rail|highland|ford)$/.exec(eventId);if(!match)return null;
     const [,kind,id]=match,s=State,n=this.node(s,id),m=this.data(s,id);if(!n)return null;
     const title=CivilRegionContent[id].name;
     if(kind==='Consent'){

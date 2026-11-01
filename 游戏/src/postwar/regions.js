@@ -1,6 +1,6 @@
 /* MPL-2.0 — Independent node inventories, conserved shipments and consensual local integration. */
 var CivilRegions={
-  pendingIds:['railSurvey','highlandSurvey','regionRights','regionRiver','regionRail','regionHighland'],
+  pendingIds:['railSurvey','highlandSurvey','regionRights','regionRiver','regionRail','regionHighland','regionFord'],
   buildings:{
     cartdepot:{cost:()=>({wood:180,iron:20,parts:8,tools:10}),max:2,gate:()=>!!State.civilization.tech.logistics},
     archive:{cost:()=>({wood:180,iron:20,parts:10,knowledge:40}),max:3,gate:()=>!!State.civilization.tech.administration}
@@ -144,7 +144,7 @@ var CivilRegions={
       desired.farmer+=Math.ceil(Math.max(0,(this.foodPopulation(n)-d.population)*.12+(desired.medic-(d.service.medic||d.workers.medic||0))*.2)/.8);
     }
     if(s.civilization.regions.projects[id]?.status==='building' || this.upgrade(s,id)?.status==='building')desired.builder=2;
-    let left=this.workforce(n);n.workers={};
+    let left=this.workforce(n)-(id==='ford'&&typeof CivilFrontier!=='undefined'?CivilFrontier.defenders(s):0);n.workers={};
     // Local governments protect subsistence before filling processing and teaching roles.
     for(const job of ['farmer','medic','builder','salvager','gatherer','teacher','smelter','machinist']){
       const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;
@@ -167,7 +167,7 @@ var CivilRegions={
     if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id))return CivilMunicipal.settleNode(s,id);
     this.planWorkers(s,id,n);const w=n.workers,st=n.stores;
     const hungry=(st.food||0)<this.foodPopulation(n)*.12;
-    const f=(n.health<30?.75:1)*(hungry?.65:1);
+    const f=(n.health<30?.75:1)*(hungry?.65:1)*(id==='ford'&&typeof CivilFrontier!=='undefined'&&CivilFrontier.occupation(s)?.retreatAt===null?.8:1);
     st.food=(st.food||0)+(w.farmer||0)*.8*f;st.scrap=(st.scrap||0)+(w.salvager||0)*.8*f;st.wood=(st.wood||0)+(w.gatherer||0)*.5*f;
     const meal=this.foodPopulation(n)*.12,ate=(st.food||0)+1e-8>=meal;st.food=Math.max(0,(st.food||0)-meal);
     const run=(count,cost,out,reserve={})=>{
@@ -197,7 +197,7 @@ var CivilRegions={
     if(!enabled && !this.routeBusy(s,id))route.assigned=0;
     route.status=enabled?'等待发车':this.routeBusy(s,id)?'本趟完成后停发':'已暂停';return true;
   },
-  signTrade(s,id){const r=s.civilization.regions,n=r?.nodes[id];if(!r?.active || !n || n.relation!=='contacted')return false;n.relation='trade';return true;},
+  signTrade(s,id){if(id==='ford')return false;const r=s.civilization.regions,n=r?.nodes[id];if(!r?.active || !n || n.relation!=='contacted')return false;n.relation='trade';return true;},
   launch(s,id){
     const r=s.civilization.regions,route=r.routes[id];
     if(!r.active || !route?.enabled || route.condition!=='open' || this.routeBusy(s,id) || !this.staffedRoutes(s).has(id))return false;
@@ -367,6 +367,7 @@ var CivilRegions={
     return true;
   },
   associate(s,id){
+    if(id==='ford'&&!s.civilization.frontier?.peace)return false;
     const r=s.civilization.regions,n=r.nodes[id];
     if(!n || n.relation!=='trade' || !s.civilization.tech.administration || !r.rights || !n.completedProjects.publicWorks || n.trust<60 || this.load(s)>=this.capacity(s) || !CivilRules.pay(s,{knowledge:20}))return false;
     n.control='shared';n.relation='associated';n.rights=r.rights;n.rightsSince=s.civilization.elapsed;n.autonomy=s.civilization.society?.axes.devolution==='central'?'coordinated':'local';n.promises.citizenship=true;n.stableSeconds=0;return true;
@@ -445,13 +446,14 @@ var CivilRegions={
       const names={equal:'平等公民',resident:'居住资格',stratified:'分层资格'};
       return {title:'谁属于共同体',text:['公民资格适用于人类和变异居民。食物、基本医疗与保护不能因外貌而取消。','平等公民直接共享代表资格；居住资格在连续登记600秒后转正；分层资格可保留附属关系，但不会完成平等整合。','以后可花30知识重议资格。既有仓库和已送出的公共物资不会因改制而重置。'],buttons:Object.fromEntries(Object.entries(names).map(([k,text])=>[k,{text,nextScene:'end',onChoose:done('共同体采用'+text+'。',()=>this.chooseRights(s,k))}]))};
     }
-    const key={regionRiver:'river',regionRail:'rail',regionHighland:'highland'}[id],n=r?.nodes[key];if(!n)return null;
+    const key={regionRiver:'river',regionRail:'rail',regionHighland:'highland',regionFord:'ford'}[id],n=r?.nodes[key];if(!n)return null;
+    if(key==='ford'&&n.relation==='contacted')return CivilFrontier.event(id,done);
     const d=CivilRegionContent[key],route=r.routes[key],p=r.projects[key],upgrade=this.upgrade(s,key),buttons={};
     if(r.active && n.relation==='contacted')buttons.trade={text:'签订互惠货单',nextScene:'end',onChoose:done('货单已登记。安排运输工后才能启运。',()=>this.signTrade(s,key))};
     if(r.active && n.relation!=='contacted' && (route.enabled || route.assigned>=2 || this.availableTransport(s)>=this.routeCrew(s,key)))buttons.route={text:route.enabled?'完成本趟后停发':this.routeCrew(s,key)===4?'安排四人启运':'安排两人启运',nextScene:'end',onChoose:done(route.enabled?'车队将在本趟结束后停发。':'车队按可用运输岗位安排。',()=>this.setRoute(s,key,!route.enabled))};
     if(civilCanProject())buttons.project={text:'筹办'+d.project.name,nextScene:'end',onChoose:done('筹办公共项目。材料由下一趟车队逐批实际运到。',()=>this.startProject(s,key))};
     if(this.canUpgrade(s,key))buttons.upgrade={text:'筹办货车改装',nextScene:'end',onChoose:()=>{const ok=this.startUpgrade(s,key);return done(ok?'货车改装已筹办。木120、铁20、零件8、工具8由原车逐批运到，再由当地两人施工180秒。':'改装条件已有变化，等待现有工程结束或恢复地方议约。')();}};
-    if(n.relation==='trade' && n.completedProjects.publicWorks && r.rights && this.load(s)<this.capacity(s) && CivilRules.canPay(s,{knowledge:20}))buttons.associate={text:'议约加盟（20知识）',nextScene:'end',onChoose:done('代表签下共同服务与公民资格条款。持续履约后才能完成整合。',()=>this.associate(s,key))};
+    if((key!=='ford'||s.civilization.frontier?.peace) && n.relation==='trade' && n.completedProjects.publicWorks && r.rights && this.load(s)<this.capacity(s) && CivilRules.canPay(s,{knowledge:20}))buttons.associate={text:'议约加盟（20知识）',nextScene:'end',onChoose:done('代表签下共同服务与公民资格条款。持续履约后才能完成整合。',()=>this.associate(s,key))};
     if(typeof CivilRelief!=='undefined'&&(CivilRelief.eligible(s,key)||CivilRelief.active(s,key))){
       const relief=CivilRelief.active(s,key);
       if(!relief)buttons.relief={text:'筹办一车救济',nextScene:'end',onChoose:done('已申请有限救济，原车空闲且物资足额时实付出发。',()=>CivilRelief.request(s,key))};
@@ -462,7 +464,7 @@ var CivilRegions={
     if(route.condition==='closed'||typeof CivilIncidents!=='undefined'&&CivilIncidents.canRepair(s,key))buttons.repair={text:'修路（木20工具4）',nextScene:'end',onChoose:()=>done(this.repairRoad(s,key)?'修路材料已实付，道路恢复通行。':'材料或道路条件已变化，本次未扣款。')()};
     buttons.close={text:'暂不改变',nextScene:'end',onChoose:done('对方继续按现有约定生活。')};
     const fmt=obj=>Object.entries(obj).map(([k,v])=>_(k)+' '+Number(v.toFixed(2))).join('、');
-    return {title:d.name,text:[...(typeof CivilRelief!=='undefined'&&(CivilRelief.eligible(s,key)||CivilRelief.active(s,key))?[CivilRelief.status(s,key)+'。一车救济：'+fmt(CivilRelief.active(s,key)?.cargo||CivilRelief.pack(route.capacity))+'；另付原旅费，须保留主城120秒粮药工具储备。救济占用原车，会推迟下一笔预算或工程。']:[]),n.population+'居民 · 健康'+Math.floor(n.health)+' · 信任'+Math.floor(n.trust)+' · '+({contacted:'独立接触',trade:'互惠贸易',associated:'加盟履约',integrated:'共同治理'}[n.relation]),'本地送出：'+fmt(d.out)+'；到达后，对方备货：'+fmt(d.back)+'。单程'+route.travel+'秒，载重'+route.capacity+'，每趟另耗木1与旅粮'+(route.capacity===128?'、零件0.05':'')+(this.routeCrew(s,key)===4?'；铁路另耗煤2、零件0.1、工具0.05':'')+'。','地方库存：'+fmt(n.stores)+'。',...(typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(key)?['共同约定：'+CivilFinance.routeStatus(s,key)+'。']:[]),'车队：'+route.status+'。已完成'+route.completedTrips+'趟。'+(!route.enabled && !route.assigned && this.availableTransport(s)<this.routeCrew(s,key)?' 还需'+this.routeCrew(s,key)+'名空闲运输工才能启运。':''),...(p?['公共项目：'+({supplying:'材料运输中',building:'施工 '+Math.ceil(p.remaining)+'秒',complete:'已经建成'}[p.status])+'。']:s.civilization.tech.administration?['共同项目需要：'+fmt(d.project.cost)+'；另花10知识筹办，材料运到后施工。']:[]),...(this.canUpgrade(s,key)?['改装计划：木120、铁20、零件8、工具8，由原车运到；当地两人施工180秒后载重变为128，每趟另耗0.05零件。']:[]),...(upgrade?['货车改装：'+({supplying:'已运到 '+(fmt(upgrade.buffer)||'尚无材料')+'；需要 '+fmt(upgrade.required),building:'原车留在当地，由两名施工者改装，还需'+Math.ceil(upgrade.remaining)+'秒',complete:'已完成，仍是一辆车、两名运输工'}[upgrade.status])+'。']:[]),...(n.relation==='associated'?['整合 '+Math.floor(n.integration)+'%；需要持续供养、通行、行政容量与公民资格。'+(n.rights==='resident'?' 该地资格登记还需 '+Math.max(0,600-(s.civilization.elapsed-n.rightsSince))+' 秒。':n.rights==='stratified'?' 分层资格维持加盟关系，暂不完成共同公民权整合。':'')]:[])],buttons};
+    return {title:d.name,text:[...(typeof CivilRelief!=='undefined'&&(CivilRelief.eligible(s,key)||CivilRelief.active(s,key))?[CivilRelief.status(s,key)+'。一车救济：'+fmt(CivilRelief.active(s,key)?.cargo||CivilRelief.pack(route.capacity))+'；另付原旅费，须保留主城120秒粮药工具储备。救济占用原车，会推迟下一笔预算或工程。']:[]),n.population+'居民 · 健康'+Math.floor(n.health)+' · 信任'+Math.floor(n.trust)+' · '+((key==='ford'&&typeof CivilFrontier!=='undefined'?CivilFrontier.relation(s):null)||{contacted:'独立接触',trade:'互惠贸易',associated:'加盟履约',integrated:'共同治理'}[n.relation]),'本地送出：'+fmt(d.out)+'；到达后，对方备货：'+fmt(d.back)+'。单程'+route.travel+'秒，载重'+route.capacity+'，每趟另耗木1与旅粮'+(route.capacity===128?'、零件0.05':'')+(this.routeCrew(s,key)===4?'；铁路另耗煤2、零件0.1、工具0.05':'')+'。','地方库存：'+fmt(n.stores)+'。',...(typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(key)?['共同约定：'+CivilFinance.routeStatus(s,key)+'。']:[]),'车队：'+route.status+'。已完成'+route.completedTrips+'趟。'+(!route.enabled && !route.assigned && this.availableTransport(s)<this.routeCrew(s,key)?' 还需'+this.routeCrew(s,key)+'名空闲运输工才能启运。':''),...(p?['公共项目：'+({supplying:'材料运输中',building:'施工 '+Math.ceil(p.remaining)+'秒',complete:'已经建成'}[p.status])+'。']:s.civilization.tech.administration?['共同项目需要：'+fmt(d.project.cost)+'；另花10知识筹办，材料运到后施工。']:[]),...(this.canUpgrade(s,key)?['改装计划：木120、铁20、零件8、工具8，由原车运到；当地两人施工180秒后载重变为128，每趟另耗0.05零件。']:[]),...(upgrade?['货车改装：'+({supplying:'已运到 '+(fmt(upgrade.buffer)||'尚无材料')+'；需要 '+fmt(upgrade.required),building:'原车留在当地，由两名施工者改装，还需'+Math.ceil(upgrade.remaining)+'秒',complete:'已完成，仍是一辆车、两名运输工'}[upgrade.status])+'。']:[]),...(n.relation==='associated'?['整合 '+Math.floor(n.integration)+'%；需要持续供养、通行、行政容量与公民资格。'+(n.rights==='resident'?' 该地资格登记还需 '+Math.max(0,600-(s.civilization.elapsed-n.rightsSince))+' 秒。':n.rights==='stratified'?' 分层资格维持加盟关系，暂不完成共同公民权整合。':'')]:[])],buttons};
     function civilCanProject(){return r.active && s.civilization.tech.administration && n.relation!=='contacted' && !p && route.completedTrips>=3 && n.trust>=60 && CivilRules.canPay(s,{knowledge:10});}
   },
   reset(){this.module=null;},
@@ -485,7 +487,7 @@ var CivilRegions={
     for(const [id,j]of Object.entries(this.journeys))if(j.allowed(s)){const b=Civilization.button(id+'Button',id==='railSurvey'?'沿铁轨勘察':'踏勘高地山路','#regionsPanel',()=>Civilization.depart(id),j.cost);Button.setDisabled(b,!!c.journey || !!c.pending || !CivilRules.canPay(s,j.cost));}
     $('#railSurveyButton').toggle(!r.nodes.rail && !!c.tech.survey);$('#highlandSurveyButton').toggle(!!r.nodes.rail && !r.nodes.highland && !!c.tech.survey);
     for(const [id,n]of Object.entries(r.nodes)){
-      const pending={river:'regionRiver',rail:'regionRail',highland:'regionHighland'}[id];
+      const pending={river:'regionRiver',rail:'regionRail',highland:'regionHighland',ford:'regionFord'}[id];
       const button=Civilization.button('regionNode_'+id,CivilRegionContent[id].name,'#regionNodes',()=>{if(!Events.activeEvent() && !c.pending){c.pending=pending;Civilization.showPending();}});
       button.attr('title',n.population+'居民；'+r.routes[id].status+'；'+(n.relation==='integrated'?'共同治理':'各自保有库存'));
     }

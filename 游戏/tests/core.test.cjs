@@ -98,6 +98,17 @@ test('save codec rejects foreign saves, nonfinite inventory, unsafe keys and ove
  const jobs=state();jobs.game.workers.hunter=5;assert.throws(()=>p.validate(jobs));
  const injected=JSON.parse(JSON.stringify(valid).replace('"tech":{}','"tech":{"__proto__":{}}'));assert.throws(()=>p.validate(injected));
 });
+
+test('file import validates before confirmation and never replaces live progress on failure or cancellation',async()=>{
+ const live=state(),before=JSON.stringify(live),notes=[],event={};let active=event,input,scene='import';
+ const events={activeEvent:()=>active,get activeScene(){return scene;},loadScene:next=>{scene=next;}};
+ const {CivilPlatform:p}=context(['src/postwar/platform.js'],{State:live,Events:events,setTimeout:fn=>fn(),Notifications:{notify:(_who,text)=>notes.push(text)},document:{createElement(){return input={click(){},files:[]};}}});
+ const raw=JSON.stringify({format:'postwar-civilization',version:1,state:state()});
+ p.chooseImportFile();input.files=[{text:async()=>raw}];await input.onchange();assert.equal(scene,'confirm');assert.equal(JSON.stringify(live),before);assert.deepEqual(JSON.parse(JSON.stringify(p.pending)),state());
+ scene='import';p.inspectImport('{broken');assert.equal(scene,'import');assert.equal(p.pending,null);assert.match(notes.at(-1),/导入未执行/);
+ p.chooseImportFile();input.files=[{text:async()=>{throw Error('read failed');}}];await input.onchange();assert.match(notes.at(-1),/文件读取失败/);assert.equal(scene,'import');
+ let resolve;p.chooseImportFile();input.files=[{text:()=>new Promise(r=>resolve=r)}];const loading=input.onchange();active=null;resolve(raw);await loading;assert.equal(scene,'import');assert.equal(p.pending,null);assert.equal(JSON.stringify(live),before);
+});
 test('only successful null cloud read permits a new game; a failed read cannot enable writes',async()=>{
  let writes=0;const {CivilPlatform:p}=context(['src/postwar/platform.js'],{LumiMakerSdk:{ready:async()=>({ready:true}),readSave:async()=>{throw Error('network');},writeSave:async()=>writes++}});
  await assert.rejects(p.load());assert.equal(p.loaded,false);p.dirty=true;await p.flush();assert.equal(writes,0);

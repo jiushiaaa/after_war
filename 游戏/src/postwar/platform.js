@@ -24,7 +24,7 @@
     for(const [key,value] of Object.entries(c.tech)) if(!Object.hasOwn(CivilText.research,key) || typeof value!=='boolean') throw Error('技术进度无效');
     const regionPending=typeof CivilRegions!=='undefined'?(CivilRegions.pendingIds||[]):[],urbanPending=typeof CivilUrban!=='undefined'?(CivilUrban.pendingIds||[]):[],originPending=typeof CivilOrigins!=='undefined'?(CivilOrigins.pendingIds||[]):[],municipalPending=typeof CivilMunicipal!=='undefined'?(CivilMunicipal.pendingIds||[]):[];
     const financePending=typeof CivilFinance!=='undefined'?(CivilFinance.pendingIds||[]):[],metroPending=typeof CivilMetro!=='undefined'?(CivilMetro.pendingIds||[]):[],incidentPending=typeof CivilIncidents!=='undefined'?(CivilIncidents.pendingIds||[]):[],culturePending=typeof CivilCulture!=='undefined'?CivilCulture.pendingIds:[],cooperativePending=typeof CivilCooperative!=='undefined'?CivilCooperative.pendingIds:[];
-    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilNation!=='undefined'?CivilNation.pendingIds:[]),...(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.pendingIds:[]),...(typeof CivilRailway!=='undefined'?CivilRailway.pendingIds:[]),...(typeof CivilCommerce!=='undefined'?CivilCommerce.pendingIds:[]),...(typeof CivilSecurity!=='undefined'?CivilSecurity.pendingIds:[]),...(typeof CivilAccession!=='undefined'?CivilAccession.pendingIds:[]),...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
+    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilNation!=='undefined'?CivilNation.pendingIds:[]),...(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.pendingIds:[]),...(typeof CivilRailway!=='undefined'?CivilRailway.pendingIds:[]),...(typeof CivilCommerce!=='undefined'?CivilCommerce.pendingIds:[]),...(typeof CivilSecurity!=='undefined'?CivilSecurity.pendingIds:[]),...(typeof CivilAccession!=='undefined'?CivilAccession.pendingIds:[]),...(typeof CivilFrontier!=='undefined'?CivilFrontier.pendingIds:[]),...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
     const pop = state.game.population || 0;
     if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
     if(c.society!==undefined)CivilSociety.validate(state);
@@ -51,6 +51,7 @@
     if(typeof CivilCommerce!=='undefined')CivilCommerce.validate(state);
     if(typeof CivilSecurity!=='undefined')CivilSecurity.validate(state);
     if(typeof CivilAccession!=='undefined')CivilAccession.validate(state);
+    if(typeof CivilFrontier!=='undefined')CivilFrontier.validate(state);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.validate(state);
     if(typeof CivilHeating!=='undefined')CivilHeating.validate(state);
     const labor=c.society?CivilSociety.workforce(state):pop;
@@ -117,6 +118,22 @@
       const a=document.createElement('a'); a.href=url; a.download='战后文明-存档.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
       this.status('存档已导出');
     },
+    inspectImport(text,event=Events.activeEvent()) {
+      if(!event||Events.activeEvent()!==event||Events.activeScene!=='import')return;
+      try { this.pending=decode(text); setTimeout(()=>{
+        if(Events.activeEvent()===event&&Events.activeScene==='import')Events.loadScene('confirm');
+      },0); } catch(error) { this.pending=null; Notifications.notify(null,'导入未执行：'+error.message); }
+    },
+    chooseImportFile() {
+      const event=Events.activeEvent(),input=document.createElement('input');
+      input.type='file';input.accept='.json,application/json';
+      input.onchange=async()=>{
+        const file=input.files[0];if(!file)return;
+        try { this.inspectImport(await file.text(),event); }
+        catch(error) { if(Events.activeEvent()===event)Notifications.notify(null,'导入未执行：文件读取失败'); }
+      };
+      input.click();
+    },
     menu() {
       if(Events.activeEvent()) return;
       const cloud = this.sdk ? (this.error?'云端保存失败。当前进度仍在，请导出备份或重试。':'已连接云存档。进度自动保存。') : '本地预览没有云存档。刷新或关闭前，请导出进度；下次可导入继续。';
@@ -125,12 +142,9 @@
         import:{text:'导入进度',nextScene:{1:'import'}},
         ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
         close:{text:'关闭',nextScene:'end'}
-      }},import:{text:['粘贴存档文件中的完整内容。检查通过后，会再次确认是否替换当前进度。'],textarea:'',buttons:{
-        inspect:{text:'检查存档',onChoose:text=>{
-          try { this.pending=decode(text); setTimeout(()=>{
-            Events.loadScene('confirm');
-          },0); } catch(error) { Notifications.notify(null,'导入未执行：'+error.message); }
-        }},cancel:{text:'取消',nextScene:'end'}
+      }},import:{text:['选择原始存档文件，或粘贴完整内容后检查。检查通过后，再确认是否替换当前进度。'],textarea:'',buttons:{
+        file:{text:'选择存档文件',onChoose:()=>this.chooseImportFile()},
+        inspect:{text:'检查存档',onChoose:text=>this.inspectImport(text)},cancel:{text:'取消',nextScene:'end'}
       }},confirm:{text:['用这份存档替换当前进度？替换前可以先导出当前进度。'],buttons:{
         backup:{text:'导出当前进度',onChoose:()=>this.download()},
         replace:{text:'替换当前进度',onChoose:()=>{const next=this.pending;this.pending=null;setTimeout(()=>Civilization.restart(next),0);}},
