@@ -1,0 +1,8 @@
+/* Uses the existing lower-right menu and native event panel. */
+#historyMenu.history-unavailable { color:#999; cursor:default; }
+#historyMenu:focus-visible { outline:1px dashed currentColor; outline-offset:3px; }
+#event.civil-history-event { max-width:calc(100vw - 48px); overflow:visible; }
+#event.civil-history-event #description { max-height:48vh; overflow-y:auto; padding-right:8px; }
+#event.civil-history-event #description > div { margin-bottom:8px; padding-bottom:10px; overflow-wrap:anywhere; }
+#event.civil-history-event #buttons { padding-top:4px; }
+.dark #historyMenu.history-unavailable { color:#777; }

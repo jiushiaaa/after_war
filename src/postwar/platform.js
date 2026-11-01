@@ -15,7 +15,9 @@
     for(const key of ['fire','temperature']) if(!Number.isInteger(state.game[key]?.value) || state.game[key].value < 0 || state.game[key].value > 4) throw Error('火或温度无效');
     if(!Number.isInteger(state.game.builder?.level) || state.game.builder.level < -1 || state.game.builder.level > 4) throw Error('工匠进度无效');
     const c = state.civilization;
-    if(![1,2,4].includes(c.speed) || ![1,2,4].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
+    if(![1,2,4,8,16].includes(c.speed) || ![1,2,4,8,16].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
+    if(c.maxSpeed>=8&&!(c.urban?.city===true&&c.tech?.passenger_transport===true))throw Error('高级倍率缺少城市与运输进度');
+    if(c.maxSpeed===16&&!Object.entries(c.municipal?.nodes||{}).some(([key,n])=>n?.city===true&&Object.hasOwn(c.regions?.nodes||{},key)))throw Error('16倍速需要第二座已登记城市');
     if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
     const limits=CivilCatalog.limits;
     for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>(CivilCatalog.buildingLimit?CivilCatalog.buildingLimit(state,key):limits[key])) throw Error('建筑无效');

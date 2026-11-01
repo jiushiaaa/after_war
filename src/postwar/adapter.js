@@ -81,7 +81,7 @@ var Civilization = {
     if(!c.settled) {
       c.stableFor=CivilRules.stable(State)?c.stableFor+1:0;
       if(c.stableFor>=60) {
-        c.settled=true;c.maxSpeed=2;
+        c.settled=true;this.unlockSpeed(false);
         this.notify('粮棚有余粮，炉边有干柴。人们开始把这里叫作聚落。工匠提议收拾一间工坊。');
         this.notify('分工稳定了。现在可以按自己的节奏切换 1× 或 2×。');
         this.renderSpeed();
@@ -108,6 +108,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilServices!=='undefined')CivilServices.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
+    this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
     if(Object.keys(State.stores).some(k=>State.stores[k]!==storesBefore[k])){$SM.fireUpdate('stores');this.updateIncome();}
@@ -157,15 +158,45 @@ var Civilization = {
       }
     }
   },
-  renderSpeed() {
-    const c=State.civilization, box=$('#speedMenu').empty();
-    if(c.maxSpeed===1) return;
-    for(const n of [1,2,4]) if(n<=c.maxSpeed) {
-      $('<span>').text(n+'×').attr({role:'button',tabindex:0,'aria-label':n+'倍速'})
-        .toggleClass('selected',c.speed===n).click(()=>{
-          c.speed=n;CivilClock.rate=n;this.renderSpeed();this.updateIncome();Engine.saveGame();
-        }).appendTo(box);
+  speedLimit(s=State) {
+    const c=s.civilization;
+    let limit=c.settled?2:1;
+    if(s.game.buildings.outpost)limit=4;
+    if(c.urban?.city===true&&c.tech.passenger_transport===true){
+      limit=8;
+      const cities=1+Object.entries(c.municipal?.nodes||{}).filter(([id,n])=>n.city===true&&Object.hasOwn(c.regions?.nodes||{},id)).length;
+      if(cities>=2)limit=16;
     }
+    return limit;
+  },
+  unlockSpeed(announce=false) {
+    const c=State.civilization,limit=this.speedLimit();
+    if(limit<=c.maxSpeed)return false;
+    c.maxSpeed=limit;
+    if(announce){
+      if(limit===4)this.notify('补给线有了固定的轮值。4× 已永久开放。');
+      if(limit===8)this.notify('城市与迁居车队各有了轮值安排。8× 已永久开放。');
+      if(limit===16)this.notify('两座城市已经登记了各自的公共职责。16× 已永久开放。');
+      this.renderSpeed();
+    }
+    return true;
+  },
+  setSpeed(rate) {
+    const c=State.civilization;
+    if(![1,2,4,8,16].includes(rate)||rate>c.maxSpeed)return false;
+    c.speed=rate;CivilClock.rate=rate;this.renderSpeed();this.updateIncome();Engine.saveGame();return true;
+  },
+  speedMenu() {
+    if(Events.activeEvent()||State.civilization.pending)return false;
+    const c=State.civilization,buttons={};
+    for(const rate of [1,2,4,8,16])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
+    buttons.close={text:'保持当前速度',nextScene:'end'};
+    Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、旅程、居民年龄与冷却都按同一速度前进。'],buttons}}});return true;
+  },
+  renderSpeed() {
+    const c=State.civilization,box=$('#speedMenu').empty();
+    $('<span>').addClass('menuBtn').text('速度：'+c.speed+'×').attr({id:'speedButton',role:'button',tabindex:0,'aria-label':'调整时间流速，当前'+c.speed+'倍'})
+      .click(()=>this.speedMenu()).on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();this.speedMenu();}}).appendTo(box);
   },
   spend(cost) { const ok=CivilRules.pay(State,cost); if(ok) $SM.fireUpdate('stores'); return ok; },
   policyEvent() {
@@ -340,6 +371,9 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.refresh();
     if(typeof CivilServices!=='undefined')CivilServices.refresh();
+    if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State);
+    if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
+    if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
@@ -354,6 +388,9 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.reset();
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.reset();
     if(typeof CivilServices!=='undefined')CivilServices.reset();
+    if(typeof CivilInterface!=='undefined')CivilInterface.reset();
+    if(typeof CivilRegionMap!=='undefined')CivilRegionMap.reset();
+    if(typeof CivilHistory!=='undefined')CivilHistory.reset();
     $('.menu,#notifications,#event,#eventblocker').remove();$('#main').html('<div id="header"></div>');
     Engine.init({state});
   }
@@ -388,10 +425,7 @@ Room.build=function(button) {
   if(CivilCatalog.buildingLimit)Room.Craftables[id].maximum=CivilCatalog.buildingLimit(State,id);
   adrBuild(button);
   if(id==='granary' && (State.game.buildings[id] || 0)>before) Civilization.notify('工匠估算，四位居民、六十份木料、二十份食物，足以让大家安稳一阵。等储备稳住，再筹备工坊。');
-  if(State.game.buildings.outpost && State.civilization.maxSpeed<4) {
-    State.civilization.maxSpeed=4;Civilization.renderSpeed();
-    Civilization.notify('补给线有了固定的轮值。4× 已永久开放。远处还有更多聚居地，但这条路才刚开始。');
-  }
+  Civilization.unlockSpeed(true);
   Outside.updateVillage(); Outside.updateWorkersView(); Civilization.refresh(); Civilization.updateIncome();
 };
 const adrBuildButtons=Room.updateBuildButtons;

@@ -422,6 +422,7 @@ var CivilRegions={
       button.attr('title',n.population+'居民；'+r.routes[id].status+'；'+(n.relation==='integrated'?'共同治理':'各自保有库存'));
     }
     if(r.rights && c.tech.administration){const b=Civilization.button('regionRightsButton','重议公民资格','#regionsPanel',()=>{if(!Events.activeEvent() && !c.pending){c.pending='regionRights';Civilization.showPending();}},{knowledge:30});Button.setDisabled(b,!CivilRules.canPay(s,{knowledge:30}));}
+    if(typeof CivilRegionMap!=='undefined')CivilRegionMap.refresh(s);
     if(Engine.activeModule===Outside && $('#village').length)$('#storesContainer').css('top',($('#village').height()+26+Outside._STORES_OFFSET)+'px');
   },
   validate(s){

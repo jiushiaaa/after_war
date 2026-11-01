@@ -1,10 +1,17 @@
 /* MPL-2.0 — 战后文明: one simulation clock, independent of UI animation. */
 (function(root) {
   class SimulationClock {
+    static rates = Object.freeze([1, 2, 4, 8, 16]);
     constructor(now = () => performance.now()) {
       this.now = now; this.time = 0; this.rate = 1; this.tasks = new Map(); this.serial = 0;
     }
+    get rate() { return this._rate; }
+    set rate(value) {
+      if (!SimulationClock.rates.includes(value)) throw new RangeError('无效的模拟倍率');
+      this._rate = value;
+    }
     start() {
+      if (this.driver !== undefined) return;
       this.last = this.now();
       this.driver = setInterval(() => {
         const n = this.now();
@@ -13,8 +20,9 @@
         this.advance(elapsed * this.rate);
       }, 100);
     }
-    stop() { clearInterval(this.driver); this.tasks.clear(); }
+    stop() { clearInterval(this.driver); this.driver = undefined; this.tasks.clear(); }
     advance(ms) {
+      if (!Number.isFinite(ms) || ms < 0) throw new RangeError('无效的模拟时长');
       const end = this.time + ms;
       let safety = 0;
       while (++safety < 20000) {

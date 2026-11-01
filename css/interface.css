@@ -1,0 +1,44 @@
+/* Native ADR presentation: compact facts first, existing actions behind progressive categories. */
+.civil-summary { width:410px; max-width:100%; line-height:1.5!important; margin-bottom:16px!important; }
+.civil-summary-title { font-size:18px; margin-bottom:12px; }
+.civil-metrics { display:grid; grid-template-columns:1fr 1fr; gap:0 20px; border-top:1px solid #888; }
+.civil-metric { padding:9px 0; border-bottom:1px solid #ddd; min-width:0; }
+.civil-metric > span { display:block; color:#666; font-size:12px; }
+.civil-metric > strong { display:block; font-size:17px; font-weight:normal; margin-top:2px; }
+.civil-metric.needs-attention > strong { font-weight:bold; text-decoration:underline; }
+.civil-brief,.civil-notices { margin:10px 0; font-size:13px; line-height:1.6; }
+.civil-notices { border-left:2px solid #555; padding-left:8px; }
+.civil-details { font-size:13px; margin:12px 0; line-height:1.7; }
+.civil-details > summary { cursor:pointer; width:fit-content; }
+.civil-details dl { display:grid; grid-template-columns:90px 1fr; gap:6px 10px; margin:12px 0; }
+.civil-details dt { color:#777; }
+.civil-details dd { margin:0; }
+.civil-tabs { display:flex; flex-wrap:wrap; gap:7px; margin:15px 0; width:420px; max-width:100%; }
+.civil-tabs .button.civil-tab { width:auto!important; min-width:38px; margin:0; padding:6px 10px; font-size:13px; }
+.civil-tabs .selected { box-shadow:inset 0 -2px #222; font-weight:bold; }
+.civil-filtered { display:none!important; }
+.civil-jump { display:flex; gap:10px; margin:16px 0; }
+.civil-jump .button { width:105px; margin:0; }
+.civil-build-columns { margin-top:20px; }
+.civil-project-details { width:420px; max-width:100%; }
+.civil-project-details #municipalProject { font-size:13px; margin-top:10px!important; }
+.civil-research-book { width:145px; }
+.civil-research-book details { margin:6px 0; }
+.civil-research-book p { font-size:12px; margin:6px 0; }
+#civilResearchPanel { width:440px; }
+#civilResearchPanel #researchBtns { position:static; width:410px; margin-top:20px; }
+#civilResearchPanel #researchBtns:before { content:none; }
+#civilResearchPanel #researchStatus { width:410px; margin:12px 0; }
+#civilResearchPanel #researchBtns > .button { display:inline-block; vertical-align:top; margin:0 12px 10px 0; }
+#civilResearchTree { width:410px; }
+.civil-tech-row { margin:9px 0; padding:8px 0; border-bottom:1px solid #ddd; }
+.civil-tech-row p { margin:7px 0; }
+#civilResearchLink { position:absolute; top:50px; left:150px; }
+#civilBuiltBook { width:145px; margin-top:12px; }
+#civilBuiltBook > div { padding-top:12px; }
+.civil-room-managed #buildBtns { position:static; margin-top:25px; }
+.civil-room-actions { display:flex; gap:12px; margin:16px 0; }
+.civil-room-actions #policyButton,.civil-room-actions #civilResearchLink { position:static; margin:0; }
+#roomPanel:not(.civil-room-managed) #hearthNote { position:absolute; left:150px; top:110px; width:230px!important; font-size:13px; }
+body.dark .civil-metric { border-color:#444; }
+body.dark .civil-metric>span,body.dark .civil-details dt { color:#aaa; }
