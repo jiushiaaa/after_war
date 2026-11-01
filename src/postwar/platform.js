@@ -28,6 +28,7 @@
     const pop = state.game.population || 0;
     if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
     if(c.society!==undefined)CivilSociety.validate(state);
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.validate(state);
     if(c.industry!==undefined)CivilIndustry.validate(state);
     if(c.regions!==undefined)CivilRegions.validate(state);
     if(c.urban!==undefined)CivilUrban.validate(state);

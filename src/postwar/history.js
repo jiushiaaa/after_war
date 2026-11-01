@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -9,6 +9,8 @@ var CivilHistory={
   knownPlace(s,id){return id==='home'||s.civilization.regions?.nodes[id]?.discovered===true;},
   sourceName(id){return (typeof CivilOriginContent!=='undefined'?CivilOriginContent[id]?.name:null)||id;},
   facility(type){return (typeof CivilServiceContent!=='undefined'?CivilServiceContent.facilities[type]?.name:null)||(typeof CivilMunicipalContent!=='undefined'?CivilMunicipalContent.facilities[type]?.name:null)||(typeof CivilAdvancedContent!=='undefined'?CivilAdvancedContent.facilities[type]?.name:null)||type;},
+  policyName(value){return value===null?'尚未议定':(typeof CivilRules!=='undefined'?CivilRules.policies[value]?.name:null)||value;},
+  axisName(axis,value){return (typeof CivilSociety!=='undefined'?CivilSociety.axes[axis]?.choices[value]?.name:null)||value;},
   costText(cost){
     const labels={food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
     return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+n).join('、');
@@ -28,6 +30,22 @@ var CivilHistory={
       const leader=x.leader,detail=leader.alive?'现任，'+leader.age+'岁。':'已经离世，等待交接；现存记录未记离世年份。';
       current={title:'第'+x.generation+'任 '+leader.title,detail,from:leader.started};
       add('tenure_'+x.generation,'tenures',current.title,detail,null,{generation:x.generation,from:leader.started,to:null,current:true});
+    }
+    const decisions=c.decisions,baseline=decisions?.baseline||{policy:c.policy||null,axes:x?.axes||{}};
+    if(baseline.policy)add('policy_baseline','policy',this.policyName(baseline.policy),'接入时已有的配给；原档未记采纳时间与此前变更。');
+    for(const [axis,value]of Object.entries(baseline.axes))add('governance_baseline_'+axis,'governance',this.axisName(axis,value),'接入时已有的制度；原档未记确立时间与此前变更。');
+    for(const r of decisions?.records||[]){
+      const term='第'+r.generation+'任期间。',key='decision_'+r.id;
+      if(r.kind==='policy')add(key,'policy',r.from===null?'初次议定配给':'调整配给',term+this.policyName(r.from)+' → '+this.policyName(r.to)+'。口粮与产出按新配给持续结算。',r.at);
+      else {
+        const axisTitle=typeof CivilSociety!=='undefined'?CivilSociety.axes[r.axis]?.title:r.axis;
+        const previous=this.axisName(r.axis,r.from),next=this.axisName(r.axis,r.to);
+        const reference=r.proposalId===0?'承接原存档中已预留的改革；原动议时间未知。':'承接第'+r.proposalId+'号动议。';
+        if(r.kind==='founding')add(key,'governance','确立：'+axisTitle,term+'初次采用'+next+'。行政职责按制度持续结算。',r.at);
+        if(r.kind==='proposal')add(key,'governance','第'+r.id+'号动议：'+axisTitle,term+'现制为'+previous+'；实际预留'+r.knowledge+'知识，尚未改制。',r.at);
+        if(r.kind==='reform')add(key,'governance','改制：'+axisTitle,term+previous+' → '+next+'。'+reference+'预留的'+r.knowledge+'知识转为改制支出，不再次扣款。',r.at);
+        if(r.kind==='cancel')add(key,'governance','保留现制：'+axisTitle,term+'继续采用'+previous+'。'+reference+'实际退回'+r.knowledge+'知识。',r.at);
+      }
     }
     for(const [id,learned]of Object.entries(c.tech||{}))if(learned===true)add('technology_'+id,'technology',(typeof CivilText!=='undefined'?CivilText.research[id]?.name:null)||id,'已完成研究。');
     if(c.settled)add('settlement_home','cities','聚落形成','炉火、口粮与分工曾达到稳定条件。');
@@ -100,19 +118,19 @@ var CivilHistory={
   },
   event(s){
     const view=this.snapshot(s),scenes={},go=name=>({1:name}),recent=this.sorted(view.entries.filter(e=>e.at!==null||e.category==='tenures'&&!e.current)).slice(0,this.PAGE_SIZE);
-    const intro=['重建 '+view.year+' 年。这里只翻阅现存档案；历次政策与制度改革尚无完整记录。'];
+    const intro=['重建 '+view.year+' 年。'+(s.civilization.decisions?'配给与制度议决从重建 '+Math.floor(s.civilization.decisions.introducedAt/600)+' 年起记录；更早的变更与未知日期不补写。':'这里只翻阅现存档案；旧存档的政策与制度改革尚无完整记录。')];
     if(view.current)intro.push(view.current.title+' · 重建 '+view.current.from+' 年起。'+view.current.detail);
     intro.push(recent.length?'近期有年份的记录：':'尚无带年份的完成记录，已有成果可按分类查阅。');
     scenes.start={text:[...intro,...recent.map(e=>this.line(e))],buttons:{}};
     for(const [category,label]of Object.entries(this.categories)){
       const list=this.sorted(view.entries,category);if(!list.length)continue;
       scenes.start.buttons['history_'+category]={text:label+'（'+list.length+'）',nextScene:go(category+'_0')};
-      const pages=Math.ceil(list.length/this.PAGE_SIZE);
+      const pageSize=category==='governance'?3:this.PAGE_SIZE,pages=Math.ceil(list.length/pageSize);
       for(let page=0;page<pages;page++){
         const buttons={};if(page>0)buttons.previous={text:'上一页',nextScene:go(category+'_'+(page-1))};
         if(page+1<pages)buttons.next={text:'下一页',nextScene:go(category+'_'+(page+1))};
         buttons.contents={text:'返回目录',nextScene:go('start')};buttons.close={text:'合上记录',nextScene:'end'};
-        scenes[category+'_'+page]={text:[label+' · 第'+(page+1)+'/'+pages+'页',...list.slice(page*this.PAGE_SIZE,(page+1)*this.PAGE_SIZE).map(e=>this.line(e))],buttons};
+        scenes[category+'_'+page]={text:[label+' · 第'+(page+1)+'/'+pages+'页',...list.slice(page*pageSize,(page+1)*pageSize).map(e=>this.line(e))],buttons};
       }
     }
     scenes.start.buttons.close={text:'合上记录',nextScene:'end'};

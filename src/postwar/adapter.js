@@ -218,16 +218,20 @@ var Civilization = {
     const buttons={};
     for(const [key,p] of Object.entries(CivilRules.policies)) buttons['policy_'+key]={
       text:p.name,nextScene:'end',onChoose:()=>{
+        if(c.pending!=='policy'||Events.activeEvent()!==event)return false;
+        const previous=c.policy||null,changed=previous!==key;
+        if(changed && typeof CivilDecisions!=='undefined')CivilDecisions.ensure(State);
         c.policy=key;c.pending=null;c.policyCooldown=120;
         if(!c.policySeen[key]) {c.trust=Math.max(0,Math.min(100,c.trust+p.trust));c.policySeen[key]=true;}
+        if(changed && typeof CivilDecisions!=='undefined')CivilDecisions.append(State,'policy',null,previous,key);
         this.notify('聚落决定实行'+p.name+'。');this.updateIncome();Engine.saveGame();
       }
     };
-    Events.startEvent({title:'同一口锅',scenes:{start:{text:[
+    const event={title:'同一口锅',scenes:{start:{text:[
       '拾荒者停在粮棚边。每个人都在工作，食物该怎样分？',
       '均分：正常口粮与产出。压缩：少用四分之一食物，产出减少一成。加厚：多用四分之一食物，产出增加一成。',
       '紧缩会伤害信任。改议后需要 120 秒才能再次调整。'
-    ],buttons}}});
+    ],buttons}}};Events.startEvent(event);
   },
   refreshSuccessionEvent() {
     const active=Events.activeEvent();
@@ -241,6 +245,7 @@ var Civilization = {
     const done=(message,fn)=>()=>{
       const result=fn?.();
       if(id==='succession' && result!==true){this.refreshSuccessionEvent();return false;}
+      if(id.startsWith('constitution_') && result!==true)return false;
       c.pending=null;this.notify(message);
       $SM.fireUpdate('stores');Outside.updateVillage();this.updateIncome();this.refresh();Engine.saveGame();
       return true;

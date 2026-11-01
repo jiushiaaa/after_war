@@ -107,13 +107,15 @@ var CivilSociety = {
   nextEvent(s){const x=s.civilization.society;if(!x)return null;if(x.succession)return 'succession';if(!s.civilization.village.town)return null;const axis=Object.keys(this.axes).find(k=>!x.axes[k]);return axis?'constitution_'+axis:null;},
   chooseAxis(s,axis,value){
     const x=s.civilization.society;if(!this.axes[axis]?.choices[value])return false;
-    if(x.axes[axis] && x.reforming!==axis)return false;
-    const changing=!!x.axes[axis];
+    if(x.axes[axis] && (x.reforming!==axis || x.axes[axis]===value))return false;
+    const changing=!!x.axes[axis],from=x.axes[axis]||null,paid=x.reformPaid;
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.ensure(s);
     x.axes[axis]=value;x.reforming=null;x.reformPaid=0;x.governed=Object.keys(this.axes).every(k=>!!x.axes[k]);
     if(changing){x.transition=Math.max(x.transition,x.axes.charter==='constitution'?300:180);
       if(axis==='selection' && x.leader.title==='摄政委员会' && value!=='hereditary')x.succession='retirement';
     }
     if(x.governed){x.reformCooldown=600;if(!x.founded){x.founded=true;x.leader.termStarted=x.year;this.note('四项约定写入了公共记录。今后的领袖也要在这些规则下接过职责。');}}
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.append(s,changing?'reform':'founding',axis,from,value,changing?paid:0,changing?CivilDecisions.proposalId(s):null);
     return true;
   },
   beginReform(s,axis){
@@ -121,11 +123,18 @@ var CivilSociety = {
     if(!this.axes[axis] || !x.governed || x.reforming || x.reformCooldown>0 || x.succession || s.civilization.pending)return false;
     const cost=x.axes.charter==='constitution'?60:30;
     if(!CivilRules.pay(s,{knowledge:cost}))return false;
-    x.reforming=axis;x.reformPaid=cost;s.civilization.pending='constitution_'+axis;return true;
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.ensure(s);
+    x.reforming=axis;x.reformPaid=cost;s.civilization.pending='constitution_'+axis;
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.append(s,'proposal',axis,x.axes[axis],null,cost);
+    return true;
   },
   cancelReform(s){
     const x=s.civilization.society;if(!x.reforming)return false;
-    s.stores.knowledge=(s.stores.knowledge||0)+(x.reformPaid||0);x.reformPaid=0;x.reforming=null;return true;
+    const axis=x.reforming,paid=x.reformPaid||0;
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.ensure(s);
+    s.stores.knowledge=(s.stores.knowledge||0)+paid;x.reformPaid=0;x.reforming=null;
+    if(typeof CivilDecisions!=='undefined')CivilDecisions.append(s,'cancel',axis,x.axes[axis],x.axes[axis],paid,CivilDecisions.proposalId(s));
+    return true;
   },
   succeed(s,kind){
     const x=s.civilization.society;if(!x.succession)return false;
@@ -147,8 +156,10 @@ var CivilSociety = {
     if(!id.startsWith('constitution_'))return null;
     const axis=id.slice(13),def=this.axes[axis];if(!def)return null;
     const reform=x.reforming===axis;
-    const buttons=Object.fromEntries(Object.entries(def.choices).filter(([k])=>!reform || k!==x.axes[axis]).map(([k,v])=>[k,{text:v.name,nextScene:'end',onChoose:done('采用'+v.name+'。',()=>this.chooseAxis(s,axis,k))}]));
-    if(reform)buttons.keep={text:'保留现制',nextScene:'end',onChoose:done('保留现制，退回预留的知识。',()=>this.cancelReform(s))};
+    const signature=()=>JSON.stringify([x.axes[axis]||null,x.reforming,x.reformPaid,s.civilization.decisions?.nextId||0]);
+    const offered=signature(),current=()=>s.civilization.pending===id&&signature()===offered;
+    const buttons=Object.fromEntries(Object.entries(def.choices).filter(([k])=>!reform || k!==x.axes[axis]).map(([k,v])=>[k,{text:v.name,nextScene:'end',onChoose:done('采用'+v.name+'。',()=>current()&&this.chooseAxis(s,axis,k))}]));
+    if(reform)buttons.keep={text:'保留现制',nextScene:'end',onChoose:done('保留现制，退回预留的知识。',()=>current()&&this.cancelReform(s))};
     return {title:def.title,text:[def.text,...(reform?['已预留 '+x.reformPaid+' 知识。改制后按新宪章磨合180或300秒，产出减少一成；600秒后可再改议。保留现制会退回预留。']:[]),...Object.values(def.choices).map(v=>v.name+'：'+v.detail)],buttons};
   },
   refresh(){
