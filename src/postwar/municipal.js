@@ -144,10 +144,9 @@ var CivilMunicipal={
   },
   admit(s,id,cohorts){const n=this.node(s,id);if(!this.has(s,id)||!n)return 0;const count=CivilPopulation.count(cohorts);n.cohorts.push(...cohorts.map(c=>({...c})));n.population+=count;this.planWorkers(s,id);return count;},
   developmentReady(s,id,city=false){
-    const n=this.node(s,id),m=this.data(s,id),e=m?.economy,r=s.civilization.regions,route=r?.routes[id];
+    const n=this.node(s,id),m=this.data(s,id),e=m?.economy,r=s.civilization.regions;
     if(!this.canAccept(s,id)||!e||s.civilization.elapsed-e.at>10||n.population<(city?400:80)||n.population>this.capacity(s,id)||n.health<(city?70:60)||!e.education||!e.treatment||e.food<-1e-8||e.medicine<-1e-8||r.adminService===false||!m.buildings.farmland||!m.buildings.clinic||!m.buildings.school)return false;
-    const connected=route?.enabled&&route.condition==='open'&&CivilRegions.staffedRoutes(s).has(id)&&route.completedTrips>0&&route.lastDeliveredAt!==null&&s.civilization.elapsed-route.lastDeliveredAt<=Math.max(180,route.travel*2+30);
-    if(!connected)return false;
+    if(!CivilRegions.serviceReady(s,id))return false;
     return !city || !!(m.town && e.industry && e.productivePower>=4 && m.pollution<40 && (n.stores.food||0)+1e-8>=this.foodReserve(s,id) && n.stores.tools>=40 && n.stores.iron>=40 && n.stores.parts>=20);
   },
   facilityGate(s,id,type){

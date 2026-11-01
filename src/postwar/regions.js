@@ -83,6 +83,14 @@ var CivilRegions={
       Object.keys(p.cargo).length>0 && Object.entries(p.cargo).every(([key,n])=>Object.hasOwn(upgrade.required,key)&&Number.isFinite(n)&&n>0&&n+(upgrade.buffer[key]||0)<=upgrade.required[key]+1e-8);
   },
   tradeReady(s){const r=s.civilization.regions;if(!r?.active)return false;const staffed=this.staffedRoutes(s);return Object.entries(r.routes).some(([id,p])=>p.enabled && p.condition==='open' && staffed.has(id) && p.completedTrips>0 && p.lastDeliveredAt!==null && s.civilization.elapsed-p.lastDeliveredAt<=Math.max(180,p.travel*2+30));},
+  serviceReady(s,id){
+    const route=s.civilization.regions?.routes[id];
+    if(!route?.enabled || route.condition!=='open' || !this.staffedRoutes(s).has(id) || !route.completedTrips)return false;
+    // A locally supplied town still uses its road while the same cart carries building
+    // materials. Count actual deliveries, never departure, empty return or forecast.
+    const times=[route.lastDeliveredAt,route.lastSupplyAt].filter(t=>Number.isFinite(t));
+    return times.length>0 && s.civilization.elapsed-Math.max(...times)<=Math.max(180,route.travel*2+30);
+  },
   committedHomeFlow(s){
     const flow={};
     for(const [id,route]of Object.entries(s.civilization.regions?.routes||{}))if(route.enabled && route.assigned>=2){
@@ -228,6 +236,8 @@ var CivilRegions={
     if(!p || !r.shipments.some(x=>x===p) || p.status!=='moving' || p.remaining!==0)return false;
     const route=r.routes[p.route],n=r.nodes[p.route];
     if(p.phase==='outbound'){
+      if(route.condition!=='open')return false;
+      const supplied=Object.values(p.cargo).some(value=>Number.isFinite(value)&&value>0);
       if(p.purpose==='upgrade'){
         if(!this.receiveUpgradeCargo(s,p.route,p.cargo,p.upgradeId))return false;
         p.cargo={};p.phase='empty';p.source=p.route;p.target='home';p.remaining=route.travel;
@@ -247,6 +257,7 @@ var CivilRegions={
       }else{
         this.credit(n.stores,p.cargo);p.cargo={};p.phase='inbound';p.source=p.route;p.target='home';p.remaining=0;p.status='loading';route.status='等待对方备货';
       }
+      if(supplied)route.lastSupplyAt=s.civilization.elapsed;
       return true;
     }
     // A blocked incoming convoy may turn back to its remote source, never teleport through the blockage.
@@ -452,6 +463,7 @@ var CivilRegions={
       for(const v of Object.values(n.promises).concat(Object.values(n.completedProjects)))if(typeof v!=='boolean')throw Error('地方承诺无效');
     }
     for(const [id,route]of Object.entries(r.routes))if(!r.nodes[id]||!obj(route)||route.node!==id||typeof route.enabled!=='boolean'||![0,2].includes(route.assigned)||route.travel!==CivilRegionContent[id].travel||route.capacity!==(this.upgrade(s,id)?.status==='complete'?CivilRouteUpgradeContent.capacity:64)||!['open','closed'].includes(route.condition)||!num(route.dispatchIn,60)||!int(route.completedTrips)||(route.lastDeliveredAt!==null&&!num(route.lastDeliveredAt,s.civilization.elapsed))||typeof route.status!=='string'||route.status.length>100||route.lastPurpose!==undefined && !['trade','project','municipal','upgrade','services'].includes(route.lastPurpose))throw Error('运输路线无效');
+    for(const route of Object.values(r.routes))if(route.lastSupplyAt!==undefined&&!num(route.lastSupplyAt,s.civilization.elapsed))throw Error('地方实际交付时间无效');
     if(Object.keys(r.routes).length!==Object.keys(r.nodes).length)throw Error('地方缺少路线');
     const ids=new Set(),routes=new Set();
     for(const p of r.shipments){

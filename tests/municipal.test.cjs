@@ -99,6 +99,17 @@ test('80 residents require 180 seconds of real local food, medicine, teaching an
   const before=JSON.stringify([h.n.cohorts,h.n.stores]);m.event('municipalTown_river',(msg,fn)=>()=>{if(fn)fn();}).buttons.record.onChoose();assert.equal(local.town,true);assert.equal(JSON.stringify([h.n.cohorts,h.n.stores]),before);
   h.route.condition='closed';settle(h);assert.equal(local.townStable,0);assert.equal(local.town,true);
 });
+test('paid building cargo keeps town registration reachable while the shared cart temporarily carries materials instead of trade',()=>{
+  const h=fullTown(80),{s,r,m,id,route}=h,local=m.data(s,id);local.town=false;local.townStable=0;route.lastDeliveredAt=s.civilization.elapsed-1000;
+  m.settleNode(s,id);assert.equal(m.developmentReady(s,id),false);
+  assert.equal(m.startProject(s,id,'woodlot'),true);const p=load(h);assert.equal(r.arrive(s,p),true);const receipt=route.lastSupplyAt;
+  // This fixture advances the supplied economy in its normal ten-second batches;
+  // it does not forge another trade receipt during the 180-second stable period.
+  for(let i=0;i<18;i++){s.civilization.elapsed+=10;m.settleNode(s,id);}
+  assert.equal(route.lastSupplyAt,receipt);assert.equal(local.townStable,180);assert.equal(m.nextEvent(s),'municipalTown_river');
+  m.event('municipalTown_river',(message,fn)=>()=>{fn?.();}).buttons.record.onChoose();assert.equal(local.town,true);assert.equal(h.n.population,80);
+  route.condition='closed';assert.equal(m.developmentReady(s,id),false);
+});
 test('400 residents need 300 seconds, real powered industry, low pollution and held local reserves to become a city',()=>{
   const h=fullTown(),{s,m,id,n}=h,local=m.data(s,id);local.cityStable=0;
   for(let i=0;i<29;i++)settle(h);assert.equal(m.nextEvent(s),null);settle(h);assert.equal(m.nextEvent(s),'municipalCity_river');

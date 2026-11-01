@@ -239,6 +239,27 @@ test('municipal materials occupy real freight capacity and reach a project buffe
   r.validate(s);m.validate(s);step(60);assert.equal(x.shipments.length,0);assert.equal(x.routes.river.assigned,0);assert.equal(r.arrive(s,p),false);
   after=totals(s);near(after.wood,before.wood-1);near(after.food,before.food-1);assert.equal(municipal.buildings.farmland,undefined);
 });
+test('real construction delivery proves local road service without claiming a completed trade or refreshing on empty return',()=>{
+  const {s,r,x,m,step}=municipalHarness(),route=x.routes.river;
+  route.lastDeliveredAt=s.civilization.elapsed-1000;const trips=route.completedTrips;
+  assert.equal(m.startProject(s,'river','farmland'),true);assert.equal(r.launch(s,'river'),true);
+  const p=x.shipments[0];assert.equal(route.lastSupplyAt,undefined);assert.equal(r.serviceReady(s,'river'),false);
+  step(60);const delivered=s.civilization.elapsed;assert.equal(route.lastSupplyAt,delivered);assert.equal(route.completedTrips,trips);assert.equal(r.serviceReady(s,'river'),true);assert.equal(r.tradeReady(s),false);
+  const before=JSON.stringify(s);assert.equal(r.arrive(s,p),false);assert.equal(JSON.stringify(s),before);
+  const restored=JSON.parse(JSON.stringify(s));r.init(restored);r.validate(restored);assert.equal(restored.civilization.regions.routes.river.lastSupplyAt,delivered);
+  route.condition='closed';assert.equal(r.serviceReady(s,'river'),false);route.condition='open';route.enabled=false;assert.equal(r.serviceReady(s,'river'),false);route.enabled=true;
+  step(60);assert.equal(route.lastSupplyAt,delivered,'empty vehicle is not another delivery');
+  for(const invalid of [null,false,-1,s.civilization.elapsed+1,Infinity]){const bad=structuredClone(s);bad.civilization.regions.routes.river.lastSupplyAt=invalid;assert.throws(()=>r.validate(bad));}
+  route.enabled=false;step(181);route.enabled=true;route.assigned=2;assert.equal(r.serviceReady(s,'river'),false,'old delivery does not keep an idle route alive');
+});
+test('undelivered construction returning over the travelled road never creates service evidence',()=>{
+  const {s,r,x,m,step}=municipalHarness(),route=x.routes.river;route.lastDeliveredAt=s.civilization.elapsed-1000;
+  m.startProject(s,'river','farmland');r.launch(s,'river');const p=x.shipments[0];step(20);r.setRoad(s,'river',false);step(1);
+  const before=JSON.stringify(s);assert.equal(r.arrive(s,p),false);assert.equal(JSON.stringify(s),before);assert.equal(route.lastSupplyAt,undefined);
+  const position={status:p.status,remaining:p.remaining};p.status='moving';p.remaining=0;const closed=JSON.stringify(s);
+  assert.equal(r.arrive(s,p),false,'a caller cannot complete an outbound delivery across a closed road');assert.equal(JSON.stringify(s),closed);Object.assign(p,position);
+  assert.equal(r.returnShipment(s,p.id),true);step(20);assert.equal(route.lastSupplyAt,undefined);assert.equal(m.data(s,'river').project.buffer.wood,undefined);assert.equal(r.serviceReady(s,'river'),false);
+});
 test('blocked municipal materials return to the home warehouse once without building, crediting the destination or refunding upkeep',()=>{
   const {s,r,x,n,m,step,municipal}=municipalHarness();m.startProject(s,'river','farmland');const home={...s.stores},remote=JSON.stringify(n.stores);
   r.launch(s,'river');const p=x.shipments[0];step(20);r.setRoad(s,'river',false);step(1);assert.equal(p.status,'held');assert.equal(r.returnShipment(s,p.id),true);assert.equal(p.phase,'returning');assert.equal(p.target,'home');assert.equal(p.source,'home');r.validate(s);m.validate(s);
