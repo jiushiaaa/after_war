@@ -169,7 +169,7 @@ var Civilization = {
     if(p===0) this.notify('添了人口，也添了吃饭的嘴。居民每 10 秒领取口粮；猎棚能让人专门寻找食物。');
   },
   updateIncome() {
-    const forecast=JSON.parse(JSON.stringify(State));
+    const forecast=(typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(State)):CivilForecast.copy(State));
     if(typeof CivilServices!=='undefined'&&CivilServices.data(forecast,'home'))forecast.civilization.elapsed=CivilServices.nextSettlementAt(forecast,'home');
     const flow=this.settleEconomy(forecast).flow;
     if(typeof CivilRegions!=='undefined' && State.civilization.regions?.active)flow['车队合同均摊']=CivilRegions.committedHomeFlow(State);

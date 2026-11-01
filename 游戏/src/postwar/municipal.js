@@ -155,7 +155,7 @@ var CivilMunicipal={
   foodReserve(s,id,cohorts=[]){return (CivilPopulation.foodPopulation(this.node(s,id).cohorts)+CivilPopulation.foodPopulation(cohorts))*.12*12;},
   forecast(s,id,cohorts=[]){
     if(!this.has(s,id))return {reason:'地方尚未同意市政工程'};
-    const copy=JSON.parse(JSON.stringify(s)),n=this.node(copy,id),before={...n.stores};copy.civilization.elapsed=typeof CivilServices!=='undefined'?CivilServices.nextSettlementAt(copy,id):copy.civilization.elapsed+10-(copy.civilization.productionClock||0);n.cohorts.push(...cohorts.map(c=>({...c})));n.population=CivilPopulation.count(n.cohorts);
+    const copy=(typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(s)):CivilForecast.copy(s)),n=this.node(copy,id),before={...n.stores};copy.civilization.elapsed=typeof CivilServices!=='undefined'?CivilServices.nextSettlementAt(copy,id):copy.civilization.elapsed+10-(copy.civilization.productionClock||0);n.cohorts.push(...cohorts.map(c=>({...c})));n.population=CivilPopulation.count(n.cohorts);
     this.settleNode(copy,id);const e=this.data(copy,id).economy;
     if(typeof CivilFinance!=='undefined')CivilFinance.settle(copy);
     const deltas={};for(const key of new Set([...Object.keys(before),...Object.keys(n.stores)]))deltas[key]=(n.stores[key]||0)-(before[key]||0);

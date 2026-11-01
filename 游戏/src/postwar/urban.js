@@ -103,7 +103,7 @@ var CivilUrban = {
     return {paidInputs:{at:s.civilization.elapsed,resources},treatmentInputs:{at:s.civilization.elapsed,resources:{medicine:Math.max(0,-(flow['诊所治疗']?.medicine||0))}}};
   },
   forecast(s,cohorts=[]){
-    const copy=JSON.parse(JSON.stringify(s)),before={...copy.stores};
+    const copy=(typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(s)):CivilForecast.copy(s)),before={...copy.stores};
     copy.civilization.elapsed=typeof CivilServices!=='undefined'?CivilServices.nextSettlementAt(copy,'home'):copy.civilization.elapsed+10-(copy.civilization.productionClock||0);
     copy.game.population+=this.count(cohorts);copy.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));
     const flow=CivilRules.settle(copy).flow;
