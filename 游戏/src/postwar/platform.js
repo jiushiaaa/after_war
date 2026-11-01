@@ -75,7 +75,7 @@
     return state;
   }
   function decode(text) {
-    if(text.length > 9e6) throw Error('存档太大');
+    if(text.length > 64000000) throw Error('存档太大');
     const save = JSON.parse(text);
     if(save.format !== id || save.version !== 1) throw Error('存档版本不兼容');
     // v1 previews allowed the random-event wait to pass below zero before population existed.
@@ -85,6 +85,8 @@
   const Platform = root.CivilPlatform = {
     sdk:null, loaded:false, busy:false, dirty:false, timer:null, error:null,
     validate, decode,
+    async encode(){const text=this.serialize();return typeof CivilSaveCodec==='undefined'?text:CivilSaveCodec.encode(text);},
+    async decodeSave(text){return decode(typeof CivilSaveCodec==='undefined'?text:await CivilSaveCodec.unpack(text));},
     async load() {
       const sdk = root.LumiMakerSdk;
       if(!sdk) { this.loaded=true; return {}; }
@@ -92,7 +94,7 @@
       const ready = await sdk.ready();
       if(!ready.ready) throw Error(ready.error || '尚未连接存档服务');
       const bytes = await sdk.readSave(); // Only null means no save. A rejection must block startup.
-      const state = bytes === null ? {} : decode(new TextDecoder().decode(bytes));
+      const state = bytes === null ? {} : await this.decodeSave(new TextDecoder().decode(bytes));
       this.loaded = true; this.error=null; return state;
     },
     serialize() {
@@ -108,28 +110,32 @@
     async flush() {
       if(!this.sdk || !this.loaded || this.busy || !this.dirty) return;
       this.busy=true; this.dirty=false;
-      try { await this.sdk.writeSave(this.serialize()); this.error=null; this.status('云端已保存'); }
+      try { await this.sdk.writeSave(await this.encode()); this.error=null; this.status('云端已保存'); }
       catch(error) { this.dirty=true; this.error=error; this.status('云端未保存，打开存档重试'); }
       finally { this.busy=false; if(this.dirty && !this.error) this.changed(); }
     },
     status(message) { $('#saveNotify').text(message).stop(true).css('opacity',1).delay(2200).animate({opacity:0},700); },
-    download() {
-      const blob = new Blob([this.serialize()],{type:'application/json'}), url=URL.createObjectURL(blob);
-      const a=document.createElement('a'); a.href=url; a.download='战后文明-存档.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-      this.status('存档已导出');
+    async download() {
+      try {
+        const blob = new Blob([await this.encode()],{type:'application/json'}), url=URL.createObjectURL(blob);
+        const a=document.createElement('a'); a.href=url; a.download='战后文明-存档.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+        this.status('存档已导出');
+      }catch(error){Notifications.notify(null,'导出未完成：'+error.message);}
     },
-    inspectImport(text,event=Events.activeEvent()) {
+    async inspectImport(text,event=Events.activeEvent()) {
       if(!event||Events.activeEvent()!==event||Events.activeScene!=='import')return;
-      try { this.pending=decode(text); setTimeout(()=>{
+      try { const next=await this.decodeSave(text);
+        if(Events.activeEvent()!==event||Events.activeScene!=='import')return;
+        this.pending=next;setTimeout(()=>{
         if(Events.activeEvent()===event&&Events.activeScene==='import')Events.loadScene('confirm');
-      },0); } catch(error) { this.pending=null; Notifications.notify(null,'导入未执行：'+error.message); }
+      },0); } catch(error) { if(Events.activeEvent()===event&&Events.activeScene==='import'){this.pending=null;Notifications.notify(null,'导入未执行：'+error.message);} }
     },
     chooseImportFile() {
       const event=Events.activeEvent(),input=document.createElement('input');
       input.type='file';input.accept='.json,application/json';
       input.onchange=async()=>{
         const file=input.files[0];if(!file)return;
-        try { this.inspectImport(await file.text(),event); }
+        try { await this.inspectImport(await file.text(),event); }
         catch(error) { if(Events.activeEvent()===event)Notifications.notify(null,'导入未执行：文件读取失败'); }
       };
       input.click();

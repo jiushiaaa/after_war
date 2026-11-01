@@ -105,7 +105,7 @@ test('file import validates before confirmation and never replaces live progress
  const {CivilPlatform:p}=context(['src/postwar/platform.js'],{State:live,Events:events,setTimeout:fn=>fn(),Notifications:{notify:(_who,text)=>notes.push(text)},document:{createElement(){return input={click(){},files:[]};}}});
  const raw=JSON.stringify({format:'postwar-civilization',version:1,state:state()});
  p.chooseImportFile();input.files=[{text:async()=>raw}];await input.onchange();assert.equal(scene,'confirm');assert.equal(JSON.stringify(live),before);assert.deepEqual(JSON.parse(JSON.stringify(p.pending)),state());
- scene='import';p.inspectImport('{broken');assert.equal(scene,'import');assert.equal(p.pending,null);assert.match(notes.at(-1),/导入未执行/);
+ scene='import';await p.inspectImport('{broken');assert.equal(scene,'import');assert.equal(p.pending,null);assert.match(notes.at(-1),/导入未执行/);
  p.chooseImportFile();input.files=[{text:async()=>{throw Error('read failed');}}];await input.onchange();assert.match(notes.at(-1),/文件读取失败/);assert.equal(scene,'import');
  let resolve;p.chooseImportFile();input.files=[{text:()=>new Promise(r=>resolve=r)}];const loading=input.onchange();active=null;resolve(raw);await loading;assert.equal(scene,'import');assert.equal(p.pending,null);assert.equal(JSON.stringify(live),before);
 });
@@ -118,7 +118,7 @@ test('cloud writes serialize requests and retain changes made during an in-fligh
  const requests=[];let resolve;const s=state();
  const {CivilPlatform:p}=context(['src/postwar/platform.js'],{State:s,LumiMakerSdk:{ready:async()=>({ready:true}),readSave:async()=>null,writeSave:payload=>{requests.push(JSON.parse(payload));return new Promise(r=>resolve=r);}}});
  p.status=()=>{};await p.load();p.dirty=true;const first=p.flush();s.stores.wood=123;p.changed();await p.flush();assert.equal(requests.length,1);
- resolve();await first;clearTimeout(p.timer);p.timer=null;const second=p.flush();assert.equal(requests.length,2);assert.equal(requests[1].state.stores.wood,123);resolve();await second;
+ resolve();await first;clearTimeout(p.timer);p.timer=null;const second=p.flush();await Promise.resolve();assert.equal(requests.length,2);assert.equal(requests[1].state.stores.wood,123);resolve();await second;
 });
 test('optional undefined ADR income fields serialize without poisoning a valid save',()=>{
  const s=state();s.income={builder:{delay:10,stores:{wood:2},timeLeft:undefined}};
