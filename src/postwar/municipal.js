@@ -286,7 +286,11 @@ var CivilMunicipal={
     if(typeof CivilInterface!=='undefined')CivilInterface.renderMunicipal(s,id);else $('#municipalStatus').text(CivilRegionContent[id].name+' · '+n.population+' / '+this.capacity(s,id)+'居民 · 健康'+Math.floor(n.health)+'。'+(m?(m.city?'地方城市。':m.town?'正式镇制。':'地方共同体。')+'烟尘'+Math.floor(m.pollution)+'，生产用电'+(m.economy?.productivePower||0)+' / '+Number(m.power.generation.toFixed(2))+'。'+(m.economy?'每10秒供养余量：粮'+Number(m.economy.food.toFixed(2))+'、药'+Number(m.economy.medicine.toFixed(2))+'。':''):'代表正在等待营建计划。'));
     for(const [type,d]of Object.entries(CivilMunicipalContent.facilities)){
       const bid='municipalBuild_'+type;let button=$('#'+bid);const show=!!m&&this.facilityGate(s,id,type);
-      if(show){button=Civilization.button(bid,'建'+d.name,'#municipalBuild',()=>{if(this.startProject(s,this.selected,type)){Engine.saveGame();this.refresh();}});button.attr('title',fmt(d.cost)+'；建材运到后，由当地2名施工者施工'+d.duration+'秒');Button.setDisabled(button,!this.projectAvailable(s,id));}
+      if(show){
+        button=Civilization.button(bid,'建'+d.name,'#municipalBuild',()=>{const ok=typeof CivilPlanning!=='undefined'?CivilPlanning.request(s,this.selected,'municipal',type):this.startProject(s,this.selected,type);if(ok){Engine.saveGame();if(Civilization.refresh)Civilization.refresh();else this.refresh();}});
+        const queue=typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'建')+d.name);
+        button.attr('title',fmt(d.cost)+'；建材运到后，由当地2名施工者施工'+d.duration+'秒'+(queue?'。加入有限后续计划，按顺序启动，不预扣材料。':''));Button.setDisabled(button,queue?!CivilPlanning.canQueue(s,id,'municipal',type):!this.projectAvailable(s,id));
+      }
       button.toggle(show);
       let row=$('#municipalCount_'+type);if(!row.length){row=$('<div>').attr('id','municipalCount_'+type).addClass('storeRow').appendTo('#municipalStructures');$('<div>').addClass('row_key').text(d.name).appendTo(row);$('<div>').addClass('row_val').appendTo(row);$('<div>').addClass('clear').appendTo(row);}
       const count=m?.buildings[type]||0;row.toggle(count>0).find('.row_val').text(count);

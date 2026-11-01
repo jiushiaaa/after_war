@@ -133,7 +133,7 @@ var CivilServices={
       if(p.type==='densehousing'&&(!this.publicServices(s,id)||this.waterCapacity(s,id)+1e-8<this.population(s,id)+160))continue;
       p.remaining=Math.max(0,p.remaining-1);
       if(['passengerfleet','heatingplant'].includes(p.type))p.workedSeconds++;
-      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;const record={id:p.id,type:p.type,completedAt:t};if(['passengerfleet','heatingplant'].includes(p.type))Object.assign(record,{paid:{...p.paid},workedSeconds:p.workedSeconds,startedAt:p.startedAt,lastWorkedAt:p.lastWorkedAt});if(p.type==='heatingplant')record.receipts=[...p.receipts];m.completed.push(record);this.syncWorkers(s,id);if(p.type==='heatingplant'&&typeof CivilHeating!=='undefined')CivilHeating.ensure(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
+      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;const record={id:p.id,type:p.type,completedAt:t};if(['passengerfleet','heatingplant'].includes(p.type))Object.assign(record,{paid:{...p.paid},workedSeconds:p.workedSeconds,startedAt:p.startedAt,lastWorkedAt:p.lastWorkedAt});if(p.type==='heatingplant')record.receipts=[...p.receipts];m.completed.push(record);this.syncWorkers(s,id);if(id!=='home'&&typeof CivilMunicipal!=='undefined')CivilMunicipal.planWorkers(s,id);if(p.type==='heatingplant'&&typeof CivilHeating!=='undefined')CivilHeating.ensure(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
     }
     return {storesChanged:false,populationChanged:false};
   },
@@ -153,10 +153,12 @@ var CivilServices={
       for(const [type,d]of Object.entries(fac)){
         const buttonId=rootId+'_'+type;const show=(!d.homeOnly||id==='home')&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
         if(!show){$('#'+buttonId).hide();continue;}
-        const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;if(this.startProject(State,target,type)){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();this.refresh();}});
-        button.show();Button.setDisabled(button,!this.projectAvailable(s,id)||!this.facilityGate(s,id,type)||id==='home'&&!Object.entries(d.cost).every(([k,n])=>(s.stores[k]||0)+1e-8>=n));
-        if(type==='heatingplant')button.attr('aria-label','建设供热站，完工后需安排供热工与持续燃料');
+        const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected,ok=target!=='home'&&typeof CivilPlanning!=='undefined'?CivilPlanning.request(State,target,'services',type):this.startProject(State,target,type);if(ok){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();if(Civilization.refresh)Civilization.refresh();else this.refresh();}});
+        const queue=id!=='home'&&typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'')+d.name);
+        button.show();Button.setDisabled(button,queue?!CivilPlanning.canQueue(s,id,'services',type):!this.projectAvailable(s,id)||!this.facilityGate(s,id,type)||id==='home'&&!Object.entries(d.cost).every(([k,n])=>(s.stores[k]||0)+1e-8>=n));
+        if(type==='heatingplant')button.attr('aria-label',(queue?'排入：供热站':'建设供热站')+'，完工后需安排供热工与持续燃料');
         button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':type==='heatingplant'?'每站电动2名供热工，10秒实耗1电、0.8煤与0.02零件，供600人；手动4人耗1.2煤与0.02零件，供300人。试运行覆盖全体居民后可交接日常供暖。':''));
+        if(queue)button.attr('title',button.attr('title')+' 加入后续计划，按顺序启动，不预扣材料。');
       }
       const manualId=rootId+'_manual';
       if(m?.buildings.waterworks){const button=Civilization.button(manualId,m.manualWater?'恢复电动水务':'安排手动水务','#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;this.setManualWater(State,target,!this.data(State,target).manualWater);Engine.saveGame();this.refresh();});button.show();button.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(m.manualWater?'恢复电动水务':'安排手动水务'));button.attr('title','每站电动：4水务工、4电，供600人；手动：8水务工，供300人。两种方式每轮都需0.2化学品、0.02零件。');}else $('#'+manualId).hide();

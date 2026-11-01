@@ -40,6 +40,7 @@
     if(typeof CivilFinance!=='undefined')CivilFinance.validate(state);
     if(typeof CivilRelief!=='undefined')CivilRelief.validate(state);
     if(typeof CivilCulture!=='undefined')CivilCulture.validate(state);
+    if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.validate(state);
     if(typeof CivilHeating!=='undefined')CivilHeating.validate(state);

@@ -117,6 +117,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilCulture!=='undefined')CivilCulture.tick(State);
     if(typeof CivilServices!=='undefined')CivilServices.tick(State);
+    if(typeof CivilPlanning!=='undefined')CivilPlanning.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
     if(typeof CivilMetro!=='undefined'&&CivilMetro.finalize)CivilMetro.finalize(State);
     this.unlockSpeed(true);
@@ -402,6 +403,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.refresh();
     if(typeof CivilServices!=='undefined')CivilServices.refresh();
+    if(typeof CivilPlanning!=='undefined')CivilPlanning.refresh(State,CivilMunicipal.selected);
     if(typeof CivilHeating!=='undefined')CivilHeating.refresh();
     if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State,{summaries:false});
     if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
