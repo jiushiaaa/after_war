@@ -286,6 +286,8 @@ test('unaltered natural advanced-service save preserves actual water, medicine, 
  assert.equal(c.regions.nodes.river.population,72);assert.equal(c.municipal.nodes.river.buildings.clinic,2);assert.equal(c.municipal.nodes.river.project.buffer.tools,2);assert.equal(c.municipal.nodes.river.project.required.tools,12);
  const returning=c.regions.shipments.find(x=>x.route==='river');assert.equal(returning.phase,'empty');assert.equal(returning.capacity,128);assert.equal(returning.remaining,19);
  assert.equal(c.origins.nodes.river_network.admitted,51);assert.equal(c.origins.nodes.river_network.schooling.completed.length,1);assert.equal(ctx.CivilOrigins.schoolCapacity(s,'river_network'),50);
+ const originMigration=JSON.parse(JSON.stringify(c.origins));originMigration.nodes.river_network.legacyHousingOverflow=0;
+ ctx.CivilOrigins.init(s);assert.equal(JSON.stringify(c.origins),JSON.stringify(originMigration),'legacy housing migration preserves the census, stores, births and departure receipts');
  const assets=JSON.stringify([s.game,s.stores,c.services,c.advanced,c.regions,c.origins,c.municipal]);
  for(const name of ['CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices'])ctx[name].init(s);
  assert.equal(c.society.heir.alive,true);assert.equal(JSON.stringify([s.game,s.stores,c.services,c.advanced,c.regions,c.origins,c.municipal]),assets);

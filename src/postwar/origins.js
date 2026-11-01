@@ -6,7 +6,7 @@ var CivilOrigins={
       // Existing receipts predate regional destinations; migration must not reissue residents.
       const r=s.civilization.origins,obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
       if(obj(r)&&obj(r.nodes))for(const n of Object.values(r.nodes))if(obj(n)){
-        this.initSchool(n);if(obj(n.departures))for(const d of Object.values(n.departures))if(obj(d)&&d.target===undefined)d.target='home';
+        this.initSchool(n);this.initHousing(n);if(obj(n.departures))for(const d of Object.values(n.departures))if(obj(d)&&d.target===undefined)d.target='home';
       }
       return;
     }
@@ -23,7 +23,7 @@ var CivilOrigins={
       births:{scaled:true,credit:0,mutantCredit:0},born:0,sourceDeaths:0,transitDeaths:0,admitted:0,
       permit:{limit:1080,paid:false},departures:{},announced:false,discarded:{}};
     s.civilization.origins={schema:1,introducedAt:s.civilization.elapsed,contactTrip:null,warned:false,nodes:{river_network:n}};
-    this.initSchool(n);this.assign(s,'river_network');
+    this.initSchool(n);this.initHousing(n);this.assign(s,'river_network');
   },
   discoverable(s){const c=s.civilization;return !!(c.urban?.registered || c.village?.riverKnown || c.regions?.nodes.river?.discovered);},
   reservedLabor(){return 0;}, // Contact staff belong to the source; a town with no working adults can still answer.
@@ -106,6 +106,18 @@ var CivilOrigins={
     n.status='agreed';n.permit.paid=true;n.revision++;return true;
   },
   inTransit(n){return Object.values(n.departures).filter(d=>d.status==='travel').reduce((sum,d)=>sum+d.alive,0);},
+  initHousing(n){
+    // Old saves may have spent travellers' beds on births. Preserve that real population,
+    // but record only the existing squeeze; it can shrink and can never create new beds.
+    if(n.legacyHousingOverflow===undefined && Number.isInteger(n.population) && Number.isInteger(n.housing) && n.departures && typeof n.departures==='object' && Object.values(n.departures).every(d=>d && Number.isInteger(d.alive)))
+      n.legacyHousingOverflow=Math.max(0,n.population+this.inTransit(n)-n.housing);
+  },
+  reservedBeds(s,id){const n=s.civilization.origins?.nodes[id];return n?this.inTransit(n):0;},
+  availableBeds(s,id){const n=s.civilization.origins?.nodes[id];return n?Math.max(0,n.housing-n.population-this.reservedBeds(s,id)):0;},
+  releaseHousing(n){
+    if(Number.isInteger(n.legacyHousingOverflow) && n.legacyHousingOverflow>0)
+      n.legacyHousingOverflow=Math.min(n.legacyHousingOverflow,Math.max(0,n.population+this.inTransit(n)-n.housing));
+  },
   remaining(s,id){const n=s.civilization.origins?.nodes[id];return n?Math.max(0,n.permit.limit-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
   sustainabilityReason(s,id,cohorts){
     const n=s.civilization.origins.nodes[id],d=CivilOriginContent[id],p=CivilPopulation.count(cohorts),plan=this.plan(cohorts),limits=this.jobLimits(s,id);
@@ -202,14 +214,14 @@ var CivilOrigins={
   recordArrival(s,party){
     const found=this.departure(s,party);if(!found)return false;const {n,d}=found;
     if(d.status!=='travel' || CivilPopulation.count(party.cohorts)!==d.alive || !this.matchesParty(s,party,d))return false;
-    d.status='arrived';d.closedYear=s.civilization.urban?.year ?? n.year;n.admitted+=d.alive;n.revision++;return true;
+    d.status='arrived';d.closedYear=s.civilization.urban?.year ?? n.year;n.admitted+=d.alive;n.revision++;this.releaseHousing(n);return true;
   },
   returnPeople(s,party){
     const found=this.departure(s,party);if(!found)return false;const {n,d}=found;
     if(d.status!=='travel' || CivilPopulation.count(party.cohorts)!==d.alive || !this.matchesParty(s,party,d))return false;
     for(const c of party.cohorts){const old=n.cohorts.find(x=>x.cohortId===c.cohortId);if(old && (old.age!==c.age || old.identity!==c.identity))return false;}
     for(const c of party.cohorts){const old=n.cohorts.find(x=>x.cohortId===c.cohortId);if(old)old.count+=c.count;else n.cohorts.push({...c});}
-    d.status='returned';d.closedYear=s.civilization.urban?.year ?? n.year;n.population=CivilPopulation.count(n.cohorts);n.revision++;this.assign(s,party.source);return true;
+    d.status='returned';d.closedYear=s.civilization.urban?.year ?? n.year;n.population=CivilPopulation.count(n.cohorts);n.revision++;this.releaseHousing(n);this.assign(s,party.source);return true;
   },
   recordTransitDeath(s,party,count){
     const found=this.departure(s,party);if(!found || !Number.isInteger(count)||count<=0)return false;const {n,d}=found;
@@ -217,18 +229,18 @@ var CivilOrigins={
     if(d.status!=='travel' || d.deathsByYear[key]!==undefined || count>d.alive)return false;
     const aged=CivilPopulation.age(party.cohorts).deceased;
     if(aged!==count || !this.sameCohorts(party.cohorts,this.expected(d,year-1)))return false;
-    d.deathsByYear[key]=count;d.alive-=count;d.dead+=count;n.transitDeaths+=count;n.revision++;return true;
+    d.deathsByYear[key]=count;d.alive-=count;d.dead+=count;n.transitDeaths+=count;n.revision++;this.releaseHousing(n);return true;
   },
   annual(s,id){
     const n=s.civilization.origins.nodes[id],target=Math.floor(s.civilization.elapsed/600);
     while(n.year<target){
       const populationStart=n.population,aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.sourceDeaths+=aged.deceased;n.population=CivilPopulation.count(n.cohorts);
-      const birth=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:populationStart,beds:n.housing-n.population,health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
+      const birth=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:populationStart,beds:this.availableBeds(s,id),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
       if(birth.count && this.pay(n.stores,birth.cost)){
         for(const c of birth.cohorts)n.cohorts.push({...c,cohortId:id+'_born_'+n.year+'_'+c.identity,originId:id});
         n.born+=birth.count;n.population+=birth.count;
       }
-      n.revision++;this.assign(s,id);
+      this.releaseHousing(n);n.revision++;this.assign(s,id);
     }
   },
   tick(s){
@@ -267,7 +279,7 @@ var CivilOrigins={
     start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,n.status!=='unknown');start.attr('title','来源社会承担2名值守人员、12粮与1工具；240秒后取得联系，本地不需成年探访员');
     let info=$('#originSourceInfo');if(!info.length)info=$('<div>').attr('id','originSourceInfo').css({width:'410px',lineHeight:'1.8',marginTop:'15px'}).appendTo('#roadPanel');
     info.text(r.contactTrip?'河网人员正在联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。':n.status==='unknown'?'河谷之外仍有散居家庭。来源人员可以建立联系，接触不会赠送居民。':
-      '河网来源：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。协议余量 '+this.remaining(s,'river_network')+'；至少留守720人。'+(n.status==='agreed'?(this.quoteReason(s,'river_network',8,{mode:'convoy'})||'可安排批次接纳。'):'已可逐人到访，每人6粮；批次需登记。')+' '+this.schoolStatus(s,'river_network'));
+      '河网来源：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,'river_network')?'为未安置旅客保留 '+this.reservedBeds(s,'river_network')+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,'river_network')+'；至少留守720人。'+(n.status==='agreed'?(this.quoteReason(s,'river_network',8,{mode:'convoy'})||'可安排批次接纳。'):'已可逐人到访，每人6粮；批次需登记。')+' '+this.schoolStatus(s,'river_network'));
     if(n.status==='contacted'){
       const agree=Civilization.button('originAgreementButton','商议批次接纳','#roadPanel',()=>{if(!Events.activeEvent() && !s.civilization.pending){s.civilization.pending='originAgreement';Civilization.showPending();}},{knowledge:20});Button.setDisabled(agree,!CivilRules.canPay(s,{knowledge:20}));
     }
@@ -292,7 +304,10 @@ var CivilOrigins={
     if(r.contactTrip!==null && (!obj(r.contactTrip)||r.contactTrip.source!=='river_network'||!int(r.contactTrip.remaining,240)))throw Error('来源联络无效');
     for(const [id,n]of Object.entries(r.nodes)){
       const cfg=CivilOriginContent[id];
-      if(!cfg||!obj(n)||!['unknown','contacting','contacted','agreed'].includes(n.status)||n.baselinePopulation!==cfg.baseline||n.housing!==cfg.housing||n.year!==year||!int(n.revision)||!Array.isArray(n.cohorts)||n.cohorts.length>400||!int(n.population,n.housing)||!obj(n.stores)||!obj(n.workers)||!num(n.health,100)||!num(n.hunger)||!obj(n.departures)||typeof n.announced!=='boolean'||!obj(n.discarded))throw Error('来源状态无效');
+      // A pre-fix save can already contain returned passengers. At most two eight-seat
+      // parties caused this legacy squeeze; the full population/receipt ledger still applies.
+      const allowance=n?.legacyHousingOverflow===undefined?16:Number.isInteger(n?.legacyHousingOverflow)?n.legacyHousingOverflow:0;
+      if(!cfg||!obj(n)||!['unknown','contacting','contacted','agreed'].includes(n.status)||n.baselinePopulation!==cfg.baseline||n.housing!==cfg.housing||n.year!==year||!int(n.revision)||!Array.isArray(n.cohorts)||n.cohorts.length>400||!int(n.population,n.housing+allowance)||!obj(n.stores)||!obj(n.workers)||!num(n.health,100)||!num(n.hunger)||!obj(n.departures)||typeof n.announced!=='boolean'||!obj(n.discarded))throw Error('来源状态无效');
       if((n.status==='contacting')!==!!r.contactTrip || !obj(n.permit)||n.permit.limit!==cfg.permit||typeof n.permit.paid!=='boolean'||(n.status==='agreed')!==n.permit.paid)throw Error('来源协议无效');
       if(!obj(n.births)||n.births.scaled!==true||['credit','mutantCredit'].some(k=>!num(n.births[k],1)||n.births[k]>=1))throw Error('来源出生记录无效');
       const cohortIds=new Set();
@@ -303,7 +318,7 @@ var CivilOrigins={
       this.validateSchool(s,id,n);const limits=this.jobLimits(s,id);
       if(Object.entries(n.workers).some(([k,v])=>!Object.hasOwn(limits,k)||!int(v,limits[k]))||Object.values(n.workers).reduce((a,b)=>a+b,0)+this.sourceStaff(s,id)>CivilPopulation.workforce(n.cohorts))throw Error('来源岗位无效');
       for(const key of ['born','sourceDeaths','transitDeaths','admitted'])if(!int(n[key]))throw Error('来源流量无效');
-      let arrived=0,dead=0,travel=0;
+      let arrived=0,dead=0,travel=0,returned=0;
       for(const [key,d]of Object.entries(n.departures)){
         if(!obj(d)||!int(d.partyId)||d.partyId<1||!u||!int(u.nextParty)||d.partyId>=u.nextParty||key!=='p'+d.partyId||!['travel','arrived','returned'].includes(d.status)||!int(d.initial,8)||!d.initial||!int(d.alive,8)||!int(d.dead,8)||d.alive+d.dead!==d.initial||!['singleton','convoy'].includes(d.mode)||d.mode==='singleton'&&d.initial!==1||!obj(d.deathsByYear)||!int(d.startedYear,year)||d.startedYear<Math.floor(r.introducedAt/600)||!Array.isArray(d.cohorts)||!d.cohorts.length||d.cohorts.length>8)throw Error('来源迁出记录无效');
         const target=this.target(d);
@@ -322,9 +337,11 @@ var CivilOrigins={
         if(d.status==='travel' && (d.mode!=='convoy'||parties.length!==1||!['outbound','held','returning_people'].includes(parties[0].state)||parties[0].target!==target||!this.sameCohorts(parties[0].cohorts,expected)) ||
           d.status==='arrived' && (parties.length>1||parties.some(p=>d.mode!=='convoy'||p.state!=='returning'||p.target!==target||p.cohorts.length)) ||
           d.status==='returned' && parties.length)throw Error('来源与在途名册不符');
-        dead+=d.dead;if(d.status==='arrived')arrived+=d.alive;if(d.status==='travel')travel+=d.alive;
+        dead+=d.dead;if(d.status==='arrived')arrived+=d.alive;if(d.status==='travel')travel+=d.alive;if(d.status==='returned')returned+=d.alive;
       }
       if(arrived!==n.admitted||dead!==n.transitDeaths||n.admitted+n.transitDeaths+travel>n.permit.limit||n.baselinePopulation+n.born!==n.population+n.sourceDeaths+n.transitDeaths+n.admitted+travel)throw Error('来源人口总账不符');
+      const overflow=Math.max(0,n.population+travel-n.housing);
+      if(overflow>Math.min(16,travel+returned) || n.legacyHousingOverflow!==undefined && (!int(n.legacyHousingOverflow,16)||n.legacyHousingOverflow!==overflow))throw Error('来源返乡床位记录无效');
       if((u?.parties||[]).some(p=>p.source===id&&!n.departures['p'+p.id]))throw Error('在途居民没有来源记录');
     }
   }
