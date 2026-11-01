@@ -8,6 +8,8 @@ const near=(a,b,label='quantity')=>assert.ok(Math.abs(a-b)<1e-6,`${label}: ${a} 
 const exact=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-two-towns.json'),'utf8')).state;
 const files=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]).filter(f=>f.startsWith('content/')||f.startsWith('src/postwar/'));
 
+function emptyMetro(at){return {schema:1,introducedAt:at,agreementId:null,members:[],samples:[],lastObservedAt:null,stableSince:null,stableSeconds:0,formedAt:null,formedAgreementId:null,formedMembers:[],formedStableSince:null,offered:false};}
+
 // Headless integration, not browser play: the exact exported residents, cargo,
 // stocks, jobs and facilities are the only initial assets. No economic owner is
 // stubbed. Presentation methods are inert and normal random events use a fixed
@@ -145,7 +147,7 @@ test('the saved charter snapshot preserves the actual sixty-second publication i
 });
 test('the new raw browser common-freight checkpoint reloads byte-for-byte and its two existing paid carts finish exactly once',()=>{
   const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-common-freight.json'),'utf8')).state,h=harness(raw),{s,ctx,f}=h;
-  ctx.CivilPlatform.validate(raw);assert.equal(JSON.stringify(s),JSON.stringify(raw));assert.equal(s.civilization.elapsed,73944);assert.equal(s.civilization.society.generation,19);
+  ctx.CivilPlatform.validate(raw);assert.equal(raw.civilization.metro,undefined);assert.deepEqual(clone(s.civilization.metro),emptyMetro(raw.civilization.elapsed));const legacy=clone(s);delete legacy.civilization.metro;assert.equal(JSON.stringify(legacy),JSON.stringify(raw));assert.equal(s.civilization.elapsed,73944);assert.equal(s.civilization.society.generation,19);
   const existing=clone(f.data(s).orders),ids=existing.filter(o=>o.status==='outbound').map(o=>o.id);assert.equal(ids.length,2);assert.deepEqual(existing.filter(o=>o.status==='outbound').map(o=>o.shipmentId),[942,943]);
   h.step(45);const loaded=h.roundtrip();h.step(145);loaded.step(145);assert.deepEqual(clone(loaded.s),clone(h.s));
   assert.equal(f.data(s).orders.length,existing.length);for(const id of ids){const o=f.data(s).orders.find(o=>o.id===id),old=existing.find(o=>o.id===id);assert.equal(o.status,'complete');assert.deepEqual(clone(o.paid),old.paid);assert.equal(o.dispatchedAt,old.dispatchedAt);assert.equal(o.shipmentId,old.shipmentId);assert.equal(f.data(s).receipts.filter(r=>r.orderId===id).length,2);}

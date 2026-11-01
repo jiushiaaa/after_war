@@ -3,6 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.join(__dirname,'..'),copy=x=>JSON.parse(JSON.stringify(x));
 const files=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>x.startsWith('content/')||x.startsWith('src/postwar/'));
+function emptyMetro(at){return {schema:1,introducedAt:at,agreementId:null,members:[],samples:[],lastObservedAt:null,stableSince:null,stableSeconds:0,formedAt:null,formedAgreementId:null,formedMembers:[],formedStableSince:null,offered:false};}
 function harness(){
   const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-passenger-construction.json'),'utf8')).state,notes=[],elements=new Map();let active=null,saves=0;
   const $=selector=>{
@@ -39,7 +40,8 @@ test('unmodified natural 4x saves initialize byte-for-byte and unlock 8x on the 
   const h=harness(),{s,ctx}=h,c=s.civilization;assert.equal(c.maxSpeed,4);assert.equal(c.urban.city,true);assert.equal(c.tech.passenger_transport,true);
   ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);assert.equal(c.finance,undefined);ctx.Civilization.initState();
   assert.deepEqual(copy(c.finance),{schema:1,introducedAt:53708,nextAgreement:1,activeId:null,agreements:[],periods:[],orders:[],receipts:[],lastSettledAt:null,offered:false,revision:null});
-  const legacy=copy(s);delete legacy.civilization.finance;assert.equal(JSON.stringify(legacy),before);
+  assert.deepEqual(copy(s.civilization.metro),emptyMetro(s.civilization.elapsed));
+  const legacy=copy(s);delete legacy.civilization.finance;delete legacy.civilization.metro;assert.equal(JSON.stringify(legacy),before);
   const migrated=JSON.stringify(s);ctx.Civilization.initState();assert.equal(JSON.stringify(s),migrated);
   h.blockEvent();ctx.Civilization.tick();assert.equal(c.maxSpeed,8);assert.equal(c.speed,4);assert.equal(ctx.CivilClock.rate,4);assert.equal(h.notes.filter(n=>n.includes('8×')).length,1);ctx.CivilPlatform.validate(s);
   ctx.Civilization.tick();assert.equal(h.notes.filter(n=>n.includes('8×')).length,1);

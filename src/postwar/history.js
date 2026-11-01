@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定'},
+  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -62,6 +62,10 @@ var CivilHistory={
       const members=a.members.map(id=>this.place(s,id)).join('、'),costs=Object.entries(a.approvals||{}).map(([id,n])=>this.place(s,id)+' '+n+'知识').join('；');
       add('common_agreement_'+a.id,'budgets','第'+a.id+'份诊疗与道路互助约定',members+'。议约实际支出：'+costs+'。各地仍保管自己的仓库。',a.approvedAt);
       if(a.exitedAt!==null)add('common_exit_'+a.id,'budgets','第'+a.id+'份互助约定退出','停止新承诺；旧车队和实付记录按原账保留。',a.exitedAt);
+    }
+    if(c.metro?.formedAt!==null&&Number.isFinite(c.metro?.formedAt)){
+      const members=(c.metro.formedMembers||[]).map(id=>this.place(s,id)).join('、');
+      add('metro_charter','metro','城市群共同职责登记',members+'。以连续供养和实付互助共同承担公共职责；仍须维持各城服务。',c.metro.formedAt);
     }
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};

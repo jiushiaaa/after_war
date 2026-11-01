@@ -60,9 +60,10 @@ var CivilMunicipal={
     desired.utilityworker=positive('utilityworker',(servicePower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2)/10);
     desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0))/4);
     if(service||desired.chemist||desired.steelworker||desired.glassworker||desired.utilityworker){
-      // Scale spare-parts labor to actual maintenance, leaving iron for steel production.
+      // Scale spare-parts labor to actual maintenance. Keep two real powered jobs
+      // beyond any legacy hand-work positions when built capacity permits them.
       const partsNeed=desired.electrician*.02+desired.utilityworker*.03+(service?.buildings.waterworks||0)*.02+(m.buildings.scrubber?.01:0)+(m.buildings.filterplant||0)*.02+(exp.parts||0)+.25;
-      desired.machinist=positive('machinist',Math.max(2,partsNeed/.5));
+      desired.machinist=positive('machinist',Math.max((base.machinist||0)+2,partsNeed/.5));
       desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0))/4);
     }
     if(desired.steelworker)desired.smelter=positive('smelter',Math.max(desired.smelter,(desired.steelworker*1.2+desired.machinist*.5+(exp.iron||0)+.2)/.6));
