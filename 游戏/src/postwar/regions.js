@@ -27,7 +27,7 @@ var CivilRegions={
   availableTransport(s){
     const total=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
     const urban=typeof CivilUrban!=='undefined' && CivilUrban.reservedTransport?CivilUrban.reservedTransport(s):0;
-    return Math.max(0,total-this.reservedTransport(s)-urban);
+    return Math.max(0,total-this.reservedTransport(s)-urban-(typeof CivilCommerce!=='undefined'?CivilCommerce.reservedTransport(s):0));
   },
   staffedRoutes(s){
     const result=new Set(),r=s.civilization.regions;
@@ -37,7 +37,7 @@ var CivilRegions={
     return result;
   },
   capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0);},
-  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length;},
+  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0);},
   upgrade(s,id){return s.civilization.regions?.upgrades?.projects[id];},
   upgradeActive(s,id){const p=this.upgrade(s,id);return !!p && p.status!=='complete';},
   upgradeEligible(s,id){

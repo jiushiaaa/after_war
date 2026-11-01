@@ -23,7 +23,7 @@ var CivilIncidents={
     return Object.keys(r.routes).filter(id=>r.nodes[id]?.discovered&&this.route(s,id).condition==='open'&&CivilRegions.serviceReady(s,id)).sort();
   },
   holds(s,id){const r=this.active(s);return !!r&&r.route===id&&r.phase==='holding';},
-  busy(s,id){return !!s.civilization.regions?.shipments.some(p=>p.route===id)||!!s.civilization.urban?.parties.some(p=>p.target===id);},
+  busy(s,id){return !!s.civilization.regions?.shipments.some(p=>p.route===id)||!!s.civilization.urban?.parties.some(p=>p.target===id)||(typeof CivilCommerce!=='undefined'&&CivilCommerce.busy(s,id));},
   note(text){if(typeof Civilization!=='undefined')Civilization.notify(text);},
   tick(s,allowNew=true){
     this.init(s);const d=this.data(s),at=s.civilization.elapsed;if(d.lastTickAt!==null&&at<=d.lastTickAt)return;

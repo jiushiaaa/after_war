@@ -44,8 +44,9 @@ var CivilServices={
   },
   facilityGate(s,id,type){
     const d=CivilServiceContent.facilities[type],m=this.data(s,id);
-    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.homeOnly&&id!=='home'||d.node&&d.node!==id||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
+    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.discover&&!d.discover(s)||d.homeOnly&&id!=='home'||d.node&&d.node!==id||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
     if(type==='railfreight')return CivilNation.operational(s)&&CivilRegions.upgrade(s,id)?.status==='complete';
+    if(type==='foreigncaravan')return !!CivilCommerce.data(s)&&!CivilCommerce.agreementReason(s);
     if(d.paidWork)return id==='home'?!!s.civilization.urban?.city:!!s.civilization.municipal?.nodes[id]?.town;
     if(type==='pharmacy')return this.publicServices(s,id);
     if(type==='windstation')return id==='home'?!!s.civilization.urban?.city:!!s.civilization.municipal?.nodes[id]?.town;
@@ -146,7 +147,7 @@ var CivilServices={
     const s=State,fac=CivilServiceContent.facilities;
     for(const [id,parent]of [['home','#urbanPanel'],[typeof CivilMunicipal!=='undefined'?CivilMunicipal.selected:null,'#municipalPanel']]){
       const prefix=parent==='#urbanPanel'?'home':'local',rootId='services_'+prefix;let box=$('#'+rootId);
-      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k]));
+      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>(!d.discover||d.discover(s))&&(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k]));
       if(!visible){box.hide();continue;}
       if(!box.length){box=$('<div>').attr('id',rootId).css({marginTop:'20px',width:'410px'}).appendTo(parent);$('<div>').attr('id',rootId+'_status').css({lineHeight:'1.8',marginBottom:'12px'}).appendTo(box);$('<div>').attr('id',rootId+'_build').appendTo(box);}
       box.show();const m=this.data(s,id),p=m?.project,e=m?.economy;
@@ -154,7 +155,7 @@ var CivilServices={
       const buildings=Object.entries(m?.buildings||{}).filter(([,n])=>n).map(([type,n])=>fac[type].name+' '+n).join('，');
       $('#'+rootId+'_status').text((buildings?buildings+'。':'')+(e?'近轮供水 '+this.waterCapacity(s,id)+' 人份；药剂产出 '+Number(e.medicine.toFixed(2))+'；公用负载 '+e.used+' / '+e.demand+'。':'')+(p&&p.status!=='complete'?fac[p.type].name+'：'+(p.status==='supplying'?'材料分批运输，已到 '+(fmt(p.buffer)||'暂无')+'；需 '+fmt(p.required):'施工剩余 '+Math.ceil(p.remaining)+' 秒，需要2位'+(id==='home'?'营建工':'当地建设者'))+'。':''));
       for(const [type,d]of Object.entries(fac)){
-        const buttonId=rootId+'_'+type;const show=(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
+        const buttonId=rootId+'_'+type;const show=(!d.discover||d.discover(s))&&(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
         if(!show){$('#'+buttonId).hide();continue;}
         const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected,ok=target!=='home'&&typeof CivilPlanning!=='undefined'?CivilPlanning.request(State,target,'services',type):this.startProject(State,target,type);if(ok){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();if(Civilization.refresh)Civilization.refresh();else this.refresh();}});
         const queue=id!=='home'&&typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'')+d.name);

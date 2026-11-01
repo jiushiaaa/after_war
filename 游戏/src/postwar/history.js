@@ -97,6 +97,16 @@ var CivilHistory={
       d.revisions.forEach((r,i)=>add('residence_revision_'+i,'diplomacy',r.action==='pause'?'居留公约暂停':'居留公约恢复',name+'；原名册与已出发旅客安排保留，追加资格不重发。',r.at));
     }
     for(const [i,r]of (c.railway?.changes||[]).entries())add('railway_change_'+i,'transport',r.mode==='rail'?'铁轨支线班次启用':'铁轨支线恢复货车','原车归来后交接；'+(r.mode==='rail'?'4名运输工，单程45秒，逐趟实付燃料与维护。':'2名运输工，单程90秒；铁路资产和原运单保留。'),r.at);
+    if(c.commerce){
+      const d=c.commerce,name=this.sourceName(d.sourceId);
+      add('commerce_agreement','diplomacy',name+'贸易约定','本城实付知识60，对方知识30；居民与库存各自独立，占一份协调责任。',d.signedAt);
+      for(const p of d.plans){add('commerce_plan_'+p.id,'transport','六趟商队委托',name+'；每次发车实际扣货物与旅费。',p.at);if(p.cancelledAt!==null)add('commerce_cancel_'+p.id,'transport','剩余商队委托撤销','已经启程的商队继续往返，旅费不退。',p.cancelledAt);}
+      for(const o of d.orders){
+        add('commerce_depart_'+o.id,'transport','对外商队出发',name+'；本城实付 '+this.costText(o.paid)+'，其中工具12为货物，其余为旅费。',o.departedAt);
+        if(o.arrivedAt!==null)add('commerce_exchange_'+o.id,'transport',o.exchange?'对外商队成交':'对方保留供养，商队未成交',o.exchange?'对方实收工具12，实付食物120；食物随车返程。':'工具12随原车返回；已消耗旅费不退。',o.arrivedAt);
+        if(o.returnedAt!==null)add('commerce_return_'+o.id,'transport','对外商队返城',o.exchange?'食物120进入本城原仓。':'未成交工具12归还本城原仓。',o.returnedAt);
+      }
+    }
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);
       add('road_warning_'+r.id,'incidents',place+'道路预警','巡路人员发现松动路基，提出加固或交通安排。',r.createdAt);

@@ -34,7 +34,7 @@ var CivilPassenger={
     for(const p of [...(s.civilization.urban?.parties||[])].sort((a,b)=>a.id-b.id)){const crew=this.profile(s,p).crew;if(left>=crew)result.add(p.id);left=Math.max(0,left-crew);}
     return result;
   },
-  availableWorkers(s){return Math.max(0,this.actualWorkers(s)-CivilUrban.reservedTransport(s)-(typeof CivilRegions!=='undefined'?CivilRegions.reservedTransport(s):0));},
+  availableWorkers(s){return Math.max(0,this.actualWorkers(s)-CivilUrban.reservedTransport(s)-(typeof CivilRegions!=='undefined'?CivilRegions.reservedTransport(s):0)-(typeof CivilCommerce!=='undefined'?CivilCommerce.reservedTransport(s):0));},
   validateTransport(s,tr,partyId,sourceId){
     const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x),c=s.civilization;
     if(tr===undefined){if(this.legacyParty(s,partyId))return true;throw Error('新批次缺少出发运力记录');}
