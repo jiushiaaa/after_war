@@ -60,30 +60,32 @@ var CivilMunicipal={
     desired.farmer=Math.min(oldFarm,cap.farmer||0);
     while(desired.farmer<(cap.farmer||0)&&farmFood(desired.farmer)*farmFactor<foodNeed)desired.farmer++;
     for(const job of ['miner','collier','smelter','machinist'])desired[job]=positive(job,Math.max(2,Math.ceil(p/100)));
+    desired.precisionworker=positive('precisionworker',2);desired.electronicsworker=positive('electronicsworker',2);
+    const precisionPower=desired.precisionworker*3+desired.electronicsworker*4;
     desired.steelworker=positive('steelworker',2);desired.glassworker=positive('glassworker',2);
-    desired.chemist=positive('chemist',Math.max(2,(desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+(m.buildings.filterplant||0)*.03+.2)/.4));
+    desired.chemist=positive('chemist',Math.max(2,(desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+desired.electronicsworker*.2+(m.buildings.filterplant||0)*.03+.2)/.4));
     desired.mineralworker=positive('mineralworker',(desired.chemist*.4+desired.glassworker*.6+.2)/1.2);
     const servicePower=(service?.manualWater?0:Math.floor(desired.waterworker/4)*4)+desired.pharmacist*.5+heatPower;
-    desired.utilityworker=positive('utilityworker',(servicePower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2)/10);
-    const heatBackup=Math.min(heatPower,Math.max(0,servicePower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2-desired.utilityworker*10));
+    desired.utilityworker=positive('utilityworker',(servicePower+precisionPower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2)/10);
+    const heatBackup=Math.min(heatPower,Math.max(0,servicePower+precisionPower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2-desired.utilityworker*10));
     desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0)+heatBackup)/4);
     if(service||desired.chemist||desired.steelworker||desired.glassworker||desired.utilityworker){
       // Scale spare-parts labor to actual maintenance. Keep two real powered jobs
       // beyond any legacy hand-work positions when built capacity permits them.
-      const partsNeed=desired.electrician*.02+desired.utilityworker*.03+(service?.buildings.waterworks||0)*.02+heatStations*.02+(m.buildings.scrubber?.01:0)+(m.buildings.filterplant||0)*.02+(exp.parts||0)+.25;
+      const partsNeed=desired.electrician*.02+desired.utilityworker*.03+(service?.buildings.waterworks||0)*.02+heatStations*.02+(m.buildings.scrubber?.01:0)+(m.buildings.filterplant||0)*.02+desired.precisionworker*.2+desired.electronicsworker*.1+(exp.parts||0)+.25;
       desired.machinist=positive('machinist',Math.max((base.machinist||0)+2,partsNeed/.5));
       desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0)+heatBackup)/4);
     }
     if(desired.steelworker)desired.smelter=positive('smelter',Math.max(desired.smelter,(desired.steelworker*1.2+desired.machinist*.5+(exp.iron||0)+.2)/.6));
     if(desired.smelter)desired.miner=positive('miner',Math.max(desired.miner,desired.smelter-(base.smelter||0)));
     if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker||heatStations)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+heatCoal+.2));
-    const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01;
+    const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01+desired.precisionworker*.02;
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2+(contract?4:0))/.8+1);
     desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0)+(contract?4/3:0))/.5+1);
     desired.coopsmith=typeof CivilCooperative!=='undefined'&&CivilCooperative.productionReady(s,id)?4:0;desired.windworker=cap.windworker||0;desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
-    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist','precisionworker','electronicsworker']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     // Two organisers and twelve adult participants come only from the actual
     // labour remaining after production, care, teaching and construction.
     if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id)){n.workers.communityworker=14;left-=14;}
@@ -129,6 +131,7 @@ var CivilMunicipal={
     power-=advanced.used;m.power.used+=advanced.used;m.power.demand+=advanced.demand;
     const powered=run('poweredMachine',Math.min(machines,Math.floor((power+1e-8)/2)),{iron:.5,scrap:.2,tools:.01},{parts:.5});
     m.power.used+=powered*2;const manual=run('manualMachine',machines-powered,{iron:.5,scrap:.2,tools:.01},{parts:.3});
+    if(typeof CivilPrecision!=='undefined'){const precision=CivilPrecision.run(s,id,{factor,run:rawRun,powerAvailable:power-powered*2});m.power.used+=precision.used;m.power.demand+=precision.demand;}
     m.pollution=Math.max(0,Math.min(100,m.pollution+smelt*.05+generators*.03+extra.pollution+advanced.pollution-(scrubbed?.4:.02)));
     const care=n.population*.01,treated=(w.medic||0)>0 && this.pay(st,{medicine:care});
     n.health=Math.max(0,Math.min(100,n.health+(ate&&treated?.25:ate?-.02:-.4)-(m.pollution>=40?.05*(1+m.pollution/50):0)));
@@ -313,7 +316,7 @@ var CivilMunicipal={
   },
   powerLimits(s,id){
     const m=this.data(s,id),caps=this.jobCapacity(s,id),generation=Math.max(0,(caps.electrician||0)-(m.baseWorkers.electrician||0))*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s,id):0);
-    const demand=Math.max(0,(caps.machinist||0)-(m.baseWorkers.machinist||0))*2+(m.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s,id):0)+(typeof CivilServices!=='undefined'?CivilServices.demandCapacity(s,id):0);
+    const demand=Math.max(0,(caps.machinist||0)-(m.baseWorkers.machinist||0))*2+(m.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s,id):0)+(typeof CivilServices!=='undefined'?CivilServices.demandCapacity(s,id):0)+(typeof CivilPrecision!=='undefined'?CivilPrecision.demandCapacity(s,id):0);
     return {generation,demand,used:Math.min(generation,demand)};
   },
   validate(s){

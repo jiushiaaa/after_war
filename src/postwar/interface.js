@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only summaries and progressive organization of existing ADR controls. */
 var CivilInterface={
   views:{},researchModule:null,
-  kinds:{windstation:'power',meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
+  kinds:{precisionworks:'industry',electronicsworks:'industry',windstation:'power',meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
   labels:{exploration:'遗迹',culture:'社群',overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
   number(n){return Number((Number(n)||0).toFixed(2));},
   signed(n){return (n>=0?'+':'')+this.number(n);},
@@ -77,14 +77,14 @@ var CivilInterface={
     const id=prefix==='home'?'home':CivilMunicipal.selected,m=CivilServices.data(State,id),count=Object.entries(m?.buildings||{}).filter(([type,n])=>n&&(this.kinds[type]||'care')===active).map(([type,n])=>CivilServiceContent.facilities[type].name+' '+n);
     const p=this.projectText(State,id),e=m?.economy,water=CivilServices.waterCapacity(State,id),population=CivilServices.population(State,id);
     const service=e&&['care','housing'].includes(active)?'实际供水 '+water+' / '+population+' 人份；药剂产出 '+this.number(e.medicine)+'；公用用电 '+this.number(e.used)+' / '+this.number(e.demand)+'。':'';
-    $('#services_'+prefix+'_status').text([(p?'在建：'+p:''),service.replace(/。$/,''),count.join(' · '),active==='power'&&State.civilization.tech.wind_power&&typeof CivilWind!=='undefined'?CivilWind.describe(State,id):''].filter(Boolean).join('。'));
+    $('#services_'+prefix+'_status').text([(p?'在建：'+p:''),service.replace(/。$/,''),count.join(' · '),active==='industry'&&typeof CivilPrecision!=='undefined'?CivilPrecision.describe(State,id):'',active==='power'&&State.civilization.tech.wind_power&&typeof CivilWind!=='undefined'?CivilWind.describe(State,id):''].filter(Boolean).join('。'));
     let details=$('#civilServiceDetails_'+prefix);if(!details.length){details=$('<details>').attr('id','civilServiceDetails_'+prefix).addClass('civil-details').appendTo(box);$('<summary>').text('工程与服务明细').appendTo(details);$('<p>').appendTo(details);}
     const project=m?.project,fmt=values=>Object.entries(values||{}).map(([key,n])=>(CivilText.labels[key]||key)+' '+this.number(n)).join('、');
     details.children('p').text((e?'近轮供水 '+water+' 人份；药剂产出 '+this.number(e.medicine)+'；公用用电 '+this.number(e.used)+' / '+this.number(e.demand)+'。':'')+(project&&project.status!=='complete'?'工程所需：'+fmt(project.required)+'；已到：'+(fmt(project.buffer)||'尚无')+'。需2名实际建设者。':''));details.toggle(!!e||!!p);
   },
   urban(s,renderSummary=true){
     if(!$('#urbanPanel').length)return;
-    if(renderSummary)this.renderUrban(s);const choices=['overview','housing','care'];if(s.civilization.tech.wind_power)choices.push('power');if(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1)choices.push('migration');const active=this.tabs('urban','#urbanRecord',choices);
+    if(renderSummary)this.renderUrban(s);const choices=['overview','housing','care'];if(s.civilization.tech.machine_tools)choices.push('industry');if(s.civilization.tech.wind_power)choices.push('power');if(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1)choices.push('migration');const active=this.tabs('urban','#urbanRecord',choices);
     $('#urbanBuildBtns').parent().addClass('civil-build-columns').toggle(['housing','care'].includes(active));
     for(const type of Object.keys(CivilUrban.buildings)){const kind=this.kinds[type]||'care';this.filter('#build_'+type,kind,active);this.filter('#urban_count_'+type,kind,active);}
     $('#urbanPlans').toggle(active==='migration');this.serviceGroups('home',active);

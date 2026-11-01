@@ -72,6 +72,7 @@ var CivilIndustry = {
     i.productionPower=poweredRuns*2;i.used+=i.productionPower;
     const manualRuns=run('machinist',machines-poweredRuns,{iron:.5,scrap:.2,tools:.01},{parts:.3*factor});
     if(machines>powered && machines>0 && !i.blocked.machinist)i.blocked.machinist='电力不足，部分岗位改用手动工序';
+    if(typeof CivilPrecision!=='undefined'){const precision=CivilPrecision.run(s,'home',{factor,run,powerAvailable:remainingPower-i.productionPower});i.used+=precision.used;i.demand+=precision.demand;}
     i.pollution=Math.max(0,Math.min(100,oldPollution+smelting*.05+generators*.03+prepared.pollution+materials.pollution-(scrubbed?.4:.02)));
     if(i.pollution>=40 && s.civilization.village)s.civilization.village.health=Math.max(0,s.civilization.village.health-.05*(1+i.pollution/50));
     return flow;
@@ -88,7 +89,8 @@ var CivilIndustry = {
     const maxFactor=Math.max(...Object.values(CivilRules.policies).map(p=>p.output))*1.18;
     const generationCapacity=CivilCatalog.jobCapacity(s,'electrician')*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s):0);
     const demandCapacity=CivilCatalog.jobCapacity(s,'machinist')*2+(s.game.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s):0)+(typeof CivilServices!=='undefined'&&CivilServices.demandCapacity?CivilServices.demandCapacity(s,'home'):0);
-    const limits={pollution:100,generation:generationCapacity*maxFactor,demand:demandCapacity,used:Math.min(generationCapacity*maxFactor,demandCapacity)};
+    const precisionDemand=typeof CivilPrecision!=='undefined'?CivilPrecision.demandCapacity(s):0;
+    const limits={pollution:100,generation:generationCapacity*maxFactor,demand:demandCapacity+precisionDemand,used:Math.min(generationCapacity*maxFactor,demandCapacity+precisionDemand)};
     for(const [key,limit]of Object.entries(limits))if(!Number.isFinite(i[key])||i[key]<0||i[key]>limit+1e-8)throw Error('工业数值超过设施容量');
     if(i.used>i.generation+1e-8 || i.used>i.demand+1e-8)throw Error('电力负载无效');
     // Older saves had no dedicated machine-load evidence. Do not infer it from other industrial/service consumption.
