@@ -99,6 +99,7 @@ var CivilInterface={
     $('#civilTabs_municipal').show();const active=this.tabs('municipal','#municipalStatus',available);
     this.development(s,id,active==='overview');
     $('#municipalBuild').parent().addClass('civil-build-columns').toggle(active!=='overview');
+    $('#cooperativeButton,#civilCooperativeStatus').toggle(active==='industry'&&typeof CivilCooperative!=='undefined'&&(!!CivilCooperative.data(s,id)||CivilCooperative.eligible(s,id)));
     $('#cultureButton').toggle(active==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||!!CivilCulture.data(s,id)));
     let commons=$('#civilCultureStatus');if(!commons.length)commons=$('<div>').attr('id','civilCultureStatus').insertAfter('#civilTabs_municipal');
     commons.toggle(active==='culture');

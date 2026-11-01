@@ -26,6 +26,7 @@ var CivilMunicipal={
     const m=this.data(s,id);if(!m)return {};
     const result={...m.baseWorkers};for(const [key,count]of Object.entries(m.buildings))for(const [job,cap]of Object.entries(CivilMunicipalContent.facilities[key].jobs||{}))result[job]=(result[job]||0)+count*cap;
     if(typeof CivilServices!=='undefined')for(const [job,cap]of Object.entries(CivilServices.jobs(s,id)))result[job]=(result[job]||0)+cap;
+    if(typeof CivilCooperative!=='undefined'&&CivilCooperative.data(s,id)){result.smith=Math.max(0,(result.smith||0)-4);result.coopsmith=4;}
     result.builder=m.project?.status==='building'||s.civilization.regions?.upgrades?.projects[id]?.status==='building'||typeof CivilServices!=='undefined'&&CivilServices.data(s,id)?.project?.status==='building'?2:0;return result;
   },
   canAccept(s,id){return this.has(s,id) && ['associated','integrated'].includes(this.node(s,id)?.relation);},
@@ -78,9 +79,9 @@ var CivilMunicipal={
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
     desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0))/.5+1);
-    desired.windworker=cap.windworker||0;desired.builder=cap.builder;
+    desired.coopsmith=typeof CivilCooperative!=='undefined'&&CivilCooperative.productionReady(s,id)?4:0;desired.windworker=cap.windworker||0;desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
-    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     // Two organisers and twelve adult participants come only from the actual
     // labour remaining after production, care, teaching and construction.
     if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id))n.workers.communityworker=14;
@@ -104,7 +105,8 @@ var CivilMunicipal={
     const farmBase=(m.buildings.farmland||0)*8,oldNewFarmers=Math.min(added('farmer'),farmBase),serviceFarmers=Math.max(0,added('farmer')-farmBase);
     run('farmer',old('farmer'),{},{food:.8});run('farmer',oldNewFarmers,{tools:.01},{food:1.4});
     if(serviceFarmers)run('farmer',serviceFarmers,{tools:.01},{food:typeof CivilServices!=='undefined'?CivilServices.farmRate(s,id):1.4});
-    const meal=CivilPopulation.foodPopulation(n.cohorts)*.12,mealPaid=Math.min(meal,st.food||0),ate=this.pay(st,{food:meal});if(!ate)st.food=0;
+    const cooperative=typeof CivilCooperative!=='undefined'?CivilCooperative.settle(s,id,factor):{meal:0};
+    const meal=Math.max(0,CivilPopulation.foodPopulation(n.cohorts)*.12-cooperative.meal),mealPaid=Math.min(meal,st.food||0),ate=this.pay(st,{food:meal});if(!ate)st.food=0;
     run('medic',old('medic'),{food:.2,scrap:.1,...(id==='highland'?{coal:.01}:{})},{medicine:.15});
     run('medic',added('medic'),{food:.2,scrap:.1},{medicine:.15});
     run('teacher',w.teacher||0,{wood:.1},{knowledge:.2});
@@ -132,7 +134,7 @@ var CivilMunicipal={
     m.economy={at:s.civilization.elapsed,food:(deltas.food||0)-(exports.food||0),medicine:(deltas.medicine||0)-(exports.medicine||0),
       treatment:ate&&treated&&(produced.medicine||0)+1e-8>=care,education:CivilPopulation.children(n.cohorts)<=(ran.teacher||0)*20,
       productivePower:powered*2,industry:mine>0&&coal>0&&smelt>0&&powered+manual>0,deltas,
-      paidInputs:{at:s.civilization.elapsed,resources:paidInputs},treatmentInputs:{at:s.civilization.elapsed,resources:{medicine:treated?care:0}},mealInputs:{at:s.civilization.elapsed,resources:{food:mealPaid}}};
+      paidInputs:{at:s.civilization.elapsed,resources:paidInputs},treatmentInputs:{at:s.civilization.elapsed,resources:{medicine:treated?care:0}},mealInputs:{at:s.civilization.elapsed,resources:{food:mealPaid+cooperative.meal}}};
     if(previousAt!==s.civilization.elapsed){m.townStable=this.developmentReady(s,id)?Math.min(180,m.townStable+10):0;m.cityStable=this.developmentReady(s,id,true)?Math.min(300,m.cityStable+10):0;}
     return {};
   },
@@ -302,6 +304,7 @@ var CivilMunicipal={
     if(typeof CivilRegions.upgradeActive==='function'&&CivilRegions.upgradeActive(s,id))$('#municipalProject').append($('<div>').text('当地正在筹备或施工货车改装，完成后再开下一项市政工程。'));
     else if(typeof CivilServices!=='undefined'&&CivilServices.active(s,id))$('#municipalProject').append($('<div>').text('当地正在进行下方公用工程，完成后再开下一项市政工程。'));
     if(typeof CivilCulture!=='undefined')CivilCulture.refresh(s,id);
+    if(typeof CivilCooperative!=='undefined')CivilCooperative.refresh(s,id);
   },
   powerLimits(s,id){
     const m=this.data(s,id),caps=this.jobCapacity(s,id),generation=Math.max(0,(caps.electrician||0)-(m.baseWorkers.electrician||0))*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s,id):0);

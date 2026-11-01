@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -100,6 +100,11 @@ var CivilHistory={
       if(o.deliveredAt!==null)add(key+'_delivery','relief',place+'救济入库','实际送达：'+this.costText(o.cargo)+'。进入地方原仓，健康与生产仍由实际供养恢复。',o.deliveredAt);
       if(o.cancelledAt!==null)add(key+'_cancel','relief',place+(o.dispatchedAt===null?'取消待发救济':'救济折返'),'未发单不付款；已付货物只在原车返抵后退回，旅费不退。',o.cancelledAt);
       if(o.refundAt!==null)add(key+'_refund','relief',place+'救济退回主城','原车实际返仓，退回：'+this.costText(o.cargo)+'。',o.refundAt);
+    }
+    for(const [id,d]of Object.entries(c.cooperative?.nodes||{})){
+      const place=this.place(s,id);add('cooperative_found_'+id,'cooperative',place+'设立制器合作社','转交1处已建制器间与木20、废料60、食物24；地方实付20知识。合作产出归社仓，原公共岗位减少4。',d.foundedAt);
+      for(const [i,x]of d.controls.entries())add('cooperative_control_'+id+'_'+i,'cooperative',place+(x.enabled?'恢复合作生产':'暂停合作生产'),'设施所有权与现有社仓保留。',x.at);
+      for(const kind of ['tools','materials']){const x=d.trades.find(t=>t.kind===kind);if(x)add('cooperative_first_'+id+'_'+kind,'cooperative',place+'首次'+(kind==='tools'?'向合作社采购工具':'向合作社出售原料'),kind==='tools'?'公库实付6食物，社仓交付2工具。':'社仓实付6食物，公库交付木4、废料12。',x.at);}
     }
     for(const [id,d]of Object.entries(c.culture?.nodes||{})){
       const place=this.place(s,id);
