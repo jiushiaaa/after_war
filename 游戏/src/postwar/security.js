@@ -34,8 +34,8 @@ var CivilSecurity={
     const row={at,staff,away,paid,costs:paid?cost:{},readiness:0};row.readiness=this.nextReadiness(d.readiness,d.records.at(-1),row);d.readiness=row.readiness;d.lastSettledAt=at;d.records.push(row);
     return paid?Object.fromEntries(Object.entries(cost).map(([k,v])=>[k,-v])):{};
   },
-  profileFor(s,mode){const p=CivilSecurityContent.modes[mode];return {schema:1,mode,homeGuard:p.homeGuard,sourceGuard:p.sourceGuard,duration:CivilCommerce.route(s).duration+p.extraTime,delay:p.delay,sourcePaid:{...p.sourceCost}};},
-  profile(s){const d=this.data(s);return d?{...this.profileFor(s,d.mode),encounterSeconds:0}:null;},
+  profileFor(s,mode,baseDuration=CivilCommerce.route(s).duration){const p=CivilSecurityContent.modes[mode];return {schema:1,mode,homeGuard:p.homeGuard,sourceGuard:p.sourceGuard,duration:baseDuration+p.extraTime,delay:p.delay,sourcePaid:{...p.sourceCost}};},
+  profile(s){const d=this.data(s);return d?{...this.profileFor(s,d.mode,CivilCommerce.departureDuration?CivilCommerce.departureDuration(s):CivilCommerce.route(s).duration),encounterSeconds:0}:null;},
   departureReason(s,p){
     if(this.available(s)&&!this.data(s))return '先在议事屋议定商路绕行或护送';
     if(!p)return null;
@@ -89,7 +89,7 @@ var CivilSecurity={
     const d=this.data(s),p=o.security,fail=()=>{throw Error('商路护送运单无效');};
     if(p===undefined){if(d&&o.id>=d.legacyBeforeOrder)fail();return;}
     if(!d||o.id<d.legacyBeforeOrder||!p||!Object.hasOwn(CivilSecurityContent.modes,p.mode)||d.changes.filter(v=>v.at<=o.departedAt).at(-1)?.mode!==p.mode)fail();
-    const expected=this.profileFor(s,p.mode);for(const [k,v]of Object.entries(expected))if(JSON.stringify(p[k])!==JSON.stringify(v))fail();
+    const expected=this.profileFor(s,p.mode,o.corridor?.baseDuration||CivilCommerce.route(s).duration);for(const [k,v]of Object.entries(expected))if(JSON.stringify(p[k])!==JSON.stringify(v))fail();
     if(!Number.isSafeInteger(p.encounterSeconds)||p.encounterSeconds<0||p.encounterSeconds>p.delay||p.encounterSeconds&&o.outboundSeconds<Math.floor(p.duration/2)||o.outboundSeconds>Math.floor(p.duration/2)&&p.encounterSeconds!==p.delay||o.lastMovedAt-o.departedAt<o.outboundSeconds+o.inboundSeconds+p.encounterSeconds||o.arrivedAt!==null&&o.arrivedAt<o.departedAt+p.duration+p.delay)fail();
     if(p.homeGuard){const r=d.records.filter(r=>r.at<=o.departedAt).at(-1),asset=this.asset(s);if(!asset||asset.completedAt>o.departedAt||!r?.paid||r.readiness<300||r.staff<p.homeGuard||o.departedAt-r.at>10)fail();}
     if(p.sourceGuard&&(!d.pact||d.pact.at>o.departedAt))fail();

@@ -43,7 +43,7 @@ var CivilOrigins={
     return null;
   },
   schoolBuilders(s,id){return s.civilization.origins.nodes[id].schooling?.project&&!this.schoolWorkReason(s,id)?2:0;},
-  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id && !this.contactWorkReason(s,id)?2:0)+this.schoolBuilders(s,id)+(typeof CivilSecurity!=='undefined'?CivilSecurity.sourceStaff(s,id):0)+(typeof CivilAccession!=='undefined'?CivilAccession.staff(s,id):0);},
+  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id && !this.contactWorkReason(s,id)?2:0)+this.schoolBuilders(s,id)+(typeof CivilSecurity!=='undefined'?CivilSecurity.sourceStaff(s,id):0)+(typeof CivilAccession!=='undefined'?CivilAccession.staff(s,id):0)+(typeof CivilCorridor!=='undefined'?CivilCorridor.staff(s,id):0);},
   startSchool(s,id){
     const n=s.civilization.origins.nodes[id],cfg=CivilOriginContent[id].school;this.initSchool(n);const e=n.schooling;
     if(e.project||e.completed.length>=cfg.max||this.plan(n.cohorts).teacher<=this.schoolCapacity(s,id)||this.schoolWorkReason(s,id)||!this.pay(n.stores,cfg.cost))return false;

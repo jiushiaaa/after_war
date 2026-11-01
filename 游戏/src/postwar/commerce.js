@@ -13,11 +13,14 @@ var CivilCommerce={
   obligation(s){return this.data(s)?1:0;},
   staffed(s){return CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)>=2&&(typeof CivilSecurity==='undefined'||CivilSecurity.staffed(s,this.active(s)));},
   busy(s,corridor){return !!this.active(s)&&this.route(s)?.corridor===corridor||typeof CivilIntercity!=='undefined'&&CivilIntercity.busy(s,corridor);},
-  paid(profile=null,publicDuties=null){const cost=this.cargo(publicDuties);for(const extra of [CivilCommerceContent.travelCost,...(profile?[CivilSecurityContent.modes[profile.mode].homeCost]:[])])for(const [k,v]of Object.entries(extra))cost[k]=(cost[k]||0)+v;return cost;},
-  cargo(publicDuties=null,returning=false){const result={...(returning?CivilCommerceContent.returnCargo:CivilCommerceContent.cargo)};for(const [k,v]of Object.entries((returning?publicDuties?.contribution:publicDuties?.grant)||{}))result[k]=(result[k]||0)+v;return result;},
+  paid(profile=null,publicDuties=null,works=null){const cost=this.cargo(publicDuties,false,works);for(const extra of [CivilCommerceContent.travelCost,...(profile?[CivilSecurityContent.modes[profile.mode].homeCost]:[])])for(const [k,v]of Object.entries(extra))cost[k]=(cost[k]||0)+v;return cost;},
+  cargo(publicDuties=null,returning=false,works=null){const result={...(returning?CivilCommerceContent.returnCargo:CivilCommerceContent.cargo)};for(const [k,v]of Object.entries((returning?publicDuties?.contribution:publicDuties?.grant)||{}))result[k]=(result[k]||0)+v;if(!returning&&works)for(const [k,v]of Object.entries(works.cargo))result[k]=(result[k]||0)+v;return result;},
   publicProfile(s){return typeof CivilAccession!=='undefined'?CivilAccession.profile(s):null;},
   profile(s){return typeof CivilSecurity!=='undefined'?CivilSecurity.profile(s):null;},
-  duration(s,o){return o?.security?.duration||this.route(s).duration;},
+  roadProfile(s){return typeof CivilCorridor!=='undefined'?CivilCorridor.profile(s):null;},
+  departureDuration(s){return this.roadProfile(s)?.baseDuration||this.route(s).duration;},
+  works(s){return typeof CivilCorridor!=='undefined'?CivilCorridor.next(s):null;},
+  duration(s,o){return o?.security?.duration||o?.corridor?.baseDuration||this.route(s).duration;},
   agreementReason(s){
     if(!this.available(s))return '先成立国家并签订独立来源居留公约';
     if(!CivilDiplomacy.operational(s))return '先恢复国家与居留公约的实际履约';
@@ -53,16 +56,16 @@ var CivilCommerce={
     const profile=this.profile(s),security=typeof CivilSecurity!=='undefined'?CivilSecurity.departureReason(s,profile):null;if(security)return security;
     if(!this.staffed(s))return '等待两名空闲运输工；地区与客运班组优先';
     const road=this.roadReason(s,true);if(road)return road;
-    if(!CivilFinance.reserveCheck(s,'home',this.paid(profile,this.publicProfile(s))))return '本城须备足工具、旅费与居民供养储备';
+    if(!CivilFinance.reserveCheck(s,'home',this.paid(profile,this.publicProfile(s),this.works(s))))return '本城须备足工具、旅费与居民供养储备';
     const sourceCost=this.cargo(this.publicProfile(s),true);for(const [k,v]of Object.entries(profile?.sourcePaid||{}))sourceCost[k]=(sourceCost[k]||0)+v;
     if(!CivilDiplomacy.reserve(s,this.sourceId(s),sourceCost))return '对方须先备足交换食物、护送费用和自身120秒供养';
     return null;
   },
   dispatch(s){
-    if(this.dispatchReason(s))return false;const d=this.data(s),at=s.civilization.elapsed,p=this.plan(s),profile=this.profile(s),publicDuties=this.publicProfile(s),paid=this.paid(profile,publicDuties);
+    if(this.dispatchReason(s))return false;const d=this.data(s),at=s.civilization.elapsed,p=this.plan(s),profile=this.profile(s),publicDuties=this.publicProfile(s),works=this.works(s),corridor=this.roadProfile(s),paid=this.paid(profile,publicDuties,works);
     CivilServices.pay(s.stores,paid);
     if(profile)CivilServices.pay(this.source(s).stores,profile.sourcePaid);
-    d.orders.push({id:d.nextId++,planId:p.id,assetId:this.asset(s).id,departedAt:at,arrivedAt:null,returnedAt:null,outboundSeconds:0,inboundSeconds:0,lastMovedAt:at,exchange:null,paid:{...paid},cargo:this.cargo(publicDuties),...(profile?{security:profile}:{}),...(publicDuties?{publicDuties}:{})});
+    d.orders.push({id:d.nextId++,planId:p.id,assetId:this.asset(s).id,departedAt:at,arrivedAt:null,returnedAt:null,outboundSeconds:0,inboundSeconds:0,lastMovedAt:at,exchange:null,paid:{...paid},cargo:this.cargo(publicDuties,false,works),...(profile?{security:profile}:{}),...(publicDuties?{publicDuties}:{}),...(works?{works}:{}),...(corridor?{corridor}:{})});
     if(profile?.sourceGuard)CivilOrigins.assign(s,this.sourceId(s));return true;
   },
   tick(s){
@@ -73,7 +76,7 @@ var CivilCommerce={
     if(o.arrivedAt===null){
       o.outboundSeconds++;
       if(o.outboundSeconds===duration){
-        const returning=this.cargo(o.publicDuties||null,true);o.arrivedAt=at;o.exchange=CivilDiplomacy.reserve(s,d.sourceId,returning);
+        const returning=this.cargo(o.publicDuties||null,true);o.arrivedAt=at;if(typeof CivilCorridor!=='undefined')CivilCorridor.receive(s,o);o.exchange=CivilDiplomacy.reserve(s,d.sourceId,returning);
         if(o.exchange){
           const stores=this.source(s).stores;CivilServices.pay(stores,returning);
           for(const [k,v]of Object.entries(o.cargo))stores[k]=(stores[k]||0)+v;
@@ -105,8 +108,10 @@ var CivilCommerce={
     const active=this.active(s),publicDuties=active?active.publicDuties:this.publicProfile(s),profile=active?.security||this.profile(s),text=[this.status(s)+'。'];
     if(!d)text.push('登记实付：本城知识60、对方30；双方保留原仓库与居民。');
     if(!this.asset(s))text.push('商队装备实耗木80、钢60、零件20、工具10；两名营建工施工360秒。');
-    text.push('每趟工具12交换食物120，另耗食物6、木2、工具0.1、零件0.1。两名现有空闲运输工，'+(this.route(s)?'基础单程'+this.route(s).duration+'秒。':'')+'到达才交换，返城才入库；对方储备不足，原货返回，旅费不退。');
+    text.push('每趟工具12交换食物120，另耗食物6、木2、工具0.1、零件0.1。两名现有空闲运输工，'+(this.route(s)?'原路基础单程'+this.route(s).duration+'秒。':'')+'到达才交换，返城才入库；对方储备不足，原货返回，旅费不退。');
     if(profile)text.push(CivilSecurityContent.modes[profile.mode].name+'：单程'+profile.duration+'秒，另耗 '+CivilHistory.costText(CivilSecurityContent.modes[profile.mode].homeCost)+(profile.delay?'，去程另停'+profile.delay+'秒驱离。':'。'));
+    if(active?.works)text.push('本趟另付工程建材 '+CivilHistory.costText(active.works.cargo)+'，实际到达后进入道路工程保管账。');
+    if(active?.corridor)text.push('本趟采用出发时道路维护凭据，基础单程'+active.corridor.baseDuration+'秒；后续维护变化不修改本单。');
     if(publicDuties)text.push((active?'本趟按出发约定另送 ':'加盟另送 ')+CivilHistory.costText(publicDuties.grant)+'；来源另交 '+CivilHistory.costText(publicDuties.contribution)+'，随原车实际到货。');
     text[text.length-1]+=' 封路或缺员暂停；每批最多六趟，可撤销未发委托。在途承诺保留，治理中断暂停新发车。';
     return {title:typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'加盟聚居圈贸易与公共收支':'独立聚居圈实物贸易',text,buttons};
@@ -134,9 +139,9 @@ var CivilCommerce={
       if(typeof CivilSecurity!=='undefined')CivilSecurity.validateOrder(s,o);
       if(typeof CivilAccession!=='undefined')CivilAccession.validateOrder(s,o);
       const duration=this.duration(s,o);
-      if(!obj(o)||o.id!==i+1||!Number.isSafeInteger(o.planId)||o.planId<1||o.planId>d.plans.length||!asset||o.assetId!==asset.id||!time(o.departedAt)||o.departedAt<asset.completedAt||!nullable(o.arrivedAt)||!nullable(o.returnedAt)||!time(o.lastMovedAt)||o.lastMovedAt<o.departedAt||!same(o.paid,this.paid(o.security||null,o.publicDuties||null))||!obj(o.cargo)||![null,true,false].includes(o.exchange)||prior&&(prior.returnedAt===null||o.departedAt<=prior.returnedAt||o.planId<prior.planId))fail();
+      if(!obj(o)||o.id!==i+1||!Number.isSafeInteger(o.planId)||o.planId<1||o.planId>d.plans.length||!asset||o.assetId!==asset.id||!time(o.departedAt)||o.departedAt<asset.completedAt||!nullable(o.arrivedAt)||!nullable(o.returnedAt)||!time(o.lastMovedAt)||o.lastMovedAt<o.departedAt||!same(o.paid,this.paid(o.security||null,o.publicDuties||null,o.works||null))||!obj(o.cargo)||![null,true,false].includes(o.exchange)||prior&&(prior.returnedAt===null||o.departedAt<=prior.returnedAt||o.planId<prior.planId))fail();
       if(![o.outboundSeconds,o.inboundSeconds].every(v=>Number.isSafeInteger(v)&&v>=0&&v<=duration)||o.lastMovedAt-o.departedAt<o.outboundSeconds+o.inboundSeconds||d.lastTickAt===null||d.lastTickAt<o.lastMovedAt)fail();
-      if(o.arrivedAt===null){if(o.outboundSeconds>=duration||o.inboundSeconds!==0||o.exchange!==null||o.returnedAt!==null||!same(o.cargo,this.cargo(o.publicDuties||null)))fail();}
+      if(o.arrivedAt===null){if(o.outboundSeconds>=duration||o.inboundSeconds!==0||o.exchange!==null||o.returnedAt!==null||!same(o.cargo,this.cargo(o.publicDuties||null,false,o.works||null)))fail();}
       else {
         if(o.arrivedAt<o.departedAt+duration||o.outboundSeconds!==duration||typeof o.exchange!=='boolean'||o.lastMovedAt<o.arrivedAt||o.lastMovedAt-o.arrivedAt<o.inboundSeconds)fail();
         if(o.returnedAt===null){if(o.inboundSeconds>=duration||!same(o.cargo,this.cargo(o.publicDuties||null,o.exchange)))fail();}

@@ -129,6 +129,12 @@ var CivilHistory={
         if(o.returnedAt!==null)add('intercity_return_'+o.id,'transport','联运空车返城','原商车与两名司机重新可用。',o.returnedAt);
       }
     }
+    if(c.corridor){
+      const d=c.corridor,name=this.sourceName(d.sourceId);
+      add('corridor_agreement','transport',name+'道路筹办','本城实付 '+this.costText(d.signature.home)+'；当地实付 '+this.costText(d.signature.source)+'。工程材料仍须由原商车实运。',d.agreedAt);
+      for(const r of d.receipts)add('corridor_receipt_'+r.orderId,'transport','道路建材实际到达','原第'+r.orderId+'号商单交入工程保管账 '+this.costText(r.cargo)+'，普通贸易独立结算。',r.at);
+      if(d.completedAt!==null)add('corridor_complete','transport',name+'道路驿站竣工','当地实际施工600秒，消耗已运到材料 '+this.costText(d.consumed)+'；以后须双边持续付费维护，新车才缩短基础路程。',d.completedAt);
+    }
     if(c.frontier){
       const d=c.frontier;
       for(const m of d.missions){
