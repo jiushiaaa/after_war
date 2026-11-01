@@ -146,7 +146,7 @@ var Civilization = {
       return;
     }
     const beds=typeof CivilUrban!=='undefined'?CivilUrban.availableBeds(State):Outside.getMaxPopulation()-p;
-    if(beds<=0 || $SM.get('game.temperature.value',true)<2 || (State.stores.food || 0)<6 || (p>0 && c.trust<15) || c.hunger) return;
+    if(beds<=0 || (typeof CivilHeating!=='undefined'&&CivilHeating.handed(State)?!CivilHeating.covered(State,'home',1)&&!CivilHeating.recoveryReady(State):$SM.get('game.temperature.value',true)<2) || (State.stores.food || 0)<6 || (p>0 && c.trust<15) || c.hunger) return;
     const n=Math.min(p===0?2:1,beds);
     $SM.add('game.population',n); if(typeof CivilSociety!=='undefined')CivilSociety.sync(State); c.populationClock=0;
     this.notify(p===0?'两位拾荒者循着炊烟而来。他们带着空行囊，愿意留下做工。':'一位流浪者走进聚落，问这里是否还有床位。');
@@ -395,6 +395,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.refresh();
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.refresh();
     if(typeof CivilServices!=='undefined')CivilServices.refresh();
+    if(typeof CivilHeating!=='undefined')CivilHeating.refresh();
     if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State,{summaries:false});
     if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.refresh(State);
@@ -463,7 +464,7 @@ Room.updateBuildButtons=function() {
   if(CivilCatalog.buildingLimit)for(const [id,item]of Object.entries(Room.Craftables))item.maximum=CivilCatalog.buildingLimit(State,id);
   adrBuildButtons();
   for(const [id,item] of Object.entries(Room.Craftables)) if(item.button) {
-    Button.setDisabled(item.button,!buildDefs[id].gate() || (State.game.buildings[id] || 0)>=item.maximum || !CivilRules.canPay(State,item.cost()) || $SM.get('game.temperature.value',true)<2);
+    Button.setDisabled(item.button,!buildDefs[id].gate() || (State.game.buildings[id] || 0)>=item.maximum || !CivilRules.canPay(State,item.cost()) || !(typeof CivilHeating!=='undefined'?CivilHeating.workshopReady(State):$SM.get('game.temperature.value',true)>=2));
   }
 };
 Outside._INCOME={gatherer:{name:'采木工',delay:10,stores:{wood:1}},hunter:{name:'猎人',delay:10,stores:{food:.8,fur:.3}},salvager:{name:'回收工',delay:10,stores:{scrap:.5}}};

@@ -24,10 +24,10 @@ var CivilServices={
     if(m.project?.status==='building')result[id==='home'?'servicebuilder':'builder']=2;
     return result;
   },
-  demandCapacity(s,id='home'){const b=this.data(s,id)?.buildings||{};return (b.waterworks||0)*4+(b.pharmacy||0)*8*.5;},
+  demandCapacity(s,id='home'){const b=this.data(s,id)?.buildings||{};return (b.waterworks||0)*4+(b.pharmacy||0)*8*.5+(b.heatingplant||0);},
   syncWorkers(s,id='home'){
     if(id!=='home')return;const w=s.game.workers,cap=this.jobs(s,id);
-    for(const job of ['servicebuilder','waterworker','pharmacist'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
+    for(const job of ['servicebuilder','waterworker','pharmacist','heatingworker'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
   },
   capacityBonus(s,id='home'){return (this.data(s,id)?.buildings.densehousing||0)*160;},
   labor(s,id,job){
@@ -46,6 +46,7 @@ var CivilServices={
     const d=CivilServiceContent.facilities[type],m=this.data(s,id);
     if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.homeOnly&&id!=='home'||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
     if(type==='pharmacy')return this.publicServices(s,id);
+    if(type==='heatingplant')return this.publicServices(s,id)&&(id==='home'||!!s.civilization.municipal?.nodes[id]?.town);
     if(type==='irrigationworks')return !!m?.buildings.waterfield;
     if(type==='densehousing')return this.publicServices(s,id)&&this.health(s,id)>=60&&this.waterCapacity(s,id)+1e-8>=this.population(s,id)+d.beds;
     return true;
@@ -57,7 +58,7 @@ var CivilServices={
     if(id==='home'&&!this.pay(s.stores,d.cost))return false;
     this.init(s);const all=s.civilization.services.nodes,m=all[id]||(all[id]={buildings:{},nextProject:1,project:null,completed:[],manualWater:false,economy:null,water:null,irrigation:null});
     m.project={id:m.nextProject++,type,status:id==='home'?'building':'supplying',required:{...d.cost},buffer:{},receipts:[],remaining:id==='home'?d.duration:0,startedAt:s.civilization.elapsed,lastWorkedAt:s.civilization.elapsed};
-    if(type==='passengerfleet'){m.project.paid={...d.cost};m.project.workedSeconds=0;}
+    if(['passengerfleet','heatingplant'].includes(type)){m.project.paid=id==='home'?{...d.cost}:null;m.project.workedSeconds=0;}
     this.syncWorkers(s,id);return true;
   },
   nextCargo(s,id,capacity){
@@ -72,7 +73,7 @@ var CivilServices={
     const shipment=s.civilization.regions.shipments.find(x=>x.route===id&&x.serviceProjectId===p.id&&x.purpose==='services'&&x.cargo===cargo&&x.phase==='outbound'&&x.source==='home'&&x.target===id&&x.status==='moving'&&x.remaining===0);
     if(!shipment||p.receipts.includes(shipment.id)||!Object.keys(cargo).length||Object.entries(cargo).some(([k,n])=>!Number.isFinite(n)||n<=0||!Object.hasOwn(p.required,k)||(p.buffer[k]||0)+n>p.required[k]+1e-8))return false;
     for(const [k,n]of Object.entries(cargo))p.buffer[k]=(p.buffer[k]||0)+n;p.receipts.push(shipment.id);
-    if(Object.entries(p.required).every(([k,n])=>(p.buffer[k]||0)+1e-8>=n)){this.pay(p.buffer,p.required);p.status='building';p.remaining=CivilServiceContent.facilities[p.type].duration;p.lastWorkedAt=s.civilization.elapsed;}
+    if(Object.entries(p.required).every(([k,n])=>(p.buffer[k]||0)+1e-8>=n)){this.pay(p.buffer,p.required);if(p.type==='heatingplant')p.paid={...p.required};p.status='building';p.remaining=CivilServiceContent.facilities[p.type].duration;p.lastWorkedAt=s.civilization.elapsed;}
     return true;
   },
   validShipment(s,ship){
@@ -112,7 +113,12 @@ var CivilServices={
     const pharmacists=this.labor(s,id,'pharmacist');demand+=pharmacists*.5;
     const doses=Math.min(pharmacists,Math.floor((power+1e-8)/.5));
     const made=doses?run('pharmacist',doses,{food:.2,chemicals:.15},{medicine:.4*factor}):0;
-    used+=made*.5;const medicine=made*.4*factor;
+    used+=made*.5;power-=made*.5;const medicine=made*.4*factor;
+    if(typeof CivilHeating!=='undefined'&&CivilHeating.run){
+      const heat=CivilHeating.run(s,id,{run,powerAvailable:power});
+      if(!Number.isFinite(heat.used)||heat.used<0||heat.used>power+1e-8||!Number.isFinite(heat.demand)||heat.demand<heat.used||heat.demand>(m.buildings.heatingplant||0))throw Error('供热电力预算无效');
+      used+=heat.used;demand+=heat.demand;power-=heat.used;
+    }
     m.economy={at:t,waterCapacity:water,medicine,used,demand};
     m.water={issuedAt:t,usableAt:t+10,validUntil:t+10,capacity:water,consumed:false};
     return {used,demand,waterCapacity:water,medicine};
@@ -126,8 +132,8 @@ var CivilServices={
       if(p.type==='passengerfleet'&&(id!=='home'||s.civilization.hunger>0))continue;
       if(p.type==='densehousing'&&(!this.publicServices(s,id)||this.waterCapacity(s,id)+1e-8<this.population(s,id)+160))continue;
       p.remaining=Math.max(0,p.remaining-1);
-      if(p.type==='passengerfleet')p.workedSeconds++;
-      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;const record={id:p.id,type:p.type,completedAt:t};if(p.type==='passengerfleet')Object.assign(record,{paid:{...p.paid},workedSeconds:p.workedSeconds,startedAt:p.startedAt,lastWorkedAt:p.lastWorkedAt});m.completed.push(record);this.syncWorkers(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
+      if(['passengerfleet','heatingplant'].includes(p.type))p.workedSeconds++;
+      if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;const record={id:p.id,type:p.type,completedAt:t};if(['passengerfleet','heatingplant'].includes(p.type))Object.assign(record,{paid:{...p.paid},workedSeconds:p.workedSeconds,startedAt:p.startedAt,lastWorkedAt:p.lastWorkedAt});if(p.type==='heatingplant')record.receipts=[...p.receipts];m.completed.push(record);this.syncWorkers(s,id);if(p.type==='heatingplant'&&typeof CivilHeating!=='undefined')CivilHeating.ensure(s,id);this.note(CivilServiceContent.facilities[p.type].name+'已经建成。居民接管了新的设施。');}
     }
     return {storesChanged:false,populationChanged:false};
   },
@@ -149,7 +155,8 @@ var CivilServices={
         if(!show){$('#'+buttonId).hide();continue;}
         const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;if(this.startProject(State,target,type)){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();this.refresh();}});
         button.show();Button.setDisabled(button,!this.projectAvailable(s,id)||!this.facilityGate(s,id,type)||id==='home'&&!Object.entries(d.cost).every(([k,n])=>(s.stores[k]||0)+1e-8>=n));
-        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':''));
+        if(type==='heatingplant')button.attr('aria-label','建设供热站，完工后需安排供热工与持续燃料');
+        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':type==='heatingplant'?'每站电动2名供热工，10秒实耗1电、0.8煤与0.02零件，供600人；手动4人耗1.2煤与0.02零件，供300人。试运行覆盖全体居民后可交接日常供暖。':''));
       }
       const manualId=rootId+'_manual';
       if(m?.buildings.waterworks){const button=Civilization.button(manualId,m.manualWater?'恢复电动水务':'安排手动水务','#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected;this.setManualWater(State,target,!this.data(State,target).manualWater);Engine.saveGame();this.refresh();});button.show();button.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(m.manualWater?'恢复电动水务':'安排手动水务'));button.attr('title','每站电动：4水务工、4电，供600人；手动：8水务工，供300人。两种方式每轮都需0.2化学品、0.02零件。');}else $('#'+manualId).hide();
@@ -158,15 +165,16 @@ var CivilServices={
   validate(s){
     const r=s.civilization.services;if(r===undefined)return;
     const obj=v=>v!==null&&typeof v==='object'&&!Array.isArray(v),num=(v,max=1e8)=>Number.isFinite(v)&&v>=0&&v<=max,int=(v,max=1e8)=>Number.isInteger(v)&&num(v,max),t=s.civilization.elapsed,fac=CivilServiceContent.facilities;
-    const validFleetWork=(x,complete)=>{
-      const d=fac.passengerfleet;
+    const validPaidWork=(x,complete)=>{
+      const d=fac[x.type];
       return obj(x.paid)&&Object.keys(x.paid).length===Object.keys(d.cost).length&&Object.entries(d.cost).every(([k,n])=>x.paid[k]===n)&&int(x.startedAt,t)&&int(x.lastWorkedAt,t)&&x.lastWorkedAt>=x.startedAt&&int(x.workedSeconds,d.duration)&&x.workedSeconds<=x.lastWorkedAt-x.startedAt&&(complete?x.workedSeconds===d.duration&&x.lastWorkedAt===x.completedAt:x.workedSeconds+x.remaining===d.duration);
     };
+    const validHeatReceipts=(x,id)=>Array.isArray(x.receipts)&&new Set(x.receipts).size===x.receipts.length&&(id==='home'?x.receipts.length===0:x.receipts.length>0)&&x.receipts.every(n=>int(n)&&n>0&&n<s.civilization.regions.nextShipment);
     if(!obj(r)||r.schema!==1||!obj(r.nodes)||Object.keys(r.nodes).length>4)throw Error('公用服务状态无效');
     for(const [id,m]of Object.entries(r.nodes)){
       if(!this.validNode(s,id)||!obj(m)||!obj(m.buildings)||!Array.isArray(m.completed)||m.completed.length>Object.values(fac).reduce((sum,d)=>sum+d.max,0)||!int(m.nextProject)||m.nextProject<1||typeof m.manualWater!=='boolean')throw Error('公用设施记录无效');
       const counts={},ids=new Set();
-      for(const [index,x]of m.completed.entries()){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||fac[x.type].homeOnly&&id!=='home'||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');if(x.type==='passengerfleet'&&(!s.civilization.tech.passenger_transport||!validFleetWork(x,true)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('迁居装备缺少实付材料或施工记录');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
+      for(const [index,x]of m.completed.entries()){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||fac[x.type].homeOnly&&id!=='home'||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');if(x.type==='passengerfleet'&&(!s.civilization.tech.passenger_transport||!validPaidWork(x,true)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('迁居装备缺少实付材料或施工记录');if(x.type==='heatingplant'&&(!s.civilization.tech.district_heating||!validPaidWork(x,true)||!validHeatReceipts(x,id)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('供热站缺少实付材料或施工记录');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
       for(const [type,n]of Object.entries(m.buildings))if(!Object.hasOwn(fac,type)||fac[type].homeOnly&&id!=='home'||!int(n,fac[type].max)||n!==(counts[type]||0))throw Error('公用设施不能凭空增加');
       for(const [type,n]of Object.entries(counts))if(n!==m.buildings[type])throw Error('公用设施缺少竣工记录');
       const p=m.project;
@@ -177,8 +185,13 @@ var CivilServices={
         if(p.status==='supplying'&&(id==='home'||p.remaining!==0||ids.has(p.id))||p.status==='building'&&(p.remaining<=0||ids.has(p.id)||Object.values(p.buffer).some(n=>n!==0))||p.status==='complete'&&(p.remaining!==0||!ids.has(p.id)||m.completed.find(x=>x.id===p.id)?.type!==p.type||Object.values(p.buffer).some(n=>n!==0)))throw Error('公用工程进度无效');
         if(id==='home'&&p.receipts.length)throw Error('本地工程不能借用运材回执');
         if(p.type==='passengerfleet'){
-          if(!s.civilization.tech.passenger_transport||!validFleetWork(p,false)||Object.keys(p.buffer).length||p.status!=='complete'&&((m.buildings.passengerfleet||0)>=d.max||m.completed.length>0&&p.startedAt<m.completed[m.completed.length-1].completedAt))throw Error('迁居装备施工记录无效');
+          if(!s.civilization.tech.passenger_transport||!validPaidWork(p,false)||Object.keys(p.buffer).length||p.status!=='complete'&&((m.buildings.passengerfleet||0)>=d.max||m.completed.length>0&&p.startedAt<m.completed[m.completed.length-1].completedAt))throw Error('迁居装备施工记录无效');
           if(p.status==='complete'){const x=m.completed.find(x=>x.id===p.id);if(x.startedAt!==p.startedAt||x.lastWorkedAt!==p.lastWorkedAt||x.workedSeconds!==p.workedSeconds||Object.entries(p.paid).some(([k,n])=>x.paid[k]!==n))throw Error('迁居装备与竣工资产不符');}
+        }
+        if(p.type==='heatingplant'){
+          if(!s.civilization.tech.district_heating||(p.status==='supplying'?p.paid!==null||p.workedSeconds!==0:!validPaidWork(p,false)||!validHeatReceipts(p,id)))throw Error('供热站施工记录无效');
+          if(p.status!=='complete'&&((m.buildings.heatingplant||0)>=d.max||m.completed.length>0&&p.startedAt<m.completed[m.completed.length-1].completedAt))throw Error('供热站施工顺序无效');
+          if(p.status==='complete'){const x=m.completed.find(x=>x.id===p.id);if(x.startedAt!==p.startedAt||x.lastWorkedAt!==p.lastWorkedAt||x.workedSeconds!==p.workedSeconds||Object.entries(p.paid).some(([k,n])=>x.paid[k]!==n)||JSON.stringify(x.receipts)!==JSON.stringify(p.receipts))throw Error('供热站与竣工资产不符');}
         }
         if(id!=='home'&&p.status!=='complete'&&([s.civilization.municipal?.nodes[id]?.project,s.civilization.regions?.projects[id]].some(x=>['supplying','building'].includes(x?.status))||typeof CivilRegions!=='undefined'&&CivilRegions.upgradeActive&&CivilRegions.upgradeActive(s,id)))throw Error('地方建设者不能同时施工');
       }

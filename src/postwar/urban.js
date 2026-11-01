@@ -49,6 +49,7 @@ var CivilUrban = {
   receive(s,party){
     const target=party.target,n=this.count(party.cohorts);
     if(!this.canAcceptTarget(s,target) || this.targetPopulation(s,target)+n>this.targetCapacity(s,target))return false;
+    if(typeof CivilHeating!=='undefined'&&CivilHeating.handed(s,target)&&!CivilHeating.covered(s,target,this.reservedBeds(s,target)+(s.civilization.urban.parties.includes(party)?0:n))&&!(target==='home'&&n===1&&party.transport===null&&!party.state&&CivilHeating.recoveryReady(s)))return false;
     if(party.source!=='dispersed' && (typeof CivilOrigins==='undefined' || !CivilOrigins.recordArrival(s,party)))return false;
     return this.admit(s,party.cohorts,party.source,target)===n;
   },
@@ -82,8 +83,10 @@ var CivilUrban = {
   handleArrival(s){
     const u=s.civilization.urban;if(!u)return false;
     const source=this.sourceId(s);if(!u.registered && source==='dispersed')return false;
-    if(!this.availableBeds(s) || s.civilization.hunger || s.game.temperature.value<2 || (s.game.population>0 && s.civilization.trust<15))return true;
-    const quote=this.quote(s,source,1,'singleton');if(!quote || !CivilRules.pay(s,{food:6}))return true;
+    if(!this.availableBeds(s) || s.civilization.hunger || (s.game.population>0 && s.civilization.trust<15))return true;
+    const quote=this.quote(s,source,1,'singleton');if(!quote)return true;
+    if(typeof CivilHeating!=='undefined'&&CivilHeating.handed(s)?!!CivilHeating.growthReason(s,'home',[...this.waiting(s),...quote.cohorts])&&!CivilHeating.recoveryReady(s):s.game.temperature.value<2)return true;
+    if(!CivilRules.pay(s,{food:6}))return true;
     const id=u.nextParty;
     if(!this.commitSource(s,quote,id,'home',typeof CivilPassenger!=='undefined'?null:undefined)){s.stores.food+=6;return true;}
     if(source!=='dispersed')u.nextParty++;
@@ -123,6 +126,7 @@ var CivilUrban = {
     const totalChildren=this.children(s.civilization.society.cohorts)+this.children(cohorts);
     if(totalChildren>Math.min(s.game.workers.teacher||0,CivilCatalog.jobCapacity(s,'teacher'))*20)return '教师尚不能覆盖新增儿童';
     const result=this.forecast(s,cohorts),commit=this.commitments(s);
+    if(typeof CivilHeating!=='undefined'){const heat=CivilHeating.growthReason(s,'home',cohorts,result.copy);if(heat)return heat;}
     const teaching=(result.flow['教师']?.knowledge||0)/(.2*CivilIndustry.factor(s));
     if(totalChildren>teaching*20+1e-8)return '教学缺少纸材或实际值守';
     if((result.deltas.medicine||0)+(commit.medicine||0)<-1e-8 || !result.copy.civilization.society.service)return '药品净供给或公共行政不足';
@@ -202,6 +206,7 @@ var CivilUrban = {
         if(p.remaining>0)continue;
         const n=this.count(p.cohorts);
         let reason=!this.canAcceptTarget(s,p.target)?'acceptance':this.targetPopulation(s,p.target)+n>this.targetCapacity(s,p.target)?'housing':null;
+        if(!reason&&n&&typeof CivilHeating!=='undefined'&&CivilHeating.growthReason(s,p.target,this.waiting(s,p.target)))reason='services';
         if(!reason && remote && n && CivilMunicipal.serviceCheck(s,p.target,this.waiting(s,p.target)))reason='services';
         if(reason){
           if(p.state==='held')p.heldFor=Math.min(120,p.heldFor+1);
@@ -236,6 +241,7 @@ var CivilUrban = {
   },
   developmentReady(s,city=false){
     const u=s.civilization.urban,e=u.economy,c=s.civilization,i=c.industry;
+    if(typeof CivilHeating!=='undefined'&&!CivilHeating.covered(s))return false;
     if(!e || c.elapsed-e.at>10 || s.game.population<(city?400:80) || s.game.population> CivilCatalog.capacity(s) || !this.publicServices(s) || c.hunger || c.village.health<(city?70:60))return false;
     if(!e.treatment || !e.education || e.medicine<-1e-8 || e.food<-1e-8 || !c.society.service)return false;
     if(!city)return this.tradeReady(s);

@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择'},
+  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -74,6 +74,7 @@ var CivilHistory={
       if(r.closedAt!==null)add('road_closed_'+r.id,'incidents',place+'道路封闭',r.choice==='hold'?'原有货车与迁居队归来后，封闭道路等待材料。':'观察期限已过，道路封闭，在途运输等待恢复。',r.closedAt);
       if(r.resolvedAt!==null)add('road_repair_'+r.id,'incidents',place+(r.outcome==='prevented'?'提前加固':'道路修复'),'实际支出：木20、工具4。'+(r.payment.mode==='auto'?'依常设维护安排付款。':'居民决定付款修复。'),r.resolvedAt);
     }
+    for(const [id,h]of Object.entries(c.heating?.nodes||{}))if(h.handedOverAt!==null)add('heat_handover_'+id,'heating',this.place(s,id)+'日常供暖交接','实付试运行覆盖'+h.handover.proof.capacity+'人份，接管'+h.handover.population+'位居民与'+h.handover.reserved+'位在途预留。'+(id==='home'?'旧炉自动添柴和工匠固定产木退出，由实际居民承担。':'当地人员与仓库继续承担燃料和维护。'),h.handedOverAt);
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};
   },

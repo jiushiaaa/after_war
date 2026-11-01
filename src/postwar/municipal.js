@@ -43,6 +43,9 @@ var CivilMunicipal={
     const service=typeof CivilServices!=='undefined'?CivilServices.data(s,id):null;
     desired.pharmacist=positive('pharmacist',Math.max(1,(p*.01+(exp.medicine||0)+.3-desired.medic*.15)/.4));
     desired.waterworker=positive('waterworker',Math.ceil((p+160)/(service?.manualWater?300:600))*(service?.manualWater?8:4));
+    const manualHeat=typeof CivilHeating!=='undefined'&&CivilHeating.manual(s,id),heatStations=Math.min(service?.buildings.heatingplant||0,Math.ceil(p/(manualHeat?300:600)));
+    desired.heatingworker=positive('heatingworker',heatStations*(manualHeat?4:2));
+    const heatPower=manualHeat?0:heatStations,heatCoal=heatStations*(manualHeat?1.2:.8);
     const farmRate=typeof CivilServices!=='undefined'?CivilServices.farmRate(s,id):1.4,oldFarm=base.farmer||0,fieldCap=(m.buildings.farmland||0)*8;
     const farmFood=count=>Math.min(count,oldFarm)*.8+Math.min(Math.max(0,count-oldFarm),fieldCap)*1.4+Math.max(0,count-oldFarm-fieldCap)*farmRate;
     const aged=CivilPopulation.age(n.cohorts).cohorts,reserved=typeof CivilUrban!=='undefined'?CivilUrban.reservedBeds(s,id):0;
@@ -56,26 +59,27 @@ var CivilMunicipal={
     desired.steelworker=positive('steelworker',2);desired.glassworker=positive('glassworker',2);
     desired.chemist=positive('chemist',Math.max(2,(desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+(m.buildings.filterplant||0)*.03+.2)/.4));
     desired.mineralworker=positive('mineralworker',(desired.chemist*.4+desired.glassworker*.6+.2)/1.2);
-    const servicePower=(service?.manualWater?0:Math.floor(desired.waterworker/4)*4)+desired.pharmacist*.5;
+    const servicePower=(service?.manualWater?0:Math.floor(desired.waterworker/4)*4)+desired.pharmacist*.5+heatPower;
     desired.utilityworker=positive('utilityworker',(servicePower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2)/10);
-    desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0))/4);
+    const heatBackup=Math.min(heatPower,Math.max(0,servicePower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2-desired.utilityworker*10));
+    desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0)+heatBackup)/4);
     if(service||desired.chemist||desired.steelworker||desired.glassworker||desired.utilityworker){
       // Scale spare-parts labor to actual maintenance. Keep two real powered jobs
       // beyond any legacy hand-work positions when built capacity permits them.
-      const partsNeed=desired.electrician*.02+desired.utilityworker*.03+(service?.buildings.waterworks||0)*.02+(m.buildings.scrubber?.01:0)+(m.buildings.filterplant||0)*.02+(exp.parts||0)+.25;
+      const partsNeed=desired.electrician*.02+desired.utilityworker*.03+(service?.buildings.waterworks||0)*.02+heatStations*.02+(m.buildings.scrubber?.01:0)+(m.buildings.filterplant||0)*.02+(exp.parts||0)+.25;
       desired.machinist=positive('machinist',Math.max((base.machinist||0)+2,partsNeed/.5));
-      desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0))/4);
+      desired.electrician=positive('electrician',(Math.max(0,desired.machinist-(base.machinist||0))*2+(m.buildings.scrubber?1:0)+heatBackup)/4);
     }
     if(desired.steelworker)desired.smelter=positive('smelter',Math.max(desired.smelter,(desired.steelworker*1.2+desired.machinist*.5+(exp.iron||0)+.2)/.6));
     if(desired.smelter)desired.miner=positive('miner',Math.max(desired.miner,desired.smelter-(base.smelter||0)));
-    if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+.2));
+    if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker||heatStations)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+heatCoal+.2));
     const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01;
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
     desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0))/.5+1);
     desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
-    for(const job of ['farmer','medic','waterworker','pharmacist','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     return n.workers;
   },
   pay(stores,cost){if(Object.entries(cost).some(([key,n])=>(stores[key]||0)+1e-8<n))return false;for(const [key,n]of Object.entries(cost))stores[key]=Math.max(0,(stores[key]||0)-n);return true;},
@@ -143,6 +147,7 @@ var CivilMunicipal={
     if(!(m.buildings.clinic && m.buildings.school && m.buildings.farmland))return '先建设地方田片、诊疗站和学舍';
     if((n.stores.food||0)+1e-8<this.foodReserve(s,id,cohorts))return '地方须留下120秒居民口粮';
     const f=this.forecast(s,id,cohorts);
+    if(typeof CivilHeating!=='undefined'){const heat=CivilHeating.growthReason(s,id,cohorts,f.copy);if(heat)return heat;}
     if(!f.education)return '地方教师或教材不能覆盖新增儿童';
     if(!f.treatment || f.medicine<-1e-8)return '地方药品生产不足以持续治疗';
     if(f.food<-1e-8)return '地方农田与工具还不能持续供养';
@@ -152,6 +157,7 @@ var CivilMunicipal={
   developmentReady(s,id,city=false){
     const n=this.node(s,id),m=this.data(s,id),e=m?.economy,r=s.civilization.regions;
     if(!this.canAccept(s,id)||!e||s.civilization.elapsed-e.at>10||n.population<(city?400:80)||n.population>this.capacity(s,id)||n.health<(city?70:60)||!e.education||!e.treatment||e.food<-1e-8||e.medicine<-1e-8||r.adminService===false||!m.buildings.farmland||!m.buildings.clinic||!m.buildings.school)return false;
+    if(typeof CivilHeating!=='undefined'&&!CivilHeating.covered(s,id))return false;
     if(!CivilRegions.serviceReady(s,id))return false;
     return !city || !!(m.town && e.industry && e.productivePower>=4 && m.pollution<40 && (n.stores.food||0)+1e-8>=this.foodReserve(s,id) && n.stores.tools>=40 && n.stores.iron>=40 && n.stores.parts>=20);
   },

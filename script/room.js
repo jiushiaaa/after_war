@@ -1002,8 +1002,8 @@ var Room = {
 
 	build: function (buildBtn) {
 		var thing = $(buildBtn).attr('buildThing');
-		if ($SM.get('game.temperature.value') <= Room.TempEnum.Cold.value) {
-			Notifications.notify(Room, _("builder just shivers"));
+		if (typeof CivilHeating !== 'undefined' ? !CivilHeating.workshopReady(State) : $SM.get('game.temperature.value') <= Room.TempEnum.Cold.value) {
+			Notifications.notify(Room, typeof CivilHeating !== 'undefined' && CivilHeating.handed(State) ? '工作间缺少供暖，请恢复供热或付5木料开启应急工作间。' : _("builder just shivers"));
 			return false;
 		}
 		var craftable = Room.Craftables[thing];

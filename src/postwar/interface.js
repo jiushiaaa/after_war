@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only summaries and progressive organization of existing ADR controls. */
 var CivilInterface={
   views:{},researchModule:null,
-  kinds:{residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
+  kinds:{residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
   labels:{overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
   number(n){return Number((Number(n)||0).toFixed(2));},
   signed(n){return (n>=0?'+':'')+this.number(n);},
@@ -17,6 +17,7 @@ var CivilInterface={
     const cards=[['居民',s.game.population+' / '+CivilCatalog.capacity(s)],['住房',CivilUrban.availableBeds(s)+' 空床 · '+reserved+' 预留']];
     if(e)cards.push(['粮食 / 10秒',this.signed(e.food),e.food<0],['药品 / 10秒',this.signed(e.medicine),e.medicine<0],['儿童教学',e.education?'已覆盖':'待补足',!e.education],['居民治疗',e.treatment?'已覆盖':'待补足',!e.treatment]);
     const notices=[];if(e?.food<0)notices.push('粮食正在消耗储备');if(e?.medicine<0)notices.push('药品正在消耗储备');if(e&&!e.education)notices.push('教师或教材不足');if(s.civilization.hunger)notices.push('居民口粮不足');
+    if(typeof CivilHeating!=='undefined'&&CivilHeating.data(s)){const h=CivilHeating;cards.push(['实际供暖',h.capacity(s)+' / '+s.game.population+' 人份',h.handed(s)&&!h.covered(s)]);if(h.handed(s)&&!h.covered(s))notices.push('供暖覆盖不足，新的批次接纳暂停');}
     const project=this.projectText(s);if(project)notices.push('在建：'+project);
     const details=[['粮药口径','近轮净供给已含现有固定合同；出发旅费另付'],['接纳计划',u.enabled?'自动接纳已开启':'新批次已暂停；在途继续'],['来源',CivilUrban.sourceName(source)],['来源居民',source==='dispersed'?CivilUrban.count(u.source)+' 人待安置':(n?.population||0)+' 人，包含留守居民'],['后续目的地',CivilUrban.targetName(s,target)+' · '+CivilUrban.targetPopulation(s,target)+' / '+CivilUrban.targetCapacity(s,target)+' 人'],['目的地预留',CivilUrban.reservedBeds(s,target)+' 床'],['当前安排',u.status]];
     if(!u.city)details.push(['发展准备',u.chartered?'城市稳定 '+u.cityStable+' / 300秒':'镇制稳定 '+u.townStable+' / 180秒']);
@@ -27,6 +28,7 @@ var CivilInterface={
     const cards=[['居民',n.population+' / '+CivilMunicipal.capacity(s,id)],['健康',Math.floor(n.health)+' / 100']];
     if(e)cards.push(['粮食 / 10秒',this.signed(e.food),e.food<0],['药品 / 10秒',this.signed(e.medicine),e.medicine<0],['儿童教学',e.education?'已覆盖':'待补足',!e.education],['工业用电',this.number(e.productivePower)+' / '+this.number(m.power.generation)]);
     const notices=[];if(e?.food<0)notices.push('当地粮食净供给不足');if(e?.medicine<0)notices.push('当地药品净供给不足');if(m?.pollution>=40)notices.push('烟尘正在影响居民健康');
+    if(typeof CivilHeating!=='undefined'&&CivilHeating.data(s,id)){const h=CivilHeating;cards.push(['实际供暖',h.capacity(s,id)+' / '+n.population+' 人份',h.handed(s,id)&&!h.covered(s,id)]);if(h.handed(s,id)&&!h.covered(s,id))notices.push('当地供暖覆盖不足');}
     const project=this.projectText(s,id);if(project)notices.push('在建：'+project);
     return {title:CivilRegionContent[id].name+' · '+(m?.city?'城市':m?.town?'镇':'聚居地'),cards,notices,brief:m&&!m.city?(m.town?'城市准备 '+m.cityStable+' / 300秒':'镇制准备 '+m.townStable+' / 180秒'):null,details:[['住房预留',CivilUrban.reservedBeds(s,id)+' 床'],['当地储备','粮 '+Math.floor(n.stores.food||0)+' · 药 '+this.number(n.stores.medicine)+' · 工具 '+this.number(n.stores.tools)],['烟尘',this.number(m?.pollution)],['仓库原则','当地人口、仓库和供电分别结算；在途尚未入库']]};
   },
@@ -56,6 +58,7 @@ var CivilInterface={
     box.toggle(active!=='overview');
     for(const type of Object.keys(CivilServiceContent.facilities))this.filter('#services_'+prefix+'_'+type,this.kinds[type]||'care',active);
     this.filter('#services_'+prefix+'_manual','care',active);
+    for(const suffix of ['record','manual','handover'])this.filter('#heating_'+prefix+'_'+suffix,'care',active);
     // A concise facility line replaces the original concatenated catalogue; active projects stay visible above it.
     const id=prefix==='home'?'home':CivilMunicipal.selected,m=CivilServices.data(State,id),count=Object.entries(m?.buildings||{}).filter(([type,n])=>n&&(this.kinds[type]||'care')===active).map(([type,n])=>CivilServiceContent.facilities[type].name+' '+n);
     const p=this.projectText(State,id),e=m?.economy,water=CivilServices.waterCapacity(State,id),population=CivilServices.population(State,id);

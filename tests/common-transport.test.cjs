@@ -90,7 +90,7 @@ test('outbound road failure refunds only the real undelivered common cargo, once
   const after=JSON.stringify(s);assert.equal(f.recordReturn(s,p),false);assert.equal(r.arrive(s,p),false);assert.equal(JSON.stringify(s),after);valid(h);
 });
 
-test('local contribution waits for local reserves; an empty return cannot refund delivered medicine',()=>{
+test('local contribution waits for its wood; an empty return cannot refund delivered medicine',()=>{
   const h=ready(),{s,r,f}=h;stopOther(h,'river');const p=paidTrip(h),n=s.civilization.regions.nodes.river;h.step(60);n.stores.wood=0;
   const delivered=n.stores.medicine,home=s.stores.medicine;h.step(20);assert.equal(p.status,'loading');assert.equal(f.data(s).receipts.length,1);
   assert.equal(r.returnShipment(s,p.id),true);assert.equal(p.phase,'empty');assert.equal(p.legDuration,60);valid(h);h.step(60);
@@ -129,12 +129,12 @@ test('common and barter commitments share one frequency and previews never pay o
   f.agreement(s).paused=true;const trade=r.committedFlow(s);near(trade.medicine,-.5*total);near(trade.wood,-total);assert.equal(r.committedFlow(s,'river').wood,undefined);
 });
 
-test('local food, medicine and tool reserves block contribution without charging or fabricating a return receipt',()=>{
+test('shortages of local food, medicine or tools do not strand a wood-only contribution or spend those resources',()=>{
   for(const key of ['food','medicine','tools']){
     const h=ready(),{s,r,f}=h;stopOther(h,'river');const p=paidTrip(h),n=s.civilization.regions.nodes.river;h.step(60);
-    const previous=n.stores[key];n.stores[key]=f.reserve(s,'river')[key]-.01;
-    const before=JSON.stringify([n.stores,p,f.data(s)]);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify([n.stores,p,f.data(s)]),before);
-    n.stores[key]=previous;const wood=n.stores.wood;assert.equal(r.loadReturn(s,p),true);near(n.stores.wood,wood-12);assert.equal(f.data(s).receipts.length,2);assert.equal(r.loadReturn(s,p),false);near(n.stores.wood,wood-12);valid(h);
+    n.stores[key]=0;const before=clone(n.stores),wood=n.stores.wood;
+    assert.equal(r.loadReturn(s,p),true);near(n.stores.wood,wood-12);for(const resource of Object.keys(before))if(resource!=='wood')near(n.stores[resource],before[resource]);
+    assert.equal(f.data(s).receipts.length,2);const once=JSON.stringify([n.stores,p,f.data(s)]);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify([n.stores,p,f.data(s)]),once);valid(h);
   }
 });
 

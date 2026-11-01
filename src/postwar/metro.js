@@ -57,6 +57,7 @@ var CivilMetro={
     return need;
   },
   forecastReady(s,id,f){
+    if(typeof CivilHeating!=='undefined'&&f.copy&&!CivilHeating.covered(f.copy,id))return false;
     const home=id==='home',next=f.paidInputs?.at,copy=f.copy,e=home?null:copy.civilization.municipal.nodes[id].economy,service=copy.civilization.services?.nodes[id],power=home?copy.civilization.industry:copy.civilization.municipal.nodes[id].power;
     if(!Number.isFinite(next)||next<=s.civilization.elapsed||!power||power.used>power.generation+1e-8||service?.irrigation?.at!==next||service.irrigation.waterCapacity<this.population(s,id))return false;
     if(!home)return f.food>=-1e-8&&f.medicine>=-1e-8&&f.education&&f.treatment&&f.industry&&f.productivePower>=4&&e.treatmentInputs.resources.medicine+1e-8>=this.population(s,id)*.01;

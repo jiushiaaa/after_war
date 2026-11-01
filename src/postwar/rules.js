@@ -15,7 +15,7 @@
     const farmers=Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer')),serviceCap=typeof CivilServices!=='undefined'?(CivilServices.jobs(state,'home').farmer||0):0,legacyCap=CivilCatalog.jobCapacity(state,'farmer')-serviceCap;
     const legacyFarmers=Math.min(farmers,legacyCap),serviceFarmers=Math.min(Math.max(0,farmers-legacyCap),Math.floor(((state.stores.tools||0)+1e-8)/.01)),serviceRate=typeof CivilServices!=='undefined'?CivilServices.farmRate(state,'home'):1.4;
     return {
-      '工匠': {wood:state.game.builder?.level >= 4 ? 2 : 0},
+      '工匠': {wood:state.game.builder?.level >= 4 && !(typeof CivilHeating!=='undefined'&&CivilHeating.handed(state)) ? 2 : 0},
       '采木工': {wood:gatherers * factor},
       '猎人': {food:(jobs.hunter || 0) * .8 * factor, fur:(jobs.hunter || 0) * .3 * factor},
       '农夫': {food:(legacyFarmers*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)+serviceFarmers*serviceRate)*factor,...(serviceFarmers?{tools:-serviceFarmers*.01}:{})},

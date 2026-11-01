@@ -62,3 +62,41 @@ test('town hearth controls fold once, preserve the native buttons and reveal sho
   h.s.stores.wood=.5;h.ctx.CivilHearth.refresh(h.s);assert.match(nodes.get('#hearthSummary').value,/守火缺木/);assert.equal(details.attrs.open,undefined);assert.equal(nodes.get('#hearthSummary').style.fontWeight,'bold');
   details.attr('open','open');h.s.civilization.urban.city=true;h.s.game.fire.value=0;h.ctx.CivilHearth.refresh(h.s);assert.equal(details.attrs.open,'open');assert.match(nodes.get('#hearthSummary').value,/旧维修间炉火.*炉火已熄/);assert.match(nodes.get('#hearthNote').value,/发电机供应工区和公用设施/);assert.equal(nodes.get('#hearthControls').children.filter(x=>x===stoke).length,1);
 });
+
+// Isolated native-room transition fixture: construction and paid electrical
+// production are covered by heating.test.cjs. Here the historical handover is an
+// explicit input, so the real clock and Room methods can be observed directly.
+function retiredHearth({restored}={}){
+  const h=harness({restored}),{s,ctx,clock}=h;
+  s.game.population=1000;s.civilization.elapsed=100;s.civilization.heating={schema:1,nodes:{home:{introducedAt:0,manual:false,handedOverAt:90,handover:{},economy:null,emergency:null}}};
+  ctx.CivilClock=clock;ctx.CivilServices={population:state=>state.game.population};ctx.CivilUrban={reservedBeds:()=>0};
+  for(const f of ['src/postwar/rules.js','src/postwar/heating.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
+  return h;
+}
+
+test('explicit handover cancels native heat timers and their saved remainders, including already-captured old callbacks',()=>{
+  const h=retiredHearth({restored:{fire:177000,temperature:9000,builder:1200}}),{ctx,s,clock}=h;
+  h.begin();assert.equal(clock.snapshot().fire,177000);const before=copy(s);ctx.CivilHearth.stopLegacy();
+  assert.equal(clock.snapshot().fire,undefined);assert.equal(clock.snapshot().temperature,undefined);assert.equal(clock.snapshot().builder,1200);
+  ctx.Room.coolFire();ctx.Room.adjustTemp();ctx.Room.onFireChange();clock.advance(900000);
+  assert.deepEqual(copy(s),before);assert.equal(clock.snapshot().fire,undefined);assert.equal(clock.snapshot().temperature,undefined);
+  const lazy=retiredHearth({restored:{fire:1,temperature:2}});lazy.ctx.CivilHearth.stopLegacy();assert.equal(lazy.clock.snapshot().fire,undefined);assert.equal(lazy.clock.snapshot().temperature,undefined,'unconsumed reload keys must also retire');
+});
+
+test('both old native fire buttons pay for one bounded emergency and cannot restart free tending or refund time on reload',()=>{
+  const h=retiredHearth(),{ctx,s,clock}=h;s.stores.wood=20;
+  ctx.Room.lightFire();assert.equal(s.stores.wood,15);assert.deepEqual(copy(ctx.CivilHeating.data(s).emergency),{at:100,until:220,capacity:20,cost:{wood:5}});
+  const paid=copy(s);ctx.Room.stokeFire();ctx.Room.lightFire();assert.deepEqual(copy(s),paid);assert.equal(clock.snapshot().fire,undefined);assert.equal(clock.snapshot().temperature,undefined);
+  const resumed=retiredHearth();Object.assign(resumed.s,copy(s));resumed.s.civilization.elapsed=219;assert.equal(resumed.ctx.CivilHeating.workshopReady(resumed.s),true);resumed.ctx.Room.lightFire();assert.equal(resumed.s.stores.wood,15);
+  resumed.s.civilization.elapsed=220;assert.equal(resumed.ctx.CivilHeating.workshopReady(resumed.s),false);resumed.ctx.Room.stokeFire();assert.equal(resumed.s.stores.wood,10);assert.equal(resumed.ctx.CivilHeating.data(resumed.s).emergency.until,340);
+  resumed.s.civilization.elapsed=340;resumed.s.stores.wood=4.5;const insufficient=copy(resumed.s);resumed.ctx.Room.lightFire();assert.deepEqual(copy(resumed.s),insufficient);assert.equal(resumed.clock.snapshot().fire,undefined);
+});
+
+test('the real Room build gate ignores stale warm temperature after handover and paid emergency enables a material-paid repair',()=>{
+  const h=retiredHearth(),{ctx,s}=h;s.stores.wood=40;s.game.temperature.value=4;
+  const normalized=p=>p.replace(/\["([^\"]+)"\]/g,'.$1'),originalGet=ctx.$SM.get,originalSet=ctx.$SM.set;
+  ctx.$SM.get=(p,zero)=>originalGet(normalized(p),zero);ctx.$SM.set=(p,value)=>originalSet(normalized(p),value);ctx.$SM.setM=(p,values)=>{for(const [key,n]of Object.entries(values))ctx.$SM.set(p+'.'+key,n);};ctx.$SM.add=(p,n)=>ctx.$SM.set(p,(ctx.$SM.get(p,true)||0)+n);
+  const originalDollar=ctx.$;ctx.$=value=>typeof value==='object'?value:originalDollar(value);const button={attr:()=> 'cart'};
+  assert.equal(ctx.Room.build(button),false);assert.equal(s.stores.wood,40);assert.equal(s.game.buildings.cart,undefined);assert.match(h.messages.at(-1),/应急工作间/);
+  ctx.Room.lightFire();assert.equal(s.stores.wood,35);s.game.temperature.value=0;ctx.Room.build(button);assert.equal(s.game.buildings.cart,1);assert.equal(s.stores.wood,5);assert.equal(ctx.CivilHeating.covered(s),false,'a repaired workshop never heats the whole city');
+});

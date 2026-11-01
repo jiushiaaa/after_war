@@ -325,7 +325,9 @@ var CivilRegions={
       if(!contribution || !CivilFinance.loadReturn(s,p)){route.status='共同预算等待地方贡献与储备';return false;}
       p.cargo={...contribution};p.status='moving';p.remaining=route.travel;p.legStartedAt=s.civilization.elapsed;p.legDuration=route.travel;route.status='共同贡献返程在途';return true;
     }
-    if(!this.canPay(n.stores,cargo,this.foodPopulation(n)*.24))return false;
+    // Reserve meals when the return actually exports food. Other goods must
+    // still be paid, but hunger must not seize the cart bringing the next meal.
+    if(!this.canPay(n.stores,cargo,(cargo.food||0)>0?this.foodPopulation(n)*.24:0))return false;
     this.debit(n.stores,cargo);p.cargo={...cargo};p.status='moving';p.remaining=route.travel;route.status='返程货物在途';return true;
   },
   returnShipment(s,id){

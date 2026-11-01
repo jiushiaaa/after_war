@@ -141,14 +141,21 @@ test('an incoming convoy turns back to the remote warehouse; the empty cart cann
 test('stale historic trade is not treated as a presently supplied route',()=>{
   const {s,r,activate,step}=harness();activate();assert.equal(r.tradeReady(s),true);s.stores={};step(181);assert.equal(r.tradeReady(s),false);
 });
-test('non-food return cargo still waits for the source community to retain its meal reserve',()=>{
+test('non-food return cargo spends its actual goods without trapping the supply cart on unrelated hunger',()=>{
   for(const id of ['rail','highland']){
     const {s,r,activate,step}=harness(),x=activate();r.setRoute(s,'river',false);r.createNode(s,id);r.signTrade(s,id);r.setRoute(s,id,true);s.stores={food:1000,wood:100,tools:100,coal:100};
-    assert.ok(r.launch(s,id));step(x.routes[id].travel);const p=x.shipments[0],n=x.nodes[id];n.stores.food=0;const before=JSON.stringify(n.stores);
-    assert.equal(r.loadReturn(s,p),false);assert.equal(p.status,'loading');assert.equal(JSON.stringify(n.stores),before);
-    n.stores.food=r.foodPopulation(n)*.24;r.setRoad(s,id,false);const closed=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),closed);
-    r.setRoad(s,id,true);assert.equal(r.loadReturn(s,p),true);assert.equal(p.status,'moving');const loaded=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),loaded);
+    assert.ok(r.launch(s,id));step(x.routes[id].travel);const p=x.shipments[0],n=x.nodes[id];n.stores.food=0;const before={...n.stores};
+    r.setRoad(s,id,false);const closed=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),closed);
+    r.setRoad(s,id,true);assert.equal(r.loadReturn(s,p),true);assert.equal(p.status,'moving');assert.equal(n.stores.food,0);
+    for(const key of Object.keys(before))assert.ok(Math.abs(n.stores[key]-(before[key]-(p.cargo[key]||0)))<1e-8);
+    const loaded=JSON.stringify(n.stores);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify(n.stores),loaded);
   }
+});
+test('food returned by the river still leaves its own actual meal reserve after paying the cargo',()=>{
+  const {s,r,activate,step}=harness(),x=activate();s.stores={food:1000,wood:100,tools:100,medicine:100};assert.ok(r.launch(s,'river'));step(x.routes.river.travel);
+  const p=x.shipments[0],n=x.nodes.river,reserve=r.foodPopulation(n)*.24;n.stores.food=12+reserve-.01;
+  const before=JSON.stringify([n.stores,p]);assert.equal(r.loadReturn(s,p),false);assert.equal(JSON.stringify([n.stores,p]),before);
+  n.stores.food=12+reserve;assert.equal(r.loadReturn(s,p),true);assert.ok(Math.abs(n.stores.food-reserve)<1e-8);assert.deepEqual(JSON.parse(JSON.stringify(p.cargo)),{food:12});
 });
 test('residency qualification begins at that community accession, not the global policy date',()=>{
   const {s,r,activate,step}=harness(),x=activate();s.civilization.tech.administration=true;s.stores={knowledge:1000,food:10000,tools:1000,medicine:1000,wood:1000};

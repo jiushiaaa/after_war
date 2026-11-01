@@ -80,6 +80,12 @@ var CivilFinance={
     return {food,medicine:this.population(s,id)*.01*12,tools:Math.max(4,(input?.resources?.tools||0)*12)};
   },
   reserveCheck(s,id,cost={}){const stores=this.stores(s,id);if(!stores)return false;const reserve=this.reserve(s,id);return [...new Set([...Object.keys(cost),...Object.keys(reserve)])].every(key=>(stores[key]||0)+1e-8>=(cost[key]||0)+(reserve[key]||0));},
+  contributionCheck(s,id,cargo){
+    const stores=this.stores(s,id);if(!stores)return false;const reserve=this.reserve(s,id);
+    // Protect the resources this cart actually removes. Unrelated shortages
+    // must not strand the sole returning cart that brings the next supplies.
+    return Object.entries(cargo).every(([key,n])=>(stores[key]||0)+1e-8>=n+(reserve[key]||0));
+  },
   nextCargo(s,id,capacity){
     const a=this.agreement(s),plan=this.transportPlan(s,id),f=this.data(s);if(!a||!plan||!this.coordinationReady(s)||capacity<14)return null;
     const index=this.periodIndex(s,a),orderId=a.id+':'+index+':'+id;
@@ -120,7 +126,7 @@ var CivilFinance={
   returnCargo(s,p){return this.order(s,p)?{...CivilFinanceContent.back}:null;},
   loadReturn(s,p){
     const o=this.order(s,p),route=s.civilization.regions?.routes[p?.route];
-    if(!o||!this.original(s,p)||o.status!=='loading'||p.phase!=='inbound'||p.status!=='loading'||p.source!==o.node||p.target!=='home'||Object.keys(p.cargo).length||route.condition!=='open'||!this.validShipment(s,p)||!this.reserveCheck(s,o.node,CivilFinanceContent.back))return false;
+    if(!o||!this.original(s,p)||o.status!=='loading'||p.phase!=='inbound'||p.status!=='loading'||p.source!==o.node||p.target!=='home'||Object.keys(p.cargo).length||route.condition!=='open'||!this.validShipment(s,p)||!this.contributionCheck(s,o.node,CivilFinanceContent.back))return false;
     for(const [k,v]of Object.entries(CivilFinanceContent.back))this.stores(s,o.node)[k]-=v;
     o.status='inbound';o.loadedAt=this.now(s);this.receipt(s,o,'back',o.node,'home',CivilFinanceContent.back,this.now(s));return true;
   },
@@ -169,7 +175,7 @@ var CivilFinance={
       }
       buttons.later={text:'暂缓商议',nextScene:'end',onChoose:()=>{f.offered=true;return end('代表留下互助草案，等待下一次议事。');}};
       const balances=['炉火城：'+Math.floor(s.stores.knowledge||0)+'/30知识',...ids.map(node=>CivilRegionContent[node].name+'：'+Math.floor(this.stores(s,node).knowledge||0)+'/10知识')].join('；');
-      return {title:'三仓互助议约',text:['炉火城与两地各自保管仓库，共同照看诊疗与道路。','首次议约：炉火城30知识，两地各10知识。每600秒向每地送药品12、工具2；地方以木材12随原车回赠。',balances+'。','装车前须留下120秒口粮、治疗药品和维护工具。车辆沿原路线往返，仍由原运输工照管。'],buttons};
+      return {title:'三仓互助议约',text:['炉火城与两地各自保管仓库，共同照看诊疗与道路。','首次议约：炉火城30知识，两地各10知识。每600秒向每地送药品12、工具2；地方以木材12随原车回赠。',balances+'。','炉火城发车前须留下120秒口粮、治疗药品和维护工具。地方备足返赠木材后，同一辆车沿原路线返回，仍由原运输工照管。'],buttons};
     }
     const p=this.period(s),lines=a.members.slice(1).map(node=>CivilRegionContent[node].name+'：'+this.routeStatus(s,node));
     const mode=s.civilization.society.axes.devolution,fee=mode==='central'?'炉火城每10秒知识0.04':'三地各每10秒知识0.02';
@@ -189,7 +195,7 @@ var CivilFinance={
   routeStatus(s,id){
     const a=this.agreement(s);if(!a||!a.members.includes(id))return '未参加互助';
     const index=this.periodIndex(s,a),o=this.data(s).orders.find(o=>o.agreementId===a.id&&o.periodIndex===index&&o.node===id);
-    if(o)return ({outbound:'药品与工具在途',loading:'已收到，等待返程木材与本地储备',inbound:'木材返程在途',backReturned:'木材已退回，空车待归',complete:'本周期已履约',cancelled:'本周期车次已退回'})[o.status];
+    if(o)return ({outbound:'药品与工具在途',loading:'已收到，等待返程木材',inbound:'木材返程在途',backReturned:'木材已退回，空车待归',complete:'本周期已履约',cancelled:'本周期车次已退回'})[o.status];
     if(a.paused)return '新车次暂停';
     if(!this.coordinationReady(s))return '共同记录知识待补';
     const r=s.civilization.regions,route=r.routes[id];
