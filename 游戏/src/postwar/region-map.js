@@ -38,7 +38,7 @@ var CivilRegionMap={
       let state=route.condition==='closed'?'道路受阻':!route.enabled?'已停发':!staffed.has(id)?'运输工不足':'通路启用';
       if(id==='river'&&route.condition==='open'&&route.enabled&&(!s.game.buildings.road||c.outpostSupplied!==true))state='道路或外站待维护';
       const shipments=(r.shipments||[]).filter(p=>p.route===id).map(p=>({id:p.id,source:p.source,target:p.target,status:p.status,phase:p.phase,remaining:Math.ceil(p.remaining),purpose:p.purpose,cargo:Object.fromEntries(Object.entries(p.cargo||{}).map(([k,v])=>[k,this.number(v)]))}));
-      routes.push({id,from:'home',to:id,travel:route.travel,capacity:route.capacity,state,closed:route.condition==='closed',status:route.status,shipments});
+      routes.push({id,from:'home',to:id,travel:route.travel,capacity:route.capacity,state,closed:route.condition==='closed',status:route.status,shipments,...(typeof CivilRailway!=='undefined'&&CivilRailway.modeAt(s,id)==='rail'?{carrier:'列车'}:{})});
     }
     return {nodes,routes};
   },
@@ -50,8 +50,8 @@ var CivilRegionMap={
     const button=(n,y)=>'<button type="button" class="region-map-node'+(n.id===node.id?' selected':'')+'" id="regionMapNode_'+esc(n.id)+'" data-region="'+esc(n.id)+'" aria-pressed="'+(n.id===node.id)+'" style="top:'+y+'px;left:'+(n.id==='home'?0:280)+'px"><strong>'+esc(n.name)+'</strong><span>'+n.population+' 位居民</span><small>'+esc(n.relation)+'</small></button>';
     let lines='',branches='';
     for(let index=0;index<others.length;index++){
-      const n=others[index],y=index*112+56,route=view.routes.find(p=>p.to===n.id);
-      if(route){lines+='<path class="'+(route.closed?'closed':'')+'" d="M 100 '+middle+' H 112 V '+y+' H 280" />';branches+='<div class="region-map-route" style="top:'+(y-39)+'px"><span>'+esc(route.state)+'</span><small>单程 '+route.travel+' 秒 · 载重 '+route.capacity+'</small></div><div class="region-map-traffic" style="top:'+(y+8)+'px">'+esc(route.shipments.length?(route.shipments[0].status==='held'?'货车受阻':route.shipments[0].status==='loading'?'等待返程备货':route.shipments[0].status==='refitting'?'原车改装中':'货车在途 · '+route.shipments[0].remaining+'秒'):'暂无在途货车')+'</div>';}
+      const n=others[index],y=index*112+56,route=view.routes.find(p=>p.to===n.id),vehicle=route?.carrier||'货车';
+      if(route){lines+='<path class="'+(route.closed?'closed':'')+'" d="M 100 '+middle+' H 112 V '+y+' H 280" />';branches+='<div class="region-map-route" style="top:'+(y-39)+'px"><span>'+esc(route.state)+'</span><small>单程 '+route.travel+' 秒 · 载重 '+route.capacity+'</small></div><div class="region-map-traffic" style="top:'+(y+8)+'px">'+esc(route.shipments.length?(route.shipments[0].status==='held'?vehicle+'受阻':route.shipments[0].status==='loading'?'等待返程备货':route.shipments[0].status==='refitting'?'原车改装中':vehicle+'在途 · '+route.shipments[0].remaining+'秒'):'暂无在途'+vehicle)+'</div>';}
       else branches+='<div class="region-map-route" style="top:'+(y-15)+'px">尚未记录运输路线</div>';
       branches+=button(n,y-38);
     }

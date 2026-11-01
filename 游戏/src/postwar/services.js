@@ -44,7 +44,8 @@ var CivilServices={
   },
   facilityGate(s,id,type){
     const d=CivilServiceContent.facilities[type],m=this.data(s,id);
-    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.homeOnly&&id!=='home'||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
+    if(!Object.hasOwn(CivilServiceContent.facilities,type)||!d||d.homeOnly&&id!=='home'||d.node&&d.node!==id||!this.validNode(s,id)||!this.permitted(s,id)||(m?.buildings[type]||0)>=d.max||!d.requires.every(k=>s.civilization.tech[k]))return false;
+    if(type==='railfreight')return CivilNation.operational(s)&&CivilRegions.upgrade(s,id)?.status==='complete';
     if(d.paidWork)return id==='home'?!!s.civilization.urban?.city:!!s.civilization.municipal?.nodes[id]?.town;
     if(type==='pharmacy')return this.publicServices(s,id);
     if(type==='windstation')return id==='home'?!!s.civilization.urban?.city:!!s.civilization.municipal?.nodes[id]?.town;
@@ -145,7 +146,7 @@ var CivilServices={
     const s=State,fac=CivilServiceContent.facilities;
     for(const [id,parent]of [['home','#urbanPanel'],[typeof CivilMunicipal!=='undefined'?CivilMunicipal.selected:null,'#municipalPanel']]){
       const prefix=parent==='#urbanPanel'?'home':'local',rootId='services_'+prefix;let box=$('#'+rootId);
-      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>(!d.homeOnly||id==='home')&&d.requires.every(k=>s.civilization.tech[k]));
+      const visible=id&&this.validNode(s,id)&&$(parent).length&&Object.values(fac).some(d=>(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k]));
       if(!visible){box.hide();continue;}
       if(!box.length){box=$('<div>').attr('id',rootId).css({marginTop:'20px',width:'410px'}).appendTo(parent);$('<div>').attr('id',rootId+'_status').css({lineHeight:'1.8',marginBottom:'12px'}).appendTo(box);$('<div>').attr('id',rootId+'_build').appendTo(box);}
       box.show();const m=this.data(s,id),p=m?.project,e=m?.economy;
@@ -153,7 +154,7 @@ var CivilServices={
       const buildings=Object.entries(m?.buildings||{}).filter(([,n])=>n).map(([type,n])=>fac[type].name+' '+n).join('，');
       $('#'+rootId+'_status').text((buildings?buildings+'。':'')+(e?'近轮供水 '+this.waterCapacity(s,id)+' 人份；药剂产出 '+Number(e.medicine.toFixed(2))+'；公用负载 '+e.used+' / '+e.demand+'。':'')+(p&&p.status!=='complete'?fac[p.type].name+'：'+(p.status==='supplying'?'材料分批运输，已到 '+(fmt(p.buffer)||'暂无')+'；需 '+fmt(p.required):'施工剩余 '+Math.ceil(p.remaining)+' 秒，需要2位'+(id==='home'?'营建工':'当地建设者'))+'。':''));
       for(const [type,d]of Object.entries(fac)){
-        const buttonId=rootId+'_'+type;const show=(!d.homeOnly||id==='home')&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
+        const buttonId=rootId+'_'+type;const show=(!d.homeOnly||id==='home')&&(!d.node||d.node===id)&&d.requires.every(k=>s.civilization.tech[k])&&(m?.buildings[type]||0)<d.max;
         if(!show){$('#'+buttonId).hide();continue;}
         const button=Civilization.button(buttonId,d.name,'#'+rootId+'_build',()=>{const target=prefix==='home'?'home':CivilMunicipal.selected,ok=target!=='home'&&typeof CivilPlanning!=='undefined'?CivilPlanning.request(State,target,'services',type):this.startProject(State,target,type);if(ok){if(target==='home'&&typeof Outside!=='undefined')Outside.updateWorkersView();Engine.saveGame();if(Civilization.refresh)Civilization.refresh();else this.refresh();}});
         const queue=id!=='home'&&typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'')+d.name);
@@ -179,13 +180,13 @@ var CivilServices={
     for(const [id,m]of Object.entries(r.nodes)){
       if(!this.validNode(s,id)||!obj(m)||!obj(m.buildings)||!Array.isArray(m.completed)||m.completed.length>Object.values(fac).reduce((sum,d)=>sum+d.max,0)||!int(m.nextProject)||m.nextProject<1||typeof m.manualWater!=='boolean')throw Error('公用设施记录无效');
       const counts={},ids=new Set();
-      for(const [index,x]of m.completed.entries()){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||fac[x.type].homeOnly&&id!=='home'||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');if(x.type==='passengerfleet'&&(!s.civilization.tech.passenger_transport||!validPaidWork(x,true)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('迁居装备缺少实付材料或施工记录');if((['heatingplant','windstation'].includes(x.type)||fac[x.type].paidWork)&&(!fac[x.type].requires.every(k=>s.civilization.tech[k])||!validPaidWork(x,true)||!validHeatReceipts(x,id)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('能源设施缺少实付材料或施工记录');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
-      for(const [type,n]of Object.entries(m.buildings))if(!Object.hasOwn(fac,type)||fac[type].homeOnly&&id!=='home'||!int(n,fac[type].max)||n!==(counts[type]||0))throw Error('公用设施不能凭空增加');
+      for(const [index,x]of m.completed.entries()){if(!obj(x)||!int(x.id,m.nextProject-1)||x.id<1||ids.has(x.id)||!Object.hasOwn(fac,x.type)||fac[x.type].homeOnly&&id!=='home'||fac[x.type].node&&fac[x.type].node!==id||!num(x.completedAt,t))throw Error('公用工程竣工记录无效');if(x.type==='passengerfleet'&&(!s.civilization.tech.passenger_transport||!validPaidWork(x,true)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('迁居装备缺少实付材料或施工记录');if((['heatingplant','windstation'].includes(x.type)||fac[x.type].paidWork)&&(!fac[x.type].requires.every(k=>s.civilization.tech[k])||!validPaidWork(x,true)||!validHeatReceipts(x,id)||index>0&&x.startedAt<m.completed[index-1].completedAt))throw Error('能源设施缺少实付材料或施工记录');ids.add(x.id);counts[x.type]=(counts[x.type]||0)+1;}
+      for(const [type,n]of Object.entries(m.buildings))if(!Object.hasOwn(fac,type)||fac[type].homeOnly&&id!=='home'||fac[type].node&&fac[type].node!==id||!int(n,fac[type].max)||n!==(counts[type]||0))throw Error('公用设施不能凭空增加');
       for(const [type,n]of Object.entries(counts))if(n!==m.buildings[type])throw Error('公用设施缺少竣工记录');
       const p=m.project;
       if(p!==null){
         const d=obj(p)&&Object.hasOwn(fac,p.type)&&fac[p.type];
-        if(!d||d.homeOnly&&id!=='home'||!int(p.id,m.nextProject-1)||p.id<1||p.id!==m.nextProject-1||!['supplying','building','complete'].includes(p.status)||!obj(p.required)||!obj(p.buffer)||!Array.isArray(p.receipts)||new Set(p.receipts).size!==p.receipts.length||p.receipts.some(x=>!int(x)||x<1||x>=s.civilization.regions.nextShipment)||!num(p.startedAt,t)||!num(p.lastWorkedAt,t)||p.lastWorkedAt<p.startedAt||!num(p.remaining,d.duration))throw Error('公用工程事务无效');
+        if(!d||d.homeOnly&&id!=='home'||d.node&&d.node!==id||!int(p.id,m.nextProject-1)||p.id<1||p.id!==m.nextProject-1||!['supplying','building','complete'].includes(p.status)||!obj(p.required)||!obj(p.buffer)||!Array.isArray(p.receipts)||new Set(p.receipts).size!==p.receipts.length||p.receipts.some(x=>!int(x)||x<1||x>=s.civilization.regions.nextShipment)||!num(p.startedAt,t)||!num(p.lastWorkedAt,t)||p.lastWorkedAt<p.startedAt||!num(p.remaining,d.duration))throw Error('公用工程事务无效');
         if(Object.keys(p.required).length!==Object.keys(d.cost).length||Object.entries(d.cost).some(([k,n])=>p.required[k]!==n)||Object.entries(p.buffer).some(([k,n])=>!Object.hasOwn(d.cost,k)||!num(n,d.cost[k])))throw Error('公用工程材料无效');
         if(p.status==='supplying'&&(id==='home'||p.remaining!==0||ids.has(p.id))||p.status==='building'&&(p.remaining<=0||ids.has(p.id)||Object.values(p.buffer).some(n=>n!==0))||p.status==='complete'&&(p.remaining!==0||!ids.has(p.id)||m.completed.find(x=>x.id===p.id)?.type!==p.type||Object.values(p.buffer).some(n=>n!==0)))throw Error('公用工程进度无效');
         if(id==='home'&&p.receipts.length)throw Error('本地工程不能借用运材回执');

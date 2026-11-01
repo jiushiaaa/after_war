@@ -57,9 +57,10 @@ var CivilRelief={
       for(const key of ['dispatchedAt','deliveredAt','returnedAt','cancelledAt','refundAt'])if(o[key]!==null&&(!int(o[key])||o[key]<o.requestedAt))fail();
       const p=ships.filter(p=>p.purpose==='relief'&&p.reliefOrderId===o.id);
       if(o.dispatchedAt===null){if(!['queued','cancelled'].includes(o.status)||['shipmentId','dispatchCapacity','travel','preservationAtDispatch','paid','deliveredAt','returnedAt','turnedAfter','refundAt'].some(k=>o[k]!==null)||p.length||((o.status==='cancelled')!==(o.cancelledAt!==null)))fail();continue;}
-      if(o.status==='queued'||!Number.isSafeInteger(o.shipmentId)||o.shipmentId<1||o.shipmentId>=r.nextShipment||![64,128].includes(o.dispatchCapacity)||o.dispatchCapacity<o.requestedCapacity||o.travel!==r.routes[o.target].travel||!obj(o.paid))fail();
+      if(o.status==='queued'||!Number.isSafeInteger(o.shipmentId)||o.shipmentId<1||o.shipmentId>=r.nextShipment||![64,128].includes(o.dispatchCapacity)||o.dispatchCapacity<o.requestedCapacity||o.travel!==(typeof CivilRailway!=='undefined'?CivilRailway.travelAt(s,o.target,o.dispatchedAt):CivilRegionContent[o.target].travel)||!obj(o.paid))fail();
       if(shipIds.has(o.shipmentId)||o.dispatchCapacity>r.routes[o.target].capacity||typeof o.preservationAtDispatch!=='boolean'||o.preservationAtDispatch&&!s.civilization.tech.preservation)fail();shipIds.add(o.shipmentId);
       const expected={...o.cargo,food:o.cargo.food+(o.preservationAtDispatch?1:2),wood:1,...(o.dispatchCapacity===128?{parts:.05}:{})};
+      if(typeof CivilRailway!=='undefined')for(const [k,n]of Object.entries(CivilRailway.extraAt(s,o.target,o.dispatchedAt)))expected[k]=(expected[k]||0)+n;
       if(![1,2].includes(o.paid.food-o.cargo.food)||!this.same(o.paid,expected))fail();
       if(['returning','cancelled'].includes(o.status)){if(!Number.isSafeInteger(o.turnedAfter)||o.turnedAfter<0||o.turnedAfter>o.travel||o.turnedAfter>o.cancelledAt-o.dispatchedAt||o.returnedAt!==null&&o.returnedAt<o.cancelledAt+Math.max(1,o.turnedAfter))fail();}else if(o.turnedAfter!==null)fail();
       if(o.deliveredAt!==null&&o.deliveredAt<o.dispatchedAt+o.travel||o.returnedAt!==null&&o.returnedAt<o.dispatchedAt+1)fail();

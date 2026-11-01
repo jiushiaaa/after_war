@@ -21,6 +21,8 @@ var CivilRegions={
   discoveredCount(s){const r=s.civilization.regions;return Object.keys(r?.nodes||{}).length+(!r?.nodes.river && s.civilization.village?.riverKnown?1:0);},
   workforce(n){return CivilPopulation.workforce(n.cohorts);},
   foodPopulation(n){return CivilPopulation.foodPopulation(n.cohorts);},
+  routeCrew(s,id){return typeof CivilRailway!=='undefined'?CivilRailway.crew(s,id):2;},
+  routeTravel(s,id){return typeof CivilRailway!=='undefined'?CivilRailway.travelAt(s,id):CivilRegionContent[id].travel;},
   reservedTransport(s){return Object.values(s.civilization.regions?.routes||{}).reduce((n,r)=>n+r.assigned,0);},
   availableTransport(s){
     const total=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
@@ -31,7 +33,7 @@ var CivilRegions={
     const result=new Set(),r=s.civilization.regions;
     let left=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
     if(typeof CivilUrban!=='undefined' && CivilUrban.reservedTransport)left-=CivilUrban.reservedTransport(s);
-    for(const [id,route]of Object.entries(r.routes))if(route.assigned>=2 && left>=2){left-=2;result.add(id);}
+    for(const [id,route]of Object.entries(r.routes)){const crew=this.routeCrew(s,id);if(route.assigned>=crew && left>=crew){left-=crew;result.add(id);}}
     return result;
   },
   capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0);},
@@ -185,12 +187,12 @@ var CivilRegions={
     if(['associated','integrated'].includes(n.relation) && this.load(s)>this.capacity(s))n.unrest=Math.min(100,n.unrest+.1);
     else if(ate)n.unrest=Math.max(0,n.unrest-.02);
   },
-  dispatchCost(s,id,cargo){const cost={...cargo};cost.wood=(cost.wood||0)+1;cost.food=(cost.food||0)+(s.civilization.tech.preservation?1:2);if(this.upgrade(s,id)?.status==='complete')cost.parts=(cost.parts||0)+CivilRouteUpgradeContent.partsPerTrip;return cost;},
+  dispatchCost(s,id,cargo){const cost={...cargo};cost.wood=(cost.wood||0)+1;cost.food=(cost.food||0)+(s.civilization.tech.preservation?1:2);if(this.upgrade(s,id)?.status==='complete')cost.parts=(cost.parts||0)+CivilRouteUpgradeContent.partsPerTrip;if(typeof CivilRailway!=='undefined')for(const [k,n]of Object.entries(CivilRailway.extraAt(s,id)))cost[k]=(cost[k]||0)+n;return cost;},
   routeBusy(s,id){return s.civilization.regions.shipments.some(p=>p.route===id);},
   setRoute(s,id,enabled){
     const r=s.civilization.regions,route=r?.routes[id],n=r?.nodes[id];
     if(!r?.active || !route || !['trade','associated','integrated'].includes(n.relation))return false;
-    if(enabled && !route.assigned){if(this.availableTransport(s)<2)return false;route.assigned=2;}
+    if(enabled && !route.assigned){const crew=this.routeCrew(s,id);if(this.availableTransport(s)<crew)return false;route.assigned=crew;}
     route.enabled=!!enabled;
     if(!enabled && !this.routeBusy(s,id))route.assigned=0;
     route.status=enabled?'等待发车':this.routeBusy(s,id)?'本趟完成后停发':'已暂停';return true;
@@ -412,7 +414,7 @@ var CivilRegions={
     }
     for(const p of [...r.shipments]){
       const route=r.routes[p.route];
-      if(p.purpose==='relief'&&!this.staffedRoutes(s).has(p.route)){route.status='救济等待完整运输班组';continue;}
+      if((p.purpose==='relief'||this.routeCrew(s,p.route)===4)&&!this.staffedRoutes(s).has(p.route)){route.status='等待完整运输班组';continue;}
       if(p.purpose==='relief'&&route.condition==='closed'){p.status='held';route.status='救济等待通路恢复';continue;}
       if(p.status==='refitting'){route.status='货车留在地方改装，还需'+Math.ceil(this.upgrade(s,p.route).remaining)+'秒';continue;}
       if(p.status==='loading'){this.loadReturn(s,p);continue;}
@@ -446,7 +448,7 @@ var CivilRegions={
     const key={regionRiver:'river',regionRail:'rail',regionHighland:'highland'}[id],n=r?.nodes[key];if(!n)return null;
     const d=CivilRegionContent[key],route=r.routes[key],p=r.projects[key],upgrade=this.upgrade(s,key),buttons={};
     if(r.active && n.relation==='contacted')buttons.trade={text:'签订互惠货单',nextScene:'end',onChoose:done('货单已登记。安排运输工后才能启运。',()=>this.signTrade(s,key))};
-    if(r.active && n.relation!=='contacted' && (route.enabled || route.assigned>=2 || this.availableTransport(s)>=2))buttons.route={text:route.enabled?'完成本趟后停发':'安排两人启运',nextScene:'end',onChoose:done(route.enabled?'车队将在本趟结束后停发。':'车队按可用运输岗位安排。',()=>this.setRoute(s,key,!route.enabled))};
+    if(r.active && n.relation!=='contacted' && (route.enabled || route.assigned>=2 || this.availableTransport(s)>=this.routeCrew(s,key)))buttons.route={text:route.enabled?'完成本趟后停发':this.routeCrew(s,key)===4?'安排四人启运':'安排两人启运',nextScene:'end',onChoose:done(route.enabled?'车队将在本趟结束后停发。':'车队按可用运输岗位安排。',()=>this.setRoute(s,key,!route.enabled))};
     if(civilCanProject())buttons.project={text:'筹办'+d.project.name,nextScene:'end',onChoose:done('筹办公共项目。材料由下一趟车队逐批实际运到。',()=>this.startProject(s,key))};
     if(this.canUpgrade(s,key))buttons.upgrade={text:'筹办货车改装',nextScene:'end',onChoose:()=>{const ok=this.startUpgrade(s,key);return done(ok?'货车改装已筹办。木120、铁20、零件8、工具8由原车逐批运到，再由当地两人施工180秒。':'改装条件已有变化，等待现有工程结束或恢复地方议约。')();}};
     if(n.relation==='trade' && n.completedProjects.publicWorks && r.rights && this.load(s)<this.capacity(s) && CivilRules.canPay(s,{knowledge:20}))buttons.associate={text:'议约加盟（20知识）',nextScene:'end',onChoose:done('代表签下共同服务与公民资格条款。持续履约后才能完成整合。',()=>this.associate(s,key))};
@@ -460,7 +462,7 @@ var CivilRegions={
     if(route.condition==='closed'||typeof CivilIncidents!=='undefined'&&CivilIncidents.canRepair(s,key))buttons.repair={text:'修路（木20工具4）',nextScene:'end',onChoose:()=>done(this.repairRoad(s,key)?'修路材料已实付，道路恢复通行。':'材料或道路条件已变化，本次未扣款。')()};
     buttons.close={text:'暂不改变',nextScene:'end',onChoose:done('对方继续按现有约定生活。')};
     const fmt=obj=>Object.entries(obj).map(([k,v])=>_(k)+' '+Number(v.toFixed(2))).join('、');
-    return {title:d.name,text:[...(typeof CivilRelief!=='undefined'&&(CivilRelief.eligible(s,key)||CivilRelief.active(s,key))?[CivilRelief.status(s,key)+'。一车救济：'+fmt(CivilRelief.active(s,key)?.cargo||CivilRelief.pack(route.capacity))+'；另付原旅费，须保留主城120秒粮药工具储备。救济占用原车，会推迟下一笔预算或工程。']:[]),n.population+'居民 · 健康'+Math.floor(n.health)+' · 信任'+Math.floor(n.trust)+' · '+({contacted:'独立接触',trade:'互惠贸易',associated:'加盟履约',integrated:'共同治理'}[n.relation]),'本地送出：'+fmt(d.out)+'；到达后，对方备货：'+fmt(d.back)+'。单程'+route.travel+'秒，载重'+route.capacity+'，每趟另耗木1与旅粮'+(route.capacity===128?'、零件0.05':'')+'。','地方库存：'+fmt(n.stores)+'。',...(typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(key)?['共同约定：'+CivilFinance.routeStatus(s,key)+'。']:[]),'车队：'+route.status+'。已完成'+route.completedTrips+'趟。'+(!route.enabled && !route.assigned && this.availableTransport(s)<2?' 还需两名空闲运输工才能启运。':''),...(p?['公共项目：'+({supplying:'材料运输中',building:'施工 '+Math.ceil(p.remaining)+'秒',complete:'已经建成'}[p.status])+'。']:s.civilization.tech.administration?['共同项目需要：'+fmt(d.project.cost)+'；另花10知识筹办，材料运到后施工。']:[]),...(this.canUpgrade(s,key)?['改装计划：木120、铁20、零件8、工具8，由原车运到；当地两人施工180秒后载重变为128，每趟另耗0.05零件。']:[]),...(upgrade?['货车改装：'+({supplying:'已运到 '+(fmt(upgrade.buffer)||'尚无材料')+'；需要 '+fmt(upgrade.required),building:'原车留在当地，由两名施工者改装，还需'+Math.ceil(upgrade.remaining)+'秒',complete:'已完成，仍是一辆车、两名运输工'}[upgrade.status])+'。']:[]),...(n.relation==='associated'?['整合 '+Math.floor(n.integration)+'%；需要持续供养、通行、行政容量与公民资格。'+(n.rights==='resident'?' 该地资格登记还需 '+Math.max(0,600-(s.civilization.elapsed-n.rightsSince))+' 秒。':n.rights==='stratified'?' 分层资格维持加盟关系，暂不完成共同公民权整合。':'')]:[])],buttons};
+    return {title:d.name,text:[...(typeof CivilRelief!=='undefined'&&(CivilRelief.eligible(s,key)||CivilRelief.active(s,key))?[CivilRelief.status(s,key)+'。一车救济：'+fmt(CivilRelief.active(s,key)?.cargo||CivilRelief.pack(route.capacity))+'；另付原旅费，须保留主城120秒粮药工具储备。救济占用原车，会推迟下一笔预算或工程。']:[]),n.population+'居民 · 健康'+Math.floor(n.health)+' · 信任'+Math.floor(n.trust)+' · '+({contacted:'独立接触',trade:'互惠贸易',associated:'加盟履约',integrated:'共同治理'}[n.relation]),'本地送出：'+fmt(d.out)+'；到达后，对方备货：'+fmt(d.back)+'。单程'+route.travel+'秒，载重'+route.capacity+'，每趟另耗木1与旅粮'+(route.capacity===128?'、零件0.05':'')+(this.routeCrew(s,key)===4?'；铁路另耗煤2、零件0.1、工具0.05':'')+'。','地方库存：'+fmt(n.stores)+'。',...(typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(key)?['共同约定：'+CivilFinance.routeStatus(s,key)+'。']:[]),'车队：'+route.status+'。已完成'+route.completedTrips+'趟。'+(!route.enabled && !route.assigned && this.availableTransport(s)<this.routeCrew(s,key)?' 还需'+this.routeCrew(s,key)+'名空闲运输工才能启运。':''),...(p?['公共项目：'+({supplying:'材料运输中',building:'施工 '+Math.ceil(p.remaining)+'秒',complete:'已经建成'}[p.status])+'。']:s.civilization.tech.administration?['共同项目需要：'+fmt(d.project.cost)+'；另花10知识筹办，材料运到后施工。']:[]),...(this.canUpgrade(s,key)?['改装计划：木120、铁20、零件8、工具8，由原车运到；当地两人施工180秒后载重变为128，每趟另耗0.05零件。']:[]),...(upgrade?['货车改装：'+({supplying:'已运到 '+(fmt(upgrade.buffer)||'尚无材料')+'；需要 '+fmt(upgrade.required),building:'原车留在当地，由两名施工者改装，还需'+Math.ceil(upgrade.remaining)+'秒',complete:'已完成，仍是一辆车、两名运输工'}[upgrade.status])+'。']:[]),...(n.relation==='associated'?['整合 '+Math.floor(n.integration)+'%；需要持续供养、通行、行政容量与公民资格。'+(n.rights==='resident'?' 该地资格登记还需 '+Math.max(0,600-(s.civilization.elapsed-n.rightsSince))+' 秒。':n.rights==='stratified'?' 分层资格维持加盟关系，暂不完成共同公民权整合。':'')]:[])],buttons};
     function civilCanProject(){return r.active && s.civilization.tech.administration && n.relation!=='contacted' && !p && route.completedTrips>=3 && n.trust>=60 && CivilRules.canPay(s,{knowledge:10});}
   },
   reset(){this.module=null;},
@@ -529,7 +531,7 @@ var CivilRegions={
       if(['associated','integrated'].includes(n.relation)!==(n.control==='shared') || n.relation==='integrated' && (n.integration!==100 || !n.completedProjects.publicWorks || n.rights==='stratified'))throw Error('地方治理状态无效');
       for(const v of Object.values(n.promises).concat(Object.values(n.completedProjects)))if(typeof v!=='boolean')throw Error('地方承诺无效');
     }
-    for(const [id,route]of Object.entries(r.routes))if(!r.nodes[id]||!obj(route)||route.node!==id||typeof route.enabled!=='boolean'||![0,2].includes(route.assigned)||route.travel!==CivilRegionContent[id].travel||route.capacity!==(this.upgrade(s,id)?.status==='complete'?CivilRouteUpgradeContent.capacity:64)||!['open','closed'].includes(route.condition)||!num(route.dispatchIn,60)||!int(route.completedTrips)||(route.lastDeliveredAt!==null&&!num(route.lastDeliveredAt,s.civilization.elapsed))||typeof route.status!=='string'||route.status.length>100||route.lastPurpose!==undefined && !['trade','project','municipal','upgrade','services','common','relief'].includes(route.lastPurpose))throw Error('运输路线无效');
+    for(const [id,route]of Object.entries(r.routes))if(!r.nodes[id]||!obj(route)||route.node!==id||typeof route.enabled!=='boolean'||![0,this.routeCrew(s,id)].includes(route.assigned)||route.travel!==this.routeTravel(s,id)||route.capacity!==(this.upgrade(s,id)?.status==='complete'?CivilRouteUpgradeContent.capacity:64)||!['open','closed'].includes(route.condition)||!num(route.dispatchIn,60)||!int(route.completedTrips)||(route.lastDeliveredAt!==null&&!num(route.lastDeliveredAt,s.civilization.elapsed))||typeof route.status!=='string'||route.status.length>100||route.lastPurpose!==undefined && !['trade','project','municipal','upgrade','services','common','relief'].includes(route.lastPurpose))throw Error('运输路线无效');
     for(const [id,route]of Object.entries(r.routes))if(route.lastPurpose==='common' && (typeof CivilFinance==='undefined' || !obj(s.civilization.finance) || !CivilFinance.hasRouteOrder(s,id)))throw Error('共同运输缺少预算订单');
     for(const route of Object.values(r.routes))if(route.lastSupplyAt!==undefined&&!num(route.lastSupplyAt,s.civilization.elapsed))throw Error('地方实际交付时间无效');
     if(Object.keys(r.routes).length!==Object.keys(r.nodes).length)throw Error('地方缺少路线');
@@ -537,7 +539,7 @@ var CivilRegions={
     for(const p of r.shipments){
       const route=r.routes[p.route];
       const dispatchedCapacity=p?.capacity===undefined?64:p.capacity;
-      if(!obj(p)||!route||!int(p.id)||p.id<1||p.id>=r.nextShipment||ids.has(p.id)||routes.has(p.route)||!['home',p.route].includes(p.source)||!['home',p.route].includes(p.target)||!cargo(p.cargo)||![64,128].includes(dispatchedCapacity)||dispatchedCapacity>route.capacity||Object.values(p.cargo).reduce((a,b)=>a+b,0)>dispatchedCapacity+1e-8||!num(p.remaining,route.travel)||!['outbound','inbound','returning','empty'].includes(p.phase)||!['moving','held','loading','refitting'].includes(p.status)||!['trade','project','municipal','upgrade','services','common','relief'].includes(p.purpose)||route.assigned!==2)throw Error('在途货物无效');
+      if(!obj(p)||!route||!int(p.id)||p.id<1||p.id>=r.nextShipment||ids.has(p.id)||routes.has(p.route)||!['home',p.route].includes(p.source)||!['home',p.route].includes(p.target)||!cargo(p.cargo)||![64,128].includes(dispatchedCapacity)||dispatchedCapacity>route.capacity||Object.values(p.cargo).reduce((a,b)=>a+b,0)>dispatchedCapacity+1e-8||!num(p.remaining,route.travel)||!['outbound','inbound','returning','empty'].includes(p.phase)||!['moving','held','loading','refitting'].includes(p.status)||!['trade','project','municipal','upgrade','services','common','relief'].includes(p.purpose)||route.assigned!==this.routeCrew(s,p.route))throw Error('在途货物无效');
       if(p.phase==='outbound' && (p.source!=='home'||p.target!==p.route)||['inbound','empty'].includes(p.phase) && (p.target!=='home'||p.source!==p.route)||p.phase==='returning' && p.target!==p.source||p.phase==='empty' && Object.values(p.cargo).some(Boolean)||p.status==='loading' && (p.phase!=='inbound'||Object.keys(p.cargo).length)||p.purpose==='project' && !r.projects[p.route])throw Error('货物方向无效');
       if(p.purpose==='municipal' && (typeof CivilMunicipal==='undefined' || !CivilMunicipal.validShipment(s,p)))throw Error('市政材料无效');
       if(p.purpose==='services' && (typeof CivilServices==='undefined' || !CivilServices.validShipment(s,p)))throw Error('公用工程材料无效');

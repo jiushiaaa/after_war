@@ -62,7 +62,7 @@ var CivilPlanning={
       const m=CivilMunicipal.data(s,id);if(!Object.hasOwn(CivilRegionContent,id)||!m?.town||!exact(d,['createdAt','enabled','changedAt','nextId','orders'])||!int(d.createdAt)||d.createdAt<m.agreedAt||typeof d.enabled!=='boolean'||!int(d.changedAt)||d.changedAt<d.createdAt||!Array.isArray(d.orders)||!d.orders.length||d.nextId!==d.orders.length+1||this.queued(s,id).length>this.limit)fail();
       let queuedAt=d.createdAt,startedAt=d.createdAt;const claimed=new Set();
       for(const [index,r]of d.orders.entries()){
-        const def=this.definition(r?.owner,r?.type);if(!exact(r,['id','owner','type','queuedAt','status','startedAt','projectId','cancelledAt'])||r.id!==index+1||!def||def.homeOnly||!int(r.queuedAt)||r.queuedAt<queuedAt||(index===0&&r.queuedAt!==d.createdAt)||!['queued','started','cancelled'].includes(r.status))fail();queuedAt=r.queuedAt;
+        const def=this.definition(r?.owner,r?.type);if(!exact(r,['id','owner','type','queuedAt','status','startedAt','projectId','cancelledAt'])||r.id!==index+1||!def||def.homeOnly||def.node&&def.node!==id||!int(r.queuedAt)||r.queuedAt<queuedAt||(index===0&&r.queuedAt!==d.createdAt)||!['queued','started','cancelled'].includes(r.status))fail();queuedAt=r.queuedAt;
         if(r.status==='started'){
           const owner=this.owner(r.owner),local=owner.data(s,id),project=local?.project?.id===r.projectId?local.project:local?.completed.find(p=>p.id===r.projectId),key=r.owner+'_'+r.projectId;
           if(!int(r.startedAt)||r.startedAt<r.queuedAt||r.startedAt<startedAt||!int(r.projectId,1e8)||r.projectId<1||r.cancelledAt!==null||!project||project.type!==r.type||project.completedAt!==undefined&&project.completedAt<r.startedAt||claimed.has(key))fail();
