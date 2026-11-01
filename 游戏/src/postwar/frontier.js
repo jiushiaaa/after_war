@@ -24,7 +24,7 @@ var CivilFrontier={
   rosterReady(s,m){return m.roster.every((p,i)=>{const age=p.age+s.civilization.society.year-m.year,needed=m.roster.slice(0,i+1).filter(r=>this.sameCohort(r,p,p.age)).length;return age<65&&s.civilization.society.cohorts.filter(c=>this.sameCohort(c,p,age)).reduce((n,c)=>n+c.count,0)>=needed;});},
   reason(s,kind){
     if(!this.available(s)||!CivilNation.operational(s)||!CivilFinance.political(s))return '等待共同法与现任行政正常运作';
-    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s))return '先完成原车往返并撤销剩余商队委托';
+    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '先完成原车往返并撤销剩余商队委托';
     if(kind==='scout'?!!this.node(s):!this.node(s)||this.data(s).peace||this.data(s).occupation)return '当前渡口关系不需要这次行动';
     const cfg=CivilFrontierContent[kind];if(!cfg||!CivilCommerce.asset(s)||!CivilSecurity.asset(s))return '先备好实际车辆与守备训练场';
     if(CivilSecurity.guards(s)<cfg.guards||!this.trained(s,cfg.guards)||this.roster(s,cfg.guards).length<cfg.guards)return '先安排足额守备，连续实付训练300秒；出征者须为18—40岁现有成年人';

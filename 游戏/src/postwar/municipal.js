@@ -32,8 +32,10 @@ var CivilMunicipal={
   },
   canAccept(s,id){return this.has(s,id) && ['associated','integrated'].includes(this.node(s,id)?.relation);},
   tradeExports(s,id){
-    if(typeof CivilRegions!=='undefined'&&CivilRegions.committedFlow){const flow=CivilRegions.committedFlow(s,id);return Object.fromEntries(Object.entries(flow).filter(([,n])=>n<0).map(([key,n])=>[key,-n]));}
-    const route=s.civilization.regions?.routes[id],out={};if(route?.enabled && route.assigned>=2)for(const [key,value]of Object.entries(CivilRegionContent[id].back))out[key]=value*10/(route.travel*2+10);
+    let out={};
+    if(typeof CivilRegions!=='undefined'&&CivilRegions.committedFlow){const flow=CivilRegions.committedFlow(s,id);out=Object.fromEntries(Object.entries(flow).filter(([,n])=>n<0).map(([key,n])=>[key,-n]));}
+    else {const route=s.civilization.regions?.routes[id];if(route?.enabled && route.assigned>=2)for(const [key,value]of Object.entries(CivilRegionContent[id].back))out[key]=value*10/(route.travel*2+10);}
+    if(typeof CivilIntercity!=='undefined')for(const [key,value]of Object.entries(CivilIntercity.exports(s,id)))out[key]=(out[key]||0)+value;
     return out; // Conservative: never treat an expected delivery from home as local production.
   },
   outputFactor(s,id){const n=this.node(s,id);return (n.health<30?.75:1)*((n.stores.food||0)<CivilPopulation.foodPopulation(n.cohorts)*.12?.65:1);},

@@ -117,6 +117,18 @@ var CivilHistory={
       const trained=d.records.find(r=>r.readiness===300);if(trained)add('security_training','transport','守备训练准备完成','实际居民在已付费训练场积累300秒准备；继续值勤仍需供给，欠费或缺员会流失准备。',trained.at);
     }
     if(c.accession){const d=c.accession;for(const [id,a]of Object.entries(d.approvals))add('accession_approval_'+id,'nation',(id==='home'?'本城':this.sourceName(d.sourceId))+'加盟议约','实付 '+this.costText(a.cost)+'；当地现有人口与仓库保留。',a.at);if(d.joinedAt!==null)add('accession_joined','nation',this.sourceName(d.sourceId)+'共同法加盟','实际双方议约、当地记录人员和连续履约完成；公共补助与地方贡献仍需原车运输。',d.joinedAt);d.controls.forEach((x,i)=>add('accession_control_'+i,'nation',x.enabled?'恢复加盟共同行政':'暂缓加盟共同行政','人口与历史保留；已启程的实物承诺继续履行。',x.at));}
+    if(c.intercity){
+      const d=c.intercity;
+      add('intercity_agreement','transport','三城实付联运议约','本城知识60、铁轨30、河谷30；共用原商车，两地货物独立结算。',d.agreedAt);
+      for(const o of d.orders){
+        add('intercity_depart_'+o.id,'transport','联运原车出发','本城实付旅费 '+this.costText(o.paid)+'。',o.departedAt);
+        if(o.pickedAt!==null)add('intercity_pickup_'+o.id,'transport','铁轨零件装车','铁轨仓实扣24零件，货物在途。',o.pickedAt);
+        if(o.exchangedAt!==null)add('intercity_exchange_'+o.id,'transport','河谷实物成交','河谷实收24零件、实付120粮；粮食随车回铁轨。',o.exchangedAt);
+        if(o.deliveredAt!==null)add('intercity_delivery_'+o.id,'transport','铁轨收到联运粮食','120粮实际进入铁轨原仓。',o.deliveredAt);
+        if(o.refundedAt!==null)add('intercity_refund_'+o.id,'transport','未成交零件退回','原24零件实际退回铁轨仓；本城旅费不退。',o.refundedAt);
+        if(o.returnedAt!==null)add('intercity_return_'+o.id,'transport','联运空车返城','原商车与两名司机重新可用。',o.returnedAt);
+      }
+    }
     if(c.frontier){
       const d=c.frontier;
       for(const m of d.missions){
