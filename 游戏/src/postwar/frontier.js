@@ -20,6 +20,8 @@ var CivilFrontier={
   },
   trained(s,count){return this.trainingSeconds(s,count)>=300;},
   roster(s,count){const result=[];for(const c of s.civilization.society.cohorts){if(c.age<18||c.age>40)continue;for(let i=0;i<c.count&&result.length<count;i++)result.push({...c,count:1});if(result.length===count)break;}return result;},
+  sameCohort(c,p,age){return c.age===age&&(c.identity||'human')===(p.identity||'human')&&c.cohortId===p.cohortId&&c.originId===p.originId;},
+  rosterReady(s,m){return m.roster.every((p,i)=>{const age=p.age+s.civilization.society.year-m.year,needed=m.roster.slice(0,i+1).filter(r=>this.sameCohort(r,p,p.age)).length;return age<65&&s.civilization.society.cohorts.filter(c=>this.sameCohort(c,p,age)).reduce((n,c)=>n+c.count,0)>=needed;});},
   reason(s,kind){
     if(!this.available(s)||!CivilNation.operational(s)||!CivilFinance.political(s))return '等待共同法与现任行政正常运作';
     if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s))return '先完成原车往返并撤销剩余商队委托';
@@ -40,10 +42,10 @@ var CivilFrontier={
   choose(s,choice){
     const m=this.active(s);if(!m||m.kind!=='expedition'||!['outbound','waiting'].includes(m.phase)||!['attack','withdraw'].includes(choice))return false;
     if(choice==='withdraw'&&!m.outboundSeconds)return false;
-    if(choice==='attack'&&(m.phase!=='waiting'||CivilSecurity.guards(s)<4||!CivilRegions.canPay(m.buffer,{medicine:2,tools:1})))return false;
+    if(choice==='attack'&&(m.phase!=='waiting'||CivilSecurity.guards(s)<4||!this.rosterReady(s,m)||!CivilRegions.canPay(m.buffer,{medicine:2,tools:1})))return false;
     m.choice=choice;m.choiceAt=s.civilization.elapsed;m.phase=choice==='attack'?'battle':'inbound';return true;
   },
-  remove(cohorts,person,age){const c=cohorts.find(c=>c.age===age&&(c.identity||'human')===(person.identity||'human')&&c.count>0);if(!c)return null;c.count--;return {...c,count:1};},
+  remove(cohorts,person,age){const c=cohorts.find(c=>this.sameCohort(c,person,age)&&c.count>0);if(!c)return null;c.count--;return {...c,count:1};},
   fight(s,m){
     const d=this.data(s),n=this.node(s),at=s.civilization.elapsed,defense=d.defense.at(-1),enemy=defense?.paid&&at-defense.at<=10?defense.staff:0;
     const dead=[],wounded=[],localDead=[];
@@ -86,11 +88,20 @@ var CivilFrontier={
     }
     return flow;
   },
+  returnMission(s,m){
+    m.returnedAt=s.civilization.elapsed;m.phase='returned';m.refunded={...m.buffer};CivilRegions.credit(s.stores,m.buffer);m.buffer={};
+    for(const p of this.data(s).patients)if(p.missionId===m.id)p.arrivedAt=m.returnedAt;
+    Civilization.notify('原车实际返城，行囊余量已退回原仓，已消耗的军需不退。');
+  },
   tick(s){
     const at=s.civilization.elapsed,o=this.occupation(s);if(o?.retreatAt!==null&&o?.retreatAt!==undefined&&at-o.retreatAt>=180){o.endedAt=at;Civilization.notify('两名撤防守备走完180秒返程，已经回到本城，岗位可以重新安排。');}
     const m=this.active(s);if(!m||m.lastTickAt>=at)return;m.lastTickAt=at;
+    if(m.phase!=='inbound'&&(CivilSecurity.guards(s)<this.guardFloor(s)||!this.rosterReady(s,m))){
+      if(m.kind==='expedition'){m.choice='withdraw';m.choiceAt=at;}m.phase='inbound';
+      Civilization.notify('出征人员已经不足或退休，队伍开始按原路返城。已消耗的军需不会退回。');
+    }
+    if(m.phase==='inbound'&&m.inboundSeconds===(m.arrivedAt===null?m.outboundSeconds:180)){this.returnMission(s,m);return;}
     if(CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)<2)return;
-    if(CivilSecurity.guards(s)<this.guardFloor(s)&&m.phase!=='inbound'){m.choice='withdraw';m.choiceAt=at;m.phase='inbound';}
     const total=m.outboundSeconds+m.waitingSeconds+m.battleSeconds+m.inboundSeconds;
     if((total+1)%10===0){const staff=m.guards-(m.battle?.dead.length||0);if(!this.use(m,at,{food:staff*.5,tools:staff*.01},'march'))return;}
     if(m.phase==='outbound'){
@@ -100,9 +111,7 @@ var CivilFrontier={
     else if(m.phase==='battle'){m.battleSeconds++;if(m.battleSeconds===180)this.fight(s,m);}
     else if(m.phase==='inbound'){
       m.inboundSeconds++;if(m.inboundSeconds===(m.arrivedAt===null?m.outboundSeconds:180)){
-        m.returnedAt=at;m.phase='returned';m.refunded={...m.buffer};CivilRegions.credit(s.stores,m.buffer);m.buffer={};
-        for(const p of this.data(s).patients)if(p.missionId===m.id)p.arrivedAt=at;
-        Civilization.notify('原车实际返城，行囊余量已退回原仓，已消耗的军需不退。');
+        this.returnMission(s,m);
       }
     }
   },
@@ -144,7 +153,7 @@ CivilFrontier.validate=function(s){
   let previous=null;
   for(const m of d.missions){
     const cfg=CivilFrontierContent[m.kind];
-    if(!obj(m)||!['scout','expedition'].includes(m.kind)||!cfg||m.id!==(previous?previous.id+1:1)||m.guards!==cfg.guards||!Array.isArray(m.roster)||m.roster.length!==m.guards||m.roster.some(p=>!person(p)||p.age>40)||!int(m.year)||m.year!==Math.floor(m.departedAt/600)||m.assetId!==CivilCommerce.asset(s)?.id||!time(m.departedAt)||m.departedAt<d.startedAt||previous&&(previous.returnedAt===null||m.departedAt<previous.returnedAt)||!previous&&(m.kind!=='scout'||m.departedAt!==d.startedAt)||previous&&m.kind==='scout'||!same(m.paid,cfg.cost)||!cargo(m.buffer)||!Array.isArray(m.uses))fail();
+    if(!obj(m)||!['scout','expedition'].includes(m.kind)||!cfg||m.id!==(previous?previous.id+1:1)||m.guards!==cfg.guards||!Array.isArray(m.roster)||m.roster.length!==m.guards||m.roster.some(p=>!person(p)||p.age>40)||!int(m.year)||m.year!==Math.floor(m.departedAt/600)||m.assetId!==CivilCommerce.asset(s)?.id||!time(m.departedAt)||m.departedAt<d.startedAt||previous&&(previous.returnedAt===null||m.departedAt<previous.returnedAt)||!previous&&(m.kind!=='scout'||m.departedAt!==d.startedAt)||m.kind==='scout'&&d.discoveredAt!==null&&m.departedAt>=d.discoveredAt||!same(m.paid,cfg.cost)||!cargo(m.buffer)||!Array.isArray(m.uses))fail();
     if(CivilCommerce.asset(s).completedAt>m.departedAt||c.commerce.orders.some(o=>o.departedAt<m.departedAt&&(o.returnedAt===null||o.returnedAt>m.departedAt)||o.departedAt>=m.departedAt&&(m.returnedAt===null||o.departedAt<m.returnedAt)))fail();
     const training=c.security.records.filter(r=>r.at<=m.departedAt).slice(-31);if(training.length!==31||training.some((r,i)=>!r.paid||r.away||r.staff<m.guards||i&&r.at-training[i-1].at!==10)||m.departedAt-training.at(-1).at>10)fail();
     if(!int(m.outboundSeconds,180)||!int(m.inboundSeconds,180)||!int(m.waitingSeconds,60)||!int(m.battleSeconds,180)||!['outbound','waiting','battle','inbound','returned'].includes(m.phase)||!time(m.lastTickAt)||m.lastTickAt<m.departedAt)fail();
@@ -170,7 +179,7 @@ CivilFrontier.validate=function(s){
     }else if(m.battleSeconds===180)fail();
     previous=m;
   }
-  const scout=d.missions[0];if(d.discoveredAt!==scout.arrivedAt||d.discoveredAt!==null&&!time(d.discoveredAt))fail();
+  const scout=d.missions.find(m=>m.kind==='scout'&&m.arrivedAt!==null);if(d.discoveredAt!==(scout?.arrivedAt??null)||d.discoveredAt!==null&&!time(d.discoveredAt))fail();
   if(this.active(s)&&CivilCommerce.active(s))fail();
   let last=null;
   for(const row of d.defense){if(!obj(row)||!n||!time(row.at)||row.at<d.discoveredAt||last&&row.at-last.at<10||!int(row.staff,3)||typeof row.paid!=='boolean'||row.paid&&!row.staff||!same(row.costs,row.paid?{food:row.staff*.5,medicine:row.staff*.01}:{})||d.peace&&row.at>d.peace.at||d.occupation&&row.at>d.occupation.startedAt)fail();last=row;}
