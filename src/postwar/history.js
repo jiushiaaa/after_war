@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -101,6 +101,19 @@ var CivilHistory={
       if(o.cancelledAt!==null)add(key+'_cancel','relief',place+(o.dispatchedAt===null?'取消待发救济':'救济折返'),'未发单不付款；已付货物只在原车返抵后退回，旅费不退。',o.cancelledAt);
       if(o.refundAt!==null)add(key+'_refund','relief',place+'救济退回主城','原车实际返仓，退回：'+this.costText(o.cargo)+'。',o.refundAt);
     }
+    for(const [id,d]of Object.entries(c.culture?.nodes||{})){
+      const place=this.place(s,id);
+      for(const a of d.agreements)add('culture_agreement_'+id+'_'+a.id,'culture',place+' · 公共空间议约',
+        (a.mode==='shared'?'共享轮用：档案交流与守灯纪念交替。':'公共档案专用：守灯会的公共空间请求未获满足，私人信仰不受限制。')+'地方实付10知识；不满实际增加'+a.unrestDelta+'。',a.at);
+      for(const [index,control]of d.controls.entries())add('culture_control_'+id+'_'+index,'culture',place+(control.enabled?'恢复后续会堂活动':'停止后续会堂活动'),'现有活动、准备费用和过去记录保留。',control.at);
+      const first=new Set();
+      for(const r of d.activities){
+        if(r.status==='cancelled')add('culture_cancel_'+id+'_'+r.id,'culture',place+'取消会堂活动','4木料、6食物已用于筹备，不退款；未发放活动结果。',r.endedAt);
+        if(r.status!=='complete'||first.has(r.kind))continue;first.add(r.kind);
+        add('culture_first_'+id+'_'+r.kind,'culture',place+' · 首次'+(r.kind==='archive'?'口述档案交流':'守灯纪念'),
+          '地方实付4木料、6食物；2位组织者与12位成年参与者实际完成180工秒。'+(r.kind==='archive'?'存入6地方知识。':'地方不满实际减少'+Number(r.benefit.unrest.toFixed(2))+'。'),r.endedAt);
+      }
+    }
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};
   },
@@ -125,7 +138,7 @@ var CivilHistory={
     for(const [category,label]of Object.entries(this.categories)){
       const list=this.sorted(view.entries,category);if(!list.length)continue;
       scenes.start.buttons['history_'+category]={text:label+'（'+list.length+'）',nextScene:go(category+'_0')};
-      const pageSize=category==='governance'?3:this.PAGE_SIZE,pages=Math.ceil(list.length/pageSize);
+      const pageSize=['governance','culture'].includes(category)?3:this.PAGE_SIZE,pages=Math.ceil(list.length/pageSize);
       for(let page=0;page<pages;page++){
         const buttons={};if(page>0)buttons.previous={text:'上一页',nextScene:go(category+'_'+(page-1))};
         if(page+1<pages)buttons.next={text:'下一页',nextScene:go(category+'_'+(page+1))};

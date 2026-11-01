@@ -81,6 +81,9 @@ var CivilMunicipal={
     desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
     for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    // Two organisers and twelve adult participants come only from the actual
+    // labour remaining after production, care, teaching and construction.
+    if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id))n.workers.communityworker=14;
     return n.workers;
   },
   pay(stores,cost){if(Object.entries(cost).some(([key,n])=>(stores[key]||0)+1e-8<n))return false;for(const [key,n]of Object.entries(cost))stores[key]=Math.max(0,(stores[key]||0)-n);return true;},
@@ -166,6 +169,7 @@ var CivilMunicipal={
     const m=this.data(s,id),d=CivilMunicipalContent.facilities[type];if(!m||!d||!this.canAccept(s,id)||(m.buildings[type]||0)>=d.max)return false;
     if(typeof CivilAdvancedContent!=='undefined'&&Object.hasOwn(CivilAdvancedContent.facilities,type))return CivilAdvanced.gate(s,type,id);
     const b=m.buildings,t=s.civilization.tech;
+    if(type==='meetinghall')return !!(typeof CivilCulture!=='undefined'&&CivilCulture.data(s,id));
     if(type==='residential')return !!(b.farmland&&b.clinic&&b.school);
     if(type==='blockhousing')return !!(m.town&&b.farmland&&b.clinic&&b.school);
     if(['mine','coalpit'].includes(type))return !!(m.town&&t.mining&&t.survey);
@@ -270,6 +274,7 @@ var CivilMunicipal={
     $('#municipalProject').text(p?'当前工程：'+CivilMunicipalContent.facilities[p.type].name+'；'+({supplying:'材料分批在途，已到：'+(fmt(p.buffer)||'尚无')+'。所需：'+fmt(p.required),building:'当地施工 '+Math.ceil(p.remaining)+' 秒；施工者 '+(n.workers.builder||0)+' / 2',complete:'已经完工，可筹办下一项'}[p.status])+'。'+(m&&!m.town?'镇制稳定 '+m.townStable+' / 180秒。':m&&!m.city?'城市稳定 '+m.cityStable+' / 300秒。':''):'先建公共服务，再扩住房。工程和贸易交替使用原有货车。');
     if(typeof CivilRegions.upgradeActive==='function'&&CivilRegions.upgradeActive(s,id))$('#municipalProject').append($('<div>').text('当地正在筹备或施工货车改装，完成后再开下一项市政工程。'));
     else if(typeof CivilServices!=='undefined'&&CivilServices.active(s,id))$('#municipalProject').append($('<div>').text('当地正在进行下方公用工程，完成后再开下一项市政工程。'));
+    if(typeof CivilCulture!=='undefined')CivilCulture.refresh(s,id);
   },
   powerLimits(s,id){
     const m=this.data(s,id),caps=this.jobCapacity(s,id),generation=Math.max(0,(caps.electrician||0)-(m.baseWorkers.electrician||0))*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s,id):0);

@@ -1,8 +1,8 @@
 /* MPL-2.0 — Read-only summaries and progressive organization of existing ADR controls. */
 var CivilInterface={
   views:{},researchModule:null,
-  kinds:{residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
-  labels:{overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
+  kinds:{meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
+  labels:{culture:'社群',overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
   number(n){return Number((Number(n)||0).toFixed(2));},
   signed(n){return (n>=0?'+':'')+this.number(n);},
   projectText(s,id='home'){
@@ -85,10 +85,17 @@ var CivilInterface={
   municipal(s,renderSummary=true){
     if(!$('#municipalPanel').length)return;
     const id=CivilMunicipal.selected,m=CivilMunicipal.data(s,id);if(!id)return;if(renderSummary)this.renderMunicipal(s,id);
-    if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').hide();$('#municipalBuild').parent().show();return;}
-    const available=['overview','housing','care','materials','industry','power'].filter(group=>group==='overview'||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
+    if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief,#civilCultureStatus').hide();$('#municipalBuild').parent().show();return;}
+    const available=['overview','housing','care','materials','industry','power','culture'].filter(group=>group==='overview'||group==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||CivilCulture.data(s,id))||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
     $('#civilTabs_municipal').show();const active=this.tabs('municipal','#municipalStatus',available);
     $('#municipalBuild').parent().addClass('civil-build-columns').toggle(active!=='overview');
+    $('#cultureButton').toggle(active==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||!!CivilCulture.data(s,id)));
+    let commons=$('#civilCultureStatus');if(!commons.length)commons=$('<div>').attr('id','civilCultureStatus').insertAfter('#civilTabs_municipal');
+    commons.toggle(active==='culture');
+    if(active==='culture'&&typeof CivilCulture!=='undefined'){
+      const u=CivilCulture,d=u.data(s,id),r=u.active(s,id),a=u.agreement(s,id),reason=d?u.reason(s,id):null;
+      this.summary('#civilCultureStatus',{title:'公共会堂',cards:[['空间约定',a?u.modes[a.mode]:'尚未议约'],['后续活动',d?(u.enabled(s,id)?'依约筹备':'已停办'):'待议约'],['当前活动',r?u.kinds[r.kind]:'暂无'],['在场成年人',(CivilMunicipal.node(s,id).workers.communityworker||0)+' / 14']],brief:r?'还需 '+r.remaining+' 秒共同在场':d&&u.enabled(s,id)&&s.civilization.elapsed<u.due(s,id)?'下次筹备还有 '+Math.ceil(u.due(s,id)-s.civilization.elapsed)+' 秒':null,notices:reason&&d&&(r||u.enabled(s,id)&&s.civilization.elapsed>=u.due(s,id))?[reason]:[],details:[['议约支出','地方知识 10'],['每次筹备','地方木料 4、食物 6；另保留120秒口粮'],['人员安排','2位组织者与12位参与者，优先保证生产、施工、治疗与教学'],['活动记录','已完成 '+(d?.activities.filter(x=>x.status==='complete').length||0)+' 次；重大决定见右下角发展史']]});
+    }
     for(const type of Object.keys(CivilMunicipalContent.facilities)){const kind=this.kinds[type]||'care';this.filter('#municipalBuild_'+type,kind,active);this.filter('#municipalCount_'+type,kind,active);}
     this.serviceGroups('local',active);
     if(!$('#civilMunicipalProjectDetails').length){const details=$('<details>').attr('id','civilMunicipalProjectDetails').addClass('civil-details civil-project-details').insertBefore('#municipalProject');$('<summary>').text('工程与材料明细').appendTo(details);$('#municipalProject').appendTo(details);}

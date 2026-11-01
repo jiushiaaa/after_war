@@ -1,8 +1,9 @@
 /* MPL-2.0 — Paid local capacities; no automatic people, materials or city-cluster grants. */
 var CivilMunicipalContent={
   agreementCost:{knowledge:20},
-  jobs:['farmer','medic','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','machinist','electrician'],
+  jobs:['farmer','medic','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','machinist','electrician','communityworker'],
   facilities:{
+    meetinghall:{name:'公共会堂',cost:{wood:120,iron:12,tools:8},duration:180,max:1,jobs:{communityworker:14}},
     farmland:{name:'地方田片',cost:{wood:120,iron:6,tools:12},duration:180,max:8,jobs:{farmer:8}},
     clinic:{name:'地方诊疗站',cost:{wood:160,iron:12,parts:6},duration:180,max:10,jobs:{medic:4}},
     school:{name:'地方学舍',cost:{wood:140,iron:8,parts:4},duration:180,max:6,jobs:{teacher:4}},

@@ -10,6 +10,8 @@
 #event .button { width:145px !important; }
 #event #description { line-height:1.75; }
 #event textarea { width:100%; box-sizing:border-box; min-height:130px; }
+#event.civil-culture-event { width:520px; max-width:calc(100vw - 48px); }
+#event.civil-culture-event #description { max-height:42vh; overflow-y:auto; padding-right:8px; }
 #startupError { margin:60px auto; width:500px; line-height:1.8; }
 .button:focus-visible,.menuBtn:focus-visible { outline:1px dashed #555; outline-offset:3px; }
 
