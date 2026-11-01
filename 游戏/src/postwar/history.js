@@ -88,7 +88,7 @@ var CivilHistory={
     if(c.nation){
       const n=c.nation;
       for(const [id,p]of Object.entries(n.approvals))add('nation_approval_'+id,'nation',this.place(s,id)+'国家议约','当地实付：'+this.costText(p.cost)+'；尚须三城连续筹备与正式批准。',p.at);
-      if(n.foundedAt!==null)add('nation_founded','nation','国家宪章生效',n.members.map(id=>this.place(s,id)).join('、')+'；'+Object.entries(n.foundingAxes).map(([axis,value])=>this.axisName(axis,value)).join(' · ')+'。持续经费与治理仍按当期账册执行。',n.foundedAt);
+      if(n.foundedAt!==null)add('nation_founded','nation',n.foundingAxes.charter==='custom'?'国家惯例盟约生效':'国家宪章生效',n.members.map(id=>this.place(s,id)).join('、')+'；'+Object.entries(n.foundingAxes).map(([axis,value])=>this.axisName(axis,value)).join(' · ')+'。持续经费与治理仍按当期账册执行。',n.foundedAt);
     }
     if(c.diplomacy){
       const d=c.diplomacy,name=this.sourceName(d.sourceId);

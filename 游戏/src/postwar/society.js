@@ -160,7 +160,8 @@ var CivilSociety = {
     const offered=signature(),current=()=>s.civilization.pending===id&&signature()===offered;
     const buttons=Object.fromEntries(Object.entries(def.choices).filter(([k])=>!reform || k!==x.axes[axis]).map(([k,v])=>[k,{text:v.name,nextScene:'end',onChoose:done('采用'+v.name+'。',()=>current()&&this.chooseAxis(s,axis,k))}]));
     if(reform)buttons.keep={text:'保留现制',nextScene:'end',onChoose:done('保留现制，退回预留的知识。',()=>current()&&this.cancelReform(s))};
-    return {title:def.title,text:[def.text,...(reform?['已预留 '+x.reformPaid+' 知识。改制后按新宪章磨合180或300秒，产出减少一成；600秒后可再改议。保留现制会退回预留。']:[]),...Object.values(def.choices).map(v=>v.name+'：'+v.detail)],buttons};
+    const national=axis==='charter'&&typeof CivilNation!=='undefined'&&CivilNation.available(s)?Object.entries(CivilNation.charters).map(([key,p])=>p.name+'的国家职责：'+(key==='custom'?'知识支出较少，木料与工具支出较多':'知识支出较多，木料与工具支出较少')+'；正常协调 +'+p[x.axes.devolution]+'，认可每轮+'+p.gain+' / 失效-'+p.loss+'。连续筹备'+p.duration+'秒。'):[];
+    return {title:def.title,text:[def.text,...(reform?['已预留 '+x.reformPaid+' 知识。改制后按新宪章磨合180或300秒，产出减少一成；600秒后可再改议。保留现制会退回预留。']:[]),...Object.values(def.choices).map(v=>v.name+'：'+v.detail),...national],buttons};
   },
   refresh(){
     const s=State,x=s.civilization.society;if(!x || !s.civilization.village.town)return;

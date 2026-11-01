@@ -9,8 +9,8 @@ function city(){
   if(!citySnapshot){const h=ready();h.until(()=>h.metro.canRegister(h.s));h.click('register');h.ctx.CivilPlatform.validate(h.s);citySnapshot=clone(h.s);}
   const h=harness(citySnapshot);h.n=h.ctx.CivilNation;return h;
 }
-function draft(mode='local'){
-  const h=city();h.s.civilization.society.axes.devolution=mode;
+function draft(mode='local',charter='constitution'){
+  const h=city();h.s.civilization.society.axes.devolution=mode;h.s.civilization.society.axes.charter=charter;
   // The prebuilt synthetic cities keep growing during this longer scenario.
   // Staff their already-declared home facilities, using existing adult labour.
   for(const job of ['farmer','pharmacist','teacher'])h.s.game.workers[job]=h.ctx.CivilCatalog.jobCapacity(h.s,job);
@@ -21,8 +21,8 @@ function draft(mode='local'){
   }
   return h;
 }
-function founded(mode='local'){
-  const h=draft(mode);h.until(()=>h.n.canFound(h.s),2400);assert.equal(h.n.found(h.s),true);h.ctx.CivilPlatform.validate(h.s);return h;
+function founded(mode='local',charter='constitution'){
+  const h=draft(mode,charter);h.until(()=>h.n.canFound(h.s),3600);assert.equal(h.n.found(h.s),true);h.ctx.CivilPlatform.validate(h.s);return h;
 }
 
 test('early and legacy natural saves do not gain nation data or bypass the metropolis',()=>{
@@ -103,4 +103,75 @@ test('forged founding, missing payments, duplicate rounds and malformed nation s
     const bad=clone(good);mutate(bad);assert.throws(()=>h.ctx.CivilPlatform.validate(bad));
   }
   h.ctx.CivilPlatform.validate(good);
+});
+
+test('customary national budgets trade written knowledge for real supplies in both devolution modes',()=>{
+  for(const mode of ['central','local']){
+    const h=draft(mode,'custom'),{s,n}=h,costs=clone(n.costs(s));
+    const before=Object.fromEntries(s.civilization.nation.members.map(id=>[id,clone(n.stores(s,id))]));
+    n.settle(s);assert.equal(s.civilization.nation.records.at(-1).charter,'custom');
+    for(const [id,cost]of Object.entries(costs))for(const [key,value]of Object.entries(cost))near(n.stores(s,id)[key],before[id][key]-value);
+    assert.equal(costs.home.knowledge,mode==='central'?.1:.05);
+    assert.equal(costs[s.civilization.nation.members[1]].wood,mode==='central'?.2:.8);
+    const once=clone(s);n.settle(s);assert.deepEqual(clone(s),once);n.observe(s);h.roundtrip();
+  }
+});
+
+test('charter choices disclose paid national consequences only after the metropolis unlocks',()=>{
+  const early=harness(),done=()=>()=>{};
+  assert.equal(early.ctx.CivilSociety.event('constitution_charter',done).text.some(t=>t.includes('国家职责')),false);
+  const h=city(),event=h.ctx.CivilSociety.event('constitution_charter',done);
+  assert.equal(event.text.filter(t=>t.includes('国家职责')).length,2);
+  assert.ok(event.text.some(t=>t.includes('连续筹备900秒')&&t.includes('正常协调 +2')));
+  assert.ok(event.text.some(t=>t.includes('连续筹备600秒')&&t.includes('正常协调 +4')));
+});
+
+test('customary founding needs 900 paid seconds, preserves its founding law and has a smaller coordination bonus',()=>{
+  const h=draft('local','custom'),{s,n}=h;
+  h.until(()=>s.civilization.nation.stableSeconds>=600,3600);assert.equal(n.canFound(s),false);
+  h.until(()=>n.canFound(s),3600);assert.equal(s.civilization.nation.stableSeconds,900);assert.equal(n.found(s),true);
+  assert.equal(s.civilization.nation.foundingAxes.charter,'custom');assert.equal(n.capacityBonus(s),2);
+  h.step(10);assert.equal(s.civilization.nation.legitimacy,60.125);h.roundtrip();
+  assert.match(h.ctx.CivilHistory.snapshot(s).entries.find(e=>e.key==='nation_founded').title,/惯例/);
+  const good=clone(s);
+  for(const mutate of [x=>x.civilization.nation.foundingAxes.charter='constitution',x=>delete x.civilization.nation.records[0].charter,x=>x.civilization.nation.records.at(-1).charter='unknown',x=>x.civilization.nation.legitimacy+=.125]){
+    const bad=clone(good);mutate(bad);assert.throws(()=>h.ctx.CivilPlatform.validate(bad));
+  }
+});
+
+test('changing a draft charter cannot reuse the previous continuous founding run',()=>{
+  const h=draft(),{s,n}=h;h.until(()=>n.canFound(s),3600);
+  const approvals=clone(s.civilization.nation.approvals);
+  assert.equal(h.ctx.CivilSociety.beginReform(s,'charter'),true);h.ctx.Civilization.showPending();h.click('custom');
+  assert.equal(n.canFound(s),false);h.step(10);assert.equal(s.civilization.nation.stableSeconds,0);
+  assert.deepEqual(clone(s.civilization.nation.approvals),approvals);
+  h.until(()=>n.canFound(s),3600);assert.equal(s.civilization.nation.stableSeconds,900);assert.equal(n.found(s),true);h.roundtrip();
+});
+
+test('customary missed fees remain atomic and lose 1.25 legitimacy before paid recovery',()=>{
+  const h=founded('central','custom'),{s,n}=h,id=s.civilization.nation.members[1];
+  assert.equal(n.capacityBonus(s),1);
+  const settle=n.settle;let intercepted=false;
+  n.settle=function(state){
+    if(state!==s||intercepted)return settle.call(this,state);
+    const local=this.stores(s,id),saved=local.knowledge;local.knowledge=0;
+    const before=Object.fromEntries(s.civilization.nation.members.map(member=>[member,clone(this.stores(s,member))]));
+    const result=settle.call(this,state);intercepted=true;
+    assert.deepEqual(Object.fromEntries(s.civilization.nation.members.map(member=>[member,clone(this.stores(s,member))])),before);
+    assert.equal(n.operational(s),false);local.knowledge=saved;return result;
+  };
+  h.step(10);n.settle=settle;assert.ok(intercepted);assert.equal(s.civilization.nation.legitimacy,58.75);
+  h.until(()=>n.operational(s),3600);assert.equal(s.civilization.nation.legitimacy,58.875);h.roundtrip();
+});
+
+test('unaltered railway save can pay for charter reform without rewriting its historic invoices or assets',()=>{
+  const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'../../验证/存档/自然游玩_Windows铁路货车往返切换17.json'),'utf8')).state;
+  const h=harness(raw),{s,ctx}=h,n=ctx.CivilNation;h.roundtrip();assert.deepEqual(clone(s),raw);
+  const records=clone(s.civilization.nation.records),founding=clone(s.civilization.nation.foundingAxes),buildings=clone(s.civilization.services.nodes.rail.buildings);
+  assert.equal(records.at(-1).charter,undefined);
+  const knowledge=s.stores.knowledge;assert.equal(ctx.CivilSociety.beginReform(s,'charter'),true);near(s.stores.knowledge,knowledge-60);
+  ctx.Civilization.showPending();h.click('custom');assert.equal(n.operational(s),false);assert.equal(n.capacityBonus(s),0);
+  h.until(()=>n.operational(s),3600);assert.equal(s.civilization.nation.records.at(-1).charter,'custom');assert.equal(n.capacityBonus(s),2);
+  assert.deepEqual(clone(s.civilization.nation.records.slice(0,records.length)),records);assert.deepEqual(clone(s.civilization.nation.foundingAxes),founding);
+  assert.deepEqual(clone(s.civilization.services.nodes.rail.buildings),buildings);h.roundtrip();
 });
