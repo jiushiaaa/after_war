@@ -49,3 +49,14 @@ test('the real crisis construction wait is explained after actual freight fills 
  assert.ok(view.notices.includes('粮仓已空，需要补给与生产恢复'));
  assert.equal(h.m.data(h.s,'rail').project.remaining,360);assert.equal(JSON.stringify(h.s),before);
 });
+
+test('crisis planning uses actual reduced farm productivity without inventing workers, tools or food',()=>{
+ const {harness:full}=require('./helpers/metro-fixture.cjs');
+ const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-trade-return-bottleneck.json'),'utf8')).state;
+ const h=full(raw),n=h.s.civilization.regions.nodes.rail,stores=JSON.stringify(n.stores),cohorts=JSON.stringify(n.cohorts);
+ assert.equal(h.m.outputFactor(h.s,'rail'),.75*.65);
+ h.m.planWorkers(h.s,'rail');assert.ok(n.workers.farmer>14);assert.ok(n.workers.farmer<=h.m.jobCapacity(h.s,'rail').farmer);
+ assert.ok(Object.values(n.workers).reduce((a,b)=>a+b,0)<=h.ctx.CivilPopulation.workforce(n.cohorts));
+ assert.equal(JSON.stringify(n.stores),stores);assert.equal(JSON.stringify(n.cohorts),cohorts);
+ const f=h.m.forecast(h.s,'rail');assert.equal(f.copy.civilization.regions.nodes.rail.stores.food,0,'assigning more people cannot run farms without their actual tools');
+});

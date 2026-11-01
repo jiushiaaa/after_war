@@ -34,6 +34,7 @@ var CivilMunicipal={
     const route=s.civilization.regions?.routes[id],out={};if(route?.enabled && route.assigned>=2)for(const [key,value]of Object.entries(CivilRegionContent[id].back))out[key]=value*10/(route.travel*2+10);
     return out; // Conservative: never treat an expected delivery from home as local production.
   },
+  outputFactor(s,id){const n=this.node(s,id);return (n.health<30?.75:1)*((n.stores.food||0)<CivilPopulation.foodPopulation(n.cohorts)*.12?.65:1);},
   planWorkers(s,id){
     const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
     const cap=this.jobCapacity(s,id),base=m.baseWorkers,exp=this.tradeExports(s,id),desired={},p=n.population;
@@ -52,9 +53,9 @@ var CivilMunicipal={
     const birthPlan=CivilPopulation.births(aged,{...(n.births||{scaled:false,credit:0,mutantCredit:0})},{yearStartPopulation:p,beds:Math.max(0,this.capacity(s,id)-CivilPopulation.count(aged)-reserved),health:n.health,hunger:0,food:Number.MAX_SAFE_INTEGER,medicine:Number.MAX_SAFE_INTEGER});
     // A year contains sixty settlements. Local farms fund births as well as daily meals;
     // previewing that budget must not advance the authoritative fractional birth ledger.
-    const foodNeed=CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+desired.pharmacist*.2+(exp.food||0)+birthPlan.cost.food/60+.5;
+    const farmFactor=this.outputFactor(s,id),foodNeed=CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+desired.pharmacist*.2+(exp.food||0)+birthPlan.cost.food/60+.5;
     desired.farmer=Math.min(oldFarm,cap.farmer||0);
-    while(desired.farmer<(cap.farmer||0)&&farmFood(desired.farmer)<foodNeed)desired.farmer++;
+    while(desired.farmer<(cap.farmer||0)&&farmFood(desired.farmer)*farmFactor<foodNeed)desired.farmer++;
     for(const job of ['miner','collier','smelter','machinist'])desired[job]=positive(job,Math.max(2,Math.ceil(p/100)));
     desired.steelworker=positive('steelworker',2);desired.glassworker=positive('glassworker',2);
     desired.chemist=positive('chemist',Math.max(2,(desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+(m.buildings.filterplant||0)*.03+.2)/.4));
@@ -88,7 +89,7 @@ var CivilMunicipal={
     if(typeof CivilServices!=='undefined')CivilServices.begin(s,id);
     this.planWorkers(s,id);const st=n.stores,w=n.workers,base=m.baseWorkers,b=m.buildings,before={...st},produced={},ran={},paidInputs={};
     const recordInputs=cost=>{for(const [key,v]of Object.entries(cost))paidInputs[key]=(paidInputs[key]||0)+v;};
-    const factor=(n.health<30?.75:1)*((st.food||0)<CivilPopulation.foodPopulation(n.cohorts)*.12?.65:1);
+    const factor=this.outputFactor(s,id);
     const run=(label,count,cost,output,reserve={},scale=true)=>{
       let batches=count;for(const [key,value]of Object.entries(cost))batches=Math.min(batches,Math.floor((Math.max(0,(st[key]||0)-(reserve[key]||0))+1e-8)/value));
       const actual=Object.fromEntries(Object.entries(cost).map(([key,v])=>[key,v*batches]));this.pay(st,actual);recordInputs(actual);
