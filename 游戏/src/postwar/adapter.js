@@ -55,6 +55,7 @@ var Civilization = {
     if(typeof CivilOrigins!=='undefined')Object.assign(flow,CivilOrigins.settle(s));
     if(typeof CivilFinance!=='undefined'){const paid=CivilFinance.settle(s);if(Object.keys(paid).length)flow['共同记录']=paid;}
     if(typeof CivilNation!=='undefined'){const paid=CivilNation.settle(s);if(Object.keys(paid).length)flow['国家公共记录']=paid;}
+    if(typeof CivilDiplomacy!=='undefined'){const paid=CivilDiplomacy.settle(s);if(Object.keys(paid).length)flow['居留公约记录']=paid;}
     const deltas={};
     for(const key of new Set([...Object.keys(before),...Object.keys(s.stores)]))deltas[key]=(s.stores[key]||0)-(before[key]||0);
     if(typeof CivilUrban!=='undefined')Object.assign(flow,CivilUrban.settle(s,{flow,deltas}));
@@ -112,6 +113,7 @@ var Civilization = {
     if(typeof CivilSociety!=='undefined')CivilSociety.tick(State);
     if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.tick(State);
+    if(typeof CivilDiplomacy!=='undefined')CivilDiplomacy.tick(State);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.tick(State,!Events.activeEvent()&&!c.pending);
     if(typeof CivilRegions!=='undefined')CivilRegions.tick(State);
     if(typeof CivilOrigins!=='undefined')CivilOrigins.tick(State);
@@ -123,6 +125,7 @@ var Civilization = {
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
     if(typeof CivilMetro!=='undefined'&&CivilMetro.finalize)CivilMetro.finalize(State);
     if(typeof CivilNation!=='undefined')CivilNation.observe(State);
+    if(typeof CivilDiplomacy!=='undefined')CivilDiplomacy.observe(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -275,7 +278,7 @@ var Civilization = {
       buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
         hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -413,6 +416,7 @@ var Civilization = {
     if(typeof CivilFinance!=='undefined')CivilFinance.refresh(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.refresh();
     if(typeof CivilNation!=='undefined')CivilNation.refresh();
+    if(typeof CivilDiplomacy!=='undefined')CivilDiplomacy.refresh();
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));

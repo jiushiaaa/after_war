@@ -147,7 +147,8 @@ var CivilOrigins={
     if(Number.isInteger(n.legacyHousingOverflow) && n.legacyHousingOverflow>0)
       n.legacyHousingOverflow=Math.min(n.legacyHousingOverflow,Math.max(0,n.population+this.inTransit(n)-n.housing));
   },
-  remaining(s,id){const n=s.civilization.origins?.nodes[id];return n?Math.max(0,n.permit.limit-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
+  quotaLimit(s,id){const n=s.civilization.origins?.nodes[id];return (n?.permit.limit||0)+(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.allowance(s,id):0);},
+  remaining(s,id){const n=s.civilization.origins?.nodes[id],extra=typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.usableAllowance(s,id):0;return n?Math.max(0,n.permit.limit+extra-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
   sustainabilityReason(s,id,cohorts){
     const n=s.civilization.origins.nodes[id],d=CivilOriginContent[id],p=CivilPopulation.count(cohorts),plan=this.plan(cohorts),limits=this.jobLimits(s,id);
     if(p<d.retained)return '来源至少需要留守'+d.retained+'位居民';
@@ -437,7 +438,7 @@ var CivilOrigins={
           d.status==='returned' && parties.length)throw Error('来源与在途名册不符');
         dead+=d.dead;if(d.status==='arrived')arrived+=d.alive;if(d.status==='travel')travel+=d.alive;if(d.status==='returned')returned+=d.alive;
       }
-      if(arrived!==n.admitted||dead!==n.transitDeaths||n.admitted+n.transitDeaths+travel>n.permit.limit||n.baselinePopulation+n.born!==n.population+n.sourceDeaths+n.transitDeaths+n.admitted+travel)throw Error('来源人口总账不符');
+      if(arrived!==n.admitted||dead!==n.transitDeaths||n.admitted+n.transitDeaths+travel>this.quotaLimit(s,id)||n.baselinePopulation+n.born!==n.population+n.sourceDeaths+n.transitDeaths+n.admitted+travel)throw Error('来源人口总账不符');
       const overflow=Math.max(0,n.population+travel-n.housing);
       if(overflow>Math.min(16,travel+returned) || n.legacyHousingOverflow!==undefined && (!int(n.legacyHousingOverflow,16)||n.legacyHousingOverflow!==overflow))throw Error('来源返乡床位记录无效');
       if((u?.parties||[]).some(p=>p.source===id&&!n.departures['p'+p.id]))throw Error('在途居民没有来源记录');

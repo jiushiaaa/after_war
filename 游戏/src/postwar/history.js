@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -89,6 +89,12 @@ var CivilHistory={
       const n=c.nation;
       for(const [id,p]of Object.entries(n.approvals))add('nation_approval_'+id,'nation',this.place(s,id)+'国家议约','当地实付：'+this.costText(p.cost)+'；尚须三城连续筹备与正式批准。',p.at);
       if(n.foundedAt!==null)add('nation_founded','nation','国家宪章生效',n.members.map(id=>this.place(s,id)).join('、')+'；'+Object.entries(n.foundingAxes).map(([axis,value])=>this.axisName(axis,value)).join(' · ')+'。持续经费与治理仍按当期账册执行。',n.foundedAt);
+    }
+    if(c.diplomacy){
+      const d=c.diplomacy,name=this.sourceName(d.sourceId);
+      add('residence_pact','diplomacy',name+'居留公约','双方独立建档，本城实付'+this.costText(d.signature.home)+'；对方实付'+this.costText(d.signature.source)+'。来源人口仍独立，资格不等于已经迁入。',d.signedAt);
+      for(const r of d.records.filter(r=>r.grant))add('residence_grant_'+r.at,'diplomacy','追加居留资格核准',name+'连续履约600秒，核准24人追加居留资格；实际人口、车辆与住房仍须核对。',r.at);
+      d.revisions.forEach((r,i)=>add('residence_revision_'+i,'diplomacy',r.action==='pause'?'居留公约暂停':'居留公约恢复',name+'；原名册与已出发旅客安排保留，追加资格不重发。',r.at));
     }
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);

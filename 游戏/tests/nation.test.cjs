@@ -79,7 +79,7 @@ test('a missed local fee spends nothing elsewhere, suspends authority and can re
     const stores=Object.fromEntries(s.civilization.nation.members.map(id=>[id,clone(this.stores(s,id))]));
     const result=settle.call(this,state);intercepted=true;
     assert.deepEqual(Object.fromEntries(s.civilization.nation.members.map(id=>[id,clone(this.stores(s,id))])),stores);
-    local.knowledge=saved;return result;
+    assert.equal(n.operational(s),false);local.knowledge=saved;return result;
   };
   h.step(10);n.settle=settle;assert.ok(intercepted);
   assert.equal(n.operational(s),false);assert.equal(s.civilization.nation.foundedAt,at);assert.equal(s.civilization.nation.stableSeconds,0);

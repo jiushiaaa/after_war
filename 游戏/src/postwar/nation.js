@@ -50,7 +50,7 @@ var CivilNation={
   },
   canFound(s){const n=this.data(s);return !!n&&n.foundedAt===null&&n.stableSeconds>=600&&n.members.every(id=>n.approvals[id])&&!this.reason(s);},
   found(s){if(!this.canFound(s))return false;const n=this.data(s);n.foundedAt=s.civilization.elapsed;n.foundingAxes={...s.civilization.society.axes};n.foundingStableSince=n.stableSince;return true;},
-  operational(s){const n=this.data(s),last=n?.records.at(-1),r=last?.service===null?n.records.at(-2):last;return !!n&&n.foundedAt!==null&&n.legitimacy>=40&&r?.service===true&&s.civilization.elapsed-r.at>=0&&s.civilization.elapsed-r.at<=10;},
+  operational(s){const n=this.data(s),last=n?.records.at(-1),r=last?.service===null?(!last.missing.length?n.records.at(-2):null):last;return !!n&&n.foundedAt!==null&&n.legitimacy>=40&&r?.service===true&&s.civilization.elapsed-r.at>=0&&s.civilization.elapsed-r.at<=10;},
   capacityBonus(s){return this.operational(s)?this.mode(s)==='local'?4:2:0;},
   status(s){
     const n=this.data(s);if(!n)return this.reason(s)||'三城可以提出共同法与国家宪章';
