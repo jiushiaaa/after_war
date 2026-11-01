@@ -21,14 +21,15 @@ var CivilAdvanced={
     if(type==='filterplant')return !!(c.tech.power&&c.tech.water);
     return false;
   },
-  generationCapacity(s,id='home'){return this.capacity(s,'utilityworker',id)*10;},
+  generationCapacity(s,id='home'){return this.capacity(s,'utilityworker',id)*10+(typeof CivilWind!=='undefined'?CivilWind.capacity(s,id):0);},
   demandCapacity(s,id='home'){return this.capacity(s,'chemist',id)*2+this.capacity(s,'steelworker',id)*2+this.capacity(s,'glassworker',id)+(this.facilities(s,id).filterplant||0)*2;},
   demand(s,id='home'){return this.workers(s,'chemist',id)*2+this.workers(s,'steelworker',id)*2+this.workers(s,'glassworker',id)+(this.facilities(s,id).filterplant||0)*2;},
   prepare(s,{factor,run},id='home'){
     this.init(s);const mined=run('mineralworker',this.workers(s,'mineralworker',id),{tools:.03},{minerals:1.2*factor});
     if(mined>0&&factor>0)s.civilization.advanced.made.minerals=true;
     const generators=run('utilityworker',this.workers(s,'utilityworker',id),{coal:.9,parts:.03},{});
-    return {generation:generators*10*factor,pollution:generators*.04};
+    const wind=typeof CivilWind!=='undefined'?CivilWind.prepare(s,id,{factor,run}):0;
+    return {generation:generators*10*factor+wind,pollution:generators*.04};
   },
   run(s,{factor,run,powerAvailable},id='home'){
     this.init(s);let remaining=Math.max(0,powerAvailable),used=0,pollution=0;

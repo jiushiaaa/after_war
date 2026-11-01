@@ -78,9 +78,9 @@ var CivilMunicipal={
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
     desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0))/.5+1);
-    desired.builder=cap.builder;
+    desired.windworker=cap.windworker||0;desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
-    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
+    for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     // Two organisers and twelve adult participants come only from the actual
     // labour remaining after production, care, teaching and construction.
     if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id))n.workers.communityworker=14;

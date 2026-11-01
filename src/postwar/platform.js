@@ -36,6 +36,7 @@
     if(c.municipal!==undefined)CivilMunicipal.validate(state);
     if(c.advanced!==undefined)CivilAdvanced.validate(state);
     if(c.services!==undefined)CivilServices.validate(state);
+    if(typeof CivilWind!=='undefined')CivilWind.validate(state);
     if(typeof CivilPassenger!=='undefined')CivilPassenger.validate(state);
     if(typeof CivilFinance!=='undefined')CivilFinance.validate(state);
     if(typeof CivilRelief!=='undefined')CivilRelief.validate(state);
