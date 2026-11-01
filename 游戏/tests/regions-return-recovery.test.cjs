@@ -61,18 +61,19 @@ test('the existing manual empty-return and reopen actions preserve delivered goo
 });
 
 test('raw67 transport recovers and delivers the remaining construction goods, while its independent zero-health construction barrier is reported without gifts',t=>{
-  const h=create(),{s,r,m}=h,c=s.civilization,n=rail(h),departures=[],deliveries=[];let beganAt=null,maxHealth=0;
+  const h=create(),{s,r,m}=h,c=s.civilization,n=rail(h),departures=[],deliveries=[],initialReceipts=[...c.municipal.nodes.rail.project.receipts];let beganAt=null,maxHealth=0;
   const launch=r.launch.bind(r);r.launch=(state,id)=>{const before=clone(state.stores),ok=launch(state,id);if(ok&&id==='rail'){
     const p=shipment(h);departures.push({id:p.id,purpose:p.purpose,cargo:clone(p.cargo),paid:Object.fromEntries(Object.keys(before).map(key=>[key,before[key]-(state.stores[key]||0)]))});
   }return ok;};
   const credit=r.credit.bind(r);r.credit=(stores,cargo)=>{if(stores===n.stores)deliveries.push({at:c.elapsed,cargo:clone(cargo)});return credit(stores,cargo);};
   for(let i=0;i<3600;i++){h.step(1);maxHealth=Math.max(maxHealth,n.health);if(beganAt===null&&c.municipal.nodes.rail.project.status==='building')beganAt=c.elapsed;}
-  const project=c.municipal.nodes.rail.project;assert.equal(beganAt,135313);assert.equal(c.elapsed,137675);
+  const project=c.municipal.nodes.rail.project;assert.ok(beganAt>134075&&beganAt<=137675);assert.equal(c.elapsed,137675);
   assert.ok(deliveries.filter(p=>p.cargo.coal===2&&p.cargo.tools===1&&p.cargo.food===12).length>=8,'actual supply carts keep arriving');
-  const cargo={};for(const id of [1871,1884]){assert.ok(project.receipts.includes(id));const trip=departures.find(p=>p.id===id);assert.equal(trip.purpose,'municipal');for(const [key,n]of Object.entries(trip.cargo)){cargo[key]=(cargo[key]||0)+n;assert.ok(trip.paid[key]+1e-7>=n);}}
+  const newReceipts=project.receipts.filter(id=>!initialReceipts.includes(id));assert.equal(newReceipts.length,2);
+  const cargo={};for(const id of newReceipts){const trip=departures.find(p=>p.id===id);assert.equal(trip.purpose,'municipal');for(const [key,n]of Object.entries(trip.cargo)){cargo[key]=(cargo[key]||0)+n;assert.ok(trip.paid[key]+1e-7>=n);}}
   assert.deepEqual(cargo,{wood:116,iron:60,parts:20,tools:20});assert.equal(project.status,'building');assert.equal(project.remaining,360);
   assert.equal(n.workers.builder,2);assert.ok(maxHealth<30);assert.equal(n.health,2,'actual reduced-productivity planning improves feeding but does not yet restore construction');near(n.stores.food,9.4375);assert.equal(n.population,108,'ordinary annual aging continues during the crisis');
   const before=JSON.stringify(s);assert.equal(m.startProject(s,'rail','toolworks'),false);assert.equal(m.startProject(s,'rail','salvageyard'),false);assert.equal(JSON.stringify(s),before);
   for(const stores of [s.stores,...Object.values(c.regions.nodes).map(n=>n.stores)])assert.ok(Object.values(stores).every(value=>Number.isFinite(value)&&value>=0));h.roundtrip();
-  t.diagnostic('Headless raw67: 3600 real adapter seconds, ongoing paid trade and all housing materials delivered at 135313; health remains below 30, so the 360 work seconds are correctly not granted. Toolworks/salvageyard remain blocked by the unfinished housing project; recovery of health requires a separate supported intervention.');
+  t.diagnostic('Headless raw67: 3600 real adapter seconds, ongoing paid trade and all housing materials delivered at '+beganAt+'; health remains below 30, so the 360 work seconds are correctly not granted. Toolworks/salvageyard remain blocked by the unfinished housing project; recovery of health requires a separate supported intervention.');
 });

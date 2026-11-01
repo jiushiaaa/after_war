@@ -34,7 +34,7 @@ var CivilRegions={
     for(const [id,route]of Object.entries(r.routes))if(route.assigned>=2 && left>=2){left-=2;result.add(id);}
     return result;
   },
-  capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2;},
+  capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0);},
   load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length;},
   upgrade(s,id){return s.civilization.regions?.upgrades?.projects[id];},
   upgradeActive(s,id){const p=this.upgrade(s,id);return !!p && p.status!=='complete';},

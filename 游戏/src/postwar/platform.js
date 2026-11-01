@@ -24,7 +24,7 @@
     for(const [key,value] of Object.entries(c.tech)) if(!Object.hasOwn(CivilText.research,key) || typeof value!=='boolean') throw Error('技术进度无效');
     const regionPending=typeof CivilRegions!=='undefined'?(CivilRegions.pendingIds||[]):[],urbanPending=typeof CivilUrban!=='undefined'?(CivilUrban.pendingIds||[]):[],originPending=typeof CivilOrigins!=='undefined'?(CivilOrigins.pendingIds||[]):[],municipalPending=typeof CivilMunicipal!=='undefined'?(CivilMunicipal.pendingIds||[]):[];
     const financePending=typeof CivilFinance!=='undefined'?(CivilFinance.pendingIds||[]):[],metroPending=typeof CivilMetro!=='undefined'?(CivilMetro.pendingIds||[]):[],incidentPending=typeof CivilIncidents!=='undefined'?(CivilIncidents.pendingIds||[]):[],culturePending=typeof CivilCulture!=='undefined'?CivilCulture.pendingIds:[],cooperativePending=typeof CivilCooperative!=='undefined'?CivilCooperative.pendingIds:[];
-    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
+    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilNation!=='undefined'?CivilNation.pendingIds:[]),...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
     const pop = state.game.population || 0;
     if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
     if(c.society!==undefined)CivilSociety.validate(state);
@@ -45,6 +45,7 @@
     if(typeof CivilRuins!=='undefined')CivilRuins.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
+    if(typeof CivilNation!=='undefined')CivilNation.validate(state);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.validate(state);
     if(typeof CivilHeating!=='undefined')CivilHeating.validate(state);
     const labor=c.society?CivilSociety.workforce(state):pop;

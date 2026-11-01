@@ -89,7 +89,10 @@ var CivilFinance={
   nextCargo(s,id,capacity){
     const a=this.agreement(s),plan=this.transportPlan(s,id),f=this.data(s);if(!a||!plan||!this.coordinationReady(s)||capacity<14)return null;
     const index=this.periodIndex(s,a),orderId=a.id+':'+index+':'+id;
-    if(f.orders.some(o=>o.id===orderId||o.node===id&&this.now(s)-o.dispatchedAt<600))return null;
+    // One paid trip belongs to each fixed period. A rolling 600-second delay
+    // drifts behind that deadline whenever ordinary trade uses the same cart.
+    // Retain the rolling guard across agreements so exit/re-sign cannot reset it.
+    if(f.orders.some(o=>o.id===orderId||o.agreementId!==a.id&&o.node===id&&this.now(s)-o.dispatchedAt<600))return null;
     return {orderId,agreementId:a.id,periodIndex:index,cargo:{...plan.out}};
   },
   order(s,p){return this.data(s)?.orders.find(o=>o.id===p?.commonOrderId)||null;},

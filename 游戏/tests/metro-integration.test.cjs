@@ -77,23 +77,25 @@ test('an unfinished budget, a real public pause and missing coordination fees ca
 });
 
 test('an actual common vehicle arriving exactly at period end preserves the same paid production observation, while one second late does not',()=>{
-  for(const extraWait of [9,10]){
+  for(const late of [0,1]){
     const h=ready(),start=h.s.civilization.elapsed,period=h.f.period(h.s),stableSince=h.s.civilization.metro.stableSince;
-    // The inherited ordinary cart really finishes first. An explicitly staged
-    // nine-second dispatch wait changes timing only, within the saved 60s bound;
-    // every following trip, invoice, fee and production sample is run normally.
+    // Explicit synthetic approval delay keeps the first two rotations as real
+    // ordinary trade, then permits the paid common trip at the tested boundary.
+    // No stock or clock is advanced; the single cart continues normal service.
+    const nextCargo=h.f.nextCargo.bind(h.f);
+    h.f.nextCargo=(s,id,capacity)=>id==='rail'&&s.civilization.elapsed<start+400?null:nextCargo(s,id,capacity);
     h.step(21);assert.equal(h.r.routeBusy(h.s,'rail'),false);
-    const route=h.s.civilization.regions.routes.rail;assert.equal(route.dispatchIn,9);route.dispatchIn+=extraWait;
+    const route=h.s.civilization.regions.routes.rail;assert.equal(route.dispatchIn,9);route.dispatchIn+=9+late;
     h.step(578);assert.equal(h.s.civilization.elapsed,start+599);assert.equal(h.s.civilization.metro.stableSeconds,590);
     const ship=h.s.civilization.regions.shipments.find(p=>p.route==='rail');
-    assert.equal(ship.purpose,'common');assert.equal(ship.phase,'inbound');assert.equal(ship.remaining,extraWait-8);
+    assert.equal(ship.purpose,'common');assert.equal(ship.phase,'inbound');assert.equal(ship.remaining,late+1);
     const observe=h.metro.observe.bind(h.metro);let boundary;
     h.metro.observe=s=>{const result=observe(s);boundary={at:s.civilization.elapsed,result,issues:clone(h.metro.check(s).issues),sample:clone(s.civilization.metro.samples.at(-1)),stableSeconds:s.civilization.metro.stableSeconds};return result;};
     h.step(1);assert.equal(boundary.at,period.endsAt);assert.equal(boundary.result,false);assert.equal(boundary.stableSeconds,0);
     assert.ok(boundary.issues.length&&boundary.issues.every(x=>x.code==='budget'));
     assert.deepEqual(clone(h.s.civilization.metro.samples.at(-1)),boundary.sample,'finalization cannot rewrite the actual pre-arrival production census');
     const order=h.s.civilization.finance.orders.find(o=>o.id===ship.commonOrderId);
-    if(extraWait===9){
+    if(late===0){
       assert.equal(order.returnedAt,period.endsAt);assert.equal(order.status,'complete');assert.deepEqual(clone(period.missed),[]);
       assert.equal(h.s.civilization.metro.stableSince,stableSince);assert.equal(h.s.civilization.metro.stableSeconds,600);assert.equal(h.metro.canRegister(h.s),true);
       h.roundtrip();

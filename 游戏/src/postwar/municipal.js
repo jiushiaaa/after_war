@@ -40,6 +40,7 @@ var CivilMunicipal={
   planWorkers(s,id){
     const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
     const cap=this.jobCapacity(s,id),base=m.baseWorkers,exp=this.tradeExports(s,id),desired={},p=n.population;
+    if(typeof CivilNation!=='undefined')for(const [key,value]of Object.entries(CivilNation.costs(s)[id]||{}))exp[key]=(exp[key]||0)+value;
     const positive=(job,value)=>Math.min(cap[job]||0,Math.max(base[job]||0,Math.ceil(value)));
     desired.medic=positive('medic',(p*.01+(exp.medicine||0)+.15)/.15);
     desired.teacher=positive('teacher',CivilPopulation.children(n.cohorts)/20);
@@ -63,7 +64,8 @@ var CivilMunicipal={
     desired.precisionworker=positive('precisionworker',2);desired.electronicsworker=positive('electronicsworker',2);
     const precisionPower=desired.precisionworker*3+desired.electronicsworker*4;
     desired.steelworker=positive('steelworker',2);desired.glassworker=positive('glassworker',2);
-    desired.chemist=positive('chemist',Math.max(2,(desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+desired.electronicsworker*.2+(m.buildings.filterplant||0)*.03+.2)/.4));
+    const chemicalNeed=desired.pharmacist*.15+(service?.buildings.waterworks||0)*.2+desired.steelworker*.05+desired.electronicsworker*.2+(m.buildings.filterplant||0)*.03+.2;
+    desired.chemist=positive('chemist',Math.max(2,chemicalNeed/.4+((n.stores.chemicals||0)<chemicalNeed*30?2:0)));
     desired.mineralworker=positive('mineralworker',(desired.chemist*.4+desired.glassworker*.6+.2)/1.2);
     const servicePower=(service?.manualWater?0:Math.floor(desired.waterworker/4)*4)+desired.pharmacist*.5+heatPower;
     desired.utilityworker=positive('utilityworker',(servicePower+precisionPower+desired.chemist*2+desired.steelworker*2+desired.glassworker+(m.buildings.filterplant||0)*2)/10);
@@ -78,7 +80,12 @@ var CivilMunicipal={
     }
     if(desired.steelworker)desired.smelter=positive('smelter',Math.max(desired.smelter,(desired.steelworker*1.2+desired.machinist*.5+(exp.iron||0)+.2)/.6));
     if(desired.smelter)desired.miner=positive('miner',Math.max(desired.miner,desired.smelter-(base.smelter||0)));
-    if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker||heatStations)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+heatCoal+.2));
+    if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker||heatStations){
+      const coalNeed=desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+heatCoal+.2;
+      // Rebuild a five-minute operating reserve with at most two extra real
+      // workers. Existing facilities, adult labour and paid inputs still limit it.
+      desired.collier=positive('collier',Math.max(desired.collier,coalNeed+((n.stores.coal||0)<coalNeed*30?2:0)));
+    }
     const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01+desired.precisionworker*.02;
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
     desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2+(contract?4:0))/.8+1);

@@ -82,7 +82,7 @@ test('the untouched checkpoint resumes paid trade, tool and coal deliveries, and
     const p=state.civilization.regions.shipments.find(p=>p.route==='rail');
     departures.push({at:c.elapsed,id:p.id,purpose:p.purpose,cargo:clone(p.cargo),paid:Object.fromEntries(Object.keys(before).map(key=>[key,before[key]-(state.stores[key]||0)]))});
   }return ok;};
-  h.until(()=>c.municipal.nodes.rail.completed.some(p=>p.id===12),3000);
+  h.until(()=>c.municipal.nodes.rail.completed.some(p=>p.id===12),4200);
   const trade=departures.find(p=>p.purpose==='trade');assert.ok(trade);assert.equal(trade.at,118530);assert.deepEqual(trade.cargo,{food:12,coal:2,tools:1});
   near(trade.paid.coal,2);near(trade.paid.tools,1);assert.ok(trade.paid.food>12,'the cart also pays its real journey food');
   assert.ok(deliveries.some(p=>p.at===118620&&p.cargo.coal===2&&p.cargo.tools===1));
@@ -90,9 +90,10 @@ test('the untouched checkpoint resumes paid trade, tool and coal deliveries, and
   assert.equal(project.id,12);assert.equal(project.status,'complete');assert.equal(newReceipts.length,3);
   const materials={};for(const id of newReceipts){const trip=departures.find(p=>p.id===id);assert.ok(trip);assert.equal(trip.purpose,'municipal');for(const [key,n]of Object.entries(trip.cargo)){materials[key]=(materials[key]||0)+n;assert.ok(trip.paid[key]+1e-7>=n,'construction cargo came out of home');}}
   assert.deepEqual(materials,{wood:244,iron:60,parts:20,tools:20});
-  assert.equal(c.municipal.nodes.rail.completed.find(p=>p.id===12).completedAt,121067);assert.equal(c.elapsed,121067);
+  const completedAt=c.municipal.nodes.rail.completed.find(p=>p.id===12).completedAt;
+  assert.equal(completedAt,c.elapsed);assert.ok(completedAt>=Math.max(...newReceipts.map(id=>departures.find(p=>p.id===id).at))+90+359,'the final cargo travels and all 360 construction seconds are worked');
   assert.equal(m.capacity(s,'rail'),initialBeds+96);assert.equal(n.population,initialPopulation);assert.equal(n.population,116);
   assert.equal(oldOrder(h).status,'complete');assert.ok(oldPeriod(h).missed.includes('rail'));
   for(const stores of [s.stores,...Object.values(c.regions.nodes).map(n=>n.stores)])assert.ok(Object.values(stores).every(value=>Number.isFinite(value)&&value>=0));h.roundtrip();
-  t.diagnostic('Headless raw62 continuation: original cart paid wood at 118431 and returned 118521; trade delivered coal/tools 118620; three real construction loads completed project 12 at 121067; rail 116 residents, 212 beds.');
+  t.diagnostic('Headless raw62 continuation: original cart paid wood at 118431 and returned 118521; trade delivered coal/tools 118620; three real construction loads completed project 12 at '+completedAt+'; rail 116 residents, 212 beds. Fixed-period mutual aid now shares the existing cart without rolling deadline drift.');
 });

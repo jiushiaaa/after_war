@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -84,6 +84,11 @@ var CivilHistory={
     if(c.metro?.formedAt!==null&&Number.isFinite(c.metro?.formedAt)){
       const members=(c.metro.formedMembers||[]).map(id=>this.place(s,id)).join('、');
       add('metro_charter','metro','城市群共同职责登记',members+'。以连续供养和实付互助共同承担公共职责；仍须维持各城服务。',c.metro.formedAt);
+    }
+    if(c.nation){
+      const n=c.nation;
+      for(const [id,p]of Object.entries(n.approvals))add('nation_approval_'+id,'nation',this.place(s,id)+'国家议约','当地实付：'+this.costText(p.cost)+'；尚须三城连续筹备与正式批准。',p.at);
+      if(n.foundedAt!==null)add('nation_founded','nation','国家宪章生效',n.members.map(id=>this.place(s,id)).join('、')+'；'+Object.entries(n.foundingAxes).map(([axis,value])=>this.axisName(axis,value)).join(' · ')+'。持续经费与治理仍按当期账册执行。',n.foundedAt);
     }
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);
