@@ -31,3 +31,21 @@ test('mastered technology records retain real costs and prerequisites without ch
  const {s,ui,ctx}=harness();const before=JSON.stringify(s),rows=ui.researchRows(s),r=rows.find(r=>r.id==='passenger_transport');
  assert.ok(r.done);assert.deepEqual(copy(r.cost),copy(ctx.CivilText.research.passenger_transport.cost));assert.equal(r.duration,480);assert.equal(r.requires.length,3);assert.equal(JSON.stringify(s),before);
 });
+
+test('the unchanged natural crisis shows empty food stores even when the recorded warehouse delta is zero',()=>{
+ const {ui}=harness();const s=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-trade-return-bottleneck.json'),'utf8')).state;
+ const n=s.civilization.regions.nodes.rail;assert.equal(n.stores.food,0);assert.equal(n.health,0);
+ const before=JSON.stringify(s),view=ui.municipalSummary(s,'rail');
+ assert.ok(view.notices.includes('粮仓已空，需要补给与生产恢复'));
+ const food=view.cards.find(c=>c[0]==='粮食 / 10秒');assert.match(food[1],/无储备/);assert.equal(food[2],true);
+ assert.equal(JSON.stringify(s),before);
+});
+test('the real crisis construction wait is explained after actual freight fills the project',()=>{
+ const {harness:full}=require('./helpers/metro-fixture.cjs');
+ const raw=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-trade-return-bottleneck.json'),'utf8')).state;
+ const h=full(raw);h.until(()=>h.m.data(h.s,'rail').project.status==='building',2000);
+ const before=JSON.stringify(h.s),view=h.ctx.CivilInterface.municipalSummary(h.s,'rail');
+ assert.ok(view.notices.includes('健康不足30，地方施工暂停'));
+ assert.ok(view.notices.includes('粮仓已空，需要补给与生产恢复'));
+ assert.equal(h.m.data(h.s,'rail').project.remaining,360);assert.equal(JSON.stringify(h.s),before);
+});

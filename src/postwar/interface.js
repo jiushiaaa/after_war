@@ -27,7 +27,12 @@ var CivilInterface={
     const n=CivilMunicipal.node(s,id),m=CivilMunicipal.data(s,id),e=m?.economy;
     const cards=[['居民',n.population+' / '+CivilMunicipal.capacity(s,id)],['健康',Math.floor(n.health)+' / 100']];
     if(e)cards.push(['粮食 / 10秒',this.signed(e.food),e.food<0],['药品 / 10秒',this.signed(e.medicine),e.medicine<0],['儿童教学',e.education?'已覆盖':'待补足',!e.education],['工业用电',this.number(e.productivePower)+' / '+this.number(m.power.generation)]);
-    const notices=[];if(e?.food<0)notices.push('当地粮食净供给不足');if(e?.medicine<0)notices.push('当地药品净供给不足');if(m?.pollution>=40)notices.push('烟尘正在影响居民健康');
+    const emptyFood=n.population>0&&(n.stores.food||0)<1e-8;
+    // An exhausted warehouse has no further negative stock delta. Zero change
+    // is not proof that residents ate; keep the shortage visible at zero stock.
+    if(emptyFood){const food=cards.find(row=>row[0]==='粮食 / 10秒');if(food){food[1]=this.signed(e.food)+' · 无储备';food[2]=true;}}
+    const notices=[];if(emptyFood)notices.push('粮仓已空，需要补给与生产恢复');else if(e?.food<0)notices.push('当地粮食净供给不足');if(e?.medicine<0)notices.push('当地药品净供给不足');if(m?.pollution>=40)notices.push('烟尘正在影响居民健康');
+    if(m?.project?.status==='building'&&n.health<30)notices.push('健康不足30，地方施工暂停');
     if(typeof CivilHeating!=='undefined'&&CivilHeating.data(s,id)){const h=CivilHeating;cards.push(['实际供暖',h.capacity(s,id)+' / '+n.population+' 人份',h.handed(s,id)&&!h.covered(s,id)]);if(h.handed(s,id)&&!h.covered(s,id))notices.push('当地供暖覆盖不足');}
     const project=this.projectText(s,id);if(project)notices.push('在建：'+project);
     return {title:CivilRegionContent[id].name+' · '+(m?.city?'城市':m?.town?'镇':'聚居地'),cards,notices,brief:m&&!m.city?(m.town?'城市准备 '+m.cityStable+' / 300秒':'镇制准备 '+m.townStable+' / 180秒'):null,details:[['住房预留',CivilUrban.reservedBeds(s,id)+' 床'],['当地储备','粮 '+Math.floor(n.stores.food||0)+' · 药 '+this.number(n.stores.medicine)+' · 工具 '+this.number(n.stores.tools)],['烟尘',this.number(m?.pollution)],['仓库原则','当地人口、仓库和供电分别结算；在途尚未入库']]};
