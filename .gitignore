@@ -1,9 +1,14 @@
-/.settings
-*.TODO
-*.mo
+# Local dependencies, credentials and machine state
+**/node_modules/
+**/.DS_Store
+**/Thumbs.db
+.env
+.env.*
+!.env.example
+.codex/
+.vscode/
+.idea/
+*.log
 *.swp
-.idea
-lang/.DS_Store
-.DS_Store
-node_modules
-img/Thumbs.db
+*.pem
+*.key

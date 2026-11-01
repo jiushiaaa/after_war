@@ -1,12 +1,12 @@
-# Default
-* text=auto
-
-# Binary files so don't modify
-*.ico binary
+* text=auto eol=lf
 *.png binary
 *.jpg binary
-*.xlsx binary
-
-# Hide vendor and translation files from language statistics
-lang/* linguist-documentation
-lib/* linguist-vendored
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+# Preserve original exported save bytes, including line endings.
+验证/存档/*.json -text
+游戏/tests/fixtures/*.json -text
