@@ -104,6 +104,7 @@ var CivilHistory={
     for(const [id,d]of Object.entries(c.cooperative?.nodes||{})){
       const place=this.place(s,id);add('cooperative_found_'+id,'cooperative',place+'设立制器合作社','转交1处已建制器间与木20、废料60、食物24；地方实付20知识。合作产出归社仓，原公共岗位减少4。',d.foundedAt);
       for(const [i,x]of d.controls.entries())add('cooperative_control_'+id+'_'+i,'cooperative',place+(x.enabled?'恢复合作生产':'暂停合作生产'),'设施所有权与现有社仓保留。',x.at);
+      for(const [i,x]of (d.standing?.controls||[]).entries())add('cooperative_contract_'+id+'_'+i,'cooperative',place+(x.enabled?'开启持续实物合同':'暂停持续实物合同'),'每30秒至多成交一批工具和一批原料；实际付款，保留公共口粮与生产储备。',x.at);
       for(const kind of ['tools','materials']){const x=d.trades.find(t=>t.kind===kind);if(x)add('cooperative_first_'+id+'_'+kind,'cooperative',place+'首次'+(kind==='tools'?'向合作社采购工具':'向合作社出售原料'),kind==='tools'?'公库实付6食物，社仓交付2工具。':'社仓实付6食物，公库交付木4、废料12。',x.at);}
     }
     for(const [id,d]of Object.entries(c.culture?.nodes||{})){

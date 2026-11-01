@@ -53,6 +53,7 @@ var CivilMetro={
     for(const key of ['tools','coal','parts','chemicals'])need[key]=Math.max(gross[key]||0,...m.samples.map(sample=>sample.nodes[id].resources[key]||0))*30;
     // Contract and travel obligations cannot spend the same protected stock.
     for(const [key,n]of Object.entries(exports))if(n<0)need[key]=(need[key]||0)-n*30;
+    if(typeof CivilCooperative!=='undefined')for(const [key,n]of Object.entries(CivilCooperative.contractReserve(s,id,300)))need[key]=(need[key]||0)+n;
     need.tools=Math.max(40,need.tools);need.iron=Math.max(40,need.iron||0);need.parts=Math.max(20,need.parts);
     return need;
   },

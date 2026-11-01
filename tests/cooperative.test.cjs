@@ -57,3 +57,47 @@ test('forged owner references, private balances, output, wages and future transa
  const h=found();h.step(30);h.coop.trade(h.s,'river','tools');h.roundtrip();
  for(const edit of [d=>d.assetProjectId=999,d=>d.stores.tools+=1,d=>d.totals.tools+=100,d=>d.last.meal+=1,d=>d.last.workers=5,d=>d.trades[0].at=h.s.civilization.elapsed+1,d=>d.controls.push({at:d.foundedAt,enabled:true})]){const bad=clone(h.s);edit(bad.civilization.cooperative.nodes.river);assert.throws(()=>h.ctx.CivilPlatform.validate(bad));}
 });
+
+test('standing contracts are opt-in, bounded and use actual bilateral inventory over several generations',()=>{
+ const h=found();h.step(300);const d=h.coop.data(h.s,'river');assert.equal(d.standing,undefined);assert.equal(d.trades.length,0);
+ const before=JSON.stringify(d.stores);assert.ok(h.coop.setContract(h.s,'river',true));assert.equal(JSON.stringify(d.stores),before);
+ h.step(3600);assert.ok(d.trades.some(t=>t.standing&&t.kind==='tools'));assert.ok(d.trades.some(t=>t.standing&&t.kind==='materials'));assert.ok(d.totals.tools>25);
+ for(const kind of ['tools','materials']){const rows=d.trades.filter(t=>t.kind===kind&&t.standing);for(let i=1;i<rows.length;i++)assert.ok(rows[i].at-rows[i-1].at>=30);}
+ assert.ok(d.trades.length<=240);h.roundtrip();
+});
+test('contract pause and production pause stop automatic payment; resuming never drains a backlog',()=>{
+ const h=found();h.coop.setContract(h.s,'river',true);h.step(180);const d=h.coop.data(h.s,'river');
+ h.coop.setContract(h.s,'river',false);const count=d.trades.length;h.step(300);assert.equal(d.trades.length,count);
+ h.coop.setContract(h.s,'river',true);h.step(29);assert.equal(d.trades.length,count);h.step(11);assert.ok(d.trades.length-count<=2);
+ h.coop.setEnabled(h.s,'river',false);const stopped=d.trades.length,balance=clone(d.stores);h.step(300);assert.equal(d.trades.length,stopped);assert.deepEqual(clone(d.stores),balance);
+ h.coop.setEnabled(h.s,'river',true);h.step(10);assert.ok(d.trades.length-stopped<=2);h.roundtrip();
+});
+test('standing sales protect public meals and raw material deliveries protect real production reserves',()=>{
+ const h=found();h.step(270);h.coop.setContract(h.s,'river',true);const d=h.coop.data(h.s,'river'),n=h.m.node(h.s,'river');
+ h.s.civilization.elapsed+=30;n.stores.food=h.m.foodReserve(h.s,'river');n.stores.wood=4;n.stores.scrap=12;
+ const before=JSON.stringify(h.s);h.coop.standingTrade(h.s,'river');assert.equal(d.trades.length,0);assert.equal(n.stores.wood,4);assert.equal(n.stores.scrap,12);assert.equal(d.standing.lastAt,h.s.civilization.elapsed);
+ const checked=JSON.stringify(h.s);h.coop.standingTrade(h.s,'river');assert.equal(JSON.stringify(h.s),checked);assert.notEqual(checked,before);
+ h.s.civilization.elapsed+=30;n.stores.food+=100;n.stores.wood=1000;n.stores.scrap=1000;
+ const combined=Object.fromEntries(Object.keys(d.stores).map(k=>[k,n.stores[k]+d.stores[k]]));h.coop.standingTrade(h.s,'river');assert.ok(d.trades.length>0);
+ for(const k of Object.keys(combined))near(combined[k],n.stores[k]+d.stores[k]);h.roundtrip();
+});
+test('standing orders preserve receipts through same-second cancellation and reject forged authorizations or burst trades',()=>{
+ const h=found();h.coop.setContract(h.s,'river',true);h.step(600);const d=h.coop.data(h.s,'river');assert.ok(d.trades.length);
+ h.s.civilization.elapsed=Math.max(h.s.civilization.elapsed,d.standing.lastAt);h.coop.setContract(h.s,'river',false);h.roundtrip();
+ for(const edit of [x=>x.standing.controls[0].enabled=false,x=>x.standing.lastAt=h.s.civilization.elapsed+1,x=>x.trades.find(t=>t.standing).standing=99,x=>x.trades.find(t=>t.standing).at=x.standing.controls[0].at]){const bad=clone(h.s);edit(bad.civilization.cooperative.nodes.river);assert.throws(()=>h.ctx.CivilPlatform.validate(bad));}
+});
+test('standing order forecasts and reloads preserve money-free conservation and future decisions',()=>{
+ const a=found();a.coop.setContract(a.s,'river',true);a.step(400);const before=JSON.stringify(a.s);a.m.forecast(a.s,'river');a.ctx.CivilHistory.snapshot(a.s);assert.equal(JSON.stringify(a.s),before);
+ const b=a.roundtrip();a.step(1200);b.step(1200);assert.deepEqual(clone(a.s),clone(b.s));a.roundtrip();
+});
+test('automatic trades do not invalidate an open manual choice but an old policy window cannot resume a new contract',()=>{
+ const h=found();h.coop.setContract(h.s,'river',true);h.step(300);h.s.civilization.pending='cooperative_river';const event=h.coop.event('cooperative_river');
+ h.s.civilization.elapsed+=30;h.coop.standingTrade(h.s,'river');assert.ok(event.buttons.contract.onChoose());assert.equal(h.coop.contracted(h.s,'river'),false);
+ h.s.civilization.pending='cooperative_river';assert.equal(event.buttons.contract.onChoose(),false);assert.equal(h.coop.contracted(h.s,'river'),false);h.s.civilization.pending=null;h.roundtrip();
+});
+
+test('city-region reserves cover standing public obligations without counting promised private deliveries as public stock',()=>{
+ const h=found(),f=h.m.forecast(h.s,'river'),before=h.metro.reserve(h.s,'river',f);h.coop.setContract(h.s,'river',true);
+ const active=h.metro.reserve(h.s,'river',f);near(active.food,before.food+60);near(active.wood,(before.wood||0)+40);near(active.scrap,(before.scrap||0)+120);
+ h.coop.setContract(h.s,'river',false);assert.deepEqual(clone(h.metro.reserve(h.s,'river',f)),clone(before));h.roundtrip();
+});

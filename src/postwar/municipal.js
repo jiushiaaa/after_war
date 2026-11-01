@@ -54,7 +54,8 @@ var CivilMunicipal={
     const birthPlan=CivilPopulation.births(aged,{...(n.births||{scaled:false,credit:0,mutantCredit:0})},{yearStartPopulation:p,beds:Math.max(0,this.capacity(s,id)-CivilPopulation.count(aged)-reserved),health:n.health,hunger:0,food:Number.MAX_SAFE_INTEGER,medicine:Number.MAX_SAFE_INTEGER});
     // A year contains sixty settlements. Local farms fund births as well as daily meals;
     // previewing that budget must not advance the authoritative fractional birth ledger.
-    const farmFactor=this.outputFactor(s,id),foodNeed=CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+desired.pharmacist*.2+(exp.food||0)+birthPlan.cost.food/60+.5;
+    const contract=typeof CivilCooperative!=='undefined'&&CivilCooperative.contractRunning(s,id);
+    const farmFactor=this.outputFactor(s,id),foodNeed=CivilPopulation.foodPopulation(n.cohorts)*.12+desired.medic*.2+desired.pharmacist*.2+(exp.food||0)+birthPlan.cost.food/60+.5+(contract?6:0);
     desired.farmer=Math.min(oldFarm,cap.farmer||0);
     while(desired.farmer<(cap.farmer||0)&&farmFood(desired.farmer)*farmFactor<foodNeed)desired.farmer++;
     for(const job of ['miner','collier','smelter','machinist'])desired[job]=positive(job,Math.max(2,Math.ceil(p/100)));
@@ -77,8 +78,8 @@ var CivilMunicipal={
     if(desired.utilityworker||desired.chemist||desired.steelworker||desired.glassworker||heatStations)desired.collier=positive('collier',Math.max(desired.collier,desired.smelter*.6+desired.electrician*.6+desired.utilityworker*.9+desired.chemist*.3+desired.steelworker*.7+desired.glassworker*.4+heatCoal+.2));
     const toolNeed=Math.max(0,desired.farmer-oldFarm)*.01+(desired.miner+desired.collier+desired.mineralworker)*.03+(desired.smelter+desired.machinist+desired.chemist+desired.steelworker)*.01;
     desired.smith=positive('smith',(toolNeed+(exp.tools||0)+.05)/.25);
-    desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2)/.8+1);
-    desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0))/.5+1);
+    desired.salvager=positive('salvager',(desired.medic*.1+desired.smith*.6+(base.smelter||0)+desired.machinist*.2+(contract?4:0))/.8+1);
+    desired.gatherer=positive('gatherer',(desired.teacher*.1+desired.smith*.2+(m.buildings.scrubber?.2:0)+(m.buildings.filterplant||0)*.2+(exp.wood||0)+(contract?4/3:0))/.5+1);
     desired.coopsmith=typeof CivilCooperative!=='undefined'&&CivilCooperative.productionReady(s,id)?4:0;desired.windworker=cap.windworker||0;desired.builder=cap.builder;
     let left=CivilPopulation.workforce(n.cohorts);n.workers={};
     for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
@@ -91,7 +92,8 @@ var CivilMunicipal={
   settleNode(s,id){
     const n=this.node(s,id),m=this.data(s,id);if(!n||!m)return {};
     if(typeof CivilServices!=='undefined')CivilServices.begin(s,id);
-    this.planWorkers(s,id);const st=n.stores,w=n.workers,base=m.baseWorkers,b=m.buildings,before={...st},produced={},ran={},paidInputs={};
+    const st=n.stores,before={...st};if(typeof CivilCooperative!=='undefined')CivilCooperative.standingTrade(s,id);
+    this.planWorkers(s,id);const w=n.workers,base=m.baseWorkers,b=m.buildings,produced={},ran={},paidInputs={};
     const recordInputs=cost=>{for(const [key,v]of Object.entries(cost))paidInputs[key]=(paidInputs[key]||0)+v;};
     const factor=this.outputFactor(s,id);
     const run=(label,count,cost,output,reserve={},scale=true)=>{
