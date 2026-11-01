@@ -101,3 +101,21 @@ test('the one persistent council button updates its title and reads the current 
   ctx.$=id=>id==='<div>'?{...node('fresh'+Object.keys(nodes).length)}:node(id);ctx.document={createTextNode:text=>text};ctx.Events={activeEvent:()=>false};ctx.Civilization.showPending=()=>{};ctx.Civilization.button=(id,text,target,callback)=>{const n=node('#'+id);if(!n.callback){n.callback=callback;n.label=text;n.length=1;}return n;};
   f.refresh();const button=nodes['#financeButton'];assert.equal(button.label,'商议三仓互助');assert.ok(f.approve(s,['river','rail']));f.refresh();assert.equal(button.label,'查看共同约定');button.callback();assert.equal(s.civilization.pending,'financeLedger');s.civilization.pending=null;s.civilization.society.axes.charter='custom';assert.ok(f.exit(s));f.refresh();assert.equal(button.label,'商议三仓互助');button.callback();assert.equal(s.civilization.pending,'financeOffer');
 });
+
+test('overdue return shortages remain visible across periods and even while new orders are paused',()=>{
+  const h=idle(),p=launch(h);h.f.stores(h.s,'river').wood=0;arrival(h,p);h.step(650);
+  const before=JSON.stringify(h.s),q=h.f.waitingReturn(h.s,'river');assert.equal(q.shipmentId,p.id);assert.ok(q.waited>=650);assert.equal(q.missing[0].resource,'wood');near(q.missing[0].missing,12);assert.match(h.f.routeStatus(h.s,'river'),/木料缺12/);assert.equal(JSON.stringify(h.s),before);
+  h.f.agreement(h.s).paused=true;assert.match(h.f.routeStatus(h.s,'river'),/返程已等/);
+  h.s.civilization.regions.shipments=[];assert.equal(h.f.waitingReturn(h.s,'river'),null);
+});
+test('ledger return action releases the original cart only after travel and never fabricates a contribution or refund',()=>{
+  const h=idle(),p=launch(h);h.f.stores(h.s,'river').wood=0;arrival(h,p);const stocks=JSON.stringify([h.s.stores,h.f.stores(h.s,'river')]);
+  const event=h.f.event('financeLedger',()=>()=>true);assert.ok(event.buttons.return_river);assert.equal(event.buttons.return_river.onChoose(),true);
+  assert.equal(p.phase,'empty');assert.equal(p.status,'moving');assert.match(h.f.routeStatus(h.s,'river'),/原车空返在途/);assert.equal(p.remaining,h.s.civilization.regions.routes.river.travel);assert.equal(h.s.civilization.regions.routes.river.enabled,false);assert.equal(JSON.stringify([h.s.stores,h.f.stores(h.s,'river')]),stocks);
+  const before=JSON.stringify(h.s);assert.equal(event.buttons.return_river.onChoose(),false);assert.equal(JSON.stringify(h.s),before);
+  h.step(p.remaining);assert.ok(!h.s.civilization.regions.shipments.some(x=>x.id===p.id));assert.equal(h.f.order(h.s,p).status,'cancelled');assert.equal(h.f.legReceipt(h.s,h.f.order(h.s,p),'back'),undefined);assert.ok(h.f.validate(h.s));
+});
+test('a stale ledger action cannot send a cart back once its wood has actually loaded',()=>{
+  const h=idle(),p=launch(h);h.f.stores(h.s,'river').wood=0;arrival(h,p);const event=h.f.event('financeLedger',()=>()=>true);
+  h.f.stores(h.s,'river').wood=20;assert.equal(h.r.loadReturn(h.s,p),true);const before=JSON.stringify(h.s);assert.equal(event.buttons.return_river.onChoose(),false);assert.equal(JSON.stringify(h.s),before);assert.equal(h.f.waitingReturn(h.s,'river'),null);
+});

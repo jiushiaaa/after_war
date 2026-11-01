@@ -341,7 +341,7 @@ var CivilRegions={
     else if(p.status==='loading'){p.remaining=route.travel;p.phase='empty';p.target='home';}
     else {p.remaining=Math.max(1,route.travel-p.remaining);p.phase='returning';p.target=p.route;}
     if(p.purpose==='common'){p.legStartedAt=s.civilization.elapsed;p.legDuration=p.remaining;}
-    p.status='moving';route.status='带货返航';route.enabled=false;return true;
+    p.status='moving';route.status=p.phase==='empty'?'空车返回中':'带货返航';route.enabled=false;return true;
   },
   setRoad(s,id,open){const r=s.civilization.regions.routes[id];if(!r)return false;r.condition=open?'open':'closed';return true;},
   repairRoad(s,id,options={}){

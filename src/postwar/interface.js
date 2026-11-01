@@ -35,6 +35,7 @@ var CivilInterface={
     if(m?.project?.status==='building'&&n.health<30)notices.push('健康不足30，地方施工暂停');
     if(typeof CivilHeating!=='undefined'&&CivilHeating.data(s,id)){const h=CivilHeating;cards.push(['实际供暖',h.capacity(s,id)+' / '+n.population+' 人份',h.handed(s,id)&&!h.covered(s,id)]);if(h.handed(s,id)&&!h.covered(s,id))notices.push('当地供暖覆盖不足');}
     const project=this.projectText(s,id);if(project)notices.push('在建：'+project);
+    if(typeof CivilFinance!=='undefined'){const waiting=CivilFinance.waitingReturn(s,id);if(waiting?.constructionWaiting)notices.push(CivilFinance.waitingText(s,id)+'；议事屋→共同约定可安排返车');}
     return {title:CivilRegionContent[id].name+' · '+(m?.city?'城市':m?.town?'镇':'聚居地'),cards,notices,brief:m&&!m.city?(m.town?'城市准备 '+m.cityStable+' / 300秒':'镇制准备 '+m.townStable+' / 180秒'):null,details:[['住房预留',CivilUrban.reservedBeds(s,id)+' 床'],['当地储备','粮 '+Math.floor(n.stores.food||0)+' · 药 '+this.number(n.stores.medicine)+' · 工具 '+this.number(n.stores.tools)],['烟尘',this.number(m?.pollution)],['仓库原则','当地人口、仓库和供电分别结算；在途尚未入库']]};
   },
   summary(selector,model){

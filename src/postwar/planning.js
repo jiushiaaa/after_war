@@ -26,7 +26,7 @@ var CivilPlanning={
     const d=this.data(s,id),r=this.queued(s,id)[0];if(!r)return '没有待建项目';
     if(!d.enabled)return '计划已暂停；当前已开工程继续';
     if(!this.eligible(s,id))return '等待地方恢复共同营建';
-    if(!CivilMunicipal.projectAvailable(s,id))return '等待当前工程完成；不抢占施工和货车';
+    if(!CivilMunicipal.projectAvailable(s,id))return typeof CivilFinance!=='undefined'&&CivilFinance.waitingReturn(s,id)?.constructionWaiting?CivilFinance.waitingText(s,id)+'；可从议事屋共同约定处理':'等待当前工程完成；不抢占施工和货车';
     if(!this.owner(r.owner).facilityGate(s,id,r.type))return '首项条件不满足或已达上限；可移除后重新安排';
     return '下一项将在下一秒交给当地工程';
   },
