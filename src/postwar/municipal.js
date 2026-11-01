@@ -27,6 +27,7 @@ var CivilMunicipal={
     const result={...m.baseWorkers};for(const [key,count]of Object.entries(m.buildings))for(const [job,cap]of Object.entries(CivilMunicipalContent.facilities[key].jobs||{}))result[job]=(result[job]||0)+count*cap;
     if(typeof CivilServices!=='undefined')for(const [job,cap]of Object.entries(CivilServices.jobs(s,id)))result[job]=(result[job]||0)+cap;
     if(typeof CivilCooperative!=='undefined'&&CivilCooperative.data(s,id)){result.smith=Math.max(0,(result.smith||0)-4);result.coopsmith=4;}
+    if(typeof CivilRuins!=='undefined'&&CivilRuins.needsWorkers(s,id))result.ruinworker=4;
     result.builder=m.project?.status==='building'||s.civilization.regions?.upgrades?.projects[id]?.status==='building'||typeof CivilServices!=='undefined'&&CivilServices.data(s,id)?.project?.status==='building'?2:0;return result;
   },
   canAccept(s,id){return this.has(s,id) && ['associated','integrated'].includes(this.node(s,id)?.relation);},
@@ -85,7 +86,8 @@ var CivilMunicipal={
     for(const job of ['farmer','medic','waterworker','pharmacist','heatingworker','builder','coopsmith','smith','salvager','gatherer','teacher','miner','collier','smelter','electrician','windworker','utilityworker','mineralworker','chemist','steelworker','glassworker','machinist']){const count=Math.min(left,desired[job]||0);if(count)n.workers[job]=count;left-=count;}
     // Two organisers and twelve adult participants come only from the actual
     // labour remaining after production, care, teaching and construction.
-    if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id))n.workers.communityworker=14;
+    if((cap.communityworker||0)>=14&&left>=14&&typeof CivilCulture!=='undefined'&&CivilCulture.needsWorkers(s,id)){n.workers.communityworker=14;left-=14;}
+    if(left>=4&&typeof CivilRuins!=='undefined'&&CivilRuins.needsWorkers(s,id))n.workers.ruinworker=4;
     return n.workers;
   },
   pay(stores,cost){if(Object.entries(cost).some(([key,n])=>(stores[key]||0)+1e-8<n))return false;for(const [key,n]of Object.entries(cost))stores[key]=Math.max(0,(stores[key]||0)-n);return true;},
@@ -307,6 +309,7 @@ var CivilMunicipal={
     else if(typeof CivilServices!=='undefined'&&CivilServices.active(s,id))$('#municipalProject').append($('<div>').text('当地正在进行下方公用工程，完成后再开下一项市政工程。'));
     if(typeof CivilCulture!=='undefined')CivilCulture.refresh(s,id);
     if(typeof CivilCooperative!=='undefined')CivilCooperative.refresh(s,id);
+    if(typeof CivilRuins!=='undefined')CivilRuins.refresh(s,id);
   },
   powerLimits(s,id){
     const m=this.data(s,id),caps=this.jobCapacity(s,id),generation=Math.max(0,(caps.electrician||0)-(m.baseWorkers.electrician||0))*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s,id):0);

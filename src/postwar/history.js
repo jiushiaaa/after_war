@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营'},
+  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -101,6 +101,7 @@ var CivilHistory={
       if(o.cancelledAt!==null)add(key+'_cancel','relief',place+(o.dispatchedAt===null?'取消待发救济':'救济折返'),'未发单不付款；已付货物只在原车返抵后退回，旅费不退。',o.cancelledAt);
       if(o.refundAt!==null)add(key+'_refund','relief',place+'救济退回主城','原车实际返仓，退回：'+this.costText(o.cargo)+'。',o.refundAt);
     }
+    if(c.ruins){const d=c.ruins;for(const [i,r]of d.stages.entries()){add('ruin_start_'+i,'ruins','河谷旧维护库 · '+CivilRuins.phases[r.kind].name,'实付：'+this.costText(r.paid)+'；4位现有居民轮班作业。',r.startedAt);if(r.endedAt!==null)add('ruin_end_'+i,'ruins',CivilRuins.phases[r.kind].name+'完成',i===2?CivilRuins.status(s):'现场工作完成，下一项选择由居民决定。',r.endedAt);}for(const [i,x]of d.controls.entries())add('ruin_control_'+i,'ruins',x.enabled?'恢复遗迹勘探':'暂缓遗迹勘探','保留既有工作进度，不退已使用物资。',x.at);}
     for(const [id,d]of Object.entries(c.cooperative?.nodes||{})){
       const place=this.place(s,id);add('cooperative_found_'+id,'cooperative',place+'设立制器合作社','转交1处已建制器间与木20、废料60、食物24；地方实付20知识。合作产出归社仓，原公共岗位减少4。',d.foundedAt);
       for(const [i,x]of d.controls.entries())add('cooperative_control_'+id+'_'+i,'cooperative',place+(x.enabled?'恢复合作生产':'暂停合作生产'),'设施所有权与现有社仓保留。',x.at);

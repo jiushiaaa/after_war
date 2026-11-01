@@ -2,7 +2,7 @@
 var CivilInterface={
   views:{},researchModule:null,
   kinds:{windstation:'power',meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
-  labels:{culture:'社群',overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
+  labels:{exploration:'遗迹',culture:'社群',overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
   number(n){return Number((Number(n)||0).toFixed(2));},
   signed(n){return (n>=0?'+':'')+this.number(n);},
   projectText(s,id='home'){
@@ -95,11 +95,12 @@ var CivilInterface={
     if(!$('#municipalPanel').length)return;
     const id=CivilMunicipal.selected,m=CivilMunicipal.data(s,id);if(!id)return;if(renderSummary)this.renderMunicipal(s,id);
     if(!m){$('#civilTabs_municipal,#civilMunicipalProjectDetails,#civilMunicipalProjectBrief,#civilCultureStatus,#civilDevelopment').hide();$('#municipalBuild').parent().show();return;}
-    const available=['overview','housing','care','materials','industry','power','culture'].filter(group=>group==='overview'||group==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||CivilCulture.data(s,id))||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
+    const available=['overview','housing','care','materials','industry','power','culture','exploration'].filter(group=>group==='exploration'&&id==='river'&&typeof CivilRuins!=='undefined'&&(CivilRuins.eligible(s,id)||!!CivilRuins.data(s))||group==='overview'||group==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||CivilCulture.data(s,id))||Object.keys(CivilMunicipalContent.facilities).some(type=>(this.kinds[type]||'care')===group&&(this.nativeShown('#municipalBuild_'+type)||m.buildings[type]))||Object.keys(CivilServiceContent.facilities).some(type=>this.kinds[type]===group&&(this.nativeShown('#services_local_'+type)||s.civilization.services?.nodes[id]?.buildings[type])));
     $('#civilTabs_municipal').show();const active=this.tabs('municipal','#municipalStatus',available);
     this.development(s,id,active==='overview');
-    $('#municipalBuild').parent().addClass('civil-build-columns').toggle(active!=='overview');
+    $('#municipalBuild').parent().addClass('civil-build-columns').toggle(!['overview','exploration'].includes(active));
     $('#cooperativeButton,#civilCooperativeStatus').toggle(active==='industry'&&typeof CivilCooperative!=='undefined'&&(!!CivilCooperative.data(s,id)||CivilCooperative.eligible(s,id)));
+    $('#ruinButton,#civilRuinStatus').toggle(active==='exploration'&&id==='river');
     $('#cultureButton').toggle(active==='culture'&&typeof CivilCulture!=='undefined'&&(CivilCulture.eligible(s,id)||!!CivilCulture.data(s,id)));
     let commons=$('#civilCultureStatus');if(!commons.length)commons=$('<div>').attr('id','civilCultureStatus').insertAfter('#civilTabs_municipal');
     commons.toggle(active==='culture');
@@ -112,6 +113,7 @@ var CivilInterface={
     if(!$('#civilMunicipalProjectDetails').length){const details=$('<details>').attr('id','civilMunicipalProjectDetails').addClass('civil-details civil-project-details').insertBefore('#municipalProject');$('<summary>').text('工程与材料明细').appendTo(details);$('#municipalProject').appendTo(details);}
     $('#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').show();const p=m.project;let brief=$('#civilMunicipalProjectBrief');if(!brief.length)brief=$('<div>').attr('id','civilMunicipalProjectBrief').addClass('civil-brief').insertBefore('#civilMunicipalProjectDetails');
     brief.text(p&&p.status!=='complete'?CivilMunicipalContent.facilities[p.type].name+' · '+(p.status==='supplying'?'材料运输中':'施工余 '+Math.ceil(p.remaining)+' 秒'):'当前工程已完成，可选择下一类建设');
+    if(active==='exploration')$('#civilMunicipalProjectDetails,#civilMunicipalProjectBrief').hide();
   },
   industry(s){
     if(!$('#industryPanel').length)return;
