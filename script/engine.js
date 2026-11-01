@@ -203,6 +203,9 @@
     activeModule: null,
 
     travelTo: function(module) {
+      // The slider owns horizontal navigation. Focusing a control in an
+      // incoming panel must not leave the clipped viewport scrolled as well.
+      $('#main').scrollLeft(0);
       if(Engine.activeModule == module) {
         return;
       }
@@ -215,7 +218,9 @@
       var stores = $('#storesContainer');
       var panelIndex = $('.location').index(module.panel);
       var diff = Math.abs(panelIndex - currentIndex);
-      slider.animate({left: -(panelIndex * 700) + 'px'}, 300 * diff);
+      slider.animate({left: -(panelIndex * 700) + 'px'}, 300 * diff, function() {
+        $('#main').scrollLeft(0);
+      });
 
       if($SM.get('stores.wood') !== undefined) {
         // FIXME Why does this work if there's an animation queue...?
