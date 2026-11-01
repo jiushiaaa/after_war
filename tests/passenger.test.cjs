@@ -113,3 +113,12 @@ test('visible departure receipts prevent erasing or rolling back the shared depa
  const h=ready(),{s,ctx}=h;send(h);for(const time of [null,s.civilization.elapsed-1]){const bad=clone(s);bad.civilization.passenger.lastDepartureAt=time;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
  h.step(240);const bad=clone(s);bad.civilization.passenger.lastDepartureAt=null;assert.throws(()=>ctx.CivilPlatform.validate(bad),'closed Origins departure remains evidence');
 });
+
+test('the unmodified natural construction export restores 62 paid work seconds, no finished asset and no extra transport seats',()=>{
+ const saved=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/natural-passenger-construction.json'),'utf8')).state,h=harness(saved,false),{s,ctx,p,v}=h;
+ ctx.CivilPlatform.validate(s);const before=JSON.stringify(s);ctx.Civilization.initState();v.tick(s);ctx.CivilPlatform.validate(s);assert.equal(JSON.stringify(s),before);
+ assert.equal(s.civilization.elapsed,53708);assert.equal(s.game.population,1006);assert.equal(s.civilization.tech.passenger_transport,true);
+ const project=v.data(s).project;assert.equal(project.type,'passengerfleet');assert.equal(project.remaining,298);assert.equal(project.workedSeconds,62);assert.equal(project.startedAt,53600);assert.equal(project.lastWorkedAt,53708);
+ assert.deepEqual(clone(project.paid),{wood:180,iron:40,steel:24,parts:16,tools:20});assert.equal(p.assets(s).length,0);assert.equal(ctx.CivilCatalog.jobCapacity(s,'transporter'),12);assert.equal(s.game.workers.transporter,10);
+ const assets=JSON.stringify([s.stores,s.game,s.civilization.origins,s.civilization.urban]);s.civilization.elapsed++;v.tick(s);v.tick(s);assert.equal(project.remaining,297);assert.equal(project.workedSeconds,63);assert.equal(JSON.stringify([s.stores,s.game,s.civilization.origins,s.civilization.urban]),assets);ctx.CivilPlatform.validate(s);
+});
