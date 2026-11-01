@@ -136,7 +136,7 @@ var CivilInterface={
   },
   councilSummary(s){
     const x=s.civilization.society;
-    return {title:'重建 '+x.year+' 年 · 第 '+x.generation+' 任',cards:[['当前代表',x.leader.title+' · '+x.leader.age+'岁'],['公共行政',x.service?'正常':'物资不足',!x.service],['成年劳力',CivilSociety.workforce(s)],['儿童',CivilPopulation.children(x.cohorts)],['退休居民',x.cohorts.filter(v=>v.age>=65).reduce((n,v)=>n+v.count,0)],['制度认可',Math.floor(x.legitimate)+' / 100']],notices:x.training?['继任培养还需 '+Math.ceil(x.training.remaining)+' 秒']:[],brief:Object.entries(x.axes).map(([key,value])=>CivilSociety.axes[key].choices[value].name).join(' · '),details:[['协调范围',CivilSociety.capacity(s)+' 个节点'],['当前任期',x.leader.started+' 年至今'],['继任状态',x.leader.alive?'现任在职':'等待交接'],['制度记录','历任与已记录的发展可从右下角“发展史”查阅']]};
+    return {title:'重建 '+x.year+' 年 · 第 '+x.generation+' 任',cards:[['当前代表',x.leader.title+' · '+x.leader.age+'岁'],['公共行政',x.service?'正常':'物资不足',!x.service],['成年劳力',CivilSociety.workforce(s)],['儿童',CivilPopulation.children(x.cohorts)],['退休居民',x.cohorts.filter(v=>v.age>=65).reduce((n,v)=>n+v.count,0)],['制度认可',Math.floor(x.legitimate)+' / 100']],notices:x.training?['继任培养还需 '+Math.ceil(x.training.remaining)+' 秒']:[],brief:Object.entries(x.axes).map(([key,value])=>CivilSociety.axes[key].choices[value].name).join(' · '),details:[['制度基础协调',CivilSociety.capacity(s)+' 份'],...(s.civilization.tech.administration&&typeof CivilRegions!=='undefined'&&CivilRegions.coordinationStatus?[['当前全部协调',CivilRegions.coordinationStatus(s)]]:[]),['当前任期',x.leader.started+' 年至今'],['继任状态',x.leader.alive?'现任在职':'等待交接'],['制度记录','历任与已记录的发展可从右下角“发展史”查阅']]};
   },
   originSummary(s,id){
     const n=s.civilization.origins.nodes[id],cfg=CivilOriginContent[id];

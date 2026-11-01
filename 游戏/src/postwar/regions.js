@@ -37,6 +37,15 @@ var CivilRegions={
     return result;
   },
   capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.capacityBonus(s):0);},
+  coordinationStatus(s){
+    const c=s.civilization,load=this.load(s),capacity=this.capacity(s),built=s.game.buildings.archive||0,online=c.regions?.archiveOnline||0;
+    const parts=['制度 '+(typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1),'档案馆 '+online*2];
+    if(c.nation?.foundedAt!==null&&c.nation&&typeof CivilNation!=='undefined')parts.push('国家 '+CivilNation.capacityBonus(s));
+    if(c.accession?.joinedAt!==null&&c.accession&&typeof CivilAccession!=='undefined')parts.push('加盟 '+CivilAccession.capacityBonus(s));
+    let text='协调责任 '+load+' / '+capacity+'（'+parts.join('、')+'）。';
+    if(load>capacity)text+='缺 '+(load-capacity)+' 份容量；'+(online<built?'先补足知识，恢复已有档案馆每10秒每座0.04知识的维护。':built<this.buildings.archive.max?'可在地区扩建行政档案馆，每座木180、铁20、零件10、知识40，实付维护后增加2份容量。':'档案馆已满，须在议事屋重议共同体结构或地方职责，按新制度实际承担协调。');
+    return text;
+  },
   load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0)+(typeof CivilSecurity!=='undefined'?CivilSecurity.obligation(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.obligation(s):0)+(typeof CivilIntercity!=='undefined'?CivilIntercity.obligation(s):0);},
   upgrade(s,id){return s.civilization.regions?.upgrades?.projects[id];},
   upgradeActive(s,id){const p=this.upgrade(s,id);return !!p && p.status!=='complete';},
@@ -483,7 +492,7 @@ var CivilRegions={
       if(n && !row.length){row=$('<div>').addClass('storeRow').attr('id','region_count_'+id).appendTo('#regionStructures');$('<div>').addClass('row_key').text(_(id)).appendTo(row);$('<div>').addClass('row_val').appendTo(row);$('<div>').addClass('clear').appendTo(row);}
       row.toggle(n>0).find('.row_val').text(n);
     }
-    $('#regionStatus').text(r.active?'运输工 '+(s.game.workers.transporter||0)+'，路线已占 '+this.reservedTransport(s)+'，可用 '+this.availableTransport(s)+'。'+(c.tech.administration?'协调责任 '+this.load(s)+' / '+this.capacity(s)+'。':''):'旧河谷运输继续运行。建好车队场并安排两名运输工后，才改用在途账册。');
+    $('#regionStatus').text(r.active?'运输工 '+(s.game.workers.transporter||0)+'，路线已占 '+this.reservedTransport(s)+'，可用 '+this.availableTransport(s)+'。'+(c.tech.administration?this.coordinationStatus(s):''):'旧河谷运输继续运行。建好车队场并安排两名运输工后，才改用在途账册。');
     for(const [id,j]of Object.entries(this.journeys))if(j.allowed(s)){const b=Civilization.button(id+'Button',id==='railSurvey'?'沿铁轨勘察':'踏勘高地山路','#regionsPanel',()=>Civilization.depart(id),j.cost);Button.setDisabled(b,!!c.journey || !!c.pending || !CivilRules.canPay(s,j.cost));}
     $('#railSurveyButton').toggle(!r.nodes.rail && !!c.tech.survey);$('#highlandSurveyButton').toggle(!!r.nodes.rail && !r.nodes.highland && !!c.tech.survey);
     for(const [id,n]of Object.entries(r.nodes)){

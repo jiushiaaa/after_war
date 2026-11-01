@@ -89,7 +89,8 @@ var CivilMetro={
     for(const id of members)if(!this.same(m.samples.at(-1).nodes[id]?.census,this.census(s,id)))fail('census',this.name(id)+'的居民名册已变化，等待下一轮供养核验',id);
     if(issues.length)return result();
     const finance=this.financeCheck(s,at);if(finance)fail('budget',finance);
-    if(!c.society.service||!c.regions.adminService||CivilRegions.load(s)>CivilRegions.capacity(s))fail('administration','三地公共行政或协调容量不足');
+    if(!c.society.service||!c.regions.adminService)fail('administration','公共行政本轮费用未付齐，先恢复本城粮食与知识供养');
+    if(CivilRegions.load(s)>CivilRegions.capacity(s))fail('administration',CivilRegions.coordinationStatus?CivilRegions.coordinationStatus(s):'三地协调容量不足');
     const committedCrew=CivilRegions.reservedTransport(s)+CivilUrban.reservedTransport(s),actualCrew=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
     if(committedCrew>actualCrew)fail('crew','货运与客运的共同运输岗位尚有缺额');
     for(const id of members.slice(1))if(!CivilRegions.serviceReady(s,id)||id==='river'&&(!s.game.buildings.road||c.outpostSupplied!==true))fail('route',this.name(id)+'路线等待班组、通路或近期实到',id);
