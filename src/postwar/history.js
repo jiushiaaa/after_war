@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接'},
+  categories:{tenures:'全部任期',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -10,7 +10,7 @@ var CivilHistory={
   sourceName(id){return (typeof CivilOriginContent!=='undefined'?CivilOriginContent[id]?.name:null)||id;},
   facility(type){return (typeof CivilServiceContent!=='undefined'?CivilServiceContent.facilities[type]?.name:null)||(typeof CivilMunicipalContent!=='undefined'?CivilMunicipalContent.facilities[type]?.name:null)||(typeof CivilAdvancedContent!=='undefined'?CivilAdvancedContent.facilities[type]?.name:null)||type;},
   costText(cost){
-    const labels={food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品'};
+    const labels={food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
     return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+n).join('、');
   },
   snapshot(s){
@@ -75,6 +75,14 @@ var CivilHistory={
       if(r.resolvedAt!==null)add('road_repair_'+r.id,'incidents',place+(r.outcome==='prevented'?'提前加固':'道路修复'),'实际支出：木20、工具4。'+(r.payment.mode==='auto'?'依常设维护安排付款。':'居民决定付款修复。'),r.resolvedAt);
     }
     for(const [id,h]of Object.entries(c.heating?.nodes||{}))if(h.handedOverAt!==null)add('heat_handover_'+id,'heating',this.place(s,id)+'日常供暖交接','实付试运行覆盖'+h.handover.proof.capacity+'人份，接管'+h.handover.population+'位居民与'+h.handover.reserved+'位在途预留。'+(id==='home'?'旧炉自动添柴和工匠固定产木退出，由实际居民承担。':'当地人员与仓库继续承担燃料和维护。'),h.handedOverAt);
+    for(const o of c.relief?.orders||[]){
+      const place=this.place(s,o.target),key='relief_'+o.id;
+      add(key+'_request','relief',place+'救济申请','申请有限物资：'+this.costText(o.cargo)+'。请求本身不扣款，等待原货车与主城储备。',o.requestedAt);
+      if(o.dispatchedAt!==null)add(key+'_dispatch','relief',place+'救济出发','主城实付货物与旅费：'+this.costText(o.paid)+'。由原车与实际运输工负责。',o.dispatchedAt);
+      if(o.deliveredAt!==null)add(key+'_delivery','relief',place+'救济入库','实际送达：'+this.costText(o.cargo)+'。进入地方原仓，健康与生产仍由实际供养恢复。',o.deliveredAt);
+      if(o.cancelledAt!==null)add(key+'_cancel','relief',place+(o.dispatchedAt===null?'取消待发救济':'救济折返'),'未发单不付款；已付货物只在原车返抵后退回，旅费不退。',o.cancelledAt);
+      if(o.refundAt!==null)add(key+'_refund','relief',place+'救济退回主城','原车实际返仓，退回：'+this.costText(o.cargo)+'。',o.refundAt);
+    }
     const counts=Object.fromEntries(Object.keys(this.categories).map(category=>[category,entries.filter(e=>e.category===category).length]));
     return {year,current,entries,counts};
   },

@@ -37,6 +37,7 @@
     if(c.services!==undefined)CivilServices.validate(state);
     if(typeof CivilPassenger!=='undefined')CivilPassenger.validate(state);
     if(typeof CivilFinance!=='undefined')CivilFinance.validate(state);
+    if(typeof CivilRelief!=='undefined')CivilRelief.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.validate(state);
     if(typeof CivilHeating!=='undefined')CivilHeating.validate(state);
