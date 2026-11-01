@@ -36,8 +36,8 @@ var CivilRegions={
     for(const [id,route]of Object.entries(r.routes)){const crew=this.routeCrew(s,id);if(route.assigned>=crew && left>=crew){left-=crew;result.add(id);}}
     return result;
   },
-  capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0);},
-  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0)+(typeof CivilSecurity!=='undefined'?CivilSecurity.obligation(s):0);},
+  capacity(s){return (typeof CivilSociety!=='undefined'?CivilSociety.capacity(s):1)+(s.civilization.regions?.archiveOnline||0)*2+(typeof CivilNation!=='undefined'?CivilNation.capacityBonus(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.capacityBonus(s):0);},
+  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0)+(typeof CivilSecurity!=='undefined'?CivilSecurity.obligation(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.obligation(s):0);},
   upgrade(s,id){return s.civilization.regions?.upgrades?.projects[id];},
   upgradeActive(s,id){const p=this.upgrade(s,id);return !!p && p.status!=='complete';},
   upgradeEligible(s,id){

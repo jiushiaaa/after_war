@@ -43,7 +43,7 @@ var CivilOrigins={
     return null;
   },
   schoolBuilders(s,id){return s.civilization.origins.nodes[id].schooling?.project&&!this.schoolWorkReason(s,id)?2:0;},
-  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id && !this.contactWorkReason(s,id)?2:0)+this.schoolBuilders(s,id)+(typeof CivilSecurity!=='undefined'?CivilSecurity.sourceStaff(s,id):0);},
+  sourceStaff(s,id){return (s.civilization.origins?.contactTrip?.source===id && !this.contactWorkReason(s,id)?2:0)+this.schoolBuilders(s,id)+(typeof CivilSecurity!=='undefined'?CivilSecurity.sourceStaff(s,id):0)+(typeof CivilAccession!=='undefined'?CivilAccession.staff(s,id):0);},
   startSchool(s,id){
     const n=s.civilization.origins.nodes[id],cfg=CivilOriginContent[id].school;this.initSchool(n);const e=n.schooling;
     if(e.project||e.completed.length>=cfg.max||this.plan(n.cohorts).teacher<=this.schoolCapacity(s,id)||this.schoolWorkReason(s,id)||!this.pay(n.stores,cfg.cost))return false;
@@ -147,12 +147,16 @@ var CivilOrigins={
     if(Number.isInteger(n.legacyHousingOverflow) && n.legacyHousingOverflow>0)
       n.legacyHousingOverflow=Math.min(n.legacyHousingOverflow,Math.max(0,n.population+this.inTransit(n)-n.housing));
   },
-  quotaLimit(s,id){const n=s.civilization.origins?.nodes[id];return (n?.permit.limit||0)+(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.allowance(s,id):0);},
-  remaining(s,id){const n=s.civilization.origins?.nodes[id],extra=typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.usableAllowance(s,id):0;return n?Math.max(0,n.permit.limit+extra-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
+  quotaLimit(s,id){const n=s.civilization.origins?.nodes[id];return Math.max((n?.permit.limit||0)+(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.allowance(s,id):0),typeof CivilAccession!=='undefined'?(CivilAccession.migrationLimit(s,id)||0):0);},
+  remaining(s,id){const n=s.civilization.origins?.nodes[id],extra=typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.usableAllowance(s,id):0;const joined=typeof CivilAccession!=='undefined'&&CivilAccession.operational(s)?CivilAccession.migrationLimit(s,id):null;return n?Math.max(0,(joined??(n.permit.limit+extra))-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
   sustainabilityReason(s,id,cohorts){
-    const n=s.civilization.origins.nodes[id],d=CivilOriginContent[id],p=CivilPopulation.count(cohorts),plan=this.plan(cohorts),limits=this.jobLimits(s,id);
+    const d=CivilOriginContent[id],p=CivilPopulation.count(cohorts);
     if(p<d.retained)return '来源至少需要留守'+d.retained+'位居民';
     for(const b of d.fertilityBands)if(CivilPopulation.count(cohorts.filter(c=>c.age>=b.min&&c.age<=b.max))<b.retained)return '来源'+b.min+'—'+b.max+'岁居民须至少留守'+b.retained+'人';
+    return this.supplyReason(s,id,cohorts);
+  },
+  supplyReason(s,id,cohorts){
+    const n=s.civilization.origins.nodes[id],p=CivilPopulation.count(cohorts),plan=this.plan(cohorts),limits=this.jobLimits(s,id);
     if(n.health<60||n.hunger)return '来源居民尚需恢复健康与口粮';
     if(plan.teacher>limits.teacher)return '来源学舍现有'+limits.teacher+'个教师席，安置后'+CivilPopulation.children(cohorts)+'名儿童仍需'+plan.teacher+'席；'+(n.schooling?.project?'扩班施工还需'+n.schooling.project.remaining+'秒':'等待来源自费扩班');
     if(Object.entries(plan).some(([k,v])=>v>limits[k]))return '来源的实际生产岗位尚不能覆盖留守居民';

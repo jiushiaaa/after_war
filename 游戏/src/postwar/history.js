@@ -13,7 +13,7 @@ var CivilHistory={
   axisName(axis,value){return (typeof CivilSociety!=='undefined'?CivilSociety.axes[axis]?.choices[value]?.name:null)||value;},
   costText(cost){
     const labels={food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
-    return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+n).join('、');
+    return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+Number(n.toFixed(6))).join('、');
   },
   snapshot(s){
     const c=s.civilization||{},x=c.society,entries=[],seen=new Set(),year=Math.floor((c.elapsed||0)/600);
@@ -102,11 +102,12 @@ var CivilHistory={
       add('commerce_agreement','diplomacy',name+'贸易约定','本城实付知识60，对方知识30；居民与库存各自独立，占一份协调责任。',d.signedAt);
       for(const p of d.plans){add('commerce_plan_'+p.id,'transport','六趟商队委托',name+'；每次发车实际扣货物与旅费。',p.at);if(p.cancelledAt!==null)add('commerce_cancel_'+p.id,'transport','剩余商队委托撤销','已经启程的商队继续往返，旅费不退。',p.cancelledAt);}
       for(const o of d.orders){
-        add('commerce_depart_'+o.id,'transport','对外商队出发',name+'；本城实付 '+this.costText(o.paid)+'，其中工具12为货物，其余为旅费。',o.departedAt);
+        add('commerce_depart_'+o.id,'transport','对外商队出发',name+'；本城实付 '+this.costText(o.paid)+'，其中工具12为贸易货物。'+(o.publicDuties?'另含公共补助 '+this.costText(o.publicDuties.grant)+'；其余为旅费与军需。':'其余为旅费与军需。'),o.departedAt);
         if(o.security)add('commerce_security_'+o.id,'transport',CivilSecurityContent.modes[o.security.mode].name,'本城守备'+o.security.homeGuard+'人、来源护路'+o.security.sourceGuard+'人；单程'+o.security.duration+'秒，来源实付 '+this.costText(o.security.sourcePaid)+'。',o.departedAt);
         if(o.security?.delay&&o.arrivedAt!==null)add('commerce_guarded_'+o.id,'transport','护送通行完成','足额班组实际停留'+o.security.encounterSeconds+'秒驱离兽群，商队抵达对方。',o.arrivedAt);
-        if(o.arrivedAt!==null)add('commerce_exchange_'+o.id,'transport',o.exchange?'对外商队成交':'对方保留供养，商队未成交',o.exchange?'对方实收工具12，实付食物120；食物随车返程。':'工具12随原车返回；已消耗旅费不退。',o.arrivedAt);
-        if(o.returnedAt!==null)add('commerce_return_'+o.id,'transport','对外商队返城',o.exchange?'食物120进入本城原仓。':'未成交工具12归还本城原仓。',o.returnedAt);
+        if(o.publicDuties)add('commerce_public_'+o.id,'nation','约定内公共实物收支','本城随车补助 '+this.costText(o.publicDuties.grant)+'；来源贡献 '+this.costText(o.publicDuties.contribution)+'，各自实际到货才入原仓。',o.departedAt);
+        if(o.arrivedAt!==null)add('commerce_exchange_'+o.id,'transport',o.exchange?'对外商队成交':'对方保留供养，商队未成交',o.exchange?'对方实收 '+this.costText(CivilCommerce.cargo(o.publicDuties||null))+'，实付 '+this.costText(CivilCommerce.cargo(o.publicDuties||null,true))+'；食物随车返程。':'原工具与随车补助返回；已消耗旅费与军需不退。',o.arrivedAt);
+        if(o.returnedAt!==null)add('commerce_return_'+o.id,'transport','对外商队返城',o.exchange?this.costText(CivilCommerce.cargo(o.publicDuties||null,true))+'进入本城原仓。':'未成交原工具与随车补助归还本城原仓。',o.returnedAt);
       }
     }
     if(c.security){
@@ -115,6 +116,7 @@ var CivilHistory={
       if(d.pact)add('security_pact','diplomacy','共同护送约定','本城实付知识120、来源60；双方人口与仓库独立，出行仍需真实守备和军需。',d.pact.at);
       const trained=d.records.find(r=>r.readiness===300);if(trained)add('security_training','transport','守备训练准备完成','实际居民在已付费训练场积累300秒准备；继续值勤仍需供给，欠费或缺员会流失准备。',trained.at);
     }
+    if(c.accession){const d=c.accession;for(const [id,a]of Object.entries(d.approvals))add('accession_approval_'+id,'nation',(id==='home'?'本城':this.sourceName(d.sourceId))+'加盟议约','实付 '+this.costText(a.cost)+'；当地现有人口与仓库保留。',a.at);if(d.joinedAt!==null)add('accession_joined','nation',this.sourceName(d.sourceId)+'共同法加盟','实际双方议约、当地记录人员和连续履约完成；公共补助与地方贡献仍需原车运输。',d.joinedAt);d.controls.forEach((x,i)=>add('accession_control_'+i,'nation',x.enabled?'恢复加盟共同行政':'暂缓加盟共同行政','人口与历史保留；已启程的实物承诺继续履行。',x.at));}
     for(const r of c.incidents?.records||[]){
       const place=this.place(s,r.route);
       add('road_warning_'+r.id,'incidents',place+'道路预警','巡路人员发现松动路基，提出加固或交通安排。',r.createdAt);

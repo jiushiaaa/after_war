@@ -20,7 +20,7 @@ var CivilDiplomacy={
     if(!CivilNation.operational(s))return '先恢复国家共同法与认可';
     if(!CivilFinance.political(s))return '先处理现有继任或制度议决';
     const n=this.source(s,id);if(n?.status!=='agreed')return '先完成与该聚居圈的联络及基础迁居协议';
-    return CivilOrigins.sustainabilityReason(s,id,n.cohorts);
+    return CivilOrigins.supplyReason(s,id,n.cohorts);
   },
   sign(s,id){
     if(this.data(s)||this.reason(s,id)||!this.reserve(s,'home',this.signature.home)||!this.reserve(s,id,this.signature.source))return false;
@@ -73,12 +73,12 @@ var CivilDiplomacy={
     return {title:'独立聚居圈的居留公约',text:[this.status(s)+'。',
       '议约各自实付：本城知识120、木20、工具4；对方知识60、木20、工具4。每10秒本城知识0.08、木0.1，对方知识0.04、木0.1；任一方不足则本轮两边均不扣费。',
       '每连续600秒有效履约核准24人的追加居留资格，累计最多480。资格不生成居民，留守年龄结构、旅费、车辆和床位仍按原规则核对。',
-      '暂停后停止费用与核准，未用追加资格冻结；恢复不重发已用资格。来源保持独立，不算国家领土或人口。'],buttons};
+      '暂停后停止费用与核准，未用追加资格冻结；恢复不重发已用资格。'+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'该聚居圈已另按加盟公约登记共同法；新迁居须核对加盟履约和原有留守、车辆及床位。':'来源保持独立，不算国家领土或人口。')],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;
     if(!this.available(State)){$('#diplomacyButton').hide();$('#diplomacySummary').hide();return;}
-    Civilization.button('diplomacyButton','独立聚居圈公约','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='residencePact';Civilization.showPending();}).show();
+    const label=typeof CivilAccession!=='undefined'&&CivilAccession.population(State)?'加盟聚居圈居留公约':'独立聚居圈公约',button=Civilization.button('diplomacyButton',label,'#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='residencePact';Civilization.showPending();});button.show().contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(label));
     let line=$('#diplomacySummary');if(!line.length)line=$('<div>').attr('id','diplomacySummary').css({lineHeight:'1.8',maxWidth:'420px',marginTop:'12px'}).appendTo('#councilPanel');line.show().text(this.status(State));
   },
   validate(s){
