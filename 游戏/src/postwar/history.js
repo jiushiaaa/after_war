@@ -109,7 +109,7 @@ var CivilHistory={
       }
       for(const[id,n]of Object.entries(c.worldstage.nodes))if(n.credit?.defaultedAt!==undefined)add('credit_default_'+id,'diplomacy',CivilWorldContent.regions[id].name+'信贷违约','到期未发出还款，抵押工具40转入地方公库，信任下降20；后来清偿也保留此记录。',n.credit.defaultedAt);
       for(const[i,r]of c.worldstage.ledger.entries())if(r.kind==='statecraft'&&['policy','accord','renew'].includes(r.action))add('statecraft_'+i,'diplomacy',r.action==='policy'?'经济制度：'+CivilStatecraftContent.policies[r.mode].name:CivilWorldContent.regions[r.region].name+'：'+(r.action==='accord'?CivilStatecraftContent.regions[r.region].choices[r.choice].name:'重申地区协约'),'实付 '+this.costText(r.cost)+'；持续义务按公共账册执行。',r.at);
-      for(const[i,e]of (c.worldstage.foreign?.events||[]).entries())if(['relation','battle','truce','proposal','credit','policy','alliance','breach','workout','route'].includes(e.kind))add('foreign_'+i,'diplomacy','地区联席：'+({alliance:'联盟承诺',breach:'盟约中断',workout:'债务展期',route:'贸易线路',relation:'关系变化',battle:'边境交火',truce:'停火',proposal:'提案答复',credit:'清算逾期',policy:'授信改议'}[e.kind]),e.text,e.at);
+      for(const[i,e]of (c.worldstage.foreign?.events||[]).entries())if(['relation','battle','truce','proposal','credit','policy','alliance','breach','workout','route','passage','recovery','front'].includes(e.kind))add('foreign_'+i,'diplomacy','地区联席：'+({passage:'中转通行',recovery:'治理与信用修复',front:'战线变化',alliance:'联盟承诺',breach:'盟约中断',workout:'债务展期',route:'贸易线路',relation:'关系变化',battle:'边境交火',truce:'停火',proposal:'提案答复',credit:'清算逾期',policy:'授信改议'}[e.kind]),e.text,e.at);
       for(const r of c.worldstage.ledger)if(r.kind==='join')add('world_join_'+r.region,'diplomacy',CivilWorldContent.regions[r.region].name+'共同法登记','双方实付议约；原城市网络居民与公共仓库保留。',r.at);
     }
     if(c.commerce){

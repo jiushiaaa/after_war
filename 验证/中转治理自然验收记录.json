@@ -1,0 +1,450 @@
+{
+  "file": "自然游玩_Mac预算危机治理与通行清偿130.json",
+  "bytes": 1219101,
+  "sha256": "e86625b2a468918a6c88e8af5a5034f4e22b13296e3f04dbe7796ca4cee40e10",
+  "elapsed": 534453,
+  "year": 890,
+  "generation": 128,
+  "speed": 1,
+  "maxSpeed": 64,
+  "legitimacy": 100,
+  "round": 42,
+  "network": {
+    "schema": 1,
+    "startedAt": 527585,
+    "permits": [
+      {
+        "id": 1,
+        "pair": "east-west",
+        "via": "islands",
+        "at": 529267,
+        "status": "closed",
+        "resolvedAt": 529652,
+        "expiresAt": 533252,
+        "endedAt": 533252
+      }
+    ],
+    "supplies": [
+      {
+        "id": 1,
+        "region": "north",
+        "at": 527615,
+        "dueAt": 528215,
+        "arrivedAt": 528452,
+        "cargo": {
+          "coal": 420
+        },
+        "fare": {
+          "food": 40,
+          "parts": 6
+        }
+      },
+      {
+        "id": 2,
+        "region": "polar",
+        "at": 528623,
+        "dueAt": 529223,
+        "arrivedAt": 529352,
+        "cargo": {
+          "parts": 420
+        },
+        "fare": {
+          "food": 40,
+          "parts": 6
+        }
+      },
+      {
+        "id": 3,
+        "region": "west",
+        "at": 529652,
+        "dueAt": 530252,
+        "arrivedAt": 530252,
+        "cargo": {
+          "steel": 350
+        },
+        "fare": {
+          "food": 40,
+          "parts": 6
+        }
+      },
+      {
+        "id": 4,
+        "region": "plateau",
+        "at": 531932,
+        "dueAt": 532532,
+        "arrivedAt": 532652,
+        "cargo": {
+          "electronics": 280
+        },
+        "fare": {
+          "food": 40,
+          "parts": 6
+        }
+      }
+    ],
+    "cash": {
+      "north": true,
+      "west": true,
+      "desert": true,
+      "polar": true,
+      "plateau": true,
+      "rainforest": true
+    },
+    "reviews": [
+      {
+        "actor": "west",
+        "at": 527914,
+        "cycles": 4,
+        "completedAt": 531152,
+        "baseline": 40,
+        "deliveries": 3
+      },
+      {
+        "actor": "plateau",
+        "at": 529013,
+        "cycles": 4,
+        "completedAt": 533552,
+        "baseline": 20,
+        "deliveries": 4
+      }
+    ],
+    "settledAt": {
+      "north": 528452,
+      "desert": 528452,
+      "polar": 529352,
+      "west": 530252,
+      "plateau": 530852,
+      "rainforest": 533852
+    },
+    "stances": {},
+    "fronts": [],
+    "clearings": [
+      {
+        "actor": "north",
+        "at": 527773,
+        "expiresAt": 529573,
+        "status": "sent",
+        "dispatchedAt": 528452,
+        "shipment": 56
+      },
+      {
+        "actor": "desert",
+        "at": 528260,
+        "expiresAt": 530060,
+        "status": "sent",
+        "dispatchedAt": 528452,
+        "shipment": 57
+      },
+      {
+        "actor": "polar",
+        "at": 528674,
+        "expiresAt": 530474,
+        "status": "sent",
+        "dispatchedAt": 529352,
+        "shipment": 61
+      },
+      {
+        "actor": "west",
+        "at": 529681,
+        "expiresAt": 531481,
+        "status": "sent",
+        "dispatchedAt": 530252,
+        "shipment": 65
+      },
+      {
+        "actor": "plateau",
+        "at": 530572,
+        "expiresAt": 532372,
+        "status": "sent",
+        "dispatchedAt": 530852,
+        "shipment": 68
+      },
+      {
+        "actor": "rainforest",
+        "at": 533744,
+        "expiresAt": 535544,
+        "status": "sent",
+        "dispatchedAt": 533852,
+        "shipment": 85
+      }
+    ]
+  },
+  "playerActions": [
+    {
+      "kind": "network",
+      "action": "open",
+      "at": 527585,
+      "cost": {
+        "knowledge": 240,
+        "electronics": 24
+      }
+    },
+    {
+      "kind": "network",
+      "action": "supply",
+      "actor": "north",
+      "at": 527615,
+      "cost": {
+        "coal": 420,
+        "food": 40,
+        "parts": 6
+      }
+    },
+    {
+      "kind": "network",
+      "action": "cash",
+      "actor": "north",
+      "at": 527619,
+      "cost": {
+        "knowledge": 30
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "north",
+      "at": 527773,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "review",
+      "actor": "west",
+      "at": 527914,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "network",
+      "action": "cash",
+      "actor": "desert",
+      "at": 528044,
+      "cost": {
+        "knowledge": 30
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "desert",
+      "at": 528260,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "supply",
+      "actor": "polar",
+      "at": 528623,
+      "cost": {
+        "parts": 426,
+        "food": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "cash",
+      "actor": "polar",
+      "at": 528650,
+      "cost": {
+        "knowledge": 30
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "polar",
+      "at": 528674,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "review",
+      "actor": "plateau",
+      "at": 529013,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "network",
+      "action": "permit",
+      "pair": "east-west",
+      "via": "islands",
+      "at": 529267,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "network",
+      "action": "supply",
+      "actor": "west",
+      "at": 529652,
+      "cost": {
+        "steel": 350,
+        "food": 40,
+        "parts": 6
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "west",
+      "at": 529681,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "plateau",
+      "at": 530572,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "supply",
+      "actor": "plateau",
+      "at": 531932,
+      "cost": {
+        "electronics": 280,
+        "food": 40,
+        "parts": 6
+      }
+    },
+    {
+      "kind": "network",
+      "action": "cash",
+      "actor": "rainforest",
+      "at": 533686,
+      "cost": {
+        "knowledge": 30
+      }
+    },
+    {
+      "kind": "network",
+      "action": "settle",
+      "actor": "rainforest",
+      "at": 533744,
+      "cost": {
+        "knowledge": 40
+      }
+    }
+  ],
+  "accounts": {
+    "desert": {
+      "balance": 1,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、零件 6，产出粮食 120；清算信用不足，优先出口偿债"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20"
+    },
+    "islands": {
+      "balance": -37,
+      "debtSince": 532052,
+      "overdueAt": 533852,
+      "decision": "公共工坊消耗粮食 12、工具 6，产出零件 16；清算信用不足，优先出口偿债"
+    },
+    "north": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "用4账额回购大洋群岛港城联盟的零件 1抵账；300秒后到货"
+    },
+    "plateau": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、电子元件 4，产出知识 30、钢材 10"
+    },
+    "polar": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、零件 6，产出知识 35、电子元件 8"
+    },
+    "rainforest": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、工具 6，产出药品 16；清算信用不足，优先出口偿债"
+    },
+    "west": {
+      "balance": 36,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12；清算信用不足，优先出口偿债"
+    }
+  },
+  "stable": {
+    "north": 600,
+    "east": 600,
+    "west": 600,
+    "rainforest": 600,
+    "desert": 600,
+    "plateau": 600,
+    "islands": 600,
+    "polar": 600
+  },
+  "transit": [
+    {
+      "id": 65,
+      "from": "west",
+      "to": "east",
+      "departedAt": 530252,
+      "dueAt": 530852,
+      "arrivedAt": 530852,
+      "cargo": {
+        "tools": 23
+      },
+      "value": 90,
+      "price": 3.9130434782608696,
+      "fare": {
+        "food": 18,
+        "parts": 2,
+        "tools": 1
+      },
+      "settlement": true,
+      "route": "auto",
+      "transit": {
+        "via": "islands",
+        "permit": 1,
+        "stage": "ready",
+        "nextAt": 530852,
+        "toll": {
+          "food": 4,
+          "tools": 1
+        },
+        "tollPaid": true
+      }
+    }
+  ],
+  "shipments": {
+    "total": 88,
+    "arrived": 87,
+    "inFlight": 1
+  },
+  "reputation": {
+    "west": 20,
+    "plateau": 0
+  },
+  "strictRoundtrip": true,
+  "oldLedgerAndShipmentPromisesPreserved": true,
+  "earthEndingPreserved": true,
+  "naturalWar": false
+}

@@ -1,0 +1,57 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),z=require('node:zlib'),path=require('node:path');
+const {harness,clone,near}=require('./helpers/metro-fixture.cjs');
+const raw=JSON.parse(z.gunzipSync(Buffer.from(JSON.parse(fs.readFileSync(path.join(__dirname,'../../验证/存档/自然游玩_Mac联盟展期与自主背约127.json'))).data,'base64'))).state;
+function ready(){const h=harness(raw);h.w=h.ctx.CivilWorld;h.t=h.ctx.CivilTransit;h.f=h.ctx.CivilForeign;h.l=h.ctx.CivilLeagues;h.d=h.w.data(h.s);return h;}
+function open(h){assert.equal(h.t.act(h.s,'open'),true,h.t.reason(h.s,'open'));}
+function advance(h,n){h.w.political=()=>true;for(let i=0;i<n;i++){h.s.civilization.elapsed++;h.w.tick(h.s);h.w.settle(h.s);}h.w.validate(h.s);}
+function sum(d){return Object.values(d.foreign.actors).reduce((s,a)=>s+a.balance,0);}
+
+test('127 preserves old promises; optional network costs actual resources and early game stays locked',()=>{
+ const h=ready();h.roundtrip();const old=clone(h.d.foreign),home=clone(h.s.stores);open(h);near(h.s.stores.knowledge,home.knowledge-240);near(h.s.stores.electronics,home.electronics-24);const now=clone(h.d.foreign);delete now.network;assert.deepEqual(now,old);assert.equal(h.t.act(h.s,'open'),false);h.roundtrip();const early=harness();assert.equal(early.ctx.CivilTransit.act(early.s,'open'),false);
+});
+test('public inputs are paid at home, occupy destination capacity and arrive only after physical travel',()=>{
+ const h=ready();open(h);const home=clone(h.s.stores),local=h.d.nodes.north.stores.coal,at=h.s.civilization.elapsed;assert.equal(h.t.act(h.s,'supply',{actor:'north'}),true);near(h.s.stores.coal,home.coal-420);near(h.s.stores.food,home.food-40);near(h.s.stores.parts,home.parts-6);assert.equal(h.d.nodes.north.stores.coal,local);assert.equal(h.t.busy(h.d,'north'),true);assert.equal(h.t.act(h.s,'supply',{actor:'desert'}),false);advance(h,599);assert.equal(h.t.data(h.d).supplies[0].arrivedAt,null);advance(h,310);assert.ok(h.t.data(h.d).supplies[0].arrivedAt>=at+600);assert.ok(h.d.nodes.north.stores.coal>local+390);assert.equal(sum(h.d),0);
+});
+test('export settlement consumes actual goods, credits real creditor and preserves zero-sum accounts',()=>{
+ const h=ready();open(h);assert.equal(h.t.act(h.s,'cash',{actor:'north'}),true);assert.equal(h.t.canBorrow(h.d,'north',1),false);const debt=h.d.foreign.actors.north.balance,count=h.d.foreign.shipments.length;assert.equal(h.t.act(h.s,'settle',{actor:'north'}),true);assert.equal(h.d.foreign.shipments.length,count);assert.equal(h.d.foreign.actors.north.balance,debt);assert.equal(h.t.act(h.s,'settle',{actor:'north'}),false);advance(h,1210);const request=h.t.data(h.d).clearings[0];assert.equal(request.status,'sent');const o=h.d.foreign.shipments.find(o=>o.id===request.shipment);assert.ok(o.arrivedAt!==null);assert.ok(o.value>0);assert.equal(sum(h.d),0);assert.ok(h.d.foreign.actors.north.balance>=0);
+});
+test('permission is third-party consent; two legs pay one toll, reserve hub capacity, expire without changing dispatched goods',()=>{
+ const h=ready();open(h);assert.equal(h.t.act(h.s,'permit',{pair:'east-north',via:'east'}),false);assert.equal(h.t.act(h.s,'permit',{pair:'east-north',via:'rainforest'}),true);advance(h,610);const p=h.t.data(h.d).permits[0];assert.equal(p.status,'active');h.w.validate(h.s);
+ // Declared isolated manifest fixture; not a natural save.
+ const d=h.d,at=h.s.civilization.elapsed;d.foreign.shipments.forEach(o=>o.arrivedAt??=at);const route=h.l.route(d,'north','east');assert.equal(route.via,'rainforest');const o={id:1000,from:'north',to:'east',cargo:{parts:10},value:50,route:'auto',departedAt:at,dueAt:at+600,arrivedAt:null};h.t.stamp(d,o,route,at);h.ctx.CivilServices.pay(d.nodes.north.stores,o.cargo);h.ctx.CivilServices.pay(d.nodes.east.stores,route.fare);h.f.account(d.foreign,'north',50,at);h.f.account(d.foreign,'east',-50,at);d.foreign.shipments.push(o);const hub=clone(d.nodes.rainforest.stores);assert.equal(h.t.busy(d,'rainforest'),true);h.t.move(d,at+299);assert.equal(o.transit.stage,'outbound');h.t.move(d,at+300);assert.equal(o.transit.stage,'hub');near(d.nodes.rainforest.stores.food,hub.food+4);near(d.nodes.rainforest.stores.tools,hub.tools+1);assert.equal(h.l.arrive(d,o,at+300),false);p.status='closed';h.t.move(d,at+600);assert.equal(h.l.arrive(d,o,at+600),true);h.t.move(d,at+600);near(d.nodes.rainforest.stores.food,hub.food+4);assert.equal(sum(d),0);
+});
+test('blocked transit holds, physically returns cargo, reverses claim and refunds unpaid toll exactly once',()=>{
+ const h=ready();open(h);const d=h.d,at=h.s.civilization.elapsed,o={id:1000,from:'north',to:'east',cargo:{parts:10},value:50,route:'auto',dueAt:at+600,arrivedAt:null};h.t.stamp(d,o,{via:'west',permit:1},at);d.foreign.shipments.push(o);h.ctx.CivilServices.pay(d.nodes.north.stores,o.cargo);h.f.account(d.foreign,'north',50,at);h.f.account(d.foreign,'east',-50,at);const before=clone(d.nodes.north.stores),buyer=clone(d.nodes.east.stores);d.foreign.pairs['east-west'].phase='embargo';h.t.move(d,at+300);assert.equal(o.arrivedAt,null);h.t.move(d,at+900);assert.equal(o.transit.stage,'returning');assert.equal(o.arrivedAt,null);h.t.move(d,at+1200);assert.equal(o.returned,true);near(d.nodes.north.stores.parts,before.parts+10);near(d.nodes.east.stores.food,buyer.food+4);assert.equal(sum(d),0);const done=clone(d);h.t.move(d,at+1500);assert.deepEqual(clone(d),done);
+});
+test('credit review requires real deliveries and sustained solvency, resets on breach and never deletes history',()=>{
+ const h=ready();open(h);const d=h.d,at=h.s.civilization.elapsed;assert.equal(h.t.act(h.s,'review',{actor:'west'}),true);assert.equal(h.l.reputation(d,'west'),40);assert.equal(h.t.act(h.s,'review',{actor:'west'}),false);h.w.validate(h.s);
+ // Rule-boundary fixture only: establish paid debt and deliveries explicitly.
+ const f=d.foreign,n=h.t.data(d),review=n.reviews[0],broken=clone(f.leagues.pacts.filter(p=>p.status==='broken'));h.f.account(f,'east',f.actors.west.balance,at);h.f.account(f,'west',-f.actors.west.balance,at);d.nodes.west.stores.steel=100;
+ for(let i=1;i<=4;i++)h.t.afterRound(d,{at:at+i*300,political:true});assert.equal(review.completedAt,null);f.shipments.push(...[1,2].map(i=>({from:'west',to:'east',departedAt:at,arrivedAt:at+600,value:20})));f.leagues.reputation.west=60;h.t.afterRound(d,{at:at+1500,political:true});assert.equal(review.cycles,0);for(let i=6;i<=9;i++)h.t.afterRound(d,{at:at+i*300,political:true});assert.equal(review.completedAt,at+2700);assert.equal(f.leagues.reputation.west,40);assert.deepEqual(clone(f.leagues.pacts.filter(p=>p.status==='broken')),broken);assert.equal(sum(d),0);
+});
+test('fronts spend real military stores, apply delivered allied support, cease fire and cease blocking after diplomacy',()=>{
+ const h=ready();open(h);const d=h.d,key='north-west',p=d.foreign.pairs[key],at=h.s.civilization.elapsed;d.nodes.west.joinedAt=null;p.phase='war';for(const id of ['north','west'])Object.assign(d.nodes[id].stores,{food:1000,medicine:100,tools:100,parts:100});d.foreign.shipments.push({aid:true,to:'north',arrivedAt:null});h.t.data(d).stances[key]={north:{mode:'raid',at},west:{mode:'hold',at}};const food=d.nodes.north.stores.food;h.t.battle(d,key,p,at);near(d.nodes.north.stores.food,food-22);let front=h.t.data(d).fronts[0];assert.equal(front.history[0].decisions[0].aid,false);d.foreign.shipments.at(-1).arrivedAt=at;h.t.battle(d,key,p,at+300);assert.equal(front.history[1].decisions[0].aid,true);assert.ok(front.position>=20);assert.ok(d.nodes.north.casualties>0);p.phase='truce';h.t.beforeRound(d,{at:at+600});assert.equal(front.status,'ceasefire');
+ const h2=ready();open(h2);const p2=h2.d.foreign.pairs[key];p2.phase='war';h2.t.battle(h2.d,key,p2,at);assert.equal(p2.phase,'truce');assert.equal(h2.d.nodes.north.casualties,0);
+});
+test('full adapter and forecast replay network history; forged cargo, debt discipline and review completion are rejected',()=>{
+ const h=ready();open(h);assert.equal(h.t.act(h.s,'supply',{actor:'north'}),true);assert.equal(h.t.act(h.s,'cash',{actor:'north'}),true);assert.equal(h.t.act(h.s,'review',{actor:'west'}),true);h.step(930,{checkEvery:0});h.roundtrip();const original=clone(h.s),messages=h.messages.length,copy=h.ctx.CivilForecast.copy(h.s);copy.civilization.elapsed=h.d.foreign.lastRoundAt+300;h.w.settle(copy);assert.deepEqual(clone(h.s),original);assert.equal(h.messages.length,messages);
+ for(const edit of [n=>n.supplies[0].cargo.coal++,n=>n.cash.north=false,n=>n.reviews[0].completedAt=1,n=>n.permits.push({pair:'east-west',status:'active',via:'north'})]){const bad=clone(h.s);edit(bad.civilization.worldstage.foreign.network);assert.throws(()=>h.w.validate(bad));}
+});
+
+test('host refusal and expiring reservations cannot invent cargo or claims',()=>{
+ const h=ready();open(h);const d=h.d,n=h.t.data(d),at=h.s.civilization.elapsed;assert.equal(h.t.act(h.s,'permit',{pair:'east-north',via:'west'}),true);d.foreign.pairs['east-west'].relation=-50;h.t.beforeRound(d,{at:at+300});assert.equal(n.permits[0].status,'refused');assert.equal(h.t.permit(d,'east-north'),undefined);
+ n.clearings=[{actor:'north',at,status:'pending',expiresAt:at+1800,dispatchedAt:null}];const goods=clone(d.nodes),claims=sum(d);h.t.dispatch(d,{at:at+1800});assert.equal(n.clearings[0].status,'closed');assert.deepEqual(clone(d.nodes),goods);assert.equal(sum(d),claims);
+});
+test('network page and costs are validated and unified members cannot be ordered into war',()=>{
+ const h=ready();open(h);assert.equal(h.t.act(h.s,'stance',{pair:'north-west',actor:'north',mode:'push'}),false);h.s.civilization.pending='transitActor_north';h.roundtrip();const bad=clone(h.s);bad.civilization.worldstage.ledger.find(r=>r.kind==='network').cost.knowledge=1;assert.throws(()=>h.w.validate(bad));const early=harness();early.s.civilization.pending='transitCouncil';assert.throws(()=>early.roundtrip());
+});
+
+test('independent pre-unification replay reaches funded fronts and a finite ceasefire without synthetic war flags',()=>{
+ const original=JSON.parse(z.gunzipSync(Buffer.from(JSON.parse(fs.readFileSync(path.join(__dirname,'../../验证/存档/自然游玩_Mac北陆国家接纳与机器人量产115.json'))).data,'base64'))).state;
+ const h=harness(original);h.w=h.ctx.CivilWorld;h.f=h.ctx.CivilForeign;h.l=h.ctx.CivilLeagues;h.t=h.ctx.CivilTransit;h.d=h.w.data(h.s);h.w.political=()=>true;
+ assert.equal(h.w.start(h.s,'west','contact'),true);advance(h,960);assert.equal(h.f.start(h.s),true);advance(h,610);assert.equal(h.l.act(h.s,'open'),true);open(h);advance(h,5400);const fronts=h.t.data(h.d).fronts;assert.ok(fronts.some(f=>f.history.length>0));assert.ok(fronts.some(f=>f.status==='ceasefire'));assert.ok(h.d.nodes.north.casualties>0);assert.equal(h.d.nodes.north.control,'member');h.w.validate(h.s);
+});
+
+test('hostile states choose doctrine autonomously and the player cannot command their armies',()=>{
+ const h=ready();open(h);const d=h.d,at=h.s.civilization.elapsed;d.nodes.west.joinedAt=null;d.foreign.pairs['north-west'].phase='war';assert.match(h.t.reason(h.s,'stance',{pair:'north-west',actor:'west',mode:'push'}),/不能|仅能/);assert.equal(h.t.act(h.s,'stance',{pair:'north-west',actor:'west',mode:'push'}),false);d.nodes.west.stores.steel=100;assert.equal(h.t.doctrine(d,'west','north',at),'push');d.foreign.shipments.push({aid:true,to:'north',arrivedAt:at});assert.equal(h.t.doctrine(d,'west','north',at),'raid');d.nodes.west.infrastructure=70;assert.equal(h.t.doctrine(d,'west','north',at),'hold');
+});

@@ -9,7 +9,7 @@ var CivilLeagues={
   reputation(d,id){return this.data(d)?.reputation[id]||0;},
   credit(d,id){if(!this.data(d))return 0;return this.data(d).pacts.filter(p=>p.type==='commerce'&&p.status==='active'&&CivilForeign.ids(p.pair).includes(id)).length*40-this.reputation(d,id)*3;},
   deadline(f,id){const a=f.actors[id],extension=f.leagues?.extensions[id];return extension&&extension.debtSince===a.debtSince?extension.until:a.debtSince+1800;},
-  busy(d,id){return d.foreign.shipments.some(o=>o.arrivedAt===null&&(o.from===id||o.to===id));},
+  busy(d,id){return CivilTransit.busy(d,id);},
   complement(a,b){const pa=CivilForeignContent.profiles[a],pb=CivilForeignContent.profiles[b];return Object.hasOwn(pa.output,pb.need)||Object.hasOwn(pb.output,pa.need);},
   acceptance(d,key,type){const [a,b]=CivilForeign.ids(key),p=d.foreign.pairs[key];return 40+Math.floor(p.relation/2)-Math.floor(p.pressure/3)+(this.complement(a,b)?20:0)+(d.nodes[a].joinedAt!==null&&d.nodes[b].joinedAt!==null?15:0)+(type==='defense'&&(CivilForeign.fighting(d,a)||CivilForeign.fighting(d,b))?15:0)-Math.max(this.reputation(d,a),this.reputation(d,b));},
   offerReason(d,key,type,at){const l=this.data(d),pair=d.foreign?.pairs[key];if(!l||!pair||!Object.hasOwn(CivilLeagueContent.pacts,type))return '先建立联盟公约';if(this.active(d,key))return '已有生效联盟';const ended=l.pacts.findLast(p=>p.pair===key&&p.endedAt!==null);if(ended&&at-ended.endedAt<1800)return '盟约结束后须冷静1800秒再议';if(l.offers.some(o=>o.pair===key&&o.resolvedAt===null))return '双方正在审议';if(CivilForeign.ids(key).some(id=>this.count(d,id)>=2))return '每方最多承担两份生效联盟';if(l.offers.some(o=>o.pair===key&&at-o.at<1800))return '同一对地区须间隔1800秒再议';if(['war','embargo'].includes(pair.phase))return '先调停双方禁运或战争';return null;},
@@ -118,11 +118,12 @@ var CivilLeagues={
     if(!this.data(d))return {fare:{food:8,parts:1},duration:300};
     const key=CivilForeign.pair(from,to);let mode=this.data(d).routes[key]?.mode||'auto';if(mode==='auto'&&(CivilForeign.fighting(d,from)||CivilForeign.fighting(d,to)))mode='detour';
     const cfg=CivilLeagueContent.routes[mode],fare={...cfg.fare};if(this.active(d,key)?.type==='commerce')fare.food=Math.max(1,fare.food-2);
-    return {fare,duration:cfg.duration,mode};
+    return CivilTransit.route(d,from,to,{fare,duration:cfg.duration,mode});
   },
   arrive(d,o,at){
     // Pre-charter manifests retain their original delivery promise forever.
     if(o.arrivedAt!==null)return false;
+    if(o.transit)return CivilTransit.arrive(d,o);
     if(!o.route)return true;
     const risk=CivilForeign.fighting(d,o.from)||CivilForeign.fighting(d,o.to)||['war','embargo'].includes(d.foreign.pairs[CivilForeign.pair(o.from,o.to)].phase);
     if(!risk||o.route==='detour'||o.route==='escort')return true;
@@ -137,7 +138,7 @@ var CivilLeagues={
     const go=(key,label,pending)=>buttons[key]={text:label,nextScene:'end',onChoose:()=>{s.civilization.pending=pending;}};
     if(id==='leagueCouncil'){
       if(!l){text.push('建立联盟公约后，各方会主动议约、承担维护与战时援助；毁约影响第三方和信用。新贸易线路可护航或绕行，旧运单不改。清算展期需要债权方同意，旧本金和费用仍待出口偿付。');action('open','建立联盟与通路公约','open');}
-      else{const active=l.pacts.filter(p=>p.status==='active');text.push('生效联盟'+active.length+'份；每方最多两份承诺。先选地区，再看双边联盟、通路或欠款。');for(const p of active)text.push(CivilForeign.label(p.pair)+' · '+CivilLeagueContent.pacts[p.type].name+' · 已付'+p.paidCycles+'轮'+(p.notice?' · 退出通知中':''));for(const actor of Object.keys(d.foreign.actors))go(actor,CivilForeign.name(actor),'leagueActor_'+actor);}
+      else{go('network','通路、战线与治理','transitCouncil');const active=l.pacts.filter(p=>p.status==='active');text.push('生效联盟'+active.length+'份；每方最多两份承诺。先选地区，再看双边联盟、通路或欠款。');for(const p of active)text.push(CivilForeign.label(p.pair)+' · '+CivilLeagueContent.pacts[p.type].name+' · 已付'+p.paidCycles+'轮'+(p.notice?' · 退出通知中':''));for(const actor of Object.keys(d.foreign.actors))go(actor,CivilForeign.name(actor),'leagueActor_'+actor);}
     }else if(id.startsWith('leagueActor_')){
       const actor=id.slice(12);if(!l||!d.foreign.actors[actor])return null;const a=d.foreign.actors[actor];text.push(CivilForeign.name(actor)+'：清算账额'+a.balance+'，失信记录'+this.reputation(d,actor)+'；联盟与失信使授信修正'+this.credit(d,actor)+'。');
       if(a.balance<0){text.push('展期由持有最多正余额的债权方审议，须有真实出口库存、未交战且失信低于40。一轮债务只能申请一次；获准保留本金，审议份额收10%账额费用，期限延长600秒。当前期限余'+Math.max(0,this.deadline(d.foreign,actor)-s.civilization.elapsed)+'秒。');action('workout','申请出口信用展期','workout',{actor});}
