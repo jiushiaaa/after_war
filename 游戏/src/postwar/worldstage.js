@@ -28,7 +28,7 @@ var CivilWorld={
     if(this.staff(s)<6)return '在炉火城页安排六名远域勤务人员；不会赠送居民';
     if(!this.political(s))return '先恢复国家认可与现任行政';
     if(kind==='contact'&&n||kind!=='contact'&&!n)return kind==='contact'?'已有国家联络':'先建立国家联络';
-    if(!CivilStatecraft.special(kind)&&n?.joinedAt!==null&&n)return '已登记共同法，继续按公共预算履约';
+    if(!CivilStatecraft.special(kind)&&!(kind==='rebuild'&&this.data(s)?.foreign&&n?.infrastructure<100)&&n?.joinedAt!==null&&n)return '已登记共同法，继续按公共预算履约';
     if(kind==='campaign'&&(!s.civilization.tech.automation||n.control==='occupied'||this.data(s).missions.some(m=>m.region===id&&m.kind==='campaign'&&m.completedAt!==null)))return '战役需机器人自动控制；本地区战役结束后须走重建与议约';
     if(kind==='negotiate'&&n.control==='occupied')return '先重建战后设施，恢复地方议约';
     if(kind==='rebuild'&&n.infrastructure===100)return '只有战后占领地区需要重建';
@@ -59,6 +59,7 @@ var CivilWorld={
   // One deterministic reducer owns each regional public treasury. It is also
   // replayed during import; public contributions are not household production.
   apply(d,r){
+    if(r.kind==='foreign'){CivilForeign.apply(d,r);return;}
     if(r.kind==='statecraft'){CivilStatecraft.apply(d,r);return;}
     if(r.kind==='mission'){
       const m=d.missions[r.mission-1],id=m.region;
@@ -67,10 +68,11 @@ var CivilWorld={
       const n=d.nodes[id],cfg=this.missionConfig(m);CivilRegions.credit(n.stores,cfg.cargo);
       if(m.kind==='negotiate')n.trust=Math.min(100,n.trust+20);
       if(m.kind==='campaign'){
-        n.casualties+=cfg.casualties??60;n.population-=cfg.casualties??60;n.infrastructure=cfg.infrastructure??40;n.trust=cfg.trust??0;n.control='occupied';n.occupationMissed=0;n.stableSeconds=0;
+        n.casualties+=cfg.casualties??60;n.population-=cfg.casualties??60;n.infrastructure=Math.min(n.infrastructure,cfg.infrastructure??40);n.trust=cfg.trust??0;n.control='occupied';n.occupationMissed=0;n.stableSeconds=0;
         for(const [other,node]of Object.entries(d.nodes))if(other!==id)node.trust=Math.max(0,node.trust-(cfg.external??10));
+        CivilForeign.campaign(d,m,r.at);
       }
-      if(m.kind==='rebuild'){n.infrastructure=Math.min(100,n.infrastructure+20);n.trust=Math.min(100,n.trust+20);if(n.infrastructure===100){n.control='independent';n.occupationMissed=0;}}
+      if(m.kind==='rebuild'){n.infrastructure=Math.min(100,n.infrastructure+20);n.trust=Math.min(100,n.trust+20);if(n.infrastructure===100){n.control=n.joinedAt!==null?'member':'independent';n.occupationMissed=0;}}
       return;
     }
     if(r.kind==='withdraw'){const n=d.nodes[r.region];n.control='independent';n.occupationMissed=0;n.stableSeconds=0;return;}
@@ -83,7 +85,7 @@ var CivilWorld={
       if(r.fees[id])CivilServices.pay(n.stores,CivilWorldContent.fee.local);
       const okay=service&&n.infrastructure===100&&n.control!=='occupied'&&r.political&&(n.joinedAt===null||r.fees[id]&&this.pledged(id,r.rights,r.devolution));
       n.stableSeconds=okay?Math.min(600,n.stableSeconds+10):0;
-    }CivilStatecraft.afterBudget(d,r);}
+    }CivilStatecraft.afterBudget(d,r);CivilForeign.round(d,r);CivilForeign.stability(d);}
   },
   record(d,r){this.apply(d,r);d.ledger.push(r);},
   settle(s){
@@ -98,9 +100,11 @@ var CivilWorld={
     const occupied=Object.values(d.nodes).filter(n=>n.control==='occupied').length,occupation={food:occupied*2,medicine:occupied*.1,tools:occupied*.05};
     const occupationPaid=occupied>0&&CivilFinance.reserveCheck(s,'home',occupation);
     if(occupationPaid){CivilServices.pay(s.stores,occupation);for(const [k,v]of Object.entries(occupation))home[k]=(home[k]||0)-v;}
+    const foreignEvents=d.foreign?.events.length||0;
     const accords=CivilStatecraft.budget(s,political);for(const[k,v]of Object.entries(accords.flow))home[k]=(home[k]||0)+v;
     this.record(d,{kind:'budget',at,political,...(Object.keys(accords.payments).length?{accordPayments:accords.payments}:{}),rights:s.civilization.regions.rights,devolution:s.civilization.society.axes.devolution,fees,occupationPaid});d.lastSettledAt=at;
     if(s===State)for(const[id,n]of Object.entries(d.nodes)){if(n.credit?.defaultedAt===at)Civilization.notify(CivilWorldContent.regions[id].name+'：重建信贷到期违约，抵押已没收；请在地区协约记录安排还款。');if(n.accord?.missed===60)Civilization.notify(CivilWorldContent.regions[id].name+'：协约承诺或经费中断60秒，信任下降10，请核对制度与供养。');}
+    if(s===State&&d.foreign)for(const e of d.foreign.events.slice(foreignEvents).filter(e=>['relation','battle','truce','proposal','credit'].includes(e.kind)))Civilization.notify(e.text);
     return home;
   },
   withdraw(s,id){const d=this.data(s),n=d?.nodes[id];if(!n||n.control!=='occupied'||this.active(s))return false;this.record(d,{kind:'withdraw',region:id,at:s.civilization.elapsed});return true;},
@@ -145,7 +149,7 @@ var CivilWorld={
       if(this.active(s))text.push(this.progressText(s)+'。');
       if(this.accessReason(s,key))text.push(this.accessReason(s,key)+'。');
       if(n)text.push('地方公共储备：'+CivilHistory.costText(n.stores)+'。每10秒按设施完整度收取公共拨款，并支付粮4、药0.1、工具0.03、零件0.02、知识0.1。累计战斗死亡'+n.casualties+'人。');
-      for(const [kind,cfg]of Object.entries(CivilWorldContent.missions))if(kind==='contact'?!n:n&&n.joinedAt===null&&(kind==='rebuild'?n.infrastructure<100:kind==='campaign'?n.control!=='occupied'&&!d.missions.some(m=>m.region===key&&m.kind==='campaign'&&m.completedAt!==null)&&s.civilization.tech.automation:kind==='negotiate'&&n.control!=='occupied')){
+      for(const [kind,cfg]of Object.entries(CivilWorldContent.missions))if(kind==='contact'?!n:n&&(n.joinedAt===null||kind==='rebuild'&&d.foreign&&n.infrastructure<100)&&(kind==='rebuild'?n.infrastructure<100:kind==='campaign'?n.control!=='occupied'&&!d.missions.some(m=>m.region===key&&m.kind==='campaign'&&m.completedAt!==null)&&s.civilization.tech.automation:kind==='negotiate'&&n.control!=='occupied')){
         text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；单程'+this.duration(s,key)+'秒，现场'+cfg.work+'秒。'+(kind==='campaign'?'将造成60名当地战斗人员死亡、设施降至40%、其他已知政体信任下降10。四台机器人在动员中消耗，没有战利品。占领每10秒另耗粮2、药0.1、工具0.05；连续欠供60秒撤军，损害保留。':this.reason(s,key,kind)||'当前可派出。'));
         buttons[kind]={text:cfg.name,available:()=>!this.reason(s,key,kind),nextScene:'end',onChoose:()=>finish(this.start(s,key,kind),'国家行动队已实际扣款启程；结果须抵达并完成工作后生效。')};
       }
@@ -167,12 +171,14 @@ var CivilWorld={
   },
   validate(s){
     const d=this.data(s),at=s.civilization.elapsed,fail=()=>{throw Error('国家远域行动或公共账册无效');},obj=x=>!!x&&typeof x==='object'&&!Array.isArray(x),time=x=>Number.isSafeInteger(x)&&x>=0&&x<=at,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),int=x=>Number.isSafeInteger(x)&&x>=0;
-    if(d===undefined){if(CivilStatecraft.pendingIds.includes(s.civilization.pending)||this.pendingIds.includes(s.civilization.pending)&&!this.available(s))fail();return;}
+    if(d===undefined){if(CivilForeign.pendingIds.includes(s.civilization.pending))fail();if(CivilStatecraft.pendingIds.includes(s.civilization.pending)||this.pendingIds.includes(s.civilization.pending)&&!this.available(s))fail();return;}
     if(!obj(d)||d.schema!==1||!this.available(s)||!this.asset(s)||!time(d.startedAt)||!obj(d.nodes)||!Array.isArray(d.missions)||!d.missions.length||!Array.isArray(d.ledger)||d.lastTickAt!==null&&!time(d.lastTickAt)||d.lastSettledAt!==null&&!time(d.lastSettledAt))fail();
     if(CivilStatecraft.pendingIds.includes(s.civilization.pending)&&(!s.civilization.tech.computing||!Object.keys(d.nodes).length||s.civilization.pending.startsWith('accord_')&&!d.nodes[s.civilization.pending.slice(7)]))fail();
+    if(CivilForeign.pendingIds.includes(s.civilization.pending)&&(!CivilForeign.available(s)||s.civilization.pending!=='foreignCouncil'&&(!d.foreign||s.civilization.pending.startsWith('foreign_')&&!d.foreign.actors[s.civilization.pending.slice(8)]||s.civilization.pending.startsWith('foreignPair_')&&!d.foreign.pairs[s.civilization.pending.slice(12)])))fail();
     let previous=null;
     for(const [i,m]of d.missions.entries()){
       const cfg=this.missionConfig(m),p=CivilWorldContent.regions[m.region];
+      if(m.marketRate!==undefined&&(m.kind!=='exchange'||!Number.isInteger(m.marketRate)||m.marketRate<60||m.marketRate>150))fail();
       if(m.doctrine!==undefined&&(m.kind!=='campaign'||!Object.hasOwn(CivilStatecraftContent.doctrines,m.doctrine))||!CivilStatecraft.special(m.kind)&&(m.economy!==undefined||m.returnCargo!==undefined||m.forfeited!==undefined))fail();
       if(CivilStatecraft.special(m.kind)&&(!cfg||!same(m.returnCargo,m.returnedAt===null?cfg.receive:{})||m.kind==='repay'&&typeof m.forfeited!=='boolean'||m.kind!=='repay'&&m.forfeited!==undefined))fail();
       if(p?.gate&&(!this.transport(s)||!s.civilization.tech[p.gate]||!m.orbital||m.transportAssetId!==this.transport(s)?.id||this.transport(s)?.completedAt>m.departedAt))fail();
@@ -184,13 +190,14 @@ var CivilWorld={
     const replay={nodes:{},missions:d.missions},completed=new Set(),dispatched=new Set(),returned=new Set();let last=-1,budget=null;
     for(const r of d.ledger){
       if(!obj(r)||!time(r.at)||r.at<d.startedAt||r.at<last)fail();last=r.at;
-      if(r.kind==='statecraft'){
+      if(r.kind==='foreign'){if(!s.civilization.tech.computing)fail();CivilForeign.validateRecord(replay,r);}
+      else if(r.kind==='statecraft'){
         if(!s.civilization.tech.computing)fail();CivilStatecraft.validateRecord(replay,r,s);
         if(['dispatch','return'].includes(r.action)){const seen=r.action==='dispatch'?dispatched:returned;if(seen.has(r.mission)||r.action==='return'&&!dispatched.has(r.mission))fail();seen.add(r.mission);}
       }else if(r.kind==='mission'){
         const m=d.missions[r.mission-1];if(!m||m.completedAt!==r.at||completed.has(m.id))fail();const n=replay.nodes[m.region];
         if(CivilStatecraft.special(m.kind)){if(!n||n.joinedAt===null||!dispatched.has(m.id))fail();}
-        else if(m.kind==='contact'?!!n:!n||n.joinedAt!==null||m.kind==='rebuild'&&n.infrastructure===100||['campaign','negotiate'].includes(m.kind)&&n.control==='occupied'||m.kind==='campaign'&&([...completed].some(id=>d.missions[id-1].kind==='campaign'&&d.missions[id-1].region===m.region)||!s.civilization.tech.automation))fail();completed.add(m.id);
+        else if(m.kind==='contact'?!!n:!n||n.joinedAt!==null&&!(m.kind==='rebuild'&&replay.foreign)||m.kind==='rebuild'&&n.infrastructure===100||['campaign','negotiate'].includes(m.kind)&&n.control==='occupied'||m.kind==='campaign'&&([...completed].some(id=>d.missions[id-1].kind==='campaign'&&d.missions[id-1].region===m.region)||!s.civilization.tech.automation))fail();completed.add(m.id);
       }else if(r.kind==='join'){
         const n=replay.nodes[r.region];if(!n||n.joinedAt!==null||n.control==='occupied'||n.trust<60||n.infrastructure!==100||n.stableSeconds<600||!this.pledged(r.region,r.rights,r.devolution)||!same(r.costs,CivilWorldContent.membership)||!CivilRegions.canPay(n.stores,CivilWorldContent.membership.local))fail();
       }else if(r.kind==='budget'){
@@ -201,6 +208,6 @@ var CivilWorld={
       this.apply(replay,r);
     }
     if(d.missions.some(m=>CivilStatecraft.special(m.kind)&&(!dispatched.has(m.id)||(m.returnedAt!==null)!==returned.has(m.id))))fail();
-    if(!same(replay.economy,d.economy)||!same(replay.nodes,d.nodes)||budget!==d.lastSettledAt||d.missions.some(m=>m.completedAt!==null&&!completed.has(m.id)))fail();
+    if(!same(replay.foreign,d.foreign)||!same(replay.economy,d.economy)||!same(replay.nodes,d.nodes)||budget!==d.lastSettledAt||d.missions.some(m=>m.completedAt!==null&&!completed.has(m.id)))fail();
   }
 };

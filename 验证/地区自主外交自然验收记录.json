@@ -1,0 +1,149 @@
+{
+  "file": "自然游玩_Mac地区自主外交与清算126.json",
+  "bytes": 1170757,
+  "sha256": "d50b09a3e4e2a38f3333ce69d306db2b9f78d3de42f70de8b866ccbb0358e037",
+  "elapsed": 525248,
+  "year": 875,
+  "generation": 125,
+  "speed": 1,
+  "maxSpeed": 64,
+  "legitimacy": 100,
+  "round": 11,
+  "creditPolicy": "tight",
+  "accounts": {
+    "desert": {
+      "balance": -90,
+      "debtSince": 523052,
+      "overdueAt": 524852,
+      "decision": "公共工坊消耗粮食 12、零件 6，产出粮食 120；清算信用不足，优先出口偿债"
+    },
+    "east": {
+      "balance": 486,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20"
+    },
+    "islands": {
+      "balance": 70,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "用20账额回购南部高原观测城联会的知识 10抵账；300秒后到货"
+    },
+    "north": {
+      "balance": -72,
+      "debtSince": 524552,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、煤 6，产出零件 12；正在寻找煤供应方"
+    },
+    "plateau": {
+      "balance": -286,
+      "debtSince": 523652,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、电子元件 4，产出知识 30、钢材 10；清算信用不足，优先出口偿债"
+    },
+    "polar": {
+      "balance": 138,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "向东陆水系共同体采购零件 18，账额90；300秒后到货"
+    },
+    "rainforest": {
+      "balance": -84,
+      "debtSince": 524252,
+      "overdueAt": null,
+      "decision": "向北陆炉城联盟采购工具 18，账额72；300秒后到货"
+    },
+    "west": {
+      "balance": -162,
+      "debtSince": 523052,
+      "overdueAt": 524852,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12；清算信用不足，优先出口偿债"
+    }
+  },
+  "shipments": {
+    "total": 38,
+    "arrived": 35,
+    "inFlight": 3,
+    "settlement": 6
+  },
+  "proposals": [
+    {
+      "id": 1,
+      "pair": "desert-polar",
+      "kind": "observe",
+      "at": 523474,
+      "paid": {
+        "knowledge": 100,
+        "medicine": 12,
+        "tools": 12
+      },
+      "resolvedAt": 523952,
+      "accepted": true,
+      "score": 70
+    }
+  ],
+  "playerActions": [
+    {
+      "kind": "foreign",
+      "action": "open",
+      "at": 521850,
+      "cost": {
+        "knowledge": 180,
+        "electronics": 20
+      }
+    },
+    {
+      "kind": "foreign",
+      "action": "proposal",
+      "pair": "desert-polar",
+      "proposal": "observe",
+      "at": 523474,
+      "cost": {
+        "knowledge": 100,
+        "medicine": 12,
+        "tools": 12
+      }
+    },
+    {
+      "kind": "foreign",
+      "action": "policy",
+      "mode": "tight",
+      "at": 525238,
+      "cost": {
+        "knowledge": 60
+      }
+    }
+  ],
+  "eventKinds": {
+    "trade": 38,
+    "arrival": 35,
+    "relation": 7,
+    "proposal": 1,
+    "credit": 3,
+    "policy": 1
+  },
+  "members": [
+    "north",
+    "east",
+    "west",
+    "rainforest",
+    "desert",
+    "plateau",
+    "islands",
+    "polar"
+  ],
+  "stable": {
+    "north": 600,
+    "east": 600,
+    "west": 600,
+    "rainforest": 600,
+    "desert": 600,
+    "plateau": 600,
+    "islands": 600,
+    "polar": 600
+  },
+  "oldWorldLedgerPreserved": true,
+  "oldMissionsPreserved": true,
+  "earthEndingPreserved": true,
+  "strictRoundtrip": true
+}

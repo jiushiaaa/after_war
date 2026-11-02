@@ -13,7 +13,7 @@ var CivilStatecraft={
     if(!this.special(m.kind))return CivilWorldContent.missions[m.kind];
     const p=CivilStatecraftContent.policies[m.economy],r=CivilStatecraftContent.regions[m.region];if(!Object.hasOwn(CivilStatecraftContent.policies,m.economy)||!r)return null;
     const name=CivilWorldContent.missions[m.kind].name;
-    if(m.kind==='exchange'){const cargo=this.scale(r.give,p.input),receive=this.scale(r.take,p.output);return {name,cargo,receive,cost:this.add(cargo,CivilStatecraftContent.voyage),work:60};}
+    if(m.kind==='exchange'){const cargo=this.scale(r.give,p.input),receive=this.scale(r.take,p.output*(m.marketRate??100)/100);return {name,cargo,receive,cost:this.add(cargo,CivilStatecraftContent.voyage),work:60};}
     const interest=this.scale(r.loan,p.interest),debt=this.add(r.loan,interest);
     if(m.kind==='credit')return {name,cargo:{...CivilStatecraftContent.collateral},receive:{...r.loan},debt,cost:this.add(CivilStatecraftContent.collateral,CivilStatecraftContent.voyage),work:120};
     const receive=m.forfeited?{}:{...CivilStatecraftContent.collateral};return {name,cargo:debt,receive,debt,cost:this.add(debt,CivilStatecraftContent.voyage),work:60};
@@ -24,13 +24,14 @@ var CivilStatecraft={
     if(n.accord.missed||n.accord.paidCycles<6)return '特色协约须实际维持至少60秒，先核对承诺与经费';
     if(kind!=='repay'&&n.credit?.status==='default')return '旧信贷已违约，须先清偿欠款';
     if(kind==='exchange'&&n.tradeAt!==undefined&&s.civilization.elapsed-n.tradeAt<600)return '本地区互市每600秒开放一趟，避免抽空公库';
+    if(kind==='credit'&&d.foreign?.actors[id]?.overdueAt!==undefined&&d.foreign.actors[id].overdueAt!==null)return '地方清算欠款逾期，先恢复地区出口与信用';
     if(kind==='credit'&&n.credit)return '本地区一期重建信贷已使用；不是无限循环借贷';
     if(kind==='repay'&&(!n.credit||!['open','default'].includes(n.credit.status)))return '当前没有待偿还的信贷';
     const m=this.quote(s,id,kind),cfg=this.config(m),reserve=this.scale(CivilWorldContent.services,12);
     if(kind!=='repay'&&!CivilRegions.canPay(n.stores,this.add(cfg.receive,reserve)))return '地方须保留公共供养，再提供实物或信贷';
     return null;
   },
-  quote(s,id,kind){const d=CivilWorld.data(s),n=d?.nodes[id];return {region:id,kind,economy:kind==='repay'?n?.credit?.economy:this.mode(d),...(kind==='repay'?{forfeited:n?.credit?.status==='default'}:{})};},
+  quote(s,id,kind){const d=CivilWorld.data(s),n=d?.nodes[id];return {region:id,kind,...(kind==='exchange'&&d?.foreign?{marketRate:CivilForeign.rate(d,id)}:{}),economy:kind==='repay'?n?.credit?.economy:this.mode(d),...(kind==='repay'?{forfeited:n?.credit?.status==='default'}:{})};},
   policyReason(s,mode){const d=CivilWorld.data(s),p=CivilStatecraftContent.policies[mode];if(!Object.hasOwn(CivilStatecraftContent.policies,mode)||!s.civilization.tech.computing||!Object.keys(d?.nodes||{}).length)return '先研究国家计算并建立国家联络';if(!CivilWorld.political(s)||CivilWorld.active(s))return '先恢复国家行政并等待行动队返城';if(this.mode(d)===mode)return '已采用这一制度';if(d.economy&&s.civilization.elapsed-d.economy.changedAt<600)return '制度调整后须运行600秒再改议';if(p.local&&s.civilization.society.axes.devolution!=='local')return '合作互助要求地方自治';return CivilFinance.reserveCheck(s,'home',{knowledge:120,electronics:10})?null:'预留知识120、电子元件10和城市供养';},
   setPolicy(s,mode){if(this.policyReason(s,mode))return false;const cost={knowledge:120,electronics:10};CivilServices.pay(s.stores,cost);CivilWorld.record(CivilWorld.data(s),{kind:'statecraft',action:'policy',mode,at:s.civilization.elapsed,cost,local:s.civilization.society.axes.devolution});return true;},
   accordReason(s,id,index){const n=CivilWorld.data(s)?.nodes[id],cfg=CivilStatecraftContent.regions[id]?.choices[index];if(!n||!cfg||!s.civilization.tech.computing)return '先建立国家联络与国家计算';if(n.control==='occupied'||n.infrastructure<100)return '先结束占领并重建受损设施';if(n.accord)return '已有长期协约；可维护或付费重申，不重复领取信任';if(CivilWorld.active(s)||!CivilWorld.political(s))return '先恢复行政并等行动队返城';if(!this.pledge(cfg,s.civilization.regions.rights,s.civilization.society.axes.devolution))return '本方案要求平等资格或地方自治';return CivilFinance.reserveCheck(s,'home',cfg.cost)?null:'备足议约投入，并保留本城供养';},
@@ -67,6 +68,8 @@ var CivilStatecraft={
     if(r.action==='renew'){if(!n.accord||n.accord.missed||n.trust>=100||r.at-(n.accord.renewedAt||n.accord.at)<600||!same(r.cost,{knowledge:80,tools:20}))fail();return;}
     const m=d.missions[r.mission-1],cfg=m&&this.config(m);if(!m||m.region!==r.region||!this.special(m.kind)||!cfg)fail();
     if(r.action==='dispatch'){
+      if(m.kind==='exchange'&&m.marketRate!==CivilForeign.rate(d,m.region))fail();
+      if(m.kind==='credit'&&d.foreign?.actors[m.region]?.overdueAt!==undefined&&d.foreign.actors[m.region].overdueAt!==null)fail();
       if(r.at!==m.departedAt||!n.accord||n.accord.missed||n.accord.paidCycles<6||n.joinedAt===null)fail();
       if(m.kind==='repay'){if(!n.credit||!['open','default'].includes(n.credit.status)||m.economy!==n.credit.economy||m.forfeited!==(n.credit.status==='default'))fail();}
       else if(m.economy!==this.mode(d)||n.credit?.status==='default'||!CivilRegions.canPay(n.stores,this.add(cfg.receive,this.scale(CivilWorldContent.services,12)))||m.kind==='credit'&&n.credit||m.kind==='exchange'&&n.tradeAt!==undefined&&r.at-n.tradeAt<600)fail();
@@ -91,7 +94,7 @@ var CivilStatecraft={
         if(n.joinedAt!==null)for(const kind of ['exchange','credit','repay']){
           if(kind==='credit'&&n.credit||kind==='repay'&&!['open','default'].includes(n.credit?.status))continue;
           const q=this.quote(s,region,kind),cfg=this.config(q),reason=CivilWorld.reason(s,region,kind);
-          text.push(cfg.name+'：出发扣 '+CivilHistory.costText(cfg.cost)+'，返航带回 '+CivilHistory.costText(cfg.receive)+'。'+(kind==='credit'?'地方公库真实出借；抵押工具40，交付后1800秒到期，须另派还款队偿还 '+CivilHistory.costText(cfg.debt)+'。逾期没收抵押、信任-20，暂停互市及公共履约直到还款；不滚利、不抹债。':kind==='exchange'?'双方货物出发即预留，抵达交付，返城才入本城仓；每区600秒一趟。':'还款出发后停止逾期判定，交付后清偿；未违约的抵押随原队返城。')+(reason||'可派出'));
+          text.push(cfg.name+'：出发扣 '+CivilHistory.costText(cfg.cost)+'，返航带回 '+CivilHistory.costText(cfg.receive)+'。'+(kind==='credit'?'地方公库真实出借；抵押工具40，交付后1800秒到期，须另派还款队偿还 '+CivilHistory.costText(cfg.debt)+'。逾期没收抵押、信任-20，暂停互市及公共履约直到还款；不滚利、不抹债。':kind==='exchange'?(q.marketRate!==undefined?'本轮地区报价系数'+q.marketRate+'%，受进口短缺、出口储备、战争与逾期影响；出发锁价。':'')+'双方货物出发即预留，抵达交付，返城才入本城仓；每区600秒一趟。':'还款出发后停止逾期判定，交付后清偿；未违约的抵押随原队返城。')+(reason||'可派出'));
           buttons[kind]={text:cfg.name,available:()=>!CivilWorld.reason(s,region,kind),nextScene:'end',onChoose:()=>finish(CivilWorld.start(s,region,kind),'原行动队实付启程，货物与抵押按实际往返结算。')};
         }
       }
