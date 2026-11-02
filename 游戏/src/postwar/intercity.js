@@ -36,6 +36,7 @@ var CivilIntercity={
     const reason=this.reason(s);if(reason)return reason;
     if(!this.plan(s))return '没有待发委托，可安排最多三趟';
     if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||CivilFrontier.active(s))return '先等原商车返城，并撤销尚未出发的外贸委托';
+    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在地区商约途中，等待返城';
     if(!this.staffed(s))return '等待两名空闲运输工';
     const road=this.roadReason(s,true);if(road)return road;
     if(!CivilFinance.reserveCheck(s,'home',CivilIntercityContent.travelCost))return '本城须备齐旅费并保留居民供养';

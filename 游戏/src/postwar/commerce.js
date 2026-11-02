@@ -9,10 +9,10 @@ var CivilCommerce={
   route(s){return CivilCommerceContent.routes[this.sourceId(s)];},
   active(s){const o=this.data(s)?.orders.at(-1);return o&&o.returnedAt===null?o:null;},
   plan(s){const d=this.data(s),p=d?.plans.at(-1);return p&&p.cancelledAt===null&&d.orders.filter(o=>o.planId===p.id).length<p.limit?p:null;},
-  reservedTransport(s){return (this.active(s)?2:0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.reservedTransport(s):0)+(typeof CivilIntercity!=='undefined'?CivilIntercity.reservedTransport(s):0);},
+  reservedTransport(s){return (this.active(s)?2:0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.reservedTransport(s):0)+(typeof CivilIntercity!=='undefined'?CivilIntercity.reservedTransport(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.reservedTransport(s):0);},
   obligation(s){return this.data(s)?1:0;},
   staffed(s){return CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)>=2&&(typeof CivilSecurity==='undefined'||CivilSecurity.staffed(s,this.active(s)));},
-  busy(s,corridor){return !!this.active(s)&&this.route(s)?.corridor===corridor||typeof CivilIntercity!=='undefined'&&CivilIntercity.busy(s,corridor);},
+  busy(s,corridor){return !!this.active(s)&&this.route(s)?.corridor===corridor||typeof CivilIntercity!=='undefined'&&CivilIntercity.busy(s,corridor)||typeof CivilPartnership!=='undefined'&&CivilPartnership.busy(s,corridor);},
   paid(profile=null,publicDuties=null,works=null){const cost=this.cargo(publicDuties,false,works);for(const extra of [CivilCommerceContent.travelCost,...(profile?[CivilSecurityContent.modes[profile.mode].homeCost]:[])])for(const [k,v]of Object.entries(extra))cost[k]=(cost[k]||0)+v;return cost;},
   cargo(publicDuties=null,returning=false,works=null){const result={...(returning?CivilCommerceContent.returnCargo:CivilCommerceContent.cargo)};for(const [k,v]of Object.entries((returning?publicDuties?.contribution:publicDuties?.grant)||{}))result[k]=(result[k]||0)+v;if(!returning&&works)for(const [k,v]of Object.entries(works.cargo))result[k]=(result[k]||0)+v;return result;},
   publicProfile(s){return typeof CivilAccession!=='undefined'?CivilAccession.profile(s):null;},
@@ -53,6 +53,7 @@ var CivilCommerce={
     if(this.active(s))return '等待本趟商队返程';
     if(typeof CivilFrontier!=='undefined'&&CivilFrontier.active(s))return '原商车正在渡口往返，等待原车返城';
     if(typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '原商车正在城际联运，等待原车返城';
+    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在地区商约途中，等待返城';
     const profile=this.profile(s),security=typeof CivilSecurity!=='undefined'?CivilSecurity.departureReason(s,profile):null;if(security)return security;
     if(!this.staffed(s))return '等待两名空闲运输工；地区与客运班组优先';
     const road=this.roadReason(s,true);if(road)return road;

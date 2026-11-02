@@ -8,6 +8,7 @@ var CivilForecast={
       const data=civilization[key];
       if(data?.records.length>count)civilization[key]={...data,records:data.records.slice(-count)};
     }
+    if(civilization.partnership) civilization.partnership={...civilization.partnership,partners:Object.fromEntries(Object.entries(civilization.partnership.partners).map(([id,p])=>[id,{...p,records:p.records.slice(-2)}]))};
     return JSON.parse(JSON.stringify({...s,civilization}));
   }
 };

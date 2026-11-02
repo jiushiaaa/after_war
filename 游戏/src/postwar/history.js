@@ -12,7 +12,7 @@ var CivilHistory={
   policyName(value){return value===null?'尚未议定':(typeof CivilRules!=='undefined'?CivilRules.policies[value]?.name:null)||value;},
   axisName(axis,value){return (typeof CivilSociety!=='undefined'?CivilSociety.axes[axis]?.choices[value]?.name:null)||value;},
   costText(cost){
-    const labels={food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
+    const labels={scrap:'废料',food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
     return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+Number(n.toFixed(6))).join('、');
   },
   snapshot(s){
@@ -117,6 +117,17 @@ var CivilHistory={
       const trained=d.records.find(r=>r.readiness===300);if(trained)add('security_training','transport','守备训练准备完成','实际居民在已付费训练场积累300秒准备；继续值勤仍需供给，欠费或缺员会流失准备。',trained.at);
     }
     if(c.accession){const d=c.accession;for(const [id,a]of Object.entries(d.approvals))add('accession_approval_'+id,'nation',(id==='home'?'本城':this.sourceName(d.sourceId))+'加盟议约','实付 '+this.costText(a.cost)+'；当地现有人口与仓库保留。',a.at);if(d.joinedAt!==null)add('accession_joined','nation',this.sourceName(d.sourceId)+'共同法加盟','实际双方议约、当地记录人员和连续履约完成；公共补助与地方贡献仍需原车运输。',d.joinedAt);d.controls.forEach((x,i)=>add('accession_control_'+i,'nation',x.enabled?'恢复加盟共同行政':'暂缓加盟共同行政','人口与历史保留；已启程的实物承诺继续履行。',x.at));}
+    if(c.partnership){
+      for(const [id,p]of Object.entries(c.partnership.partners)){
+        add('partner_sign_'+id,'diplomacy',this.sourceName(id)+'地区商约','双方实付登记，各自保管库存和名册，地方两名成年人承担公共记录。',p.signedAt);
+        if(p.joinedAt!==null)add('partner_join_'+id,'nation',this.sourceName(id)+'接纳共同法','三趟实际成交返城及600秒连续履约后双方实付登记；当地居民纳入共同法，仍独立供养。',p.joinedAt);
+      }
+      for(const o of c.partnership.orders){
+        add('partner_depart_'+o.id,'transport',this.sourceName(o.sourceId)+'商队启程','原商车实际携带12工具，旅费另付。',o.departedAt);
+        if(o.arrivedAt!==null)add('partner_exchange_'+o.id,'transport',o.exchange?'地区实物成交':'地区商队未成交',o.exchange?this.costText(CivilPartnershipContent.returns[o.sourceId])+'随车返程，尚未入本城仓库。':'对方保留自身供养；原工具返程，旅费不退。',o.arrivedAt);
+        if(o.returnedAt!==null)add('partner_return_'+o.id,'transport','地区商队实际返城',o.exchange?'交换货物实际入库。':'原工具实际归还。',o.returnedAt);
+      }
+    }
     if(c.intercity){
       const d=c.intercity;
       add('intercity_agreement','transport','三城实付联运议约','本城知识60、铁轨30、河谷30；共用原商车，两地货物独立结算。',d.agreedAt);

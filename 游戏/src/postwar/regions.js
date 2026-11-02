@@ -46,7 +46,7 @@ var CivilRegions={
     if(load>capacity)text+='缺 '+(load-capacity)+' 份容量；'+(online<built?'先补足知识，恢复已有档案馆每10秒每座0.04知识的维护。':built<this.buildings.archive.max?'可在地区扩建行政档案馆，每座木180、铁20、零件10、知识40，实付维护后增加2份容量。':'档案馆已满，须在议事屋重议共同体结构或地方职责，按新制度实际承担协调。');
     return text;
   },
-  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0)+(typeof CivilSecurity!=='undefined'?CivilSecurity.obligation(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.obligation(s):0)+(typeof CivilIntercity!=='undefined'?CivilIntercity.obligation(s):0);},
+  load(s){return 1+Object.values(s.civilization.regions?.nodes||{}).filter(n=>['associated','integrated'].includes(n.relation)).length+(typeof CivilCommerce!=='undefined'?CivilCommerce.obligation(s):0)+(typeof CivilSecurity!=='undefined'?CivilSecurity.obligation(s):0)+(typeof CivilAccession!=='undefined'?CivilAccession.obligation(s):0)+(typeof CivilIntercity!=='undefined'?CivilIntercity.obligation(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.obligation(s):0);},
   upgrade(s,id){return s.civilization.regions?.upgrades?.projects[id];},
   upgradeActive(s,id){const p=this.upgrade(s,id);return !!p && p.status!=='complete';},
   upgradeEligible(s,id){

@@ -57,14 +57,14 @@ var CivilNation={
   found(s){if(!this.canFound(s))return false;const n=this.data(s);n.foundedAt=s.civilization.elapsed;n.foundingAxes={...s.civilization.society.axes};n.foundingStableSince=n.stableSince;return true;},
   operational(s){const n=this.data(s),last=n?.records.at(-1),r=last?.service===null?(!last.missing.length?n.records.at(-2):null):last;return !!n&&n.foundedAt!==null&&n.legitimacy>=40&&r?.service===true&&this.recordCharter(r)===this.charter(s)&&r.mode===this.mode(s)&&s.civilization.elapsed-r.at>=0&&s.civilization.elapsed-r.at<=10;},
   capacityBonus(s){return this.operational(s)?this.charters[this.charter(s)][this.mode(s)]:0;},
-  population(s){const n=this.data(s);return n?n.members.reduce((sum,id)=>sum+CivilFinance.population(s,id),0)+(typeof CivilAccession!=='undefined'?CivilAccession.population(s):0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.population(s):0):0;},
+  population(s){const n=this.data(s);return n?n.members.reduce((sum,id)=>sum+CivilFinance.population(s,id),0)+(typeof CivilAccession!=='undefined'?CivilAccession.population(s):0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.population(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0):0;},
   status(s){
     const n=this.data(s);if(!n)return this.reason(s)||'三城可以提出共同法与国家宪章';
     const waiting=n.members.filter(id=>!n.approvals[id]);if(waiting.length)return '等待'+waiting.map(id=>CivilMetro.name(id)).join('、')+'付费议约';
     const r=n.records.at(-1);if(r?.missing.length)return r.missing.map(id=>CivilMetro.name(id)).join('、')+'国家经费不足；未扣除其他城市的本轮费用';
     if(n.foundedAt===null)return '筹备连续供养与共同记录 '+n.stableSeconds+' / '+this.charters[this.charter(s)].duration+'秒。'+(this.reason(s)||'条件正在维持');
     const standing='国家合法性 '+Number(n.legitimacy.toFixed(2))+' / 100；';
-    if(this.operational(s))return standing+'共同法正常运作，国家协调容量 +'+this.capacityBonus(s)+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'；共同法登记'+this.population(s)+'人，含当地自养的加盟居民'+CivilAccession.population(s)+'人':'');
+    if(this.operational(s))return standing+'共同法正常运作，国家协调容量 +'+this.capacityBonus(s)+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'；共同法登记'+this.population(s)+'人，含当地自养的加盟居民'+(CivilAccession.population(s)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0))+'人':'');
     if(r?.service&&s.civilization.elapsed-r.at<=10&&n.legitimacy<40)return standing+'经费与供养已恢复；认可达到40后恢复国家协调。正常轮次持续恢复认可';
     return standing+'共同法暂缓执行；'+(this.reason(s)||'等待下一轮实际供养与共同记录核验')+'。恢复后逐轮重建认可';
   },
