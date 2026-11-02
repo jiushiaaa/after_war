@@ -48,6 +48,7 @@ var CivilForeign={
     CivilTransit.beforeRound(d,r);
     for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt&&CivilLeagues.arrive(d,o,at)){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
     if(!f.markets)CivilTransit.dispatch(d,r);
+    CivilCongress.beforeRound(d,r);
     CivilLeagues.beforeRound(d,r);
     if(f.markets)CivilTransit.dispatch(d,r);
     for(const o of f.proposals)if(o.resolvedAt===null&&at-o.at>=300){const p=f.pairs[o.pair];o.score=this.score(d,o.pair,o.kind,r.political);o.accepted=o.score>=50;o.resolvedAt=at;if(o.accepted){p.phase='truce';p.since=at;p.truceUntil=at+1800;p.pressure=Math.max(0,p.pressure-45);p.relation=this.clamp(p.relation+15,-100,100);p.battles=0;}else{p.relation=Math.max(-100,p.relation-5);}this.addEvent(f,at,'proposal',this.label(o.pair)+(o.accepted?'接受':'拒绝')+CivilForeignContent.proposals[o.kind].name+'（判断'+o.score+'/50）；'+(o.accepted?'1800秒停火与预算协商期，货物仍须实际采购。':'经费已经使用，须改善利益与关系后再议。'));}
@@ -103,6 +104,7 @@ var CivilForeign={
       if(previous!==p.phase){p.since=at;if(p.phase==='war')p.battles=0;this.addEvent(f,at,'relation',this.label(key)+'：'+this.phaseName(p.phase)+'；压力'+p.pressure+'，原因：'+(contested?'争夺同类稀缺投入':supply?'供应依赖与交付不足':broken?'政治承诺中断':'关系与公共供给变化')+'。');}
       if(p.phase==='war'||p.phase==='dispute'&&p.pressure>=85){na.stableSeconds=0;nb.stableSeconds=0;}
     }
+    CivilCongress.afterRound(d,r);
     CivilLeagues.afterRound(d,r);
     CivilTransit.afterRound(d,r);
   },
@@ -123,12 +125,12 @@ var CivilForeign={
       text.push('授信基础额度120/240/480；另加信任×2，战争扣100。改议知识60、间隔600秒；旧账不改写。额度越大，能周转更多货物，也可能积累更大欠款。');for(const[mode,cfg]of Object.entries(CivilForeignContent.credit))buttons[mode]={text:cfg.name,available:()=>!this.policyReason(s,mode),nextScene:'end',onChoose:()=>finish(this.setPolicy(s,mode),'联区授信尺度已调整，旧债保留。')};
     }else if(id.startsWith('foreignPair_')){
       const key=id.slice(12),p=f?.pairs[key];if(!p)return null;text.push(this.label(key)+'：'+this.phaseName(p.phase)+'；关系'+p.relation+'、压力'+p.pressure+'。');
-      for(const actor of this.ids(key)){const cfg=CivilForeignContent.profiles[actor];text.push(this.name(actor)+'：需要'+CivilText.labels[cfg.need]+'，库存'+Math.floor(d.nodes[actor].stores[cfg.need]||0)+' / 目标'+this.target(actor)+'；清算账额'+f.actors[actor].balance+'。'+f.actors[actor].decision);}
+      for(const actor of this.ids(key)){const cfg=CivilForeignContent.profiles[actor];text.push(this.name(actor)+'：需要'+CivilText.labels[cfg.need]+'，库存'+Math.floor(d.nodes[actor].stores[cfg.need]||0)+' / 目标'+this.target(actor,d)+'；清算账额'+f.actors[actor].balance+'。'+f.actors[actor].decision);}
       text.push('判断达到50才接受。共同法成员、持续协约和正常行政有利于调停；敌意与高压力降低接受度。至少300秒后按届时局势答复，拒绝也不退已使用经费。');
       for(const kind of Object.keys(CivilForeignContent.proposals)){const cfg=CivilForeignContent.proposals[kind],score=this.score(d,key,kind,CivilWorld.political(s));text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；当前判断'+score+'/50。'+(this.proposalReason(s,key,kind)||'可以提出'));buttons[kind]={text:cfg.name,available:()=>!this.proposalReason(s,key,kind),nextScene:'end',onChoose:()=>finish(this.propose(s,key,kind),'提案与经费已经提交。各方将独立审议，不保证接受。')};}
       const last=f.proposals.filter(o=>o.pair===key).at(-1);if(last)text.push('最近提案：'+(last.resolvedAt===null?'正在审议':last.accepted?'已接受，停火协商1800秒':'已拒绝')+'。');
     }else{
-      const actor=id.slice(8);if(!f?.actors[actor])return null;const profile=CivilForeignContent.profiles[actor];text.push(this.name(actor)+'：'+f.actors[actor].decision,'公共工坊每300秒消耗粮12、'+CivilText.labels[profile.need]+profile.use+'，产出'+CivilHistory.costText(profile.output)+'。当前进口储备'+Math.floor(d.nodes[actor].stores[profile.need]||0)+'，采购目标'+this.target(actor)+'；受损时优先修复，交火或占领时停产。');
+      const actor=id.slice(8);if(!f?.actors[actor])return null;const profile=CivilForeignContent.profiles[actor];text.push(this.name(actor)+'：'+f.actors[actor].decision,'公共工坊每300秒消耗粮12、'+CivilText.labels[profile.need]+profile.use+'，产出'+CivilHistory.costText(profile.output)+'。当前进口储备'+Math.floor(d.nodes[actor].stores[profile.need]||0)+'，采购目标'+this.target(actor,d)+'；受损时优先修复，交火或占领时停产。');
       const relevant=Object.entries(f.pairs).filter(([key,p])=>this.ids(key).includes(actor)&&p.phase!=='calm').sort((a,b)=>b[1].pressure-a[1].pressure);
       for(const[key,p]of relevant){const other=this.ids(key).find(x=>x!==actor);text.push(this.name(other)+'：'+this.phaseName(p.phase)+'；关系'+p.relation+'、压力'+p.pressure+(p.phase==='truce'?'；停火余'+Math.max(0,p.truceUntil-s.civilization.elapsed)+'秒':'')+'。');buttons[key]={text:'与'+this.name(other)+'交涉',nextScene:'end',onChoose:()=>{s.civilization.pending='foreignPair_'+key;}};}
       if(!relevant.length)text.push('当前没有外交警告、禁运或预算争议。贸易与信用会改变后续关系。');

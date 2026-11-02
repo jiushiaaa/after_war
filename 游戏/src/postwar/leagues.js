@@ -11,7 +11,7 @@ var CivilLeagues={
   deadline(f,id){const a=f.actors[id],extension=f.leagues?.extensions[id];return extension&&extension.debtSince===a.debtSince?extension.until:a.debtSince+1800;},
   busy(d,id){return CivilTransit.busy(d,id);},
   complement(a,b){const pa=CivilForeignContent.profiles[a],pb=CivilForeignContent.profiles[b];return Object.hasOwn(pa.output,pb.need)||Object.hasOwn(pb.output,pa.need);},
-  acceptance(d,key,type){const [a,b]=CivilForeign.ids(key),p=d.foreign.pairs[key];return 40+Math.floor(p.relation/2)-Math.floor(p.pressure/3)+(this.complement(a,b)?20:0)+(d.nodes[a].joinedAt!==null&&d.nodes[b].joinedAt!==null?15:0)+(type==='defense'&&(CivilForeign.fighting(d,a)||CivilForeign.fighting(d,b))?15:0)-Math.max(this.reputation(d,a),this.reputation(d,b));},
+  acceptance(d,key,type){const [a,b]=CivilForeign.ids(key),p=d.foreign.pairs[key];return 40+(d.foreign.congress&&type==='defense'&&CivilCongress.threat(d,a,b)?20:0)+Math.floor(p.relation/2)-Math.floor(p.pressure/3)+(this.complement(a,b)?20:0)+(d.nodes[a].joinedAt!==null&&d.nodes[b].joinedAt!==null?15:0)+(type==='defense'&&(CivilForeign.fighting(d,a)||CivilForeign.fighting(d,b))?15:0)-Math.max(this.reputation(d,a),this.reputation(d,b));},
   offerReason(d,key,type,at){const l=this.data(d),pair=d.foreign?.pairs[key];if(!l||!pair||!Object.hasOwn(CivilLeagueContent.pacts,type))return '先建立联盟公约';if(this.active(d,key))return '已有生效联盟';const ended=l.pacts.findLast(p=>p.pair===key&&p.endedAt!==null);if(ended&&at-ended.endedAt<1800)return '盟约结束后须冷静1800秒再议';if(l.offers.some(o=>o.pair===key&&o.resolvedAt===null))return '双方正在审议';if(CivilForeign.ids(key).some(id=>this.count(d,id)>=2))return '每方最多承担两份生效联盟';if(l.offers.some(o=>o.pair===key&&at-o.at<1800))return '同一对地区须间隔1800秒再议';if(['war','embargo'].includes(pair.phase))return '先调停双方禁运或战争';return null;},
   creditor(d,id){return Object.keys(d.foreign.actors).filter(k=>k!==id&&d.foreign.actors[k].balance>0).sort((a,b)=>d.foreign.actors[b].balance-d.foreign.actors[a].balance||a.localeCompare(b))[0];},
   workoutReason(d,id){const l=this.data(d),a=d.foreign?.actors[id];if(!l||!a||a.balance>=0)return '没有待展期的清算欠款';if(l.extensions[id]?.debtSince===a.debtSince)return '这轮欠款已使用一次展期';if(l.workouts.some(o=>o.debtor===id&&o.resolvedAt===null))return '债权方正在审议';if(l.workouts.some(o=>o.debtor===id&&o.debtSince===a.debtSince))return '本轮欠款已提出过申请，须真实出口清偿';if(!this.creditor(d,id))return '没有可审议的债权方';return null;},
@@ -22,6 +22,7 @@ var CivilLeagues={
     let reason=null;
     if(action==='open'){if(l)return '联盟公约已经启用';}
     else if(!l)return '先建立联盟公约';
+    else if(action==='upgrade')reason=CivilCongress.upgradeReason(d,args.pair,at);
     else if(action==='offer')reason=this.offerReason(d,args.pair,args.type,at);
     else if(action==='workout')reason=this.workoutReason(d,args.actor);
     else if(action==='route'){
@@ -42,6 +43,7 @@ var CivilLeagues={
   apply(d,r){
     if(r.action==='open'){d.foreign.leagues={schema:1,startedAt:r.at,pacts:[],offers:[],reputation:{},routes:{},workouts:[],extensions:{}};return;}
     const l=this.data(d);
+    if(r.action==='upgrade'){CivilCongress.upgrade(d,r.pair,r.at,'联席提议升级防卫');return;}
     if(r.action==='offer'){this.offer(d,r.pair,r.type,r.at,'联席提议');return;}
     if(r.action==='route'){l.routes[r.pair]={mode:r.mode,at:r.at};this.log(d,r.at,'route',CivilForeign.label(r.pair)+'改用'+CivilLeagueContent.routes[r.mode].name+'；只影响新发运单。');return;}
     if(r.action==='workout'){const a=d.foreign.actors[r.actor];l.workouts.push({debtor:r.actor,creditor:this.creditor(d,r.actor),debtSince:a.debtSince,at:r.at,resolvedAt:null,accepted:null,fee:0});return;}
@@ -54,7 +56,8 @@ var CivilLeagues={
     if(!f)fail();
     const cost=r.action==='open'?CivilLeagueContent.opening:CivilLeagueContent.costs[r.action];if(!cost||JSON.stringify(cost)!==JSON.stringify(r.cost))fail();
     if(r.action==='open'){if(l||f.round<2)fail();return;}if(!l)fail();
-    if(r.action==='offer'){if(this.offerReason(d,r.pair,r.type,r.at))fail();}
+    if(r.action==='upgrade'){if(CivilCongress.upgradeReason(d,r.pair,r.at))fail();}
+    else if(r.action==='offer'){if(this.offerReason(d,r.pair,r.type,r.at))fail();}
     else if(r.action==='route'){const route=l.routes[r.pair];if(!f.pairs[r.pair]||!Object.hasOwn(CivilLeagueContent.routes,r.mode)||(route?.mode||'auto')===r.mode||route&&r.at-route.at<600)fail();}
     else if(r.action==='workout'){if(this.workoutReason(d,r.actor))fail();}
     else if(['notice','breach'].includes(r.action)){const p=this.active(d,r.pair);if(!p||!CivilForeign.ids(r.pair).includes(r.actor)||r.action==='notice'&&p.notice)fail();}
@@ -71,8 +74,9 @@ var CivilLeagues={
     const l=this.data(d);if(!l)return;const f=d.foreign,at=r.at;
     for(const o of l.offers)if(o.resolvedAt===null&&at-o.at>=300){
       const ids=CivilForeign.ids(o.pair),pair=f.pairs[o.pair];o.resolvedAt=at;o.score=this.acceptance(d,o.pair,o.type);
-      o.accepted=o.score>=50&&!['war','embargo'].includes(pair.phase)&&ids.every(id=>this.count(d,id)<2&&d.nodes[id].control!=='occupied'&&CivilForeign.canSpend(d.nodes[id],CivilLeagueContent.pacts[o.type].upkeep));
-      if(o.accepted){l.pacts.push({id:l.pacts.length+1,pair:o.pair,type:o.type,status:'active',at,paidCycles:0,missed:Object.fromEntries(ids.map(id=>[id,0])),calls:[],notice:null,endedAt:null});pair.relation=Math.min(100,pair.relation+10);}
+      const upgrading=o.upgrade!==undefined?l.pacts.find(p=>p.id===o.upgrade&&p.status==='active'&&p.type==='commerce'&&!p.notice):null;
+      o.accepted=(o.upgrade===undefined||!!upgrading)&&o.score>=50&&!['war','embargo'].includes(pair.phase)&&ids.every(id=>(upgrading||this.count(d,id)<2)&&d.nodes[id].control!=='occupied'&&CivilForeign.canSpend(d.nodes[id],CivilLeagueContent.pacts[o.type].upkeep));
+      if(o.accepted){if(upgrading){upgrading.originalType='commerce';upgrading.type='defense';upgrading.upgradedAt=at;}else l.pacts.push({id:l.pacts.length+1,pair:o.pair,type:o.type,status:'active',at,paidCycles:0,missed:Object.fromEntries(ids.map(id=>[id,0])),calls:[],notice:null,endedAt:null});pair.relation=Math.min(100,pair.relation+10);}
       this.log(d,at,'alliance',CivilForeign.label(o.pair)+(o.accepted?'接受':'拒绝')+CivilLeagueContent.pacts[o.type].name+'；判断'+o.score+'/50，仍须有空余承诺与实际经费。');
     }
     for(const o of l.workouts)if(o.resolvedAt===null&&at-o.at>=300){
@@ -110,10 +114,10 @@ var CivilLeagues={
   endNotice(d,p,at){if(p.status==='active'&&p.notice&&at>=p.notice.dueAt){p.status='ended';p.endedAt=at;for(const call of p.calls)if(call.status==='pending')call.status='cancelled';this.log(d,at,'alliance',CivilForeign.label(p.pair)+'通知期届满，正常解约；旧援助运单继续履行。');}},
   afterRound(d,r){
     const l=this.data(d);if(!l)return;const f=d.foreign;
-    // One autonomous initiative per round. Actual repeated deliveries establish
-    // mutual interest; no random free allies or all-to-all alliance spam.
-    const candidates=Object.entries(f.pairs).filter(([key,p])=>p.relation>=16&&['calm','truce'].includes(p.phase)&&f.shipments.filter(o=>o.arrivedAt!==null&&!o.returned&&CivilForeign.pair(o.from,o.to)===key).length>=2).sort((a,b)=>b[1].relation-a[1].relation||a[0].localeCompare(b[0]));
-    for(const[key]of candidates){const type=CivilForeign.ids(key).some(id=>CivilForeign.fighting(d,id))?'defense':'commerce';if(!this.offerReason(d,key,type,r.at)){this.offer(d,key,type,r.at,'各方根据往来主动议约');break;}}
+    // One autonomous initiative per round. Repeated deliveries or, after the
+    // multilateral protocol, a common threat establish concrete mutual interests.
+    const candidates=Object.entries(f.pairs).filter(([key,p])=>['calm','truce'].includes(p.phase)&&(p.relation>=16&&f.shipments.filter(o=>o.arrivedAt!==null&&!o.returned&&CivilForeign.pair(o.from,o.to)===key).length>=2||f.congress&&p.relation>=-10&&CivilCongress.threat(d,...CivilForeign.ids(key)))).sort((a,b)=>b[1].relation-a[1].relation||a[0].localeCompare(b[0]));
+    for(const[key]of candidates){const type=(CivilForeign.ids(key).some(id=>CivilForeign.fighting(d,id))||f.congress&&CivilCongress.threat(d,...CivilForeign.ids(key)))?'defense':'commerce';if(!this.offerReason(d,key,type,r.at)){this.offer(d,key,type,r.at,'各方根据往来主动议约');break;}}
   },
   route(d,from,to){
     if(!this.data(d))return {fare:{food:8,parts:1},duration:300};
@@ -153,7 +157,7 @@ var CivilLeagues={
         for(const o of d.foreign.shipments.filter(o=>CivilForeign.pair(o.from,o.to)===key).slice(-4))text.push('第'+o.id+'批 '+CivilHistory.costText(o.cargo)+' · '+(o.route?CivilLeagueContent.routes[o.route].name:'旧直达约定')+' · '+(o.returned?'已退运':o.arrivedAt!==null?'已交付':o.heldAt!==undefined?'冲突滞留':'在途')+' · 账额'+o.value);
       }else{
         if(!p){for(const[type,cfg]of Object.entries(CivilLeagueContent.pacts)){text.push(cfg.name+'每方每300秒维护：'+CivilHistory.costText(cfg.upkeep)+'；当前判断'+this.acceptance(d,key,type)+'/50。');action(type,'提议'+cfg.name,'offer',{pair:key,type});}text.push('通商盟约降低旅费、增加40授信；互助防卫在第三方战争时须实际派粮24/药4/工具4，另付护航费，最多600秒响应。两类均减缓压力；不能无限签约。');}
-        else{ text.push(CivilLeagueContent.pacts[p.type].name+'已付'+p.paidCycles+'轮；每方每300秒维护'+CivilHistory.costText(CivilLeagueContent.pacts[p.type].upkeep)+'。连续两轮缺款或拒绝战时援助算背约。');for(const actor of CivilForeign.ids(key)){action('notice_'+actor,CivilForeign.name(actor)+'通知退出','notice',{pair:key,actor});action('break_'+actor,CivilForeign.name(actor)+'立即毁约','breach',{pair:key,actor});}text.push('正常退出600秒内仍履约；立即毁约失信+20、第三方关系下降6、原双边关系下降25。信用额度随之减少，旧债不免除。');}
+        else{if(d.foreign.congress&&p.type==='commerce')action('upgrade','提议升级互助防卫','upgrade',{pair:key});if(p.upgradedAt!==undefined)text.push('由原通商盟约共同升级，原维护历史和货物保留；不叠加第二份盟约。');text.push(CivilLeagueContent.pacts[p.type].name+'已付'+p.paidCycles+'轮；每方每300秒维护'+CivilHistory.costText(CivilLeagueContent.pacts[p.type].upkeep)+'。连续两轮缺款或拒绝战时援助算背约。');for(const actor of CivilForeign.ids(key)){action('notice_'+actor,CivilForeign.name(actor)+'通知退出','notice',{pair:key,actor});action('break_'+actor,CivilForeign.name(actor)+'立即毁约','breach',{pair:key,actor});}text.push('正常退出600秒内仍履约；立即毁约失信+20、第三方关系下降6、原双边关系下降25。信用额度随之减少，旧债不免除。');}
         if(p){if(p.notice)text.push('退出通知期尚余'+Math.max(0,p.notice.dueAt-s.civilization.elapsed)+'秒，届满后在联席轮次结算。');for(const[actor,missed]of Object.entries(p.missed))if(missed)text.push(CivilForeign.name(actor)+'连续欠维护'+missed+'轮。');for(const call of p.calls.slice(-2))text.push(CivilForeign.name(call.target)+'的战时求援：'+({pending:'等待盟友发运',sent:'已发护航援助',refused:'未履约',cancelled:'交火结束或盟约退出，求援取消'}[call.status])+'。');}
         else{const ended=l.pacts.findLast(p=>p.pair===key);if(ended)text.push('上一份盟约：'+(ended.status==='ended'?'正常解约':ended.cause)+'；责任与欠款保留。');}
         const last=l.offers.filter(o=>o.pair===key).at(-1);if(last)text.push('最近议约：'+(last.resolvedAt===null?'正在审议':last.accepted?'已接受':'已拒绝'));go('route','查看贸易线路','leagueRoute_'+key);

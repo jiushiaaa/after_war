@@ -1,0 +1,638 @@
+{
+  "file": "自然游玩_Mac未统一联盟战争与实付盟援134.json",
+  "bytes": 881181,
+  "sha256": "5b7884cab856c2561f631d1bfdfeba779654dc42d08327528bad4dd78b8e4e93",
+  "branch": "115未统一独立自然分支；131通关主线原样保留",
+  "elapsed": 463466,
+  "year": 772,
+  "generation": 110,
+  "recognition": 43,
+  "nationalLegitimacy": 89.25,
+  "speed": 1,
+  "round": 28,
+  "members": [
+    "north"
+  ],
+  "nodes": {
+    "north": {
+      "population": 25986,
+      "casualties": 14,
+      "infrastructure": 75,
+      "stable": 0,
+      "control": "member",
+      "joinedAt": 453588
+    },
+    "west": {
+      "population": 30976,
+      "casualties": 24,
+      "infrastructure": 50,
+      "stable": 0,
+      "control": "independent",
+      "joinedAt": null
+    },
+    "east": {
+      "population": 41990,
+      "casualties": 10,
+      "infrastructure": 75,
+      "stable": 0,
+      "control": "independent",
+      "joinedAt": null
+    }
+  },
+  "congress": {
+    "schema": 1,
+    "at": 457090,
+    "sessions": [
+      {
+        "pair": "north-west",
+        "mediator": "east",
+        "at": 457152,
+        "source": "第三方自主倡议",
+        "resolvedAt": 457452,
+        "accepted": false,
+        "votes": {
+          "north": 57,
+          "west": 46
+        }
+      },
+      {
+        "pair": "north-west",
+        "mediator": "east",
+        "at": 458952,
+        "source": "第三方自主倡议",
+        "resolvedAt": 459252,
+        "accepted": true,
+        "votes": {
+          "north": 68,
+          "west": 54
+        }
+      },
+      {
+        "pair": "north-west",
+        "mediator": "east",
+        "at": 461052,
+        "source": "第三方自主倡议",
+        "resolvedAt": 461352,
+        "accepted": false,
+        "votes": {
+          "north": 61,
+          "west": 45
+        }
+      }
+    ],
+    "interventions": [
+      {
+        "war": "north-west",
+        "since": 461952,
+        "ally": "east",
+        "target": "north",
+        "enemy": "west",
+        "at": 461952,
+        "score": 66,
+        "joined": true,
+        "dependency": false,
+        "conflict": false
+      },
+      {
+        "war": "east-west",
+        "since": 461952,
+        "ally": "north",
+        "target": "east",
+        "enemy": "west",
+        "at": 462252,
+        "score": 54,
+        "joined": false,
+        "dependency": true,
+        "conflict": false
+      }
+    ],
+    "cycles": [],
+    "defenseAt": 459872
+  },
+  "fronts": [
+    {
+      "pair": "north-west",
+      "at": 458652,
+      "status": "ceasefire",
+      "position": 0,
+      "rounds": 2,
+      "raid": false,
+      "history": [
+        {
+          "at": 458652,
+          "position": 0,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 5,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 5,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 458952,
+          "position": 0,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        }
+      ],
+      "endedAt": 459252
+    },
+    {
+      "pair": "north-west",
+      "at": 462252,
+      "status": "active",
+      "position": 20,
+      "rounds": 5,
+      "raid": false,
+      "history": [
+        {
+          "at": 462252,
+          "position": 0,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 5,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 5,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 462552,
+          "position": 0,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 462852,
+          "position": 0,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 463152,
+          "position": 5,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 3,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 463452,
+          "position": 20,
+          "decisions": [
+            {
+              "id": "north",
+              "mode": "hold",
+              "supplied": true,
+              "force": 6,
+              "aid": true
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 3,
+              "aid": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pair": "east-west",
+      "at": 462252,
+      "status": "active",
+      "position": 25,
+      "rounds": 5,
+      "raid": false,
+      "history": [
+        {
+          "at": 462252,
+          "position": 5,
+          "decisions": [
+            {
+              "id": "east",
+              "mode": "hold",
+              "supplied": true,
+              "force": 5,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 462552,
+          "position": 5,
+          "decisions": [
+            {
+              "id": "east",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 462852,
+          "position": 15,
+          "decisions": [
+            {
+              "id": "east",
+              "mode": "hold",
+              "supplied": true,
+              "force": 6,
+              "aid": true
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 463152,
+          "position": 20,
+          "decisions": [
+            {
+              "id": "east",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 3,
+              "aid": false
+            }
+          ]
+        },
+        {
+          "at": 463452,
+          "position": 25,
+          "decisions": [
+            {
+              "id": "east",
+              "mode": "hold",
+              "supplied": true,
+              "force": 4,
+              "aid": false
+            },
+            {
+              "id": "west",
+              "mode": "hold",
+              "supplied": true,
+              "force": 3,
+              "aid": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pacts": [
+    {
+      "id": 1,
+      "pair": "east-north",
+      "type": "defense",
+      "status": "broken",
+      "at": 457152,
+      "paidCycles": 22,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 9
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 10
+        },
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "sent",
+          "epoch": 1,
+          "shipment": 11
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "refused",
+          "epoch": 1
+        }
+      ],
+      "notice": null,
+      "endedAt": 463452,
+      "originalType": "commerce",
+      "upgradedAt": 460452,
+      "cause": "未在600秒内履行战时援助",
+      "blame": [
+        "east"
+      ]
+    }
+  ],
+  "aid": [
+    {
+      "id": 9,
+      "from": "north",
+      "to": "east",
+      "departedAt": 462252,
+      "dueAt": 462852,
+      "arrivedAt": 462852,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    },
+    {
+      "id": 10,
+      "from": "east",
+      "to": "north",
+      "departedAt": 462852,
+      "dueAt": 463452,
+      "arrivedAt": 463452,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    },
+    {
+      "id": 11,
+      "from": "north",
+      "to": "east",
+      "departedAt": 463452,
+      "dueAt": 464052,
+      "arrivedAt": null,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    }
+  ],
+  "support": [
+    {
+      "shipment": 9,
+      "pair": "east-west",
+      "at": 462852
+    },
+    {
+      "shipment": 10,
+      "pair": "north-west",
+      "at": 463452
+    }
+  ],
+  "accounts": {
+    "north": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "冲突或占领中，地方工坊停产"
+    },
+    "west": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "冲突或占领中，地方工坊停产；缺钢材，等待出口回款或双方可接受的互换"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "冲突或占领中，地方工坊停产"
+    }
+  },
+  "shipments": {
+    "total": 11,
+    "arrived": 10,
+    "inFlight": 1
+  },
+  "newActions": [
+    {
+      "kind": "mission",
+      "at": 454571,
+      "mission": 4
+    },
+    {
+      "kind": "foreign",
+      "action": "open",
+      "at": 455052,
+      "cost": {
+        "knowledge": 180,
+        "electronics": 20
+      }
+    },
+    {
+      "kind": "mission",
+      "at": 455494,
+      "mission": 5
+    },
+    {
+      "kind": "league",
+      "action": "open",
+      "at": 456755,
+      "cost": {
+        "knowledge": 200,
+        "electronics": 20
+      }
+    },
+    {
+      "kind": "network",
+      "action": "open",
+      "at": 456885,
+      "cost": {
+        "knowledge": 240,
+        "electronics": 24
+      }
+    },
+    {
+      "kind": "market",
+      "action": "open",
+      "at": 457034,
+      "cost": {
+        "knowledge": 260,
+        "electronics": 24
+      }
+    },
+    {
+      "kind": "congress",
+      "action": "open",
+      "at": 457090,
+      "cost": {
+        "knowledge": 300,
+        "electronics": 30
+      }
+    },
+    {
+      "kind": "congress",
+      "action": "defense",
+      "at": 459872,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "league",
+      "action": "upgrade",
+      "pair": "east-north",
+      "at": 459930,
+      "cost": {
+        "knowledge": 80
+      }
+    }
+  ],
+  "strictRoundtrip": true,
+  "oldHistoryPreserved": true,
+  "naturalWar": true,
+  "naturalMultilateralClearing": false
+}

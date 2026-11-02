@@ -1,0 +1,1109 @@
+{
+  "scope": "独立宏观预算压力，固定正常行政、平等资格与地方自治；非自然进度，不代表全城180000秒游玩",
+  "baseline": {
+    "enabled": false,
+    "simulatedSeconds": 180000,
+    "tradeRounds": 600,
+    "newShipments": 1547,
+    "cycles": 0,
+    "stats": {
+      "north": {
+        "rounds": 600,
+        "stopped": 425,
+        "longestStop": 187,
+        "consecutive": 187,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "east": {
+        "rounds": 600,
+        "stopped": 0,
+        "longestStop": 0,
+        "consecutive": 0,
+        "maxDebt": 15,
+        "overdueRounds": 0
+      },
+      "west": {
+        "rounds": 600,
+        "stopped": 571,
+        "longestStop": 571,
+        "consecutive": 571,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "rainforest": {
+        "rounds": 600,
+        "stopped": 403,
+        "longestStop": 9,
+        "consecutive": 0,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "desert": {
+        "rounds": 600,
+        "stopped": 0,
+        "longestStop": 0,
+        "consecutive": 0,
+        "maxDebt": 96,
+        "overdueRounds": 0
+      },
+      "plateau": {
+        "rounds": 600,
+        "stopped": 523,
+        "longestStop": 116,
+        "consecutive": 26,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "islands": {
+        "rounds": 600,
+        "stopped": 305,
+        "longestStop": 9,
+        "consecutive": 0,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "polar": {
+        "rounds": 600,
+        "stopped": 432,
+        "longestStop": 19,
+        "consecutive": 3,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      }
+    },
+    "checkpoints": [
+      {
+        "seconds": 30000,
+        "round": 168,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 100,
+            "stopped": 71,
+            "longestStop": 71,
+            "consecutive": 71,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 100,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 8,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 100,
+            "stopped": 71,
+            "longestStop": 71,
+            "consecutive": 71,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 100,
+            "stopped": 67,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 100,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 68,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 100,
+            "stopped": 50,
+            "longestStop": 48,
+            "consecutive": 48,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 100,
+            "stopped": 25,
+            "longestStop": 4,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 100,
+            "stopped": 39,
+            "longestStop": 19,
+            "consecutive": 4,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 60000,
+        "round": 268,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 200,
+            "stopped": 160,
+            "longestStop": 152,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 200,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 8,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 200,
+            "stopped": 171,
+            "longestStop": 171,
+            "consecutive": 171,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 200,
+            "stopped": 157,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 200,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 200,
+            "stopped": 142,
+            "longestStop": 83,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 200,
+            "stopped": 73,
+            "longestStop": 9,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 200,
+            "stopped": 115,
+            "longestStop": 19,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 90000,
+        "round": 368,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 300,
+            "stopped": 205,
+            "longestStop": 152,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 300,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 8,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 300,
+            "stopped": 271,
+            "longestStop": 271,
+            "consecutive": 271,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 300,
+            "stopped": 247,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 300,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 300,
+            "stopped": 238,
+            "longestStop": 83,
+            "consecutive": 36,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 300,
+            "stopped": 122,
+            "longestStop": 9,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 300,
+            "stopped": 185,
+            "longestStop": 19,
+            "consecutive": 4,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 120000,
+        "round": 468,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 400,
+            "stopped": 237,
+            "longestStop": 152,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 400,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 15,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 400,
+            "stopped": 371,
+            "longestStop": 371,
+            "consecutive": 371,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 400,
+            "stopped": 309,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 400,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 400,
+            "stopped": 335,
+            "longestStop": 83,
+            "consecutive": 73,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 400,
+            "stopped": 179,
+            "longestStop": 9,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 400,
+            "stopped": 264,
+            "longestStop": 19,
+            "consecutive": 6,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 150000,
+        "round": 568,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 500,
+            "stopped": 325,
+            "longestStop": 152,
+            "consecutive": 87,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 500,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 15,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 500,
+            "stopped": 471,
+            "longestStop": 471,
+            "consecutive": 471,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 500,
+            "stopped": 357,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 500,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 500,
+            "stopped": 431,
+            "longestStop": 116,
+            "consecutive": 53,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 500,
+            "stopped": 243,
+            "longestStop": 9,
+            "consecutive": 5,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 500,
+            "stopped": 349,
+            "longestStop": 19,
+            "consecutive": 6,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 180000,
+        "round": 668,
+        "cycles": 0,
+        "stats": {
+          "north": {
+            "rounds": 600,
+            "stopped": 425,
+            "longestStop": 187,
+            "consecutive": 187,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 600,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 15,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 600,
+            "stopped": 571,
+            "longestStop": 571,
+            "consecutive": 571,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 600,
+            "stopped": 403,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 600,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 600,
+            "stopped": 523,
+            "longestStop": 116,
+            "consecutive": 26,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 600,
+            "stopped": 305,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 600,
+            "stopped": 432,
+            "longestStop": 19,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      }
+    ],
+    "strictWorldReplay": true,
+    "accounts": {
+      "desert": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "优先出口偿债68，没有新增赊购"
+      },
+      "east": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20；缺药品，等待出口回款或双方可接受的互换"
+      },
+      "islands": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "按需进口工具 1，用实际出口对付"
+      },
+      "north": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少煤，公共工坊停产"
+      },
+      "plateau": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少电子元件，公共工坊停产；缺电子元件，等待出口回款或双方可接受的互换"
+      },
+      "polar": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少机械零件，公共工坊停产；缺机械零件，等待出口回款或双方可接受的互换"
+      },
+      "rainforest": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、工具 6，产出药品 16；缺工具，等待出口回款或双方可接受的互换"
+      },
+      "west": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少钢材，公共工坊停产；缺钢材，等待出口回款或双方可接受的互换"
+      }
+    },
+    "allFinite": true
+  },
+  "multilateral": {
+    "enabled": true,
+    "simulatedSeconds": 180000,
+    "tradeRounds": 600,
+    "newShipments": 2159,
+    "cycles": 200,
+    "stats": {
+      "north": {
+        "rounds": 600,
+        "stopped": 162,
+        "longestStop": 11,
+        "consecutive": 2,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "east": {
+        "rounds": 600,
+        "stopped": 0,
+        "longestStop": 0,
+        "consecutive": 0,
+        "maxDebt": 16,
+        "overdueRounds": 0
+      },
+      "west": {
+        "rounds": 600,
+        "stopped": 320,
+        "longestStop": 10,
+        "consecutive": 3,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "rainforest": {
+        "rounds": 600,
+        "stopped": 401,
+        "longestStop": 9,
+        "consecutive": 0,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "desert": {
+        "rounds": 600,
+        "stopped": 0,
+        "longestStop": 0,
+        "consecutive": 0,
+        "maxDebt": 120,
+        "overdueRounds": 0
+      },
+      "plateau": {
+        "rounds": 600,
+        "stopped": 354,
+        "longestStop": 7,
+        "consecutive": 3,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "islands": {
+        "rounds": 600,
+        "stopped": 312,
+        "longestStop": 9,
+        "consecutive": 4,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      },
+      "polar": {
+        "rounds": 600,
+        "stopped": 337,
+        "longestStop": 7,
+        "consecutive": 3,
+        "maxDebt": 0,
+        "overdueRounds": 0
+      }
+    },
+    "checkpoints": [
+      {
+        "seconds": 30000,
+        "round": 168,
+        "cycles": 31,
+        "stats": {
+          "north": {
+            "rounds": 100,
+            "stopped": 18,
+            "longestStop": 10,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 100,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 8,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 100,
+            "stopped": 40,
+            "longestStop": 10,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 100,
+            "stopped": 67,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 100,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 68,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 100,
+            "stopped": 37,
+            "longestStop": 6,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 100,
+            "stopped": 26,
+            "longestStop": 4,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 100,
+            "stopped": 31,
+            "longestStop": 6,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 60000,
+        "round": 268,
+        "cycles": 56,
+        "stats": {
+          "north": {
+            "rounds": 200,
+            "stopped": 36,
+            "longestStop": 10,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 200,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 16,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 200,
+            "stopped": 109,
+            "longestStop": 10,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 200,
+            "stopped": 157,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 200,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 200,
+            "stopped": 111,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 200,
+            "stopped": 87,
+            "longestStop": 8,
+            "consecutive": 4,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 200,
+            "stopped": 98,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 90000,
+        "round": 368,
+        "cycles": 86,
+        "stats": {
+          "north": {
+            "rounds": 300,
+            "stopped": 65,
+            "longestStop": 10,
+            "consecutive": 1,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 300,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 16,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 300,
+            "stopped": 173,
+            "longestStop": 10,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 300,
+            "stopped": 247,
+            "longestStop": 9,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 300,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 96,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 300,
+            "stopped": 181,
+            "longestStop": 7,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 300,
+            "stopped": 164,
+            "longestStop": 9,
+            "consecutive": 7,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 300,
+            "stopped": 168,
+            "longestStop": 7,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 120000,
+        "round": 468,
+        "cycles": 122,
+        "stats": {
+          "north": {
+            "rounds": 400,
+            "stopped": 109,
+            "longestStop": 11,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 400,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 16,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 400,
+            "stopped": 223,
+            "longestStop": 10,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 400,
+            "stopped": 308,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 400,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 120,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 400,
+            "stopped": 240,
+            "longestStop": 7,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 400,
+            "stopped": 219,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 400,
+            "stopped": 229,
+            "longestStop": 7,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 150000,
+        "round": 568,
+        "cycles": 170,
+        "stats": {
+          "north": {
+            "rounds": 500,
+            "stopped": 121,
+            "longestStop": 11,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 500,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 16,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 500,
+            "stopped": 261,
+            "longestStop": 10,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 500,
+            "stopped": 354,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 500,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 120,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 500,
+            "stopped": 288,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 500,
+            "stopped": 267,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 500,
+            "stopped": 280,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      },
+      {
+        "seconds": 180000,
+        "round": 668,
+        "cycles": 200,
+        "stats": {
+          "north": {
+            "rounds": 600,
+            "stopped": 162,
+            "longestStop": 11,
+            "consecutive": 2,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "east": {
+            "rounds": 600,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 16,
+            "overdueRounds": 0
+          },
+          "west": {
+            "rounds": 600,
+            "stopped": 320,
+            "longestStop": 10,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "rainforest": {
+            "rounds": 600,
+            "stopped": 401,
+            "longestStop": 9,
+            "consecutive": 0,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "desert": {
+            "rounds": 600,
+            "stopped": 0,
+            "longestStop": 0,
+            "consecutive": 0,
+            "maxDebt": 120,
+            "overdueRounds": 0
+          },
+          "plateau": {
+            "rounds": 600,
+            "stopped": 354,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "islands": {
+            "rounds": 600,
+            "stopped": 312,
+            "longestStop": 9,
+            "consecutive": 4,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          },
+          "polar": {
+            "rounds": 600,
+            "stopped": 337,
+            "longestStop": 7,
+            "consecutive": 3,
+            "maxDebt": 0,
+            "overdueRounds": 0
+          }
+        }
+      }
+    ],
+    "strictWorldReplay": true,
+    "accounts": {
+      "desert": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "优先出口偿债96，没有新增赊购"
+      },
+      "east": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20；缺药品，等待出口回款或双方可接受的互换"
+      },
+      "islands": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少工具，公共工坊停产"
+      },
+      "north": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少煤，公共工坊停产"
+      },
+      "plateau": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少电子元件，公共工坊停产"
+      },
+      "polar": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少机械零件，公共工坊停产"
+      },
+      "rainforest": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、工具 6，产出药品 16；缺工具，等待出口回款或双方可接受的互换"
+      },
+      "west": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少钢材，公共工坊停产"
+      }
+    },
+    "allFinite": true
+  }
+}
