@@ -17,7 +17,8 @@ var CivilSpace={
     if(CivilServices.labor(s,'home','missionworker')<4)return '在炉火城页安排四名实际测控人员';
     if(!CivilWorld.political(s))return '先恢复国家公共行政';
     if(kind!=='habitat'&&!this.complete(s,'habitat'))return '先完成闭环生命保障试验';
-    if(kind==='departure'&&(!this.complete(s,'orbital')||!this.data(s)?.unification))return '先完成无人轨道验证与地球共同法';
+    if(kind==='departure'&&!this.complete(s,'orbital'))return '先完成无人轨道验证';
+    if(kind==='departure'&&!this.data(s)?.unification)return '先接纳八区并登记地球共同法';
     if(kind==='departure'&&this.unityReason(s))return this.unityReason(s);
     if(!CivilFinance.reserveCheck(s,'home',CivilSpaceContent.phases[kind].cost))return '备足实际航天与生命保障组件，并保留城市供养';return null;
   },
@@ -39,6 +40,14 @@ var CivilSpace={
   demandCapacity(s){return this.asset(s)?CivilSpaceContent.power:0;},
   event(id,done){
     if(id!=='spaceCouncil')return null;const s=State,d=this.data(s),m=this.active(s),text=[],buttons={};
+    if(this.complete(s,'departure'))return {
+      title:'地球篇 · 向星空出发',
+      text:['八区共同法已经建立。无人先遣船越过大气层，向星空发出第一封新的问候。',
+        '从最初的一把柴火，到城市、国家与重新联结的地球，你延续的不是一个人的寿命，而是一代代接过职责的共同体。',
+        '闭环生命保障、无人轨道验证与先遣发射均已完成。此处是地球篇的终点；载人远征与星际旅途留待后续。',
+        '仍可留在地球继续建设。发展史保留统一议约、各项试验和首航记录，地方居民与公共财政继续运作。'],
+      buttons:{close:{text:'继续建设地球',nextScene:'end',onChoose:done('先遣船已经出发。地球上的生活与建设仍在继续。')}}
+    };
     text.push('地球与星空：'+CivilWorld.members(s).length+' / 8区接纳。'+(d?.unification?'地球共同法已登记；发射仍须当期履约。':this.unityReason(s)||'八区具备登记地球共同法的条件。'));
     if(!d?.unification){text.push('地球共同法议约：'+CivilHistory.costText(CivilSpaceContent.charterCost));buttons.charter={text:'登记地球共同法',available:()=>!this.unityReason(s)&&CivilFinance.reserveCheck(s,'home',CivilSpaceContent.charterCost),nextScene:'end',onChoose:doneAction(()=>this.ratify(s),'八区共同法生效。统一是持续履约的共同事业，地方名册与财政继续保留。')};}
     text.push('科技 → 航天制造 / 闭环生命保障；街区 → 加工建设车间与测控场；炉火城页安排装配工、技师与四名测控人员。组件来自实际生产。试验另需12电，必要时暂停机器人或装配岗位让出电力。');
@@ -49,11 +58,24 @@ var CivilSpace={
       text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；每10秒另耗'+CivilHistory.costText(cfg.upkeep)+'，12电。'+(this.reason(s,kind)||'可开始'));
       buttons[kind]={text:cfg.name,available:()=>!this.reason(s,kind),nextScene:'end',onChoose:doneAction(()=>this.start(s,kind),'组件实付，测控团队开始工作。')};
     }
-    if(this.complete(s,'departure'))text.push('地球篇 · 向星空出发。你不是活了数百年的一个人，而是一代代接过职责的共同体。先遣船为无人飞行，生命保障已在地面闭环与无人轨道任务验证；载人远征、星际旅行与星际战争留待后续版本。仍可留在地球继续经营，发展史保留议约、重建和发射记录。');
     buttons.close={text:'合上航天记录',nextScene:'end',onChoose:done('航天记录已保存。')};return {title:this.complete(s,'departure')?'地球篇 · 向星空出发':'地球共同法与航天',text,buttons};
     function doneAction(action,msg){return ()=>done(action()?msg:'条件已经变化，本次未执行。')();}
   },
-  refresh(){if(typeof $==='undefined'||!$('#councilPanel').length)return;if(!this.available(State)){$('#spaceButton').hide();return;}Civilization.button('spaceButton','地球共同法与航天','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='spaceCouncil';Civilization.showPending();}).show();},
+  summary(s){
+    const m=this.active(s);
+    if(m){const last=m.receipts.at(-1),reason=last&&!last.paid?(!last.ready?'国家行政或八区履约未满足':last.crew<4?'测控人员不足4人':'检查剩余12电与维护材料'):null;return CivilSpaceContent.phases[m.kind].name+' · 连续 '+m.progress+'/'+CivilSpaceContent.phases[m.kind].duration+'秒'+(reason?' · 暂停：'+reason:'');}
+    if(this.complete(s,'departure'))return '地球篇完成 · 无人先遣船已出发，可打开航天记录回看结局';
+    if(!s.civilization.tech.closed_ecology)return '下一步：科技研究航天制造与闭环生命保障';
+    if(!this.asset(s))return '下一步：街区 → 加工，建航天/生命保障车间与测控场';
+    const kind=!this.complete(s,'habitat')?'habitat':!this.complete(s,'orbital')?'orbital':'departure',cfg=CivilSpaceContent.phases[kind];
+    return '下一步：'+cfg.name+' · 航天组件 '+Math.floor(s.stores.spaceparts||0)+'/'+cfg.cost.spaceparts+'，生命保障组件 '+Math.floor(s.stores.lifesupport||0)+'/'+cfg.cost.lifesupport+' · '+(this.reason(s,kind)||'条件齐备，可开始');
+  },
+  refresh(){
+    if(typeof $==='undefined'||!$('#councilPanel').length)return;
+    if(!this.available(State)){$('#spaceButton,#spaceSummary').hide();return;}
+    Civilization.button('spaceButton','地球共同法与航天','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='spaceCouncil';Civilization.showPending();}).show();
+    let line=$('#spaceSummary');if(!line.length)line=$('<div>').attr('id','spaceSummary').css({lineHeight:'1.8',maxWidth:'420px',marginTop:'12px'}).insertAfter('#spaceButton');line.show().text(this.summary(State));
+  },
   validate(s){
     const d=this.data(s),at=s.civilization.elapsed,fail=()=>{throw Error('地球共同法或航天验证记录无效');},obj=x=>!!x&&typeof x==='object'&&!Array.isArray(x),time=x=>Number.isSafeInteger(x)&&x>=0&&x<=at,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
     if(d===undefined){if(s.civilization.pending==='spaceCouncil'&&!this.available(s))fail();return;}

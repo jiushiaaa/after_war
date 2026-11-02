@@ -1,0 +1,985 @@
+{
+  "kind": "normal browser UI play from original checkpoint 118; no injected state or time",
+  "date": "2026-11-02",
+  "checkpoints": [
+    {
+      "file": "自然游玩_Mac远洋研究与船队施工119.json",
+      "bytes": 990429,
+      "sha256": "8bd9391ce67903244fccc0068caf500830c8c87a6faa67df8b8e44098a49a611",
+      "elapsed": 488414,
+      "year": 814,
+      "generation": 115,
+      "speed": 32,
+      "maxSpeed": 32,
+      "legitimacy": 100,
+      "tech": 34,
+      "members": [
+        "north",
+        "east",
+        "west"
+      ],
+      "regionalPopulation": 99000,
+      "stable": {
+        "north": 600,
+        "east": 600,
+        "west": 600
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        }
+      ],
+      "components": {},
+      "validated": true,
+      "baselineHistoryPreserved": true
+    },
+    {
+      "file": "自然游玩_Mac航天产业与雨带援助120.json",
+      "bytes": 1022461,
+      "sha256": "a165edb43915295741aeefd587da9f7b6896001b6d069c7c392020ee848928ad",
+      "elapsed": 495784,
+      "year": 826,
+      "generation": 117,
+      "speed": 32,
+      "maxSpeed": 32,
+      "legitimacy": 43.5,
+      "tech": 37,
+      "members": [
+        "north",
+        "east",
+        "west"
+      ],
+      "regionalPopulation": 99000,
+      "stable": {
+        "north": 140,
+        "east": 140,
+        "west": 140,
+        "rainforest": 140
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        },
+        {
+          "id": 9,
+          "region": "rainforest",
+          "kind": "contact",
+          "departedAt": 489341,
+          "returnedAt": 490229
+        },
+        {
+          "id": 10,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 491046,
+          "returnedAt": 491994
+        },
+        {
+          "id": 11,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 492206,
+          "returnedAt": 493154
+        }
+      ],
+      "components": {
+        "spaceparts": 33.439999999999934
+      },
+      "validated": true,
+      "baselineHistoryPreserved": true
+    },
+    {
+      "file": "自然游玩_Mac雨带接纳与无人轨道试验121.json",
+      "bytes": 1048745,
+      "sha256": "af85b9755689fa3602b5ac73d6d693bf24b086e7f24875c26f7805ea14569f94",
+      "elapsed": 499819,
+      "year": 833,
+      "generation": 118,
+      "speed": 32,
+      "maxSpeed": 32,
+      "legitimacy": 100,
+      "tech": 37,
+      "members": [
+        "north",
+        "east",
+        "west",
+        "rainforest"
+      ],
+      "regionalPopulation": 157000,
+      "stable": {
+        "north": 600,
+        "east": 600,
+        "west": 600,
+        "rainforest": 600,
+        "desert": 600
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        },
+        {
+          "id": 9,
+          "region": "rainforest",
+          "kind": "contact",
+          "departedAt": 489341,
+          "returnedAt": 490229
+        },
+        {
+          "id": 10,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 491046,
+          "returnedAt": 491994
+        },
+        {
+          "id": 11,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 492206,
+          "returnedAt": 493154
+        },
+        {
+          "id": 12,
+          "region": "desert",
+          "kind": "contact",
+          "departedAt": 496720,
+          "returnedAt": 497704
+        },
+        {
+          "id": 13,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 498100,
+          "returnedAt": 499144
+        },
+        {
+          "id": 14,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 499515,
+          "returnedAt": null
+        }
+      ],
+      "unification": null,
+      "space": [
+        {
+          "kind": "habitat",
+          "startedAt": 497929,
+          "completedAt": 498232,
+          "progress": 300,
+          "receipts": 30,
+          "paid": 30
+        },
+        {
+          "kind": "orbital",
+          "startedAt": 499312,
+          "completedAt": null,
+          "progress": 500,
+          "receipts": 50,
+          "paid": 50
+        }
+      ],
+      "components": {
+        "spaceparts": 56.64799999999968,
+        "lifesupport": 22.20799999999995
+      },
+      "validated": true,
+      "baselineHistoryPreserved": true
+    },
+    {
+      "file": "自然游玩_Mac七区接纳与极地联络122.json",
+      "bytes": 1097761,
+      "sha256": "eb7ef98f3fa1fc06c1d20f0c0c7f63a0d28a6409feae111205ad047f3139d006",
+      "elapsed": 510810,
+      "year": 851,
+      "generation": 121,
+      "speed": 32,
+      "maxSpeed": 32,
+      "legitimacy": 100,
+      "tech": 37,
+      "members": [
+        "north",
+        "east",
+        "west",
+        "rainforest",
+        "desert",
+        "plateau",
+        "islands"
+      ],
+      "regionalPopulation": 271000,
+      "stable": {
+        "north": 600,
+        "east": 600,
+        "west": 600,
+        "rainforest": 600,
+        "desert": 600,
+        "plateau": 600,
+        "islands": 600
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        },
+        {
+          "id": 9,
+          "region": "rainforest",
+          "kind": "contact",
+          "departedAt": 489341,
+          "returnedAt": 490229
+        },
+        {
+          "id": 10,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 491046,
+          "returnedAt": 491994
+        },
+        {
+          "id": 11,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 492206,
+          "returnedAt": 493154
+        },
+        {
+          "id": 12,
+          "region": "desert",
+          "kind": "contact",
+          "departedAt": 496720,
+          "returnedAt": 497704
+        },
+        {
+          "id": 13,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 498100,
+          "returnedAt": 499144
+        },
+        {
+          "id": 14,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 499515,
+          "returnedAt": 500559
+        },
+        {
+          "id": 15,
+          "region": "plateau",
+          "kind": "contact",
+          "departedAt": 501435,
+          "returnedAt": 502419
+        },
+        {
+          "id": 16,
+          "region": "plateau",
+          "kind": "negotiate",
+          "departedAt": 502812,
+          "returnedAt": 503856
+        },
+        {
+          "id": 17,
+          "region": "islands",
+          "kind": "contact",
+          "departedAt": 504405,
+          "returnedAt": 505581
+        },
+        {
+          "id": 18,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 507453,
+          "returnedAt": 508689
+        },
+        {
+          "id": 19,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 508862,
+          "returnedAt": 510098
+        },
+        {
+          "id": 20,
+          "region": "polar",
+          "kind": "contact",
+          "departedAt": 510586,
+          "returnedAt": null
+        }
+      ],
+      "unification": null,
+      "space": [
+        {
+          "kind": "habitat",
+          "startedAt": 497929,
+          "completedAt": 498232,
+          "progress": 300,
+          "receipts": 30,
+          "paid": 30
+        },
+        {
+          "kind": "orbital",
+          "startedAt": 499312,
+          "completedAt": 499912,
+          "progress": 600,
+          "receipts": 60,
+          "paid": 60
+        }
+      ],
+      "components": {
+        "spaceparts": 56.64799999999968,
+        "lifesupport": 22.20799999999995
+      },
+      "validated": true,
+      "baselineHistoryPreserved": true
+    },
+    {
+      "file": "自然游玩_Mac八区统一地球共同法123.json",
+      "bytes": 1108117,
+      "sha256": "dd14a31980489dcac4fc3592956a89b0fa9787d342f498581e8880ee09919559",
+      "elapsed": 513972,
+      "year": 856,
+      "generation": 122,
+      "speed": 32,
+      "maxSpeed": 64,
+      "legitimacy": 100,
+      "tech": 37,
+      "members": [
+        "north",
+        "east",
+        "west",
+        "rainforest",
+        "desert",
+        "plateau",
+        "islands",
+        "polar"
+      ],
+      "regionalPopulation": 283000,
+      "stable": {
+        "north": 600,
+        "east": 600,
+        "west": 600,
+        "rainforest": 600,
+        "desert": 600,
+        "plateau": 600,
+        "islands": 600,
+        "polar": 600
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        },
+        {
+          "id": 9,
+          "region": "rainforest",
+          "kind": "contact",
+          "departedAt": 489341,
+          "returnedAt": 490229
+        },
+        {
+          "id": 10,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 491046,
+          "returnedAt": 491994
+        },
+        {
+          "id": 11,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 492206,
+          "returnedAt": 493154
+        },
+        {
+          "id": 12,
+          "region": "desert",
+          "kind": "contact",
+          "departedAt": 496720,
+          "returnedAt": 497704
+        },
+        {
+          "id": 13,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 498100,
+          "returnedAt": 499144
+        },
+        {
+          "id": 14,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 499515,
+          "returnedAt": 500559
+        },
+        {
+          "id": 15,
+          "region": "plateau",
+          "kind": "contact",
+          "departedAt": 501435,
+          "returnedAt": 502419
+        },
+        {
+          "id": 16,
+          "region": "plateau",
+          "kind": "negotiate",
+          "departedAt": 502812,
+          "returnedAt": 503856
+        },
+        {
+          "id": 17,
+          "region": "islands",
+          "kind": "contact",
+          "departedAt": 504405,
+          "returnedAt": 505581
+        },
+        {
+          "id": 18,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 507453,
+          "returnedAt": 508689
+        },
+        {
+          "id": 19,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 508862,
+          "returnedAt": 510098
+        },
+        {
+          "id": 20,
+          "region": "polar",
+          "kind": "contact",
+          "departedAt": 510586,
+          "returnedAt": 511858
+        },
+        {
+          "id": 21,
+          "region": "polar",
+          "kind": "negotiate",
+          "departedAt": 512047,
+          "returnedAt": 513379
+        }
+      ],
+      "unification": {
+        "at": 513620,
+        "worldLedgerLength": 6456,
+        "paid": {
+          "knowledge": 1000,
+          "electronics": 40,
+          "tools": 40
+        }
+      },
+      "space": [
+        {
+          "kind": "habitat",
+          "startedAt": 497929,
+          "completedAt": 498232,
+          "progress": 300,
+          "receipts": 30,
+          "paid": 30
+        },
+        {
+          "kind": "orbital",
+          "startedAt": 499312,
+          "completedAt": 499912,
+          "progress": 600,
+          "receipts": 60,
+          "paid": 60
+        }
+      ],
+      "components": {
+        "spaceparts": 56.64799999999968,
+        "lifesupport": 22.20799999999995
+      },
+      "validated": true,
+      "baselineHistoryPreserved": true
+    },
+    {
+      "file": "自然游玩_Mac八区统一与无人首航通关124.json",
+      "bytes": 1120401,
+      "sha256": "1be40a8b8840694022eb61eb8998255162e0940ffda7184c296fde15ed56fb13",
+      "elapsed": 516355,
+      "year": 860,
+      "generation": 123,
+      "speed": 1,
+      "maxSpeed": 64,
+      "legitimacy": 100,
+      "tech": 37,
+      "members": [
+        "north",
+        "east",
+        "west",
+        "rainforest",
+        "desert",
+        "plateau",
+        "islands",
+        "polar"
+      ],
+      "regionalPopulation": 283000,
+      "stable": {
+        "north": 600,
+        "east": 600,
+        "west": 600,
+        "rainforest": 600,
+        "desert": 600,
+        "plateau": 600,
+        "islands": 600,
+        "polar": 600
+      },
+      "missions": [
+        {
+          "id": 1,
+          "region": "north",
+          "kind": "contact",
+          "departedAt": 449348,
+          "returnedAt": 450068
+        },
+        {
+          "id": 2,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 450848,
+          "returnedAt": 451628
+        },
+        {
+          "id": 3,
+          "region": "north",
+          "kind": "negotiate",
+          "departedAt": 452118,
+          "returnedAt": 452898
+        },
+        {
+          "id": 4,
+          "region": "east",
+          "kind": "contact",
+          "departedAt": 454324,
+          "returnedAt": 455164
+        },
+        {
+          "id": 5,
+          "region": "east",
+          "kind": "negotiate",
+          "departedAt": 458299,
+          "returnedAt": 459199
+        },
+        {
+          "id": 6,
+          "region": "west",
+          "kind": "contact",
+          "departedAt": 461390,
+          "returnedAt": 462350
+        },
+        {
+          "id": 7,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 464461,
+          "returnedAt": 465481
+        },
+        {
+          "id": 8,
+          "region": "west",
+          "kind": "negotiate",
+          "departedAt": 465755,
+          "returnedAt": 466775
+        },
+        {
+          "id": 9,
+          "region": "rainforest",
+          "kind": "contact",
+          "departedAt": 489341,
+          "returnedAt": 490229
+        },
+        {
+          "id": 10,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 491046,
+          "returnedAt": 491994
+        },
+        {
+          "id": 11,
+          "region": "rainforest",
+          "kind": "negotiate",
+          "departedAt": 492206,
+          "returnedAt": 493154
+        },
+        {
+          "id": 12,
+          "region": "desert",
+          "kind": "contact",
+          "departedAt": 496720,
+          "returnedAt": 497704
+        },
+        {
+          "id": 13,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 498100,
+          "returnedAt": 499144
+        },
+        {
+          "id": 14,
+          "region": "desert",
+          "kind": "negotiate",
+          "departedAt": 499515,
+          "returnedAt": 500559
+        },
+        {
+          "id": 15,
+          "region": "plateau",
+          "kind": "contact",
+          "departedAt": 501435,
+          "returnedAt": 502419
+        },
+        {
+          "id": 16,
+          "region": "plateau",
+          "kind": "negotiate",
+          "departedAt": 502812,
+          "returnedAt": 503856
+        },
+        {
+          "id": 17,
+          "region": "islands",
+          "kind": "contact",
+          "departedAt": 504405,
+          "returnedAt": 505581
+        },
+        {
+          "id": 18,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 507453,
+          "returnedAt": 508689
+        },
+        {
+          "id": 19,
+          "region": "islands",
+          "kind": "negotiate",
+          "departedAt": 508862,
+          "returnedAt": 510098
+        },
+        {
+          "id": 20,
+          "region": "polar",
+          "kind": "contact",
+          "departedAt": 510586,
+          "returnedAt": 511858
+        },
+        {
+          "id": 21,
+          "region": "polar",
+          "kind": "negotiate",
+          "departedAt": 512047,
+          "returnedAt": 513379
+        }
+      ],
+      "unification": {
+        "at": 513620,
+        "worldLedgerLength": 6456,
+        "paid": {
+          "knowledge": 1000,
+          "electronics": 40,
+          "tools": 40
+        }
+      },
+      "space": [
+        {
+          "kind": "habitat",
+          "startedAt": 497929,
+          "completedAt": 498232,
+          "progress": 300,
+          "receipts": 30,
+          "paid": 30
+        },
+        {
+          "kind": "orbital",
+          "startedAt": 499312,
+          "completedAt": 499912,
+          "progress": 600,
+          "receipts": 60,
+          "paid": 60
+        },
+        {
+          "kind": "departure",
+          "startedAt": 514082,
+          "completedAt": 514682,
+          "progress": 600,
+          "receipts": 60,
+          "paid": 60
+        }
+      ],
+      "components": {
+        "spaceparts": 32.64799999999968,
+        "lifesupport": 10.207999999999949
+      },
+      "validated": true,
+      "baselineHistoryPreserved": true
+    }
+  ]
+}

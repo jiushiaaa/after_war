@@ -26,7 +26,7 @@ var Civilization = {
   },
   init() {
     this.resetViewRefresh();
-    CivilClock.rate = State.civilization.speed;
+    CivilClock.rate = this.effectiveSpeed();
     const menu=$('<div>').addClass('menu').appendTo('body');
     $('<span>').addClass('menuBtn').attr({id:'saveMenu',role:'button',tabindex:0}).text('存档').click(()=>CivilPlatform.menu()).appendTo(menu);
     $('<span>').attr('id','speedMenu').appendTo(menu);
@@ -118,6 +118,7 @@ var Civilization = {
     }
     const populationBefore=State.game.population, storesBefore={...State.stores};
     if(typeof CivilSociety!=='undefined')CivilSociety.tick(State);
+    this.syncDecisionSpeed();
     if(typeof CivilIndustry!=='undefined')CivilIndustry.tick(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.tick(State);
     if(typeof CivilDiplomacy!=='undefined')CivilDiplomacy.tick(State);
@@ -222,10 +223,16 @@ var Civilization = {
     }
     return true;
   },
+  effectiveSpeed() { return State.civilization.society?.succession?1:State.civilization.speed; },
+  syncDecisionSpeed() {
+    if(typeof CivilClock==='undefined')return;
+    const rate=this.effectiveSpeed();if(CivilClock.rate===rate)return;
+    CivilClock.rate=rate;this.renderSpeed();
+  },
   setSpeed(rate) {
     const c=State.civilization;
     if(![1,2,4,8,16,32,64].includes(rate)||rate>c.maxSpeed)return false;
-    c.speed=rate;CivilClock.rate=rate;this.renderSpeed();this.updateIncome();Engine.saveGame();return true;
+    c.speed=rate;CivilClock.rate=this.effectiveSpeed();this.renderSpeed();this.updateIncome();Engine.saveGame();return true;
   },
   speedMenu() {
     if(Events.activeEvent()||State.civilization.pending)return false;
@@ -236,7 +243,7 @@ var Civilization = {
   },
   renderSpeed() {
     const c=State.civilization,box=$('#speedMenu').empty();
-    $('<span>').addClass('menuBtn').text('速度：'+c.speed+'×').attr({id:'speedButton',role:'button',tabindex:0,'aria-label':'调整时间流速，当前'+c.speed+'倍'})
+    $('<span>').addClass('menuBtn').text(c.society?.succession&&c.speed>1?'速度：1×（换届后恢复'+c.speed+'×）':'速度：'+c.speed+'×').attr({id:'speedButton',role:'button',tabindex:0,'aria-label':'调整时间流速，当前'+this.effectiveSpeed()+'倍'})
       .click(()=>this.speedMenu()).on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();this.speedMenu();}}).appendTo(box);
   },
   spend(cost) { const ok=CivilRules.pay(State,cost); if(ok) $SM.fireUpdate('stores'); return ok; },
@@ -274,7 +281,7 @@ var Civilization = {
       const result=fn?.();
       if(id==='succession' && result!==true){this.refreshSuccessionEvent();return false;}
       if(id.startsWith('constitution_') && result!==true)return false;
-      c.pending=null;this.notify(message);
+      c.pending=null;this.syncDecisionSpeed();this.notify(message);
       $SM.fireUpdate('stores');Outside.updateVillage();this.updateIncome();this.refresh();Engine.saveGame();
       return true;
     };

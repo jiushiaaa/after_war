@@ -102,6 +102,21 @@ var CivilWorld={
     if(m.progress===delivery){m.completedAt=at;this.record(d,{kind:'mission',at,mission:m.id});m.cargo={};Civilization.notify(CivilWorldContent.regions[m.region].name+'：'+cfg.name+'完成。'+(m.kind==='campaign'?'60名当地战斗人员死亡；设施受损，仍须三次重建与地方议约。':'结果已写入地区公共账册，人员开始返航。'));}
     if(m.progress===delivery+m.duration){m.returnedAt=at;Civilization.notify('国家行动队返城，六名勤务人员重新可用。');}
   },
+  progressText(s){
+    const m=this.active(s);if(!m)return '行动队已就绪';
+    const cfg=CivilWorldContent.missions[m.kind],phase=m.cancelledAt!==null?'撤回':m.progress<m.duration?'去程':m.progress<m.duration+cfg.work?'现场工作':'返航';
+    const left=m.cancelledAt!==null?m.returnDistance-m.returnProgress:m.duration*2+cfg.work-m.progress;
+    return CivilWorldContent.regions[m.region].name+' · '+phase+'，距返城'+left+'秒'+(this.staff(s)<6?'；缺少勤务人员，已暂停':'');
+  },
+  summary(s){
+    const members=this.members(s),count=Object.keys(CivilWorldContent.regions).filter(id=>this.visible(s,id)).length;
+    if(this.active(s))return '共同法 '+members.length+' / '+count+'区 · '+this.progressText(s);
+    if(!this.political(s))return '共同法 '+members.length+' / '+count+'区 · 先处理换届或恢复国家行政';
+    const ready=Object.keys(CivilWorldContent.regions).filter(id=>!this.joinReason(s,id));
+    if(ready.length)return '可签署共同法：'+ready.map(id=>CivilWorldContent.regions[id].name).join('、');
+    if(members.length===8)return '八区已接纳 · 在“地球共同法与航天”核对全球议约';
+    return '共同法 '+members.length+' / '+count+'区 · '+(s.civilization.tech.orbital_survey&&!this.transport(s)?'科技研究远洋运输，在街区加工建勤务船队':'打开远域记录选择尚未接纳地区');
+  },
   status(s,id){const p=CivilWorldContent.regions[id],n=this.data(s)?.nodes[id];return p.name+' · '+p.cities+'座城市'+(n?' · '+n.population+'人；'+({independent:'独立政体',occupied:'军事占领，尚未整合',member:'共同法成员'}[n.control])+'；信任'+n.trust+'，设施'+n.infrastructure+'%，公共服务'+n.stableSeconds+'/600秒':' · 尚未正式联络');},
   event(id,done){
     if(!this.pendingIds.includes(id))return null;const s=State,d=this.data(s),buttons={},text=[],finish=(ok,msg)=>done(ok?msg:'条件已变化：请核对人员、治理及实际材料；未执行。')();
@@ -112,18 +127,24 @@ var CivilWorld={
       const m=this.active(s);if(m){text.push('当前行动：'+CivilWorldContent.regions[m.region].name+' · '+CivilWorldContent.missions[m.kind].name+'；'+(m.cancelledAt!==null?'撤回 '+m.returnProgress+'/'+m.returnDistance:m.progress+'/'+(m.duration*2+CivilWorldContent.missions[m.kind].work))+'秒；实际勤务'+this.staff(s)+'/6。');if(m.completedAt===null&&m.cancelledAt===null)buttons.recall={text:'撤回当前行动队',nextScene:'end',onChoose:()=>finish(this.recall(s),'开始沿已经走过的距离返航；仅未交付援助物资可返库，旅费与动员费用不退。')};}
     }else{
       const key=id.slice(6),n=d?.nodes[key],p=CivilWorldContent.regions[key];text.push(this.status(s,key),p.issue,'这里保留各城市的公开名册与共同预算。当地居民继续在自己的城市生活，跨区公共拨款也不会自动进入本城仓库。');
+      if(this.active(s))text.push(this.progressText(s)+'。');
       if(this.accessReason(s,key))text.push(this.accessReason(s,key)+'。');
       if(n)text.push('地方公共储备：'+CivilHistory.costText(n.stores)+'。每10秒按设施完整度收取公共拨款，并支付粮4、药0.1、工具0.03、零件0.02、知识0.1。累计战斗死亡'+n.casualties+'人。');
       for(const [kind,cfg]of Object.entries(CivilWorldContent.missions))if(kind==='contact'?!n:n&&n.joinedAt===null&&(kind==='rebuild'?n.infrastructure<100:kind==='campaign'?n.control!=='occupied'&&!n.casualties&&s.civilization.tech.automation:kind==='negotiate'&&n.control!=='occupied')){
         text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；单程'+this.duration(s,key)+'秒，现场'+cfg.work+'秒。'+(kind==='campaign'?'将造成60名当地战斗人员死亡、设施降至40%、其他已知政体信任下降10。四台机器人在动员中消耗，没有战利品。占领每10秒另耗粮2、药0.1、工具0.05；连续欠供60秒撤军，损害保留。':this.reason(s,key,kind)||'当前可派出。'));
         buttons[kind]={text:cfg.name,available:()=>!this.reason(s,key,kind),nextScene:'end',onChoose:()=>finish(this.start(s,key,kind),'国家行动队已实际扣款启程；结果须抵达并完成工作后生效。')};
       }
-      if(n&&n.joinedAt===null){text.push('共同法接纳：'+(this.joinReason(s,key)||'双方可以签署')+'。本城 '+CivilHistory.costText(CivilWorldContent.membership.home)+'；地方 '+CivilHistory.costText(CivilWorldContent.membership.local)+'。以后每10秒分别承担公共经费。');buttons.join={text:'签署地区共同法',nextScene:'end',onChoose:()=>finish(this.join(s,key),'两地实付共同法议约。城市网络保留当地居民、资产和公共账册。')};}
+      if(n&&n.joinedAt===null){text.push('共同法接纳：'+(this.joinReason(s,key)||'双方可以签署')+'。本城 '+CivilHistory.costText(CivilWorldContent.membership.home)+'；地方 '+CivilHistory.costText(CivilWorldContent.membership.local)+'。以后每10秒分别承担公共经费。');buttons.join={text:'签署地区共同法',available:()=>!this.joinReason(s,key),nextScene:'end',onChoose:()=>finish(this.join(s,key),'两地实付共同法议约。城市网络保留当地居民、资产和公共账册。')};}
       if(n?.control==='occupied')buttons.withdraw={text:'撤销军事占领',nextScene:'end',onChoose:()=>finish(this.withdraw(s,key),'驻防支出停止，地方恢复独立；死伤、设施损害与关系后果保留。')};
     }
     buttons.close={text:'合上国家远域记录',nextScene:'end',onChoose:done('国家行动及地方公共账册继续按实际条件运行。')};return {title:id==='worldCouncil'?'国家远域与外交':CivilWorldContent.regions[id.slice(6)].name,text,buttons};
   },
-  refresh(){if(typeof $==='undefined'||!$('#councilPanel').length)return;if(!this.available(State)){$('#worldButton').hide();return;}Civilization.button('worldButton','国家远域与外交','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='worldCouncil';Civilization.showPending();}).show();},
+  refresh(){
+    if(typeof $==='undefined'||!$('#councilPanel').length)return;
+    if(!this.available(State)){$('#worldButton,#worldSummary').hide();return;}
+    Civilization.button('worldButton','国家远域与外交','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending='worldCouncil';Civilization.showPending();}).show();
+    let line=$('#worldSummary');if(!line.length)line=$('<div>').attr('id','worldSummary').css({lineHeight:'1.8',maxWidth:'420px',marginTop:'12px'}).insertAfter('#worldButton');line.show().text(this.summary(State));
+  },
   validate(s){
     const d=this.data(s),at=s.civilization.elapsed,fail=()=>{throw Error('国家远域行动或公共账册无效');},obj=x=>!!x&&typeof x==='object'&&!Array.isArray(x),time=x=>Number.isSafeInteger(x)&&x>=0&&x<=at,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),int=x=>Number.isSafeInteger(x)&&x>=0;
     if(d===undefined){if(this.pendingIds.includes(s.civilization.pending)&&!this.available(s))fail();return;}

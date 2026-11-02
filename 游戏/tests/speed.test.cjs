@@ -114,3 +114,10 @@ test('expensive high-speed ticks do not feed their own runtime back into the nex
   h.elapse(100);assert.equal(clock.time,12800);assert.equal(work,12);
   h.elapse(100);assert.equal(clock.time,19200);assert.equal(work,19);
 });
+
+test('mandatory succession slows the shared clock without overwriting the selected rate',()=>{
+ const {s,ctx}=harness(),c=s.civilization,C=ctx.Civilization;c.maxSpeed=32;c.speed=32;ctx.CivilClock.rate=32;
+ c.society.succession={reason:'election'};C.syncDecisionSpeed();assert.equal(ctx.CivilClock.rate,1);assert.equal(c.speed,32);
+ assert.match(C.effectiveSpeed().toString(),/^1$/);
+ c.society.succession=null;C.syncDecisionSpeed();assert.equal(ctx.CivilClock.rate,32);assert.equal(c.speed,32);
+});

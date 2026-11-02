@@ -11,7 +11,9 @@ function samePrediction(actual,expected){
     const rows=a.copy.civilization[key].records;
     b.copy.civilization[key].records=b.copy.civilization[key].records.slice(-rows.length);
   }
-  assert.deepEqual(a,b,'only the unused prefix of four temporary receipt arrays may differ');
+  if(a.copy.civilization.finance)for(const [i,p]of a.copy.civilization.finance.periods.entries())b.copy.civilization.finance.periods[i].adminPayments=b.copy.civilization.finance.periods[i].adminPayments.slice(-p.adminPayments.length);
+  if(a.copy.civilization.corridor)b.copy.civilization.corridor.maintenance=b.copy.civilization.corridor.maintenance.slice(-a.copy.civilization.corridor.maintenance.length);
+  assert.deepEqual(a,b,'only explicitly bounded historical receipt prefixes may differ');
 }
 function compare(h,run){
   const {ctx,s}=h,before=JSON.stringify(s),optimized=ctx.CivilForecast.copy;
@@ -44,7 +46,9 @@ test('preview receipts are deeply detached and neither copying nor saving prunes
     assert.equal(copy.civilization[key].records.length,count);assert.ok(s.civilization[key].records.length>count);
     copy.civilization[key].records[0].at=-1;
   }
-  assert.deepEqual(clone(copy.civilization.finance),clone(s.civilization.finance),'all old finance orders and periods remain available');
+  const finance=clone(s.civilization.finance);for(const p of finance.periods)if(p.endsAt<s.civilization.elapsed-1200)p.adminPayments=p.adminPayments.slice(-2);
+  assert.deepEqual(clone(copy.civilization.finance),finance,'all orders, periods and totals remain; only obsolete preview administration rows are bounded');
+  const paid=copy.civilization.finance.periods.find(p=>p.adminPayments.length);if(paid)paid.adminPayments[0].at=-1;
   assert.equal(JSON.stringify(s),before);ctx.CivilPlatform.validate(s);
   assert.deepEqual(clone(ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize())),clone(s));
 });
