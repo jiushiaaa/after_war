@@ -1,0 +1,535 @@
+{
+  "file": "自然游玩_Mac群岛清偿与国家自主周转131.json",
+  "bytes": 1255109,
+  "sha256": "9646706ba20833a98cd91f4c731a36cac765a636c9dbd2f82a3494e70fc702ca",
+  "elapsed": 542381,
+  "year": 903,
+  "generation": 130,
+  "speed": 1,
+  "maxSpeed": 64,
+  "legitimacy": 100,
+  "round": 68,
+  "market": {
+    "schema": 1,
+    "at": 534485,
+    "policies": {
+      "islands": {
+        "mode": "lean",
+        "at": 534498
+      },
+      "desert": {
+        "mode": "allied",
+        "at": 536184
+      }
+    },
+    "trades": [
+      {
+        "at": 534752,
+        "kind": "redemption",
+        "orders": [
+          89
+        ]
+      },
+      {
+        "at": 535052,
+        "kind": "redemption",
+        "orders": [
+          90
+        ]
+      },
+      {
+        "at": 536252,
+        "kind": "purchase",
+        "orders": [
+          91
+        ]
+      },
+      {
+        "at": 536552,
+        "kind": "redemption",
+        "orders": [
+          92
+        ]
+      },
+      {
+        "at": 536852,
+        "kind": "purchase",
+        "orders": [
+          93
+        ]
+      },
+      {
+        "at": 537152,
+        "kind": "redemption",
+        "orders": [
+          94
+        ]
+      },
+      {
+        "at": 537452,
+        "kind": "purchase",
+        "orders": [
+          95
+        ]
+      },
+      {
+        "at": 537752,
+        "kind": "redemption",
+        "orders": [
+          96
+        ]
+      },
+      {
+        "at": 538052,
+        "kind": "purchase",
+        "orders": [
+          97
+        ]
+      },
+      {
+        "at": 538352,
+        "kind": "redemption",
+        "orders": [
+          98
+        ]
+      },
+      {
+        "at": 538652,
+        "kind": "purchase",
+        "orders": [
+          99
+        ]
+      },
+      {
+        "at": 538952,
+        "kind": "redemption",
+        "orders": [
+          100
+        ]
+      },
+      {
+        "at": 539252,
+        "kind": "purchase",
+        "orders": [
+          101
+        ]
+      },
+      {
+        "at": 539552,
+        "kind": "redemption",
+        "orders": [
+          102
+        ]
+      },
+      {
+        "at": 539852,
+        "kind": "purchase",
+        "orders": [
+          103
+        ]
+      },
+      {
+        "at": 540152,
+        "kind": "redemption",
+        "orders": [
+          104
+        ]
+      },
+      {
+        "at": 540452,
+        "kind": "purchase",
+        "orders": [
+          105
+        ]
+      },
+      {
+        "at": 540752,
+        "kind": "redemption",
+        "orders": [
+          106
+        ]
+      },
+      {
+        "at": 541052,
+        "kind": "purchase",
+        "orders": [
+          107
+        ]
+      },
+      {
+        "at": 541352,
+        "kind": "redemption",
+        "orders": [
+          108
+        ]
+      },
+      {
+        "at": 541652,
+        "kind": "purchase",
+        "orders": [
+          109
+        ]
+      },
+      {
+        "at": 541952,
+        "kind": "redemption",
+        "orders": [
+          110
+        ]
+      },
+      {
+        "at": 542252,
+        "kind": "purchase",
+        "orders": [
+          111
+        ]
+      }
+    ],
+    "support": []
+  },
+  "playerActions": [
+    {
+      "kind": "market",
+      "action": "open",
+      "at": 534485,
+      "cost": {
+        "knowledge": 260,
+        "electronics": 24
+      }
+    },
+    {
+      "kind": "market",
+      "action": "policy",
+      "actor": "islands",
+      "mode": "lean",
+      "at": 534498,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "market",
+      "action": "policy",
+      "actor": "desert",
+      "mode": "allied",
+      "at": 536184,
+      "cost": {
+        "knowledge": 40
+      }
+    }
+  ],
+  "islandRepayments": [
+    {
+      "id": 89,
+      "from": "islands",
+      "to": "west",
+      "cargo": {
+        "parts": 9
+      },
+      "value": 36,
+      "price": 4,
+      "fare": {
+        "food": 8,
+        "parts": 1
+      },
+      "departedAt": 534752,
+      "dueAt": 535052,
+      "arrivedAt": 535052,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 90,
+      "from": "islands",
+      "to": "desert",
+      "cargo": {
+        "parts": 1
+      },
+      "value": 1,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 535052,
+      "dueAt": 535352,
+      "arrivedAt": 535352,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    }
+  ],
+  "desertRepayments": [
+    {
+      "id": 92,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 76
+      },
+      "value": 76,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 536552,
+      "dueAt": 536852,
+      "arrivedAt": 536852,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 94,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 537152,
+      "dueAt": 537452,
+      "arrivedAt": 537452,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 96,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 537752,
+      "dueAt": 538052,
+      "arrivedAt": 538052,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 98,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 60
+      },
+      "value": 60,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 538352,
+      "dueAt": 538652,
+      "arrivedAt": 538652,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 100,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 538952,
+      "dueAt": 539252,
+      "arrivedAt": 539252,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 102,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 60
+      },
+      "value": 60,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 539552,
+      "dueAt": 539852,
+      "arrivedAt": 539852,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 104,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 540152,
+      "dueAt": 540452,
+      "arrivedAt": 540452,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 106,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 540752,
+      "dueAt": 541052,
+      "arrivedAt": 541052,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 108,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 60
+      },
+      "value": 60,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 541352,
+      "dueAt": 541652,
+      "arrivedAt": 541652,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    },
+    {
+      "id": 110,
+      "from": "desert",
+      "to": "islands",
+      "cargo": {
+        "food": 56
+      },
+      "value": 56,
+      "price": 1,
+      "fare": {
+        "food": 6,
+        "parts": 1
+      },
+      "departedAt": 541952,
+      "dueAt": 542252,
+      "arrivedAt": 542252,
+      "route": "auto",
+      "settlement": true,
+      "market": "redemption"
+    }
+  ],
+  "accounts": {
+    "desert": {
+      "balance": -60,
+      "debtSince": 542252,
+      "overdueAt": null,
+      "decision": "按需进口零件 15，控制周转信用"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20"
+    },
+    "islands": {
+      "balance": 60,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、工具 6，产出零件 16"
+    },
+    "north": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、煤 6，产出零件 12"
+    },
+    "plateau": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、电子元件 4，产出知识 30、钢材 10"
+    },
+    "polar": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、零件 6，产出知识 35、电子元件 8"
+    },
+    "rainforest": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、工具 6，产出药品 16"
+    },
+    "west": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12"
+    }
+  },
+  "stable": {
+    "north": 600,
+    "east": 600,
+    "west": 600,
+    "rainforest": 600,
+    "desert": 600,
+    "plateau": 600,
+    "islands": 600,
+    "polar": 600
+  },
+  "shipments": {
+    "total": 111,
+    "arrived": 110,
+    "inFlight": 1
+  },
+  "strictRoundtrip": true,
+  "oldHistoryAndCargoPreserved": true,
+  "earthEndingPreserved": true,
+  "naturalWar": false,
+  "naturalExchange": false
+}

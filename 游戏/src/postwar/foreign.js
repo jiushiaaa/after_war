@@ -14,8 +14,8 @@ var CivilForeign={
   sync(d,at=d.foreign?.lastRoundAt){const f=d.foreign;if(!f)return;for(const id of Object.keys(d.nodes).sort())if(!f.actors[id])f.actors[id]={balance:0,debtSince:null,overdueAt:null,decision:'核对地方产业与公共储备'};const ids=Object.keys(f.actors).sort();for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){const key=this.pair(ids[i],ids[j]);if(!f.pairs[key])f.pairs[key]={pressure:0,relation:0,phase:'calm',since:at,truceUntil:0,battles:0,lastProposalAt:null};}},
   fighting(d,id){return Object.entries(d.foreign?.pairs||{}).some(([key,p])=>p.phase==='war'&&this.ids(key).includes(id));},
   blocked(p){return ['embargo','war'].includes(p.phase);},
-  target(id){return CivilForeignContent.profiles[id].use*60;},
-  shortage(d,id){const p=CivilForeignContent.profiles[id];return (d.nodes[id].stores[p.need]||0)<this.target(id);},
+  target(id,d){if(d?.foreign?.markets)return CivilMarkets.target(d,id,CivilForeignContent.profiles[id].need);return CivilForeignContent.profiles[id].use*60;},
+  shortage(d,id){if(d.foreign?.markets)return CivilMarkets.deficit(d,id,CivilForeignContent.profiles[id].need)>0;const p=CivilForeignContent.profiles[id];return (d.nodes[id].stores[p.need]||0)<this.target(id);},
   overdue(f,id,at){const a=f.actors[id];return a.balance<0&&a.debtSince!==null&&at>=CivilLeagues.deadline(f,id);},
   limit(d,id){const f=d.foreign;return Math.max(0,CivilForeignContent.credit[f.creditPolicy].limit+Math.floor(d.nodes[id].trust*2)-(this.fighting(d,id)?100:0)+CivilLeagues.credit(d,id));},
   price(d,seller,item){const p=CivilForeignContent.profiles[seller],stock=d.nodes[seller].stores[item]||0,target=p.need===item?this.target(seller):60;return CivilForeignContent.prices[item]*(stock<target?2:1);},
@@ -47,8 +47,9 @@ var CivilForeign={
     // undelivered cargo and reverse its clearing claim without duplication.
     CivilTransit.beforeRound(d,r);
     for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt&&CivilLeagues.arrive(d,o,at)){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
-    CivilTransit.dispatch(d,r);
+    if(!f.markets)CivilTransit.dispatch(d,r);
     CivilLeagues.beforeRound(d,r);
+    if(f.markets)CivilTransit.dispatch(d,r);
     for(const o of f.proposals)if(o.resolvedAt===null&&at-o.at>=300){const p=f.pairs[o.pair];o.score=this.score(d,o.pair,o.kind,r.political);o.accepted=o.score>=50;o.resolvedAt=at;if(o.accepted){p.phase='truce';p.since=at;p.truceUntil=at+1800;p.pressure=Math.max(0,p.pressure-45);p.relation=this.clamp(p.relation+15,-100,100);p.battles=0;}else{p.relation=Math.max(-100,p.relation-5);}this.addEvent(f,at,'proposal',this.label(o.pair)+(o.accepted?'接受':'拒绝')+CivilForeignContent.proposals[o.kind].name+'（判断'+o.score+'/50）；'+(o.accepted?'1800秒停火与预算协商期，货物仍须实际采购。':'经费已经使用，须改善利益与关系后再议。'));}
     for(const id of ids){const n=d.nodes[id],p=CivilForeignContent.profiles[id],a=f.actors[id];
       if(this.overdue(f,id,at)&&a.overdueAt===null){a.overdueAt=at;this.addEvent(f,at,'credit',this.name(id)+'清算欠款到期，停止新增赊购；出口回款仍用于偿债。');}
@@ -57,6 +58,7 @@ var CivilForeign={
       const cost={food:12,[p.need]:p.use};if(p.need==='food')cost.food+=p.use;
       if(this.canSpend(n,cost)){CivilServices.pay(n.stores,cost);CivilRegions.credit(n.stores,p.output);a.decision='公共工坊消耗'+CivilHistory.costText(cost)+'，产出'+CivilHistory.costText(p.output);}else a.decision='缺少'+CivilText.labels[p.need]+'，公共工坊停产';
     }
+    if(f.markets)CivilMarkets.trade(d,r);else {
     // Rotate buyers to avoid a permanent alphabetical priority on scarce goods.
     const buyers=ids.slice(f.round%ids.length).concat(ids.slice(0,f.round%ids.length));
     for(const id of buyers){const n=d.nodes[id],a=f.actors[id],p=CivilForeignContent.profiles[id];if(!this.shortage(d,id)||(!f.leagues&&this.fighting(d,id))||n.control==='occupied'||CivilTransit.busy(d,id))continue;
@@ -78,6 +80,7 @@ var CivilForeign={
         CivilServices.pay(d.nodes[seller].stores,cargo);CivilServices.pay(d.nodes[buyer].stores,fare);this.account(f,buyer,-value,at);this.account(f,seller,value,at);const order={id:f.shipments.length+1,from:seller,to:buyer,departedAt:at,dueAt:at+route.duration,arrivedAt:null,cargo,price:value/qty,value,fare:{...fare},settlement:true,...(route.mode?{route:route.mode}:{})};CivilTransit.stamp(d,order,route,at);f.shipments.push(order);
         claim.decision='用'+value+'账额回购'+this.name(seller)+'的'+CivilHistory.costText(cargo)+'抵账；'+route.duration+'秒后到货';this.addEvent(f,at,'trade',this.name(buyer)+claim.decision+'。不足一件的尾差双方折价结清。');break;
       }
+    }
     }
     for(const[key,p]of Object.entries(f.pairs)){
       const [a,b]=this.ids(key),na=d.nodes[a],nb=d.nodes[b],both=na.joinedAt!==null&&nb.joinedAt!==null,pa=CivilForeignContent.profiles[a],pb=CivilForeignContent.profiles[b];

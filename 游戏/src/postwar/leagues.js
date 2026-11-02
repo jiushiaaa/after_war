@@ -92,13 +92,14 @@ var CivilLeagues={
       if(ids.every(id=>p.missed[id]===0)){p.paidCycles++;pair.pressure=Math.max(0,pair.pressure-8);}
       if(p.type!=='defense'){this.endNotice(d,p,at);continue;}
       for(const target of ids){const ally=ids.find(id=>id!==target),war=Object.entries(f.pairs).find(([key,q])=>q.phase==='war'&&key!==p.pair&&CivilForeign.ids(key).includes(target));
-        if(war&&!p.calls.some(c=>c.target===target&&c.war===war[0]&&c.warSince===war[1].since))p.calls.push({target,ally,war:war[0],warSince:war[1].since,at,dueAt:at+600,status:'pending'});
+        const epoch=war&&f.markets?Math.floor((at-war[1].since)/900):0;
+        if(war&&!p.calls.some(c=>c.target===target&&c.war===war[0]&&c.warSince===war[1].since&&(!f.markets||(c.epoch||0)===epoch)))p.calls.push({target,ally,war:war[0],warSince:war[1].since,at,dueAt:at+600,status:'pending',...(f.markets?{epoch}:{})});
       }
       for(const call of p.calls)if(call.status==='pending'){
         if(f.pairs[call.war].phase!=='war'){call.status='cancelled';continue;}
-        const fare={food:12,parts:3,tools:2},cost=CivilStatecraft.add(CivilLeagueContent.aid,fare);
+        const fare={food:12,parts:3,tools:2},cargo=f.markets?{...CivilLeagueContent.aid,parts:4}:CivilLeagueContent.aid,cost=CivilStatecraft.add(cargo,fare);
         if(!this.busy(d,call.ally)&&!this.busy(d,call.target)&&CivilForeign.canSpend(d.nodes[call.ally],cost)){
-          CivilServices.pay(d.nodes[call.ally].stores,cost);f.shipments.push({id:f.shipments.length+1,from:call.ally,to:call.target,departedAt:at,dueAt:at+600,arrivedAt:null,cargo:{...CivilLeagueContent.aid},price:0,value:0,fare,route:'escort',aid:true});call.status='sent';call.shipment=f.shipments.length;
+          CivilServices.pay(d.nodes[call.ally].stores,cost);f.shipments.push({id:f.shipments.length+1,from:call.ally,to:call.target,departedAt:at,dueAt:at+600,arrivedAt:null,cargo:{...cargo},price:0,value:0,fare,route:'escort',aid:true});call.status='sent';call.shipment=f.shipments.length;
           const opponent=CivilForeign.ids(call.war).find(id=>id!==call.target),reaction=f.pairs[CivilForeign.pair(call.ally,opponent)];reaction.relation=Math.max(-100,reaction.relation-10);reaction.pressure=Math.min(100,reaction.pressure+12);
           this.log(d,at,'alliance',CivilForeign.name(call.ally)+'实际派出护航援助给'+CivilForeign.name(call.target)+'，600秒后到达；与对方交战国关系下降10、压力增加12。');
         }else if(at>=call.dueAt){call.status='refused';this.breakPact(d,p,[call.ally],at,'未在600秒内履行战时援助');break;}
