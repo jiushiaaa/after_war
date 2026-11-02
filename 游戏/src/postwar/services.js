@@ -27,7 +27,7 @@ var CivilServices={
   demandCapacity(s,id='home'){const b=this.data(s,id)?.buildings||{};return (b.waterworks||0)*4+(b.pharmacy||0)*8*.5+(b.heatingplant||0);},
   syncWorkers(s,id='home'){
     if(id!=='home')return;const w=s.game.workers,cap=this.jobs(s,id);
-    for(const job of ['servicebuilder','waterworker','pharmacist','heatingworker','windworker','precisionworker','electronicsworker','guard'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
+    for(const job of ['servicebuilder','waterworker','pharmacist','heatingworker','windworker','precisionworker','electronicsworker','guard','expeditionworker','roboticist'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
   },
   capacityBonus(s,id='home'){return (this.data(s,id)?.buildings.densehousing||0)*160;},
   labor(s,id,job){

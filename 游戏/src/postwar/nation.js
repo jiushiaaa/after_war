@@ -57,7 +57,7 @@ var CivilNation={
   found(s){if(!this.canFound(s))return false;const n=this.data(s);n.foundedAt=s.civilization.elapsed;n.foundingAxes={...s.civilization.society.axes};n.foundingStableSince=n.stableSince;return true;},
   operational(s){const n=this.data(s),last=n?.records.at(-1),r=last?.service===null?(!last.missing.length?n.records.at(-2):null):last;return !!n&&n.foundedAt!==null&&n.legitimacy>=40&&r?.service===true&&this.recordCharter(r)===this.charter(s)&&r.mode===this.mode(s)&&s.civilization.elapsed-r.at>=0&&s.civilization.elapsed-r.at<=10;},
   capacityBonus(s){return this.operational(s)?this.charters[this.charter(s)][this.mode(s)]:0;},
-  population(s){const n=this.data(s);return n?n.members.reduce((sum,id)=>sum+CivilFinance.population(s,id),0)+(typeof CivilAccession!=='undefined'?CivilAccession.population(s):0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.population(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0):0;},
+  population(s){const n=this.data(s);return n?n.members.reduce((sum,id)=>sum+CivilFinance.population(s,id),0)+(typeof CivilAccession!=='undefined'?CivilAccession.population(s):0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.population(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0)+(typeof CivilWorld!=='undefined'?CivilWorld.population(s):0):0;},
   status(s){
     const n=this.data(s);if(!n)return this.reason(s)||'三城可以提出共同法与国家宪章';
     const waiting=n.members.filter(id=>!n.approvals[id]);if(waiting.length)return '等待'+waiting.map(id=>CivilMetro.name(id)).join('、')+'付费议约';

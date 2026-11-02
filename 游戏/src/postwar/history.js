@@ -12,7 +12,7 @@ var CivilHistory={
   policyName(value){return value===null?'尚未议定':(typeof CivilRules!=='undefined'?CivilRules.policies[value]?.name:null)||value;},
   axisName(axis,value){return (typeof CivilSociety!=='undefined'?CivilSociety.axes[axis]?.choices[value]?.name:null)||value;},
   costText(cost){
-    const labels={scrap:'废料',food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
+    const labels={robots:'通用机器人',electronics:'电子元件',precisionparts:'精密零件',scrap:'废料',food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
     return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+Number(n.toFixed(6))).join('、');
   },
   snapshot(s){
@@ -97,6 +97,14 @@ var CivilHistory={
       d.revisions.forEach((r,i)=>add('residence_revision_'+i,'diplomacy',r.action==='pause'?'居留公约暂停':'居留公约恢复',name+'；原名册与已出发旅客安排保留，追加资格不重发。',r.at));
     }
     for(const [i,r]of (c.railway?.changes||[]).entries())add('railway_change_'+i,'transport',r.mode==='rail'?'铁轨支线班次启用':'铁轨支线恢复货车','原车归来后交接；'+(r.mode==='rail'?'4名运输工，单程45秒，逐趟实付燃料与维护。':'2名运输工，单程90秒；铁路资产和原运单保留。'),r.at);
+    if(c.worldstage){
+      for(const m of c.worldstage.missions){const name=CivilWorldContent.regions[m.region].name,action=CivilWorldContent.missions[m.kind].name;
+        add('world_depart_'+m.id,'diplomacy',name+'：'+action,'实付 '+this.costText(m.paid)+'；六名原有勤务人员出发。',m.departedAt);
+        if(m.completedAt!==null)add('world_complete_'+m.id,m.kind==='campaign'?'governance':'diplomacy',name+'：'+action+'完成',m.kind==='campaign'?'60名当地战斗人员死亡，设施降至40%。军事占领尚不等于共同法整合。':'实际到达并完成现场工作，结果计入独立地区账册。',m.completedAt);
+        if(m.cancelledAt!==null)add('world_recall_'+m.id,'transport','国家行动撤回','沿已行距离返程；旅费不退，仅未交付物资返库。',m.cancelledAt);
+      }
+      for(const r of c.worldstage.ledger)if(r.kind==='join')add('world_join_'+r.region,'diplomacy',CivilWorldContent.regions[r.region].name+'共同法登记','双方实付议约；原城市网络居民与公共仓库保留。',r.at);
+    }
     if(c.commerce){
       const d=c.commerce,name=this.sourceName(d.sourceId);
       add('commerce_agreement','diplomacy',name+'贸易约定','本城实付知识60，对方知识30；居民与库存各自独立，占一份协调责任。',d.signedAt);
