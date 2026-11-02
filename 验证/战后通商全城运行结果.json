@@ -1,0 +1,163 @@
+{
+  "scope": "136原始档的独立完整适配器12000秒；原有年龄、出生死亡、实际经济和正常选举选择均执行。不是浏览器自然存档，未注入物资或改时钟。",
+  "start": 471270,
+  "elapsed": 483270,
+  "milestones": [
+    {
+      "elapsed": 474270,
+      "year": 790,
+      "generation": 113,
+      "population": 1164,
+      "legitimacy": 99.25,
+      "food": {
+        "north": 1181.5,
+        "west": 1354,
+        "east": 1654.5
+      }
+    },
+    {
+      "elapsed": 477270,
+      "year": 795,
+      "generation": 113,
+      "population": 1164,
+      "legitimacy": 100,
+      "food": {
+        "north": 913.5,
+        "west": 1406,
+        "east": 1716.5
+      }
+    },
+    {
+      "elapsed": 480270,
+      "year": 800,
+      "generation": 114,
+      "population": 1164,
+      "legitimacy": 100,
+      "food": {
+        "north": 643.5,
+        "west": 1470,
+        "east": 1790.5
+      }
+    },
+    {
+      "elapsed": 483270,
+      "year": 805,
+      "generation": 115,
+      "population": 1164,
+      "legitimacy": 100,
+      "food": {
+        "north": 413.5,
+        "west": 1455,
+        "east": 1872.5
+      }
+    }
+  ],
+  "stats": {
+    "north": {
+      "produced": 40,
+      "minFood": 413
+    },
+    "west": {
+      "produced": 40,
+      "minFood": 1307
+    },
+    "east": {
+      "produced": 40,
+      "minFood": 1609.5
+    }
+  },
+  "accounts": {
+    "north": {
+      "balance": -43,
+      "debtSince": 483252,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、煤 6，产出零件 12；采购粮食 39、煤 2"
+    },
+    "west": {
+      "balance": 43,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "优先出口偿债16，没有新增赊购"
+    }
+  },
+  "projects": {
+    "north": {
+      "granary": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 1,
+        "paidAt": 482952
+      },
+      "depot": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 37,
+        "paidAt": 483252
+      }
+    },
+    "west": {
+      "granary": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 0,
+        "paidAt": null
+      },
+      "depot": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 37,
+        "paidAt": 483252
+      }
+    },
+    "east": {
+      "granary": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 0,
+        "paidAt": null
+      },
+      "depot": {
+        "at": 471270,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 37,
+        "paidAt": 483252
+      }
+    }
+  },
+  "treaties": [
+    {
+      "pair": "east-north",
+      "mode": "trade",
+      "payer": null,
+      "at": 471270,
+      "status": "expired",
+      "resolvedAt": 471852,
+      "votes": {
+        "east": 64,
+        "north": 92
+      },
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "cycles": 20,
+      "deliveries": [],
+      "endedAt": 477852,
+      "until": 477852
+    }
+  ],
+  "newShipments": 77,
+  "strictRoundtrip": true
+}

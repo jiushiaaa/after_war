@@ -1,0 +1,547 @@
+{
+  "file": "自然游玩_Mac北陆粮运治理与有限和约138.json",
+  "bytes": 959281,
+  "sha256": "32e1ddfa17767312e00cabe3bf4148b629f261aa77758833d9bc689c27a82db0",
+  "branch": "未统一136自然接续；131地球首航分支不合并",
+  "elapsed": 478872,
+  "secondsSince136": 7602,
+  "year": 798,
+  "generation": 114,
+  "speed": 1,
+  "nationalLegitimacy": 100,
+  "round": 79,
+  "projects": {
+    "north": {
+      "granary": {
+        "at": 471323,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 0,
+        "paidAt": null
+      },
+      "depot": {
+        "at": 471327,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 22,
+        "paidAt": 478752
+      }
+    },
+    "west": {
+      "granary": {
+        "at": 471344,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 0,
+        "paidAt": null
+      },
+      "depot": {
+        "at": 471348,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 22,
+        "paidAt": 478752
+      }
+    },
+    "east": {
+      "granary": {
+        "at": 471376,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 0,
+        "paidAt": null
+      },
+      "depot": {
+        "at": 471380,
+        "cycles": 3,
+        "completedAt": 472152,
+        "produced": 22,
+        "paidAt": 478752
+      }
+    }
+  },
+  "treaties": [
+    {
+      "pair": "east-north",
+      "mode": "trade",
+      "payer": null,
+      "at": 471392,
+      "status": "expired",
+      "resolvedAt": 471852,
+      "votes": {
+        "east": 64,
+        "north": 92
+      },
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "cycles": 20,
+      "deliveries": [],
+      "endedAt": 477852,
+      "until": 477852
+    },
+    {
+      "pair": "north-west",
+      "mode": "restitution",
+      "payer": "north",
+      "at": 472464,
+      "status": "active",
+      "resolvedAt": 473052,
+      "votes": {
+        "north": 86,
+        "west": 98
+      },
+      "missed": {
+        "north": 0,
+        "west": 0
+      },
+      "cycles": 20,
+      "deliveries": [
+        36,
+        38,
+        39
+      ],
+      "endedAt": null,
+      "until": 479052,
+      "deliveryMissed": 0
+    },
+    {
+      "pair": "east-west",
+      "mode": "memory",
+      "payer": null,
+      "at": 473606,
+      "status": "active",
+      "resolvedAt": 473952,
+      "votes": {
+        "east": 54,
+        "west": 64
+      },
+      "missed": {
+        "east": 0,
+        "west": 0
+      },
+      "cycles": 17,
+      "deliveries": [],
+      "endedAt": null,
+      "until": 479952
+    }
+  ],
+  "orientations": {
+    "north": {
+      "mode": "commerce",
+      "at": 471330
+    },
+    "west": {
+      "mode": "commerce",
+      "at": 471351
+    },
+    "east": {
+      "mode": "commerce",
+      "at": 471384
+    }
+  },
+  "context": {
+    "rights": "equal",
+    "devolution": "local",
+    "political": true
+  },
+  "accounts": {
+    "north": {
+      "balance": -4,
+      "debtSince": 478752,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、煤 6，产出零件 12；采购煤 2"
+    },
+    "west": {
+      "balance": 4,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "优先出口偿债16，没有新增赊购"
+    }
+  },
+  "nodes": {
+    "north": {
+      "population": 25984,
+      "casualties": 16,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 710,
+        "medicine": 297.21999999996314,
+        "tools": 136.89500000006618,
+        "parts": 282.214999999978,
+        "knowledge": 3937.6000000007193,
+        "coal": 70
+      },
+      "foodTarget": 458,
+      "capacity": 2
+    },
+    "west": {
+      "population": 30972,
+      "casualties": 28,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 1440,
+        "medicine": 287.4999999999879,
+        "tools": 817.2200000000561,
+        "parts": 56.76999999998872,
+        "knowledge": 3726.90000000021,
+        "steel": 115,
+        "coal": 415
+      },
+      "foodTarget": 248,
+      "capacity": 2
+    },
+    "east": {
+      "population": 41988,
+      "casualties": 12,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 1700.5,
+        "medicine": 89.70000000000829,
+        "tools": 171.7350000000552,
+        "parts": 45.66499999999337,
+        "knowledge": 4896.699999999924
+      },
+      "foodTarget": 272,
+      "capacity": 2
+    }
+  },
+  "pacts": [
+    {
+      "id": 1,
+      "pair": "east-north",
+      "type": "defense",
+      "status": "broken",
+      "at": 457152,
+      "paidCycles": 22,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 9
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 10
+        },
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "sent",
+          "epoch": 1,
+          "shipment": 11
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "refused",
+          "epoch": 1
+        }
+      ],
+      "notice": null,
+      "endedAt": 463452,
+      "originalType": "commerce",
+      "upgradedAt": 460452,
+      "cause": "未在600秒内履行战时援助",
+      "blame": [
+        "east"
+      ]
+    },
+    {
+      "id": 2,
+      "pair": "east-north",
+      "type": "commerce",
+      "status": "ended",
+      "at": 465552,
+      "paidCycles": 15,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [],
+      "notice": {
+        "actor": "north",
+        "at": 469052,
+        "dueAt": 469652
+      },
+      "endedAt": 469752,
+      "reducedAt": 468552
+    },
+    {
+      "id": 3,
+      "pair": "east-north",
+      "type": "commerce",
+      "status": "active",
+      "at": 471852,
+      "paidCycles": 24,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [],
+      "notice": null,
+      "endedAt": null
+    },
+    {
+      "id": 4,
+      "pair": "north-west",
+      "type": "commerce",
+      "status": "active",
+      "at": 472152,
+      "paidCycles": 23,
+      "missed": {
+        "north": 0,
+        "west": 0
+      },
+      "calls": [],
+      "notice": null,
+      "endedAt": null
+    }
+  ],
+  "reparations": [
+    {
+      "id": 36,
+      "from": "north",
+      "to": "west",
+      "cargo": {
+        "food": 12,
+        "parts": 2,
+        "medicine": 2
+      },
+      "value": 0,
+      "price": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "departedAt": 473052,
+      "dueAt": 473652,
+      "arrivedAt": 473652,
+      "route": "escort",
+      "peacePayment": true
+    },
+    {
+      "id": 38,
+      "from": "north",
+      "to": "west",
+      "cargo": {
+        "food": 12,
+        "parts": 2,
+        "medicine": 2
+      },
+      "value": 0,
+      "price": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "departedAt": 473352,
+      "dueAt": 473952,
+      "arrivedAt": 473952,
+      "route": "escort",
+      "peacePayment": true
+    },
+    {
+      "id": 39,
+      "from": "north",
+      "to": "west",
+      "cargo": {
+        "food": 12,
+        "parts": 2,
+        "medicine": 2
+      },
+      "value": 0,
+      "price": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "departedAt": 473652,
+      "dueAt": 474252,
+      "arrivedAt": 474252,
+      "route": "escort",
+      "peacePayment": true
+    }
+  ],
+  "shipments": {
+    "total": 72,
+    "new": 44,
+    "arrived": 70,
+    "inFlight": 2,
+    "smallPurchases": 21
+  },
+  "newActions": [
+    {
+      "kind": "settlement",
+      "action": "open",
+      "at": 471285,
+      "cost": {
+        "knowledge": 180,
+        "electronics": 12
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "north",
+      "mode": "granary",
+      "at": 471323,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "north",
+      "mode": "depot",
+      "at": 471327,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "orientation",
+      "actor": "north",
+      "mode": "commerce",
+      "at": 471330,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "west",
+      "mode": "granary",
+      "at": 471344,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "west",
+      "mode": "depot",
+      "at": 471348,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "orientation",
+      "actor": "west",
+      "mode": "commerce",
+      "at": 471351,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "east",
+      "mode": "granary",
+      "at": 471376,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "project",
+      "actor": "east",
+      "mode": "depot",
+      "at": 471380,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "orientation",
+      "actor": "east",
+      "mode": "commerce",
+      "at": 471384,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "treaty",
+      "pair": "east-north",
+      "mode": "trade",
+      "at": 471392,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "treaty",
+      "pair": "north-west",
+      "mode": "restitution",
+      "actor": "north",
+      "at": 472464,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "settlement",
+      "action": "treaty",
+      "pair": "east-west",
+      "mode": "memory",
+      "at": 473606,
+      "cost": {
+        "knowledge": 80
+      }
+    }
+  ],
+  "strictRoundtrip": true,
+  "oldHistoryPreserved": true,
+  "forecastIsolated": true,
+  "forgeryRejected": true
+}

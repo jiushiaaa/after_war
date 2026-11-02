@@ -48,6 +48,7 @@ var CivilForeign={
     CivilTransit.beforeRound(d,r);
     for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt&&CivilLeagues.arrive(d,o,at)){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
     if(!f.markets)CivilTransit.dispatch(d,r);
+    CivilSettlement.beforeRound(d,r);
     CivilAftermath.beforeRound(d,r);
     CivilCongress.beforeRound(d,r);
     CivilLeagues.beforeRound(d,r);
@@ -59,7 +60,7 @@ var CivilForeign={
       if(CivilAftermath.recover(d,id,r))continue;
       if(n.infrastructure<100){if(d.missions.some(m=>m.region===id&&m.kind==='rebuild'&&m.departedAt<=at&&(m.completedAt===null||at<m.completedAt)&&(m.cancelledAt===null||at<m.cancelledAt))){a.decision='等待已经派出的重建队，避免重复施工';continue;}const repair={food:20,tools:6,parts:6};if(this.canSpend(n,repair)){CivilServices.pay(n.stores,repair);n.infrastructure=Math.min(100,n.infrastructure+5);a.decision='实付公共材料，修复5%设施';}continue;}
       const cost={food:12,[p.need]:p.use};if(p.need==='food')cost.food+=p.use;
-      if(this.canSpend(n,cost)){CivilServices.pay(n.stores,cost);CivilRegions.credit(n.stores,p.output);a.decision='公共工坊消耗'+CivilHistory.costText(cost)+'，产出'+CivilHistory.costText(p.output);}else a.decision='缺少'+CivilText.labels[p.need]+'，公共工坊停产';
+      if(this.canSpend(n,cost)){CivilServices.pay(n.stores,cost);CivilRegions.credit(n.stores,p.output);a.decision='公共工坊消耗'+CivilHistory.costText(cost)+'，产出'+CivilHistory.costText(p.output);}else a.decision='缺少'+(CivilSettlement.data(d)?CivilSettlement.missing(n,cost):CivilText.labels[p.need])+'，公共工坊停产';
     }
     if(f.markets)CivilMarkets.trade(d,r);else {
     // Rotate buyers to avoid a permanent alphabetical priority on scarce goods.

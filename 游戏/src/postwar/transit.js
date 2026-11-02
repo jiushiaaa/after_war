@@ -3,7 +3,7 @@ var CivilTransit={
  pendingIds:['transitCouncil',...Object.keys(CivilWorldContent.regions).map(id=>'transitActor_'+id),...CivilForeign.pendingIds.filter(id=>id.startsWith('foreignPair_')).map(id=>'transitPair_'+id.slice(12))],
  data(d){return d?.foreign?.network;},
  includes(o,id){return o.from===id||o.to===id||o.transit?.via===id;},
- busy(d,id,physical=false){return d.foreign.shipments.some(o=>o.arrivedAt===null&&this.includes(o,id))||!!this.data(d)?.supplies.some(o=>o.region===id&&o.arrivedAt===null)||!physical&&!!this.data(d)?.clearings?.some(o=>o.actor===id&&o.status==='pending');},
+ busy(d,id,physical=false){if(CivilSettlement.data(d))return CivilSettlement.busy(d,id,physical);return d.foreign.shipments.some(o=>o.arrivedAt===null&&this.includes(o,id))||!!this.data(d)?.supplies.some(o=>o.region===id&&o.arrivedAt===null)||!physical&&!!this.data(d)?.clearings?.some(o=>o.actor===id&&o.status==='pending');},
  log(d,at,kind,text){CivilForeign.addEvent(d.foreign,at,kind,text);},
  need(id){const p=CivilForeignContent.profiles[id];return {[p.need]:p.use*70};},
  supplyCost(id){return CivilStatecraft.add(this.need(id),{food:40,parts:6});},
