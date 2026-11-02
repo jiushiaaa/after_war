@@ -78,7 +78,7 @@ var CivilPassenger={
         if(!CivilRules.canPay(s,cost)){reason=profile==='road24'?'大队旅费或装备维护尚未备足':'待备旅费：每人6粮、0.2药品、0.2工具';continue;}
         if((s.stores.food||0)-cost.food+1e-8<u.foodReserve(s,home)){reason='本地支付旅费后须留下120秒居民口粮';continue;}
         if(target!=='home'&&(c.regions.nodes[target].stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,target,all)){reason=u.targetName(s,target)+'须自行留下安置后120秒口粮';continue;}
-        const paid=JSON.parse(JSON.stringify(s));
+        const paid=typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(s)):CivilForecast.copy(s);
         for(const [key,n]of Object.entries(cost))if(n)paid.stores[key]=Math.max(0,(paid.stores[key]||0)-n);
         // Travelling adults cannot produce materials or staff home before they arrive.
         const existing=u.serviceCheck(paid,[]);if(existing){reason='支付旅费后本地'+existing;continue;}

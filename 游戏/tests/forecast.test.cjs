@@ -1,9 +1,9 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path');
+const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib');
 const {harness,clone}=require('./helpers/metro-fixture.cjs');
 const dir=path.join(__dirname,'../../验证/存档');
-const raw=n=>JSON.parse(fs.readFileSync(path.join(dir,fs.readdirSync(dir).find(f=>f.startsWith('自然游玩_Windows')&&f.endsWith(n+'.json'))),'utf8')).state;
+const raw=n=>{const p=JSON.parse(fs.readFileSync(path.join(dir,fs.readdirSync(dir).find(f=>f.startsWith('自然游玩_Windows')&&f.endsWith(n+'.json'))),'utf8'));return p.state||JSON.parse(zlib.gunzipSync(Buffer.from(p.data,'base64'))).state;};
 const tails={nation:2,diplomacy:2,accession:2,security:31};
 function samePrediction(actual,expected){
   const a=clone(actual),b=clone(expected);
@@ -47,4 +47,19 @@ test('preview receipts are deeply detached and neither copying nor saving prunes
   assert.deepEqual(clone(copy.civilization.finance),clone(s.civilization.finance),'all old finance orders and periods remain available');
   assert.equal(JSON.stringify(s),before);ctx.CivilPlatform.validate(s);
   assert.deepEqual(clone(ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize())),clone(s));
+});
+
+for(const shortage of [false,true])test('long-save passenger payment previews stay bounded and preserve '+(shortage?'rejected families':'real family quotes'),()=>{
+  const h=harness(raw(77)),{s,ctx}=h;
+  // Separate synthetic teaching shortage; never written into the natural file.
+  if(shortage)s.civilization.municipal.nodes.ford.buildings.school=0;
+  const before=JSON.stringify(s),service=ctx.CivilUrban.serviceCheck,copy=ctx.CivilForecast.copy,seen=[];
+  ctx.CivilUrban.serviceCheck=function(paid,...args){seen.push(paid.civilization.nation.records.length);return service.call(this,paid,...args);};
+  const actual=ctx.CivilPassenger.quote(s,{source:'old_city_fringe',target:'ford'});
+  ctx.CivilUrban.serviceCheck=service;ctx.CivilForecast.copy=clone;
+  let expected;try{expected=ctx.CivilPassenger.quote(s,{source:'old_city_fringe',target:'ford'});}finally{ctx.CivilForecast.copy=copy;}
+  assert.deepEqual(clone(actual),clone(expected));assert.equal(JSON.stringify(s),before,'quoting must preserve all live costs, cohorts, transport and history');
+  if(shortage){assert.match(actual.reason,/教师|教学|学舍/);assert.ok(seen.length>1,'failed destinations must exercise smaller family retries');}
+  else {assert.equal(actual.sourceQuote.count,8);assert.equal(actual.cost.food,48);assert.equal(actual.transport.crew,2);}
+  assert.ok(seen.length>0);assert.ok(seen.every(n=>n<=2),'each paid candidate must exclude archived national receipts');
 });
