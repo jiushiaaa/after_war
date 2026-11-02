@@ -1,0 +1,318 @@
+{
+  "file": "自然游玩_Mac联盟展期与自主背约127.json",
+  "bytes": 1181881,
+  "sha256": "7d007667abced778a881528570bfa82cd3f53e2bf643ca0e95a99301f4db2316",
+  "elapsed": 527569,
+  "year": 879,
+  "generation": 126,
+  "speed": 1,
+  "maxSpeed": 64,
+  "legitimacy": 100,
+  "round": 19,
+  "leagues": {
+    "schema": 1,
+    "startedAt": 525285,
+    "pacts": [
+      {
+        "id": 1,
+        "pair": "east-north",
+        "type": "commerce",
+        "status": "ended",
+        "at": 525752,
+        "paidCycles": 7,
+        "missed": {
+          "east": 0,
+          "north": 0
+        },
+        "calls": [],
+        "notice": {
+          "actor": "east",
+          "at": 526817,
+          "dueAt": 527417
+        },
+        "endedAt": 527552
+      },
+      {
+        "id": 2,
+        "pair": "desert-islands",
+        "type": "commerce",
+        "status": "active",
+        "at": 525752,
+        "paidCycles": 7,
+        "missed": {
+          "desert": 0,
+          "islands": 0
+        },
+        "calls": [],
+        "notice": null,
+        "endedAt": null
+      },
+      {
+        "id": 3,
+        "pair": "east-polar",
+        "type": "commerce",
+        "status": "active",
+        "at": 526052,
+        "paidCycles": 6,
+        "missed": {
+          "east": 0,
+          "polar": 0
+        },
+        "calls": [],
+        "notice": null,
+        "endedAt": null
+      },
+      {
+        "id": 4,
+        "pair": "north-west",
+        "type": "commerce",
+        "status": "broken",
+        "at": 526352,
+        "paidCycles": 4,
+        "missed": {
+          "north": 0,
+          "west": 0
+        },
+        "calls": [],
+        "notice": null,
+        "endedAt": 527552,
+        "cause": "地方主动保留危急生产投入，拒绝继续承担联盟义务",
+        "blame": [
+          "west"
+        ]
+      },
+      {
+        "id": 5,
+        "pair": "plateau-west",
+        "type": "commerce",
+        "status": "broken",
+        "at": 526652,
+        "paidCycles": 3,
+        "missed": {
+          "plateau": 0,
+          "west": 0
+        },
+        "calls": [],
+        "notice": null,
+        "endedAt": 527552,
+        "cause": "地方主动保留危急生产投入，拒绝继续承担联盟义务",
+        "blame": [
+          "plateau",
+          "west"
+        ]
+      }
+    ],
+    "offers": [
+      {
+        "pair": "east-north",
+        "type": "commerce",
+        "at": 525404,
+        "source": "联席提议",
+        "resolvedAt": 525752,
+        "accepted": true,
+        "score": 55
+      },
+      {
+        "pair": "desert-islands",
+        "type": "commerce",
+        "at": 525452,
+        "source": "各方根据往来主动议约",
+        "resolvedAt": 525752,
+        "accepted": true,
+        "score": 119
+      },
+      {
+        "pair": "east-polar",
+        "type": "commerce",
+        "at": 525752,
+        "source": "各方根据往来主动议约",
+        "resolvedAt": 526052,
+        "accepted": true,
+        "score": 91
+      },
+      {
+        "pair": "north-west",
+        "type": "commerce",
+        "at": 526052,
+        "source": "各方根据往来主动议约",
+        "resolvedAt": 526352,
+        "accepted": true,
+        "score": 99
+      },
+      {
+        "pair": "plateau-west",
+        "type": "commerce",
+        "at": 526352,
+        "source": "各方根据往来主动议约",
+        "resolvedAt": 526652,
+        "accepted": true,
+        "score": 94
+      },
+      {
+        "pair": "north-rainforest",
+        "type": "commerce",
+        "at": 527552,
+        "source": "各方根据往来主动议约",
+        "resolvedAt": null,
+        "accepted": null,
+        "score": null
+      }
+    ],
+    "reputation": {
+      "west": 40,
+      "plateau": 20
+    },
+    "routes": {
+      "east-polar": {
+        "mode": "escort",
+        "at": 525826
+      }
+    },
+    "workouts": [
+      {
+        "debtor": "west",
+        "creditor": "east",
+        "debtSince": 523052,
+        "at": 525573,
+        "resolvedAt": 526052,
+        "accepted": true,
+        "fee": 2
+      }
+    ],
+    "extensions": {
+      "west": {
+        "debtSince": 523052,
+        "until": 526652,
+        "at": 526052,
+        "fee": 2,
+        "creditor": "east"
+      }
+    }
+  },
+  "playerActions": [
+    {
+      "kind": "league",
+      "action": "open",
+      "at": 525285,
+      "cost": {
+        "knowledge": 200,
+        "electronics": 20
+      }
+    },
+    {
+      "kind": "league",
+      "action": "offer",
+      "pair": "east-north",
+      "type": "commerce",
+      "at": 525404,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "league",
+      "action": "workout",
+      "actor": "west",
+      "at": 525573,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "league",
+      "action": "route",
+      "pair": "east-polar",
+      "mode": "escort",
+      "at": 525826,
+      "cost": {
+        "knowledge": 30
+      }
+    },
+    {
+      "kind": "league",
+      "action": "notice",
+      "pair": "east-north",
+      "actor": "east",
+      "at": 526817,
+      "cost": {
+        "knowledge": 20
+      }
+    }
+  ],
+  "shipments": {
+    "total": 52,
+    "arrived": 50,
+    "inFlight": 2,
+    "escorted": 3,
+    "escortedDelivered": 2
+  },
+  "accounts": {
+    "desert": {
+      "balance": -216,
+      "overdueAt": null,
+      "limit": 280
+    },
+    "east": {
+      "balance": 828,
+      "overdueAt": null,
+      "limit": 320
+    },
+    "islands": {
+      "balance": 196,
+      "overdueAt": null,
+      "limit": 280
+    },
+    "north": {
+      "balance": -216,
+      "overdueAt": 526352,
+      "limit": 280
+    },
+    "plateau": {
+      "balance": -136,
+      "overdueAt": 525452,
+      "limit": 180
+    },
+    "polar": {
+      "balance": -202,
+      "overdueAt": 527552,
+      "limit": 280
+    },
+    "rainforest": {
+      "balance": -84,
+      "overdueAt": 526052,
+      "limit": 240
+    },
+    "west": {
+      "balance": -170,
+      "overdueAt": 526652,
+      "limit": 120
+    }
+  },
+  "stable": {
+    "north": 0,
+    "east": 600,
+    "west": 600,
+    "rainforest": 600,
+    "desert": 0,
+    "plateau": 600,
+    "islands": 600,
+    "polar": 0
+  },
+  "accords": {
+    "north": {
+      "choice": 0,
+      "at": 516498,
+      "missed": 0,
+      "paidCycles": 1072
+    },
+    "east": {
+      "choice": 0,
+      "at": 521672,
+      "missed": 0,
+      "paidCycles": 567
+    }
+  },
+  "strictRoundtrip": true,
+  "oldLedgerAndShipmentPromisesPreserved": true,
+  "earthEndingPreserved": true
+}

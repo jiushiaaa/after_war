@@ -16,8 +16,8 @@ var CivilForeign={
   blocked(p){return ['embargo','war'].includes(p.phase);},
   target(id){return CivilForeignContent.profiles[id].use*60;},
   shortage(d,id){const p=CivilForeignContent.profiles[id];return (d.nodes[id].stores[p.need]||0)<this.target(id);},
-  overdue(f,id,at){const a=f.actors[id];return a.balance<0&&a.debtSince!==null&&at-a.debtSince>=CivilForeignContent.term;},
-  limit(d,id){const f=d.foreign;return Math.max(0,CivilForeignContent.credit[f.creditPolicy].limit+Math.floor(d.nodes[id].trust*2)-(this.fighting(d,id)?100:0));},
+  overdue(f,id,at){const a=f.actors[id];return a.balance<0&&a.debtSince!==null&&at>=CivilLeagues.deadline(f,id);},
+  limit(d,id){const f=d.foreign;return Math.max(0,CivilForeignContent.credit[f.creditPolicy].limit+Math.floor(d.nodes[id].trust*2)-(this.fighting(d,id)?100:0)+CivilLeagues.credit(d,id));},
   price(d,seller,item){const p=CivilForeignContent.profiles[seller],stock=d.nodes[seller].stores[item]||0,target=p.need===item?this.target(seller):60;return CivilForeignContent.prices[item]*(stock<target?2:1);},
   rate(d,id){if(!d?.foreign)return undefined;const p=CivilForeignContent.profiles[id],item=Object.keys(CivilStatecraftContent.regions[id].take)[0];let rate=(d.nodes[id].stores[p.need]||0)<this.target(id)/2?125:90;if((d.nodes[id].stores[item]||0)<60)rate-=25;if(this.fighting(d,id))rate-=25;if(d.foreign.actors[id]&&d.foreign.actors[id].overdueAt!==null)rate-=10;return this.clamp(rate,60,150);},
   startReason(s){if(!this.available(s))return '先研究国家计算，并联络至少两个地区';if(this.data(s))return '联席机制已运行';if(!CivilWorld.political(s))return '先恢复国家行政';return CivilFinance.reserveCheck(s,'home',CivilForeignContent.opening)?null:'预留知识180、电子20和本城供养';},
@@ -43,8 +43,10 @@ var CivilForeign={
   round(d,r){
     const f=d.foreign;if(!f||r.at-f.lastRoundAt<CivilForeignContent.interval)return;this.sync(d,r.at);f.lastRoundAt=r.at;f.round++;const at=r.at,ids=Object.keys(f.actors).sort();
     // Cargo is reserved at dispatch. An embargo cannot duplicate or seize an
-    // already accepted consignment; arrival fulfills that existing contract.
-    for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
+    // already accepted legacy consignment. Opt-in route manifests may return
+    // undelivered cargo and reverse its clearing claim without duplication.
+    for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt&&CivilLeagues.arrive(d,o,at)){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
+    CivilLeagues.beforeRound(d,r);
     for(const o of f.proposals)if(o.resolvedAt===null&&at-o.at>=300){const p=f.pairs[o.pair];o.score=this.score(d,o.pair,o.kind,r.political);o.accepted=o.score>=50;o.resolvedAt=at;if(o.accepted){p.phase='truce';p.since=at;p.truceUntil=at+1800;p.pressure=Math.max(0,p.pressure-45);p.relation=this.clamp(p.relation+15,-100,100);p.battles=0;}else{p.relation=Math.max(-100,p.relation-5);}this.addEvent(f,at,'proposal',this.label(o.pair)+(o.accepted?'接受':'拒绝')+CivilForeignContent.proposals[o.kind].name+'（判断'+o.score+'/50）；'+(o.accepted?'1800秒停火与预算协商期，货物仍须实际采购。':'经费已经使用，须改善利益与关系后再议。'));}
     for(const id of ids){const n=d.nodes[id],p=CivilForeignContent.profiles[id],a=f.actors[id];
       if(this.overdue(f,id,at)&&a.overdueAt===null){a.overdueAt=at;this.addEvent(f,at,'credit',this.name(id)+'清算欠款到期，停止新增赊购；出口回款仍用于偿债。');}
@@ -55,24 +57,24 @@ var CivilForeign={
     }
     // Rotate buyers to avoid a permanent alphabetical priority on scarce goods.
     const buyers=ids.slice(f.round%ids.length).concat(ids.slice(0,f.round%ids.length));
-    for(const id of buyers){const n=d.nodes[id],a=f.actors[id],p=CivilForeignContent.profiles[id];if(!this.shortage(d,id)||this.fighting(d,id)||n.control==='occupied'||f.shipments.some(o=>o.arrivedAt===null&&(o.from===id||o.to===id)))continue;
-      const qty=p.use*3,cargo={[p.need]:qty},fare={food:8,parts:1};
-      const sellers=ids.filter(other=>other!==id&&!this.fighting(d,other)&&d.nodes[other].control!=='occupied'&&!this.blocked(f.pairs[this.pair(id,other)])&&!f.shipments.some(o=>o.arrivedAt===null&&(o.from===other||o.to===other))&&this.canSpend(d.nodes[other],cargo)&&((CivilForeignContent.profiles[other].need!==p.need)||(d.nodes[other].stores[p.need]||0)>this.target(other)+qty)).sort((x,y)=>this.price(d,x,p.need)-this.price(d,y,p.need)||f.pairs[this.pair(id,y)].relation-f.pairs[this.pair(id,x)].relation||x.localeCompare(y));
+    for(const id of buyers){const n=d.nodes[id],a=f.actors[id],p=CivilForeignContent.profiles[id];if(!this.shortage(d,id)||(!f.leagues&&this.fighting(d,id))||n.control==='occupied'||f.shipments.some(o=>o.arrivedAt===null&&(o.from===id||o.to===id)))continue;
+      const qty=p.use*3,cargo={[p.need]:qty};
+      const sellers=ids.filter(other=>other!==id&&(f.leagues||!this.fighting(d,other))&&d.nodes[other].control!=='occupied'&&!this.blocked(f.pairs[this.pair(id,other)])&&!f.shipments.some(o=>o.arrivedAt===null&&(o.from===other||o.to===other))&&this.canSpend(d.nodes[other],cargo)&&((CivilForeignContent.profiles[other].need!==p.need)||(d.nodes[other].stores[p.need]||0)>this.target(other)+qty)).sort((x,y)=>this.price(d,x,p.need)-this.price(d,y,p.need)||f.pairs[this.pair(id,y)].relation-f.pairs[this.pair(id,x)].relation||x.localeCompare(y));
       const seller=sellers[0];if(!seller){a.decision+='；正在寻找'+CivilText.labels[p.need]+'供应方';continue;}
-      const price=this.price(d,seller,p.need),value=qty*price;if(this.overdue(f,id,at)||a.balance-value< -this.limit(d,id)){a.decision+='；清算信用不足，优先出口偿债';continue;}
+      const route=CivilLeagues.route(d,seller,id),fare=route.fare,price=this.price(d,seller,p.need),value=qty*price;if(this.overdue(f,id,at)||a.balance-value< -this.limit(d,id)){a.decision+='；清算信用不足，优先出口偿债';continue;}
       if(!this.canSpend(n,fare)){a.decision+='；运输经费不足';continue;}
       CivilServices.pay(n.stores,fare);CivilServices.pay(d.nodes[seller].stores,cargo);this.account(f,id,-value,at);this.account(f,seller,value,at);
-      const order={id:f.shipments.length+1,from:seller,to:id,departedAt:at,dueAt:at+300,arrivedAt:null,cargo,price,value,fare:{...fare}};f.shipments.push(order);a.decision='向'+this.name(seller)+'采购'+CivilHistory.costText(cargo)+'，账额'+value+'；300秒后到货';this.addEvent(f,at,'trade',this.name(id)+'自主'+a.decision+'。');
+      const order={id:f.shipments.length+1,from:seller,to:id,departedAt:at,dueAt:at+route.duration,arrivedAt:null,cargo,price,value,fare:{...fare},...(route.mode?{route:route.mode}:{})};f.shipments.push(order);a.decision='向'+this.name(seller)+'采购'+CivilHistory.costText(cargo)+'，账额'+value+'；'+route.duration+'秒后到货';this.addEvent(f,at,'trade',this.name(id)+'自主'+a.decision+'。');
     }
     // Creditors can redeem claims against a debtor's actual export stock.
     // This closes the food/knowledge side of the economy instead of leaving
     // exporters permanently indebted because nobody has the same input recipe.
-    for(const buyer of buyers){const claim=f.actors[buyer];if(claim.balance<=0||this.fighting(d,buyer)||d.nodes[buyer].control==='occupied'||f.shipments.some(o=>o.arrivedAt===null&&(o.from===buyer||o.to===buyer)))continue;
-      const debtors=ids.filter(id=>id!==buyer&&f.actors[id].balance<0&&!this.fighting(d,id)&&d.nodes[id].control!=='occupied'&&!this.blocked(f.pairs[this.pair(buyer,id)])&&!f.shipments.some(o=>o.arrivedAt===null&&(o.from===id||o.to===id))).sort((a,b)=>f.actors[a].balance-f.actors[b].balance||a.localeCompare(b));
-      for(const seller of debtors){const item=Object.keys(CivilForeignContent.profiles[seller].output).find(k=>this.canSpend(d.nodes[seller],{[k]:1}));if(!item)continue;const unit=this.price(d,seller,item),owed=Math.min(claim.balance,-f.actors[seller].balance),qty=Math.max(1,Math.min(item==='food'?36:10,Math.floor(owed/unit))),cargo={[item]:qty},fare={food:8,parts:1},value=Math.min(owed,qty*unit);
+    for(const buyer of buyers){const claim=f.actors[buyer];if(claim.balance<=0||(!f.leagues&&this.fighting(d,buyer))||d.nodes[buyer].control==='occupied'||f.shipments.some(o=>o.arrivedAt===null&&(o.from===buyer||o.to===buyer)))continue;
+      const debtors=ids.filter(id=>id!==buyer&&f.actors[id].balance<0&&(f.leagues||!this.fighting(d,id))&&d.nodes[id].control!=='occupied'&&!this.blocked(f.pairs[this.pair(buyer,id)])&&!f.shipments.some(o=>o.arrivedAt===null&&(o.from===id||o.to===id))).sort((a,b)=>f.actors[a].balance-f.actors[b].balance||a.localeCompare(b));
+      for(const seller of debtors){const item=Object.keys(CivilForeignContent.profiles[seller].output).find(k=>this.canSpend(d.nodes[seller],{[k]:1}));if(!item)continue;const unit=this.price(d,seller,item),owed=Math.min(claim.balance,-f.actors[seller].balance),qty=Math.max(1,Math.min(item==='food'?36:10,Math.floor(owed/unit))),cargo={[item]:qty},route=CivilLeagues.route(d,seller,buyer),fare=route.fare,value=Math.min(owed,qty*unit);
         if(!this.canSpend(d.nodes[seller],cargo)||!this.canSpend(d.nodes[buyer],fare))continue;
-        CivilServices.pay(d.nodes[seller].stores,cargo);CivilServices.pay(d.nodes[buyer].stores,fare);this.account(f,buyer,-value,at);this.account(f,seller,value,at);f.shipments.push({id:f.shipments.length+1,from:seller,to:buyer,departedAt:at,dueAt:at+300,arrivedAt:null,cargo,price:value/qty,value,fare:{...fare},settlement:true});
-        claim.decision='用'+value+'账额回购'+this.name(seller)+'的'+CivilHistory.costText(cargo)+'抵账；300秒后到货';this.addEvent(f,at,'trade',this.name(buyer)+claim.decision+'。不足一件的尾差双方折价结清。');break;
+        CivilServices.pay(d.nodes[seller].stores,cargo);CivilServices.pay(d.nodes[buyer].stores,fare);this.account(f,buyer,-value,at);this.account(f,seller,value,at);f.shipments.push({id:f.shipments.length+1,from:seller,to:buyer,departedAt:at,dueAt:at+route.duration,arrivedAt:null,cargo,price:value/qty,value,fare:{...fare},settlement:true,...(route.mode?{route:route.mode}:{})});
+        claim.decision='用'+value+'账额回购'+this.name(seller)+'的'+CivilHistory.costText(cargo)+'抵账；'+route.duration+'秒后到货';this.addEvent(f,at,'trade',this.name(buyer)+claim.decision+'。不足一件的尾差双方折价结清。');break;
       }
     }
     for(const[key,p]of Object.entries(f.pairs)){
@@ -95,6 +97,7 @@ var CivilForeign={
       if(previous!==p.phase){p.since=at;if(p.phase==='war')p.battles=0;this.addEvent(f,at,'relation',this.label(key)+'：'+this.phaseName(p.phase)+'；压力'+p.pressure+'，原因：'+(contested?'争夺同类稀缺投入':supply?'供应依赖与交付不足':broken?'政治承诺中断':'关系与公共供给变化')+'。');}
       if(p.phase==='war'||p.phase==='dispute'&&p.pressure>=85){na.stableSeconds=0;nb.stableSeconds=0;}
     }
+    CivilLeagues.afterRound(d,r);
   },
   // A player campaign changes third-party assessments as well as local trust.
   campaign(d,m,at){const f=d.foreign;if(!f)return;this.sync(d,at);for(const[key,p]of Object.entries(f.pairs))if(this.ids(key).includes(m.region)){p.pressure=this.clamp(p.pressure+25,0,100);p.relation=Math.max(-100,p.relation-20);}this.addEvent(f,at,'campaign',this.name(m.region)+'的战役使相关政体提高警戒，双边压力+25、关系-20。');},
@@ -105,10 +108,11 @@ var CivilForeign={
     if(!this.pendingIds.includes(id))return null;const s=State,d=CivilWorld.data(s),f=d?.foreign,text=[],buttons={},finish=(ok,msg)=>done(ok?msg:'条件已变化，本次没有执行。')();
     if(id==='foreignCouncil'){
       text.push(this.summary(s));if(!f){text.push('建立联席通信与清算：知识180、电子20。此后各方每300秒按实际库存组织公共工坊、采购和局势评估；会发生欠款、供给争议、禁运或有限战争。已接纳成员之间只走预算争议，不重新互相宣战。','地方工坊有实物投入；地区商队使用独立公共运力和当地旅费，不占本城六人行动队。清算账额只是地区间货物债权，不是本城可花的钱。');buttons.open={text:'建立常设联席与清算',available:()=>!this.startReason(s),nextScene:'end',onChoose:()=>finish(this.start(s),'联席已建立。各方开始独立核对产业、信用与关系。')};}
-      else{for(const actor of Object.keys(f.actors)){const a=f.actors[actor];text.push(this.name(actor)+'：'+a.decision);buttons[actor]={text:this.name(actor),nextScene:'end',onChoose:()=>{s.civilization.pending='foreign_'+actor;}};}buttons.accounts={text:'查看联区清算与授信',nextScene:'end',onChoose:()=>{s.civilization.pending='foreignAccounts';}};}
+      else{for(const actor of Object.keys(f.actors)){const a=f.actors[actor];text.push(this.name(actor)+'：'+a.decision);buttons[actor]={text:this.name(actor),nextScene:'end',onChoose:()=>{s.civilization.pending='foreign_'+actor;}};}buttons.accounts={text:'查看联区清算与授信',nextScene:'end',onChoose:()=>{s.civilization.pending='foreignAccounts';}};if(f.round>=2)buttons.leagues={text:'联盟与贸易线路',nextScene:'end',onChoose:()=>{s.civilization.pending='leagueCouncil';}};}
     }else if(id==='foreignAccounts'){
-      if(!f)return null;text.push('当前'+CivilForeignContent.credit[f.creditPolicy].name+'。账额总和恒为0：正数为已交出或在途货物的债权，负数为待以出口偿还的欠款；不能兑换本城库存。每笔货物先真实出库，300秒后到货。','首次负余额起1800秒到期，继续借款不会刷新期限。逾期停止赊购，出口抵债；债权方也会用账额回购真实出口物资，尾差折价结清。额度随地区信任和战争风险变化。');
-      for(const[id,a]of Object.entries(f.actors))text.push(this.name(id)+'：账额'+a.balance+'；信用上限'+this.limit(d,id)+(a.debtSince!==null?'；到期余'+Math.max(0,a.debtSince+1800-s.civilization.elapsed)+'秒':'')+(a.overdueAt!==null?'；已逾期':'')+'。');
+      if(!f)return null;text.push('当前'+CivilForeignContent.credit[f.creditPolicy].name+'。账额总和恒为0：正数为已交出或在途货物的债权，负数为待以出口偿还的欠款；不能兑换本城库存。'+(f.leagues?'货物先真实出库，按运单的直达、护航或绕行时间交付；退运反向冲销原账额。':'每笔货物先真实出库，300秒后到货。'),'首次负余额起1800秒到期，继续借款不会刷新期限。逾期停止赊购，出口抵债；债权方也会用账额回购真实出口物资，尾差折价结清。额度随地区信任和战争风险变化。');
+      for(const[id,a]of Object.entries(f.actors))text.push(this.name(id)+'：账额'+a.balance+'；信用上限'+this.limit(d,id)+(a.debtSince!==null?'；到期余'+Math.max(0,CivilLeagues.deadline(f,id)-s.civilization.elapsed)+'秒':'')+(a.overdueAt!==null?'；已逾期':'')+'。');
+      if(f.leagues)text.push('通商联盟每份另加40授信，失信每点扣3。展期只在债权方同意后生效，本金与费用仍须出口偿还；具体到期日见各地区记录。');
       text.push('授信基础额度120/240/480；另加信任×2，战争扣100。改议知识60、间隔600秒；旧账不改写。额度越大，能周转更多货物，也可能积累更大欠款。');for(const[mode,cfg]of Object.entries(CivilForeignContent.credit))buttons[mode]={text:cfg.name,available:()=>!this.policyReason(s,mode),nextScene:'end',onChoose:()=>finish(this.setPolicy(s,mode),'联区授信尺度已调整，旧债保留。')};
     }else if(id.startsWith('foreignPair_')){
       const key=id.slice(12),p=f?.pairs[key];if(!p)return null;text.push(this.label(key)+'：'+this.phaseName(p.phase)+'；关系'+p.relation+'、压力'+p.pressure+'。');
