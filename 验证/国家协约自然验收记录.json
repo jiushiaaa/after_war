@@ -1,0 +1,130 @@
+{
+  "file": "自然游玩_Mac国家协约互市与信贷清偿125.json",
+  "bytes": 1150245,
+  "sha256": "644f2c494e2b530b9fab256bde820461de4bbef8dfd487d151fe4ae3ab3bf02e",
+  "elapsed": 521840,
+  "year": 869,
+  "generation": 124,
+  "speed": 1,
+  "maxSpeed": 64,
+  "legitimacy": 100,
+  "economy": {
+    "mode": "planned",
+    "changedAt": 516388
+  },
+  "accords": {
+    "north": {
+      "choice": 0,
+      "at": 516498,
+      "missed": 0,
+      "paidCycles": 521
+    },
+    "east": {
+      "choice": 0,
+      "at": 521672,
+      "missed": 0,
+      "paidCycles": 16
+    }
+  },
+  "credit": {
+    "economy": "planned",
+    "loanMission": 23,
+    "openedAt": 519922,
+    "dueAt": 521722,
+    "status": "repaid",
+    "collateral": 0,
+    "closedAt": 520620
+  },
+  "missions": [
+    {
+      "region": "north",
+      "kind": "exchange",
+      "economy": "planned",
+      "id": 22,
+      "assetId": 23,
+      "departedAt": 517881,
+      "duration": 240,
+      "orbital": true,
+      "progress": 540,
+      "completedAt": 518181,
+      "returnedAt": 518421,
+      "cancelledAt": null,
+      "paid": {
+        "coal": 32,
+        "food": 30,
+        "parts": 4
+      },
+      "cargo": {},
+      "lastMovedAt": 518421,
+      "returnCargo": {}
+    },
+    {
+      "region": "north",
+      "kind": "credit",
+      "economy": "planned",
+      "id": 23,
+      "assetId": 23,
+      "departedAt": 519562,
+      "duration": 240,
+      "orbital": true,
+      "progress": 600,
+      "completedAt": 519922,
+      "returnedAt": 520162,
+      "cancelledAt": null,
+      "paid": {
+        "tools": 40,
+        "food": 30,
+        "parts": 4
+      },
+      "cargo": {},
+      "lastMovedAt": 520162,
+      "returnCargo": {}
+    },
+    {
+      "region": "north",
+      "kind": "repay",
+      "economy": "planned",
+      "forfeited": false,
+      "id": 24,
+      "assetId": 23,
+      "departedAt": 520320,
+      "duration": 240,
+      "orbital": true,
+      "progress": 540,
+      "completedAt": 520620,
+      "returnedAt": 520860,
+      "cancelledAt": null,
+      "paid": {
+        "parts": 91,
+        "food": 30
+      },
+      "cargo": {},
+      "lastMovedAt": 520860,
+      "returnCargo": {}
+    }
+  ],
+  "members": [
+    "north",
+    "east",
+    "west",
+    "rainforest",
+    "desert",
+    "plateau",
+    "islands",
+    "polar"
+  ],
+  "stable": {
+    "north": 600,
+    "east": 600,
+    "west": 600,
+    "rainforest": 600,
+    "desert": 600,
+    "plateau": 600,
+    "islands": 600,
+    "polar": 600
+  },
+  "oldWorldLedgerPreserved": true,
+  "oldCompletedMissionsPreserved": true,
+  "earthEndingPreserved": true,
+  "strictRoundtrip": true
+}

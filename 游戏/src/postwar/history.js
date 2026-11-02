@@ -102,11 +102,13 @@ var CivilHistory={
       for(const m of c.space.missions){const name=CivilSpaceContent.phases[m.kind].name;add('space_start_'+m.kind,'nation',name+'开始','实付 '+this.costText(m.paid)+'；连续运行仍需人员、电力与维护。',m.startedAt);if(m.completedAt!==null)add('space_done_'+m.kind,'nation',m.kind==='departure'?'地球篇完成：向星空出发':name+'完成',m.kind==='departure'?'无人先遣船出发，地球共同体进入太空时代。载人远征与星际战争不在本版范围。':'实物与连续运行记录已经核对。',m.completedAt);}
     }
     if(c.worldstage){
-      for(const m of c.worldstage.missions){const name=CivilWorldContent.regions[m.region].name,action=CivilWorldContent.missions[m.kind].name;
+      for(const m of c.worldstage.missions){const name=CivilWorldContent.regions[m.region].name,action=CivilWorld.missionConfig(m).name;
         add('world_depart_'+m.id,'diplomacy',name+'：'+action,'实付 '+this.costText(m.paid)+'；六名原有勤务人员出发。',m.departedAt);
-        if(m.completedAt!==null)add('world_complete_'+m.id,m.kind==='campaign'?'governance':'diplomacy',name+'：'+action+'完成',m.kind==='campaign'?'60名当地战斗人员死亡，设施降至40%。军事占领尚不等于共同法整合。':'实际到达并完成现场工作，结果计入独立地区账册。',m.completedAt);
+        if(m.completedAt!==null)add('world_complete_'+m.id,m.kind==='campaign'?'governance':'diplomacy',name+'：'+action+'完成',m.kind==='campaign'?(CivilWorld.missionConfig(m).casualties??60)+'名当地战斗人员死亡，设施余'+(CivilWorld.missionConfig(m).infrastructure??40)+'%。军事占领尚不等于共同法整合。':'实际到达并完成现场工作，结果计入独立地区账册。',m.completedAt);
         if(m.cancelledAt!==null)add('world_recall_'+m.id,'transport','国家行动撤回','沿已行距离返程；旅费不退，仅未交付物资返库。',m.cancelledAt);
       }
+      for(const[id,n]of Object.entries(c.worldstage.nodes))if(n.credit?.defaultedAt!==undefined)add('credit_default_'+id,'diplomacy',CivilWorldContent.regions[id].name+'信贷违约','到期未发出还款，抵押工具40转入地方公库，信任下降20；后来清偿也保留此记录。',n.credit.defaultedAt);
+      for(const[i,r]of c.worldstage.ledger.entries())if(r.kind==='statecraft'&&['policy','accord','renew'].includes(r.action))add('statecraft_'+i,'diplomacy',r.action==='policy'?'经济制度：'+CivilStatecraftContent.policies[r.mode].name:CivilWorldContent.regions[r.region].name+'：'+(r.action==='accord'?CivilStatecraftContent.regions[r.region].choices[r.choice].name:'重申地区协约'),'实付 '+this.costText(r.cost)+'；持续义务按公共账册执行。',r.at);
       for(const r of c.worldstage.ledger)if(r.kind==='join')add('world_join_'+r.region,'diplomacy',CivilWorldContent.regions[r.region].name+'共同法登记','双方实付议约；原城市网络居民与公共仓库保留。',r.at);
     }
     if(c.commerce){
