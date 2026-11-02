@@ -1,0 +1,1087 @@
+{
+  "scope": "134未统一档的独立宏观预算对照；固定正常行政，不是自然进度。治理仅开一次善后会议、一次实付西陆钢350调剂、地区重建与基础产线、一次减负、暂停新盟约与正常通知退出。180000秒未追加国库输血。",
+  "baseline": {
+    "governed": false,
+    "simulatedSeconds": 180000,
+    "tradeRounds": 600,
+    "newShipments": 88,
+    "stats": {
+      "north": {
+        "rounds": 600,
+        "stopped": 600,
+        "longestStop": 600,
+        "consecutive": 600,
+        "warRounds": 89,
+        "overdueRounds": 0,
+        "minInput": 0
+      },
+      "west": {
+        "rounds": 600,
+        "stopped": 600,
+        "longestStop": 600,
+        "consecutive": 600,
+        "warRounds": 90,
+        "overdueRounds": 0,
+        "minInput": 0
+      },
+      "east": {
+        "rounds": 600,
+        "stopped": 90,
+        "longestStop": 12,
+        "consecutive": 0,
+        "warRounds": 11,
+        "overdueRounds": 2,
+        "minInput": 2.4000000000558854
+      }
+    },
+    "checkpoints": [
+      {
+        "seconds": 30000,
+        "stats": {
+          "north": {
+            "rounds": 100,
+            "stopped": 100,
+            "longestStop": 100,
+            "consecutive": 100,
+            "warRounds": 20,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 100,
+            "stopped": 100,
+            "longestStop": 100,
+            "consecutive": 100,
+            "warRounds": 21,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 100,
+            "stopped": 27,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 0,
+            "minInput": 98.40000000000737
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 70,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 98.50000000000738
+          }
+        }
+      },
+      {
+        "seconds": 60000,
+        "stats": {
+          "north": {
+            "rounds": 200,
+            "stopped": 200,
+            "longestStop": 200,
+            "consecutive": 200,
+            "warRounds": 35,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 200,
+            "stopped": 200,
+            "longestStop": 200,
+            "consecutive": 200,
+            "warRounds": 36,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 200,
+            "stopped": 27,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 2,
+            "minInput": 64.40000000002757
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 60,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 68.50000000003295
+          }
+        }
+      },
+      {
+        "seconds": 90000,
+        "stats": {
+          "north": {
+            "rounds": 300,
+            "stopped": 300,
+            "longestStop": 300,
+            "consecutive": 300,
+            "warRounds": 49,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 300,
+            "stopped": 300,
+            "longestStop": 300,
+            "consecutive": 300,
+            "warRounds": 50,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 300,
+            "stopped": 27,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 2,
+            "minInput": 50.40000000005605
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 60,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 50.500000000056055
+          }
+        }
+      },
+      {
+        "seconds": 120000,
+        "stats": {
+          "north": {
+            "rounds": 400,
+            "stopped": 400,
+            "longestStop": 400,
+            "consecutive": 400,
+            "warRounds": 61,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 400,
+            "stopped": 400,
+            "longestStop": 400,
+            "consecutive": 400,
+            "warRounds": 62,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 400,
+            "stopped": 40,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 2,
+            "minInput": 2.4000000000558854
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 60,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 2.500000000056532
+          }
+        }
+      },
+      {
+        "seconds": 150000,
+        "stats": {
+          "north": {
+            "rounds": 500,
+            "stopped": 500,
+            "longestStop": 500,
+            "consecutive": 500,
+            "warRounds": 75,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 500,
+            "stopped": 500,
+            "longestStop": 500,
+            "consecutive": 500,
+            "warRounds": 76,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 500,
+            "stopped": 65,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 2,
+            "minInput": 2.4000000000558854
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 60,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 2.5000000000577756
+          }
+        }
+      },
+      {
+        "seconds": 180000,
+        "stats": {
+          "north": {
+            "rounds": 600,
+            "stopped": 600,
+            "longestStop": 600,
+            "consecutive": 600,
+            "warRounds": 89,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 600,
+            "stopped": 600,
+            "longestStop": 600,
+            "consecutive": 600,
+            "warRounds": 90,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 600,
+            "stopped": 90,
+            "longestStop": 12,
+            "consecutive": 0,
+            "warRounds": 11,
+            "overdueRounds": 2,
+            "minInput": 2.4000000000558854
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 85,
+            "stable": 0,
+            "input": 0
+          },
+          "west": {
+            "infra": 60,
+            "stable": 0,
+            "input": 0
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 2.500000000059019
+          }
+        }
+      }
+    ],
+    "conferences": [],
+    "industries": {},
+    "reduced": false,
+    "exited": false,
+    "accounts": {
+      "north": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "冲突或占领中，地方工坊停产；缺煤，等待出口回款或双方可接受的互换；缺煤，等待出口回款或双方可接受的互换"
+      },
+      "west": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "冲突或占领中，地方工坊停产；缺钢材，等待出口回款或双方可接受的互换；缺钢材，等待出口回款或双方可接受的互换"
+      },
+      "east": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20；缺药品，等待出口回款或双方可接受的互换"
+      }
+    },
+    "pacts": [
+      {
+        "id": 1,
+        "pair": "east-north",
+        "type": "defense",
+        "status": "broken",
+        "at": 457152,
+        "paidCycles": 22,
+        "missed": {
+          "east": 0,
+          "north": 0
+        },
+        "calls": [
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 461952,
+            "at": 462252,
+            "dueAt": 462852,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 9
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 461952,
+            "at": 462252,
+            "dueAt": 462852,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 10
+          },
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 461952,
+            "at": 462852,
+            "dueAt": 463452,
+            "status": "sent",
+            "epoch": 1,
+            "shipment": 11
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 461952,
+            "at": 462852,
+            "dueAt": 463452,
+            "status": "refused",
+            "epoch": 1
+          }
+        ],
+        "notice": null,
+        "endedAt": 463452,
+        "originalType": "commerce",
+        "upgradedAt": 460452,
+        "cause": "未在600秒内履行战时援助",
+        "blame": [
+          "east"
+        ]
+      },
+      {
+        "id": 2,
+        "pair": "east-north",
+        "type": "defense",
+        "status": "broken",
+        "at": 465556,
+        "paidCycles": 25,
+        "missed": {
+          "east": 0,
+          "north": 0
+        },
+        "calls": [
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 470956,
+            "at": 471256,
+            "dueAt": 471856,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 12
+          },
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 471256,
+            "at": 471556,
+            "dueAt": 472156,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 13
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 470956,
+            "at": 471856,
+            "dueAt": 472456,
+            "status": "sent",
+            "epoch": 1,
+            "shipment": 14
+          },
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 471256,
+            "at": 472156,
+            "dueAt": 472756,
+            "status": "refused",
+            "epoch": 1
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 470956,
+            "at": 472756,
+            "dueAt": 473356,
+            "status": "pending",
+            "epoch": 2
+          }
+        ],
+        "notice": null,
+        "endedAt": 472756,
+        "originalType": "commerce",
+        "upgradedAt": 471256,
+        "cause": "未在600秒内履行战时援助",
+        "blame": [
+          "north"
+        ]
+      },
+      {
+        "id": 3,
+        "pair": "east-north",
+        "type": "defense",
+        "status": "broken",
+        "at": 474856,
+        "paidCycles": 20,
+        "missed": {
+          "east": 2,
+          "north": 0
+        },
+        "calls": [
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 479956,
+            "at": 480256,
+            "dueAt": 480856,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 15
+          },
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 480256,
+            "at": 480556,
+            "dueAt": 481156,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 16
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 479956,
+            "at": 480856,
+            "dueAt": 481456,
+            "status": "pending",
+            "epoch": 1
+          }
+        ],
+        "notice": null,
+        "endedAt": 481156,
+        "originalType": "commerce",
+        "upgradedAt": 480256,
+        "cause": "连续两轮拖欠联盟维护",
+        "blame": [
+          "east"
+        ]
+      },
+      {
+        "id": 4,
+        "pair": "east-north",
+        "type": "defense",
+        "status": "broken",
+        "at": 494056,
+        "paidCycles": 1,
+        "missed": {
+          "east": 2,
+          "north": 0
+        },
+        "calls": [
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 493456,
+            "at": 494056,
+            "dueAt": 494656,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 17
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 493456,
+            "at": 494356,
+            "dueAt": 494956,
+            "status": "cancelled",
+            "epoch": 1
+          }
+        ],
+        "notice": null,
+        "endedAt": 494956,
+        "cause": "连续两轮拖欠联盟维护",
+        "blame": [
+          "east"
+        ]
+      }
+    ],
+    "strictWorldReplay": true,
+    "allFinite": true
+  },
+  "governed": {
+    "governed": true,
+    "simulatedSeconds": 180000,
+    "tradeRounds": 600,
+    "newShipments": 594,
+    "stats": {
+      "north": {
+        "rounds": 600,
+        "stopped": 178,
+        "longestStop": 5,
+        "consecutive": 1,
+        "warRounds": 1,
+        "overdueRounds": 0,
+        "minInput": 0
+      },
+      "west": {
+        "rounds": 600,
+        "stopped": 4,
+        "longestStop": 4,
+        "consecutive": 0,
+        "warRounds": 1,
+        "overdueRounds": 9,
+        "minInput": 0
+      },
+      "east": {
+        "rounds": 600,
+        "stopped": 4,
+        "longestStop": 4,
+        "consecutive": 0,
+        "warRounds": 1,
+        "overdueRounds": 25,
+        "minInput": 66.5000000000156
+      }
+    },
+    "checkpoints": [
+      {
+        "seconds": 30000,
+        "stats": {
+          "north": {
+            "rounds": 100,
+            "stopped": 5,
+            "longestStop": 5,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 100,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 100,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 60
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 50
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 68.60000000002073
+          }
+        }
+      },
+      {
+        "seconds": 60000,
+        "stats": {
+          "north": {
+            "rounds": 200,
+            "stopped": 6,
+            "longestStop": 5,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 200,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 200,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 56
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 48
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 67.60000000004631
+          }
+        }
+      },
+      {
+        "seconds": 90000,
+        "stats": {
+          "north": {
+            "rounds": 300,
+            "stopped": 49,
+            "longestStop": 5,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 300,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 2,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 300,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 3,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 58
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 46
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 66.60000000007189
+          }
+        }
+      },
+      {
+        "seconds": 120000,
+        "stats": {
+          "north": {
+            "rounds": 400,
+            "stopped": 92,
+            "longestStop": 5,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 400,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 5,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 400,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 12,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 60
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 50
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 68.60000000009747
+          }
+        }
+      },
+      {
+        "seconds": 150000,
+        "stats": {
+          "north": {
+            "rounds": 500,
+            "stopped": 135,
+            "longestStop": 5,
+            "consecutive": 1,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 500,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 6,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 500,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 17,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 62
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 48
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 67.60000000012305
+          }
+        }
+      },
+      {
+        "seconds": 180000,
+        "stats": {
+          "north": {
+            "rounds": 600,
+            "stopped": 178,
+            "longestStop": 5,
+            "consecutive": 1,
+            "warRounds": 1,
+            "overdueRounds": 0,
+            "minInput": 0
+          },
+          "west": {
+            "rounds": 600,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 9,
+            "minInput": 0
+          },
+          "east": {
+            "rounds": 600,
+            "stopped": 4,
+            "longestStop": 4,
+            "consecutive": 0,
+            "warRounds": 1,
+            "overdueRounds": 25,
+            "minInput": 66.5000000000156
+          }
+        },
+        "nodes": {
+          "north": {
+            "infra": 100,
+            "stable": 600,
+            "input": 64
+          },
+          "west": {
+            "infra": 100,
+            "stable": 600,
+            "input": 46
+          },
+          "east": {
+            "infra": 100,
+            "stable": 600,
+            "input": 69.60000000014863
+          }
+        }
+      }
+    ],
+    "conferences": [
+      {
+        "at": 463466,
+        "actors": [
+          "east",
+          "north",
+          "west"
+        ],
+        "status": "completed",
+        "resolvedAt": 464056,
+        "votes": {
+          "east": 59,
+          "north": 77,
+          "west": 82
+        },
+        "missed": {
+          "east": 0,
+          "north": 0,
+          "west": 0
+        },
+        "cycles": 6,
+        "completedAt": 469456,
+        "until": 470056
+      }
+    ],
+    "industries": {
+      "north": {
+        "at": 464066,
+        "cycles": 3,
+        "completedAt": 464956,
+        "produced": 295,
+        "lastProducedAt": 643456
+      },
+      "east": {
+        "at": 464066,
+        "cycles": 3,
+        "completedAt": 464956,
+        "produced": 39,
+        "lastProducedAt": 640156
+      },
+      "west": {
+        "at": 464966,
+        "cycles": 3,
+        "completedAt": 465856,
+        "produced": 446,
+        "lastProducedAt": 643456
+      }
+    },
+    "reduced": true,
+    "exited": true,
+    "accounts": {
+      "north": {
+        "balance": 67,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "缺少煤，公共工坊停产；缺食物，等待出口回款或双方可接受的互换"
+      },
+      "west": {
+        "balance": -52,
+        "debtSince": 641956,
+        "overdueAt": null,
+        "decision": "按需进口零件 3，控制周转信用"
+      },
+      "east": {
+        "balance": -15,
+        "debtSince": 643156,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20"
+      }
+    },
+    "pacts": [
+      {
+        "id": 1,
+        "pair": "east-north",
+        "type": "defense",
+        "status": "broken",
+        "at": 457152,
+        "paidCycles": 22,
+        "missed": {
+          "east": 0,
+          "north": 0
+        },
+        "calls": [
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 461952,
+            "at": 462252,
+            "dueAt": 462852,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 9
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 461952,
+            "at": 462252,
+            "dueAt": 462852,
+            "status": "sent",
+            "epoch": 0,
+            "shipment": 10
+          },
+          {
+            "target": "east",
+            "ally": "north",
+            "war": "east-west",
+            "warSince": 461952,
+            "at": 462852,
+            "dueAt": 463452,
+            "status": "sent",
+            "epoch": 1,
+            "shipment": 11
+          },
+          {
+            "target": "north",
+            "ally": "east",
+            "war": "north-west",
+            "warSince": 461952,
+            "at": 462852,
+            "dueAt": 463452,
+            "status": "refused",
+            "epoch": 1
+          }
+        ],
+        "notice": null,
+        "endedAt": 463452,
+        "originalType": "commerce",
+        "upgradedAt": 460452,
+        "cause": "未在600秒内履行战时援助",
+        "blame": [
+          "east"
+        ]
+      },
+      {
+        "id": 2,
+        "pair": "east-north",
+        "type": "commerce",
+        "status": "ended",
+        "at": 465556,
+        "paidCycles": 6,
+        "missed": {
+          "east": 0,
+          "north": 0
+        },
+        "calls": [],
+        "notice": {
+          "actor": "north",
+          "at": 466166,
+          "dueAt": 466766
+        },
+        "endedAt": 467056,
+        "reducedAt": 466156
+      }
+    ],
+    "strictWorldReplay": true,
+    "allFinite": true
+  }
+}

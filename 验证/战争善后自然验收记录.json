@@ -1,0 +1,1067 @@
+{
+  "file": "自然游玩_Mac战争善后供给恢复与盟约减负136.json",
+  "bytes": 918761,
+  "sha256": "c4c2b365c58838959ea7c8182fd0be176851cde8cd6b0d6bb869aed91957397f",
+  "branch": "134未统一自然分支；131地球首航主线原样保留",
+  "elapsed": 471270,
+  "year": 785,
+  "generation": 112,
+  "speed": 1,
+  "nationalLegitimacy": 100,
+  "round": 54,
+  "aftermath": {
+    "schema": 1,
+    "at": 463468,
+    "conferences": [
+      {
+        "at": 463474,
+        "actors": [
+          "east",
+          "north",
+          "west"
+        ],
+        "status": "completed",
+        "resolvedAt": 464052,
+        "votes": {
+          "east": 59,
+          "north": 77,
+          "west": 82
+        },
+        "missed": {
+          "east": 0,
+          "north": 0,
+          "west": 0
+        },
+        "cycles": 6,
+        "completedAt": 469452,
+        "until": 470052
+      }
+    ],
+    "plans": {
+      "north": {
+        "mode": "services",
+        "at": 463486
+      },
+      "east": {
+        "mode": "services",
+        "at": 463488
+      },
+      "west": {
+        "mode": "restart",
+        "at": 463490
+      }
+    },
+    "industries": {
+      "north": {
+        "at": 466360,
+        "cycles": 3,
+        "completedAt": 467052,
+        "produced": 10,
+        "lastProducedAt": 471252
+      },
+      "east": {
+        "at": 466380,
+        "cycles": 3,
+        "completedAt": 467052,
+        "produced": 0,
+        "lastProducedAt": null
+      },
+      "west": {
+        "at": 466523,
+        "cycles": 3,
+        "completedAt": 467352,
+        "produced": 0,
+        "lastProducedAt": null
+      }
+    },
+    "work": [
+      {
+        "actor": "east",
+        "at": 464052,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "north",
+        "at": 464052,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "west",
+        "at": 464052,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "east",
+        "at": 464352,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "north",
+        "at": 464352,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "west",
+        "at": 464352,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "east",
+        "at": 464652,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "north",
+        "at": 464652,
+        "type": "repair",
+        "cost": {
+          "food": 24,
+          "tools": 8,
+          "parts": 8
+        },
+        "repair": 10
+      },
+      {
+        "actor": "west",
+        "at": 464652,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "west",
+        "at": 464952,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 9,
+          "coal": 7
+        }
+      },
+      {
+        "actor": "west",
+        "at": 464952,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "west",
+        "at": 465252,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 10,
+          "coal": 7
+        }
+      },
+      {
+        "actor": "west",
+        "at": 465252,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "west",
+        "at": 465552,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 11,
+          "coal": 8
+        }
+      },
+      {
+        "actor": "west",
+        "at": 465552,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "west",
+        "at": 465852,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 12,
+          "coal": 9
+        }
+      },
+      {
+        "actor": "west",
+        "at": 465852,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "west",
+        "at": 466152,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 12,
+          "coal": 9
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466152,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "north",
+        "at": 466452,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "tools": 2,
+          "parts": 1
+        }
+      },
+      {
+        "actor": "east",
+        "at": 466452,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "parts": 2,
+          "knowledge": 2
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466452,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 13,
+          "coal": 10
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466452,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "north",
+        "at": 466752,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "tools": 2,
+          "parts": 1
+        }
+      },
+      {
+        "actor": "east",
+        "at": 466752,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "parts": 2,
+          "knowledge": 2
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466752,
+        "type": "construction",
+        "cost": {
+          "food": 12,
+          "parts": 2,
+          "coal": 4
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466752,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 14,
+          "coal": 10
+        }
+      },
+      {
+        "actor": "west",
+        "at": 466752,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "north",
+        "at": 467052,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "tools": 2,
+          "parts": 1
+        }
+      },
+      {
+        "actor": "east",
+        "at": 467052,
+        "type": "construction",
+        "cost": {
+          "food": 8,
+          "parts": 2,
+          "knowledge": 2
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467052,
+        "type": "construction",
+        "cost": {
+          "food": 12,
+          "parts": 2,
+          "coal": 4
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467052,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 15,
+          "coal": 11
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467052,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "north",
+        "at": 467352,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467352,
+        "type": "construction",
+        "cost": {
+          "food": 12,
+          "parts": 2,
+          "coal": 4
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467352,
+        "type": "restart",
+        "cost": {
+          "food": 12,
+          "steel": 5
+        },
+        "output": {
+          "tools": 16,
+          "coal": 12
+        }
+      },
+      {
+        "actor": "west",
+        "at": 467352,
+        "type": "repair",
+        "cost": {
+          "food": 16,
+          "tools": 5,
+          "parts": 5
+        },
+        "repair": 5
+      },
+      {
+        "actor": "north",
+        "at": 467652,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 467952,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 468252,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 468552,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 468852,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 469452,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 470052,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 470652,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      },
+      {
+        "actor": "north",
+        "at": 471252,
+        "type": "supply",
+        "cost": {
+          "food": 14,
+          "tools": 2,
+          "parts": 1,
+          "knowledge": 1
+        },
+        "output": {
+          "coal": 8
+        }
+      }
+    ],
+    "reductions": [
+      {
+        "pair": "east-north",
+        "pact": 2,
+        "at": 468095,
+        "resolvedAt": 468552,
+        "accepted": true,
+        "score": 51
+      }
+    ],
+    "mandates": {
+      "north": {
+        "mode": "rebuild",
+        "at": 468115
+      },
+      "west": {
+        "mode": "rebuild",
+        "at": 468117
+      },
+      "east": {
+        "mode": "rebuild",
+        "at": 468119
+      }
+    }
+  },
+  "nodes": {
+    "north": {
+      "population": 25984,
+      "casualties": 16,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 1655.5,
+        "medicine": 242.33999999997525,
+        "tools": 188.67500000006473,
+        "parts": 222.10499999998487,
+        "knowledge": 3386.9000000005117,
+        "coal": 56
+      }
+    },
+    "west": {
+      "population": 30972,
+      "casualties": 28,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 1472,
+        "medicine": 205.40000000000114,
+        "tools": 515.0000000000603,
+        "parts": 89.65999999999018,
+        "knowledge": 3145.000000000141,
+        "steel": 240,
+        "coal": 133
+      }
+    },
+    "east": {
+      "population": 41988,
+      "casualties": 12,
+      "infrastructure": 100,
+      "stable": 600,
+      "stores": {
+        "food": 1776.5,
+        "medicine": 113.6000000000018,
+        "tools": 225.51500000004742,
+        "parts": 66.55499999999394,
+        "knowledge": 3922.800000000146
+      }
+    }
+  },
+  "accounts": {
+    "north": {
+      "balance": -8,
+      "debtSince": 471252,
+      "overdueAt": null,
+      "decision": "按需进口煤 4，控制周转信用"
+    },
+    "west": {
+      "balance": 8,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12"
+    },
+    "east": {
+      "balance": 0,
+      "debtSince": null,
+      "overdueAt": null,
+      "decision": "公共工坊消耗粮食 12、药品 4，产出知识 20"
+    }
+  },
+  "pairs": {
+    "north-west": {
+      "pressure": 0,
+      "relation": 100,
+      "phase": "calm",
+      "since": 471252,
+      "truceUntil": 471252,
+      "battles": 0,
+      "lastProposalAt": null
+    },
+    "east-north": {
+      "pressure": 0,
+      "relation": 100,
+      "phase": "calm",
+      "since": 471252,
+      "truceUntil": 471252,
+      "battles": 0,
+      "lastProposalAt": null
+    },
+    "east-west": {
+      "pressure": 2,
+      "relation": -1,
+      "phase": "calm",
+      "since": 471252,
+      "truceUntil": 471252,
+      "battles": 0,
+      "lastProposalAt": null
+    }
+  },
+  "pacts": [
+    {
+      "id": 1,
+      "pair": "east-north",
+      "type": "defense",
+      "status": "broken",
+      "at": 457152,
+      "paidCycles": 22,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 9
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462252,
+          "dueAt": 462852,
+          "status": "sent",
+          "epoch": 0,
+          "shipment": 10
+        },
+        {
+          "target": "east",
+          "ally": "north",
+          "war": "east-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "sent",
+          "epoch": 1,
+          "shipment": 11
+        },
+        {
+          "target": "north",
+          "ally": "east",
+          "war": "north-west",
+          "warSince": 461952,
+          "at": 462852,
+          "dueAt": 463452,
+          "status": "refused",
+          "epoch": 1
+        }
+      ],
+      "notice": null,
+      "endedAt": 463452,
+      "originalType": "commerce",
+      "upgradedAt": 460452,
+      "cause": "未在600秒内履行战时援助",
+      "blame": [
+        "east"
+      ]
+    },
+    {
+      "id": 2,
+      "pair": "east-north",
+      "type": "commerce",
+      "status": "ended",
+      "at": 465552,
+      "paidCycles": 15,
+      "missed": {
+        "east": 0,
+        "north": 0
+      },
+      "calls": [],
+      "notice": {
+        "actor": "north",
+        "at": 469052,
+        "dueAt": 469652
+      },
+      "endedAt": 469752,
+      "reducedAt": 468552
+    }
+  ],
+  "reputation": {
+    "east": 20
+  },
+  "supplies": [
+    {
+      "id": 1,
+      "region": "west",
+      "at": 463496,
+      "dueAt": 464096,
+      "arrivedAt": 464352,
+      "cargo": {
+        "steel": 350
+      },
+      "fare": {
+        "food": 40,
+        "parts": 6
+      }
+    }
+  ],
+  "aid": [
+    {
+      "id": 9,
+      "from": "north",
+      "to": "east",
+      "departedAt": 462252,
+      "dueAt": 462852,
+      "arrivedAt": 462852,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    },
+    {
+      "id": 10,
+      "from": "east",
+      "to": "north",
+      "departedAt": 462852,
+      "dueAt": 463452,
+      "arrivedAt": 463452,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    },
+    {
+      "id": 11,
+      "from": "north",
+      "to": "east",
+      "departedAt": 463452,
+      "dueAt": 464052,
+      "arrivedAt": 464052,
+      "cargo": {
+        "food": 24,
+        "medicine": 4,
+        "tools": 4,
+        "parts": 4
+      },
+      "price": 0,
+      "value": 0,
+      "fare": {
+        "food": 12,
+        "parts": 3,
+        "tools": 2
+      },
+      "route": "escort",
+      "aid": true
+    }
+  ],
+  "shipments": {
+    "total": 28,
+    "arrived": 27,
+    "inFlight": 1,
+    "new": 17,
+    "postwarArrived": 16
+  },
+  "newActions": [
+    {
+      "kind": "aftermath",
+      "action": "open",
+      "at": 463468,
+      "cost": {
+        "knowledge": 220,
+        "electronics": 16
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "conference",
+      "at": 463474,
+      "cost": {
+        "knowledge": 160,
+        "medicine": 20
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "plan",
+      "actor": "north",
+      "mode": "services",
+      "at": 463486,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "plan",
+      "actor": "east",
+      "mode": "services",
+      "at": 463488,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "plan",
+      "actor": "west",
+      "mode": "restart",
+      "at": 463490,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "network",
+      "action": "supply",
+      "actor": "west",
+      "at": 463496,
+      "cost": {
+        "steel": 350,
+        "food": 40,
+        "parts": 6
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "industry",
+      "actor": "north",
+      "at": 466360,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "industry",
+      "actor": "east",
+      "at": 466380,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "industry",
+      "actor": "west",
+      "at": 466523,
+      "cost": {
+        "knowledge": 80
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "downgrade",
+      "pair": "east-north",
+      "at": 468095,
+      "cost": {
+        "knowledge": 60
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "mandate",
+      "actor": "north",
+      "mode": "rebuild",
+      "at": 468115,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "mandate",
+      "actor": "west",
+      "mode": "rebuild",
+      "at": 468117,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "aftermath",
+      "action": "mandate",
+      "actor": "east",
+      "mode": "rebuild",
+      "at": 468119,
+      "cost": {
+        "knowledge": 40
+      }
+    },
+    {
+      "kind": "league",
+      "action": "notice",
+      "pair": "east-north",
+      "actor": "north",
+      "at": 469052,
+      "cost": {
+        "knowledge": 20
+      }
+    }
+  ],
+  "strictRoundtrip": true,
+  "oldHistoryPreserved": true,
+  "forecastIsolated": true,
+  "forgeryRejected": true
+}

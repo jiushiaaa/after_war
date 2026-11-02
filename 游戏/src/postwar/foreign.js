@@ -48,6 +48,7 @@ var CivilForeign={
     CivilTransit.beforeRound(d,r);
     for(const o of f.shipments)if(o.arrivedAt===null&&at>=o.dueAt&&CivilLeagues.arrive(d,o,at)){CivilRegions.credit(d.nodes[o.to].stores,o.cargo);o.arrivedAt=at;const p=f.pairs[this.pair(o.from,o.to)];p.relation=this.clamp(p.relation+8,-100,100);p.pressure=Math.max(0,p.pressure-10);this.addEvent(f,at,'arrival',this.name(o.from)+'向'+this.name(o.to)+'交付'+CivilHistory.costText(o.cargo)+'；清算账额'+o.value+'。');}
     if(!f.markets)CivilTransit.dispatch(d,r);
+    CivilAftermath.beforeRound(d,r);
     CivilCongress.beforeRound(d,r);
     CivilLeagues.beforeRound(d,r);
     if(f.markets)CivilTransit.dispatch(d,r);
@@ -55,6 +56,7 @@ var CivilForeign={
     for(const id of ids){const n=d.nodes[id],p=CivilForeignContent.profiles[id],a=f.actors[id];
       if(this.overdue(f,id,at)&&a.overdueAt===null){a.overdueAt=at;this.addEvent(f,at,'credit',this.name(id)+'清算欠款到期，停止新增赊购；出口回款仍用于偿债。');}
       if(this.fighting(d,id)||n.control==='occupied'){a.decision='冲突或占领中，地方工坊停产';continue;}
+      if(CivilAftermath.recover(d,id,r))continue;
       if(n.infrastructure<100){if(d.missions.some(m=>m.region===id&&m.kind==='rebuild'&&m.departedAt<=at&&(m.completedAt===null||at<m.completedAt)&&(m.cancelledAt===null||at<m.cancelledAt))){a.decision='等待已经派出的重建队，避免重复施工';continue;}const repair={food:20,tools:6,parts:6};if(this.canSpend(n,repair)){CivilServices.pay(n.stores,repair);n.infrastructure=Math.min(100,n.infrastructure+5);a.decision='实付公共材料，修复5%设施';}continue;}
       const cost={food:12,[p.need]:p.use};if(p.need==='food')cost.food+=p.use;
       if(this.canSpend(n,cost)){CivilServices.pay(n.stores,cost);CivilRegions.credit(n.stores,p.output);a.decision='公共工坊消耗'+CivilHistory.costText(cost)+'，产出'+CivilHistory.costText(p.output);}else a.decision='缺少'+CivilText.labels[p.need]+'，公共工坊停产';
@@ -107,6 +109,7 @@ var CivilForeign={
     CivilCongress.afterRound(d,r);
     CivilLeagues.afterRound(d,r);
     CivilTransit.afterRound(d,r);
+    CivilAftermath.afterRound(d,r);
   },
   // A player campaign changes third-party assessments as well as local trust.
   campaign(d,m,at){const f=d.foreign;if(!f)return;this.sync(d,at);for(const[key,p]of Object.entries(f.pairs))if(this.ids(key).includes(m.region)){p.pressure=this.clamp(p.pressure+25,0,100);p.relation=Math.max(-100,p.relation-20);}this.addEvent(f,at,'campaign',this.name(m.region)+'的战役使相关政体提高警戒，双边压力+25、关系-20。');},
@@ -117,7 +120,7 @@ var CivilForeign={
     if(!this.pendingIds.includes(id))return null;const s=State,d=CivilWorld.data(s),f=d?.foreign,text=[],buttons={},finish=(ok,msg)=>done(ok?msg:'条件已变化，本次没有执行。')();
     if(id==='foreignCouncil'){
       text.push(this.summary(s));if(!f){text.push('建立联席通信与清算：知识180、电子20。此后各方每300秒按实际库存组织公共工坊、采购和局势评估；会发生欠款、供给争议、禁运或有限战争。已接纳成员之间只走预算争议，不重新互相宣战。','地方工坊有实物投入；地区商队使用独立公共运力和当地旅费，不占本城六人行动队。清算账额只是地区间货物债权，不是本城可花的钱。');buttons.open={text:'建立常设联席与清算',available:()=>!this.startReason(s),nextScene:'end',onChoose:()=>finish(this.start(s),'联席已建立。各方开始独立核对产业、信用与关系。')};}
-      else{for(const actor of Object.keys(f.actors)){const a=f.actors[actor];text.push(this.name(actor)+'：'+a.decision);buttons[actor]={text:this.name(actor),nextScene:'end',onChoose:()=>{s.civilization.pending='foreign_'+actor;}};}buttons.accounts={text:'查看联区清算与授信',nextScene:'end',onChoose:()=>{s.civilization.pending='foreignAccounts';}};if(f.round>=2)buttons.leagues={text:'联盟与贸易线路',nextScene:'end',onChoose:()=>{s.civilization.pending='leagueCouncil';}};}
+      else{if(f.congress&&CivilAftermath.seenWar(d))buttons.aftermath={text:'停火与战争善后',nextScene:'end',onChoose:()=>{s.civilization.pending='aftermathCouncil';}};for(const actor of Object.keys(f.actors)){const a=f.actors[actor];text.push(this.name(actor)+'：'+a.decision);buttons[actor]={text:this.name(actor),nextScene:'end',onChoose:()=>{s.civilization.pending='foreign_'+actor;}};}buttons.accounts={text:'查看联区清算与授信',nextScene:'end',onChoose:()=>{s.civilization.pending='foreignAccounts';}};if(f.round>=2)buttons.leagues={text:'联盟与贸易线路',nextScene:'end',onChoose:()=>{s.civilization.pending='leagueCouncil';}};}
     }else if(id==='foreignAccounts'){
       if(!f)return null;text.push('当前'+CivilForeignContent.credit[f.creditPolicy].name+'。账额总和恒为0：正数为已交出或在途货物的债权，负数为待以出口偿还的欠款；不能兑换本城库存。'+(f.leagues?'货物先真实出库，按运单的直达、护航或绕行时间交付；退运反向冲销原账额。':'每笔货物先真实出库，300秒后到货。'),'首次负余额起1800秒到期，继续借款不会刷新期限。逾期停止赊购，出口抵债；债权方也会用账额回购真实出口物资，尾差折价结清。额度随地区信任和战争风险变化。');
       for(const[id,a]of Object.entries(f.actors))text.push(this.name(id)+'：账额'+a.balance+'；信用上限'+this.limit(d,id)+(a.debtSince!==null?'；到期余'+Math.max(0,CivilLeagues.deadline(f,id)-s.civilization.elapsed)+'秒':'')+(a.overdueAt!==null?'；已逾期':'')+'。');
