@@ -1,7 +1,7 @@
 /* MPL-2.0 — 战后文明: one simulation clock, independent of UI animation. */
 (function(root) {
   class SimulationClock {
-    static rates = Object.freeze([1, 2, 4, 8, 16]);
+    static rates = Object.freeze([1, 2, 4, 8, 16, 32, 64]);
     constructor(now = () => performance.now()) {
       this.now = now; this.time = 0; this.rate = 1; this.tasks = new Map(); this.serial = 0;
     }
@@ -18,6 +18,10 @@
         // No offline catch-up, or destructive burst after a suspended computer wakes.
         const elapsed = Math.min(1000, Math.max(0, n - this.last)); this.last = n;
         this.advance(elapsed * this.rate);
+        // Do not turn expensive simulation/rendering work into another catch-up
+        // burst. Under load the chosen rate is a ceiling; every task still uses
+        // the same simulation clock and the browser gets an input turn.
+        this.last = this.now();
       }, 100);
     }
     stop() { clearInterval(this.driver); this.driver = undefined; this.tasks.clear(); }

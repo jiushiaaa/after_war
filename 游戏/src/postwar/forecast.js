@@ -9,6 +9,11 @@ var CivilForecast={
       if(data?.records.length>count)civilization[key]={...data,records:data.records.slice(-count)};
     }
     if(civilization.partnership) civilization.partnership={...civilization.partnership,partners:Object.fromEntries(Object.entries(civilization.partnership.partners).map(([id,p])=>[id,{...p,records:p.records.slice(-2)}]))};
+    // Economic previews need current regional treasuries and the current space
+    // test, not their immutable historical receipts. Only this disposable copy
+    // is shortened; exports and validators always keep the complete ledgers.
+    if(civilization.worldstage)civilization.worldstage={...civilization.worldstage,ledger:civilization.worldstage.ledger.slice(-2)};
+    if(civilization.space)civilization.space={...civilization.space,missions:civilization.space.missions.map(m=>({...m,receipts:m.receipts.slice(-1)}))};
     return JSON.parse(JSON.stringify({...s,civilization}));
   }
 };

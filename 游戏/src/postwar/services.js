@@ -27,7 +27,7 @@ var CivilServices={
   demandCapacity(s,id='home'){const b=this.data(s,id)?.buildings||{};return (b.waterworks||0)*4+(b.pharmacy||0)*8*.5+(b.heatingplant||0);},
   syncWorkers(s,id='home'){
     if(id!=='home')return;const w=s.game.workers,cap=this.jobs(s,id);
-    for(const job of ['servicebuilder','waterworker','pharmacist','heatingworker','windworker','precisionworker','electronicsworker','guard','expeditionworker','roboticist'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
+    for(const job of ['servicebuilder','waterworker','pharmacist','heatingworker','windworker','precisionworker','electronicsworker','guard','expeditionworker','roboticist','aerospaceworker','biosystemworker','missionworker'])if(cap[job]||Object.hasOwn(w,job))w[job]=Math.min(w[job]||0,cap[job]||0);
   },
   capacityBonus(s,id='home'){return (this.data(s,id)?.buildings.densehousing||0)*160;},
   labor(s,id,job){
@@ -162,7 +162,7 @@ var CivilServices={
         const queue=id!=='home'&&typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'')+d.name);
         button.show();Button.setDisabled(button,queue?!CivilPlanning.canQueue(s,id,'services',type):!this.projectAvailable(s,id)||!this.facilityGate(s,id,type)||id==='home'&&!Object.entries(d.cost).every(([k,n])=>(s.stores[k]||0)+1e-8>=n));
         if(type==='heatingplant')button.attr('aria-label',(queue?'排入：供热站':'建设供热站')+'，完工后需安排供热工与持续燃料');
-        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在聚落安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':type==='windstation'?'每组2名风机值守，额定12电；每位每10秒维护耗0.04零件，实际出力随当地风况变化，无风停机。须保留备用电源。':type==='heatingplant'?'每站电动2名供热工，10秒实耗1电、0.8煤与0.02零件，供600人；手动4人耗1.2煤与0.02零件，供300人。试运行覆盖全体居民后可交接日常供暖。':''));
+        button.attr('title',fmt(d.cost)+'；2名实际成人施工 '+d.duration+' 秒。'+(id==='home'?'本地先支付全额材料，请在顶栏本地城镇页安排营建工。':'材料由货车分批运到，当地居民负责施工。')+(type==='densehousing'?'完工增加160床；需实际公共诊疗、教学和现人口再加160人的供水。':type==='irrigationworks'?'仅改造水务田片；下一轮实际供水足够时，每位新农夫产2粮，缺水恢复1.4粮。':type==='districtschool'?'完工后可安排12名教师，每人照看20名儿童，教学仍需木料。':type==='passengerfleet'?'完工增加2个运输工岗位；迁居大队每次出动需要4名运输工。施工时需保证居民口粮。':type==='windstation'?'每组2名风机值守，额定12电；每位每10秒维护耗0.04零件，实际出力随当地风况变化，无风停机。须保留备用电源。':type==='heatingplant'?'每站电动2名供热工，10秒实耗1电、0.8煤与0.02零件，供600人；手动4人耗1.2煤与0.02零件，供300人。试运行覆盖全体居民后可交接日常供暖。':''));
         if(d.hint)button.attr('title',button.attr('title')+' '+d.hint);
         if(queue)button.attr('title',button.attr('title')+' 加入后续计划，按顺序启动，不预扣材料。');
       }

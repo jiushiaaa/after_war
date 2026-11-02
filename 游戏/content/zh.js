@@ -42,3 +42,15 @@ _ = function(key) {
   if(Object.prototype.hasOwnProperty.call(CivilText.labels,key)) return CivilText.labels[key];
   return adrTranslate.apply(this,arguments);
 };
+
+// Stage-aware language uses attained institutions, never the player's chosen
+// political title alone. Local demographic figures remain explicitly local.
+var CivilNarrative={
+  stage(s){const c=s.civilization||{};return Number.isSafeInteger(c.space?.unification?.at)?'earth':Number.isSafeInteger(c.nation?.foundedAt)?'nation':c.urban?.city?'city':c.urban?.chartered||c.village?.town?'town':'village';},
+  home(s){return s.civilization.urban?.city?'炉火城':s.civilization.urban?.chartered?'河谷镇':s.civilization.village?.town?'河谷小镇':'聚落';},
+  community(s){const stage=this.stage(s);return stage==='earth'?'地球共同体':stage==='nation'?'国家共同体':this.home(s);},
+  birth(s,count){return (count===1?'一名孩子':count+'名孩子')+'在'+this.home(s)+'出生。口粮与药品已备好，'+(s.civilization.urban?.city?'本城公共名册登记了这些新生儿。':'家人把他们记入名册。');},
+  death(s,count){return (s.civilization.urban?.city?this.home(s)+'：':'')+count+'位年长居民在这一年离世。他们留下的房屋与知识仍属于共同体。';},
+  maintenance(s){return this.stage(s)==='village'?'轮值工匠更换了粮棚的挡风板。木料与维护工具已记入公共开支。':this.home(s)+'的公共仓储完成一轮门窗检修。木料与维护工具已记入本地公共开支。';},
+  wildlife(s){const stage=this.stage(s);return stage==='village'?'林边出现一串陌生的兽足。猎人把足迹记在木板上，避开了那片洼地。':stage==='town'?this.home(s)+'的巡路人员记录了郊外兽群的活动痕迹，提醒居民避开那片洼地。':this.home(s)+'生态巡护记录：郊外发现变异生物活动痕迹。巡护人员提醒居民绕开相关区域。';}
+};

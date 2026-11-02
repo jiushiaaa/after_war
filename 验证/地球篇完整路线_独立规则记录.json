@@ -1,0 +1,1755 @@
+{
+  "kind": "isolated adapter test; not natural play",
+  "log": [
+    {
+      "at": 455764,
+      "text": "east accession"
+    },
+    {
+      "at": 458764,
+      "text": "west accession"
+    },
+    {
+      "at": 459664,
+      "text": "orbital_survey"
+    },
+    {
+      "at": 460564,
+      "text": "ocean_navigation"
+    },
+    {
+      "at": 461464,
+      "text": "ecological_recovery"
+    },
+    {
+      "at": 462664,
+      "text": "space_manufacturing"
+    },
+    {
+      "at": 463864,
+      "text": "closed_ecology"
+    },
+    {
+      "at": 464764,
+      "text": "globalfleet"
+    },
+    {
+      "at": 467548,
+      "text": "rainforest accession"
+    },
+    {
+      "at": 471062,
+      "text": "desert accession"
+    },
+    {
+      "at": 473090,
+      "text": "plateau accession"
+    },
+    {
+      "at": 476738,
+      "text": "islands accession"
+    },
+    {
+      "at": 479342,
+      "text": "polar accession"
+    },
+    {
+      "at": 480242,
+      "text": "spaceworks"
+    },
+    {
+      "at": 481142,
+      "text": "bioworks"
+    },
+    {
+      "at": 482342,
+      "text": "spaceport"
+    },
+    {
+      "at": 484352,
+      "text": "manufactured components"
+    },
+    {
+      "at": 486362,
+      "text": "Earth ending"
+    }
+  ],
+  "ending": {
+    "schema": 1,
+    "unification": {
+      "at": 479342,
+      "worldLedgerLength": 3029,
+      "paid": {
+        "knowledge": 1000,
+        "electronics": 40,
+        "tools": 40
+      }
+    },
+    "missions": [
+      {
+        "kind": "habitat",
+        "assetId": 28,
+        "startedAt": 484352,
+        "paid": {
+          "lifesupport": 6,
+          "spaceparts": 4,
+          "medicine": 60,
+          "food": 120
+        },
+        "progress": 300,
+        "completedAt": 485162,
+        "receipts": [
+          {
+            "at": 484362,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3531
+          },
+          {
+            "at": 484372,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3532
+          },
+          {
+            "at": 484382,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3533
+          },
+          {
+            "at": 484392,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3534
+          },
+          {
+            "at": 484402,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3535
+          },
+          {
+            "at": 484412,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3536
+          },
+          {
+            "at": 484422,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3537
+          },
+          {
+            "at": 484432,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3538
+          },
+          {
+            "at": 484442,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3539
+          },
+          {
+            "at": 484452,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3540
+          },
+          {
+            "at": 484462,
+            "paid": false,
+            "crew": 3,
+            "power": 0,
+            "ready": true,
+            "worldLedgerLength": 3541
+          },
+          {
+            "at": 484472,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3542
+          },
+          {
+            "at": 484482,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3543
+          },
+          {
+            "at": 484492,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3544
+          },
+          {
+            "at": 484502,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": true,
+            "worldLedgerLength": 3545
+          },
+          {
+            "at": 484512,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3546
+          },
+          {
+            "at": 484522,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3547
+          },
+          {
+            "at": 484532,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3548
+          },
+          {
+            "at": 484542,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3549
+          },
+          {
+            "at": 484552,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3550
+          },
+          {
+            "at": 484562,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3551
+          },
+          {
+            "at": 484572,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3552
+          },
+          {
+            "at": 484582,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3553
+          },
+          {
+            "at": 484592,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3554
+          },
+          {
+            "at": 484602,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3555
+          },
+          {
+            "at": 484612,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3556
+          },
+          {
+            "at": 484622,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3557
+          },
+          {
+            "at": 484632,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3558
+          },
+          {
+            "at": 484642,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3559
+          },
+          {
+            "at": 484652,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3560
+          },
+          {
+            "at": 484662,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3561
+          },
+          {
+            "at": 484672,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3562
+          },
+          {
+            "at": 484682,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3563
+          },
+          {
+            "at": 484692,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3564
+          },
+          {
+            "at": 484702,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3565
+          },
+          {
+            "at": 484712,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3566
+          },
+          {
+            "at": 484722,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3567
+          },
+          {
+            "at": 484732,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3568
+          },
+          {
+            "at": 484742,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3569
+          },
+          {
+            "at": 484752,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3570
+          },
+          {
+            "at": 484762,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3571
+          },
+          {
+            "at": 484772,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3572
+          },
+          {
+            "at": 484782,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3573
+          },
+          {
+            "at": 484792,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3574
+          },
+          {
+            "at": 484802,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3575
+          },
+          {
+            "at": 484812,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3576
+          },
+          {
+            "at": 484822,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3577
+          },
+          {
+            "at": 484832,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3578
+          },
+          {
+            "at": 484842,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3579
+          },
+          {
+            "at": 484852,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3580
+          },
+          {
+            "at": 484862,
+            "paid": false,
+            "crew": 4,
+            "power": 0,
+            "ready": false,
+            "worldLedgerLength": 3581
+          },
+          {
+            "at": 484872,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3582
+          },
+          {
+            "at": 484882,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3583
+          },
+          {
+            "at": 484892,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3584
+          },
+          {
+            "at": 484902,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3585
+          },
+          {
+            "at": 484912,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3586
+          },
+          {
+            "at": 484922,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3587
+          },
+          {
+            "at": 484932,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3588
+          },
+          {
+            "at": 484942,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3589
+          },
+          {
+            "at": 484952,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3590
+          },
+          {
+            "at": 484962,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3591
+          },
+          {
+            "at": 484972,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3592
+          },
+          {
+            "at": 484982,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3593
+          },
+          {
+            "at": 484992,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3594
+          },
+          {
+            "at": 485002,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3595
+          },
+          {
+            "at": 485012,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3596
+          },
+          {
+            "at": 485022,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3597
+          },
+          {
+            "at": 485032,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3598
+          },
+          {
+            "at": 485042,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3599
+          },
+          {
+            "at": 485052,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3600
+          },
+          {
+            "at": 485062,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3601
+          },
+          {
+            "at": 485072,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3602
+          },
+          {
+            "at": 485082,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3603
+          },
+          {
+            "at": 485092,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3604
+          },
+          {
+            "at": 485102,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3605
+          },
+          {
+            "at": 485112,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3606
+          },
+          {
+            "at": 485122,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3607
+          },
+          {
+            "at": 485132,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3608
+          },
+          {
+            "at": 485142,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3609
+          },
+          {
+            "at": 485152,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3610
+          },
+          {
+            "at": 485162,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3611
+          }
+        ]
+      },
+      {
+        "kind": "orbital",
+        "assetId": 28,
+        "startedAt": 485162,
+        "paid": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "electronics": 60,
+          "chemicals": 120
+        },
+        "progress": 600,
+        "completedAt": 485762,
+        "receipts": [
+          {
+            "at": 485172,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3612
+          },
+          {
+            "at": 485182,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3613
+          },
+          {
+            "at": 485192,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3614
+          },
+          {
+            "at": 485202,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3615
+          },
+          {
+            "at": 485212,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3616
+          },
+          {
+            "at": 485222,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3617
+          },
+          {
+            "at": 485232,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3618
+          },
+          {
+            "at": 485242,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3619
+          },
+          {
+            "at": 485252,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3620
+          },
+          {
+            "at": 485262,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3621
+          },
+          {
+            "at": 485272,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3622
+          },
+          {
+            "at": 485282,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3623
+          },
+          {
+            "at": 485292,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3624
+          },
+          {
+            "at": 485302,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3625
+          },
+          {
+            "at": 485312,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3626
+          },
+          {
+            "at": 485322,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3627
+          },
+          {
+            "at": 485332,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3628
+          },
+          {
+            "at": 485342,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3629
+          },
+          {
+            "at": 485352,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3630
+          },
+          {
+            "at": 485362,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3631
+          },
+          {
+            "at": 485372,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3632
+          },
+          {
+            "at": 485382,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3633
+          },
+          {
+            "at": 485392,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3634
+          },
+          {
+            "at": 485402,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3635
+          },
+          {
+            "at": 485412,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3636
+          },
+          {
+            "at": 485422,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3637
+          },
+          {
+            "at": 485432,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3638
+          },
+          {
+            "at": 485442,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3639
+          },
+          {
+            "at": 485452,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3640
+          },
+          {
+            "at": 485462,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3641
+          },
+          {
+            "at": 485472,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3642
+          },
+          {
+            "at": 485482,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3643
+          },
+          {
+            "at": 485492,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3644
+          },
+          {
+            "at": 485502,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3645
+          },
+          {
+            "at": 485512,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3646
+          },
+          {
+            "at": 485522,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3647
+          },
+          {
+            "at": 485532,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3648
+          },
+          {
+            "at": 485542,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3649
+          },
+          {
+            "at": 485552,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3650
+          },
+          {
+            "at": 485562,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3651
+          },
+          {
+            "at": 485572,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3652
+          },
+          {
+            "at": 485582,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3653
+          },
+          {
+            "at": 485592,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3654
+          },
+          {
+            "at": 485602,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3655
+          },
+          {
+            "at": 485612,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3656
+          },
+          {
+            "at": 485622,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3657
+          },
+          {
+            "at": 485632,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3658
+          },
+          {
+            "at": 485642,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3659
+          },
+          {
+            "at": 485652,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3660
+          },
+          {
+            "at": 485662,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3661
+          },
+          {
+            "at": 485672,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3662
+          },
+          {
+            "at": 485682,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3663
+          },
+          {
+            "at": 485692,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3664
+          },
+          {
+            "at": 485702,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3665
+          },
+          {
+            "at": 485712,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3666
+          },
+          {
+            "at": 485722,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3667
+          },
+          {
+            "at": 485732,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3668
+          },
+          {
+            "at": 485742,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3669
+          },
+          {
+            "at": 485752,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3670
+          },
+          {
+            "at": 485762,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3671
+          }
+        ]
+      },
+      {
+        "kind": "departure",
+        "assetId": 28,
+        "startedAt": 485762,
+        "paid": {
+          "spaceparts": 24,
+          "lifesupport": 12,
+          "robots": 8,
+          "chemicals": 200,
+          "knowledge": 600
+        },
+        "progress": 600,
+        "completedAt": 486362,
+        "receipts": [
+          {
+            "at": 485772,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3672
+          },
+          {
+            "at": 485782,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3673
+          },
+          {
+            "at": 485792,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3674
+          },
+          {
+            "at": 485802,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3675
+          },
+          {
+            "at": 485812,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3676
+          },
+          {
+            "at": 485822,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3677
+          },
+          {
+            "at": 485832,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3678
+          },
+          {
+            "at": 485842,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3679
+          },
+          {
+            "at": 485852,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3680
+          },
+          {
+            "at": 485862,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3681
+          },
+          {
+            "at": 485872,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3682
+          },
+          {
+            "at": 485882,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3683
+          },
+          {
+            "at": 485892,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3684
+          },
+          {
+            "at": 485902,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3685
+          },
+          {
+            "at": 485912,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3686
+          },
+          {
+            "at": 485922,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3687
+          },
+          {
+            "at": 485932,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3688
+          },
+          {
+            "at": 485942,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3689
+          },
+          {
+            "at": 485952,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3690
+          },
+          {
+            "at": 485962,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3691
+          },
+          {
+            "at": 485972,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3692
+          },
+          {
+            "at": 485982,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3693
+          },
+          {
+            "at": 485992,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3694
+          },
+          {
+            "at": 486002,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3695
+          },
+          {
+            "at": 486012,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3696
+          },
+          {
+            "at": 486022,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3697
+          },
+          {
+            "at": 486032,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3698
+          },
+          {
+            "at": 486042,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3699
+          },
+          {
+            "at": 486052,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3700
+          },
+          {
+            "at": 486062,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3701
+          },
+          {
+            "at": 486072,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3702
+          },
+          {
+            "at": 486082,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3703
+          },
+          {
+            "at": 486092,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3704
+          },
+          {
+            "at": 486102,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3705
+          },
+          {
+            "at": 486112,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3706
+          },
+          {
+            "at": 486122,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3707
+          },
+          {
+            "at": 486132,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3708
+          },
+          {
+            "at": 486142,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3709
+          },
+          {
+            "at": 486152,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3710
+          },
+          {
+            "at": 486162,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3711
+          },
+          {
+            "at": 486172,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3712
+          },
+          {
+            "at": 486182,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3713
+          },
+          {
+            "at": 486192,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3714
+          },
+          {
+            "at": 486202,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3715
+          },
+          {
+            "at": 486212,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3716
+          },
+          {
+            "at": 486222,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3717
+          },
+          {
+            "at": 486232,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3718
+          },
+          {
+            "at": 486242,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3719
+          },
+          {
+            "at": 486252,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3720
+          },
+          {
+            "at": 486262,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3721
+          },
+          {
+            "at": 486272,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3722
+          },
+          {
+            "at": 486282,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3723
+          },
+          {
+            "at": 486292,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3724
+          },
+          {
+            "at": 486302,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3725
+          },
+          {
+            "at": 486312,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3726
+          },
+          {
+            "at": 486322,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3727
+          },
+          {
+            "at": 486332,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3728
+          },
+          {
+            "at": 486342,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3729
+          },
+          {
+            "at": 486352,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3730
+          },
+          {
+            "at": 486362,
+            "paid": true,
+            "crew": 4,
+            "power": 12,
+            "ready": true,
+            "worldLedgerLength": 3731
+          }
+        ]
+      }
+    ]
+  },
+  "members": [
+    "north",
+    "east",
+    "west",
+    "rainforest",
+    "desert",
+    "plateau",
+    "islands",
+    "polar"
+  ]
+}

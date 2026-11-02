@@ -16,6 +16,6 @@ Object.assign(CivilCatalog.jobs,CivilServiceContent.jobs);
 CivilMunicipalContent.jobs.push('precisionworker','electronicsworker');
 Object.assign(CivilText.labels,{precisionparts:'精密零件',electronics:'电子元件',precisionworker:'精密工',electronicsworker:'电子工',precisionworks:'精密机床车间',electronicsworks:'电子装配间'});
 Object.assign(CivilText.research,{
-  machine_tools:{name:'精密机床',requires:['mechanics','standards','steel','power'],discover:s=>!!s.civilization.urban?.city&&(s.stores.steel||0)>=20,cost:{knowledge:240,steel:40,parts:30,tools:20},duration:480,done:'量规、刀具与传动试样通过了检验。街区的加工分类可建精密机床车间，完工后在聚落安排精密工；生产需要持续供电。'},
+  machine_tools:{name:'精密机床',requires:['mechanics','standards','steel','power'],discover:s=>!!s.civilization.urban?.city&&(s.stores.steel||0)>=20,cost:{knowledge:240,steel:40,parts:30,tools:20},duration:480,done:'量规、刀具与传动试样通过了检验。街区的加工分类可建精密机床车间，完工后在炉火城页安排精密工；生产需要持续供电。'},
   electronics:{name:'基础电子工艺',requires:['machine_tools','chemistry','power'],discover:s=>(s.stores.precisionparts||0)>=12,cost:{knowledge:300,precisionparts:12,glass:20,chemicals:20},duration:600,done:'绝缘、接点与控制电路已有可重复的工序。街区或市政的加工分类可建电子装配间；元件仍须实际工人、材料和电力制成。'}
 });

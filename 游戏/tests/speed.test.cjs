@@ -24,7 +24,7 @@ function clockHarness(){
   let now=0,serial=0;const callbacks=new Map();
   const ctx=vm.createContext({performance:{now:()=>now},setInterval:fn=>{const id=++serial;callbacks.set(id,fn);return id;},clearInterval:id=>callbacks.delete(id)});
   vm.runInContext(fs.readFileSync(path.join(root,'src/postwar/clock.js'),'utf8'),ctx);
-  return {Clock:ctx.SimulationClock,callbacks,elapse(ms){now+=ms;for(const fn of [...callbacks.values()])fn();}};
+  return {Clock:ctx.SimulationClock,callbacks,consume(ms){now+=ms;},elapse(ms){now+=ms;for(const fn of [...callbacks.values()])fn();}};
 }
 
 test('one native speed entry lists only earned choices and never interrupts another or pending event',()=>{
@@ -67,8 +67,8 @@ test('the save codec accepts old 1/2/4 and earned 8/16 while rejecting arbitrary
   const lost=copy(eight);lost.civilization.tech.passenger_transport=false;assert.throws(()=>ctx.CivilPlatform.validate(lost));
   const sixteen=copy(eight);sixteen.civilization.maxSpeed=16;sixteen.civilization.speed=16;assert.throws(()=>ctx.CivilPlatform.validate(sixteen));
   sixteen.civilization.municipal.nodes.river.town=true;sixteen.civilization.municipal.nodes.river.city=true;assert.doesNotThrow(()=>ctx.CivilPlatform.validate(sixteen));
-  for(const n of [0,-1,3,32,Infinity,NaN,'8',null]){const bad=copy(s);bad.civilization.speed=n;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
-  for(const n of [0,-1,3,32,Infinity,NaN,'8',null]){const bad=copy(s);bad.civilization.maxSpeed=n;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
+  for(const n of [0,-1,3,128,Infinity,NaN,'8',null]){const bad=copy(s);bad.civilization.speed=n;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
+  for(const n of [0,-1,3,128,Infinity,NaN,'8',null]){const bad=copy(s);bad.civilization.maxSpeed=n;assert.throws(()=>ctx.CivilPlatform.validate(bad));}
   const over=copy(s);over.civilization.speed=8;assert.throws(()=>ctx.CivilPlatform.validate(over));
 });
 
@@ -90,6 +90,27 @@ test('driver suspension and reload preserve remaining simulation time without of
 
 test('invalid rate changes and invalid durations cannot poison the active clock or selected speed',()=>{
   const h=harness(),{s,ctx}=h,c=s.civilization,clock=ctx.CivilClock,rate=clock.rate,speed=c.speed;let calls=0;clock.add(()=>calls++,1000);
-  for(const n of [0,-1,3,32,Infinity,NaN,'8',null]){assert.throws(()=>{clock.rate=n;});assert.equal(clock.rate,rate);assert.equal(ctx.Civilization.setSpeed(n),false);assert.equal(c.speed,speed);}
+  for(const n of [0,-1,3,128,Infinity,NaN,'8',null]){assert.throws(()=>{clock.rate=n;});assert.equal(clock.rate,rate);assert.equal(ctx.Civilization.setSpeed(n),false);assert.equal(c.speed,speed);}
   for(const ms of [-1,NaN,Infinity,'1000'])assert.throws(()=>clock.advance(ms));assert.equal(clock.time,0);clock.advance(1000);assert.equal(calls,1);
+});
+
+test('32x follows orbital mapping and 64x follows the Earth charter without changing selected speed',()=>{
+  const h=harness(),{s,ctx}=h,c=s.civilization,C=ctx.Civilization;
+  c.urban.city=true;c.tech.passenger_transport=true;c.municipal.nodes.river.city=true;
+  c.maxSpeed=16;assert.equal(C.setSpeed(32),false);c.tech.orbital_survey=true;assert.equal(C.unlockSpeed(),true);assert.equal(c.maxSpeed,32);assert.equal(C.setSpeed(32),true);
+  assert.equal(C.setSpeed(64),false);c.space={unification:{at:c.elapsed}};assert.equal(C.unlockSpeed(),true);assert.equal(c.maxSpeed,64);assert.equal(c.speed,32);assert.equal(C.setSpeed(64),true);
+  // Fake charter above tests only the selector gate; full import must reject it.
+  assert.throws(()=>ctx.CivilPlatform.validate(s));
+});
+test('late 32x and 64x keep the same deadline ordering and elapsed work',()=>{
+  const h=clockHarness(),clock=new h.Clock(),events=[];let work=0;
+  clock.add(()=>work++,1000,1000,'work');clock.add(()=>events.push(clock.time),32000,0,'arrival');clock.add(()=>events.push(clock.time),96000,0,'complete');clock.start();
+  clock.rate=32;h.elapse(1000);clock.rate=64;h.elapse(1000);assert.equal(work,96);assert.deepEqual(events,[32000,96000]);assert.equal(clock.time,96000);
+});
+
+test('expensive high-speed ticks do not feed their own runtime back into the next catch-up burst',()=>{
+  const h=clockHarness(),clock=new h.Clock();let work=0;clock.rate=64;clock.add(()=>{work++;h.consume(25);},1000,1000,'expensive-work');clock.start();
+  h.elapse(100);assert.equal(clock.time,6400);assert.equal(work,6);
+  h.elapse(100);assert.equal(clock.time,12800);assert.equal(work,12);
+  h.elapse(100);assert.equal(clock.time,19200);assert.equal(work,19);
 });

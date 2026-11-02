@@ -12,7 +12,7 @@ var CivilHistory={
   policyName(value){return value===null?'尚未议定':(typeof CivilRules!=='undefined'?CivilRules.policies[value]?.name:null)||value;},
   axisName(axis,value){return (typeof CivilSociety!=='undefined'?CivilSociety.axes[axis]?.choices[value]?.name:null)||value;},
   costText(cost){
-    const labels={robots:'通用机器人',electronics:'电子元件',precisionparts:'精密零件',scrap:'废料',food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
+    const labels={spaceparts:'航天组件',lifesupport:'生命保障组件',chemicals:'基础化学品',robots:'通用机器人',electronics:'电子元件',precisionparts:'精密零件',scrap:'废料',food:'粮食',wood:'木料',iron:'铁',steel:'钢材',glass:'玻璃',parts:'零件',tools:'工具',knowledge:'知识',medicine:'药品',coal:'煤'};
     return Object.entries(cost||{}).filter(([,n])=>Number.isFinite(n)&&n>0).map(([id,n])=>(labels[id]||id)+' '+Number(n.toFixed(6))).join('、');
   },
   snapshot(s){
@@ -97,6 +97,10 @@ var CivilHistory={
       d.revisions.forEach((r,i)=>add('residence_revision_'+i,'diplomacy',r.action==='pause'?'居留公约暂停':'居留公约恢复',name+'；原名册与已出发旅客安排保留，追加资格不重发。',r.at));
     }
     for(const [i,r]of (c.railway?.changes||[]).entries())add('railway_change_'+i,'transport',r.mode==='rail'?'铁轨支线班次启用':'铁轨支线恢复货车','原车归来后交接；'+(r.mode==='rail'?'4名运输工，单程45秒，逐趟实付燃料与维护。':'2名运输工，单程90秒；铁路资产和原运单保留。'),r.at);
+    if(c.space){
+      const u=c.space.unification;if(u)add('earth_charter','nation','地球共同法生效','全球八区连续履约；本城实付 '+this.costText(u.paid)+'。地方名册与公共财政继续独立。',u.at);
+      for(const m of c.space.missions){const name=CivilSpaceContent.phases[m.kind].name;add('space_start_'+m.kind,'nation',name+'开始','实付 '+this.costText(m.paid)+'；连续运行仍需人员、电力与维护。',m.startedAt);if(m.completedAt!==null)add('space_done_'+m.kind,'nation',m.kind==='departure'?'地球篇完成：向星空出发':name+'完成',m.kind==='departure'?'无人先遣船出发，地球共同体进入太空时代。载人远征与星际战争不在本版范围。':'实物与连续运行记录已经核对。',m.completedAt);}
+    }
     if(c.worldstage){
       for(const m of c.worldstage.missions){const name=CivilWorldContent.regions[m.region].name,action=CivilWorldContent.missions[m.kind].name;
         add('world_depart_'+m.id,'diplomacy',name+'：'+action,'实付 '+this.costText(m.paid)+'；六名原有勤务人员出发。',m.departedAt);

@@ -96,13 +96,13 @@ var CivilCommerce={
     if(o){const duration=this.duration(s,o),delay=(o.security?.delay||0)-(o.security?.encounterSeconds||0),encounter=delay>0&&o.outboundSeconds===Math.floor(duration/2)&&o.arrivedAt===null;
       return base+(this.roadReason(s)||(!this.staffed(s)?'等待完整运输与护送班组':encounter?'护送队正在驱离兽群，还需'+delay+'秒':o.arrivedAt===null?'工具运出途中，尚余'+(duration-o.outboundSeconds+delay)+'秒':(o.exchange?'食物':'未成交工具')+'返程，尚余'+(duration-o.inboundSeconds)+'秒'))+'；'+(o.publicDuties?'随车 '+CivilHistory.costText(o.cargo)+'；':'')+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程':'不再追加出发');}
     const project=CivilServices.data(s,'home')?.project;
-    if(!this.asset(s)&&project?.type==='foreigncaravan'&&project.status!=='complete')return base+'商队装备实际施工剩余'+project.remaining+'秒，请在聚落安排两名营建工';
+    if(!this.asset(s)&&project?.type==='foreigncaravan'&&project.status!=='complete')return base+'商队装备实际施工剩余'+project.remaining+'秒，请在炉火城页安排两名营建工';
     return base+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程；':'')+(this.dispatchReason(s)||'班组与物资就绪，等待启程');
   },
   event(id,done){
     if(id!=='foreignCommerce')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已经变化，未执行；请核对双方供养、工程和共同法。')();
     if(!d)buttons.sign={text:'双方实付登记贸易',nextScene:'end',onChoose:()=>finish(this.sign(s),'贸易约定已登记，占用一份协调责任。双方人口与仓库保持独立。')};
-    else if(!this.asset(s)){if(CivilServices.projectAvailable(s,'home')&&CivilServices.facilityGate(s,'home','foreigncaravan'))buttons.build={text:'实付筹办商队装备',nextScene:'end',onChoose:()=>finish(CivilServices.startProject(s,'home','foreigncaravan'),'商队材料已支付，请在聚落安排两名营建工。完工后才能出发。')};}
+    else if(!this.asset(s)){if(CivilServices.projectAvailable(s,'home')&&CivilServices.facilityGate(s,'home','foreigncaravan'))buttons.build={text:'实付筹办商队装备',nextScene:'end',onChoose:()=>finish(CivilServices.startProject(s,'home','foreigncaravan'),'商队材料已支付，请在炉火城页安排两名营建工。完工后才能出发。')};}
     else if(this.plan(s))buttons.cancel={text:'撤销尚未出发的委托',nextScene:'end',onChoose:()=>finish(this.cancel(s),'剩余委托已撤销。已出发的商队照常完成往返，旅费不退。')};
     else buttons.schedule={text:'委托最多六趟实物贸易',nextScene:'end',onChoose:()=>finish(this.schedule(s),'已登记六趟委托，每次实际发车才支付货物与旅费；条件不足时等待。')};
     buttons.close={text:'合上贸易账册',nextScene:'end',onChoose:done('双方的原仓库与在途回执继续记账。')};

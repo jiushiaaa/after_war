@@ -577,15 +577,18 @@ var Room = {
 		}
 		Engine.setTimeout($SM.collectIncome, 1000);
 
+		// The former hearth no longer describes a city with paid district heating.
+		if (typeof CivilHearth === "undefined" || !CivilHearth.retired(State)) {
 		Notifications.notify(Room, _("the room is {0}", Room.TempEnum.fromInt($SM.get('game.temperature.value')).text));
 		Notifications.notify(Room, _("the fire is {0}", Room.FireEnum.fromInt($SM.get('game.fire.value')).text));
+		}
 	},
 
 	options: {}, // Nothing for now
 
 	onArrival: function (transition_diff) {
 		Room.setTitle();
-		if (Room.changed) {
+		if (Room.changed && (typeof CivilHearth === "undefined" || !CivilHearth.retired(State))) {
 			Notifications.notify(Room, _("the fire is {0}", Room.FireEnum.fromInt($SM.get('game.fire.value')).text));
 			Notifications.notify(Room, _("the room is {0}", Room.TempEnum.fromInt($SM.get('game.temperature.value')).text));
 			Room.changed = false;

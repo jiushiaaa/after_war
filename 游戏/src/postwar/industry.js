@@ -89,7 +89,7 @@ var CivilIndustry = {
     const maxFactor=Math.max(...Object.values(CivilRules.policies).map(p=>p.output))*1.18;
     const generationCapacity=CivilCatalog.jobCapacity(s,'electrician')*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s):0);
     const demandCapacity=CivilCatalog.jobCapacity(s,'machinist')*2+(s.game.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s):0)+(typeof CivilServices!=='undefined'&&CivilServices.demandCapacity?CivilServices.demandCapacity(s,'home'):0);
-    const precisionDemand=typeof CivilPrecision!=='undefined'?CivilPrecision.demandCapacity(s):0;
+    const precisionDemand=(typeof CivilPrecision!=='undefined'?CivilPrecision.demandCapacity(s):0)+(typeof CivilSpace!=='undefined'?CivilSpace.demandCapacity(s):0);
     const limits={pollution:100,generation:generationCapacity*maxFactor,demand:demandCapacity+precisionDemand,used:Math.min(generationCapacity*maxFactor,demandCapacity+precisionDemand)};
     for(const [key,limit]of Object.entries(limits))if(!Number.isFinite(i[key])||i[key]<0||i[key]>limit+1e-8)throw Error('工业数值超过设施容量');
     if(i.used>i.generation+1e-8 || i.used>i.demand+1e-8)throw Error('电力负载无效');

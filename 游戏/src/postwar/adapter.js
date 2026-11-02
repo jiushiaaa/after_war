@@ -33,7 +33,7 @@ var Civilization = {
     this.renderSpeed();
     if(!State.civilization.events.awake) {
       CivilText.opening.forEach(t=>this.notify(t)); State.civilization.events.awake=true;
-    } else this.notify('你重新翻开了聚落的记录。');
+    } else this.notify('你重新翻开了'+CivilNarrative.community(State)+'的记录。');
     this.refresh();
     Engine.setInterval(()=>this.tick(),1000,false,'civilTick');
   },
@@ -62,6 +62,7 @@ var Civilization = {
     if(typeof CivilCorridor!=='undefined'){const paid=CivilCorridor.settle(s);if(Object.keys(paid).length)flow['加盟道路维护']=paid;}
     if(typeof CivilPartnership!=='undefined'){const paid=CivilPartnership.settle(s);if(Object.keys(paid).length)flow['地区商约记录']=paid;}
     if(typeof CivilWorld!=='undefined'){const paid=CivilWorld.settle(s);if(Object.keys(paid).length)flow['国家远域公共预算']=paid;}
+    if(typeof CivilSpace!=='undefined'){const paid=CivilSpace.settle(s);if(Object.keys(paid).length)flow['航天验证与测控']=paid;}
     const deltas={};
     for(const key of new Set([...Object.keys(before),...Object.keys(s.stores)]))deltas[key]=(s.stores[key]||0)-(before[key]||0);
     if(typeof CivilUrban!=='undefined')Object.assign(flow,CivilUrban.settle(s,{flow,deltas}));
@@ -203,6 +204,8 @@ var Civilization = {
       const cities=1+Object.entries(c.municipal?.nodes||{}).filter(([id,n])=>n.city===true&&Object.hasOwn(c.regions?.nodes||{},id)).length;
       if(cities>=2)limit=16;
     }
+    if(limit>=16&&c.tech.orbital_survey)limit=32;
+    if(limit>=32&&c.space?.unification)limit=64;
     return limit;
   },
   unlockSpeed(announce=false) {
@@ -212,6 +215,8 @@ var Civilization = {
     if(announce){
       if(limit===4)this.notify('补给线有了固定的轮值。4× 已永久开放。');
       if(limit===8)this.notify('城市与迁居车队各有了轮值安排。8× 已永久开放。');
+      if(limit===32)this.notify('轨道测绘完成，32× 已永久开放。');
+      if(limit===64)this.notify('地球共同法生效，64× 已永久开放。');
       if(limit===16)this.notify('两座城市已经登记了各自的公共职责。16× 已永久开放。');
       this.renderSpeed();
     }
@@ -219,13 +224,13 @@ var Civilization = {
   },
   setSpeed(rate) {
     const c=State.civilization;
-    if(![1,2,4,8,16].includes(rate)||rate>c.maxSpeed)return false;
+    if(![1,2,4,8,16,32,64].includes(rate)||rate>c.maxSpeed)return false;
     c.speed=rate;CivilClock.rate=rate;this.renderSpeed();this.updateIncome();Engine.saveGame();return true;
   },
   speedMenu() {
     if(Events.activeEvent()||State.civilization.pending)return false;
     const c=State.civilization,buttons={};
-    for(const rate of [1,2,4,8,16])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
+    for(const rate of [1,2,4,8,16,32,64])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
     buttons.close={text:'保持当前速度',nextScene:'end'};
     Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、旅程、居民年龄与冷却都按同一速度前进。'],buttons}}});return true;
   },
@@ -247,7 +252,7 @@ var Civilization = {
         c.policy=key;c.pending=null;c.policyCooldown=120;
         if(!c.policySeen[key]) {c.trust=Math.max(0,Math.min(100,c.trust+p.trust));c.policySeen[key]=true;}
         if(changed && typeof CivilDecisions!=='undefined')CivilDecisions.append(State,'policy',null,previous,key);
-        this.notify('聚落决定实行'+p.name+'。');this.updateIncome();Engine.saveGame();
+        this.notify(CivilNarrative.community(State)+'决定实行'+p.name+'。');this.updateIncome();Engine.saveGame();
       }
     };
     const event={title:'同一口锅',scenes:{start:{text:[
@@ -289,11 +294,11 @@ var Civilization = {
       buttons={allow:{text:'允许互助通行',nextScene:'end',onChoose:done('河谷商队记下了聚落的位置。粮食与零件可以在路口交换。',()=>{c.trade=true;c.events.merchant=true;c.trust=Math.min(100,c.trust+3);})},
         decline:{text:'暂不开放',nextScene:'end',onChoose:done('商队在旧公路留下了标记。等准备好，可以再联系他们。',()=>{c.events.merchant=true;})}};
     } else if(id==='cold') {
-      title='夜里的冷风';text=['粮棚外的挡风板松了。工匠说，补上它要花一些木料；也可以先停下工作，一起加固。'];
-      buttons={wood:{text:'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done('新木板挡住了寒风。')},
-        hands:{text:'一起加固',nextScene:'end',onChoose:done('大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
+      title=c.urban?.city?'本城公共仓储检修':'夜里的冷风';text=[c.urban?.city?'本城公共仓储的挡风板需要检修，本轮常设维修未能完成。可以拨出木料更换，或暂停一轮生产安排人工加固。':'粮棚外的挡风板松了。工匠说，补上它要花一些木料；也可以先停下工作，一起加固。'];
+      buttons={wood:{text:c.urban?.city?'拨料检修':'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done(c.urban?.city?'本城维修人员更换了仓储挡风板。':'新木板挡住了寒风。')},
+        hands:{text:c.urban?.city?'调配人工加固':'一起加固',nextScene:'end',onChoose:done(c.urban?.city?'本城临时调配人员加固仓储，一轮生产随之推迟。':'大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIntercity!=='undefined'?CivilIntercity.event(id,done):null) || (typeof CivilCorridor!=='undefined'?CivilCorridor.event(id,done):null) || (typeof CivilPartnership!=='undefined'?CivilPartnership.event(id,done):null) || (typeof CivilWorld!=='undefined'?CivilWorld.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIntercity!=='undefined'?CivilIntercity.event(id,done):null) || (typeof CivilCorridor!=='undefined'?CivilCorridor.event(id,done):null) || (typeof CivilPartnership!=='undefined'?CivilPartnership.event(id,done):null) || (typeof CivilWorld!=='undefined'?CivilWorld.event(id,done):null) || (typeof CivilSpace!=='undefined'?CivilSpace.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -309,22 +314,22 @@ var Civilization = {
       }
     }
     Events.startEvent(event);
-    if(id==='worldCouncil'||id.startsWith('world_')||id==='regionalPartners'||id.startsWith('culture_')||id.startsWith('cooperative_')||id.startsWith('ruin_'))event.eventPanel?.addClass('civil-culture-event');
+    if(id==='spaceCouncil'||id==='worldCouncil'||id.startsWith('world_')||id==='regionalPartners'||id.startsWith('culture_')||id.startsWith('cooperative_')||id.startsWith('ruin_'))event.eventPanel?.addClass('civil-culture-event');
   },
   randomEvent() {
     const c=State.civilization; c.randomClock=180+Math.floor(Math.random()*181);
     if(Math.random()<.5) {
       // Routine shelter work becomes an actual paid municipal duty after town chartering.
       if(c.urban?.chartered && (State.game.workers.smith||0)>0 && this.spend({wood:10,tools:.5})) {
-        this.notify('轮值工匠更换了粮棚的挡风板。木料与维护工具已记入公共开支。');
+        this.notify(CivilNarrative.maintenance(State));
       } else {c.pending='cold';this.showPending();}
     }
-    else this.notify('林边出现一串陌生的兽足。猎人把足迹记在木板上，避开了那片洼地。');
+    else this.notify(CivilNarrative.wildlife(State));
   },
   research(id) {
     const c=State.civilization,r=CivilText.research[id];
     if(!r || c.research || c.tech[id] || !CivilCatalog.researchAvailable(State,id) || !this.spend(r.cost)) return;
-    c.research={id,remaining:r.duration};this.notify('工坊开始试制'+r.name+'。');this.refresh();Engine.saveGame();
+    c.research={id,remaining:r.duration};this.notify((c.urban?.city?'研究团队开始试制':'工坊开始试制')+r.name+'。');this.refresh();Engine.saveGame();
   },
   depart(id) {
     const c=State.civilization;
@@ -441,6 +446,7 @@ var Civilization = {
     if(typeof CivilCorridor!=='undefined')CivilCorridor.refresh();
     if(typeof CivilPartnership!=='undefined')CivilPartnership.refresh();
     if(typeof CivilWorld!=='undefined')CivilWorld.refresh();
+    if(typeof CivilSpace!=='undefined')CivilSpace.refresh();
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
@@ -579,6 +585,7 @@ Outside.setTitle=function() {
   if(State.civilization.settled) {
     const name=State.civilization.urban?.city?'炉火城':State.civilization.urban?.chartered?'河谷镇':State.civilization.village?.town?'河谷小镇':'荒林聚落';
     $('#location_outside').text(name);
+    $('#village').attr('data-legend',State.civilization.urban?.city?name+' · 居民与岗位':name);
     if(Engine.activeModule===Outside)document.title=name;
   } else adrOutsideTitle();
 };

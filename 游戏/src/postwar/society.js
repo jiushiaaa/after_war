@@ -56,7 +56,7 @@ var CivilSociety = {
     if(!count || !CivilRules.pay(s,cost))return 0;
     x.cohorts.push(...cohorts);
     s.game.population+=count;
-    this.note((count===1?'一名孩子':count+'名孩子')+'在聚落出生。口粮与药品已备好，家人把他们记入名册。');
+    this.note(CivilNarrative.birth(s,count));
     return count;
   },
   total(x){return CivilPopulation.count(x.cohorts);},
@@ -84,7 +84,7 @@ var CivilSociety = {
   annual(s,random=Math.random){
     const x=s.civilization.society,c=s.civilization,yearStartPopulation=s.game.population;this.initBirths(s);x.year++;
     const aged=CivilPopulation.age(x.cohorts),lost=aged.deceased;x.cohorts=aged.cohorts;s.game.population-=lost;
-    if(lost)this.note(lost+'位年长居民在这一年离世。他们留下的房屋与知识仍属于共同体。');
+    if(lost)this.note(CivilNarrative.death(s,lost));
     this.newBirths(s,yearStartPopulation);
     this.trimJobs(s);this.initHeir(s);
     if(x.heir.alive){x.heir.age++;if(x.heir.age>=85){x.heir.alive=false;x.training=null;this.note('登记的家系代表已经离世。家系的交接规则仍在，下一次交接须由居民确认新的代表。');}}
@@ -92,7 +92,7 @@ var CivilSociety = {
     if(regency && x.axes.selection==='hereditary' && x.heir.age>=18 && !x.succession)x.succession='regency';
     if(x.leader.alive && !regency){x.leader.age++;
       if(x.leader.age>=65 && !x.warned){x.warned=true;this.note('领袖已经年迈。共同体需要做好交接准备。');}
-      if(x.leader.age>=85 || (x.leader.age>=70 && random()<Math.min(.5,(x.leader.age-69)*.025)*(c.village.health>=70?.6:1))){x.leader.alive=false;x.succession='death';this.note('领袖在这一年走到了生命尽头。炉火、田地与共同体还要继续。');}
+      if(x.leader.age>=85 || (x.leader.age>=70 && random()<Math.min(.5,(x.leader.age-69)*.025)*(c.village.health>=70?.6:1))){x.leader.alive=false;x.succession='death';this.note('领袖在这一年走到了生命尽头。'+(c.urban?.city?'公共制度、城市与共同体还要继续。':'炉火、田地与共同体还要继续。'));}
       else if(x.governed && x.axes.selection==='election' && x.year-x.leader.termStarted>=6 && !x.succession)x.succession='election';
     }
     if(x.governed){const delta=(x.axes.structure==='federation'?1:x.axes.structure==='empire'?-2:0)+(x.axes.charter==='constitution'?2:-1)+(x.axes.devolution==='local'?1:-1)+(x.service?0:-3);x.legitimate=Math.max(0,Math.min(100,x.legitimate+delta));c.trust=Math.max(0,Math.min(100,c.trust+delta));}
