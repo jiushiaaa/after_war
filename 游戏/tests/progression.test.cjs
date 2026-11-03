@@ -177,6 +177,8 @@ test('a crowded pre-town settlement can pay for a basic second clinic instead of
  s.game.population=40;s.game.buildings={hut:2,longhouse:4,clinic:1,schoolhouse:1,road:1,outpost:1};h.ctx.CivilSociety.sync(s);c.tech.sanitation=true;
  const clinic=h.ctx.CivilVillage.buildings.clinic;
  assert.equal(Boolean(clinic.gate()),true);assert.equal(clinic.cost().iron,undefined,'no iron before mechanics');
+ assert.equal(h.ctx.CivilCatalog.buildingLimit(s,'clinic'),2,'limit and gate agree, so the paid build is accepted');
+ s.game.buildings.clinic=2;assert.equal(h.ctx.CivilCatalog.buildingLimit(s,'clinic'),2,'a built second clinic stays valid after the crowding ends');s.game.buildings.clinic=1;
  v.town=true;assert.equal(Boolean(clinic.gate()),false,'after the charter the normal mechanics route applies');
  v.town=false;s.game.population=16;assert.equal(Boolean(clinic.gate()),false,'small settlements keep the normal route');
 });

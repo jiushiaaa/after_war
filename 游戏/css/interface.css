@@ -62,3 +62,6 @@ body.dark .civil-step { border-color:#eee; }
 .civil-guide { position:relative; clear:both; padding-top:14px; width:min(620px,95%); color:#444; } body.dark .civil-guide { color:#ccc; }
 #researchUnlocks .button.civil-inline { display:inline-block; width:auto!important; padding:0 10px; margin:6px 8px 0 0; }
 .civil-highlight { outline:2px solid #000; outline-offset:2px; } body.dark .civil-highlight { outline-color:#fff; }
+.civil-manual { position:absolute; left:0; top:200px; width:330px; } @media (max-width:939px){ .civil-manual { position:static; margin-top:16px; } }
+.civil-manual .button { position:static !important; display:inline-block; margin:6px 8px 0 0; }
+#outsidePanel { min-height:120px; }

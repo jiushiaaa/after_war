@@ -422,6 +422,14 @@ var Civilization = {
       if(State.game.population>=2) this.button('scrapButton','搜集废料','#outsidePanel',()=>{
         $SM.add('stores.scrap',4);this.notify('从坍塌的护栏下找出几件可用零件。');
       },null,90);
+      // Town stage: hand gathering is folded away as an emergency path (never removed).
+      if(c.village?.town&&typeof document!=='undefined'&&typeof document.getElementById==='function'&&document.getElementById('outsidePanel')){
+        let box=$('#civilManualGather');
+        if(!box.length){box=$('<details>').attr('id','civilManualGather').addClass('civil-details civil-manual').appendTo('#outsidePanel');$('<summary>').text('手工采集（应急）').appendTo(box);$('<div>').appendTo(box);}
+        for(const id of ['gatherButton','trapsButton','forageButton','scrapButton']){const b=$('#'+id);if(b.length&&!b.parent().is(box.children('div')))b.appendTo(box.children('div'));}
+        const low=['wood','food'].some(k=>(State.stores[k]||0)<40);if(low&&!box.attr('open'))box.attr('open','open');
+        if(!(typeof Engine!=='undefined'&&Engine.narrow?.()))box.css('top',($('#workers').outerHeight()||0)+56);
+      }
       if(State.game.population>0) {
         let social=$('#socialNote');
         if(!social.length) social=$('<div>').attr('id','socialNote').appendTo('#outsidePanel');

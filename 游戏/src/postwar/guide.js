@@ -65,7 +65,7 @@ var CivilNav={
   scope:{room:'炉火与本地建设',outside:'本地居民与岗位',urban:'本城住房、供养与迁居',road:'近郊地图与远行',regions:'已知地区与路线',industry:'本城原料、加工与能源',municipal:'某个地方的建设',research:'科技与工艺',council:'制度、继任与对外事务'},
   order(){
     if(typeof document==='undefined'||typeof document.getElementById!=='function')return;const header=document.getElementById('header');if(!header||!header.querySelectorAll)return;
-    const tabs=[...header.querySelectorAll('.headerButton')];if(tabs.length<5)return; // early game keeps the native order
+    const tabs=[...header.querySelectorAll('.headerButton')];if(tabs.length<7){tabs.forEach(t=>t.classList.remove('civil-group-start'));return;} // early game keeps the native order
     let prev=null,group=null;
     for(const [name,ids] of this.groups)for(const id of ids){
       const el=document.getElementById('location_'+id);if(!el)continue;
