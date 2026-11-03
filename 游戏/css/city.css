@@ -33,7 +33,18 @@ body.dark #cityTerrain .city-ground-road { color:#ccc; }
 #cityBudget dl { grid-template-columns:65px minmax(0,1fr); }
 #cityHistory ol { padding-left:20px; font-size:13px; }
 #cityHistory li { margin:8px 0; }
+.city-setting { display:block; margin:10px 0; font-size:13px; }
+.city-setting > span { display:inline-block; min-width:110px; vertical-align:top; }
+.city-setting select { max-width:100%; background:transparent; color:inherit; border:1px solid #888; padding:6px; font:inherit; }
+.city-setting option { padding:4px 8px; }
+#cityInstitution { border-top:1px solid #aaa; margin-top:16px; padding-top:4px; }
+#cityHomeRecord { white-space:pre-line; }
+#civilDelegatedJobs { position:relative; width:420px; max-width:100%; }
+#civilDelegatedJobs #workers { position:static; margin-top:12px; }
+#civilDelegatedJobs > summary { font-size:13px; line-height:1.8; cursor:pointer; }
+#outsidePanel.civil-delegated #civilManualGather, #outsidePanel.civil-delegated #socialNote { position:relative!important; top:auto!important; left:auto; width:420px; max-width:100%; margin-top:18px; }
 @media(max-width:939px) {
+  #civilDelegatedJobs { position:static; width:100%; }
   #cityPanel { width:calc(100vw - 20px); height:auto; overflow:visible; }
   #cityBody { width:100%; height:auto; overflow:visible; padding-right:0; }
   #cityBody > div, #cityHistory { max-width:100%; }

@@ -41,7 +41,9 @@ var Civilization = {
   },
   notify(text) { Notifications.notify(null,text); },
   settleEconomy(s) {
-    const before={...s.stores}, result=CivilRules.settle(s), flow=result.flow;
+    const before={...s.stores},office=typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.homeTick(s):null;
+    const result=CivilRules.settle(s), flow=result.flow;
+    if(office)flow['城市公署']=Object.fromEntries(Object.entries(office).map(([k,v])=>[k,-v]));
     if(typeof CivilCourse!=='undefined'){const coop=CivilCourse.settleCoop(s,flow);if(coop)flow['制器合作社']=coop;}
     const beforeVillage={...s.stores}, care=CivilVillage.treatment(s);
     CivilVillage.settle(s);
@@ -437,12 +439,12 @@ var Civilization = {
         if(!box.length){box=$('<details>').attr('id','civilManualGather').addClass('civil-details civil-manual').appendTo('#outsidePanel');$('<summary>').text('手工采集（应急）').appendTo(box);$('<div>').appendTo(box);}
         for(const id of ['gatherButton','trapsButton','forageButton','scrapButton']){const b=$('#'+id);if(b.length&&!b.parent().is(box.children('div')))b.appendTo(box.children('div'));}
         const low=['wood','food'].some(k=>(State.stores[k]||0)<40);if(low&&!box.attr('open'))box.attr('open','open');
-        if(!(typeof Engine!=='undefined'&&Engine.narrow?.()))box.css('top',($('#workers').outerHeight()||0)+56);
+        if(!(typeof Engine!=='undefined'&&Engine.narrow?.()))box.css('top',($('#civilDelegatedJobs').length?$('#civilDelegatedJobs').outerHeight():$('#workers').outerHeight()||0)+56);
       }
       if(State.game.population>0) {
         let social=$('#socialNote');
         if(!social.length) social=$('<div>').attr('id','socialNote').appendTo('#outsidePanel');
-        social.css('top',($('#workers').outerHeight()||0)+20);
+        social.css('top',($('#civilDelegatedJobs').length?$('#civilDelegatedJobs').outerHeight():$('#workers').outerHeight()||0)+20);
         social.text('信任 '+Math.floor(c.trust)+(c.hunger>0?' · 口粮短缺':'')+(c.policy?' · '+CivilRules.policies[c.policy].name:''));
       }
     }
@@ -611,11 +613,12 @@ Outside.increaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key');
   const cap=CivilCatalog.jobCapacity(State,job);
   const n=Math.min(Outside.getNumGatherers(),Number(event.data),cap-(State.game.workers[job]||0));
-  if(n>0)$SM.add('game.workers.'+job,n);
+  if(n>0){if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);$SM.add('game.workers.'+job,n);}
 };
 const adrDecreaseWorker=Outside.decreaseWorker;
 Outside.decreaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key'),floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
+  if((State.game.workers[job]||0)>floor&&typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);
   if(!floor)return adrDecreaseWorker.call(this,event);
   const n=Math.min(Number(event.data),Math.max(0,(State.game.workers[job]||0)-floor));if(n>0)$SM.add('game.workers.'+job,-n);
 };
@@ -631,6 +634,7 @@ Outside.updateWorkersView=function(){
     if(floor)$('#workers_row_'+job+' .dnBtn,#workers_row_'+job+' .dnManyBtn').toggleClass('disabled',n<=floor);
     $('#workers_row_'+job).attr('title',(Number.isFinite(cap)?'岗位上限 '+cap:'')+(floor?'；在外职责至少占 '+floor+' 人':''));
   }
+  if(typeof CivilCityInstitutionsView!=='undefined')CivilCityInstitutionsView.home(State);
 };
 Outside.checkWorker=function(name) {
   const job=CivilCatalog.jobBuildings[name];

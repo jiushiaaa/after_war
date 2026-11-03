@@ -125,7 +125,9 @@ while(Date.now()<end&&!done){
   // Capacity-based staffing. Each change still goes through the visible +/- buttons.
   const medic=Math.min(s.caps.medic,Math.ceil((s.pop*.01+.18)/.15)+1),farmer=Math.min(s.caps.farmer,Math.ceil((s.pop*.12+medic*.2+6)/(s.tech.irrigation?2:1.4))),smith=s.b.toolshop?4:0;
   const desired={medic,farmer,teacher:Math.min(s.caps.teacher,s.tech.urbanworks?Math.max(2,Math.ceil(s.pop*.30/20)+1):s.caps.teacher),smith,salvager:Math.ceil((medic*.1+smith*.6)/.8)+2,transporter:s.b.cartdepot?6:0,hunter:farmer?0:Math.ceil(s.pop*.12/.8)+2};
-  if(route==='industry')Object.assign(desired,{miner:s.b.mine?(s.pop>=100?4:3):0,collier:s.b.coalpit?(s.pop>=100?4:3):0,smelter:Math.min(s.caps.smelter,s.pop>=100?4:3),machinist:s.b.machineworks?2:0,electrician:s.b.powerhouse?2:0});
+  // Reserve-based staffing is an actual UI policy, not a simulated resource grant.
+  // Once industrial buffers are full, move workers to education instead of leaving every furnace staffed.
+  if(route==='industry')Object.assign(desired,{miner:s.b.mine&&(s.tech.urbanworks||(s.st.ore||0)<100)?(s.pop>=100?4:3):0,collier:s.b.coalpit&&(s.tech.urbanworks||(s.st.coal||0)<120)?(s.pop>=100?4:3):0,smelter:(s.tech.urbanworks||(s.st.iron||0)<100)?Math.min(s.caps.smelter,s.pop>=100?4:3):0,machinist:s.b.machineworks&&(s.tech.urbanworks||(s.st.parts||0)<60)?2:0,electrician:s.b.powerhouse?2:0});
   const otherLabor=Object.entries(desired).filter(([job])=>job!=='teacher').reduce((n,[,v])=>n+v,0);
   desired.teacher=Math.min(desired.teacher,Math.max(2,s.workforce-2-otherLabor));
   // Deliberately stop medicine production once services are operating; restore via the same UI.

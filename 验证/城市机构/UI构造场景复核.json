@@ -1,0 +1,95 @@
+{
+  "scenario": "explicit synthetic fixture; not natural play",
+  "passed": [
+    "paused choices apply and pay",
+    "keyboard listbox",
+    "uncommitted value retained",
+    "only selected ward changes",
+    "folds",
+    "390px overflow and touch size",
+    "manual revokes delegation"
+  ],
+  "mobile": {
+    "viewport": 390,
+    "document": 390,
+    "body": 390,
+    "buttons": [
+      {
+        "id": "cityView_overview",
+        "height": 46
+      },
+      {
+        "id": "cityView_census",
+        "height": 46
+      },
+      {
+        "id": "cityView_production",
+        "height": 46
+      },
+      {
+        "id": "cityView_works",
+        "height": 46
+      },
+      {
+        "id": "cityView_transport",
+        "height": 46
+      },
+      {
+        "id": "cityWard_terraces",
+        "height": 46
+      },
+      {
+        "id": "cityWard_yards",
+        "height": 46
+      },
+      {
+        "id": "cityWard_canal",
+        "height": 46
+      },
+      {
+        "id": "cityTrain",
+        "height": 46
+      },
+      {
+        "id": "cityDelegateSchool",
+        "height": 46
+      },
+      {
+        "id": "cityApplyProfile",
+        "height": 46
+      },
+      {
+        "id": "cityApplyCare",
+        "height": 46
+      },
+      {
+        "id": "cityPriority_balanced",
+        "height": 46
+      },
+      {
+        "id": "cityPriority_care",
+        "height": 46
+      },
+      {
+        "id": "cityPriority_building",
+        "height": 46
+      },
+      {
+        "id": "cityMethod_manual",
+        "height": 46
+      },
+      {
+        "id": "cityMethod_standard",
+        "height": 46
+      },
+      {
+        "id": "cityApplyHomeMode",
+        "height": 46
+      },
+      {
+        "id": "cityDelegate",
+        "height": 46
+      }
+    ]
+  }
+}

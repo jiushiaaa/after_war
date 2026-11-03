@@ -1,0 +1,830 @@
+[
+  {
+    "file": "自然游玩_万人城域水务恢复207.json",
+    "sha256": "75f4fb17413676535324cb9bb3665cb73610a605976356ef91eeeabb4995abd8",
+    "elapsed": 16052,
+    "course": "commons",
+    "world": 388557977,
+    "worldEquation": 388557977,
+    "population": 12092,
+    "home": 432,
+    "homeHealth": 100,
+    "homeHunger": 0,
+    "arrived": 1,
+    "wards": {
+      "terraces": {
+        "population": 3740,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "school": false,
+        "certified": null,
+        "stores": {
+          "food": 24700.1999999984,
+          "medicine": 2226.7000000001135,
+          "wood": 2538.740000000149,
+          "scrap": 2507.65000000026,
+          "tools": 301.5219999999789,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 46,
+          "salvager": 61,
+          "waterworker": 24,
+          "farmer": 0,
+          "medic": 252,
+          "teacher": 39,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 14018,
+          "scrap": 48454.25000000116,
+          "food": 738424.7999999933,
+          "medicine": 59876.70000000163,
+          "knowledge": 3032.2999999999706,
+          "iron": 0,
+          "tools": 3262
+        },
+        "received": {},
+        "sent": {}
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "school": false,
+        "certified": null,
+        "stores": {
+          "food": 30670.44999999989,
+          "medicine": 2763.4500000003172,
+          "wood": 2493.9200000000938,
+          "scrap": 2487.5999999997616,
+          "tools": 303.54599999997936,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 39,
+          "waterworker": 29,
+          "farmer": 449,
+          "medic": 311,
+          "teacher": 48,
+          "smelter": 0,
+          "smith": 23
+        },
+        "produced": {
+          "wood": 18642.39999999987,
+          "scrap": 64642.49999999846,
+          "food": 912192.050000004,
+          "medicine": 73978.6500000005,
+          "knowledge": 3032.2999999999706,
+          "iron": 0,
+          "tools": 6098.25
+        },
+        "received": {},
+        "sent": {}
+      },
+      "canal": {
+        "population": 3300,
+        "health": 100,
+        "stable": 260,
+        "method": "manual",
+        "school": false,
+        "certified": null,
+        "stores": {
+          "food": 22263.999999997985,
+          "medicine": 1967.2499999999422,
+          "wood": 2523.4199999998323,
+          "scrap": 2492.3000000003,
+          "tools": 303.6259999999792,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 46,
+          "waterworker": 21,
+          "farmer": 288,
+          "medic": 225,
+          "teacher": 34,
+          "smelter": 0,
+          "smith": 18
+        },
+        "produced": {
+          "wood": 12889.500000000056,
+          "scrap": 44179.20000000041,
+          "food": 652004,
+          "medicine": 52823.85000000121,
+          "knowledge": 3032.1999999999707,
+          "iron": 0,
+          "tools": 3446.25
+        },
+        "received": {
+          "food": 96,
+          "tools": 12,
+          "medicine": 12
+        },
+        "sent": {}
+      }
+    }
+  },
+  {
+    "file": "自然游玩_城市分工调运阻塞208.json",
+    "sha256": "b89843a6aa5ad7915614212c650d88d8fbd6570ce2312ef00c67c5ce51dc3bfe",
+    "elapsed": 25879,
+    "course": "commons",
+    "world": 415821039,
+    "worldEquation": 415821039,
+    "population": 11794,
+    "home": 432,
+    "homeHealth": 100,
+    "homeHunger": 0,
+    "delegated": true,
+    "officeRecords": 147,
+    "arrived": 42,
+    "wards": {
+      "terraces": {
+        "population": 3442,
+        "health": 0,
+        "stable": 0,
+        "method": "manual",
+        "profile": "provisioning",
+        "clinical": "basic",
+        "school": false,
+        "certified": {
+          "craft": 12,
+          "care": 12
+        },
+        "courses": [],
+        "stores": {
+          "food": 46.55999999786786,
+          "medicine": 30.880000000109263,
+          "wood": 2538.500000000058,
+          "scrap": 2490.5000000003793,
+          "tools": 0,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 43,
+          "salvager": 0,
+          "waterworker": 0,
+          "farmer": 0,
+          "medic": 232,
+          "teacher": 24,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 19308,
+          "scrap": 66790.10000000193,
+          "food": 999088.8000000138,
+          "medicine": 84157.20000000318,
+          "knowledge": 3133.5999999999094,
+          "iron": 0,
+          "tools": 4164.5
+        },
+        "received": {
+          "food": 4800
+        },
+        "sent": {
+          "tools": 91
+        }
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "workshop",
+        "clinical": "basic",
+        "school": false,
+        "certified": {
+          "craft": 36,
+          "care": 12
+        },
+        "courses": [
+          {
+            "subject": "craft",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 5911.230000000079,
+          "medicine": 1067.4500000003852,
+          "wood": 2513.3600000000247,
+          "scrap": 2515.1999999997674,
+          "tools": 482.7779999999899,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 55,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 27987.99999999974,
+          "scrap": 102787.09999999737,
+          "food": 1462990.7500000263,
+          "medicine": 117829.64999999503,
+          "knowledge": 3224.4999999998813,
+          "iron": 0,
+          "tools": 9799.5
+        },
+        "received": {
+          "tools": 91
+        },
+        "sent": {
+          "food": 2400
+        }
+      },
+      "canal": {
+        "population": 3300,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "balanced",
+        "clinical": "clinical",
+        "school": false,
+        "certified": {
+          "craft": 12,
+          "care": 132
+        },
+        "courses": [
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 8807.279999998185,
+          "medicine": 772.5499999999249,
+          "wood": 2518.5799999996916,
+          "scrap": 2507.300000000471,
+          "tools": 240.1539999999848,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 46,
+          "waterworker": 21,
+          "farmer": 211,
+          "medic": 112,
+          "teacher": 34,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 19607.900000000165,
+          "scrap": 67363.20000000224,
+          "food": 1044402,
+          "medicine": 84162.75000000453,
+          "knowledge": 4145.119999999824,
+          "iron": 0,
+          "tools": 5808.75
+        },
+        "received": {
+          "food": 96,
+          "tools": 12,
+          "medicine": 12
+        },
+        "sent": {
+          "food": 2400
+        }
+      }
+    }
+  },
+  {
+    "file": "自然游玩_城市机构分工与供给恢复209.json",
+    "sha256": "871671269d20fc9feffc9b3c47d9c79246275b71e3280be0d4de41810f814034",
+    "elapsed": 33100,
+    "course": "commons",
+    "world": 436210913,
+    "worldEquation": 436210913,
+    "population": 12091,
+    "home": 431,
+    "homeHealth": 100,
+    "homeHunger": 0,
+    "delegated": true,
+    "officeRecords": 267,
+    "arrived": 125,
+    "wards": {
+      "terraces": {
+        "population": 3740,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "provisioning",
+        "clinical": "basic",
+        "school": false,
+        "certified": {
+          "craft": 12,
+          "care": 12
+        },
+        "courses": [],
+        "stores": {
+          "food": 14625.959999998018,
+          "medicine": 726.1200000001083,
+          "wood": 2538.9200000000133,
+          "scrap": 2489.7500000003956,
+          "tools": 150.7260000000044,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 46,
+          "salvager": 61,
+          "waterworker": 24,
+          "farmer": 210,
+          "medic": 252,
+          "teacher": 41,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 22922,
+          "scrap": 85305.35000000108,
+          "food": 1329933.6000000027,
+          "medicine": 109084.50000000348,
+          "knowledge": 3211.7999999998456,
+          "iron": 0,
+          "tools": 4955.25
+        },
+        "received": {
+          "food": 7533,
+          "tools": 756,
+          "medicine": 1725
+        },
+        "sent": {
+          "tools": 91,
+          "medicine": 1126,
+          "food": 1519
+        }
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "workshop",
+        "clinical": "basic",
+        "school": false,
+        "certified": {
+          "craft": 36,
+          "care": 12
+        },
+        "courses": [
+          {
+            "subject": "craft",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 6838.400000000273,
+          "medicine": 894.8000000003461,
+          "wood": 2525.0199999999318,
+          "scrap": 2475.1999999999125,
+          "tools": 480.1010000000057,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 0,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 35432.79999999982,
+          "scrap": 133603.59999999736,
+          "food": 1885475.8000000936,
+          "medicine": 151557.59999999084,
+          "knowledge": 3296.7999999998156,
+          "iron": 0,
+          "tools": 13287.5
+        },
+        "received": {
+          "tools": 91,
+          "medicine": 1221,
+          "food": 3104
+        },
+        "sent": {
+          "food": 3357,
+          "tools": 744,
+          "medicine": 1593
+        }
+      },
+      "canal": {
+        "population": 3300,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "balanced",
+        "clinical": "clinical",
+        "school": true,
+        "certified": {
+          "craft": 12,
+          "care": 132
+        },
+        "courses": [
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 8757.999999998288,
+          "medicine": 699.7499999999412,
+          "wood": 2533.919999999597,
+          "scrap": 2491.700000000576,
+          "tools": 242.75099999998184,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 34,
+          "salvager": 0,
+          "waterworker": 21,
+          "farmer": 211,
+          "medic": 112,
+          "teacher": 34,
+          "smelter": 0,
+          "smith": 18
+        },
+        "produced": {
+          "wood": 24956.100000000253,
+          "scrap": 80832.0000000033,
+          "food": 1334738,
+          "medicine": 108253.9500000087,
+          "knowledge": 5823.499999999931,
+          "iron": 0,
+          "tools": 8081.25
+        },
+        "received": {
+          "food": 96,
+          "tools": 12,
+          "medicine": 12
+        },
+        "sent": {
+          "food": 5785,
+          "medicine": 215
+        }
+      }
+    }
+  },
+  {
+    "file": "自然游玩_工业路线万人城市与专业生产210.json",
+    "sha256": "744b3b2a0500f93094683322901603c2af48f9f2b9b627ee7567cd2988b9335d",
+    "elapsed": 17313,
+    "course": "industry",
+    "world": 553993677,
+    "worldEquation": 553993677,
+    "population": 12188,
+    "home": 528,
+    "homeHealth": 100,
+    "homeHunger": 0,
+    "delegated": true,
+    "officeRecords": 40,
+    "arrived": 22,
+    "wards": {
+      "terraces": {
+        "population": 3740,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "provisioning",
+        "clinical": "basic",
+        "school": false,
+        "certified": {
+          "craft": 12,
+          "care": 12
+        },
+        "courses": [],
+        "stores": {
+          "food": 15073.719999998328,
+          "medicine": 548.100000000096,
+          "wood": 2517.2600000001376,
+          "scrap": 2506.250000000285,
+          "tools": 163.57799999997764,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 61,
+          "waterworker": 24,
+          "farmer": 211,
+          "medic": 252,
+          "teacher": 39,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 14570,
+          "scrap": 50198.85000000122,
+          "food": 786909.5999999958,
+          "medicine": 63316.50000000189,
+          "knowledge": 3082.299999999956,
+          "iron": 0,
+          "tools": 3034
+        },
+        "received": {
+          "tools": 391
+        },
+        "sent": {
+          "tools": 85,
+          "medicine": 389
+        }
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "method": "standard",
+        "profile": "workshop",
+        "clinical": "basic",
+        "school": true,
+        "certified": {
+          "craft": 60,
+          "care": 12
+        },
+        "courses": [
+          {
+            "subject": "craft",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "craft",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 8374.759999999837,
+          "medicine": 666.7500000002774,
+          "wood": 2503.2400000000794,
+          "scrap": 2506.8999999997814,
+          "tools": 488.51199999998533,
+          "knowledge": 2999.9,
+          "iron": 150.6000000000005
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 0,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "smelter": 0,
+          "smith": 0
+        },
+        "produced": {
+          "wood": 19751.199999999855,
+          "scrap": 68587.9999999984,
+          "food": 961663.4000000039,
+          "medicine": 78177.14999999998,
+          "knowledge": 3202.299999999956,
+          "iron": 235.20000000000033,
+          "tools": 6692.449999999998
+        },
+        "received": {
+          "tools": 85
+        },
+        "sent": {
+          "tools": 125,
+          "medicine": 453
+        }
+      },
+      "canal": {
+        "population": 3300,
+        "health": 100,
+        "stable": 600,
+        "method": "manual",
+        "profile": "balanced",
+        "clinical": "clinical",
+        "school": true,
+        "certified": {
+          "craft": 12,
+          "care": 132
+        },
+        "courses": [
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          },
+          {
+            "subject": "care",
+            "rounds": 30,
+            "paid": {
+              "tools": 17.99999999999998,
+              "knowledge": 60,
+              "food": 60
+            },
+            "result": "completed"
+          }
+        ],
+        "stores": {
+          "food": 8706.679999998101,
+          "medicine": 271.89999999994734,
+          "wood": 2496.5799999998158,
+          "scrap": 2488.800000000277,
+          "tools": 204.62399999998348,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "worked": {
+          "gatherer": 0,
+          "salvager": 0,
+          "waterworker": 21,
+          "farmer": 203,
+          "medic": 112,
+          "teacher": 34,
+          "smelter": 0,
+          "smith": 18
+        },
+        "produced": {
+          "wood": 14038.700000000075,
+          "scrap": 44804.80000000046,
+          "food": 684518,
+          "medicine": 54208.500000000844,
+          "knowledge": 3728.1199999999217,
+          "iron": 0,
+          "tools": 4040.25
+        },
+        "received": {
+          "medicine": 808,
+          "tools": 25
+        },
+        "sent": {
+          "tools": 291
+        }
+      }
+    }
+  }
+]
