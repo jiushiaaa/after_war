@@ -1,7 +1,7 @@
 /* MPL-2.0 — Native ADR district page, progressively disclosed and read-only until an action. */
 var CivilCityView={
   selected:null,view:'overview',module:null,
-  reset(){this.selected=null;this.view='overview';this.module=null;},
+  reset(){this.selected=null;this.view='overview';this.module=null;if(typeof CivilConurbationView!=='undefined')CivilConurbationView.reset();},
   act(fn){if(fn()){Engine.saveGame();Civilization.updateIncome();Civilization.refresh();}},
   amount(n){return Number((n||0).toFixed(1)).toLocaleString('zh-CN');},
   cost(cost){return Object.entries(cost).map(([k,v])=>(CivilText.labels[k]||k)+' '+this.amount(v)).join('、');},
@@ -73,7 +73,7 @@ var CivilCityView={
   issues(s,n){const e=n.economy;if(!e)return ['等待下一轮供养结算'];const out=[];if(!e.ate)out.push('口粮断供');if(e.water<e.population)out.push('用水不足，田地产量下降');if(!e.treated)out.push('诊疗供给不足');if(!e.educated)out.push('儿童教学不足');if(!e.administered)out.push('公共行政缺物资');if(n.health<60)out.push('健康低于60');if(e.blocked.length)out.push('部分工序缺原料，可切换工序或安排援助');return out;},
   refresh(s){
     if(!CivilCity.available(s)||typeof document==='undefined')return;
-    this.ensure();const d=CivilCity.data(s),known=Object.entries(d.wards).filter(([,n])=>n.contactedAt!==null),members=CivilCity.members(s),pop=CivilCity.population(s);
+    this.ensure();if(typeof CivilConurbationView!=='undefined'&&CivilConurbationView.refresh(s))return;const d=CivilCity.data(s),known=Object.entries(d.wards).filter(([,n])=>n.contactedAt!==null),members=CivilCity.members(s),pop=CivilCity.population(s);
     if(!this.selected&&known.length)this.selected=known[0][0];
     const id=this.selected,n=d.wards[id],cfg=CivilCityContent.wards[id],issues=members.flatMap(([k,x])=>this.issues(s,x).map(t=>CivilCityContent.wards[k].name+'：'+t));
     CivilInterface.summary('#cityOverview',{title:d.cityAt!==null?'炉火城域':'山谷公共服务网络',cards:[['本城居民',this.amount(pop)],['原镇居民',this.amount(s.game.population)],['纳入公共服务的片区',members.length+' / 3'],['已普查片区',known.length+' / 3']],brief:'接纳片区改变公共责任，居民继续住在原处；迁居才改变住所。',notices:[...issues.slice(0,3),...(issues.length>3?['另有 '+(issues.length-3)+' 项，请查看片区明细']:[])],details:[['本轮目标',d.cityAt!==null?'保持供养、优化分工和储备':'原镇完成服务交接；连接至少两片区，居民合计一万且服务稳定'],['公仓原则','原镇与每片区独立记账；援助和调运到货后才入库'],['规模','片区按居民群体和实际岗位容量结算，不逐人点击分工']]});

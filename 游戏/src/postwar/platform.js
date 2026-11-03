@@ -20,7 +20,7 @@
     if(c.maxSpeed>=32&&!c.tech?.orbital_survey)throw Error('32倍速需要轨道测绘');
     if(c.maxSpeed>=64&&!c.space?.unification)throw Error('64倍速需要地球共同法');
     if(c.maxSpeed>=8&&!(c.urban?.city===true&&c.tech?.passenger_transport===true)&&!(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt)))throw Error('高级倍率缺少城市与运输进度');
-    if(c.maxSpeed>=16&&!Object.entries(c.municipal?.nodes||{}).some(([key,n])=>n?.city===true&&Object.hasOwn(c.regions?.nodes||{},key)))throw Error('16倍速需要第二座已登记城市');
+    if(c.maxSpeed>=16&&!Object.entries(c.municipal?.nodes||{}).some(([key,n])=>n?.city===true&&Object.hasOwn(c.regions?.nodes||{},key))&&!(c.ruleset===2&&Number.isSafeInteger(c.conurbation?.clusterAt)))throw Error('16倍速需要第二座已登记城市');
     if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
     const limits=CivilCatalog.limits;
     for(const [key,n] of Object.entries(state.game.buildings)) if(!(key in limits) || !Number.isInteger(n) || n<0 || n>(CivilCatalog.buildingLimit?CivilCatalog.buildingLimit(state,key):limits[key])) throw Error('建筑无效');
@@ -51,6 +51,7 @@
     if(typeof CivilCensus!=='undefined')CivilCensus.validate(state);
     if(typeof CivilCity!=='undefined')CivilCity.validate(state);
     if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.validate(state);
+    if(typeof CivilConurbation!=='undefined')CivilConurbation.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

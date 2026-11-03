@@ -152,6 +152,7 @@ var Civilization = {
     if(typeof CivilWorld!=='undefined')CivilWorld.tick(State);
     if(typeof CivilCensus!=='undefined'){CivilCensus.annual(State);CivilCensus.syncMacro(State);}
     if(typeof CivilCity!=='undefined')CivilCity.tick(State);
+    if(typeof CivilConurbation!=='undefined')CivilConurbation.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -218,6 +219,7 @@ var Civilization = {
       if(cities>=2)limit=16;
     }
     if(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt))limit=Math.max(limit,8);
+    if(c.ruleset===2&&Number.isSafeInteger(c.conurbation?.clusterAt))limit=Math.max(limit,16);
     if(limit>=16&&c.tech.orbital_survey)limit=32;
     if(limit>=32&&c.space?.unification)limit=64;
     return limit;

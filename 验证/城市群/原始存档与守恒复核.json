@@ -1,0 +1,795 @@
+{
+  "kind": "native UI exports; read-only source and accounting audit",
+  "baseline": "f785b037cecd0ec39ff5fc05c60d0202d7c3f6e2",
+  "originalsUnchanged": 229,
+  "report": [
+    {
+      "name": "自然游玩_工业路线万人城市与专业生产210.json",
+      "sha256": "744b3b2a0500f93094683322901603c2af48f9f2b9b627ee7567cd2988b9335d",
+      "at": 17313,
+      "year": 28,
+      "speed": 8,
+      "maxSpeed": 8,
+      "seed": 1345435167,
+      "homePopulation": 12188,
+      "global": 553993677,
+      "initial": 495435159,
+      "born": 322066734,
+      "dead": 263508216,
+      "home": 528,
+      "wards": {
+        "terraces": {
+          "population": 3740,
+          "health": 100,
+          "stable": 600
+        },
+        "yards": {
+          "population": 4620,
+          "health": 100,
+          "stable": 600
+        },
+        "canal": {
+          "population": 3300,
+          "health": 100,
+          "stable": 600
+        }
+      },
+      "network": null
+    },
+    {
+      "name": "自然游玩_两城实物协作与地方工坊211.json",
+      "sha256": "4a8e1132d03ea25d8c67d3177a05310527dc4241328c8c12097315e43b523a23",
+      "at": 19452,
+      "year": 32,
+      "speed": 8,
+      "maxSpeed": 8,
+      "seed": 1345435167,
+      "homePopulation": 12188,
+      "global": 562908065,
+      "initial": 495435159,
+      "born": 371086800,
+      "dead": 303613894,
+      "home": 528,
+      "wards": {
+        "terraces": {
+          "population": 3740,
+          "health": 100,
+          "stable": 600
+        },
+        "yards": {
+          "population": 4620,
+          "health": 100,
+          "stable": 600
+        },
+        "canal": {
+          "population": 3300,
+          "health": 100,
+          "stable": 600
+        }
+      },
+      "network": {
+        "surveyPopulation": 43800,
+        "partition": {
+          "at": 17795,
+          "kind": "partition",
+          "from": "reserve_north",
+          "to": "city_lake",
+          "count": 43800,
+          "reason": "湖滨市普查细分，居民仍在当地"
+        },
+        "population": 46361,
+        "born": 4204,
+        "dead": 1643,
+        "combined": 58549,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 86202.47999999985,
+          "medicine": 3514.2899999999804,
+          "wood": 3209.800000000017,
+          "scrap": 2253.6999999999907,
+          "tools": 396.53999999999945,
+          "knowledge": 2999.9,
+          "iron": 48
+        },
+        "budget": {
+          "produced": {
+            "wood": 14164.000000000004,
+            "scrap": 58466.99999999993,
+            "food": 948456.5999999993,
+            "medicine": 75761.5499999999,
+            "knowledge": 2930.4999999999864,
+            "iron": 0,
+            "tools": 3044
+          },
+          "consumed": {
+            "wood": 13354.200000000024,
+            "tools": 3527.459999999994,
+            "food": 951262.1199999972,
+            "scrap": 57813.30000000001,
+            "medicine": 75751.26000000008,
+            "knowledge": 50.60000000000021,
+            "iron": 48
+          },
+          "received": {
+            "iron": 96,
+            "tools": 640
+          },
+          "sent": {
+            "food": 5600
+          }
+        },
+        "clusterAt": 19080,
+        "workshop": {
+          "method": "iron",
+          "paid": {
+            "wood": 240,
+            "tools": 160,
+            "iron": 48
+          },
+          "startedAt": 18745,
+          "remaining": 0,
+          "worked": 240,
+          "completedAt": 18985
+        },
+        "contract": "industry",
+        "share": "equal",
+        "suspended": false,
+        "actualDeliveries": 4,
+        "returned": 0,
+        "inflight": [
+          {
+            "order": 5,
+            "id": 4,
+            "depot": "yards",
+            "mode": "industry",
+            "share": "equal",
+            "startedAt": 19260,
+            "deliveredAt": 19440,
+            "recalledAt": null,
+            "finishedAt": null,
+            "status": "returning",
+            "remaining": 168,
+            "out": {
+              "iron": 24,
+              "tools": 160
+            },
+            "back": {
+              "food": 1400
+            },
+            "fees": {
+              "home": {
+                "wood": 10,
+                "tools": 2,
+                "knowledge": 1,
+                "food": 25.919999999999998
+              },
+              "lake": {
+                "wood": 10,
+                "tools": 2,
+                "knowledge": 1,
+                "food": 25.919999999999998
+              }
+            }
+          }
+        ],
+        "homeDelivered": {
+          "iron": 96,
+          "tools": 640
+        },
+        "lakeDelivered": {
+          "food": 5600
+        },
+        "maintenance": [],
+        "successions": [
+          {
+            "at": 18000,
+            "previous": {
+              "at": 17795,
+              "cohorts": [
+                {
+                  "age": 64,
+                  "count": 2,
+                  "identity": "human"
+                }
+              ]
+            },
+            "cohorts": [
+              {
+                "age": 30,
+                "count": 2,
+                "identity": "human"
+              }
+            ],
+            "paid": {
+              "wood": 4,
+              "tools": 2,
+              "knowledge": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "自然游玩_两城分担改约与在途退运212.json",
+      "sha256": "5b1f2228cf38e4eeb957c06556e80f6b21cca6c13c1c3cc89eb562120a5cd5cc",
+      "at": 21488,
+      "year": 35,
+      "speed": 16,
+      "maxSpeed": 16,
+      "seed": 1345435167,
+      "homePopulation": 12188,
+      "global": 569688377,
+      "initial": 495435159,
+      "born": 408369225,
+      "dead": 334116007,
+      "home": 528,
+      "wards": {
+        "terraces": {
+          "population": 3740,
+          "health": 100,
+          "stable": 600
+        },
+        "yards": {
+          "population": 4620,
+          "health": 100,
+          "stable": 600
+        },
+        "canal": {
+          "population": 3300,
+          "health": 100,
+          "stable": 600
+        }
+      },
+      "network": {
+        "surveyPopulation": 43800,
+        "partition": {
+          "at": 17795,
+          "kind": "partition",
+          "from": "reserve_north",
+          "to": "city_lake",
+          "count": 43800,
+          "reason": "湖滨市普查细分，居民仍在当地"
+        },
+        "population": 48924,
+        "born": 8409,
+        "dead": 3285,
+        "combined": 61112,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 90105.42000000109,
+          "medicine": 3867.0900000000056,
+          "wood": 3394.220000000042,
+          "scrap": 1988.4999999999845,
+          "tools": 276.93599999999975,
+          "knowledge": 2999.9,
+          "iron": 150
+        },
+        "budget": {
+          "produced": {
+            "wood": 32576.80000000002,
+            "scrap": 131685.59999999983,
+            "food": 2167886.3000000115,
+            "medicine": 173862.4500000001,
+            "knowledge": 2955.799999999968,
+            "iron": 0,
+            "tools": 6412
+          },
+          "consumed": {
+            "wood": 31582.580000000184,
+            "tools": 7815.064000000013,
+            "food": 2158598.879999995,
+            "scrap": 131297.10000000044,
+            "medicine": 173499.36000000022,
+            "knowledge": 75.89999999999979,
+            "iron": 48
+          },
+          "received": {
+            "iron": 198,
+            "tools": 1440
+          },
+          "sent": {
+            "food": 13790
+          }
+        },
+        "clusterAt": 19080,
+        "workshop": {
+          "method": "iron",
+          "paid": {
+            "wood": 240,
+            "tools": 160,
+            "iron": 48
+          },
+          "startedAt": 18745,
+          "remaining": 0,
+          "worked": 240,
+          "completedAt": 18985
+        },
+        "contract": "industry",
+        "share": "host",
+        "suspended": true,
+        "actualDeliveries": 9,
+        "returned": 0,
+        "inflight": [
+          {
+            "order": 13,
+            "id": 10,
+            "depot": "yards",
+            "mode": "industry",
+            "share": "host",
+            "startedAt": 21420,
+            "deliveredAt": null,
+            "recalledAt": 21475,
+            "finishedAt": null,
+            "status": "recalled",
+            "remaining": 42,
+            "out": {
+              "tools": 160
+            },
+            "back": {
+              "food": 1280
+            },
+            "fees": {
+              "home": {
+                "wood": 15,
+                "tools": 3,
+                "knowledge": 1.5,
+                "food": 25.919999999999998
+              },
+              "lake": {
+                "wood": 5,
+                "tools": 1,
+                "knowledge": 0.5,
+                "food": 25.919999999999998
+              }
+            }
+          }
+        ],
+        "homeDelivered": {
+          "iron": 198,
+          "tools": 1440
+        },
+        "lakeDelivered": {
+          "food": 12510
+        },
+        "maintenance": [
+          {
+            "order": 7,
+            "at": 19630,
+            "kind": "repair",
+            "share": "equal",
+            "home": {
+              "wood": 40,
+              "tools": 8
+            },
+            "lake": {
+              "wood": 40,
+              "tools": 8
+            }
+          },
+          {
+            "order": 14,
+            "at": 21430,
+            "kind": "repair",
+            "share": "host",
+            "home": {
+              "wood": 60,
+              "tools": 12
+            },
+            "lake": {
+              "wood": 20,
+              "tools": 4
+            }
+          }
+        ],
+        "successions": [
+          {
+            "at": 18000,
+            "previous": {
+              "at": 17795,
+              "cohorts": [
+                {
+                  "age": 64,
+                  "count": 2,
+                  "identity": "human"
+                }
+              ]
+            },
+            "cohorts": [
+              {
+                "age": 30,
+                "count": 2,
+                "identity": "human"
+              }
+            ],
+            "paid": {
+              "wood": 4,
+              "tools": 2,
+              "knowledge": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "自然游玩_两城断供恢复与粮医互济213.json",
+      "sha256": "f208472ce2734a275b5eb447999186691f3ef464ade40f89a14f284e9f8d12f4",
+      "at": 23874,
+      "year": 39,
+      "speed": 16,
+      "maxSpeed": 16,
+      "seed": 1345435167,
+      "homePopulation": 12188,
+      "global": 578855988,
+      "initial": 495435159,
+      "born": 458778679,
+      "dead": 375357850,
+      "home": 528,
+      "wards": {
+        "terraces": {
+          "population": 3740,
+          "health": 100,
+          "stable": 600
+        },
+        "yards": {
+          "population": 4620,
+          "health": 100,
+          "stable": 600
+        },
+        "canal": {
+          "population": 3300,
+          "health": 100,
+          "stable": 600
+        }
+      },
+      "network": {
+        "surveyPopulation": 43800,
+        "partition": {
+          "at": 17795,
+          "kind": "partition",
+          "from": "reserve_north",
+          "to": "city_lake",
+          "count": 43800,
+          "reason": "湖滨市普查细分，居民仍在当地"
+        },
+        "population": 52341,
+        "born": 14016,
+        "dead": 5475,
+        "combined": 64529,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 100162.96000000226,
+          "medicine": 4216.770000000017,
+          "wood": 3179.520000000066,
+          "scrap": 2010.099999999958,
+          "tools": 254.69599999999897,
+          "knowledge": 2999.9,
+          "iron": 150
+        },
+        "budget": {
+          "produced": {
+            "wood": 58369.600000000086,
+            "scrap": 225520.8000000009,
+            "food": 3675616.6000000066,
+            "medicine": 296784.449999999,
+            "knowledge": 2993.699999999946,
+            "iron": 0,
+            "tools": 11356
+          },
+          "consumed": {
+            "wood": 57590.07999999963,
+            "tools": 13094.303999999938,
+            "food": 3654279.639999981,
+            "scrap": 225110.70000000074,
+            "medicine": 296263.6799999984,
+            "knowledge": 113.79999999999843,
+            "iron": 48
+          },
+          "received": {
+            "iron": 198,
+            "tools": 1753,
+            "food": 1280,
+            "medicine": 192
+          },
+          "sent": {
+            "food": 17062
+          }
+        },
+        "clusterAt": 19080,
+        "workshop": {
+          "method": "iron",
+          "paid": {
+            "wood": 240,
+            "tools": 160,
+            "iron": 48
+          },
+          "startedAt": 18745,
+          "remaining": 0,
+          "worked": 240,
+          "completedAt": 18985
+        },
+        "contract": "provisions",
+        "share": "host",
+        "suspended": false,
+        "actualDeliveries": 13,
+        "returned": 1,
+        "inflight": [
+          {
+            "order": 21,
+            "id": 14,
+            "depot": "yards",
+            "mode": "provisions",
+            "share": "host",
+            "startedAt": 23660,
+            "deliveredAt": 23840,
+            "recalledAt": null,
+            "finishedAt": null,
+            "status": "returning",
+            "remaining": 146,
+            "out": {
+              "medicine": 48,
+              "tools": 96
+            },
+            "back": {
+              "food": 960
+            },
+            "fees": {
+              "home": {
+                "wood": 15,
+                "tools": 3,
+                "knowledge": 1.5,
+                "food": 25.919999999999998
+              },
+              "lake": {
+                "wood": 5,
+                "tools": 1,
+                "knowledge": 0.5,
+                "food": 25.919999999999998
+              }
+            }
+          }
+        ],
+        "homeDelivered": {
+          "iron": 198,
+          "tools": 1753,
+          "medicine": 192
+        },
+        "lakeDelivered": {
+          "food": 15782
+        },
+        "maintenance": [
+          {
+            "order": 7,
+            "at": 19630,
+            "kind": "repair",
+            "share": "equal",
+            "home": {
+              "wood": 40,
+              "tools": 8
+            },
+            "lake": {
+              "wood": 40,
+              "tools": 8
+            }
+          },
+          {
+            "order": 14,
+            "at": 21430,
+            "kind": "repair",
+            "share": "host",
+            "home": {
+              "wood": 60,
+              "tools": 12
+            },
+            "lake": {
+              "wood": 20,
+              "tools": 4
+            }
+          }
+        ],
+        "successions": [
+          {
+            "at": 18000,
+            "previous": {
+              "at": 17795,
+              "cohorts": [
+                {
+                  "age": 64,
+                  "count": 2,
+                  "identity": "human"
+                }
+              ]
+            },
+            "cohorts": [
+              {
+                "age": 30,
+                "count": 2,
+                "identity": "human"
+              }
+            ],
+            "paid": {
+              "wood": 4,
+              "tools": 2,
+              "knowledge": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "自然游玩_公共路线独立两城协作214.json",
+      "sha256": "faec5ab1c26d27fb0d1cdad6b3ad9f85444715bc713c961f35970dcca3ba7e22",
+      "at": 35330,
+      "year": 58,
+      "speed": 8,
+      "maxSpeed": 8,
+      "seed": 750278434,
+      "homePopulation": 12081,
+      "global": 441464109,
+      "initial": 350278429,
+      "born": 501515925,
+      "dead": 410330245,
+      "home": 421,
+      "wards": {
+        "terraces": {
+          "population": 3740,
+          "health": 100,
+          "stable": 600
+        },
+        "yards": {
+          "population": 4620,
+          "health": 100,
+          "stable": 600
+        },
+        "canal": {
+          "population": 3300,
+          "health": 100,
+          "stable": 600
+        }
+      },
+      "network": {
+        "surveyPopulation": 45848,
+        "partition": {
+          "at": 33676,
+          "kind": "partition",
+          "from": "reserve_north",
+          "to": "city_lake",
+          "count": 45848,
+          "reason": "湖滨市普查细分，居民仍在当地"
+        },
+        "population": 47635,
+        "born": 2934,
+        "dead": 1147,
+        "combined": 59716,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 93772.50000000004,
+          "medicine": 3601.3300000000118,
+          "wood": 3280.4800000000246,
+          "scrap": 2209.6999999999953,
+          "tools": 819.7340000000007,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "budget": {
+          "produced": {
+            "wood": 15163.200000000004,
+            "scrap": 61819.80000000008,
+            "food": 977204.2999999967,
+            "medicine": 78048.7500000001,
+            "knowledge": 2930.499999999986,
+            "iron": 0,
+            "tools": 3824
+          },
+          "consumed": {
+            "wood": 14282.72000000001,
+            "tools": 3628.2659999999837,
+            "food": 978815.480000002,
+            "scrap": 61210.10000000002,
+            "medicine": 78259.26000000024,
+            "knowledge": 50.60000000000017
+          },
+          "received": {
+            "medicine": 144,
+            "tools": 384
+          },
+          "sent": {
+            "food": 3648
+          }
+        },
+        "clusterAt": 34960,
+        "workshop": {
+          "method": "timber",
+          "paid": {
+            "wood": 480,
+            "tools": 160,
+            "medicine": 64
+          },
+          "startedAt": 34071,
+          "remaining": 0,
+          "worked": 240,
+          "completedAt": 34311
+        },
+        "contract": "provisions",
+        "share": "equal",
+        "suspended": false,
+        "actualDeliveries": 4,
+        "returned": 0,
+        "inflight": [
+          {
+            "order": 5,
+            "id": 4,
+            "depot": "canal",
+            "mode": "provisions",
+            "share": "equal",
+            "startedAt": 35140,
+            "deliveredAt": 35320,
+            "recalledAt": null,
+            "finishedAt": null,
+            "status": "returning",
+            "remaining": 170,
+            "out": {
+              "medicine": 48,
+              "tools": 96
+            },
+            "back": {
+              "food": 960
+            },
+            "fees": {
+              "home": {
+                "wood": 10,
+                "tools": 2,
+                "knowledge": 1,
+                "food": 25.919999999999998
+              },
+              "lake": {
+                "wood": 10,
+                "tools": 2,
+                "knowledge": 1,
+                "food": 25.919999999999998
+              }
+            }
+          }
+        ],
+        "homeDelivered": {
+          "medicine": 144,
+          "tools": 384
+        },
+        "lakeDelivered": {
+          "food": 3648
+        },
+        "maintenance": [],
+        "successions": [
+          {
+            "at": 34200,
+            "previous": {
+              "at": 33676,
+              "cohorts": [
+                {
+                  "age": 64,
+                  "count": 2,
+                  "identity": "human"
+                }
+              ]
+            },
+            "cohorts": [
+              {
+                "age": 30,
+                "count": 2,
+                "identity": "human"
+              }
+            ],
+            "paid": {
+              "wood": 4,
+              "tools": 2,
+              "knowledge": 6
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

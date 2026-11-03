@@ -1,0 +1,19 @@
+// Read-only audit of immutable native UI exports. No resource/time injection.
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const {execFileSync}=require('node:child_process'),root=path.resolve(__dirname,'..'),{harness}=require('../游戏/tests/helpers/metro-fixture.cjs');
+const names=['自然游玩_工业路线万人城市与专业生产210.json','自然游玩_两城实物协作与地方工坊211.json','自然游玩_两城分担改约与在途退运212.json','自然游玩_两城断供恢复与粮医互济213.json','自然游玩_公共路线独立两城协作214.json'];
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),sum=cs=>cs.reduce((a,c)=>a+c.count,0),report=[];
+for(const name of names){const bytes=fs.readFileSync(path.join(__dirname,'存档',name)),raw=JSON.parse(bytes),h=harness(raw.state),s=h.s,c=s.civilization,d=c.conurbation;
+ assert.deepEqual(JSON.parse(JSON.stringify(s)),raw.state,'loading must not rewrite a native export');h.ctx.CivilPlatform.validate(s);const pop=h.ctx.CivilCity.population(s);
+ const item={name,sha256:sha(bytes),at:c.elapsed,year:Math.floor(c.elapsed/600),speed:c.speed,maxSpeed:c.maxSpeed,seed:c.census.seed,homePopulation:pop,global:h.ctx.CivilCensus.total(s),initial:c.census.initial,born:c.census.born,dead:c.census.dead,home:s.game.population,wards:Object.fromEntries(Object.entries(c.city.wards).map(([id,n])=>[id,{population:sum(n.cohorts),health:n.health,stable:n.stable}])),network:null};
+ if(d){assert.equal(item.global,item.initial+item.born-item.dead);const delivered=d.trips.filter(p=>p.deliveredAt!==null),sent={},received={};for(const p of delivered){h.ctx.CivilCity.sum(sent,p.out);h.ctx.CivilCity.sum(received,p.back);}
+ item.network={surveyPopulation:d.origin.population,partition:c.census.entries.find(e=>e.kind==='partition'),population:sum(d.node.cohorts),born:d.node.born,dead:d.node.dead,combined:pop+sum(d.node.cohorts),health:d.node.health,stable:d.node.stable,stores:d.node.stores,budget:d.node.budget,clusterAt:d.clusterAt,workshop:d.workshop,contract:d.contract,share:d.share,suspended:d.suspended,actualDeliveries:delivered.length,returned:d.trips.filter(p=>p.status==='returned').length,inflight:d.trips.filter(p=>['outbound','returning','recalled'].includes(p.status)),homeDelivered:sent,lakeDelivered:received,maintenance:d.payments,successions:d.office.records};
+ assert.equal(sum(d.node.cohorts),d.origin.population+d.node.born-d.node.dead);}
+ report.push(item);
+}
+assert.ok(report.slice(0,4).every(x=>x.seed===report[0].seed),'industrial lineage must retain its own world');assert.notEqual(report[4].seed,report[0].seed,'public route is an independent world');
+const recovered=report[3].network;assert.equal(recovered.suspended,false);assert.equal(recovered.contract,'provisions');assert.equal(recovered.share,'host');assert.ok(recovered.returned>=1);assert.ok(recovered.homeDelivered.tools>0&&recovered.homeDelivered.iron>0&&recovered.homeDelivered.medicine>0&&recovered.lakeDelivered.food>0);assert.equal(recovered.health,100);assert.equal(recovered.stable,600);
+const baseline='f785b037cecd0ec39ff5fc05c60d0202d7c3f6e2',originals=execFileSync('git',['ls-tree','-r','-z','--name-only',baseline,'--','验证/存档'],{cwd:root}).toString().split('\0').filter(Boolean);
+for(const file of originals){const before=execFileSync('git',['show',baseline+':'+file],{cwd:root,maxBuffer:64*1024*1024});assert.equal(sha(fs.readFileSync(path.join(root,file))),sha(before),'original save modified: '+file);}
+const output={kind:'native UI exports; read-only source and accounting audit',baseline,originalsUnchanged:originals.length,report};
+fs.writeFileSync(path.join(__dirname,'城市群/原始存档与守恒复核.json'),JSON.stringify(output,null,2));console.log(JSON.stringify({originalsUnchanged:originals.length,checkpoints:report.map(r=>({file:r.name,at:r.at,home:r.homePopulation,lake:r.network?.population,combined:r.network?.combined,delivered:r.network?.actualDeliveries,returned:r.network?.returned,health:r.network?.health}))},null,2));

@@ -1,0 +1,35 @@
+✔ 210 and 209 are unchanged until an explicit paid two-city survey; old population rules cannot enter (53.656708ms)
+✔ survey reserves real local workers and refines exactly one existing reserve, never home population or stock (103.108958ms)
+✔ the city opening book derives from recorded coarse births/deaths and cannot be inflated on import (112.352417ms)
+✔ both cities pay their own road assets and construction consumes resident work before cooperation unlocks (155.453167ms)
+✔ reciprocal cargo leaves both local stocks, reserves 12 residents and enters only after real travel (200.466209ms)
+✔ interrupted outbound cargo returns over the travelled distance, with no instant refund or repeated reward (310.893458ms)
+✔ burden changes affect only future fees, and exit settles existing vehicles before another contract (226.102875ms)
+✔ local reserve floors block unaffordable exports, then ordinary production recovers the route (257.460667ms)
+✔ industrial deliveries become local workshop assets; the retiring office is replaced by paid resident successors (324.376334ms)
+✔ dynamic orders respect real need and equal physical value instead of endlessly importing idle iron (1082.819375ms)
+✔ the independent public-service route can form the same two-city network without mining, mechanics or power (1031.850292ms)
+✔ a century of full-adapter two-city operation keeps stocks conserved, service healthy and delegation renewed (6539.928875ms)
+✔ native validation rejects duplicated cargo, repriced old fees, false completion and phantom assets (292.739792ms)
+✔ each second of two-city operations conserves material across local stocks and both kinds of in-flight cargo (421.387792ms)
+✔ 16x is earned by actual two-city cooperation, remains optional, and survives a valid imported save (413.090041ms)
+✔ a late survey refines a coarse city whose housing was maintained before contact (6902.763167ms)
+✔ one native speed entry lists only earned choices and never interrupts another or pending event (19.390084ms)
+✔ unmodified natural 4x saves initialize byte-for-byte and unlock 8x on the next ordinary tick without changing selected speed (28.023792ms)
+✔ 8x requires city plus passenger organization and 16x requires a second recorded city, independently of current population (7.215958ms)
+✔ the save codec accepts old 1/2/4 and earned 8/16 while rejecting arbitrary rates and unearned high-speed claims (54.902458ms)
+✔ all simulation deadlines retain their order across 1/2/4/8/16x, including construction, travel, aging and cooldowns (1.306375ms)
+✔ driver suspension and reload preserve remaining simulation time without offline catch-up or duplicate timers (0.410042ms)
+✔ invalid rate changes and invalid durations cannot poison the active clock or selected speed (7.329333ms)
+✔ 32x follows orbital mapping and 64x follows the Earth charter without changing selected speed (9.75975ms)
+✔ late 32x and 64x keep the same deadline ordering and elapsed work (0.456ms)
+✔ expensive high-speed ticks do not feed their own runtime back into the next catch-up burst (0.355167ms)
+✔ mandatory succession slows the shared clock without overwriting the selected rate (6.339083ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18474.674792
