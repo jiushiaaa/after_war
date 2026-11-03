@@ -60,13 +60,15 @@ var CivilSociety = {
     return count;
   },
   total(x){return CivilPopulation.count(x.cohorts);},
+  // Near-field party members and recovering residents are real people away from home jobs;
+  // those in the field eat from their own pack instead of home rations.
   workforce(s){
-    const x=s.civilization.society;if(!x)return s.game.population;
-    return CivilPopulation.workforce(x.cohorts)+Math.max(0,s.game.population-this.total(x));
+    const x=s.civilization.society,away=typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(s):0;if(!x)return Math.max(0,s.game.population-away);
+    return Math.max(0,CivilPopulation.workforce(x.cohorts)+Math.max(0,s.game.population-this.total(x))-away);
   },
   foodPopulation(s){
-    const x=s.civilization.society;if(!x)return s.game.population;
-    return CivilPopulation.foodPopulation(x.cohorts)+Math.max(0,s.game.population-this.total(x));
+    const x=s.civilization.society,away=typeof CivilExpedition!=='undefined'?CivilExpedition.awayEaters(s):0;if(!x)return Math.max(0,s.game.population-away);
+    return Math.max(0,CivilPopulation.foodPopulation(x.cohorts)+Math.max(0,s.game.population-this.total(x))-away);
   },
   sync(s){
     const x=s.civilization.society;if(!x)return;

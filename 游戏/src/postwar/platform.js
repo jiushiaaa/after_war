@@ -45,6 +45,7 @@
     if(typeof CivilCulture!=='undefined')CivilCulture.validate(state);
     if(typeof CivilCooperative!=='undefined')CivilCooperative.validate(state);
     if(typeof CivilRuins!=='undefined')CivilRuins.validate(state);
+    if(typeof CivilExpedition!=='undefined')CivilExpedition.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

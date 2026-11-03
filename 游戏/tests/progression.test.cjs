@@ -115,7 +115,8 @@ test('mechanical service expansion restores real medical exports at thirty-six r
  s.game.population=36;s.game.workers={medic:2,teacher:2};s.game.buildings={hut:2,longhouse:4,clinic:1,schoolhouse:1,road:1,outpost:1};h.ctx.CivilSociety.sync(s);
  s.stores={wood:2000,food:2000,scrap:2000,tools:100,medicine:0,knowledge:0};c.policy='equal';c.tech.sanitation=true;c.tech.school=true;c.tech.preservation=true;v.riverAllied=true;v.riverFood=240;
  const clinic=h.ctx.CivilVillage.buildings.clinic,school=h.ctx.CivilVillage.buildings.schoolhouse;
- assert.equal(Boolean(clinic.gate()),false);assert.equal(Boolean(school.gate()),false);assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'medic'),2);
+ // Pre-town crowding opens only a basic (wood/scrap/tools) second clinic; the school keeps the mechanics route.
+ assert.equal(Boolean(clinic.gate()),true);assert.equal(clinic.cost().parts,undefined);assert.equal(Boolean(school.gate()),false);assert.equal(h.ctx.CivilCatalog.jobCapacity(s,'medic'),2);
  for(let i=0;i<60;i++){h.ctx.CivilRules.settle(s);h.ctx.CivilVillage.settle(s);}assert.equal(v.convoys,0);
  c.tech.mechanics=true;assert.equal(clinic.gate(),true);assert.equal(school.gate(),true);
  assert.ok(clinic.cost().parts>0);assert.ok(school.cost().iron>0);assert.equal(h.ctx.CivilRules.pay(s,clinic.cost()),false);
@@ -170,4 +171,12 @@ test('the live adapter transports a municipal project from the natural first cit
  const before={...s.stores},flow=h.ctx.Civilization.settleEconomy(s).flow,total={};
  for(const deltas of Object.values(flow))for(const [key,value]of Object.entries(deltas))total[key]=(total[key]||0)+value;
  for(const key of h.ctx.CivilCatalog.resources)assert.ok(Math.abs((s.stores[key]||0)-(before[key]||0)-(total[key]||0))<1e-7,key+' remains a home-only income flow');
+});
+test('a crowded pre-town settlement can pay for a basic second clinic instead of locking the town charter',()=>{
+ const h=harness(),s=h.state,c=s.civilization,v=c.village;
+ s.game.population=40;s.game.buildings={hut:2,longhouse:4,clinic:1,schoolhouse:1,road:1,outpost:1};h.ctx.CivilSociety.sync(s);c.tech.sanitation=true;
+ const clinic=h.ctx.CivilVillage.buildings.clinic;
+ assert.equal(Boolean(clinic.gate()),true);assert.equal(clinic.cost().iron,undefined,'no iron before mechanics');
+ v.town=true;assert.equal(Boolean(clinic.gate()),false,'after the charter the normal mechanics route applies');
+ v.town=false;s.game.population=16;assert.equal(Boolean(clinic.gate()),false,'small settlements keep the normal route');
 });

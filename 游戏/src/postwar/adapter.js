@@ -129,6 +129,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilCulture!=='undefined')CivilCulture.tick(State);
     if(typeof CivilRuins!=='undefined')CivilRuins.tick(State);
+    if(typeof CivilExpedition!=='undefined'){const r=CivilExpedition.tick(State);if(r==='joined')this.notify('储藏室的老测量员带着两个孩子搬进了聚落。他记得旧城的道路编号。');if(r==='rested')this.notify('受伤的队员养好了伤，重新回到岗位。');}
     if(typeof CivilServices!=='undefined')CivilServices.tick(State);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
@@ -330,6 +331,8 @@ var Civilization = {
       // Routine shelter work becomes an actual paid municipal duty after town chartering.
       if(c.urban?.chartered && (State.game.workers.smith||0)>0 && this.spend({wood:10,tools:.5})) {
         this.notify(CivilNarrative.maintenance(State));
+      } else if(c.tech.weather && !c.urban?.chartered && this.spend({wood:4})) {
+        this.notify('寒潮预报提前半天发出。轮值的人用 4 份木料绑紧了粮棚挡板，工作没有停下。');
       } else {c.pending='cold';this.showPending();}
     }
     else this.notify(CivilNarrative.wildlife(State));
@@ -344,6 +347,7 @@ var Civilization = {
     const extra=CivilVillage.journeys[id] || (typeof CivilIndustry!=='undefined'?CivilIndustry.journeys[id]:null) || (typeof CivilRegions!=='undefined'?CivilRegions.journeys[id]:null);
     if(extra && !extra.allowed(State))return;
     if(!extra && !['station','pump','salvage'].includes(id))return;
+    if(!extra && typeof CivilExpedition!=='undefined')return; // walked on the near-field map instead
     const cost=extra?extra.cost:id==='pump'?{food:8,wood:20,scrap:12}:{food:id==='salvage'?4:8};
     if(c.journey || c.pending || Events.activeEvent() || (id==='pump' && (!c.station || !c.tech.water || c.pump)) || !State.game.buildings.workshop || !this.spend(cost)) return;
     c.journey={id,remaining:extra?extra.duration:id==='pump'?180:120};
@@ -409,18 +413,24 @@ var Civilization = {
       let note=$('#researchStatus'); if(!note.length) note=$('<div>').attr('id','researchStatus').appendTo(section);
       note.text(c.research?CivilText.research[c.research.id].name+'：'+Math.ceil(c.research.remaining)+' 秒':'已掌握 '+Object.keys(c.tech).filter(k=>c.tech[k]).length+' 项技术');
       note.attr('title',Object.keys(c.tech).filter(k=>c.tech[k]).map(k=>CivilText.research[k].name).join('、'));
-      const station=this.button('stationButton',c.station?'回收交通站':'沿路勘察','#roadPanel',()=>this.depart(c.station?'salvage':'station'),{food:c.station?4:8});
+      // Station, pump and salvage are walked on the near-field map. Timed legacy
+      // journeys that were already under way still finish under the old rule.
+      const legacyWalk=typeof CivilExpedition==='undefined'||CivilExpedition.legacyJourney(State);
+      if(typeof CivilExpedition!=='undefined')CivilExpedition.refresh();
+      if(legacyWalk){
+      const station=this.button('stationButton',c.station?'回收交通站':'沿路勘察','#roadPanel',()=>this.depart(c.station?'salvage':'station'),{food:c.station?4:8});station.toggle?.(true);
       station.find('.tooltip .row_val').text(c.station?4:8);
       Button.setDisabled(station,!!c.journey || !!c.pending || !CivilRules.canPay(State,{food:c.station?4:8}));
       // Text update preserves the cooldown and cost tooltip children.
       station.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(c.station?'回收交通站':'沿路勘察'));
-      if(c.station) {
+      } else for(const id of ['#stationButton','#pumpButton'])$(id).toggle?.(false);
+      if(c.station && legacyWalk) {
         const pump=this.button('pumpButton','修复泵站','#roadPanel',()=>this.depart('pump'),{food:8,wood:20,scrap:12});
         Button.setDisabled(pump,c.pump || !c.tech.water || !!c.journey || !!c.pending || !CivilRules.canPay(State,{food:8,wood:20,scrap:12}));
         pump.attr('title',c.pump?'泵站已经恢复':!c.tech.water?'需要先掌握净水工艺':'携带维修材料出发');
       }
       const arrivalIds=['station','salvage','pump','river','riverAid','geology',...Object.keys(typeof CivilRegions!=='undefined'?CivilRegions.journeys:{})];
-      $('#journeyStatus').text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'已经抵达，队伍等待你处理眼前的事。'):c.pending && arrivalIds.includes(c.pending)?'已经抵达，等待处理发现。':c.pump?'泵站已恢复。补给与维护将决定它能运转多久。':'旧公路穿过荒林，通向废弃的交通站。');
+      $('#journeyStatus').toggle(!!c.journey||!!(c.pending&&arrivalIds.includes(c.pending))||legacyWalk).text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'已经抵达，队伍等待你处理眼前的事。'):c.pending && arrivalIds.includes(c.pending)?'已经抵达，等待处理发现。':c.pump?'泵站已恢复。补给与维护将决定它能运转多久。':'旧公路穿过荒林，通向废弃的交通站。');
       if(c.events.merchant && !c.trade) this.button('contactButton','联系商队','#roadPanel',()=>{if(!Events.activeEvent()){c.pending='merchant';this.showPending();}});
       $('#contactButton').toggle(!c.trade);
       if(c.trade) {
@@ -467,7 +477,7 @@ var Civilization = {
     Engine.topics={};Engine.activeModule=null;Engine.keyLock=false;Engine.tabNavigation=true;
     Room.buttons={};Room.changed=false;Room.pathDiscovery=false;Outside._popTimeout=undefined;
     for(const item of Object.values(Room.Craftables)) item.button=null;
-    this.roadModule=null;if(typeof CivilSociety!=='undefined')CivilSociety.module=null;if(typeof CivilIndustry!=='undefined')CivilIndustry.reset();Notifications.notifyQueue={};
+    this.roadModule=null;if(typeof CivilExpedition!=='undefined')CivilExpedition.reset();if(typeof CivilSociety!=='undefined')CivilSociety.module=null;if(typeof CivilIndustry!=='undefined')CivilIndustry.reset();Notifications.notifyQueue={};
     if(typeof CivilRegions!=='undefined')CivilRegions.reset();
     if(typeof CivilUrban!=='undefined')CivilUrban.reset();
     if(typeof CivilOrigins!=='undefined')CivilOrigins.reset();
@@ -539,7 +549,7 @@ Outside.decreaseWorker=function(event){
   if(!floor)return adrDecreaseWorker.call(this,event);
   const n=Math.min(Number(event.data),Math.max(0,(State.game.workers[job]||0)-floor));if(n>0)$SM.add('game.workers.'+job,-n);
 };
-Outside.getNumGatherers=function(){return (typeof CivilSociety!=='undefined'?CivilSociety.workforce(State):State.game.population)-Object.values(State.game.workers).reduce((a,b)=>a+b,0);};
+Outside.getNumGatherers=function(){return (typeof CivilSociety!=='undefined'?CivilSociety.workforce(State):Math.max(0,State.game.population-(typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(State):0)))-Object.values(State.game.workers).reduce((a,b)=>a+b,0);};
 const adrWorkersView=Outside.updateWorkersView;
 Outside.updateWorkersView=function(){
   adrWorkersView();

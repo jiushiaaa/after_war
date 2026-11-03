@@ -11,7 +11,8 @@
     const hunger = c.hunger >= 30 ? .65 : 1;
     const health = (c.village?.health ?? 80)<30?.75:1;
     const factor = policy.output * hunger * health*(typeof CivilSociety!=='undefined'?CivilSociety.outputFactor(state):1);
-    const gatherers = Math.max(0, (typeof CivilSociety!=='undefined'?CivilSociety.workforce(state):p) - Object.values(jobs).reduce((a,b) => a+b,0));
+    const away = typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(state):0;
+    const gatherers = Math.max(0, (typeof CivilSociety!=='undefined'?CivilSociety.workforce(state):Math.max(0,p-away)) - Object.values(jobs).reduce((a,b) => a+b,0));
     const farmers=Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer')),serviceCap=typeof CivilServices!=='undefined'?(CivilServices.jobs(state,'home').farmer||0):0,legacyCap=CivilCatalog.jobCapacity(state,'farmer')-serviceCap;
     const legacyFarmers=Math.min(farmers,legacyCap),serviceFarmers=Math.min(Math.max(0,farmers-legacyCap),Math.floor(((state.stores.tools||0)+1e-8)/.01)),serviceRate=typeof CivilServices!=='undefined'?CivilServices.farmRate(state,'home'):1.4;
     return {
@@ -21,7 +22,7 @@
       '农夫': {food:(legacyFarmers*(c.tech.irrigation && c.outpostSupplied!==false?2:1.4)+serviceFarmers*serviceRate)*factor,...(serviceFarmers?{tools:-serviceFarmers*.01}:{})},
       '回收工': {scrap:(jobs.salvager || 0) * (c.tech.metal ? .8 : .5) * factor},
       ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
-      '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):p) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
+      '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):Math.max(0,p-(typeof CivilExpedition!=='undefined'?CivilExpedition.awayEaters(state):0))) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
     };
   }
   function industry(state) {

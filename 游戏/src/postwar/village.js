@@ -14,7 +14,7 @@ var CivilVillage = {
     farm:{cost:()=>({wood:80+(State.game.buildings.farm||0)*30,scrap:10}),max:4,gate:()=>State.civilization.tech.agronomy},
     toolshop:{cost:()=>({wood:80,scrap:30}),max:1,gate:()=>State.civilization.tech.handtools},
     longhouse:{cost:()=>({wood:180+(State.game.buildings.longhouse||0)*60,tools:12}),max:4,gate:()=>State.civilization.tech.handtools && State.game.buildings.farm},
-    clinic:{cost:()=>State.game.buildings.clinic && State.civilization.tech.mechanics?{wood:180,iron:12,parts:6,tools:12}:{wood:120,scrap:25,tools:10},max:2,gate:()=>State.civilization.tech.sanitation && (!State.game.buildings.clinic || State.civilization.tech.mechanics)},
+    clinic:{cost:()=>State.game.buildings.clinic && State.civilization.tech.mechanics?{wood:180,iron:12,parts:6,tools:12}:{wood:120,scrap:25,tools:10},max:2,gate:()=>State.civilization.tech.sanitation && (!State.game.buildings.clinic || State.civilization.tech.mechanics || CivilVillage.careShortfall(State))},
     schoolhouse:{cost:()=>State.game.buildings.schoolhouse && State.civilization.tech.mechanics?{wood:160,iron:10,parts:5,tools:12}:{wood:120,tools:12},max:2,gate:()=>State.civilization.tech.school && (!State.game.buildings.schoolhouse || State.civilization.tech.mechanics)},
     road:{cost:()=>({wood:160,scrap:30,tools:10}),max:1,gate:()=>State.civilization.tech.trails && State.civilization.village.riverKnown}
   },
@@ -22,6 +22,10 @@ var CivilVillage = {
     river:{cost:{food:12,tools:4},duration:180,allowed:s=>s.civilization.tech.trails && s.game.buildings.outpost && !s.civilization.village.riverKnown},
     riverAid:{cost:{food:40,tools:12},duration:180,allowed:s=>s.civilization.village.riverKnown && !s.civilization.village.riverAllied && !s.civilization.village.aidDelivered}
   },
+  // Pre-town recovery: once residents outgrow one clinic, medicine can never cover
+  // treatment plus convoys, while mechanics (the normal second-clinic route) sits
+  // behind the town charter. A paid basic second clinic breaks that loop.
+  careShortfall(s){return !s.civilization.village?.town && (s.game.buildings.clinic||0)===1 && s.game.population>=24;},
   treatment(s) {
     const v=s.civilization.village,b=s.game.buildings,j=s.game.workers;
     const need=s.game.population*.01;
