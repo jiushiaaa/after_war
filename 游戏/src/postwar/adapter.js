@@ -235,16 +235,23 @@ var Civilization = {
     if(![1,2,4,8,16,32,64].includes(rate)||rate>c.maxSpeed)return false;
     c.speed=rate;CivilClock.rate=this.effectiveSpeed();this.renderSpeed();this.updateIncome();Engine.saveGame();return true;
   },
+  // Pause is a view-side hold of the shared clock, not saved: reloading resumes at the chosen rate.
+  setPaused(value) {
+    if(typeof CivilClock==='undefined')return false;
+    CivilClock.paused=!!value;this.renderSpeed();
+    this.notify(value?'时间暂停了。居民、邻居与在途小队都停在原处，没有额外产出。':'时间继续流动。');return true;
+  },
   speedMenu() {
     if(Events.activeEvent()||State.civilization.pending)return false;
     const c=State.civilization,buttons={};
     for(const rate of [1,2,4,8,16,32,64])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
+    buttons.pause={text:CivilClock.paused?'继续':'暂停',nextScene:'end',onChoose:()=>this.setPaused(!CivilClock.paused)};
     buttons.close={text:'保持当前速度',nextScene:'end'};
-    Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、旅程、居民年龄与冷却都按同一速度前进。'],buttons}}});return true;
+    Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、旅程、居民年龄与冷却都按同一速度前进。','暂停会冻结整个世界，不提供免费的生产或撤退；刷新页面后自动继续。'],buttons}}});return true;
   },
   renderSpeed() {
     const c=State.civilization,box=$('#speedMenu').empty();
-    $('<span>').addClass('menuBtn').text(c.society?.succession&&c.speed>1?'速度：1×（换届后恢复'+c.speed+'×）':'速度：'+c.speed+'×').attr({id:'speedButton',role:'button',tabindex:0,'aria-label':'调整时间流速，当前'+this.effectiveSpeed()+'倍'})
+    $('<span>').addClass('menuBtn').text(CivilClock?.paused?'已暂停（'+c.speed+'×）':c.society?.succession&&c.speed>1?'速度：1×（换届后恢复'+c.speed+'×）':'速度：'+c.speed+'×').attr({id:'speedButton',role:'button',tabindex:0,'aria-label':'调整时间流速，当前'+this.effectiveSpeed()+'倍'})
       .click(()=>this.speedMenu()).on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();this.speedMenu();}}).appendTo(box);
   },
   spend(cost) { const ok=CivilRules.pay(State,cost); if(ok) $SM.fireUpdate('stores'); return ok; },

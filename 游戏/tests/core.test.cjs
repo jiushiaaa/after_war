@@ -323,3 +323,10 @@ test('unaltered natural three-source save resumes the same messenger and indepen
  const before=JSON.stringify(s);ctx.CivilOrigins.init(s);ctx.CivilOrigins.tick(s);assert.equal(JSON.stringify(s),before,'reload and repeated callback do not move the messenger or replay a birthday');
  ctx.State=s;const restored=ctx.CivilPlatform.decode(ctx.CivilPlatform.serialize());assert.equal(JSON.stringify(restored),before);
 });
+test('pausing the shared clock holds every task and its remaining time without clearing the queue',async()=>{
+ const {SimulationClock}=context(['src/postwar/clock.js']);let now=0,hits=0;const clock=new SimulationClock(()=>now);
+ clock.add(()=>hits++,1000,0,'fire');clock.start();
+ now=600;await new Promise(r=>setTimeout(r,130));clock.paused=true;const held=clock.snapshot().fire;
+ now=5000;await new Promise(r=>setTimeout(r,130));assert.equal(hits,0);assert.equal(clock.snapshot().fire,held,'remaining time is held while paused');
+ clock.paused=false;now=5000+held;await new Promise(r=>setTimeout(r,130));clock.stop();assert.equal(hits,1);
+});

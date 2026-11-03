@@ -32,7 +32,7 @@ test('one native speed entry lists only earned choices and never interrupts anot
   let children=h.elements.get('#speedMenu').children;assert.equal(children.length,1);assert.equal(children[0].value,'速度：4×');assert.equal(children[0].attrs.role,'button');
   h.blockEvent();const active=h.active;children[0].handlers.click();assert.equal(h.active,active);
   h.clearEvent();c.pending='merchant';assert.equal(C.speedMenu(),false);assert.equal(h.active,null);c.pending=null;
-  children[0].handlers.click();assert.equal(h.active.title,'时间流速');assert.deepEqual(Object.keys(h.active.scenes.start.buttons),['speed_1','speed_2','speed_4','close']);
+  children[0].handlers.click();assert.equal(h.active.title,'时间流速');assert.deepEqual(Object.keys(h.active.scenes.start.buttons),['speed_1','speed_2','speed_4','pause','close']);
   h.active.scenes.start.buttons.speed_2.onChoose();assert.equal(c.speed,2);assert.equal(ctx.CivilClock.rate,2);assert.equal(h.saves,1);assert.equal(h.elements.get('#speedMenu').children[0].value,'速度：2×');
   h.clearEvent();let prevented=false;h.elements.get('#speedMenu').children[0].handlers.keydown({key:'Enter',preventDefault(){prevented=true;}});assert.ok(prevented);assert.equal(h.active.title,'时间流速');
 });

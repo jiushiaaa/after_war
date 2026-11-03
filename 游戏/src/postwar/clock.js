@@ -17,7 +17,8 @@
         const n = this.now();
         // No offline catch-up, or destructive burst after a suspended computer wakes.
         const elapsed = Math.min(1000, Math.max(0, n - this.last)); this.last = n;
-        this.advance(elapsed * this.rate);
+        // Pause freezes the one shared clock: every queued task keeps its remaining time.
+        if (!this.paused) this.advance(elapsed * this.rate);
         // Do not turn expensive simulation/rendering work into another catch-up
         // burst. Under load the chosen rate is a ceiling; every task still uses
         // the same simulation clock and the browser gets an input turn.
