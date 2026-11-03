@@ -32,9 +32,10 @@ var CivilCensus={
     if(kind==='birth')d.born+=count;if(kind==='death')d.dead+=count;
     d.entries.push({at:s.civilization.elapsed,kind,from,to,count,reason});return true;
   },
-  partition(s,count){
-    const d=this.data(s);if(!this.enabled(s)||Object.hasOwn(d.accounts,'city_lake')||!Number.isSafeInteger(count)||count<1||d.accounts.reserve_north<count)return false;
-    d.accounts.reserve_north-=count;d.accounts.city_lake=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:'reserve_north',to:'city_lake',count,reason:'湖滨市普查细分，居民仍在当地'});return true;
+  partition(s,count,id='lake'){
+    const source={lake:'reserve_north',ridge:'reserve_west'}[id],to='city_'+id,d=this.data(s);
+    if(!source||!this.enabled(s)||Object.hasOwn(d.accounts,to)||!Number.isSafeInteger(count)||count<1||d.accounts[source]<count)return false;
+    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:(id==='lake'?'湖滨市':'矿岭市')+'普查细分，居民仍在当地'});return true;
   },
   move(s,from,to,n,reason='迁居'){return this.record(s,'move',from,to,n,reason);},
   birth(s,to,n){return this.record(s,'birth',null,to,n,'出生');},
@@ -70,6 +71,7 @@ var CivilCensus={
     for(const [id,n]of Object.entries(c.regions?.nodes||{}))rows.push({id:'local_'+id,name:CivilRegionContent[id].name,count:n.population,member:['associated','integrated'].includes(n.relation)});
     for(const [id,n]of Object.entries(c.city?.wards||{}))if(n.contactedAt!==null)rows.push({id:'ward_'+id,name:CivilCityContent.wards[id].name,count:CivilPopulation.count(n.cohorts),member:n.joinedAt!==null});
     if(c.urban?.registered)rows.push({id:'dispersed',name:'沿路待迁家庭',count:CivilPopulation.count(c.urban.source),member:false});
+    if(c.cityNetwork?.node)rows.push({id:'city_ridge',name:'矿岭市（独立城市）',count:CivilPopulation.count(c.cityNetwork.node.cohorts),member:false});
     if(c.conurbation?.node)rows.push({id:'city_lake',name:'湖滨市（独立城市）',count:CivilPopulation.count(c.conurbation.node.cohorts),member:false});
     return rows;
   },
@@ -81,7 +83,7 @@ var CivilCensus={
     if(d.initial!==base.total||!d.accounts)fail();
     for(const e of d.entries){
       if(!e||!int(e.at)||e.at<last||e.at>s.civilization.elapsed||!int(e.count)||!e.count||typeof e.reason!=='string'||e.reason.length>80)fail();last=e.at;
-      if(e.kind==='partition'){if(e.from!=='reserve_north'||e.to!=='city_lake'||Object.hasOwn(counts,e.to)||!s.civilization.conurbation?.node)fail();counts[e.to]=0;}
+      if(e.kind==='partition'){if(!({city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west'}[e.to])||e.from!==({city_lake:'reserve_north',city_ridge:'reserve_west'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
       else if(e.kind==='move'){if(!Object.hasOwn(counts,e.from)||!Object.hasOwn(counts,e.to)||e.from===e.to)fail();}
       else if(e.kind==='birth'){if(e.from!==null||!Object.hasOwn(counts,e.to))fail();born+=e.count;}
       else if(e.kind==='death'){if(e.to!==null||!Object.hasOwn(counts,e.from))fail();dead+=e.count;}else fail();
@@ -101,6 +103,7 @@ var CivilCensus={
     eq('cellar',c.expedition?.sites?.cellar?.state==='joined'?0:3);
     eq('patients',(c.frontier?.patients||[]).filter(p=>p.diedAt===null&&p.recoveredAt===null).length);
     for(const [id,n]of Object.entries(c.city?.wards||{}))eq('ward_'+id,CivilPopulation.count(n.cohorts));
+    if(c.cityNetwork?.node)eq('city_ridge',CivilPopulation.count(c.cityNetwork.node.cohorts));
     if(c.conurbation?.node)eq('city_lake',CivilPopulation.count(c.conurbation.node.cohorts));
   }
 };

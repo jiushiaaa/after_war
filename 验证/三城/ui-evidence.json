@@ -1,0 +1,355 @@
+{
+  "kind": "real UI on paused native three-city save",
+  "at": 30399,
+  "evidence": [
+    {
+      "width": 1280,
+      "section": "overview",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "body": {
+        "left": 400,
+        "right": 820,
+        "width": 420
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 36
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同职责\n已知城市\n3\n共同车辆\n2 / 2组在途\n居民合计\n143,110\n运转安排\n工料优先\n各城继续独立供养。共同车组返程前不能被另一条线路重复使用。\n查看明细\n\n三城各有地方账。下一步观察线路排队、运行预算与实际物资缺口，再决定是否扩建车场。\n\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 1280,
+      "section": "transport",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "body": {
+        "left": 400,
+        "right": 820,
+        "width": 420
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 36
+        },
+        {
+          "id": "cityNet_enable",
+          "height": 36
+        },
+        {
+          "id": "cityNet_lakeTerms",
+          "height": 36
+        },
+        {
+          "id": "cityNet_priority",
+          "height": 36.09375
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同车组 2 / 2 · 工料优先\n\n湖滨线：载货在途，21秒\n矿岭线：空车返程，141秒\n湖滨往返360秒；矿岭往返480秒。旅费在出发时实付，在途驾驶员不参加本地生产。\n车场：第二车组已投入，检修费随设施持续支付。\n\n暂停矿岭新订单\n调整湖滨协约\n调度与车场\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 1280,
+      "section": "budget",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "body": {
+        "left": 400,
+        "right": 820,
+        "width": 420
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 36
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 36
+        },
+        {
+          "id": "cityNet_budget",
+          "height": 36.09375
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n本期还剩 254秒 · 额度只限制支出，不是额外库存\n\n本城出发仓 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 2 / 24\n\n湖滨市 · 维持运转\n检修有效 · 下一轮可实付\n本期最高占用：药品 0.5 / 6\n\n矿岭市 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 1 / 24\n每60秒尝试实付检修；连续120秒未付会停新发运，矿岭铸炉也停工。已付在途货物继续交割。\n\n调整地方运行额度\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 1280,
+      "section": "ridge",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "body": {
+        "left": 400,
+        "right": 820,
+        "width": 420
+      },
+      "buttons": [],
+      "text": "矿岭市\n\n回收矿料与旧铸炉支撑的地方工业。基础供养由本城维持；金属生产还需要持续检修。\n\n本地供养与工业\n居民\n72,408\n健康\n100 / 100\n公共服务\n600秒\n铸炉\n检修有效\n金属生产使用本地废料、木料和160个真实岗位。农田、诊疗与课堂有自己的岗位和物资成本。\n查看明细\n\n食物 130,818.8 · 近轮 -8790.88\n木料 4,530.5 · 近轮 -129.46\n废料 5,223.6 · 近轮 +329.2\n工具 1,256.2 · 近轮 -0.45\n药品 5,639.6 · 近轮 +67.32\n知识 2,999.9 · 近轮 +0\n铁锭 824 · 近轮 +0\n\n地方资产与人口来源",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 390,
+      "section": "overview",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "body": {
+        "left": 10,
+        "right": 380,
+        "width": 370
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同职责\n已知城市\n3\n共同车辆\n2 / 2组在途\n居民合计\n143,110\n运转安排\n工料优先\n各城继续独立供养。共同车组返程前不能被另一条线路重复使用。\n查看明细\n\n三城各有地方账。下一步观察线路排队、运行预算与实际物资缺口，再决定是否扩建车场。\n\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 390,
+      "section": "transport",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "body": {
+        "left": 10,
+        "right": 380,
+        "width": 370
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        },
+        {
+          "id": "cityNet_enable",
+          "height": 46
+        },
+        {
+          "id": "cityNet_lakeTerms",
+          "height": 46
+        },
+        {
+          "id": "cityNet_priority",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同车组 2 / 2 · 工料优先\n\n湖滨线：载货在途，21秒\n矿岭线：空车返程，141秒\n湖滨往返360秒；矿岭往返480秒。旅费在出发时实付，在途驾驶员不参加本地生产。\n车场：第二车组已投入，检修费随设施持续支付。\n\n暂停矿岭新订单\n调整湖滨协约\n调度与车场\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 390,
+      "section": "budget",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "body": {
+        "left": 10,
+        "right": 380,
+        "width": 370
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        },
+        {
+          "id": "cityNet_budget",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n本期还剩 254秒 · 额度只限制支出，不是额外库存\n\n本城出发仓 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 2 / 24\n\n湖滨市 · 维持运转\n检修有效 · 下一轮可实付\n本期最高占用：药品 0.5 / 6\n\n矿岭市 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 1 / 24\n每60秒尝试实付检修；连续120秒未付会停新发运，矿岭铸炉也停工。已付在途货物继续交割。\n\n调整地方运行额度\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 390,
+      "section": "ridge",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "body": {
+        "left": 10,
+        "right": 380,
+        "width": 370
+      },
+      "buttons": [],
+      "text": "矿岭市\n\n回收矿料与旧铸炉支撑的地方工业。基础供养由本城维持；金属生产还需要持续检修。\n\n本地供养与工业\n居民\n72,408\n健康\n100 / 100\n公共服务\n600秒\n铸炉\n检修有效\n金属生产使用本地废料、木料和160个真实岗位。农田、诊疗与课堂有自己的岗位和物资成本。\n查看明细\n\n食物 130,818.8 · 近轮 -8790.88\n木料 4,530.5 · 近轮 -129.46\n废料 5,223.6 · 近轮 +329.2\n工具 1,256.2 · 近轮 -0.45\n药品 5,639.6 · 近轮 +67.32\n知识 2,999.9 · 近轮 +0\n铁锭 824 · 近轮 +0\n\n地方资产与人口来源",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 853,
+      "section": "overview",
+      "viewport": 853,
+      "scrollWidth": 853,
+      "body": {
+        "left": 10,
+        "right": 843,
+        "width": 833
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同职责\n已知城市\n3\n共同车辆\n2 / 2组在途\n居民合计\n143,110\n运转安排\n工料优先\n各城继续独立供养。共同车组返程前不能被另一条线路重复使用。\n查看明细\n\n三城各有地方账。下一步观察线路排队、运行预算与实际物资缺口，再决定是否扩建车场。\n\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 853,
+      "section": "transport",
+      "viewport": 853,
+      "scrollWidth": 853,
+      "body": {
+        "left": 10,
+        "right": 843,
+        "width": 833
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        },
+        {
+          "id": "cityNet_enable",
+          "height": 46
+        },
+        {
+          "id": "cityNet_lakeTerms",
+          "height": 46
+        },
+        {
+          "id": "cityNet_priority",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n共同车组 2 / 2 · 工料优先\n\n湖滨线：载货在途，21秒\n矿岭线：空车返程，141秒\n湖滨往返360秒；矿岭往返480秒。旅费在出发时实付，在途驾驶员不参加本地生产。\n车场：第二车组已投入，检修费随设施持续支付。\n\n暂停矿岭新订单\n调整湖滨协约\n调度与车场\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 853,
+      "section": "budget",
+      "viewport": 853,
+      "scrollWidth": 853,
+      "body": {
+        "left": 10,
+        "right": 843,
+        "width": 833
+      },
+      "buttons": [
+        {
+          "id": "cityNet_tab_overview",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_transport",
+          "height": 46
+        },
+        {
+          "id": "cityNet_tab_budget",
+          "height": 46
+        },
+        {
+          "id": "cityNet_budget",
+          "height": 46
+        }
+      ],
+      "text": "城际协作\n\n共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。\n\n概况\n运输\n公共预算\n本期还剩 254秒 · 额度只限制支出，不是额外库存\n\n本城出发仓 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 2 / 24\n\n湖滨市 · 维持运转\n检修有效 · 下一轮可实付\n本期最高占用：药品 0.5 / 6\n\n矿岭市 · 加强交通\n检修有效 · 下一轮可实付\n本期最高占用：铁锭 1 / 24\n每60秒尝试实付检修；连续120秒未付会停新发运，矿岭铸炉也停工。已付在途货物继续交割。\n\n调整地方运行额度\n核对运单与实付账",
+      "settingsOpen": false,
+      "allocationOpen": false
+    },
+    {
+      "width": 853,
+      "section": "ridge",
+      "viewport": 853,
+      "scrollWidth": 853,
+      "body": {
+        "left": 10,
+        "right": 843,
+        "width": 833
+      },
+      "buttons": [],
+      "text": "矿岭市\n\n回收矿料与旧铸炉支撑的地方工业。基础供养由本城维持；金属生产还需要持续检修。\n\n本地供养与工业\n居民\n72,408\n健康\n100 / 100\n公共服务\n600秒\n铸炉\n检修有效\n金属生产使用本地废料、木料和160个真实岗位。农田、诊疗与课堂有自己的岗位和物资成本。\n查看明细\n\n食物 130,818.8 · 近轮 -8790.88\n木料 4,530.5 · 近轮 -129.46\n废料 5,223.6 · 近轮 +329.2\n工具 1,256.2 · 近轮 -0.45\n药品 5,639.6 · 近轮 +67.32\n知识 2,999.9 · 近轮 +0\n铁锭 824 · 近轮 +0\n\n地方资产与人口来源",
+      "settingsOpen": false,
+      "allocationOpen": false
+    }
+  ],
+  "legacyNavigation": true,
+  "keyboard": true,
+  "unsubmittedChoicePreserved": true,
+  "pausedWorldUnchanged": true
+}

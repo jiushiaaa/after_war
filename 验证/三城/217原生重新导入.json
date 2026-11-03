@@ -1,0 +1,12 @@
+{
+  "kind": "native import via mouse and keyboard; read-only audit",
+  "sourceAt": 30334,
+  "observedAt": 30397,
+  "paused": true,
+  "existingLedgerPrefixUnchanged": true,
+  "openingBookUnchanged": true,
+  "worldLedgerPrefixUnchanged": true,
+  "importValidated": true,
+  "roundtripValidated": true,
+  "notes": "Import resumes real time before the pause UI is pressed. New legitimate ticks are retained; no state, time or stock was injected."
+}

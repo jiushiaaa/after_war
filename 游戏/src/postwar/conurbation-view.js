@@ -1,7 +1,7 @@
 /* MPL-2.0 — A second city inside the existing ADR location. No nation menus. */
 var CivilConurbationView={
   selected:'home',section:'overview',depot:'yards',mode:'provisions',share:'equal',built:false,lastContract:null,
-  reset(){this.selected='home';this.section='overview';this.depot='yards';this.mode='provisions';this.share='equal';this.built=false;this.lastContract=null;},
+  reset(){this.selected='home';this.section='overview';this.depot='yards';this.mode='provisions';this.share='equal';this.built=false;this.lastContract=null;if(typeof CivilCityNetworkView!=='undefined')CivilCityNetworkView.reset();},
   select(id){this.selected=id;CivilCityView.refresh(State);CivilCityView.module.body.scrollTop(0);},
   b(id,label,host,reason,action){return CivilCityView.button('metroCity_'+id,label,host,reason,action);},
   ensure(){
@@ -32,12 +32,13 @@ var CivilConurbationView={
     $('#metroCitySwitch').toggle(!!d?.node);$('#metroCitySurvey').toggle(!d?.node);
     $('#metroCitySurvey > p').text(d?.survey?'湖岸普查在途 · '+d.survey.remaining+'秒；两名普查员离开旧厂岗位，旅粮已实付。':'旧测绘记录通往湖岸的公路。先了解另一座城市的人口与地方资产，再商议有限合作。');
     this.b('survey','沿湖岸普查','#metroCitySurvey > div',CivilConurbation.surveyReason(s),()=>CivilConurbation.survey(State)).toggle(!d);
-    for(const [id,name]of Object.entries({home:'炉火城',lake:'湖滨市',link:'城际协作'}))this.b('select_'+id,name,'#metroCitySwitch',null,()=>{this.select(id);return false;}).attr('aria-pressed',this.selected===id).toggleClass('selected',this.selected===id);
+    for(const [id,name]of Object.entries({home:'炉火城',lake:'湖滨市',link:'城际协作'}))this.b('select_'+id,name,'#metroCitySwitch',null,()=>{this.select(id);return false;}).attr('aria-pressed',this.selected===id||id==='link'&&this.selected==='legacy').toggleClass('selected',this.selected===id||id==='link'&&this.selected==='legacy');
+    if(typeof CivilCityNetworkView!=='undefined'&&CivilCityNetworkView.refresh(s))return true;
     const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#metroCitySwitch,#metroCityBody').toggle(!away);$('#metroCityBody').toggle(away);
-    if(!away){$('#metroCitySurvey').toggle(!d?.node&&CivilCityView.view==='overview');return false;}
-    const n=d.node,p=CivilCity.count(n),e=n.economy,section=this.selected==='link'?'transport':this.section;
-    $('#metroCityTitle').text(this.selected==='link'?'两城协作': '湖滨市');
-    $('#metroCityBrief').text(this.selected==='link'?(d.clusterAt===null?'道路与协约只共同承担约定职责。':'两城协作网已成立。')+' 炉火城 '+a(CivilCity.population(s))+'人；湖滨市 '+a(p)+'人，各自居住和供养。':'湖岸农田与水务支撑的独立城市。工具工坊规模有限，互市可以释放人手；停运时恢复本地制器。');
+    if(!away){$('#cityNetworkBody').hide();$('#metroCitySurvey').toggle(!d?.node&&CivilCityView.view==='overview');return false;}
+    const n=d.node,p=CivilCity.count(n),e=n.economy,section=['link','legacy'].includes(this.selected)?'transport':this.section;
+    $('#metroCityTitle').text(['link','legacy'].includes(this.selected)?(CivilCityNetwork.data(s)?'湖滨协约':'两城协作'): '湖滨市');
+    $('#metroCityBrief').text(['link','legacy'].includes(this.selected)?(d.clusterAt===null?'道路与协约只共同承担约定职责。':'两城协作网已成立。')+' 炉火城 '+a(CivilCity.population(s))+'人；湖滨市 '+a(p)+'人，各自居住和供养。':'湖岸农田与水务支撑的独立城市。工具工坊规模有限，互市可以释放人手；停运时恢复本地制器。');
     $('#metroCityTabs').toggle(this.selected==='lake');
     for(const [id,name]of Object.entries({overview:'概况',production:'生产与预算',assets:'地方资产'}))this.b('tab_'+id,name,'#metroCityTabs',null,()=>{this.section=id;v.refresh(State);return false;}).attr('aria-pressed',section===id).toggleClass('selected',section===id);
     for(const id of ['overview','production','assets','transport'])$('#metroCitySection_'+id).toggle(section===id);
@@ -64,6 +65,10 @@ var CivilConurbationView={
     const repairBlocked=r?.phase==='ready'&&r.condition<20;this.b('repair','支付道路检修','#metroCityActions',CivilConurbation.repairReason(s),()=>CivilConurbation.repair(State)).toggle(!!repairBlocked);
     $('#metroCityLedger p').text('已到货 '+d.trips.filter(x=>x.deliveredAt!==null).length+' 批；载货退回 '+d.trips.filter(x=>x.status==='returned').length+' 批。\n'+d.trips.slice(-8).map(x=>'运单 '+x.id+' · '+CivilConurbation.modes[x.mode].name+' · '+({outbound:'在途',returning:'空车返程',complete:'结清',recalled:'载货折返',returned:'退回结清'}[x.status])+' · 发 '+cost(x.out)+' / 收 '+cost(x.back)+' · '+CivilConurbation.shares[x.share].name+' · 本城运行实付 '+cost(x.fees.home)+' / 湖滨 '+cost(x.fees.lake)).join('\n')+'\n道路检修 '+d.payments.length+' 次；本城累计 '+cost(d.payments.reduce((a,x)=>CivilConurbation.plus(a,x.home),{}))+'，湖滨累计 '+cost(d.payments.reduce((a,x)=>CivilConurbation.plus(a,x.lake),{}))+'。');
     const history=d.history.slice(-18),ol=$('#metroCityHistory ol');if(ol.children().length!==history.length){ol.empty();for(const h of history)$('<li>').appendTo(ol);}history.forEach((h,i)=>ol.children().eq(i).text('重建 '+Math.floor(h.at/600)+'年：'+h.text));
+    $('#cityNetworkBody').hide();
+    if(!$('#metroCityNetworkOffer').length)$('<p>').attr('id','metroCityNetworkOffer').insertBefore('#metroCityActions');
+    $('#metroCityNetworkOffer').toggle(!!d.clusterAt&&!CivilCityNetwork.data(s)).text('联合调度所：两城各付 '+cost(CivilCityNetwork.charterCost)+'。既有一组本城车辆共同调度，各地仍独立供养。');
+    this.b('network','筹设联合调度所','#metroCityActions',CivilCityNetwork.formReason(s),()=>CivilCityNetwork.form(State)).toggle(!!d.clusterAt&&!CivilCityNetwork.data(s));
     return true;
   }
 };

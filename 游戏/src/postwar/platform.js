@@ -52,6 +52,7 @@
     if(typeof CivilCity!=='undefined')CivilCity.validate(state);
     if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.validate(state);
     if(typeof CivilConurbation!=='undefined')CivilConurbation.validate(state);
+    if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

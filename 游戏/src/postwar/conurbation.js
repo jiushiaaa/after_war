@@ -116,9 +116,10 @@ var CivilConurbation={
     d.share=value;d.policies.push({order:d.nextAction++,at:s.civilization.elapsed,kind:'share',value,paid});this.note(s,'burden','后续道路与运行开支改为'+this.shares[value].name+'，已出发批次按原约结清。两城仍各自承担驾驶员口粮。');return true;},
   payment(s,kind,cost){const d=this.data(s),depot=d.route.depot,home=this.split(cost,d.share,'home'),lake=this.split(cost,d.share,'lake');
     if(this.safe(s,depot,home)||this.safe(s,'lake',lake))return false;
-    CivilCity.pay(this.local(s,depot),home);CivilCity.pay(d.node,lake);d.payments.push({order:d.nextAction++,at:s.civilization.elapsed,kind,share:d.share,home,lake});return true;},
+    if(typeof CivilCityNetwork!=='undefined'&&CivilCityNetwork.data(s)&&(CivilCityNetwork.canSpend(s,'home',home)||CivilCityNetwork.canSpend(s,'lake',lake)))return false;
+    CivilCity.pay(this.local(s,depot),home);CivilCity.pay(d.node,lake);d.payments.push({order:d.nextAction++,at:s.civilization.elapsed,kind,share:d.share,home,lake});if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.legacyRepair(s,d.payments.length,home,lake);return true;},
   repairReason(s){const d=this.data(s);if(!d?.route||d.route.phase!=='ready')return '道路尚未建成';if(d.route.condition>80)return '道路暂不需要维护';
-    return this.safe(s,d.route.depot,this.split(this.maintenance,d.share,'home'))||this.safe(s,'lake',this.split(this.maintenance,d.share,'lake'));},
+    return this.safe(s,d.route.depot,this.split(this.maintenance,d.share,'home'))||this.safe(s,'lake',this.split(this.maintenance,d.share,'lake'))||(typeof CivilCityNetwork!=='undefined'&&CivilCityNetwork.data(s)?CivilCityNetwork.canSpend(s,'home',this.split(this.maintenance,d.share,'home'))||CivilCityNetwork.canSpend(s,'lake',this.split(this.maintenance,d.share,'lake')):null);},
   repair(s){if(this.repairReason(s)||!this.payment(s,'repair',this.maintenance))return false;this.data(s).route.condition=100;this.note(s,'maintenance','双方公仓按约支付检修用料，道路恢复通行能力。');return true;},
   value(cargo){return Object.entries(cargo).reduce((a,[k,v])=>a+this.values[k]*v,0);},
   order(s){
@@ -132,15 +133,17 @@ var CivilConurbation={
     let remaining=this.value(out);const result={};for(const k of ['food','scrap']){const n=Math.min(back[k]||0,remaining);if(n){result[k]=n;remaining-=n;}}
     return {out,back:result};
   },
-  dispatchReason(s){const d=this.data(s);if(!d?.contract)return '尚无有限协约';if(d.suspended)return '已暂停发运，地方恢复自给';if(this.active(s))return '原车仍在途，不能重复占用车辆与人员';if(d.route.condition<20)return '路面磨损，须先分担检修材料';
+  dispatchReason(s,ignoreFleet=false){const d=this.data(s);if(!d?.contract)return '尚无有限协约';if(d.suspended)return '已暂停发运，地方恢复自给';if(this.active(s))return '原车仍在途，不能重复占用车辆与人员';if(d.route.condition<20)return '路面磨损，须先分担检修材料';
     const m=this.order(s),ration=6*.12*this.travel*2/10;if(this.value(m.out)<80||this.value(m.out)!==this.value(m.back))return '双方暂未形成足够互补缺口，保留库存等待需求';
     for(const [id,cargo,side]of [[d.route.depot,m.out,'home'],['lake',m.back,'lake']]){const fee=this.plus(this.split(this.running,d.share,side),{food:ration}),reason=this.safe(s,id,this.plus(cargo,fee),6);if(reason)return (id==='lake'?'湖滨市':CivilCity.config(id).name)+'：'+reason;}
+    if(typeof CivilCityNetwork!=='undefined'&&CivilCityNetwork.data(s))return CivilCityNetwork.guardLegacy(s,ignoreFleet);
     return null;
   },
   dispatch(s){if(this.dispatchReason(s))return false;const d=this.data(s),m=this.order(s),ration=6*.12*this.travel*2/10;
     const p={order:d.nextAction++,id:d.nextTrip++,depot:d.route.depot,mode:d.contract,share:d.share,startedAt:s.civilization.elapsed,deliveredAt:null,recalledAt:null,finishedAt:null,status:'outbound',remaining:this.travel,
       out:this.copy(m.out),back:this.copy(m.back),fees:{home:this.plus(this.split(this.running,d.share,'home'),{food:ration}),lake:this.plus(this.split(this.running,d.share,'lake'),{food:ration})}};
     for(const [id,cargo,side]of [[p.depot,p.out,'home'],['lake',p.back,'lake']]){const n=this.local(s,id);CivilRules.pay({stores:n.stores},this.plus(cargo,p.fees[side]));CivilCity.sum(n.budget.sent,cargo);CivilCity.sum(n.budget.consumed,p.fees[side]);}
+    if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.legacyTrip(s,p);
     d.trips.push(p);d.route.condition-=20;CivilCity.plan(s,p.depot);CivilCity.plan(s,'lake');return true;
   },
   receive(n,cargo){CivilCity.sum(n.stores,cargo);CivilCity.sum(n.budget.received,cargo);},
@@ -153,7 +156,7 @@ var CivilConurbation={
       if(p.status==='outbound'){this.receive(d.node,p.out);this.receive(this.local(s,p.depot),p.back);p.deliveredAt=t;p.status='returning';p.remaining=this.travel;}
       else {if(p.status==='recalled'){this.receive(this.local(s,p.depot),p.out);this.receive(d.node,p.back);}p.status=p.status==='recalled'?'returned':'complete';p.finishedAt=t;CivilCity.plan(s,p.depot);CivilCity.plan(s,'lake');}
     }
-    if(t%10===0&&d.contract&&!d.suspended){if(d.route.condition<20)this.repair(s);this.dispatch(s);}
+    if(t%10===0&&d.contract&&!d.suspended&&!(typeof CivilCityNetwork!=='undefined'&&CivilCityNetwork.data(s))){if(d.route.condition<20)this.repair(s);this.dispatch(s);}
     if(d.clusterAt===null&&d.contract&&d.trips.filter(p=>p.deliveredAt!==null).length>=3&&d.node.stable>=120&&CivilCity.members(s).every(([,n])=>n.stable>=120)){
       d.clusterAt=t;this.note(s,'cluster','炉火城与湖滨市形成了两城协作网：物资按约往来，公共开支分别入账。这是共同承担有限职责的城市群，并非建国或合并仓库。');}
   },
@@ -163,7 +166,7 @@ var CivilConurbation={
     if(!this.available(s)||d.schema!==1||!time(d.at)||!Array.isArray(d.trips)||d.nextTrip!==d.trips.length+1||!Array.isArray(d.history)||!Array.isArray(d.policies)||!Array.isArray(d.payments)||!this.shares[d.share]||typeof d.suspended!=='boolean')fail();
     if(d.survey){if(d.node!==null||d.origin!==null||d.route!==null||d.contract!==null||d.trips.length||d.clusterAt!==null||d.survey.startedAt!==d.at||!int(d.survey.remaining)||d.survey.remaining<1||d.survey.remaining!==360-(s.civilization.elapsed-d.at)||!same(d.survey.paid,this.surveyCost))fail();return;}
     const o=d.origin,n=d.node;if(!o||!n||o.at!==d.at+360||!same(o,this.origin(s,o.at))||!Array.isArray(n.cohorts)||n.cohorts.length>160||n.cohorts.some(c=>!int(c.age)||c.age>=80||!int(c.count)||!c.count||!['human','mutant'].includes(c.identity))||n.year!==Math.floor(s.civilization.elapsed/600)||!int(n.born)||!int(n.dead)||CivilCity.count(n)!==o.population+n.born-n.dead||CivilCity.count(n)>o.housing||n.contactedAt!==o.at||n.joinedAt!==null||!num(n.health)||n.health>100||!num(n.hunger)||!num(n.stable)||n.stable>600||n.priority!=='balanced'||n.method!=='manual'||n.waterEnabled!==true||n.freightEnabled!==true||!same(n.buildings,{road:0,water:1,housing:0})||n.project!==null)fail();
-    const partitions=CivilCensus.data(s).entries.filter(e=>e.kind==='partition');if(partitions.length!==1||partitions[0].at!==o.at||partitions[0].count!==o.population)fail();
+    const partitions=CivilCensus.data(s).entries.filter(e=>e.kind==='partition'&&e.to==='city_lake');if(partitions.length!==1||partitions[0].at!==o.at||partitions[0].count!==o.population)fail();
     if(!n.births||n.births.scaled!==true||!num(n.births.credit)||n.births.credit>=1||!num(n.births.mutantCredit)||n.births.mutantCredit>=1||Object.values(n.workers).some(v=>!int(v))||Object.values(n.workers).reduce((a,b)=>a+b,0)>CivilCity.workforce(n))fail();
     for(const bucket of [n.stores,...['produced','consumed','received','sent'].map(k=>n.budget?.[k])])if(!bucket||Object.entries(bucket).some(([k,v])=>!resources.includes(k)||!num(v)))fail();
     for(const k of resources)if(!near(n.stores[k],o.stores[k]+(n.budget.produced[k]||0)-(n.budget.consumed[k]||0)+(n.budget.received[k]||0)-(n.budget.sent[k]||0)))fail();

@@ -153,6 +153,7 @@ var Civilization = {
     if(typeof CivilCensus!=='undefined'){CivilCensus.annual(State);CivilCensus.syncMacro(State);}
     if(typeof CivilCity!=='undefined')CivilCity.tick(State);
     if(typeof CivilConurbation!=='undefined')CivilConurbation.tick(State);
+    if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
