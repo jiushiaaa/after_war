@@ -245,6 +245,8 @@ var CivilUrban = {
     if(!e || c.elapsed-e.at>10 || s.game.population<(city?400:80) || s.game.population> CivilCatalog.capacity(s) || !this.publicServices(s) || c.hunger || c.village.health<(city?70:60))return false;
     if(!e.treatment || !e.education || e.medicine<-1e-8 || e.food<-1e-8 || !c.society.service)return false;
     if(!city)return this.tradeReady(s);
+    // Commons course: the city rests on fields, care and timber housing instead of mines and power.
+    if(typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons'))return u.chartered&&CivilCourse.cityChecks(s).every(([,ok])=>ok)&&(s.stores.food||0)+1e-8>=this.foodReserve(s);
     const project=Object.values(c.regions?.nodes||{}).some(n=>n.completedProjects?.publicWorks);
     return u.chartered && c.tech.urbanworks && project && c.regions?.adminService && i.pollution<40 && e.industrial && e.productionPower>=4 && (s.stores.food||0)+1e-8>=this.foodReserve(s) && s.stores.tools>=40 && s.stores.iron>=40 && s.stores.parts>=20;
   },

@@ -3,7 +3,7 @@ var Civilization = {
   defaults() {
     return {elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:null,policySeen:{},trust:50,hunger:0,stableFor:0,
       populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,
-      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{}};
+      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1};
   },
   initState() {
     State.civilization = State.civilization || this.defaults();
@@ -40,6 +40,7 @@ var Civilization = {
   notify(text) { Notifications.notify(null,text); },
   settleEconomy(s) {
     const before={...s.stores}, result=CivilRules.settle(s), flow=result.flow;
+    if(typeof CivilCourse!=='undefined'){const coop=CivilCourse.settleCoop(s,flow);if(coop)flow['制器合作社']=coop;}
     const beforeVillage={...s.stores}, care=CivilVillage.treatment(s);
     CivilVillage.settle(s);
     if(care)flow['诊所治疗']={medicine:-care};
@@ -154,6 +155,7 @@ var Civilization = {
       else if(!c.policy && State.game.population>=2 && ((State.stores.food || 0)<16 || c.residentTime>=60)) this.policyEvent();
       else if(c.station && !c.events.merchant) {c.pending='merchant';this.showPending();}
       else if(typeof CivilSociety!=='undefined' && CivilSociety.nextEvent(State)){c.pending=CivilSociety.nextEvent(State);this.showPending();}
+      else if(typeof CivilCourse!=='undefined' && CivilCourse.nextEvent(State)){c.pending=CivilCourse.nextEvent(State);this.showPending();}
       else if(typeof CivilRegions!=='undefined' && CivilRegions.nextEvent(State)){c.pending=CivilRegions.nextEvent(State);this.showPending();}
       else if(typeof CivilOrigins!=='undefined' && CivilOrigins.nextEvent(State)){c.pending=CivilOrigins.nextEvent(State);this.showPending();}
       else if(typeof CivilMunicipal!=='undefined' && CivilMunicipal.nextEvent(State)){c.pending=CivilMunicipal.nextEvent(State);this.showPending();}
@@ -316,7 +318,7 @@ var Civilization = {
       buttons={wood:{text:c.urban?.city?'拨料检修':'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done(c.urban?.city?'本城维修人员更换了仓储挡风板。':'新木板挡住了寒风。')},
         hands:{text:c.urban?.city?'调配人工加固':'一起加固',nextScene:'end',onChoose:done(c.urban?.city?'本城临时调配人员加固仓储，一轮生产随之推迟。':'大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
     } else {
-      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIntercity!=='undefined'?CivilIntercity.event(id,done):null) || (typeof CivilCorridor!=='undefined'?CivilCorridor.event(id,done):null) || (typeof CivilPartnership!=='undefined'?CivilPartnership.event(id,done):null) || (typeof CivilWorld!=='undefined'?CivilWorld.event(id,done):null) || (typeof CivilStatecraft!=='undefined'?CivilStatecraft.event(id,done):null) || (typeof CivilForeign!=='undefined'?CivilForeign.event(id,done):null) || (typeof CivilLeagues!=='undefined'?CivilLeagues.event(id,done):null) || (typeof CivilTransit!=='undefined'?CivilTransit.event(id,done):null) || (typeof CivilMarkets!=='undefined'?CivilMarkets.event(id,done):null) || (typeof CivilCongress!=='undefined'?CivilCongress.event(id,done):null) || (typeof CivilSettlement!=='undefined'?CivilSettlement.event(id,done):null) || (typeof CivilAftermath!=='undefined'?CivilAftermath.event(id,done):null) || (typeof CivilSpace!=='undefined'?CivilSpace.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null);
+      const event=CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIntercity!=='undefined'?CivilIntercity.event(id,done):null) || (typeof CivilCorridor!=='undefined'?CivilCorridor.event(id,done):null) || (typeof CivilPartnership!=='undefined'?CivilPartnership.event(id,done):null) || (typeof CivilWorld!=='undefined'?CivilWorld.event(id,done):null) || (typeof CivilStatecraft!=='undefined'?CivilStatecraft.event(id,done):null) || (typeof CivilForeign!=='undefined'?CivilForeign.event(id,done):null) || (typeof CivilLeagues!=='undefined'?CivilLeagues.event(id,done):null) || (typeof CivilTransit!=='undefined'?CivilTransit.event(id,done):null) || (typeof CivilMarkets!=='undefined'?CivilMarkets.event(id,done):null) || (typeof CivilCongress!=='undefined'?CivilCongress.event(id,done):null) || (typeof CivilSettlement!=='undefined'?CivilSettlement.event(id,done):null) || (typeof CivilAftermath!=='undefined'?CivilAftermath.event(id,done):null) || (typeof CivilSpace!=='undefined'?CivilSpace.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null) || (typeof CivilCourse!=='undefined'?CivilCourse.event(id,done):null);
       if(!event){c.pending=null;return;}
       ({title,text,buttons}=event);
     }
@@ -348,8 +350,8 @@ var Civilization = {
     else this.notify(CivilNarrative.wildlife(State));
   },
   research(id) {
-    const c=State.civilization,r=CivilText.research[id];
-    if(!r || c.research || c.tech[id] || !CivilCatalog.researchAvailable(State,id) || !this.spend(r.cost)) return;
+    const c=State.civilization,r=CivilText.research[id],cost=typeof CivilCourse!=='undefined'&&c.course?CivilCourse.researchCost(State,id):r?.cost;
+    if(!r || c.research || c.tech[id] || !CivilCatalog.researchAvailable(State,id) || !this.spend(cost)) return;
     c.research={id,remaining:r.duration};this.notify((c.urban?.city?'研究团队开始试制':'工坊开始试制')+r.name+'。');this.refresh();Engine.saveGame();
   },
   depart(id) {
@@ -448,8 +450,10 @@ var Civilization = {
       if(!section.length) section=$('<div>').attr({id:'researchBtns','data-legend':'研究：'}).appendTo('#roomPanel');
       for(const [id,r] of Object.entries(CivilText.research)) {
         if(!CivilCatalog.researchAvailable(State,id) && !c.tech[id])continue;
-        const btn=this.button('research_'+id,r.name,section,()=>this.research(id),r.cost);
-        Button.setDisabled(btn,!!c.tech[id] || !!c.research || !CivilRules.canPay(State,r.cost));
+        const rc=typeof CivilCourse!=='undefined'&&c.course?CivilCourse.researchCost(State,id):r.cost;
+        const btn=this.button('research_'+id,r.name,section,()=>this.research(id),rc);
+        if(c.course&&btn.attr('data-cost')!==JSON.stringify(rc)){btn.attr('data-cost',JSON.stringify(rc));const tip=btn.find('.tooltip').empty();for(const [k,n] of Object.entries(rc)){$('<div>').addClass('row_key').text(_(k)).appendTo(tip);$('<div>').addClass('row_val').text(n).appendTo(tip);}}
+        Button.setDisabled(btn,!!c.tech[id] || !!c.research || !CivilRules.canPay(State,rc));
         btn.toggle(!c.tech[id]);
         btn.attr('title',c.tech[id]?'已掌握':c.research?.id===id?'试制中，剩余 '+Math.ceil(c.research.remaining)+' 秒':r.duration+' 秒');
       }
@@ -562,6 +566,8 @@ const buildDefs={
   outpost:{cost:()=>({wood:120,scrap:20,food:20}),max:1,gate:()=>State.civilization.pump && State.civilization.tech.metal && State.game.buildings.cistern && State.game.population>=8}
 };
 Object.assign(buildDefs,CivilVillage.buildings,typeof CivilIndustry!=='undefined'?CivilIndustry.buildings:{},typeof CivilRegions!=='undefined'?CivilRegions.buildings:{},typeof CivilUrban!=='undefined'?CivilUrban.buildings:{},typeof CivilAdvanced!=='undefined'?CivilAdvanced.buildings:{});
+// A chosen course may build the same facility from different real materials.
+for(const [id,def] of Object.entries(buildDefs)){const base=def.cost;def.cost=()=>{const f=typeof CivilCourse!=='undefined'?CivilCourse.costs[CivilCourse.id(State)]?.[id]:null;return f?f():base();};}
 for(const [id,def] of Object.entries(buildDefs)) Room.Craftables[id]={name:_(id),button:null,type:'building',maximum:def.max,cost:def.cost,availableMsg:CivilText.buildings[id][0],buildMsg:CivilText.buildings[id][1]};
 Room.craftUnlocked=function(id) {
   if(Room.buttons[id] || State.civilization.buildingsSeen?.[id]) {Room.buttons[id]=true;return true;}

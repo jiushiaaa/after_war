@@ -21,6 +21,7 @@ var CivilGuide={
       lack(true,'建补给外站');return {goal:'设立补给外站',need,where:'room'};
     }
     if(!v.riverKnown){lack(!!c.tech.handtools,'研究标准手工具');lack(!!c.tech.trails,'研究道路维护');lack(true,'旧公路 → 沿河勘察');return {goal:'寻找河谷',need,where:'road'};}
+    if(v.town&&typeof CivilCourse!=='undefined'&&CivilCourse.needsChoice(s))return {goal:'议定小镇方针',need:['等待居民议事（事件窗口）'],note:null};
     if(!v.town){
       lack(!!b.road,'建河谷道路');lack(!!v.riverAllied,'援助河谷并商议互助');lack(pop>=20,'居民 '+pop+'/20');
       lack(!!b.clinic,'建诊所');lack(!!b.schoolhouse,'建学堂');lack((v.health||0)>=60,'健康 '+Math.floor(v.health||0)+'/60');
@@ -40,6 +41,7 @@ var CivilGuide={
     lack(!c.hunger,'口粮不短缺');lack((v.health||0)>=(city?70:60),'健康 '+Math.floor(v.health||0)+'/'+(city?70:60));
     lack(!!c.society?.service,'公共行政物资');
     if(!city){lack(CivilUrban.tradeReady(s),'河谷车队往返正常');return {goal:'登记镇制',need,note:need.length?null:'保持 '+Math.max(0,180-(u.townStable||0))+' 秒'};}
+    if(typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons')){for(const [label,ok] of CivilCourse.cityChecks(s))if(!/^居民|^健康/.test(label))lack(ok,label);return {goal:'成为城市（田地与公共服务）',need,note:need.length?null:'保持 '+Math.max(0,300-(u.cityStable||0))+' 秒'};}
     lack(!!c.tech.urbanworks,'研究城镇工程');
     lack(Object.values(c.regions?.nodes||{}).some(n=>n.completedProjects?.publicWorks),'完成一项邻居的共同工程');
     lack(!!c.regions?.adminService,'地区行政服务');lack((i.pollution||0)<40,'烟尘 <40');

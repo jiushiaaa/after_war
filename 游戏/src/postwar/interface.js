@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only summaries and progressive organization of existing ADR controls. */
 var CivilInterface={
   views:{},researchModule:null,
-  kinds:{globalfleet:'industry',spaceworks:'industry',bioworks:'industry',spaceport:'industry',expeditiondepot:'industry',roboticsworks:'industry',railfreight:'industry',precisionworks:'industry',electronicsworks:'industry',windstation:'power',meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
+  kinds:{commonhouse:'housing',globalfleet:'industry',spaceworks:'industry',bioworks:'industry',spaceport:'industry',expeditiondepot:'industry',roboticsworks:'industry',railfreight:'industry',precisionworks:'industry',electronicsworks:'industry',windstation:'power',meetinghall:'culture',residential:'housing',blockhousing:'housing',densehousing:'housing',passengerfleet:'migration',publicclinic:'care',publicschool:'care',irrigatedfield:'care',toolworks:'care',pharmacy:'care',heatingplant:'care',waterworks:'care',waterfield:'care',irrigationworks:'care',districtschool:'care',farmland:'care',clinic:'care',school:'care',salvageyard:'materials',woodlot:'materials',mine:'materials',coalpit:'materials',mineralquarry:'materials',mineexpansion:'materials',coalexpansion:'materials',furnace:'industry',machineworks:'industry',chemicalworks:'industry',steelworks:'industry',glassworks:'industry',powerhouse:'power',utilitypower:'power',scrubber:'power',filterplant:'power'},
   labels:{exploration:'遗迹',culture:'社群',overview:'概况',housing:'住房',care:'供养',migration:'迁居',materials:'原料',industry:'加工',power:'能源'},
   number(n){return Number((Number(n)||0).toFixed(2));},
   signed(n){return (n>=0?'+':'')+this.number(n);},
@@ -146,7 +146,8 @@ var CivilInterface={
   },
   researchRows(s){
     const c=s.civilization,frontier=new Set(Object.keys(CivilText.research).filter(id=>c.tech[id]||CivilCatalog.researchAvailable(s,id)));
-    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||((r.requires||[]).length&&(r.requires||[]).every(key=>frontier.has(key))&&(!r.discover||r.discover(s)))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:(r.requires||[]).map(key=>({name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:r.cost,duration:r.duration,detail:r.done}));
+    const C=typeof CivilCourse!=='undefined'&&c.course?CivilCourse:null,req=id=>C?C.requires(s,id):(CivilText.research[id].requires||[]),disc=(id,r)=>C?C.discover(s,id):(!r.discover||r.discover(s));
+    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||(req(id).length&&req(id).every(key=>frontier.has(key))&&disc(id,r))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:req(id).map(key=>({name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:C?C.researchCost(s,id):r.cost,duration:r.duration,detail:r.done}));
   },
   research(s){
     if(!s.game.buildings.workshop)return;

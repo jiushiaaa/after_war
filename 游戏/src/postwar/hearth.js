@@ -12,7 +12,7 @@ var CivilHearth={
     else if(watched&&wood<1)warning='守火缺木，至少需要1木料';
     else if(watched&&fire<2)warning='余火偏弱，可手动添火升温';
     return {watched,town,city,fire,temperature,wood,warning,title:city?'旧维修间炉火':'炉火管理',
-      note:watched?'工匠已接手照看炉火。余火每5分钟消耗1木料；手动添火可临时升温。'+(city?'旧维修间仍烧木取暖，发电机供应工区和公用设施。':'断木后火势会变弱，熄火后需要重新生火。'):''};
+      note:watched?(typeof CivilCourse!=='undefined'?CivilCourse.craftsmanTitle(s):'工匠')+'已接手照看炉火。余火每5分钟消耗1木料；手动添火可临时升温。'+(city?'旧维修间仍烧木取暖，发电机供应工区和公用设施。':'断木后火势会变弱，熄火后需要重新生火。'):''};
   },
   refresh(s){
     if(typeof $!=='function'||!$('#roomPanel').length||!$('#stokeButton').length)return;
