@@ -430,6 +430,9 @@ var Outside = {
 			needsAppend = true;
 			village = $('<div>').attr('id', 'village').css('opacity', 0);
 			population = $('<div>').attr('id', 'population').appendTo(village);
+			// Worker registration below can synchronously publish another state update.
+			// Attach the owner first so that nested rendering reuses the same village.
+			village.prependTo('#outsidePanel');
 		}
 		
 		for(var k in $SM.get('game.buildings')) {
@@ -459,7 +462,7 @@ var Outside = {
 			village.attr('data-legend', _('village'));
 		}
 		
-		if(needsAppend && village.children().length > 1) {
+		if(village.children().length > 1 && (needsAppend || village.css('opacity') === '0')) {
 			village.prependTo('#outsidePanel');
 			village.animate({opacity:1}, 300, 'linear');
 		}

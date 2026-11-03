@@ -56,6 +56,7 @@ var CivilExpedition={
   },
   departReason(s,p=this.prep){
     const C=this.C(),d=this.data(s);
+    if(typeof CivilClock!=='undefined'&&CivilClock.paused)return '世界已暂停，恢复时间后出发';
     if(!this.unlocked(s))return '需要工坊';
     if(!this.canDepartStage(s))return '城市阶段由巡护制度照看近郊';
     if(d?.party)return '小队仍在外面';
@@ -93,6 +94,7 @@ var CivilExpedition={
   },
   moveReason(s,dx,dy){
     const d=this.data(s),p=d?.party;
+    if(typeof CivilClock!=='undefined'&&CivilClock.paused)return '世界已暂停，恢复时间后行进';
     if(!p)return '小队不在外面';
     if(p.encounter)return '先处理眼前的情况';
     if(typeof Events!=='undefined'&&Events.activeEvent?.())return '先处理眼前的事件';
@@ -262,7 +264,7 @@ var CivilExpedition={
     const v=d.survivors;if(!v||d.sites.cellar.state!=='invited')return null;
     const beds=CivilCatalog.capacity(s)-(s.game.population||0);
     if(beds<v.count||(s.stores.food||0)<12||s.civilization.hunger)return null;
-    s.game.population+=v.count;d.sites.cellar.state='joined';d.survivors=null;
+    s.game.population+=v.count;if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'cellar','home',v.count,'储藏室居民迁入');d.sites.cellar.state='joined';d.survivors=null;
     if(typeof CivilSociety!=='undefined')CivilSociety.sync(s);
     this.record(s,'cellar','储藏室的人搬进聚落','老测量员和两个徒弟住进了聚落。他记得旧城的道路编号。');
     return 'joined';

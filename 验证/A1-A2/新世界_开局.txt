@@ -1,0 +1,47 @@
+[0s 墙钟 / 6s 模拟] 地点:room:冰冷的维修间
+[0s 墙钟 / 6s 模拟] 按钮:lightButton
+[0s 墙钟 / 6s 模拟] 按钮:stokeButton
+[0s 墙钟 / 7s 模拟] 地点:room:温暖的维修间
+[45s 墙钟 / 52s 模拟] 地点:outside:灰白荒林
+[45s 墙钟 / 52s 模拟] 按钮:gatherButton
+[120s 墙钟 / 127s 模拟] 按钮:build_trap
+[120s 墙钟 / 127s 模拟] 按钮:build_cart
+[120s 墙钟 / 127s 模拟] 按钮:forageButton
+[123s 墙钟 / 129s 模拟] 按钮:trapsButton
+[123s 墙钟 / 129s 模拟] 建成:trap
+[231s 墙钟 / 237s 模拟] 建成:cart
+[290s 墙钟 / 296s 模拟] 按钮:build_hut
+Warning: Detected unsettled top-level await at file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/%E6%96%B0%E6%A1%A3%E5%9F%BA%E7%BA%BF%E7%8E%A9%E5%AE%B6.mjs:56
+    await click(q('#gatherButton'));await click(q('#trapsButton'));await click(q('#forageButton'));await click(q('#scrapButton'));
+    ^
+
+
+
+[553s 墙钟 / 587s 模拟] 地点:room:温暖的维修间
+[553s 墙钟 / 587s 模拟] 地点:outside:灰白荒林
+[553s 墙钟 / 587s 模拟] 按钮:lightButton
+[553s 墙钟 / 587s 模拟] 按钮:stokeButton
+[553s 墙钟 / 587s 模拟] 按钮:build_cart
+[553s 墙钟 / 587s 模拟] 按钮:build_trap
+[553s 墙钟 / 587s 模拟] 按钮:build_hut
+[553s 墙钟 / 587s 模拟] 按钮:gatherButton
+[553s 墙钟 / 587s 模拟] 按钮:forageButton
+[553s 墙钟 / 587s 模拟] 按钮:trapsButton
+[553s 墙钟 / 587s 模拟] 建成:trap
+[553s 墙钟 / 587s 模拟] 建成:cart
+[556s 墙钟 / 590s 模拟] 地点:outside:林边木屋
+[556s 墙钟 / 590s 模拟] 按钮:build_lodge
+[556s 墙钟 / 590s 模拟] 建成:hut
+[567s 墙钟 / 601s 模拟] 按钮:build_granary
+[567s 墙钟 / 601s 模拟] 按钮:scrapButton
+[567s 墙钟 / 601s 模拟] 首批居民
+[578s 墙钟 / 612s 模拟] 建成:granary
+[618s 墙钟 / 652s 模拟] 建成:lodge
+[627s 墙钟 / 661s 模拟] 事件:同一口锅
+[629s 墙钟 / 662s 模拟] 按钮:policyButton
+[741s 墙钟 / 774s 模拟] 地点:outside:荒林聚落
+[856s 墙钟 / 889s 模拟] 按钮:build_workshop
+[856s 墙钟 / 889s 模拟] 稳定聚落
+[856s 墙钟 / 889s 模拟] 倍率上限:2
+[858s 墙钟 / 890s 模拟] 地点:outside:聚落
+final {"sim":896,"speed":2,"max":2,"pop":6,"b":{"trap":5,"cart":1,"hut":2,"granary":1,"lodge":1,"workshop":1},"st":{"wood":110,"food":116,"fur":32,"scrap":4},"w":{"hunter":0,"salvager":0},"fire":4,"builder":4,"tech":[],"research":null,"journey":null,"pending":null,"ev":false,"evTitle":null,"tabs":["room:温暖的维修间","outside:聚落","road:旧公路","research:科技"],"btns":["lightButton","stokeButton","build_cart","build_trap","build_granary","build_lodge","build_workshop","build_hut","policyButton","civilResearchLink","gatherButton","forageButton","trapsButton","scrapButton","expeditionDepart","research_water","research_metal"],"settled":true,"station":false,"pump":false,"town":false}

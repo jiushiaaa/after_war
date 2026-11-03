@@ -15,10 +15,11 @@
     for(const key of ['fire','temperature']) if(!Number.isInteger(state.game[key]?.value) || state.game[key].value < 0 || state.game[key].value > 4) throw Error('火或温度无效');
     if(!Number.isInteger(state.game.builder?.level) || state.game.builder.level < -1 || state.game.builder.level > 4) throw Error('工匠进度无效');
     const c = state.civilization;
+    if(c.ruleset!==undefined&&c.ruleset!==2)throw Error('未知世界规则版本');
     if(![1,2,4,8,16,32,64].includes(c.speed) || ![1,2,4,8,16,32,64].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
     if(c.maxSpeed>=32&&!c.tech?.orbital_survey)throw Error('32倍速需要轨道测绘');
     if(c.maxSpeed>=64&&!c.space?.unification)throw Error('64倍速需要地球共同法');
-    if(c.maxSpeed>=8&&!(c.urban?.city===true&&c.tech?.passenger_transport===true))throw Error('高级倍率缺少城市与运输进度');
+    if(c.maxSpeed>=8&&!(c.urban?.city===true&&c.tech?.passenger_transport===true)&&!(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt)))throw Error('高级倍率缺少城市与运输进度');
     if(c.maxSpeed>=16&&!Object.entries(c.municipal?.nodes||{}).some(([key,n])=>n?.city===true&&Object.hasOwn(c.regions?.nodes||{},key)))throw Error('16倍速需要第二座已登记城市');
     if(!c.tech || !c.events || !c.policySeen || !state.game.buildings || !state.game.workers) throw Error('存档缺少进度字段');
     const limits=CivilCatalog.limits;
@@ -47,6 +48,8 @@
     if(typeof CivilRuins!=='undefined')CivilRuins.validate(state);
     if(typeof CivilExpedition!=='undefined')CivilExpedition.validate(state);
     if(typeof CivilCourse!=='undefined')CivilCourse.validate(state);
+    if(typeof CivilCensus!=='undefined')CivilCensus.validate(state);
+    if(typeof CivilCity!=='undefined')CivilCity.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

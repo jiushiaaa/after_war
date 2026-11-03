@@ -56,6 +56,7 @@ var CivilSociety = {
     if(!count || !CivilRules.pay(s,cost))return 0;
     x.cohorts.push(...cohorts);
     s.game.population+=count;
+    if(typeof CivilCensus!=='undefined')CivilCensus.birth(s,'home',count);
     this.note(CivilNarrative.birth(s,count));
     return count;
   },
@@ -63,11 +64,11 @@ var CivilSociety = {
   // Near-field party members and recovering residents are real people away from home jobs;
   // those in the field eat from their own pack instead of home rations.
   workforce(s){
-    const x=s.civilization.society,away=typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(s):0;if(!x)return Math.max(0,s.game.population-away);
+    const x=s.civilization.society,away=(typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(s):0)+(typeof CivilCity!=='undefined'?CivilCity.crew(s):0);if(!x)return Math.max(0,s.game.population-away);
     return Math.max(0,CivilPopulation.workforce(x.cohorts)+Math.max(0,s.game.population-this.total(x))-away);
   },
   foodPopulation(s){
-    const x=s.civilization.society,away=typeof CivilExpedition!=='undefined'?CivilExpedition.awayEaters(s):0;if(!x)return Math.max(0,s.game.population-away);
+    const x=s.civilization.society,away=(typeof CivilExpedition!=='undefined'?CivilExpedition.awayEaters(s):0)+(typeof CivilCity!=='undefined'?CivilCity.crew(s):0);if(!x)return Math.max(0,s.game.population-away);
     return Math.max(0,CivilPopulation.foodPopulation(x.cohorts)+Math.max(0,s.game.population-this.total(x))-away);
   },
   sync(s){
@@ -86,6 +87,7 @@ var CivilSociety = {
   annual(s,random=Math.random){
     const x=s.civilization.society,c=s.civilization,yearStartPopulation=s.game.population;this.initBirths(s);x.year++;
     const aged=CivilPopulation.age(x.cohorts),lost=aged.deceased;x.cohorts=aged.cohorts;s.game.population-=lost;
+    if(typeof CivilCensus!=='undefined')CivilCensus.death(s,'home',lost);
     if(lost)this.note(CivilNarrative.death(s,lost));
     this.newBirths(s,yearStartPopulation);
     this.trimJobs(s);this.initHeir(s);

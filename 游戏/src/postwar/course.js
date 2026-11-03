@@ -12,7 +12,8 @@ var CivilCourse={
   research:{
     commons:{
       standards:{requires:['school','irrigation','records'],cost:{knowledge:60,tools:20,wood:60}},
-      logistics:{requires:['trails','preservation','records'],discover:s=>!!s.civilization.village?.riverAllied},
+      logistics:{requires:['trails','preservation','records'],discover:s=>!!s.civilization.village?.riverAllied,cost:{knowledge:50,tools:16,wood:80}},
+      administration:{requires:['records','standards'],cost:{knowledge:80,tools:16,wood:80}},
       survey:{requires:['records','handtools'],discover:s=>!!s.civilization.village?.riverAllied&&(!!s.civilization.tech.logistics||s.civilization.expedition?.sites?.cellar?.state==='joined'),cost:{knowledge:40,tools:12}},
       urbanworks:{requires:['standards','administration','preservation'],cost:{knowledge:100,tools:30,food:80}}
     },
@@ -115,7 +116,7 @@ var CivilCourse={
         '农户想要更多灌渠和诊所，回收工想去山坡下找矿，工匠说两头都缺人手。',
         '田地与公共服务：'+this.choices.commons.detail,
         '回收与工业：'+this.choices.industry.detail,
-        '这个方针决定研究顺序和主要投资，选定后不能免费改回。'],buttons};
+        '这个方针决定本轮城镇发展的研究顺序和主要投资，暂不提供改向。'],buttons};
     }
     if(id==='course_issue'){
       if(!this.issueReady(s))return null;

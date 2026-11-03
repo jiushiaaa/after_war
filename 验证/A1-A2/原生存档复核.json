@@ -1,0 +1,141 @@
+{
+  "commons": {
+    "file": "存档/自然游玩_M3公共服务路线城市204.json",
+    "sha256": "48ec7db9852ffd58f825b1b8a31dcb8623fd34beb5f56dfccd8af63f7147ab31",
+    "bytes": 85409,
+    "elapsed": 16512,
+    "year": 27,
+    "home": 421,
+    "route": "commons",
+    "ruleset": "legacy",
+    "health": 100
+  },
+  "industry": {
+    "file": "存档/自然游玩_M3工业路线城市205.json",
+    "sha256": "e1e138eef3bae4560ccf199b48e8d36c6e11c55772ff06f001e70a2cf3800835",
+    "bytes": 84458,
+    "elapsed": 22102,
+    "year": 36,
+    "home": 421,
+    "route": "industry",
+    "ruleset": "legacy",
+    "health": 100
+  },
+  "city": {
+    "file": "存档/自然游玩_新世界万人城域206.json",
+    "sha256": "43be36b8dd2f0f74adbdd69dcc4c905ae4775d2bfe9d65ad1b2bc6c7908e85ff",
+    "bytes": 209159,
+    "elapsed": 15509,
+    "year": 25,
+    "home": 423,
+    "route": "commons",
+    "ruleset": 2,
+    "health": 100,
+    "cityPopulation": 12083,
+    "worldInitial": 350278429,
+    "worldBorn": 202024397,
+    "worldDead": 165291683,
+    "worldTotal": 387011143,
+    "worldEntries": 968,
+    "wards": {
+      "terraces": {
+        "population": 3740,
+        "joinedAt": 12814,
+        "health": 100,
+        "stable": 600,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      },
+      "yards": {
+        "population": 4620,
+        "joinedAt": 12818,
+        "health": 100,
+        "stable": 600,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      },
+      "canal": {
+        "population": 3300,
+        "joinedAt": 12821,
+        "health": 100,
+        "stable": 600,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      }
+    }
+  },
+  "recovery": {
+    "file": "存档/自然游玩_万人城域水务恢复207.json",
+    "sha256": "75f4fb17413676535324cb9bb3665cb73610a605976356ef91eeeabb4995abd8",
+    "bytes": 212031,
+    "elapsed": 16052,
+    "year": 26,
+    "home": 432,
+    "route": "commons",
+    "ruleset": 2,
+    "health": 100,
+    "cityPopulation": 12092,
+    "worldInitial": 350278429,
+    "worldBorn": 210532189,
+    "worldDead": 172252641,
+    "worldTotal": 388557977,
+    "worldEntries": 1003,
+    "wards": {
+      "terraces": {
+        "population": 3740,
+        "joinedAt": 12814,
+        "health": 100,
+        "stable": 600,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      },
+      "yards": {
+        "population": 4620,
+        "joinedAt": 12818,
+        "health": 100,
+        "stable": 600,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      },
+      "canal": {
+        "population": 3300,
+        "joinedAt": 12821,
+        "health": 100,
+        "stable": 260,
+        "buildings": {
+          "road": 1,
+          "water": 1,
+          "housing": 0
+        },
+        "groups": 160
+      }
+    }
+  },
+  "medicalRecovery": {
+    "before": 10323,
+    "interrupted": 10750,
+    "recovered": 10841,
+    "lowestHealth": 93.99999999999977,
+    "medicineStillInStock": 51.39450000000106
+  }
+}

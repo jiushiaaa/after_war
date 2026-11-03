@@ -22,7 +22,7 @@ var CivilUrban = {
   hasTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,id);},
   canAcceptTarget(s,id){return id==='home' || typeof CivilMunicipal!=='undefined' && CivilMunicipal.canAccept(s,id);},
   targetIds(s){return ['home',...Object.keys(s.civilization.regions?.nodes||{}).filter(id=>this.canAcceptTarget(s,id))];},
-  targetName(s,id){return id==='home'?(s.civilization.urban.city?'炉火城':'本地聚落'):typeof CivilRegionContent!=='undefined' && CivilRegionContent[id]?.name || id;},
+  targetName(s,id){return id==='home'?(s.civilization.ruleset===2?'原镇':s.civilization.urban.city?'炉火城':'本地聚落'):typeof CivilRegionContent!=='undefined' && CivilRegionContent[id]?.name || id;},
   setTarget(s,id){
     if(!this.targetIds(s).includes(id))return false;
     s.civilization.urban.activeTarget=id;s.civilization.urban.dispatchClock=0;
@@ -43,8 +43,9 @@ var CivilUrban = {
     return typeof CivilOrigins!=='undefined'?CivilOrigins.quoteParty(s,id,max,{mode,capacity}):null;
   },
   commitSource(s,quote,id,target='home',transport){
-    if(quote.originId==='dispersed'){this.take(s.civilization.urban.source,quote.count);return true;}
-    return typeof CivilOrigins!=='undefined' && CivilOrigins.commitDeparture(s,quote,id,target,transport);
+    let ok;if(quote.originId==='dispersed'){this.take(s.civilization.urban.source,quote.count);ok=true;}
+    else ok=typeof CivilOrigins!=='undefined'&&CivilOrigins.commitDeparture(s,quote,id,target,transport);
+    if(ok&&typeof CivilCensus!=='undefined')CivilCensus.move(s,CivilCensus.source(quote.originId),'transit',quote.count,'旅队启程');return ok;
   },
   receive(s,party){
     const target=party.target,n=this.count(party.cohorts);
@@ -78,6 +79,7 @@ var CivilUrban = {
     let n;
     if(target==='home'){n=this.count(cohorts);s.civilization.society.cohorts.push(...cohorts.map(c=>({...c})));s.game.population+=n;CivilSociety.sync(s);}
     else n=CivilMunicipal.admit(s,target,cohorts);
+    if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'transit',CivilCensus.target(target),n,'旅队到达');
     if(source==='dispersed')s.civilization.urban.admitted+=n;return n;
   },
   handleArrival(s){
@@ -91,7 +93,7 @@ var CivilUrban = {
     if(!this.commitSource(s,quote,id,'home',typeof CivilPassenger!=='undefined'?null:undefined)){s.stores.food+=6;return true;}
     if(source!=='dispersed')u.nextParty++;
     const party={id,source,target:'home',cohorts:quote.cohorts};if(typeof CivilPassenger!=='undefined')party.transport=null;
-    if(!this.receive(s,party)){CivilOrigins.returnPeople(s,party);s.stores.food+=6;return true;}
+    if(!this.receive(s,party)){if(source==='dispersed'){u.source.push(...party.cohorts);if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'transit','dispersed',quote.count,'到访未接纳，返回来源');}else CivilOrigins.returnPeople(s,party);s.stores.food+=6;return true;}
     this.note('一位来自'+this.sourceName(source)+'的居民沿路来到'+this.targetName(s,'home')+'，带来了自己的经历。');return true;
   },
   commitments(s){return typeof CivilRegions==='undefined'?{}:CivilRegions.committedFlow?CivilRegions.committedFlow(s,'home'):CivilRegions.committedHomeFlow?CivilRegions.committedHomeFlow(s):{};},
@@ -184,11 +186,11 @@ var CivilUrban = {
     const before=s.game.population,year=Math.floor(s.civilization.elapsed/600);
     while(u.year<year){
       u.year++;
-      const aged=CivilPopulation.age(u.source);u.source=aged.cohorts;u.deceased+=aged.deceased;
+      const aged=CivilPopulation.age(u.source);u.source=aged.cohorts;u.deceased+=aged.deceased;if(typeof CivilCensus!=='undefined')CivilCensus.death(s,'dispersed',aged.deceased);
       for(const party of u.parties){
         const agedParty=CivilPopulation.age(party.cohorts);
         if(agedParty.deceased){if(party.source==='dispersed')u.deceased+=agedParty.deceased;else CivilOrigins.recordTransitDeath(s,party,agedParty.deceased);}
-        party.cohorts=agedParty.cohorts;
+        party.cohorts=agedParty.cohorts;if(typeof CivilCensus!=='undefined')CivilCensus.death(s,'transit',agedParty.deceased);
       }
     }
     const staffed=this.staffedParties(s);
@@ -224,7 +226,7 @@ var CivilUrban = {
       if(remote && p.returnNeedsRoad && !this.roadOpen(s,p.target)){u.status=name+'返程道路中断，车队等待修通';continue;}
       p.remaining=Math.max(0,p.remaining-1);if(p.remaining)continue;
       if(p.state==='returning_people'){
-        if(p.source==='dispersed')u.source.push(...p.cohorts);else if(!CivilOrigins.returnPeople(s,p)){u.status='返程名册等待核对';continue;}
+        if(p.source==='dispersed'){u.source.push(...p.cohorts);if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'transit','dispersed',this.count(p.cohorts),'旅队返回来源');}else if(!CivilOrigins.returnPeople(s,p)){u.status='返程名册等待核对';continue;}
         u.status='居民已返回原接纳点，旅费不退回';
       }
       u.parties.splice(u.parties.indexOf(p),1);
@@ -239,17 +241,30 @@ var CivilUrban = {
     if(r?.active)return Object.values(r.routes||{}).some(route=>route.enabled && route.assigned>=2 && route.completedTrips>0 && route.condition==='open');
     return s.civilization.village.routeStatus==='往返正常' && s.civilization.village.convoys>0;
   },
-  developmentReady(s,city=false){
-    const u=s.civilization.urban,e=u.economy,c=s.civilization,i=c.industry;
-    if(typeof CivilHeating!=='undefined'&&!CivilHeating.covered(s))return false;
-    if(!e || c.elapsed-e.at>10 || s.game.population<(city?400:80) || s.game.population> CivilCatalog.capacity(s) || !this.publicServices(s) || c.hunger || c.village.health<(city?70:60))return false;
-    if(!e.treatment || !e.education || e.medicine<-1e-8 || e.food<-1e-8 || !c.society.service)return false;
-    if(!city)return this.tradeReady(s);
-    // Commons course: the city rests on fields, care and timber housing instead of mines and power.
-    if(typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons'))return u.chartered&&CivilCourse.cityChecks(s).every(([,ok])=>ok)&&(s.stores.food||0)+1e-8>=this.foodReserve(s);
-    const project=Object.values(c.regions?.nodes||{}).some(n=>n.completedProjects?.publicWorks);
-    return u.chartered && c.tech.urbanworks && project && c.regions?.adminService && i.pollution<40 && e.industrial && e.productionPower>=4 && (s.stores.food||0)+1e-8>=this.foodReserve(s) && s.stores.tools>=40 && s.stores.iron>=40 && s.stores.parts>=20;
+  developmentChecks(s,city=false){
+    const u=s.civilization.urban,e=u?.economy,c=s.civilization,i=c.industry;
+    const commons=city&&typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons'),health=city?(commons?75:70):60;
+    const checks=[
+      ['居民 '+s.game.population+'/'+(city?400:80),s.game.population>=(city?400:80)],
+      ['居民住房',s.game.population<=CivilCatalog.capacity(s)],
+      ['供暖覆盖全部居民',typeof CivilHeating==='undefined'||CivilHeating.covered(s)],
+      ['公共诊疗站与学舍并有医护、教师',this.publicServices(s)],
+      ['本轮供养记录',!!e&&c.elapsed-e.at<=10],
+      ['口粮不短缺',!c.hunger],['健康 '+Math.floor(c.village.health)+'/'+health,c.village.health>=health],
+      ['居民治疗有药',!!e?.treatment],['儿童教学',!!e?.education],
+      ['药品净供给不为负',!!e&&e.medicine>=-1e-8],['粮食净供给不为负',!!e&&e.food>=-1e-8],
+      ['公共行政物资',!!c.society.service]
+    ];
+    if(!city)return [...checks,['河谷车队往返正常',this.tradeReady(s)]];
+    checks.push(['登记镇制',!!u.chartered],['安置口粮储备',(s.stores.food||0)+1e-8>=this.foodReserve(s)]);
+    if(commons)return [...checks,...CivilCourse.cityChecks(s).filter(([label])=>!/^居民|^健康/.test(label))];
+    return [...checks,['研究城镇工程',!!c.tech.urbanworks],
+      ['完成一项邻居的共同工程',Object.values(c.regions?.nodes||{}).some(n=>n.completedProjects.publicWorks)],
+      ['地区行政服务',!!c.regions?.adminService],['烟尘 <40',i.pollution<40],
+      ['采矿、采煤、冶炼与机械工实际生产',!!e?.industrial],['工业用电 ≥4',!!e&&e.productionPower>=4],
+      ['工具 40',(s.stores.tools||0)>=40],['铁锭 40',(s.stores.iron||0)>=40],['零件 20',(s.stores.parts||0)>=20]];
   },
+  developmentReady(s,city=false){return this.developmentChecks(s,city).every(([,ok])=>ok);},
   settle(s,evidence){
     const u=s.civilization.urban,flow={};if(!u)return flow;
     for(const party of u.parties)if(party.cohorts.length)party.rations=Math.max(0,party.rations-this.count(party.cohorts)*.12);
@@ -269,7 +284,8 @@ var CivilUrban = {
     const s=State,u=s.civilization.urban;
     if(id==='urban_register')return {title:'沿路的名册',text:['两个聚居地的引路人带来一份散居家庭名册，共四百八十人。人类与变异居民、孩子和老人，都在等一个有床位与公共服务的落脚处。','登记只建立联络。批次接纳须准备车队、旅粮、药品与工具，并留下安置后的口粮；暂停车队后，仍可按名册接纳零星来访者。'],buttons:{register:{text:'登记家庭与接纳条款',nextScene:'end',onChoose:done('所有登记居民享有相同的口粮、诊疗与儿童教育。车队按住房和实际供给分批接纳。',()=>this.register(s))}}};
     if(id==='urban_charter')return {title:'镇的公共职责',text:['八十位居民、诊疗、课堂与往返道路，已经连续稳定运行。居民愿意把住房、供养和公共记录写入镇制。','镇制不会带来额外人口或物资。后续街坊和工业扩容仍需研究、建设与劳动。'],buttons:{charter:{text:'登记镇制',nextScene:'end',onChoose:()=>{const ready=u.townStable>=180 && this.developmentReady(s);return done(ready?'正式镇制写入公共记录。城镇工程可以继续研究。':'供养条件已有变化，恢复稳定后再议镇制。',()=>{if(ready)u.chartered=true;})();}}}};
-    if(id==='urban_city')return {title:'第一座城市',text:['四百位实际居住的居民，持续运转的农田、诊疗、课堂、工业和供电，终于支撑起一座城市。邻居的共同服务项目也已经兑现。','居民仍需要下一轮口粮。城市之外还有独立聚居地，地区联合也还没有成为城市群。'],buttons:{city:{text:'登记城市与公共职责',nextScene:'end',onChoose:()=>{const ready=u.cityStable>=300 && this.developmentReady(s,true);return done(ready?'居民把这座家园登记为炉火城。住房、田地、工区与共同职责继续留给下一代。':'供养条件已有变化，恢复稳定后再议城市职责。',()=>{if(ready)u.city=true;})();}}}};
+    if(id==='urban_city'&&s.civilization.ruleset===2)return {title:'核心镇服务交接',text:['四百位居民与连续运行的供养、教育、公共工程，已经具备管理周边片区的基础。','原镇不会凭登记增加人口。城域页可连接真实住区；至少两片区、合计一万人且服务稳定后，才登记万人城市。'],buttons:{city:{text:'登记核心镇公共职责',nextScene:'end',onChoose:()=>{const ready=u.cityStable>=300&&this.developmentReady(s,true);return done(ready?'核心镇完成公共服务交接。继续在城域普查、修路并承担片区责任。':'先恢复核心镇供养。',()=>{if(ready)u.city=true;})();}}}};
+    if(id==='urban_city')return {title:'第一座城市',text:[typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons')?'四百位实际居住的居民，持续运转的灌溉田片、诊疗和课堂，以及合作联排与邻居的公共工程，支撑起了城市的公共职责。':'四百位实际居住的居民，持续运转的农田、诊疗、课堂、工业和供电，终于支撑起一座城市。邻居的共同服务项目也已经兑现。','居民仍需要下一轮口粮。城市之外还有独立聚居地，地区联合也还没有成为城市群。'],buttons:{city:{text:'登记城市与公共职责',nextScene:'end',onChoose:()=>{const ready=u.cityStable>=300 && this.developmentReady(s,true);return done(ready?'居民把这座家园登记为炉火城。住房、田地、工区与共同职责继续留给下一代。':'供养条件已有变化，恢复稳定后再议城市职责。',()=>{if(ready)u.city=true;})();}}}};
     return null;
   },
   note(text){if(typeof Civilization!=='undefined')Civilization.notify(text);},

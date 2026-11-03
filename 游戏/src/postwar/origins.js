@@ -304,6 +304,7 @@ var CivilOrigins={
     if(d.status!=='travel' || CivilPopulation.count(party.cohorts)!==d.alive || !this.matchesParty(s,party,d))return false;
     for(const c of party.cohorts){const old=n.cohorts.find(x=>x.cohortId===c.cohortId);if(old && (old.age!==c.age || old.identity!==c.identity))return false;}
     for(const c of party.cohorts){const old=n.cohorts.find(x=>x.cohortId===c.cohortId);if(old)old.count+=c.count;else n.cohorts.push({...c});}
+    if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'transit','origin_'+party.source,CivilPopulation.count(party.cohorts),'旅队返回来源');
     d.status='returned';d.closedYear=s.civilization.urban?.year ?? n.year;n.population=CivilPopulation.count(n.cohorts);n.revision++;this.releaseHousing(n);this.assign(s,party.source);return true;
   },
   recordTransitDeath(s,party,count){
@@ -317,11 +318,11 @@ var CivilOrigins={
   annual(s,id){
     const n=s.civilization.origins.nodes[id],target=Math.floor(s.civilization.elapsed/600);
     while(n.year<target){
-      const populationStart=n.population,aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.sourceDeaths+=aged.deceased;n.population=CivilPopulation.count(n.cohorts);
+      const populationStart=n.population,aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.sourceDeaths+=aged.deceased;n.population=CivilPopulation.count(n.cohorts);if(typeof CivilCensus!=='undefined')CivilCensus.death(s,'origin_'+id,aged.deceased);
       const birth=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:populationStart,beds:this.availableBeds(s,id),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
       if(birth.count && this.pay(n.stores,birth.cost)){
         for(const c of birth.cohorts)n.cohorts.push({...c,cohortId:id+'_born_'+n.year+'_'+c.identity,originId:id});
-        n.born+=birth.count;n.population+=birth.count;
+        n.born+=birth.count;n.population+=birth.count;if(typeof CivilCensus!=='undefined')CivilCensus.birth(s,'origin_'+id,birth.count);
       }
       this.releaseHousing(n);n.revision++;this.assign(s,id);
     }

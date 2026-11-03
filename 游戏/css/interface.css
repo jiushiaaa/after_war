@@ -25,7 +25,9 @@
 .civil-research-book { width:145px; }
 .civil-research-book details { margin:6px 0; }
 .civil-research-book p { font-size:12px; margin:6px 0; }
-#civilResearchPanel { width:440px; }
+#civilResearchPanel { width:700px; }
+#civilVillageBuildings summary { font-size:13px; cursor:pointer; }
+#civilVillageBuildings > div { max-height:180px; overflow:auto; display:flow-root; padding-top:8px; }
 #civilResearchPanel #researchBtns { position:static; width:410px; margin-top:20px; }
 #civilResearchPanel #researchBtns:before { content:none; }
 #civilResearchPanel #researchStatus { width:410px; margin:12px 0; }

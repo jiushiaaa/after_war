@@ -80,3 +80,18 @@ test('survivors who joined from the cellar shorten the commons survey research',
  const full=K.researchCost(state,'survey').knowledge;c.expedition={sites:{cellar:{state:'joined'}}};
  assert.equal(K.researchCost(state,'survey').knowledge,full-15);
 });
+
+test('commons bootstrap requires no unavailable industrial materials, including its first public project',()=>{
+ const h=harness(town),{state,c,K}=h;c.courseRule=1;K.choose(state,'commons');
+ for(const id of ['standards','logistics','survey','administration','urbanworks'])for(const resource of ['ore','coal','iron','parts'])assert.equal(K.researchCost(state,id)[resource],undefined,id+' '+resource);
+ const cost=h.ctx.CivilRegions.projectCost(state,'river');assert.equal(cost.iron,undefined);assert.ok(cost.wood>80);assert.ok(cost.tools>12);
+ // A previously paid project keeps its original bill even if a test installs a new course.
+ assert.equal(h.ctx.CivilRegions.projectCost(state,'river',{required:{}}).iron,8);
+});
+
+test('the city guide reports the same health threshold as the public-service rule',()=>{
+ const h=harness('自然游玩_正式镇制与河谷加盟.json');h.c.courseRule=1;h.c.course={schema:1,id:'commons',chosenAt:0,generation:1,issue:null,craftsman:null};
+ h.c.village.health=72;const g=h.ctx.CivilGuide.steps(h.state);
+ assert.ok(g.need.includes('健康 72/75'));
+ assert.deepEqual([...g.need],[...h.ctx.CivilUrban.developmentChecks(h.state,true)].filter(([,ok])=>!ok).map(([label])=>label));
+});

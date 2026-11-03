@@ -21,7 +21,7 @@ var CivilInterface={
     const project=this.projectText(s);if(project)notices.push('在建：'+project);
     const details=[['粮药口径','近轮净供给已含现有固定合同；出发旅费另付'],['接纳计划',u.enabled?'自动接纳已开启':'新批次已暂停；在途继续'],['来源',CivilUrban.sourceName(source)],['来源居民',source==='dispersed'?CivilUrban.count(u.source)+' 人待安置':(n?.population||0)+' 人，包含留守居民'],['后续目的地',CivilUrban.targetName(s,target)+' · '+CivilUrban.targetPopulation(s,target)+' / '+CivilUrban.targetCapacity(s,target)+' 人'],['目的地预留',CivilUrban.reservedBeds(s,target)+' 床'],['当前安排',u.status]];
     if(!u.city)details.push(['发展准备',u.chartered?'城市稳定 '+u.cityStable+' / 300秒':'镇制稳定 '+u.townStable+' / 180秒']);
-    return {title:u.city?'炉火城':u.chartered?'正式镇制':'街区',cards,notices,brief:(u.registered||source!=='dispersed')?CivilUrban.sourceName(source)+' → '+CivilUrban.targetName(s,target)+' · '+u.parties.length+' 队，'+waiting+' 人在途':null,details};
+    return {title:s.civilization.ruleset===2?'原镇住房与供养':u.city?'炉火城':u.chartered?'正式镇制':'街区',cards,notices,brief:(u.registered||source!=='dispersed')?CivilUrban.sourceName(source)+' → '+CivilUrban.targetName(s,target)+' · '+u.parties.length+' 队，'+waiting+' 人在途':null,details};
   },
   municipalSummary(s,id){
     const n=CivilMunicipal.node(s,id),m=CivilMunicipal.data(s,id),e=m?.economy;
@@ -123,6 +123,15 @@ var CivilInterface={
     for(const type of [...Object.keys(CivilIndustry.buildings),...Object.keys(typeof CivilAdvancedContent!=='undefined'?CivilAdvancedContent.facilities:{})]){const kind=this.kinds[type]||'industry';this.filter('#build_'+type,kind,active);this.filter('#industry_count_'+type,kind,active);}
   },
   nativeShown(selector){const node=$(selector)[0];return !!node&&node.style.display!=='none';},
+  village(s){
+    if(!s.civilization.village?.town||typeof document==='undefined')return;
+    const village=$('#village');if(!village.length)return;
+    let book=$('#civilVillageBuildings');
+    const place=()=>{if(Engine.activeModule===Outside&&!Engine.narrow())$('#storesContainer').stop(true).css('top',(village.height()+26+Outside._STORES_OFFSET)+'px');};
+    if(!book.length){book=$('<details>').attr('id','civilVillageBuildings').appendTo(village);$('<summary>').appendTo(book);$('<div>').appendTo(book);book.on('toggle',place);}
+    const rows=village.find('.storeRow');rows.each(function(){if(!$(this).parent().is(book.children('div')))$(this).appendTo(book.children('div'));});
+    book.children('summary').text('已建设施（'+rows.length+'类）');place();
+  },
   construction(s){
     const root=$('#buildBtns');if(!root.length)return;
     if(s.civilization.village?.town){$('#roomPanel').addClass('civil-room-managed');let actions=$('#civilRoomActions');if(!actions.length)actions=$('<div>').attr('id','civilRoomActions').addClass('civil-room-actions').insertBefore(root);for(const id of ['policyButton','civilResearchLink']){const button=$('#'+id);if(button.length&&!button.parent().is(actions))button.appendTo(actions);}}
@@ -160,6 +169,6 @@ var CivilInterface={
   },
   // Whole-page refresh already rendered these summaries in their owning modules.
   // Direct category clicks retain the default immediate summary update.
-  refresh(s,{summaries=true}={}){this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
+  refresh(s,{summaries=true}={}){this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);this.village(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
   reset(){this.views={};this.researchModule=null;}
 };

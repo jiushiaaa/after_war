@@ -53,6 +53,7 @@ var CivilFrontier={
     // Both casualties are removed from the exact age/identity groups selected at departure.
     if(enemy){
       for(let i=0;i<2;i++){const p=m.roster[i],person=this.remove(s.civilization.society.cohorts,p,p.age+s.civilization.society.year-m.year);if(!person)throw Error('出征名册已失配');(i? wounded:dead).push(person);}
+      if(typeof CivilCensus!=='undefined'){CivilCensus.death(s,'home',1,'战斗死亡');CivilCensus.move(s,'home','patients',1,'战斗受伤');CivilCensus.death(s,'local_ford',1,'战斗死亡');}
       s.civilization.society.cohorts=s.civilization.society.cohorts.filter(c=>c.count);s.game.population-=2;s.game.workers.guard=Math.max(0,s.game.workers.guard-2);
       const adult=n.cohorts.find(c=>c.age>=18&&c.age<65&&c.count);localDead.push(this.remove(n.cohorts,adult,adult.age));n.cohorts=n.cohorts.filter(c=>c.count);n.population--;
       this.use(m,at,{medicine:2,tools:1},'battle');
@@ -80,12 +81,12 @@ var CivilFrontier={
     const o=this.occupation(s);if(o&&o.retreatAt===null){const cost=CivilFrontierContent.occupation,paid=CivilSecurity.guards(s)>=2&&CivilFinance.reserveCheck(s,'home',cost);if(paid){CivilServices.pay(s.stores,cost);for(const [k,v]of Object.entries(cost))flow[k]=(flow[k]||0)-v;}o.records.push({at,paid,costs:paid?{...cost}:{}});o.missed=paid?0:o.missed+10;if(o.missed>=60)this.endOccupation(s,'supply');}
     for(const p of d.patients){
       if(p.recoveredAt!==null||p.diedAt!==null)continue;
-      const age=p.person.age+s.civilization.society.year-p.year;if(age>=80){p.diedAt=at;continue;}
+      const age=p.person.age+s.civilization.society.year-p.year;if(age>=80){p.diedAt=at;if(typeof CivilCensus!=='undefined')CivilCensus.death(s,'patients',1);continue;}
       if(p.arrivedAt===null||at-p.arrivedAt<10)continue;
       const cost={food:.5,medicine:.2},paid=(s.game.workers.medic||0)>0&&CivilFinance.reserveCheck(s,'home',cost);
       if(paid){CivilServices.pay(s.stores,cost);for(const [k,v]of Object.entries(cost))flow[k]=(flow[k]||0)-v;p.recovery+=10;}
       p.records.push({at,paid,costs:paid?cost:{}});
-      if(p.recovery>=120){p.recoveredAt=at;s.civilization.society.cohorts.push({...p.person,age});s.game.population++;if(s===State)Civilization.notify('返城伤员完成120秒实付治疗，回到原居民名册；岗位须重新安排。');}
+      if(p.recovery>=120){if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'patients','home',1,'伤员康复');p.recoveredAt=at;s.civilization.society.cohorts.push({...p.person,age});s.game.population++;if(s===State)Civilization.notify('返城伤员完成120秒实付治疗，回到原居民名册；岗位须重新安排。');}
     }
     return flow;
   },

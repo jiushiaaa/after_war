@@ -3,7 +3,7 @@ var Civilization = {
   defaults() {
     return {elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:null,policySeen:{},trust:50,hunger:0,stableFor:0,
       populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,
-      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1};
+      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2};
   },
   initState() {
     State.civilization = State.civilization || this.defaults();
@@ -23,6 +23,8 @@ var Civilization = {
     if(typeof CivilFinance!=='undefined')CivilFinance.init(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.init(State);
     if(typeof CivilIncidents!=='undefined')CivilIncidents.init(State);
+    if(typeof CivilCity!=='undefined')CivilCity.init(State);
+    if(typeof CivilCensus!=='undefined')CivilCensus.init(State);
   },
   init() {
     this.resetViewRefresh();
@@ -89,6 +91,7 @@ var Civilization = {
       if(c.hunger>=30 && before<30) this.notify('口粮不够了。居民空着肚子工作，动作慢了下来。');
       if(before>0 && c.hunger===0) this.notify('每个人又分到了食物。工作渐渐恢复正常。');
       if(c.hunger>=180 && State.game.population>0) {
+        if(typeof CivilCensus!=='undefined')CivilCensus.move(State,'home','wanderers',1,'缺粮离开');
         Outside.killVillagers(1); c.hunger=90;
         this.notify('一位居民带走了自己的包裹。这里已经连续太久没有足够的食物。');
       }
@@ -145,6 +148,8 @@ var Civilization = {
     if(typeof CivilCorridor!=='undefined')CivilCorridor.tick(State);
     if(typeof CivilPartnership!=='undefined'){CivilPartnership.observe(State);CivilPartnership.tick(State);}
     if(typeof CivilWorld!=='undefined')CivilWorld.tick(State);
+    if(typeof CivilCensus!=='undefined'){CivilCensus.annual(State);CivilCensus.syncMacro(State);}
+    if(typeof CivilCity!=='undefined')CivilCity.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -176,9 +181,10 @@ var Civilization = {
     }
     const beds=typeof CivilUrban!=='undefined'?CivilUrban.availableBeds(State):Outside.getMaxPopulation()-p;
     if(beds<=0 || (typeof CivilHeating!=='undefined'&&CivilHeating.handed(State)?!CivilHeating.covered(State,'home',1)&&!CivilHeating.recoveryReady(State):$SM.get('game.temperature.value',true)<2) || (State.stores.food || 0)<6 || (p>0 && c.trust<15) || c.hunger) return;
-    const n=Math.min(p===0?2:1,beds);
+    const n=Math.min(p===0?2:1,beds,typeof CivilCensus!=='undefined'&&c.ruleset===2?CivilCensus.data(State).accounts.wanderers:Infinity);if(!n)return;
+    if(typeof CivilCensus!=='undefined'&&!CivilCensus.move(State,'wanderers','home',n,'流浪居民迁入'))return;
     $SM.add('game.population',n); if(typeof CivilSociety!=='undefined')CivilSociety.sync(State); c.populationClock=0;
-    this.notify(p===0?'两位拾荒者循着炊烟而来。他们带着空行囊，愿意留下做工。':'一位流浪者走进聚落，问这里是否还有床位。');
+    this.notify(p===0&&n===2?'两位拾荒者循着炊烟而来。他们带着空行囊，愿意留下做工。':'一位流浪者走进聚落，问这里是否还有床位。');
     if(p===0) this.notify('添了人口，也添了吃饭的嘴。居民每 10 秒领取口粮；猎棚能让人专门寻找食物。');
   },
   updateIncome() {
@@ -209,6 +215,7 @@ var Civilization = {
       const cities=1+Object.entries(c.municipal?.nodes||{}).filter(([id,n])=>n.city===true&&Object.hasOwn(c.regions?.nodes||{},id)).length;
       if(cities>=2)limit=16;
     }
+    if(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt))limit=Math.max(limit,8);
     if(limit>=16&&c.tech.orbital_survey)limit=32;
     if(limit>=32&&c.space?.unification)limit=64;
     return limit;
@@ -491,7 +498,7 @@ var Civilization = {
       if(c.events.merchant && !c.trade) this.button('contactButton','联系商队','#roadPanel',()=>{if(!Events.activeEvent()){c.pending='merchant';this.showPending();}});
       $('#contactButton').toggle(!c.trade);
       if(c.trade) {
-        const trade=this.button('tradeButton','以粮换零件','#roadPanel',()=>{
+        const trade=this.button('tradeButton','以粮换废料','#roadPanel',()=>{
           if(this.spend({food:10})){$SM.add('stores.scrap',8);this.notify('商队收下 10 份食物，交给你 8 份废料。');}
         },{food:10},60);
         Button.setDisabled(trade,!CivilRules.canPay(State,{food:10}));
@@ -527,8 +534,9 @@ var Civilization = {
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
+    if(typeof CivilCityView!=='undefined')CivilCityView.refresh(State);
     if(typeof CivilNav!=='undefined')CivilNav.order();
-    $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
+    $('#stores').attr('data-legend',c.ruleset===2?(CivilCity.available(State)?'原镇公仓':_('stores')):c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
     this.resetViewRefresh();
@@ -544,6 +552,7 @@ var Civilization = {
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.reset();
     if(typeof CivilServices!=='undefined')CivilServices.reset();
     if(typeof CivilInterface!=='undefined')CivilInterface.reset();
+    if(typeof CivilCityView!=='undefined')CivilCityView.reset();
     if(typeof CivilRegionMap!=='undefined')CivilRegionMap.reset();
     if(typeof CivilHistory!=='undefined')CivilHistory.reset();
     if(typeof CivilFinance!=='undefined')CivilFinance.reset();
@@ -664,9 +673,9 @@ Notifications.notify=function(module,text,noQueue) {
 const adrOutsideTitle=Outside.setTitle;
 Outside.setTitle=function() {
   if(State.civilization.settled) {
-    const name=State.civilization.urban?.city?'炉火城':State.civilization.urban?.chartered?'河谷镇':State.civilization.village?.town?'河谷小镇':'荒林聚落';
+    const name=State.civilization.ruleset===2?CivilNarrative.home(State):State.civilization.urban?.city?'炉火城':State.civilization.urban?.chartered?'河谷镇':State.civilization.village?.town?'河谷小镇':'荒林聚落';
     $('#location_outside').text(name);
-    $('#village').attr('data-legend',State.civilization.urban?.city?name+' · 居民与岗位':name);
+    $('#village').attr('data-legend',name);
     if(Engine.activeModule===Outside)document.title=name;
   } else adrOutsideTitle();
 };

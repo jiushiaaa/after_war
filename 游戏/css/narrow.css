@@ -33,7 +33,8 @@
   .civil-step { min-width: 44px; min-height: 40px; line-height: 38px; font-size: 16px; }
   .civil-expedition { width: 100%; }
   #expeditionMap { font-size: 12px; letter-spacing: 2px; line-height: 13px; max-width: 100%; overflow-x: auto; }
-  #civilResearchTree, #civilResearchPanel #researchStatus, .civil-guide { width: auto; }
+  #civilResearchPanel { width:calc(100vw - 20px); }
+  #civilResearchTree, #civilResearchPanel #researchStatus, #civilResearchPanel #researchBtns, .civil-guide { width: auto; }
   .menu { left: 0; right: 0; bottom: 0; padding: 10px; background: #fff; border-top: 1px solid #999; text-align: right; }
   body.dark .menu { background: #272823; }
 }

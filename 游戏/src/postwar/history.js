@@ -21,6 +21,7 @@ var CivilHistory={
       if(seen.has(key))return;seen.add(key);
       entries.push({key,category,title,detail,at:this.time(s,at),...extra});
     };
+    for(const [i,e]of (c.city?.history||[]).entries())add('city_district_'+i,e.kind==='project'||e.kind==='complete'?'projects':e.kind==='policy'?'governance':'cities',e.text,'城域记录 · '+(typeof CivilCityContent!=='undefined'?CivilCityContent.wards[e.id]?.name||'原镇':e.id),e.at);
     for(const h of x?.history||[]){
       const reason={death:'因前任离世而完成交接',retirement:'退休交接',election:'选举交接',regency:'摄政结束后的交接'}[h.reason]||'职责交接';
       add('tenure_'+h.generation,'tenures','第'+h.generation+'任 '+h.title,'交接时'+h.age+'岁；'+reason+'。',null,{generation:h.generation,from:h.from,to:h.to,current:false});

@@ -17,6 +17,15 @@ function harness(over={}){
 const walk=(h,moves)=>{const out=[];for(const m of moves){const d={N:[0,-1],S:[0,1],E:[1,0],W:[-1,0]}[m[0]];for(let i=0;i<Number(m.slice(1));i++){const r=h.E.move(h.state,...d);out.push(r);if(!['moved','cache','short'].includes(r))return out;}}return out;};
 const total=(h,k)=>(h.state.stores[k]||0)+(h.E.data(h.state)?.party?.pack[k]||0);
 
+test('pause blocks departure, walking and automatic return without consuming supplies',()=>{
+ const h=harness(),{state,E,ctx}=h;E.prep={members:1,food:4,water:6,kit:false};
+ ctx.CivilClock.paused=true;assert.equal(E.depart(state),false);ctx.CivilClock.paused=false;
+ assert.equal(E.depart(state),true);assert.equal(E.move(state,1,0),'moved');
+ const before=JSON.stringify(state);ctx.CivilClock.paused=true;
+ assert.equal(E.move(state,1,0),false);assert.equal(E.walkHome(state),false);assert.equal(JSON.stringify(state),before);
+ ctx.CivilClock.paused=false;assert.equal(E.walkHome(state),'home');
+});
+
 test('a party takes real residents and paid supplies out once and returns its load once',()=>{
  const h=harness(),{state,c,E}=h;
  assert.equal(E.data(state),null,'opening the view of an old save writes nothing');

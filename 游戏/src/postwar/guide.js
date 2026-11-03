@@ -30,24 +30,26 @@ var CivilGuide={
       lack((st.tools||0)>=10,'工具 '+Math.floor(st.tools||0)+'/10');
       return {goal:'成为小镇',need,note:need.length?null:'条件已满足，保持 '+Math.max(0,120-(v.townStable||0))+' 秒'};
     }
-    const u=c.urban;if(!u||u.city||typeof CivilUrban==='undefined')return null;
-    // Town → charter → city: mirrors CivilUrban.developmentReady checks one by one.
-    const e=u.economy,city=!!u.chartered,target=city?400:80,i=c.industry||{};
-    lack(pop>=target,'居民 '+pop+'/'+target);
-    lack(typeof CivilHeating==='undefined'||CivilHeating.covered(s),'供暖覆盖全部居民');
-    lack(CivilUrban.publicServices(s),'公共诊疗站与学舍并有医护、教师');
-    lack(!!e&&e.treatment,'居民治疗有药');lack(!!e&&e.education,'儿童教学');
-    lack(!e||e.food>=-1e-8,'粮食净供给不为负');lack(!e||e.medicine>=-1e-8,'药品净供给不为负');
-    lack(!c.hunger,'口粮不短缺');lack((v.health||0)>=(city?70:60),'健康 '+Math.floor(v.health||0)+'/'+(city?70:60));
-    lack(!!c.society?.service,'公共行政物资');
-    if(!city){lack(CivilUrban.tradeReady(s),'河谷车队往返正常');return {goal:'登记镇制',need,note:need.length?null:'保持 '+Math.max(0,180-(u.townStable||0))+' 秒'};}
-    if(typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons')){for(const [label,ok] of CivilCourse.cityChecks(s))if(!/^居民|^健康/.test(label))lack(ok,label);return {goal:'成为城市（田地与公共服务）',need,note:need.length?null:'保持 '+Math.max(0,300-(u.cityStable||0))+' 秒'};}
-    lack(!!c.tech.urbanworks,'研究城镇工程');
-    lack(Object.values(c.regions?.nodes||{}).some(n=>n.completedProjects?.publicWorks),'完成一项邻居的共同工程');
-    lack(!!c.regions?.adminService,'地区行政服务');lack((i.pollution||0)<40,'烟尘 <40');
-    lack(!!e?.industrial&&e.productionPower>=4,'工业用电 ≥4');
-    lack((st.tools||0)>=40,'工具 '+Math.floor(st.tools||0)+'/40');lack((st.iron||0)>=40,'铁锭 '+Math.floor(st.iron||0)+'/40');lack((st.parts||0)>=20,'零件 '+Math.floor(st.parts||0)+'/20');
-    return {goal:'成为城市',need,note:need.length?null:'保持 '+Math.max(0,300-(u.cityStable||0))+' 秒'};
+    const u=c.urban;if(!u||typeof CivilUrban==='undefined')return null;
+    if(u.city){
+      if(c.ruleset===2&&typeof CivilCity!=='undefined'&&c.city?.cityAt===null){
+        const members=CivilCity.members(s),total=CivilCity.population(s),missing=[];
+        if(members.length<2)missing.push('城域 → 普查片区、共同修路与修复水务，再登记公共职责');
+        if(total<10000)missing.push('管辖居民 '+total+'/10000（片区居民留在原处）');
+        for(const [id,n]of members)if(n.stable<120)missing.push(CivilCityContent.wards[id].name+'：稳定供养 '+n.stable+'/120秒');
+        return {goal:'登记万人城市',need:missing,where:'city'};
+      }
+      return null;
+    }
+    const city=!!u.chartered,commons=city&&typeof CivilCourse!=='undefined'&&CivilCourse.is(s,'commons');
+    const checks=CivilUrban.developmentChecks(s,city);
+    if(!city&&!c.tech.standards){
+      const prereqs=typeof CivilCourse!=='undefined'?CivilCourse.requires(s,'standards'):CivilText.research.standards.requires;
+      const missing=prereqs.filter(k=>!c.tech[k]).map(k=>'研究'+CivilText.research[k].name),cost=typeof CivilCourse!=='undefined'?CivilCourse.researchCost(s,'standards'):CivilText.research.standards.cost;
+      for(const [key,n]of Object.entries(cost))if((st[key]||0)<n)missing.push((CivilText.labels[key]||key)+' '+Math.floor(st[key]||0)+'/'+n);
+      return {goal:'先研究标准与计量，开放公共设施和扩建住房',need:missing,where:'research',note:c.research?.id==='standards'?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':missing.length?null:'科技页可以开始研究'};
+    }
+    return {goal:city?(s.civilization.ruleset===2?'完成核心镇服务交接':commons?'成为城市（田地与公共服务）':'成为城市'):'登记镇制',need:checks.filter(([,ok])=>!ok).map(([label])=>label),note:checks.every(([,ok])=>ok)?'保持 '+Math.max(0,(city?300:180)-(city?u.cityStable:u.townStable))+' 秒':null};
   },
   text(s){const g=this.steps(s);if(!g)return null;return '下一步：'+g.goal+(g.need.length?' · 还差 '+g.need.slice(0,3).join('、')+(g.need.length>3?' 等 '+g.need.length+' 项':''):'')+(g.note?' · '+g.note:'');},
   refresh(s){
@@ -63,8 +65,8 @@ var CivilGuide={
 };
 // Header tabs grouped by player task; panel order (used by travel) is untouched.
 var CivilNav={
-  groups:[['家园',['room','outside','urban']],['探索',['road','regions']],['建设与供给',['industry','municipal']],['科技',['research']],['共同事务',['council']]],
-  scope:{room:'炉火与本地建设',outside:'本地居民与岗位',urban:'本城住房、供养与迁居',road:'近郊地图与远行',regions:'已知地区与路线',industry:'本城原料、加工与能源',municipal:'某个地方的建设',research:'科技与工艺',council:'制度、继任与对外事务'},
+  groups:[['家园',['room','outside','urban','city']],['探索',['road','regions']],['建设与供给',['industry','municipal']],['科技',['research']],['共同事务',['council']]],
+  scope:{room:'炉火与本地建设',outside:'本地居民与岗位',urban:'本地住房、供养与迁居',city:'片区人口、公共服务、生产和运输',road:'近郊地图与远行',regions:'已知地区与路线',industry:'本城原料、加工与能源',municipal:'某个地方的建设',research:'科技与工艺',council:'制度、继任与对外事务'},
   order(){
     if(typeof document==='undefined'||typeof document.getElementById!=='function')return;const header=document.getElementById('header');if(!header||!header.querySelectorAll)return;
     const tabs=[...header.querySelectorAll('.headerButton')];if(tabs.length<7){tabs.forEach(t=>t.classList.remove('civil-group-start'));return;} // early game keeps the native order

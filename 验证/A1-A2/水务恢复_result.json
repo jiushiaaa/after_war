@@ -1,0 +1,167 @@
+{
+  "natural": true,
+  "before": {
+    "at": 15610,
+    "home": 432,
+    "total": 12092,
+    "world": 388557977,
+    "born": 210532189,
+    "dead": 172252641,
+    "health": 100,
+    "stable": 600,
+    "waterEnabled": true,
+    "stores": {
+      "food": 21966.19999999801,
+      "medicine": 1964.099999999943,
+      "wood": 2504.9399999998373,
+      "scrap": 2499.200000000295,
+      "tools": 301.17199999997945,
+      "knowledge": 2999.9,
+      "iron": 0
+    },
+    "economy": {
+      "at": 15610,
+      "food": 84.59999999999854,
+      "medicine": 0.2999999999999545,
+      "water": 3360,
+      "population": 3300,
+      "treated": true,
+      "educated": true,
+      "administered": true,
+      "ate": true,
+      "blocked": [],
+      "worked": {
+        "gatherer": 0,
+        "salvager": 46,
+        "waterworker": 21,
+        "farmer": 250,
+        "medic": 222,
+        "teacher": 34,
+        "smelter": 0,
+        "smith": 0
+      },
+      "idle": 1435,
+      "flow": {
+        "food": 84.59999999999854,
+        "wood": -4.820000000000164,
+        "scrap": 14.600000000000364,
+        "tools": -2.521000000000015,
+        "medicine": 0.2999999999999545,
+        "knowledge": 0,
+        "iron": 0
+      }
+    },
+    "arrived": 0,
+    "shipments": []
+  },
+  "cut": {
+    "at": 15791,
+    "home": 432,
+    "total": 12092,
+    "world": 388557977,
+    "born": 210532189,
+    "dead": 172252641,
+    "health": 94.60000000000005,
+    "stable": 0,
+    "waterEnabled": false,
+    "stores": {
+      "food": 18538.999999997985,
+      "medicine": 1969.4999999999422,
+      "wood": 2522.339999999836,
+      "scrap": 2506.800000000299,
+      "tools": 301.17199999997945,
+      "knowledge": 2999.9,
+      "iron": 0
+    },
+    "economy": {
+      "at": 15790,
+      "food": -190.40000000000146,
+      "medicine": 0.2999999999999545,
+      "water": 0,
+      "population": 3300,
+      "treated": true,
+      "educated": true,
+      "administered": true,
+      "ate": true,
+      "blocked": [],
+      "worked": {
+        "gatherer": 0,
+        "salvager": 46,
+        "waterworker": 0,
+        "farmer": 250,
+        "medic": 222,
+        "teacher": 34,
+        "smelter": 0,
+        "smith": 0
+      },
+      "idle": 1456,
+      "flow": {
+        "food": -190.40000000000146,
+        "wood": -4.400000000000091,
+        "scrap": 14.600000000000364,
+        "tools": -2.5,
+        "medicine": 0.2999999999999545,
+        "knowledge": 0,
+        "iron": 0
+      }
+    },
+    "arrived": 0,
+    "shipments": []
+  },
+  "recovered": {
+    "at": 16046,
+    "home": 432,
+    "total": 12092,
+    "world": 388557977,
+    "born": 210532189,
+    "dead": 172252641,
+    "health": 100,
+    "stable": 250,
+    "waterEnabled": true,
+    "stores": {
+      "food": 22103.999999997985,
+      "medicine": 1966.4999999999422,
+      "wood": 2531.8399999998323,
+      "scrap": 2488.8000000003,
+      "tools": 302.0269999999792,
+      "knowledge": 2999.9,
+      "iron": 0
+    },
+    "economy": {
+      "at": 16040,
+      "food": 160,
+      "medicine": 0.75,
+      "water": 3360,
+      "population": 3300,
+      "treated": true,
+      "educated": true,
+      "administered": true,
+      "ate": true,
+      "blocked": [],
+      "worked": {
+        "gatherer": 34,
+        "salvager": 46,
+        "waterworker": 21,
+        "farmer": 288,
+        "medic": 225,
+        "teacher": 34,
+        "smelter": 0,
+        "smith": 18
+      },
+      "idle": 1394,
+      "flow": {
+        "food": 160,
+        "wood": 35.779999999999745,
+        "scrap": 3.5,
+        "tools": 1.5989999999999895,
+        "medicine": 0.75,
+        "knowledge": 0,
+        "iron": 0
+      }
+    },
+    "arrived": 1,
+    "shipments": []
+  },
+  "cutFile": "/tmp/postwar-city-recovery/cut/战后文明-存档.json",
+  "file": "/tmp/postwar-city-recovery/recovered/战后文明-存档.json"
+}

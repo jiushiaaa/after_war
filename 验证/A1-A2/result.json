@@ -1,0 +1,30 @@
+{
+  "synthetic": true,
+  "metrics": {
+    "width": 390,
+    "body": 390,
+    "panel": {
+      "x": 10,
+      "y": 242.78125,
+      "width": 370,
+      "height": 1021,
+      "top": 242.78125,
+      "right": 380,
+      "bottom": 1263.78125,
+      "left": 10
+    },
+    "population": 11444,
+    "preciseUnknownLeaked": false,
+    "paused": true
+  },
+  "checks": [
+    "native import of explicit synthetic city",
+    "terrain map nodes select the actual ward and retain the current category",
+    "selected ward buttons target current ward",
+    "repeated water toggle reverses",
+    "public priority changes only selected ward",
+    "unknown global total not exposed",
+    "390px page and map have no horizontal overflow",
+    "native village building list folds and never overlaps stores"
+  ]
+}
