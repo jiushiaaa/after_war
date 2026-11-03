@@ -17,13 +17,12 @@ var Header = {
 	},
 	
 	addLocation: function(text, id, module, before) {
-    const toAdd = $('<div>').attr('id', "location_" + id)
+    const go = function() { if(Header.canTravel()) Engine.travelTo(module); };
+    // Place tabs are reachable with Tab and activated with Enter/Space.
+    const toAdd = $('<div>').attr({id: "location_" + id, role: 'button', tabindex: 0})
 			.addClass('headerButton')
-			.text(text).click(function() {
-				if(Header.canTravel()) {
-					Engine.travelTo(module);
-				}
-			});
+			.text(text).click(go)
+			.on('keydown', function(e) { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
       
     if (before && $(`#location_${before}`).length > 0) {
       return toAdd.insertBefore(`#location_${before}`);

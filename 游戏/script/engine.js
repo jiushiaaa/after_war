@@ -100,6 +100,7 @@
       Engine.travelTo(Room);
       Civilization.init();
       CivilClock.start();
+      $(window).off('resize.civil').on('resize.civil', function(){ clearTimeout(Engine._resizeTimer); Engine._resizeTimer = setTimeout(Engine.realign, 150); });
     },
     resumeAudioContext: function () {
       AudioEngine.tryResumingAudioContext();
@@ -211,20 +212,25 @@
       }
 
       var currentIndex = Engine.activeModule ? $('.location').index(Engine.activeModule.panel) : 1;
-      $('div.headerButton').removeClass('selected');
-      module.tab.addClass('selected');
+      $('div.headerButton').removeClass('selected').attr('aria-current', null);
+      module.tab.addClass('selected').attr('aria-current', 'page');
+      // Narrow layout shows only the active place instead of a sliding strip.
+      $('.location').removeClass('civil-active');
+      if(module.panel) module.panel.addClass('civil-active');
 
       var slider = $('#locationSlider');
       var stores = $('#storesContainer');
       var panelIndex = $('.location').index(module.panel);
       var diff = Math.abs(panelIndex - currentIndex);
-      slider.animate({left: -(panelIndex * 700) + 'px'}, 300 * diff, function() {
+      // Panel width follows the layout (700px desktop, viewport width in narrow mode).
+      var panelWidth = Engine.panelWidth();
+      slider.animate({left: -(panelIndex * panelWidth) + 'px'}, 300 * diff, function() {
         $('#main').scrollLeft(0);
       });
 
       if($SM.get('stores.wood') !== undefined) {
         // FIXME Why does this work if there's an animation queue...?
-        stores.animate({right: -(panelIndex * 700) + 'px'}, 300 * diff);
+        stores.animate({right: Engine.narrow() ? '0px' : -(panelIndex * panelWidth) + 'px'}, 300 * diff);
       }
 
       if(Engine.activeModule == Room || Engine.activeModule == Path || Engine.activeModule == Fabricator) {
@@ -240,6 +246,7 @@
       }
 
       Engine.activeModule = module;
+      Engine.placeStores();
       module.onArrival(diff);
       Notifications.printQueue(module);
     },
@@ -278,9 +285,27 @@
       }
     },
 
+    narrow: function() { return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(max-width: 939px)').matches; },
+    panelWidth: function() { var p = $('div.location').first()[0]; return (p && p.getBoundingClientRect && p.getBoundingClientRect().width) || 700; },
+    // Re-align the slider after a resize or orientation change without moving to another place.
+    // In narrow mode the shared stores box sits under the header for every place;
+    // on desktop it returns to the original Room panel position.
+    placeStores: function() {
+      var stores = $('#storesContainer');if(!stores.length)return;
+      if(Engine.narrow()) { if(!stores.parent().is('#main')) stores.insertAfter('#header'); }
+      else if(!stores.parent().is('#roomPanel')) stores.prependTo('#roomPanel');
+    },
+    realign: function() {
+      Engine.placeStores();
+      if(!Engine.activeModule || !Engine.activeModule.panel) return;
+      var index = $('.location').index(Engine.activeModule.panel), w = Engine.panelWidth();
+      $('#locationSlider').stop(true, true).css('left', -(index * w) + 'px');
+      $('#storesContainer').stop(true, true).css('right', Engine.narrow() ? '0px' : -(index * w) + 'px');
+      Engine.updateSlider();
+    },
     updateSlider: function() {
       var slider = $('#locationSlider');
-      slider.width((slider.children().length * 700) + 'px');
+      slider.width((slider.children().length * Engine.panelWidth()) + 'px');
     },
 
     updateOuterSlider: function() {

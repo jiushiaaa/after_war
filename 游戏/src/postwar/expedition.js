@@ -316,9 +316,15 @@ var CivilExpedition={
   panel(){
     if($('#expeditionPanel').length)return $('#expeditionPanel');
     const box=$('<div>').attr({id:'expeditionPanel','data-legend':'近郊'}).addClass('civil-expedition').appendTo('#roadPanel');
-    const host=document?.getElementById?.('roadPanel'),el=box[0];if(host&&el&&host.firstChild!==el&&host.insertBefore)host.insertBefore(el,host.firstChild);
-    $('<div>').attr('id','expeditionStatus').addClass('civil-brief').appendTo(box);
-    $('<div>').attr({id:'expeditionMap',role:'img'}).appendTo(box);
+    const host=typeof document.getElementById==='function'?document.getElementById('roadPanel'):null,el=box[0];if(host&&el&&host.firstChild!==el&&host.insertBefore)host.insertBefore(el,host.firstChild);
+    $('<div>').attr({id:'expeditionStatus',role:'status'}).addClass('civil-brief').appendTo(box);
+    const map=$('<div>').attr({id:'expeditionMap',role:'img'}).appendTo(box);
+    // Touch: tap a side of the map relative to the party, or swipe, to take one step.
+    let touch=null;
+    map.on('touchstart',e=>{const t=e.originalEvent.touches[0];touch={x:t.clientX,y:t.clientY};});
+    map.on('touchend',e=>{const t=e.originalEvent.changedTouches[0];if(!touch)return;const dx=t.clientX-touch.x,dy=t.clientY-touch.y;touch=null;
+      if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;e.preventDefault();this.stepToward(dx,dy);});
+    map.on('click',e=>{const p=this.data(State)?.party;if(!p)return;const at=map.find('.civil-party')[0];if(!at)return;const r=at.getBoundingClientRect();this.stepToward(e.clientX-(r.left+r.width/2),e.clientY-(r.top+r.height/2));});
     $('<div>').attr('id','expeditionControls').appendTo(box);
     const list=$('<details>').attr('id','expeditionPlaces').addClass('civil-details').appendTo(box);
     $('<summary>').text('已知地点与图例').appendTo(list);$('<ul>').appendTo(list);
@@ -338,6 +344,7 @@ var CivilExpedition={
     else if(r==='short')Civilization.notify(this.C().text.hungry);
     return r;
   },
+  stepToward(dx,dy){if(Math.abs(dx)<6&&Math.abs(dy)<6)return null;return Math.abs(dx)>Math.abs(dy)?this.moveUI(dx>0?1:-1,0):this.moveUI(0,dy>0?1:-1);},
   openChoices(){
     const info=this.choices(State);if(!info||Events.activeEvent())return false;
     const C=this.C(),d=this.data(State),title=info.site==='beetle'?'甲虫洼地':C.siteNames[info.site],buttons={};
@@ -355,11 +362,19 @@ var CivilExpedition={
     if(k)this.moveUI(...k);
   },
   attach(module){module.keyUp=e=>this.keyUp(e);module.keyDown=()=>{};},
+  // A party standing on an unresolved encounter (e.g. after reload) gets the choice back once,
+  // without spending a step or time; closing is never a default choice.
+  resumeChoice(s){
+    const p=this.data(s)?.party;if(!p||typeof Events==='undefined'||Events.activeEvent())return false;
+    if(p.encounter!=='beetle')return false;
+    return this.openChoices();
+  },
   signature:null,
   refresh(force=false){
     // Renders only into a real browser panel; rule harnesses with DOM stubs skip presentation.
-    const s=State;if(!this.unlocked(s)||typeof document==='undefined'||!document.getElementById?.('roadPanel'))return;
+    const s=State;if(!this.unlocked(s)||typeof document==='undefined'||typeof document.getElementById!=='function'||!document.getElementById('roadPanel'))return;
     if(Civilization.roadModule&&!Civilization.roadModule.keyUp)this.attach(Civilization.roadModule);
+    if(Engine.activeModule===Civilization.roadModule)this.resumeChoice(s);
     const box=this.panel(),d=this.view(s),p=d.party,C=this.C();
     const sig=JSON.stringify([d.known,p,d.sites,d.caches,d.beetles,d.resting,this.prep,s.stores.food|0,s.stores.wood|0,s.stores.scrap|0,this.freeHands(s),s.civilization.tech.water,!!s.civilization.station,!!Events.activeEvent?.(),this.legacyJourney(s)]);
     if(!force&&sig===this.signature)return;this.signature=sig;

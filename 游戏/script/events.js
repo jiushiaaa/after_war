@@ -1402,8 +1402,12 @@ var Events = {
 		$('<div>').attr('id', 'description').appendTo(Events.eventPanel());
 		$('<div>').attr('id', 'buttons').appendTo(Events.eventPanel());
 		Events.loadScene('start');
+		if(!Events._returnFocus && document.activeElement && document.activeElement !== document.body) Events._returnFocus = document.activeElement;
 		$('div#wrapper').append(Events.eventPanel());
+		Events.eventPanel().attr({role: 'dialog', 'aria-modal': 'true', 'aria-label': Events.activeEvent().title || ''});
 		Events.eventPanel().animate({opacity: 1}, Events._PANEL_FADE, 'linear');
+		// Move keyboard focus into the decision; reading text does not spend time or steps.
+		setTimeout(function(){ var first = Events.eventPanel() && Events.eventPanel().find('.button:not(.disabled)')[0]; if(first){ first.setAttribute('tabindex','0'); first.focus(); } }, Events._PANEL_FADE + 20);
 		var currentSceneInformation = Events.activeEvent().scenes[Events.activeScene];
 		if (currentSceneInformation.blink) {
 			Events.blinkTitle();
@@ -1430,8 +1434,12 @@ var Events = {
 			if (Events.BLINK_INTERVAL) {
 				Events.stopTitleBlink();
 			}
-			// Force refocus on the body. I hate you, IE.
-			$('body').focus();
+			// Return focus to the control that opened the event when it still exists.
+			var back = Events._returnFocus; Events._returnFocus = null;
+			// Controls re-rendered while the event was open are found again by id.
+			if(back && !document.body.contains(back) && back.id) back = document.getElementById(back.id);
+			if(back && document.body.contains(back) && back.offsetParent !== null) back.focus();
+			else $('body').focus();
 		});
 	},
 

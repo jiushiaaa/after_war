@@ -108,6 +108,7 @@ var Civilization = {
       if(c.research.remaining===0) {
         const id=c.research.id;c.tech[id]=true;c.research=null;
         this.notify(CivilText.research[id].done); this.updateIncome();
+        this.lastTech=id;
       }
     }
     if(c.journey) {
@@ -243,6 +244,8 @@ var Civilization = {
   },
   speedMenu() {
     if(Events.activeEvent()||State.civilization.pending)return false;
+    // The speed button is re-rendered by choices; focus returns to it by id.
+    if(typeof Events!=='undefined'&&typeof document!=='undefined')Events._returnFocus=document.getElementById?.('speedButton')||null;
     const c=State.civilization,buttons={};
     for(const rate of [1,2,4,8,16,32,64])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
     buttons.pause={text:CivilClock.paused?'继续':'暂停',nextScene:'end',onChoose:()=>this.setPaused(!CivilClock.paused)};
@@ -361,6 +364,31 @@ var Civilization = {
     this.notify(extra?(extra.departure || (id==='geology'?'勘察队带上工具和旧地图，走向山坡下的矿带。':'队伍带上物资，沿旧地图的标记出发。')):id==='pump'?'维修队带上管件，沿着旧管线出发。':'你带上口粮，沿旧公路走向交通站。');
     this.refresh();Engine.saveGame();
   },
+  // Read-only: buildings whose existing gate names this tech and is now open.
+  techUnlocks(id,s=State) {
+    const out=[];
+    for(const [key,def] of Object.entries(buildDefs)){
+      const src=String(def.gate);if(!new RegExp('tech\\.'+id+'\\b|tech\\?\\.'+id+'\\b').test(src))continue;
+      let open=false;try{open=!!def.gate();}catch(e){open=false;}
+      if(open)out.push(key);
+    }
+    // Public-works facilities declare their research in content; they are built on the 街区 page.
+    if(typeof CivilServiceContent!=='undefined')for(const [key,f] of Object.entries(CivilServiceContent.facilities))if((f.requires||[]).includes(id)&&(f.requires||[]).every(t=>s.civilization.tech[t]))out.push('services:'+key);
+    return out;
+  },
+  // Where the native build button for a building currently lives.
+  placeOf(key) {
+    const btn=key.startsWith('services:')?$('#services_home_'+key.slice(9)):$('#build_'+key);if(!btn.length)return null;
+    const panel=btn.closest('.location');if(!panel.length)return null;
+    const mod=[Room,Outside,this.roadModule,typeof CivilIndustry!=='undefined'?CivilIndustry.module:null,typeof CivilUrban!=='undefined'?CivilUrban.module:null,typeof CivilMunicipal!=='undefined'?CivilMunicipal.module:null].find(m=>m&&m.panel&&m.panel[0]===panel[0]);
+    return mod?{module:mod,button:btn}:null;
+  },
+  goTo(key) {
+    const p=this.placeOf(key);if(!p)return false;
+    Engine.travelTo(p.module);
+    setTimeout(()=>{p.button[0]?.scrollIntoView?.({block:'center'});p.button.attr('tabindex',0).focus?.();p.button.addClass('civil-highlight');setTimeout(()=>p.button.removeClass('civil-highlight'),2400);},350);
+    return true;
+  },
   button(id,text,parent,handler,cost,cooldown) {
     let button=$('#'+id);
     if(!button.length) button=new Button.Button({id,text,click:handler,cost,cooldown,width:'100px'}).appendTo(parent);
@@ -420,6 +448,16 @@ var Civilization = {
       let note=$('#researchStatus'); if(!note.length) note=$('<div>').attr('id','researchStatus').appendTo(section);
       note.text(c.research?CivilText.research[c.research.id].name+'：'+Math.ceil(c.research.remaining)+' 秒':'已掌握 '+Object.keys(c.tech).filter(k=>c.tech[k]).length+' 项技术');
       note.attr('title',Object.keys(c.tech).filter(k=>c.tech[k]).map(k=>CivilText.research[k].name).join('、'));
+      // Completed research points to the facility it opened (read-only lookup of existing gates).
+      if(typeof document!=='undefined'&&typeof document.getElementById==='function'&&document.getElementById('researchBtns')){
+      let done=$('#researchUnlocks');if(!done.length)done=$('<div>').attr('id','researchUnlocks').addClass('civil-brief').appendTo(section);
+      const last=this.lastTech&&c.tech[this.lastTech]?this.lastTech:null,opened=last?this.techUnlocks(last).filter(k=>k.startsWith('services:')||(State.game.buildings[k]||0)<(Room.Craftables[k]?.maximum??Infinity)):[];
+      const sig=last+':'+opened.join(',');
+      if(done.attr('data-sig')!==sig){done.attr('data-sig',sig).empty();
+        if(last){$('<span>').text(CivilText.research[last].name+'已掌握'+(opened.length?'，可以建造：':'。')).appendTo(done);
+          for(const k of opened){const name=k.startsWith('services:')?CivilServiceContent.facilities[k.slice(9)].name:_(k);this.button('researchGo_'+k.replace(':','_'),'去建 '+name,done,()=>this.goTo(k)).addClass('civil-inline');}
+          if(!opened.length&&CivilText.research[last].done)$('<span>').addClass('civil-muted').text(' '+CivilText.research[last].done).appendTo(done);}}
+      done.toggle(!!last);}
       // Station, pump and salvage are walked on the near-field map. Timed legacy
       // journeys that were already under way still finish under the old rule.
       const legacyWalk=typeof CivilExpedition==='undefined'||CivilExpedition.legacyJourney(State);
@@ -477,6 +515,7 @@ var Civilization = {
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
     if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
+    if(typeof CivilNav!=='undefined')CivilNav.order();
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
