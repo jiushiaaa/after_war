@@ -4,8 +4,8 @@
 import fs from 'node:fs';
 const port=process.env.CDP_PORT||9333;
 const targets=await (await fetch(`http://127.0.0.1:${port}/json`)).json();
-let page=targets.find(t=>t.type==='page');
-const ws=new WebSocket(page.webSocketDebuggerUrl);let id=0;const wait=new Map();
+let page=targets.find(t=>t.type==='page'&&t.url.includes('127.0.0.1:4180'));
+await fetch(`http://127.0.0.1:${port}/json/activate/${page.id}`);const ws=new WebSocket(page.webSocketDebuggerUrl);let id=0;const wait=new Map();
 ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id&&wait.has(m.id)){wait.get(m.id)(m);wait.delete(m.id);}};
 await new Promise(r=>ws.onopen=r);
 const send=(method,params={})=>new Promise(r=>{const i=++id;wait.set(i,r);ws.send(JSON.stringify({id:i,method,params}));});
@@ -36,6 +36,18 @@ else if(cmd==='export'){
   await new Promise(r=>setTimeout(r,2500));
   const c=await ev(locate('document.querySelector("#event #close")'));if(c)await clickAt(c);
   console.log(fs.readdirSync(args[0]).join('\n'));
+}
+else if(cmd==='import'){
+  // Native UI import: 存档 → 导入进度 → paste text → 检查存档 → 替换当前进度
+  const text=fs.readFileSync(args[0],'utf8');
+  const tap=async sel=>{const b=await ev(locate(sel));if(!b){console.log('NOTFOUND '+sel);process.exit(2);}await clickAt(b);await new Promise(r=>setTimeout(r,900));};
+  await tap('document.querySelector("#saveMenu")');await tap('document.querySelector("#event #import")');
+  await tap('document.querySelector("#event textarea")');
+  await send('Input.insertText',{text});await new Promise(r=>setTimeout(r,500));
+  await tap('document.querySelector("#event #inspect")');await new Promise(r=>setTimeout(r,1500));
+  console.log(await ev('document.querySelector("#event")?.innerText.slice(0,300)'));
+  await tap('document.querySelector("#event #replace")');await new Promise(r=>setTimeout(r,3000));
+  console.log(await ev('JSON.stringify([State.civilization.elapsed,State.game.population,State.stores])'));
 }
 else if(cmd==='shot'){const r=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(args[0],Buffer.from(r.result.data,'base64'));console.log('saved');}
 ws.close();

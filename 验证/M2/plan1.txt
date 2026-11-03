@@ -1,0 +1,13 @@
+# 首次远征：沿旧公路到交通站（长而安全的已知道路）
+tab road
+shot /tmp/pwcdp/m2_prep.png
+set members 1
+set food 5
+set water 7
+depart
+go E 5
+go N 8
+key E 6
+choose recover
+shot /tmp/pwcdp/m2_station.png
+home

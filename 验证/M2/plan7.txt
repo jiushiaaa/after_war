@@ -1,0 +1,12 @@
+tab road
+set members 1
+set food 6
+set water 6
+depart
+go S 6
+go E 1
+shot /tmp/pwcdp/m2_cellar.png
+choose share
+look
+choose invite
+home

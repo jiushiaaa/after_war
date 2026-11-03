@@ -1,0 +1,22 @@
+# 第三次：西北旧气象站，保全档案
+tab road
+set members 2
+set food 6
+set water 9
+kit off
+depart
+go N 1
+go W 7
+go N 6
+shot /tmp/pwcdp/m2_ruin.png
+choose preserve
+home
+# 第四次：故意少带补给，验证失败恢复
+set members 1
+set food 1
+set water 2
+depart
+go E 5
+go N 8
+go E 6
+shot /tmp/pwcdp/m2_rescue.png

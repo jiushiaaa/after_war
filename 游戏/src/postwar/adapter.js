@@ -129,7 +129,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilCulture!=='undefined')CivilCulture.tick(State);
     if(typeof CivilRuins!=='undefined')CivilRuins.tick(State);
-    if(typeof CivilExpedition!=='undefined'){const r=CivilExpedition.tick(State);if(r==='joined')this.notify('储藏室的老测量员带着两个孩子搬进了聚落。他记得旧城的道路编号。');if(r==='rested')this.notify('受伤的队员养好了伤，重新回到岗位。');}
+    if(typeof CivilExpedition!=='undefined'){const r=CivilExpedition.tick(State);if(r==='joined')this.notify('储藏室的老测量员带着两个徒弟搬进了聚落。他记得旧城的道路编号。');if(r==='rested')this.notify('受伤的队员养好了伤，重新回到岗位。');}
     if(typeof CivilServices!=='undefined')CivilServices.tick(State);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
@@ -469,6 +469,7 @@ var Civilization = {
     if(typeof CivilSpace!=='undefined')CivilSpace.refresh();
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
+    if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
     $('#stores').attr('data-legend',c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {

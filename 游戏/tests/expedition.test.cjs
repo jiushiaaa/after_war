@@ -120,3 +120,14 @@ test('a preserved archive opens cold-warning research; dismantling gives metal b
  const before=b.E.data(b.state).party.pack.scrap||0;b.E.choose(b.state,'dismantle');assert.ok((b.E.data(b.state).party.pack.scrap||0)>before);
  b.E.walkHome(b.state);assert.equal(b.ctx.CivilCatalog.researchAvailable(b.state,'weather'),false);
 });
+
+test('the next-step guide reads real conditions and names the town-charter blocker',()=>{
+ const h=harness(),{state,c}=h;
+ vm.runInContext(fs.readFileSync(path.join(__dirname,'..','src/postwar/guide.js'),'utf8'),h.ctx);
+ c.settled=true;state.game.buildings.workshop=0;assert.match(h.ctx.CivilGuide.text(state),/工坊/);
+ state.game.buildings.workshop=1;assert.match(h.ctx.CivilGuide.text(state),/交通站/);
+ c.station=true;c.pump=true;Object.assign(state.game.buildings,{outpost:1,road:1,clinic:1,schoolhouse:1});c.village.riverKnown=true;c.village.riverAllied=true;
+ state.game.population=30;c.village.health=90;c.village.convoys=5;c.village.routeStatus='待发：工具 1、药品 0.5、木料 1、食物 1';state.stores.tools=20;
+ assert.match(h.ctx.CivilGuide.text(state),/车队：待发/);
+ const before=JSON.stringify(state);h.ctx.CivilGuide.text(state);assert.equal(JSON.stringify(state),before,'guide is read-only');
+});

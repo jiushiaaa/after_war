@@ -43,7 +43,7 @@
 body.dark .civil-metric { border-color:#444; }
 body.dark .civil-metric>span,body.dark .civil-details dt { color:#aaa; }
 /* Near-field exploration: native ADR monospace map, controls stay keyboard reachable. */
-.civil-expedition { position:relative; border:1px solid #000; padding:20px 12px 10px; margin:6px 0 18px; width:min(640px,96%); box-sizing:border-box; }
+.civil-expedition { position:relative; border:1px solid #000; padding:20px 12px 10px; margin:6px 0 18px; width:min(460px,96%); box-sizing:border-box; }
 .civil-expedition::before { content:attr(data-legend); position:absolute; top:-10px; left:10px; background:#fff; padding:0 4px; }
 body.dark .civil-expedition { border-color:#eee; } body.dark .civil-expedition::before { background:#272823; }
 #expeditionMap { font-family:"Courier New",Courier,monospace; white-space:pre; line-height:15px; letter-spacing:4px; font-size:14px; color:#888; border:1px solid #999; display:inline-block; padding:6px 8px; user-select:none; }
@@ -59,3 +59,4 @@ body.dark .civil-step { border-color:#eee; }
 .civil-pad { margin:6px 0; }
 .civil-legend { font-size:12px; color:#666; line-height:1.6; }
 #expeditionControls .button { margin:8px 10px 4px 0; }
+.civil-guide { position:relative; clear:both; padding-top:14px; width:min(620px,95%); color:#444; } body.dark .civil-guide { color:#ccc; }

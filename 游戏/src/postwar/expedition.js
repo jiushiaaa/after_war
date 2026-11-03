@@ -264,7 +264,7 @@ var CivilExpedition={
     if(beds<v.count||(s.stores.food||0)<12||s.civilization.hunger)return null;
     s.game.population+=v.count;d.sites.cellar.state='joined';d.survivors=null;
     if(typeof CivilSociety!=='undefined')CivilSociety.sync(s);
-    this.record(s,'cellar','储藏室的人搬进聚落','老测量员和两个半大的孩子住进了聚落。他记得旧城的道路编号。');
+    this.record(s,'cellar','储藏室的人搬进聚落','老测量员和两个徒弟住进了聚落。他记得旧城的道路编号。');
     return 'joined';
   },
   validate(state){
@@ -345,7 +345,7 @@ var CivilExpedition={
       station:d.sites.station.state==='new'?['候车厅的墙上挂着地球与火星之间的货运表。最后一班没有注销。','你认得表格上的航运标准。火星上的人曾经也是这里的乘客。维修图背面标着一座泵站。']:['站台空荡荡的。还有些固定件能拆。'],
       pump:d.sites.pump.state==='repaired'?['泵轮在转。清水从过滤管里流出来。']:['水从裂开的管道漏进地下。控制柜已经停电，机械旁路还在。'],
       ruin:d.sites.ruin.state==='new'?['屋顶的风杯早就不转了。值班室里堆着一卷卷风速纸带，最后一页写着：轨道补给中断，全员撤离。','纸带能告诉你们这里的寒潮什么时候来；仪器外壳和支架则是现成的金属。只能二选一。']:['旧气象站只剩空架子。']
-      ,cellar:['半埋的储藏室门口压着沙袋。门缝里有灯，一位老测量员带着两个半大的孩子守在里面。',d.sites.cellar.state==='helped'?'他们认得你们了。':'他们不认识你们，也不急着出来。']}[info.site];
+      ,cellar:['半埋的储藏室门口压着沙袋。门缝里有灯，一位老测量员带着两个年轻徒弟守在里面。',d.sites.cellar.state==='helped'?'他们认得你们了。':'他们不认识你们，也不急着出来。']}[info.site];
     for(const o of info.options)buttons['ex_'+o.id]={text:o.text+(o.reason?'（'+o.reason+'）':''),nextScene:'end',available:()=>!o.reason,onChoose:()=>{const msg=this.choose(State,o.id);if(msg)Civilization.notify(msg);this.after();}};
     Events.startEvent({title,scenes:{start:{text,buttons}}});return true;
   },

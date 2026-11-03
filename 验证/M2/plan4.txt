@@ -1,0 +1,22 @@
+# 第二次远征：短路线穿甲虫洼地修泵站（带维修件）
+tab road
+set members 2
+set food 8
+set water 12
+kit on
+shot /tmp/pwcdp/m2_prep2.png
+depart
+go W 3
+go S 1
+shot /tmp/pwcdp/m2_beetle.png
+choose observe
+go S 4
+go W 4
+go S 2
+go W 1
+choose repair
+shot /tmp/pwcdp/m2_pump.png
+look
+choose refill
+home
+shot /tmp/pwcdp/m2_home2.png

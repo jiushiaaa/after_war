@@ -2,8 +2,8 @@
 // 只读观察 State；所有改变都来自点击原生按钮。不注入资源、不改时间。
 import fs from 'node:fs';
 const port=process.env.CDP_PORT||9333, out=process.argv[2]||'/tmp/pwcdp/baseline.json', wallLimit=Number(process.argv[3]||1800)*1000;
-const page=(await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(t=>t.type==='page');
-const ws=new WebSocket(page.webSocketDebuggerUrl);let id=0;const wait=new Map();
+const page=(await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(t=>t.type==='page'&&t.url.includes('127.0.0.1:4180'));
+await fetch(`http://127.0.0.1:${port}/json/activate/${page.id}`);const ws=new WebSocket(page.webSocketDebuggerUrl);let id=0;const wait=new Map();
 ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id&&wait.has(m.id)){wait.get(m.id)(m);wait.delete(m.id);}};
 await new Promise(r=>ws.onopen=r);
 const send=(method,params={})=>new Promise(r=>{const i=++id;wait.set(i,r);ws.send(JSON.stringify({id:i,method,params}));});
@@ -27,6 +27,7 @@ const read=()=>ev(`(()=>{const s=State,c=s.civilization;return {sim:c.elapsed,sp
 let lastNotes=0;
 while(Date.now()-t0<wallLimit){
   snap=await read();if(!snap){await sleep(1000);continue;}
+  if(process.env.STOP_AT_WORKSHOP&&snap.b.workshop&&!snap.ev)break;
   for(const t of snap.tabs)mark('地点:'+t);
   for(const b of snap.btns)mark('按钮:'+b);
   for(const [k,v] of Object.entries(snap.b))if(v>0)mark('建成:'+k);
@@ -59,7 +60,7 @@ while(Date.now()-t0<wallLimit){
     else {const want={smith:snap.b.toolshop?3:0,medic:(snap.b.clinic||0)*2,teacher:(snap.b.schoolhouse||0)*2,salvager:2,farmer:Math.min((snap.b.farm||0)*4,Math.ceil(snap.pop*0.4))};
       for(const [j,n] of Object.entries(want))if((snap.w[j]??-1)>=0&&(snap.w[j]||0)<n&&await ev(`Outside.getNumGatherers()>2`)){await click(q('#workers_row_'+j+' .upBtn'));break;}}
   }
-  if(snap.tabs.some(t=>t.startsWith('road'))&&!snap.journey&&!snap.pending){
+  if(!process.env.STOP_AT_WORKSHOP&&snap.tabs.some(t=>t.startsWith('road'))&&!snap.journey&&!snap.pending){
     await tab('road');
     if(!(await click(q('#pumpButton'))))if(!snap.station)await click(q('#stationButton'));
     for(const b of ['riverButton','riverPact','geologyButton'])await click(q('#'+b));
