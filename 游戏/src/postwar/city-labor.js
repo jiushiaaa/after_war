@@ -13,7 +13,7 @@ var CivilCityLabor={
   },
   data(s){return s.civilization.cityLabor;},c(){return CivilCityCouncil;},h(){return CivilCityHomes;},x(){return CivilCityContinuity;},
   city(s,id){return this.c().logical(s,id);},count(a){return CivilPopulation.count(a);},
-  demand(s,id){if(!this.ready(s,id))return 0;const city=this.city(s,id),n=this.c().local(s,city),trade=this.trades[city];if(trade.job==='teacher')return Math.min(this.slots(s,id),Math.ceil(CivilPopulation.children(n.cohorts)/20));const target=CivilCity.targets(n,s,this.c().physical(s,city));return Math.min(this.slots(s,id),Math.max(...Object.entries(trade.output).map(([k,v])=>Math.ceil(Math.max(0,target[k]-(n.stores[k]||0))/v))));},
+  demand(s,id,order=this.contract(s,this.city(s,id))){if(!this.ready(s,id))return 0;const city=this.city(s,id),n=this.c().local(s,city),trade=this.trade(s,city,order);if(trade.job==='teacher')return Math.min(this.slots(s,id),Math.ceil(CivilPopulation.children(n.cohorts)/20));const target=CivilCity.targets(n,s,this.c().physical(s,city));return Math.min(this.slots(s,id),Math.max(...Object.entries(trade.output).map(([k,v])=>Math.ceil(Math.max(0,target[k]-(n.stores[k]||0))/v))));},
   available(s){return this.x().ready(s,'home')&&this.c().membersAt(s,s.civilization.elapsed).length>=3;},
   office(s,id){return this.data(s)?.offices[this.city(s,id)];},
   schoolPlaces(s,id){if(!this.ready(s,id))return 0;const city=this.city(s,id),physical=this.c().physical(s,city),n=this.c().local(s,city),extra=this.x().local(s,city)?.policy==='local'&&this.x().need(s,city)>0?2:0;return Math.min(this.capacity,Math.max(0,Math.ceil(CivilPopulation.children(n.cohorts)/20)+extra-Math.ceil(CivilCity.serviceCapacity(s,physical)*.02)));},
@@ -32,9 +32,10 @@ var CivilCityLabor={
   busy(s,id){return this.shifts(s).some(p=>p.from===this.city(s,id)&&p.from!==p.to);},
   crew(s,id){return this.busy(s,id)?4:0;},
   present(s,id){return CivilCity.count(CivilCity.node(s,id))-this.away(s,id)+this.guests(s,id);},
-  candidates(s,id,count){
+  candidates(s,id,count,order){
+    if(order?.version===2)return this.skilledCandidates(s,id,count);
     const a=this.c(),physical=a.physical(s,id),n=a.local(s,id),inst=CivilCityInstitutions.local(s,physical);
-    const used=[...this.h().settled(s,id),...this.x().extraProtected(s,id),...this.protected(s,id),...CivilCityInstitutions.qualified(s,physical,'craft'),...CivilCityInstitutions.qualified(s,physical,'care'),...(inst?.training?CivilCityInstitutions.aged(inst.training.cohorts,inst.training.startedAt,s.civilization.elapsed):[])];
+    const used=[...this.h().settled(s,id),...this.x().extraProtected(s,id),...this.unqualifiedProtected(s,id),...CivilCityInstitutions.qualified(s,physical,'craft'),...CivilCityInstitutions.qualified(s,physical,'care'),...(inst?.training?CivilCityInstitutions.aged(inst.training.cohorts,inst.training.startedAt,s.civilization.elapsed):[])];
     return this.x().pick(this.x().subtract(n.cohorts,used),count,50);
   },
   idle(s,id){const n=this.c().local(s,id);return Math.max(0,CivilCity.workforce(n)-Object.values(n.workers).reduce((a,b)=>a+b,0));},
@@ -47,8 +48,8 @@ var CivilCityLabor={
     const r=this.c().record(s,id,'laborPolicy',id,{knowledge:2},{value});o.enabled=value;o.changes.push(r.id);this.c().replan(s);this.c().note(s,this.c().name(s,id)+(value?'恢复劳务委托，按既定来源和真实空缺续班。':'暂停劳务委托，已挣工资保留，驻班人员结束本轮后返乡。'));return true;
   },
   contract(s,id){return this.data(s)?.contracts.find(o=>o.to===id&&o.endedAt===null);},
-  orderReason(s,from,to,count){if(!this.ready(s,to))return '先在雇用城市建成劳务工位';if(this.contract(s,to))return '先结束当地旧委托，再改变来源或人数';if(![24,60,120].includes(count))return '每班24、60或120人';return this.departureReason(s,{from,to,count},true);},
-  order(s,from,to,count){if(this.orderReason(s,from,to,count))return false;const d=this.data(s),o={id:d.contracts.length+1,at:s.civilization.elapsed,from,to,count,lastAt:null,endedAt:null,paid:from===to?{}:this.lodgingCost(count),lastLodgingAt:from===to?null:s.civilization.elapsed,services:[]};if(from!==to)this.c().pay(s,to,'laborLodging',o.id,o.paid);d.contracts.push(o);this.c().note(s,this.c().name(s,to)+'按班预付粮酬，向'+this.c().name(s,from)+'委托'+count+'个岗位。'+(from===to?'居民留在本地工作。':'居民保留原址，通勤期间暂离原城排班，临住与诊疗由雇用城市承担。'));return true;},
+  orderReason(s,from,to,count,task='supply'){if(!['supply','food','tools'].includes(task))return '尚无这项班组工序';if(!this.ready(s,to))return '先在雇用城市建成劳务工位';if(this.contract(s,to))return '先结束当地旧委托，再改变来源或人数';if(![24,60,120].includes(count))return '每班24、60或120人';return this.departureReason(s,{from,to,count,...(task==='supply'?{}:{version:2,task})},true);},
+  order(s,from,to,count,task='supply'){if(this.orderReason(s,from,to,count,task))return false;const d=this.data(s),o={id:d.contracts.length+1,at:s.civilization.elapsed,from,to,count,lastAt:null,endedAt:null,paid:from===to?{}:this.lodgingCost(count),lastLodgingAt:from===to?null:s.civilization.elapsed,services:[],...(task==='supply'?{}:{version:2,task,recognition:{...this.recognitionCost}})};if(o.version===2)this.c().pay(s,to,'laborRecognition',o.id,o.recognition);if(from!==to)this.c().pay(s,to,'laborLodging',o.id,o.paid);d.contracts.push(o);this.c().note(s,this.c().name(s,to)+'按班预付粮酬，向'+this.c().name(s,from)+'委托'+count+'个'+this.trade(s,to,o).name+'岗位。'+(from===to?'居民留在本地工作。':'居民保留原址，通勤期间暂离原城排班，临住与诊疗由雇用城市承担。'));return true;},
   cancel(s,id){const o=this.contract(s,id);if(!o)return false;o.endedAt=s.civilization.elapsed;this.c().note(s,this.c().name(s,id)+'结束后续劳务委托；已出发班次按原约结清，不扣回已挣工资。');return true;},
   quote(s,o){const distance=o.from===o.to?0:this.c().path(s,o.from,o.to)?.distance;
     return {distance,escrow:{food:o.count*this.wage*30},pack:{food:distance?Math.ceil((o.count+4)*.012*(2*distance+this.duration)):0},fee:distance?{...this.fee}:{}};
@@ -56,22 +57,23 @@ var CivilCityLabor={
   departureReason(s,o,preview=false){
     const {from,to,count}=o,a=this.c();if(!this.active(s,to))return '雇用城市劳务委托或公用站未续办';if(!a.membersAt(s,s.civilization.elapsed).includes(from)||!a.activeOffice(s,from))return '来源城公用事务尚未续办';
     if(count>this.slots(s,to))return '当地须留'+this.schoolPlaces(s,to)+'个工位作补充课堂，当前可用工位'+this.slots(s,to);
-    if(this.shifts(s).some(p=>p.to===to))return '当地上一班尚未结清';if(!preview&&!this.demand(s,to))return '当地储备已足，保留委托，暂不发班';if(!preview&&o.lastAt!==null&&s.civilization.elapsed-o.lastAt<600)return '先观察本期产销和家庭收入，下期再开班';
+    if(this.shifts(s).some(p=>p.to===to))return '当地上一班尚未结清';if(!preview&&!this.demand(s,to,o))return '当地储备已足，保留委托，暂不发班';if(!preview&&o.lastAt!==null&&s.civilization.elapsed-o.lastAt<600)return '先观察本期产销和家庭收入，下期再开班';
     const n=a.local(s,from),target=a.local(s,to),q=this.quote(s,o);if(q.distance===undefined)return '两城尚无公共通路';if(q.distance>720)return '路程超过当前轮班车辆的保障半径';
-    if(this.count(this.candidates(s,from,count))<count||this.idle(s,from)<count+(from===to?0:4))return '来源须留足原有职责，再安排本班成年居民与驾驶员';
+    const taskReason=this.taskReason(s,o);if(taskReason)return taskReason;
+    if(this.count(this.candidates(s,from,count,o))<count||this.idle(s,from)<(o.version===2?0:count)+(from===to?0:4))return '来源须留足原有职责，再安排本班成年居民与驾驶员';
     if(from!==to){if(this.h().freeBeds(s,to)+(o.id&&o.endedAt===null?o.count:0)<count)return '雇用城市临住空床不足，含已承诺入住与返乡预留';if(this.busy(s,from)||this.h().busy(s,from)||a.activeLegs(s).some(l=>l.from===from))return '来源勤务车尚未返回，通勤、迁居和供料共用车辆';if(this.h().wantsVehicle(s,from))return '先履行已经签订的迁居约';}
     if(!this.lodgingReady(s,o))return '临住房维护未续办，先恢复当地公共预算';
     if(target.health<60||target.stable<120||n.health<60||n.stable<120)return '双方先恢复基本供养';
-    const sourceCost={...q.pack};a.sum(sourceCost,q.fee);if(from===to)a.sum(sourceCost,q.escrow);
-    const employerCost={...q.escrow};if(preview&&from!==to)a.sum(employerCost,this.lodgingCost(count));
+    const sourceCost={...q.pack};a.sum(sourceCost,q.fee);if(from===to){a.sum(sourceCost,q.escrow);if(preview&&o.version===2)a.sum(sourceCost,this.recognitionCost);}
+    const employerCost={...q.escrow};if(preview&&from!==to){a.sum(employerCost,this.lodgingCost(count));if(o.version===2)a.sum(employerCost,this.recognitionCost);}
     return a.payReason(s,from,sourceCost)||(from===to?null:a.payReason(s,to,employerCost));
   },
   send(s,id,kind,ref,goods){const a=this.c(),n=a.local(s,id);CivilRules.pay({stores:n.stores},goods);a.sum(n.budget.sent,goods);a.record(s,id,kind,ref,goods);},
-  depart(s,o){if(this.departureReason(s,o))return false;const d=this.data(s),a=this.c(),q=this.quote(s,o),at=s.civilization.elapsed,cohorts=this.candidates(s,o.from,o.count),p={id:d.shifts.length+1,order:o.id,from:o.from,to:o.to,count:o.count,at,cohorts,path:o.from===o.to?null:a.path(s,o.from,o.to),pack:q.pack,fee:q.fee,escrow:q.escrow.food,earned:0,refunded:0,food:q.pack.food,consumed:0,received:0,hospitality:0,rounds:[],phase:o.from===o.to?'working':'outbound',remaining:o.from===o.to?this.duration:q.distance,arrivedAt:o.from===o.to?at:null,leftAt:null,finishedAt:null,reason:null};
+  depart(s,o){if(this.departureReason(s,o))return false;const d=this.data(s),a=this.c(),q=this.quote(s,o),at=s.civilization.elapsed,cohorts=this.candidates(s,o.from,o.count,o),p={id:d.shifts.length+1,order:o.id,from:o.from,to:o.to,count:o.count,at,cohorts,path:o.from===o.to?null:a.path(s,o.from,o.to),pack:q.pack,fee:q.fee,escrow:q.escrow.food,earned:0,refunded:0,food:q.pack.food,consumed:0,received:0,hospitality:0,rounds:[],phase:o.from===o.to?'working':'outbound',remaining:o.from===o.to?this.duration:q.distance,arrivedAt:o.from===o.to?at:null,leftAt:null,finishedAt:null,reason:null};
     if(q.distance){a.pay(s,o.from,'laborTravel',p.id,q.fee);this.send(s,o.from,'laborPack',p.id,q.pack);}this.send(s,o.to,'laborEscrow',p.id,q.escrow);d.shifts.push(p);o.lastAt=at;a.replan(s);return true;
   },
   workers(s,id){return this.shifts(s).filter(p=>p.to===this.city(s,id)&&p.phase==='working'&&p.count<=this.slots(s,id)&&this.active(s,id)).reduce((n,p)=>n+p.count,0);},
-  reservedOutput(s,id,job){const trade=this.trades[this.city(s,id)],count=this.workers(s,id);return trade?.job===job&&count?Object.fromEntries(Object.entries(trade.output).map(([k,v])=>[k,v*count])):{};},
+  reservedOutput(s,id,job){const p=this.shifts(s).find(p=>p.to===this.city(s,id)&&p.phase==='working'),order=p&&this.data(s).contracts[p.order-1],trade=this.trade(s,id,order),count=this.workers(s,id);return (order?.version===2||trade?.job===job)&&count?Object.fromEntries(Object.entries(trade.output).map(([k,v])=>[k,v*count])):{};},
   plan(s,id,slots,want,reserved){const city=this.city(s,id),o=this.office(s,id);const own=this.count(this.protected(s,id));if(own)reserved.wageworker=own;
     if(o&&o.completedAt===null)reserved.wagebuilder=20;
     // Existing paid benches can become temporary classrooms. Those places cease
@@ -81,11 +83,12 @@ var CivilCityLabor={
     if(extra){want.waterworker=n.waterEnabled?Math.ceil(this.present(s,id)/CivilCity.waterPerWorker(n)):0;want.medic=Math.max(1,want.medic+Math.ceil(extra*.01/(city==='estuary'?.3:.15)));}
     // Paid shifts take over an existing supply duty; they do not grant a second
     // job to the same residents. A teacher shift also has actual pupils to cover.
-    const count=this.workers(s,id),job=this.trades[city]?.job;if(count&&job)want[job]=Math.max(0,want[job]-count);
+    const p=this.shifts(s).find(p=>p.to===city&&p.phase==='working'),order=p&&this.data(s).contracts[p.order-1],count=this.workers(s,id),trade=this.trade(s,id,order),job=trade?.job;
+    if(count&&job){const rate=order?.version===2?(job==='smith'?trade.output.tools/(n.method==='standard'?.6:.25):trade.output.food/CivilCity.config(id).foodRate):1;want[job]=Math.max(0,want[job]-Math.floor(count*rate));}
   },
-  produce(s,id,run,wet){const city=this.city(s,id),n=CivilCity.node(s,id),trade=this.trades[city];if(!trade)return {taught:0,cared:0};let taught=0,cared=0;
+  produce(s,id,run,wet){const city=this.city(s,id),n=CivilCity.node(s,id);if(!this.trades[city])return {taught:0,cared:0};let taught=0,cared=0;
     for(const p of this.shifts(s).filter(p=>p.to===city&&p.phase==='working')){
-      const at=s.civilization.elapsed;if(p.rounds.at(-1)?.at===at)continue;
+      const trade=this.trade(s,id,this.data(s).contracts[p.order-1]),at=s.civilization.elapsed;if(p.rounds.at(-1)?.at===at)continue;
       let reason=p.count>this.slots(s,city)?'工位改作补充课堂，本班先行结清':!this.active(s,city)?'当地暂停或未续办':!this.lodgingReady(s,this.data(s).contracts[p.order-1])?'临住维护未续办':!wet?'供水中断':null;
       const target=CivilCity.targets(n,s,id),workers=trade.job==='teacher'?p.count:Math.min(p.count,Math.max(...Object.entries(trade.output).map(([k,v])=>Math.ceil(Math.max(0,target[k]-(n.stores[k]||0))/v))));
       if(!workers)reason=reason||'当地储备已足，结束本班';

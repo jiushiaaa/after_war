@@ -1,0 +1,39 @@
+{
+  "kind": "native UI reload/import in isolated browser, no state injection",
+  "at": 68482,
+  "paused": true,
+  "seed": 1345435167,
+  "shifts": 23,
+  "contracts": 10,
+  "active": 0,
+  "households": {
+    "home": {
+      "food": 0,
+      "received": 1409.04,
+      "consumed": 1409.04,
+      "rounds": 11,
+      "lastAt": 68300
+    },
+    "estuary": {
+      "food": 0,
+      "received": 0,
+      "consumed": 0,
+      "rounds": 0,
+      "lastAt": null
+    },
+    "lake": {
+      "food": 0,
+      "received": 23.04,
+      "consumed": 23.04,
+      "rounds": 2,
+      "lastAt": 54660
+    },
+    "ridge": {
+      "food": 0,
+      "received": 380.15999999999997,
+      "consumed": 380.15999999999997,
+      "rounds": 4,
+      "lastAt": 58600
+    }
+  }
+}

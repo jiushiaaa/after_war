@@ -58,7 +58,7 @@ CivilCityCouncil.validate=function(s){
       if(e.kind==='service'){if(e.ref!==e.at||e.at%60)fail('续办时点');expected=this.serviceCost;policy.lastPaidAt=e.at;}
       else{
         if(policy.lastPaidAt===null||e.at-policy.lastPaidAt>=120)fail('未续办执行');
-        if(['laborBuild','laborTravel','laborPack','laborEscrow','laborInput','laborMeals','laborLodging','laborLodgingService'].includes(e.kind)){expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务支出');}
+        if(['laborRecognition','laborBuild','laborTravel','laborPack','laborEscrow','laborInput','laborMeals','laborLodging','laborLodgingService'].includes(e.kind)){expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务支出');}
         else if(['continuityService','continuityEnroll','continuityLesson','continuityInvite'].includes(e.kind)){expected=typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.receipt(s,e):null;if(!expected)fail('接续开支');}
         else if(['homeMaintenance','moveFee','movePack'].includes(e.kind)){expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居支出');}
         else if(e.kind==='cargo'){const p=d.shipments[e.ref-1];if(!p||p.at!==e.at||p.source!==e.city)fail('供料付款');expected=p.cargo;}
