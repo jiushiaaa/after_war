@@ -1,0 +1,274 @@
+{
+  "kind": "isolated native 256 UI branch; real input, no state/time injection",
+  "at": 78259,
+  "keyboard": true,
+  "draftsPreserved": true,
+  "pausedWorldUnchangedBeforeSubmissions": true,
+  "actualScopedPaymentsAndReversal": true,
+  "evidence": [
+    {
+      "view": "folded",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n2 / 5在途\n已完成工程\n9\n本期剩余\n219秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "mutual",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "council_propose",
+          "height": 36.09375
+        }
+      ],
+      "projectVisible": true,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "议定下一项共同工程\n工程与受益地\n炉火城安居\n湖滨市安居\n矿岭市安居\n河口市安居\n湖滨—矿岭直路\n湖滨—河口通路\n矿岭市与河口市 · 安居互助\n桥原市安居\n湖滨—桥原校道\n材料分担\n各城均摊\n受益城承担八成\n按产业供料\n地方自筹\n\n两城各建3200床；两端均完工后共同启用。各城60人施工600秒。新社区每800床每60秒付木4、工具0.8、药1、知识0.2；有限接纳岗位和维护班组。每城限一处。\n炉火城：无 · 同意\n湖滨市：木料 2,880 · 同意\n矿岭市：工具 576 · 同意\n河口市：药品 192 · 同意\n桥原市：知识 144 · 要求先安排本城安居，拒绝继续大额出料\n先完成已经承诺的共同工程\n\n提交工程议案"
+    },
+    {
+      "view": "intake",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "homes_order",
+          "height": 36.09375
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": true,
+      "supplyVisible": false,
+      "text": "议定一批家庭迁居\n迁居来源\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接收城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n本次约定人数\n120人 · 一批\n480人 · 四批自动办理\n\n每批60名成年、36名儿童、24名老人；按现有年龄与身份迁居。住房与岗位按批保留，未出发家庭仍在原处。\n路线 矿岭市 → 湖滨市，单程210秒；来源勤务车4人，往返前不接公共货。\n封存口粮 食物 700；往返车费 食物 20.2、木料 6、工具 1、知识 0.5。余粮到达后入当地公仓。\n接收城现有空床 0、保留岗位 211；本批需供养 60名成人、36名儿童、24名老人。\n本批成人需至多3班岗位课程，完整教具与课时 工具 54、知识 180、食物 180。在现有维护和额度下至少跨2期办理；在办任务、供养和教员不足会延后。\n现有及已承诺设施的每期维护 食物 60、木料 180、知识 22、工具 34、药品 40；预览不扣费，实际入住后才增加当地日常供养。\n接收城空床不足，含已在途与返乡预留\n\n议定迁居约"
+    },
+    {
+      "view": "supply",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "homes_mode",
+          "height": 36.09375
+        },
+        {
+          "id": "homes_maintain",
+          "height": 36.09375
+        },
+        {
+          "id": "homes_supply",
+          "height": 36.09375
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": true,
+      "text": "社区维护与接纳岗位\n社区所在城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接纳岗位工序\n合作粮作\n合作制器\n\n湖滨市 · 当前合作粮作\n每60秒：木料 16、工具 3.2、药品 4、知识 0.8；32名维护人员；计入当地共同事务额度。\n实际接纳岗位 142，近轮工作 142。每人每10秒：粮作用工具0.015产粮1.6；制器用废料0.8、木0.2产工具0.3。库存充足停产，居民仍需供养。\n合格合作岗位承担日常供给，按真实产能减少普通岗位；维护停办或缺员时由普通岗位接回。\n暂停会停止新入住与合作工序；每轮未维护完好度−4，实付维护+5。旧住户不被驱逐。调整各付知识2。\n\n采用合作工序\n暂停社区维护\n恢复补充生产"
+    },
+    {
+      "view": "folded",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n2 / 5在途\n已完成工程\n9\n本期剩余\n219秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "mutual",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "council_propose",
+          "height": 46
+        }
+      ],
+      "projectVisible": true,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "议定下一项共同工程\n工程与受益地\n炉火城安居\n湖滨市安居\n矿岭市安居\n河口市安居\n湖滨—矿岭直路\n湖滨—河口通路\n矿岭市与河口市 · 安居互助\n桥原市安居\n湖滨—桥原校道\n材料分担\n各城均摊\n受益城承担八成\n按产业供料\n地方自筹\n\n两城各建3200床；两端均完工后共同启用。各城60人施工600秒。新社区每800床每60秒付木4、工具0.8、药1、知识0.2；有限接纳岗位和维护班组。每城限一处。\n炉火城：无 · 同意\n湖滨市：木料 2,880 · 同意\n矿岭市：工具 576 · 同意\n河口市：药品 192 · 同意\n桥原市：知识 144 · 要求先安排本城安居，拒绝继续大额出料\n先完成已经承诺的共同工程\n\n提交工程议案"
+    },
+    {
+      "view": "intake",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "homes_order",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": true,
+      "supplyVisible": false,
+      "text": "议定一批家庭迁居\n迁居来源\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接收城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n本次约定人数\n120人 · 一批\n480人 · 四批自动办理\n\n每批60名成年、36名儿童、24名老人；按现有年龄与身份迁居。住房与岗位按批保留，未出发家庭仍在原处。\n路线 矿岭市 → 湖滨市，单程210秒；来源勤务车4人，往返前不接公共货。\n封存口粮 食物 700；往返车费 食物 20.2、木料 6、工具 1、知识 0.5。余粮到达后入当地公仓。\n接收城现有空床 0、保留岗位 211；本批需供养 60名成人、36名儿童、24名老人。\n本批成人需至多3班岗位课程，完整教具与课时 工具 54、知识 180、食物 180。在现有维护和额度下至少跨2期办理；在办任务、供养和教员不足会延后。\n现有及已承诺设施的每期维护 食物 60、木料 180、知识 22、工具 34、药品 40；预览不扣费，实际入住后才增加当地日常供养。\n接收城空床不足，含已在途与返乡预留\n\n议定迁居约"
+    },
+    {
+      "view": "supply",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "homes_mode",
+          "height": 46
+        },
+        {
+          "id": "homes_maintain",
+          "height": 46
+        },
+        {
+          "id": "homes_supply",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": true,
+      "text": "社区维护与接纳岗位\n社区所在城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接纳岗位工序\n合作粮作\n合作制器\n\n湖滨市 · 当前合作粮作\n每60秒：木料 16、工具 3.2、药品 4、知识 0.8；32名维护人员；计入当地共同事务额度。\n实际接纳岗位 142，近轮工作 142。每人每10秒：粮作用工具0.015产粮1.6；制器用废料0.8、木0.2产工具0.3。库存充足停产，居民仍需供养。\n合格合作岗位承担日常供给，按真实产能减少普通岗位；维护停办或缺员时由普通岗位接回。\n暂停会停止新入住与合作工序；每轮未维护完好度−4，实付维护+5。旧住户不被驱逐。调整各付知识2。\n\n采用合作工序\n暂停社区维护\n恢复补充生产"
+    },
+    {
+      "view": "folded",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n2 / 5在途\n已完成工程\n9\n本期剩余\n219秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "mutual",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "council_propose",
+          "height": 46
+        }
+      ],
+      "projectVisible": true,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": false,
+      "text": "议定下一项共同工程\n工程与受益地\n炉火城安居\n湖滨市安居\n矿岭市安居\n河口市安居\n湖滨—矿岭直路\n湖滨—河口通路\n矿岭市与河口市 · 安居互助\n桥原市安居\n湖滨—桥原校道\n材料分担\n各城均摊\n受益城承担八成\n按产业供料\n地方自筹\n\n两城各建3200床；两端均完工后共同启用。各城60人施工600秒。新社区每800床每60秒付木4、工具0.8、药1、知识0.2；有限接纳岗位和维护班组。每城限一处。\n炉火城：无 · 同意\n湖滨市：木料 2,880 · 同意\n矿岭市：工具 576 · 同意\n河口市：药品 192 · 同意\n桥原市：知识 144 · 要求先安排本城安居，拒绝继续大额出料\n先完成已经承诺的共同工程\n\n提交工程议案"
+    },
+    {
+      "view": "intake",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "homes_order",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": true,
+      "supplyVisible": false,
+      "text": "议定一批家庭迁居\n迁居来源\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接收城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n本次约定人数\n120人 · 一批\n480人 · 四批自动办理\n\n每批60名成年、36名儿童、24名老人；按现有年龄与身份迁居。住房与岗位按批保留，未出发家庭仍在原处。\n路线 矿岭市 → 湖滨市，单程210秒；来源勤务车4人，往返前不接公共货。\n封存口粮 食物 700；往返车费 食物 20.2、木料 6、工具 1、知识 0.5。余粮到达后入当地公仓。\n接收城现有空床 0、保留岗位 211；本批需供养 60名成人、36名儿童、24名老人。\n本批成人需至多3班岗位课程，完整教具与课时 工具 54、知识 180、食物 180。在现有维护和额度下至少跨2期办理；在办任务、供养和教员不足会延后。\n现有及已承诺设施的每期维护 食物 60、木料 180、知识 22、工具 34、药品 40；预览不扣费，实际入住后才增加当地日常供养。\n接收城空床不足，含已在途与返乡预留\n\n议定迁居约"
+    },
+    {
+      "view": "supply",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "homes_mode",
+          "height": 46
+        },
+        {
+          "id": "homes_maintain",
+          "height": 46
+        },
+        {
+          "id": "homes_supply",
+          "height": 46
+        }
+      ],
+      "projectVisible": false,
+      "scaleVisible": false,
+      "intakeVisible": false,
+      "supplyVisible": true,
+      "text": "社区维护与接纳岗位\n社区所在城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n接纳岗位工序\n合作粮作\n合作制器\n\n湖滨市 · 当前合作粮作\n每60秒：木料 16、工具 3.2、药品 4、知识 0.8；32名维护人员；计入当地共同事务额度。\n实际接纳岗位 142，近轮工作 142。每人每10秒：粮作用工具0.015产粮1.6；制器用废料0.8、木0.2产工具0.3。库存充足停产，居民仍需供养。\n合格合作岗位承担日常供给，按真实产能减少普通岗位；维护停办或缺员时由普通岗位接回。\n暂停会停止新入住与合作工序；每轮未维护完好度−4，实付维护+5。旧住户不被驱逐。调整各付知识2。\n\n采用合作工序\n暂停社区维护\n恢复补充生产"
+    }
+  ]
+}

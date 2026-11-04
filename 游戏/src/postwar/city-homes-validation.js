@@ -10,14 +10,14 @@ CivilCityHomes.validate=function(s){
   const fail=x=>{throw Error('安居迁居账不符：'+x);},int=n=>Number.isSafeInteger(n)&&n>=0,num=n=>Number.isFinite(n)&&n>=0,time=n=>int(n)&&n<=s.civilization.elapsed,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),near=(a,b)=>num(a)&&num(b)&&Math.abs(a-b)<1e-5;
   if(!d){if(projects.some(p=>p.completedAt!==null))fail('社区无维护册');return;}
   if(d.schema!==1||!time(d.at)||!api.data(s)||!d.estates||!Array.isArray(d.orders)||!Array.isArray(d.trips))fail('登记');
-  const completed=projects.filter(p=>p.completedAt!==null);if(Object.keys(d.estates).length!==completed.length||d.at!==Math.min(...completed.map(p=>p.completedAt)))fail('社区来源');
+  const completed=projects.filter(p=>p.completedAt!==null);if(Object.keys(d.estates).length!==completed.reduce((n,p)=>n+Object.keys(p.sites).length,0)||d.at!==Math.min(...completed.map(p=>p.completedAt)))fail('社区来源');
   const receipts=api.data(s).receipts,receipt=(kind,ref,city)=>receipts.filter(e=>e.kind===kind&&e.ref===ref&&e.city===city);
-  for(const p of projects)if(projects.filter(x=>x.target===p.target).length!==1)fail('重复社区');
+  for(const p of projects)for(const id of Object.keys(p.sites))if(projects.filter(x=>Object.hasOwn(x.sites,id)).length!==1)fail('重复社区');
   for(const [id,e]of Object.entries(d.estates)){
-    const p=completed.find(p=>p.target===id&&p.id===e.project);if(!p||e.at!==p.completedAt||!Array.isArray(e.records)||!Array.isArray(e.changes)||!this.modes[e.mode]||typeof e.enabled!=='boolean')fail('维护册');
-    let enabled=true,mode='food',condition=100,lastPaidAt=null,changeAt=e.at;const changes=e.changes.map(order=>receipts[order-1]);
-    for(const r of changes){if(!r||r.kind!=='homesPolicy'||r.city!==id||r.ref!==p.id||!time(r.at)||r.at<changeAt||!same(r.paid,{knowledge:2}))fail('社区授权');changeAt=r.at;if(r.field==='enabled'&&typeof r.value==='boolean'&&r.value!==enabled)enabled=r.value;else if(r.field==='mode'&&this.modes[r.value]&&r.value!==mode)mode=r.value;else fail('重复社区授权');}
-    if(e.enabled!==enabled||e.mode!==mode||new Set(e.changes).size!==e.changes.length)fail('现行社区授权');
+    const p=completed.find(p=>Object.hasOwn(p.sites,id)&&p.id===e.project);if(!p||e.at!==p.completedAt||!Array.isArray(e.records)||!Array.isArray(e.changes)||!Object.hasOwn(this.modes,e.mode)||typeof e.enabled!=='boolean')fail('维护册');
+    let enabled=true,mode='food',supply,condition=100,lastPaidAt=null,changeAt=e.at;const changes=e.changes.map(order=>receipts[order-1]);
+    for(const r of changes){if(!r||r.kind!=='homesPolicy'||r.city!==id||r.ref!==p.id||!time(r.at)||r.at<changeAt||!same(r.paid,{knowledge:2}))fail('社区授权');changeAt=r.at;if(r.field==='enabled'&&typeof r.value==='boolean'&&r.value!==enabled)enabled=r.value;else if(r.field==='mode'&&Object.hasOwn(this.modes,r.value)&&r.value!==mode)mode=r.value;else if(r.field==='supply'&&typeof r.value==='boolean'&&r.value!==supply){if(r.value&&(!s.civilization.cityContinuity?.offices[id]||s.civilization.cityContinuity.offices[id].completedAt===null||s.civilization.cityContinuity.offices[id].completedAt>r.at))fail('未具备接续工坊');supply=r.value;}else fail('重复社区授权');}
+    if(e.enabled!==enabled||e.mode!==mode||e.supply!==supply||new Set(e.changes).size!==e.changes.length)fail('现行社区授权');
     const start=Math.ceil(e.at/60)*60,expected=Math.max(0,Math.floor(s.civilization.elapsed/60)-Math.ceil(e.at/60)+1);if(e.records.length!==expected)fail('维护轮次');
     for(const [i,r]of e.records.entries()){if(r.at!==start+i*60||typeof r.paid!=='boolean')fail('维护时序');const active=changes.filter(x=>x.at<=r.at&&x.field==='enabled').at(-1)?.value??true;
       // An input after this second's settlement is ordered by its receipt, not just its timestamp.

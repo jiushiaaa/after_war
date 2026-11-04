@@ -81,7 +81,8 @@ CivilCityCouncil.validate=function(s){
   let prior=d.at;
   for(const [i,p]of d.proposals.entries()){
     if(p.id!==i+1||!time(p.at)||p.at<prior||!unique.has('home:meeting:'+p.id))fail('议案次序');prior=p.at;
-    const review=this.review(s,p.kind,p.target,p.mode,p.at,p.order);if(!review||['members','sites','allocations','stances','accepted'].some(k=>!same(p[k],review[k])))fail('利益与分担回放');
+    const review=this.review(s,p.kind,p.target,p.mode,p.at,p.order);if(!review||p.agreementVersion!==review.agreementVersion||['members','sites','allocations','stances','accepted'].some(k=>!same(p[k],review[k])))fail('利益与分担回放');
+    if(p.agreementVersion===2){const budget=s.civilization.cityBudget;if(!budget||budget.at>p.at||Object.keys(p.sites).some(id=>{const decision=budget.decisions.filter(x=>x.at<=p.at&&x.cities.some(r=>r.city===id&&r.receipt<p.order)).at(-1);return !decision||decision.mode==='manual';}))fail('互助预算授权');}
     const projects=d.projects.filter(x=>x.proposal===p.id);if(projects.length!==(p.accepted?1:0))fail('未批准的工程');
   }
   const endByCity={};
@@ -104,7 +105,7 @@ CivilCityCouncil.validate=function(s){
   for(const legs of Object.values(endByCity)){legs.sort((a,b)=>a.startedAt-b.startedAt);let end=0;for(const l of legs){if(l.startedAt<end)fail('一组车辆重复占用');end=l.finishedAt??Infinity;}}
   let ended=d.at;const roads=new Set();
   for(const [i,p]of d.projects.entries()){
-    const proposal=d.proposals[p.proposal-1];if(p.id!==i+1||!proposal?.accepted||p.at!==proposal.at||p.at<ended||p.kind!==proposal.kind||p.target!==proposal.target||p.mode!==proposal.mode||!p.sites||Object.keys(p.sites).join()!==Object.keys(proposal.sites).join()||!Array.isArray(p.pledges)||p.pledges.length!==proposal.allocations.length)fail('工程来源');
+    const proposal=d.proposals[p.proposal-1];if(p.id!==i+1||!proposal?.accepted||p.at!==proposal.at||p.at<ended||p.kind!==proposal.kind||p.target!==proposal.target||p.mode!==proposal.mode||p.agreementVersion!==proposal.agreementVersion||!p.sites||Object.keys(p.sites).join()!==Object.keys(proposal.sites).join()||!Array.isArray(p.pledges)||p.pledges.length!==proposal.allocations.length)fail('工程来源');
     if(p.kind==='road'){if(roads.has(p.target))fail('重复道路');roads.add(p.target);}
     const installed={};
     for(const [j,q]of p.pledges.entries()){

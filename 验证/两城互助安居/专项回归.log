@@ -1,0 +1,30 @@
+✔ 246 is unchanged on import; read-only budget previews never create assets or policies (578.2405ms)
+✔ joint policy charges each city once, does not pool stocks or erase already-used authority (524.83725ms)
+✔ invalid or unaffordable shared decisions fail atomically, including inherited mode keys (145.741209ms)
+✔ reservations protect real recurring maintenance and do not count a paid deadline twice (1218.453458ms)
+✔ real budget cuts cause a maintenance request, and reviewed funding restores upkeep without resetting ledgers (2795.544792ms)
+✔ a new paid shift waits for a feasible current and next period instead of losing its wages to a mid-shift cap (3871.102792ms)
+✔ current commitments remain protected on policy reversal, with no refund or duplicated production (7859.086709ms)
+✔ forged budget payments, scopes, modes and quota links are rejected on import (1506.348709ms)
+✔ specialist construction completes through real multi-city deliveries while each city pays its own upkeep (14040.520875ms)
+✔ twenty years of shared authority preserve population, stock, wages and finite qualified jobs (12579.2425ms)
+✔ a real succession gap competes with construction, and priority changes free authority without creating resources (3753.348459ms)
+✔ full course costs split at the municipal period boundary, never reset or silently disappear (3045.103417ms)
+✔ goods held at a real hub reserve its next leg fee before new local spending, then resume without duplication (13122.051959ms)
+✔ 252 imports unchanged, and mutual/intake previews do not create people, qualifications or stock (827.48875ms)
+✔ a unilateral proposal is actually refused, while a paid bilateral proposal includes both claimed benefits (777.225459ms)
+✔ unknown, duplicate, reversed and existing-benefit targets cannot create duplicate communities (252.36ms)
+✔ pending community and workshop upkeep changes the reviewed quota but never charges a future maintenance bill early (763.978ms)
+✔ two funded worksites create exactly two assets after both complete, clear real housing claims and maintain independently (17553.996792ms)
+✔ four real family batches occupy funded beds, train existing adults and enter actual cooperative food production (3644.930792ms)
+✔ the supply handover is paid, releases ordinary posts and falls back when community upkeep stops (2424.421416ms)
+✔ mutual markers, duplicate estates and unpaid supply changes are rejected during import (683.876416ms)
+✔ twenty years of inhabited cooperative supply retain finite jobs, healthy services and exact population/material ledgers (18093.026667ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 65106.356208

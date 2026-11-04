@@ -89,6 +89,7 @@ var CivilCity={
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.plan(s,id,slots,want,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
+    if(typeof CivilCityHomes!=='undefined')CivilCityHomes.supplyPlan(s,id,want,n.workers.settler||0);
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
     for(const job of order){const v=Math.min(left,slots[job],want[job]);n.workers[job]=v;left-=v;}return {slots,idle:left};
   },
@@ -104,7 +105,7 @@ var CivilCity={
     const run=(job,cost,out,continuous=false)=>{
       let batches=w[job]||0;
       if(!continuous&&Object.keys(out).length&&Object.entries(out).every(([k])=>(n.stores[k]||0)>=target[k]))batches=0;
-      if(!continuous&&typeof CivilCityLabor!=='undefined'){const promised=CivilCityLabor.reservedOutput(s,id,job);for(const [k,v]of Object.entries(out))if(promised[k])batches=Math.min(batches,Math.max(0,Math.floor((target[k]-(n.stores[k]||0)-promised[k])/v)));}
+      if(!continuous&&typeof CivilCityLabor!=='undefined'){const promised={...CivilCityLabor.reservedOutput(s,id,job)};if(typeof CivilCityHomes!=='undefined')this.sum(promised,CivilCityHomes.reservedOutput(s,id,job));for(const [k,v]of Object.entries(out))if(promised[k])batches=Math.min(batches,Math.max(0,Math.floor((target[k]-(n.stores[k]||0)-promised[k])/v)));}
       for(const [k,v]of Object.entries(cost))batches=Math.min(batches,Math.floor(((n.stores[k]||0)+1e-8)/v));
       const paid=Object.fromEntries(Object.entries(cost).map(([k,v])=>[k,v*batches]));this.pay(n,paid);worked[job]=batches;
       for(const [k,v]of Object.entries(out)){const made=continuous?Math.min(v*batches,Math.max(0,target[k]-(n.stores[k]||0))):v*batches;n.stores[k]=(n.stores[k]||0)+made;n.budget.produced[k]=(n.budget.produced[k]||0)+made;}
