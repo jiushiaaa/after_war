@@ -1,0 +1,15 @@
+✔ 273 imports unchanged; old contracts and paid cargo retain their original baskets (3776.257333ms)
+✔ restocking requires a paid standard charter, costs both warehouses and changes no population or vehicles (2002.104958ms)
+✔ source mandate reserves existing trained smelters and real buffer, giving up tool jobs; suspension restores prior allocation (126.578ms)
+✔ twenty years of funded restock replace recurrent shortages, preserving finite work, population, stores and local services (32891.489583ms)
+✔ withdrawal returns unpaid-for-delivery cargo exactly once, later shortage falls back and physical resupply restores production (6759.129458ms)
+✔ changing local industry stops new supplemental dispatch while the existing trip finishes at its signed price (4187.270166ms)
+✔ strict reimport rejects invented authority, over-capacity cargo and altered production even with indexed history replay (6937.616208ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56739.69675
