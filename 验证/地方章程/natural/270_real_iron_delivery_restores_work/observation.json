@@ -1,0 +1,494 @@
+{
+  "at": 93554,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "world": 919512381,
+  "initial": 495435159,
+  "born": 2332535074,
+  "dead": 1908457852,
+  "offices": {
+    "home": {
+      "mode": "repair",
+      "status": "循环修造运行",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 93540,
+        "authority": 12309,
+        "receipt": 12834,
+        "paid": true,
+        "iron": 227.800000000014,
+        "operation": "repair"
+      },
+      "repair": 70,
+      "standard": 0,
+      "produced": 1638.0000000000018,
+      "paid": 24
+    },
+    "lake": {
+      "mode": "standard",
+      "status": "标准加工运行",
+      "operation": "standard",
+      "active": true,
+      "last": {
+        "at": 93540,
+        "authority": 12332,
+        "receipt": 12835,
+        "paid": true,
+        "iron": 72,
+        "operation": "standard"
+      },
+      "repair": 108,
+      "standard": 31,
+      "produced": 4164.200000000001,
+      "paid": 24
+    },
+    "ridge": {
+      "mode": "standard",
+      "status": "标准加工运行",
+      "operation": "standard",
+      "active": true,
+      "last": {
+        "at": 93540,
+        "authority": 12333,
+        "receipt": 12836,
+        "paid": true,
+        "iron": 799.6999999999979,
+        "operation": "standard"
+      },
+      "repair": 4,
+      "standard": 107,
+      "produced": 8713.800000000017,
+      "paid": 24
+    },
+    "estuary": {
+      "mode": "repair",
+      "status": "循环修造运行",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 93540,
+        "authority": 12312,
+        "receipt": 12837,
+        "paid": true,
+        "iron": 80,
+        "operation": "repair"
+      },
+      "repair": 117,
+      "standard": 0,
+      "produced": 18579.59999999996,
+      "paid": 24
+    },
+    "bridge": {
+      "mode": "repair",
+      "status": "循环修造运行",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 93540,
+        "authority": 12313,
+        "receipt": 12838,
+        "paid": true,
+        "iron": 40,
+        "operation": "repair"
+      },
+      "repair": 107,
+      "standard": 0,
+      "produced": 9587.200000000019,
+      "paid": 24
+    }
+  },
+  "trade": {
+    "contract": "industry",
+    "active": {
+      "order": 245,
+      "id": 199,
+      "depot": "yards",
+      "mode": "industry",
+      "share": "host",
+      "startedAt": 93350,
+      "deliveredAt": 93530,
+      "recalledAt": null,
+      "finishedAt": null,
+      "status": "returning",
+      "remaining": 156,
+      "out": {
+        "iron": 24,
+        "tools": 160
+      },
+      "back": {
+        "food": 1400
+      },
+      "fees": {
+        "home": {
+          "wood": 15,
+          "tools": 3,
+          "knowledge": 1.5,
+          "food": 25.919999999999998
+        },
+        "lake": {
+          "wood": 5,
+          "tools": 1,
+          "knowledge": 0.5,
+          "food": 25.919999999999998
+        }
+      }
+    },
+    "reason": "原车仍在途，不能重复占用车辆与人员",
+    "newIron": [
+      {
+        "order": 243,
+        "id": 197,
+        "depot": "yards",
+        "mode": "industry",
+        "share": "host",
+        "startedAt": 92630,
+        "deliveredAt": 92810,
+        "recalledAt": null,
+        "finishedAt": 92990,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 24,
+          "tools": 160
+        },
+        "back": {
+          "food": 1400
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 244,
+        "id": 198,
+        "depot": "yards",
+        "mode": "industry",
+        "share": "host",
+        "startedAt": 92990,
+        "deliveredAt": 93170,
+        "recalledAt": null,
+        "finishedAt": 93350,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 24,
+          "tools": 160
+        },
+        "back": {
+          "food": 1400
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 245,
+        "id": 199,
+        "depot": "yards",
+        "mode": "industry",
+        "share": "host",
+        "startedAt": 93350,
+        "deliveredAt": 93530,
+        "recalledAt": null,
+        "finishedAt": null,
+        "status": "returning",
+        "remaining": 156,
+        "out": {
+          "iron": 24,
+          "tools": 160
+        },
+        "back": {
+          "food": 1400
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      }
+    ]
+  },
+  "projects": [],
+  "ships": [],
+  "issues": [
+    {
+      "city": "ridge",
+      "kind": "housing",
+      "text": "本城住房紧张且持续出料，要求先安排本地安居"
+    }
+  ],
+  "cities": [
+    {
+      "id": "home",
+      "population": 16186,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 480,
+        "jobclerk": 2,
+        "steward": 2,
+        "waterworker": 54,
+        "farmer": 691,
+        "medic": 590,
+        "teacher": 121,
+        "driver": 2,
+        "salvager": 90,
+        "gatherer": 120,
+        "smith": 117,
+        "builder": 0,
+        "smelter": 10
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 0,
+        "waterworker": 54,
+        "farmer": 691,
+        "settler": 0,
+        "medic": 591,
+        "teacher": 121,
+        "smelter": 0,
+        "smith": 0
+      },
+      "stocks": {
+        "food": 16454.83799999973,
+        "medicine": 632.3700000000088,
+        "wood": 2503.5400000002996,
+        "scrap": 2484.4000000004826,
+        "tools": 482.8760000000411,
+        "knowledge": 2999.9,
+        "iron": 227.800000000014
+      },
+      "quota": "active"
+    },
+    {
+      "id": "lake",
+      "population": 62514,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 480,
+        "jobclerk": 2,
+        "freightkeeper": 6,
+        "steward": 2,
+        "waterworker": 391,
+        "farmer": 3046,
+        "medic": 4363,
+        "teacher": 526,
+        "driver": 0,
+        "salvager": 966,
+        "gatherer": 794,
+        "smith": 7,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 794,
+        "salvager": 967,
+        "waterworker": 391,
+        "farmer": 2482,
+        "settler": 480,
+        "medic": 4366,
+        "teacher": 526,
+        "smelter": 0,
+        "smith": 7
+      },
+      "stocks": {
+        "food": 119501.70800002216,
+        "medicine": 4434.859999998173,
+        "wood": 3688.3199999998333,
+        "scrap": 2232.999999999658,
+        "tools": 292.18100000001715,
+        "knowledge": 2999.9,
+        "iron": 71.3
+      },
+      "quota": "active"
+    },
+    {
+      "id": "ridge",
+      "population": 83449,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 522,
+        "farmer": 7073,
+        "medic": 5768,
+        "teacher": 901,
+        "driver": 0,
+        "salvager": 518,
+        "gatherer": 1235,
+        "smith": 131,
+        "builder": 0,
+        "smelter": 160
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 518,
+        "waterworker": 522,
+        "farmer": 7073,
+        "settler": 0,
+        "medic": 5772,
+        "teacher": 901,
+        "smelter": 160,
+        "smith": 0
+      },
+      "stocks": {
+        "food": 165387.1700000266,
+        "medicine": 6464.840000001958,
+        "wood": 4499.640000000739,
+        "scrap": 5146.700000000968,
+        "tools": 1202.117000000378,
+        "knowledge": 2999.9,
+        "iron": 847.6999999999979
+      },
+      "quota": "active"
+    },
+    {
+      "id": "estuary",
+      "population": 142786,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 893,
+        "farmer": 10054,
+        "medic": 4930,
+        "teacher": 2612,
+        "driver": 0,
+        "salvager": 800,
+        "gatherer": 1956,
+        "smith": 794,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 1956,
+        "salvager": 0,
+        "waterworker": 893,
+        "farmer": 10054,
+        "settler": 0,
+        "medic": 4930,
+        "teacher": 2612,
+        "smelter": 0,
+        "smith": 794
+      },
+      "stocks": {
+        "food": 258581.86000013904,
+        "medicine": 14289.639999995054,
+        "wood": 4956.520000000858,
+        "scrap": 4504.000000000037,
+        "tools": 1650.397999999414,
+        "knowledge": 4000,
+        "iron": 80
+      },
+      "quota": "active"
+    },
+    {
+      "id": "bridge",
+      "population": 113514,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 710,
+        "farmer": 8078,
+        "medic": 7863,
+        "teacher": 1206,
+        "driver": 0,
+        "salvager": 1256,
+        "gatherer": 1353,
+        "smith": 448,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 1256,
+        "waterworker": 710,
+        "farmer": 8078,
+        "settler": 0,
+        "medic": 0,
+        "teacher": 1206,
+        "smelter": 0,
+        "smith": 0
+      },
+      "stocks": {
+        "food": 223612.6800000187,
+        "medicine": 10254.600000002816,
+        "wood": 4536.959999999299,
+        "scrap": 5652.200000000474,
+        "tools": 1601.3180000002021,
+        "knowledge": 4000,
+        "iron": 40
+      },
+      "quota": "active"
+    }
+  ]
+}

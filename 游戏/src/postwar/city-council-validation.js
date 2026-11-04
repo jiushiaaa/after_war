@@ -45,6 +45,8 @@ CivilCityCouncil.validate=function(s){
     if(e.kind==='policy'){
       if(!['enabled','quota'].includes(e.field)||e.field==='enabled'&&typeof e.value!=='boolean'||e.field==='quota'&&!this.quotas[e.value]||policy[e.field]===e.value)fail('重复或无效授权');
       policy[e.field]=e.value;expected={knowledge:4};once=null;
+    }else if(e.kind==='governancePolicy'){
+      expected=typeof CivilCityGovernance!=='undefined'?CivilCityGovernance.receipt(s,e):null;if(!expected)fail('地方章程实付');once=null;
     }else if(e.kind==='dispatchBuild'){
       expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货场资本实付');
     }else if(e.kind==='dispatchPolicy'){
@@ -64,7 +66,8 @@ CivilCityCouncil.validate=function(s){
       if(e.kind==='service'){if(e.ref!==e.at||e.at%60)fail('续办时点');expected=this.serviceCost;policy.lastPaidAt=e.at;}
       else{
         if(policy.lastPaidAt===null||e.at-policy.lastPaidAt>=120)fail('未续办执行');
-        if(e.kind==='dispatchService'){expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货场维护');}
+        if(e.kind==='governanceService'){expected=typeof CivilCityGovernance!=='undefined'?CivilCityGovernance.receipt(s,e):null;if(!expected)fail('机构续办');}
+        else if(e.kind==='dispatchService'){expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货场维护');}
         else if(['laborRecognition','laborBuild','laborTravel','laborPack','laborEscrow','laborInput','laborMeals','laborLodging','laborLodgingService'].includes(e.kind)){expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务支出');}
         else if(['continuityService','continuityEnroll','continuityLesson','continuityInvite'].includes(e.kind)){expected=typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.receipt(s,e):null;if(!expected)fail('接续开支');}
         else if(['homeMaintenance','moveFee','movePack'].includes(e.kind)){expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居支出');}
@@ -86,7 +89,7 @@ CivilCityCouncil.validate=function(s){
   let prior=d.at;
   for(const [i,p]of d.proposals.entries()){
     if(p.id!==i+1||!time(p.at)||p.at<prior||!unique.has('home:meeting:'+p.id))fail('议案次序');prior=p.at;
-    const review=this.review(s,p.kind,p.target,p.mode,p.at,p.order);if(!review||p.agreementVersion!==review.agreementVersion||['members','sites','allocations','stances','accepted'].some(k=>!same(p[k],review[k])))fail('利益与分担回放');
+    const review=this.review(s,p.kind,p.target,p.mode,p.at,p.order);if(!review||p.agreementVersion!==review.agreementVersion||p.delegationVersion!==review.delegationVersion||['members','sites','allocations','stances','accepted'].some(k=>!same(p[k],review[k])))fail('利益与分担回放');
     if(p.agreementVersion===2){const budget=s.civilization.cityBudget;if(!budget||budget.at>p.at||Object.keys(p.sites).some(id=>{const decision=budget.decisions.filter(x=>x.at<=p.at&&x.cities.some(r=>r.city===id&&r.receipt<p.order)).at(-1);return !decision||decision.mode==='manual';}))fail('互助预算授权');}
     const projects=d.projects.filter(x=>x.proposal===p.id);if(projects.length!==(p.accepted?1:0))fail('未批准的工程');
   }
@@ -111,7 +114,7 @@ CivilCityCouncil.validate=function(s){
   for(const legs of Object.values(endByCity)){legs.sort((a,b)=>a.startedAt-b.startedAt);let end=0;for(const l of legs){if(l.startedAt<end)fail('一组车辆重复占用');end=l.finishedAt??Infinity;}}
   let ended=d.at;const roads=new Set();
   for(const [i,p]of d.projects.entries()){
-    const proposal=d.proposals[p.proposal-1];if(p.id!==i+1||!proposal?.accepted||p.at!==proposal.at||p.at<ended||p.kind!==proposal.kind||p.target!==proposal.target||p.mode!==proposal.mode||p.agreementVersion!==proposal.agreementVersion||!p.sites||Object.keys(p.sites).join()!==Object.keys(proposal.sites).join()||!Array.isArray(p.pledges)||p.pledges.length!==proposal.allocations.length)fail('工程来源');
+    const proposal=d.proposals[p.proposal-1];if(p.id!==i+1||!proposal?.accepted||p.at!==proposal.at||p.at<ended||p.kind!==proposal.kind||p.target!==proposal.target||p.mode!==proposal.mode||p.agreementVersion!==proposal.agreementVersion||p.delegationVersion!==proposal.delegationVersion||!p.sites||Object.keys(p.sites).join()!==Object.keys(proposal.sites).join()||!Array.isArray(p.pledges)||p.pledges.length!==proposal.allocations.length)fail('工程来源');
     if(p.kind==='road'){if(roads.has(p.target))fail('重复道路');roads.add(p.target);}
     const installed={};
     for(const [j,q]of p.pledges.entries()){

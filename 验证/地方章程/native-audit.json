@@ -1,0 +1,3864 @@
+{
+  "kind": "read-only native exports; 266–273 one continuous UI world, including a connection recovery while paused at 268",
+  "baseline": "7fafe9b52d5d1e1e8df211e00df5b52edac6cb3d",
+  "saves": [
+    {
+      "number": 266,
+      "name": "自然游玩_网络货运与持续维护结清266.json",
+      "sha256": "c06d1a0f03e81507c06eabc29385623bff83e61da69d002f1e041133b1d691c5",
+      "at": 91983,
+      "year": 153,
+      "world": 912205821,
+      "initial": 495435159,
+      "born": 2292340107,
+      "dead": 1875569445,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "stewards": 0,
+          "workers": 2257,
+          "workforce": 3548,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": null
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 0,
+          "workers": 10736,
+          "workforce": 43076,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": null
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 0,
+          "workers": 16561,
+          "workforce": 52353,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": null
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 0,
+          "workers": 21916,
+          "workforce": 68641,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": null
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 0,
+          "workers": 20860,
+          "workforce": 66256,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": null
+        }
+      ],
+      "proposals": [],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {},
+        "services": {}
+      }
+    },
+    {
+      "number": 267,
+      "name": "自然游玩_五城实付地方章程267.json",
+      "sha256": "d670d78cf188937032e5291b0162980022fd3c20ab6ec5a868d928b9f6b2c1f2",
+      "at": 92111,
+      "year": 153,
+      "world": 912205821,
+      "initial": 495435159,
+      "born": 2292340107,
+      "dead": 1875569445,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2261,
+          "workforce": 3548,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": false,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "transitions": [],
+            "repairBatches": 0,
+            "standardBatches": 0,
+            "actualWorkers": 0,
+            "inputs": {},
+            "outputs": {}
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10688,
+          "workforce": 43076,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": false,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "transitions": [],
+            "repairBatches": 0,
+            "standardBatches": 0,
+            "actualWorkers": 0,
+            "inputs": {},
+            "outputs": {}
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16620,
+          "workforce": 52353,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": false,
+            "cap": 100,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "transitions": [],
+            "repairBatches": 0,
+            "standardBatches": 0,
+            "actualWorkers": 0,
+            "inputs": {},
+            "outputs": {}
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 21918,
+          "workforce": 68641,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": false,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "transitions": [],
+            "repairBatches": 0,
+            "standardBatches": 0,
+            "actualWorkers": 0,
+            "inputs": {},
+            "outputs": {}
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20862,
+          "workforce": 66256,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": false,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "transitions": [],
+            "repairBatches": 0,
+            "standardBatches": 0,
+            "actualWorkers": 0,
+            "inputs": {},
+            "outputs": {}
+          }
+        }
+      ],
+      "proposals": [],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 40,
+          "knowledge": 60
+        },
+        "services": {}
+      }
+    },
+    {
+      "number": 268,
+      "name": "自然游玩_两种工序实际生产268.json",
+      "sha256": "8ad34e401d7a6d62bafaa7a48cb46ee53041134c39e94e8fb3547edb386ddf09",
+      "at": 92238,
+      "year": 153,
+      "world": 912205821,
+      "initial": 495435159,
+      "born": 2292340107,
+      "dead": 1875569445,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2334,
+          "workforce": 3548,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 2,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 0,
+            "actualWorkers": 468,
+            "inputs": {
+              "scrap": 187.20000000000002,
+              "wood": 37.44
+            },
+            "outputs": {
+              "tools": 93.60000000000001
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10646,
+          "workforce": 43076,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 600,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 2,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 6,
+            "standardBatches": 1,
+            "actualWorkers": 1027,
+            "inputs": {
+              "scrap": 437.6,
+              "wood": 83.5,
+              "iron": 6.7
+            },
+            "outputs": {
+              "tools": 232.2
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16375,
+          "workforce": 52353,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 2,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 1,
+            "actualWorkers": 1690,
+            "inputs": {
+              "scrap": 728,
+              "wood": 137.8,
+              "iron": 13
+            },
+            "outputs": {
+              "tools": 390
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 22077,
+          "workforce": 68641,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 2,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 6,
+            "standardBatches": 0,
+            "actualWorkers": 4764,
+            "inputs": {
+              "scrap": 1905.6,
+              "wood": 381.12
+            },
+            "outputs": {
+              "tools": 952.8
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20952,
+          "workforce": 66256,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 2,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 6,
+            "standardBatches": 0,
+            "actualWorkers": 2688,
+            "inputs": {
+              "scrap": 1075.2,
+              "wood": 215.04000000000002
+            },
+            "outputs": {
+              "tools": 537.6
+            }
+          }
+        }
+      ],
+      "proposals": [],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 10,
+          "tools": 1.9999999999999998,
+          "knowledge": 1.9999999999999998
+        }
+      }
+    },
+    {
+      "number": 269,
+      "name": "自然游玩_湖滨缺铁转修造269.json",
+      "sha256": "00865812ba8294b03c44c6582f19234c4f05f21d5ccc15ddbd07eccca7e5b013",
+      "at": 92537,
+      "year": 154,
+      "world": 915851810,
+      "initial": 495435159,
+      "born": 2312397423,
+      "dead": 1891980772,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2351,
+          "workforce": 3388,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 7,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 21,
+            "standardBatches": 0,
+            "actualWorkers": 2457,
+            "inputs": {
+              "scrap": 982.7999999999996,
+              "wood": 196.56000000000006
+            },
+            "outputs": {
+              "tools": 491.3999999999998
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10768,
+          "workforce": 43063,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "standard",
+            "operation": "repair",
+            "active": true,
+            "cap": 600,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 7,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              },
+              {
+                "at": 92520,
+                "authority": 12332,
+                "receipt": 12460,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 7,
+            "standardBatches": 30,
+            "actualWorkers": 2620,
+            "inputs": {
+              "scrap": 1647.9999999999993,
+              "wood": 239.59999999999985,
+              "iron": 150
+            },
+            "outputs": {
+              "tools": 1124.0000000000007
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16351,
+          "workforce": 53565,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 7,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 27,
+            "actualWorkers": 5083,
+            "inputs": {
+              "scrap": 3442.4000000000024,
+              "wood": 477.1000000000003,
+              "iron": 352.3000000000001
+            },
+            "outputs": {
+              "tools": 2425.799999999999
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 22077,
+          "workforce": 68641,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 7,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 31,
+            "standardBatches": 0,
+            "actualWorkers": 24614,
+            "inputs": {
+              "scrap": 9845.600000000006,
+              "wood": 1969.1199999999997
+            },
+            "outputs": {
+              "tools": 4922.800000000003
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20952,
+          "workforce": 64249,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 7,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 28,
+            "standardBatches": 0,
+            "actualWorkers": 12544,
+            "inputs": {
+              "scrap": 5017.599999999998,
+              "wood": 1003.5200000000007
+            },
+            "outputs": {
+              "tools": 2508.799999999999
+            }
+          }
+        }
+      ],
+      "proposals": [],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 35,
+          "tools": 7.0000000000000036,
+          "knowledge": 7.0000000000000036
+        }
+      }
+    },
+    {
+      "number": 270,
+      "name": "自然游玩_铁料实到恢复加工270.json",
+      "sha256": "b27164c259aaae11aba612b5508739211f4f8df14e5075baa92d6fd5768fd61e",
+      "at": 93554,
+      "year": 155,
+      "world": 919512381,
+      "initial": 495435159,
+      "born": 2332535074,
+      "dead": 1908457852,
+      "totalCities": 418449,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16186,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2329,
+          "workforce": 3471,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 70,
+            "standardBatches": 0,
+            "actualWorkers": 8190,
+            "inputs": {
+              "scrap": 3276.0000000000036,
+              "wood": 655.2000000000007
+            },
+            "outputs": {
+              "tools": 1638.0000000000018
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10627,
+          "workforce": 43834,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 600,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              },
+              {
+                "at": 92520,
+                "authority": 12332,
+                "receipt": 12460,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              },
+              {
+                "at": 93540,
+                "authority": 12332,
+                "receipt": 12835,
+                "paid": true,
+                "iron": 72,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 108,
+            "standardBatches": 31,
+            "actualWorkers": 17807,
+            "inputs": {
+              "scrap": 7725.599999999999,
+              "wood": 1454.6999999999966,
+              "iron": 150.7
+            },
+            "outputs": {
+              "tools": 4164.200000000001
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16354,
+          "workforce": 53774,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 107,
+            "actualWorkers": 15563,
+            "inputs": {
+              "scrap": 11826.399999999985,
+              "wood": 1525.0999999999976,
+              "iron": 1400.2999999999986
+            },
+            "outputs": {
+              "tools": 8713.800000000017
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 22077,
+          "workforce": 68640,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 117,
+            "standardBatches": 0,
+            "actualWorkers": 92898,
+            "inputs": {
+              "scrap": 37159.19999999992,
+              "wood": 7431.840000000022
+            },
+            "outputs": {
+              "tools": 18579.59999999996
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20952,
+          "workforce": 63678,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 107,
+            "standardBatches": 0,
+            "actualWorkers": 47936,
+            "inputs": {
+              "scrap": 19174.400000000038,
+              "wood": 3834.8800000000056
+            },
+            "outputs": {
+              "tools": 9587.200000000019
+            }
+          }
+        }
+      ],
+      "proposals": [],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [
+        {
+          "id": 197,
+          "startedAt": 92630,
+          "deliveredAt": 92810,
+          "finishedAt": 92990,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 198,
+          "startedAt": 92990,
+          "deliveredAt": 93170,
+          "finishedAt": 93350,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 199,
+          "startedAt": 93350,
+          "deliveredAt": 93530,
+          "finishedAt": null,
+          "status": "returning",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 120,
+          "tools": 23.999999999999947,
+          "knowledge": 23.999999999999947
+        }
+      }
+    },
+    {
+      "number": 271,
+      "name": "自然游玩_地方住房诉求拒绝大额外援271.json",
+      "sha256": "0e1a7da29081ff38229c121638378b31225c8a50f9c74e139de8c84b50437fd3",
+      "at": 93564,
+      "year": 155,
+      "world": 919512381,
+      "initial": 495435159,
+      "born": 2332535074,
+      "dead": 1908457852,
+      "totalCities": 418449,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16186,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2329,
+          "workforce": 3471,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 71,
+            "standardBatches": 0,
+            "actualWorkers": 8307,
+            "inputs": {
+              "scrap": 3322.800000000004,
+              "wood": 664.5600000000007
+            },
+            "outputs": {
+              "tools": 1661.400000000002
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10624,
+          "workforce": 43834,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 600,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              },
+              {
+                "at": 92520,
+                "authority": 12332,
+                "receipt": 12460,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              },
+              {
+                "at": 93540,
+                "authority": 12332,
+                "receipt": 12835,
+                "paid": true,
+                "iron": 72,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 108,
+            "standardBatches": 32,
+            "actualWorkers": 17814,
+            "inputs": {
+              "scrap": 7731.2,
+              "wood": 1455.3999999999967,
+              "iron": 151.39999999999998
+            },
+            "outputs": {
+              "tools": 4168.400000000001
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16337,
+          "workforce": 53774,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 108,
+            "actualWorkers": 15694,
+            "inputs": {
+              "scrap": 11931.199999999984,
+              "wood": 1538.1999999999975,
+              "iron": 1413.3999999999985
+            },
+            "outputs": {
+              "tools": 8792.400000000018
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 22077,
+          "workforce": 68640,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 118,
+            "standardBatches": 0,
+            "actualWorkers": 93692,
+            "inputs": {
+              "scrap": 37476.799999999916,
+              "wood": 7495.360000000022
+            },
+            "outputs": {
+              "tools": 18738.399999999958
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20952,
+          "workforce": 63678,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 108,
+            "standardBatches": 0,
+            "actualWorkers": 48384,
+            "inputs": {
+              "scrap": 19353.60000000004,
+              "wood": 3870.7200000000057
+            },
+            "outputs": {
+              "tools": 9676.80000000002
+            }
+          }
+        }
+      ],
+      "proposals": [
+        {
+          "id": 14,
+          "at": 93564,
+          "order": 12841,
+          "kind": "housing",
+          "target": "home",
+          "mode": "specialist",
+          "members": [
+            "home",
+            "lake",
+            "ridge",
+            "estuary",
+            "bridge"
+          ],
+          "sites": {
+            "home": {
+              "wood": 480,
+              "tools": 96,
+              "medicine": 48,
+              "knowledge": 24
+            }
+          },
+          "allocations": [
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 96
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "medicine": 48
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "knowledge": 24
+              }
+            }
+          ],
+          "stances": [
+            {
+              "city": "home",
+              "share": 0,
+              "code": "support",
+              "population": 8619,
+              "beds": 8620,
+              "owed": 252
+            },
+            {
+              "city": "lake",
+              "share": 480,
+              "code": "support",
+              "population": 62514,
+              "beds": 62514,
+              "owed": 168
+            },
+            {
+              "city": "ridge",
+              "share": 768,
+              "code": "housingFirst",
+              "population": 83449,
+              "beds": 83449,
+              "owed": 3324
+            },
+            {
+              "city": "estuary",
+              "share": 192,
+              "code": "support",
+              "population": 142786,
+              "beds": 142786,
+              "owed": -2736
+            },
+            {
+              "city": "bridge",
+              "share": 48,
+              "code": "support",
+              "population": 113514,
+              "beds": 113514,
+              "owed": -1008
+            }
+          ],
+          "accepted": false
+        }
+      ],
+      "projects": [],
+      "shipments": [],
+      "ironTrade": [
+        {
+          "id": 197,
+          "startedAt": 92630,
+          "deliveredAt": 92810,
+          "finishedAt": 92990,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 198,
+          "startedAt": 92990,
+          "deliveredAt": 93170,
+          "finishedAt": 93350,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 199,
+          "startedAt": 93350,
+          "deliveredAt": 93530,
+          "finishedAt": null,
+          "status": "returning",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 120,
+          "tools": 23.999999999999947,
+          "knowledge": 23.999999999999947
+        }
+      }
+    },
+    {
+      "number": 272,
+      "name": "自然游玩_地方章程分担与实物在途272.json",
+      "sha256": "5da0457171b71ec9701e6c0585534d8782610d7422f45d3f40b792c946d9148c",
+      "at": 93587,
+      "year": 155,
+      "world": 919512381,
+      "initial": 495435159,
+      "born": 2332535074,
+      "dead": 1908457852,
+      "totalCities": 418449,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16186,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2335,
+          "workforce": 3471,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 71,
+            "standardBatches": 0,
+            "actualWorkers": 8307,
+            "inputs": {
+              "scrap": 3322.800000000004,
+              "wood": 664.5600000000007
+            },
+            "outputs": {
+              "tools": 1661.400000000002
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10622,
+          "workforce": 43834,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              },
+              {
+                "at": 92520,
+                "authority": 12332,
+                "receipt": 12460,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              },
+              {
+                "at": 93540,
+                "authority": 12332,
+                "receipt": 12835,
+                "paid": true,
+                "iron": 72,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 108,
+            "standardBatches": 34,
+            "actualWorkers": 17888,
+            "inputs": {
+              "scrap": 7790.400000000001,
+              "wood": 1462.7999999999968,
+              "iron": 158.79999999999995
+            },
+            "outputs": {
+              "tools": 4212.8
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16335,
+          "workforce": 53774,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 109,
+            "actualWorkers": 15825,
+            "inputs": {
+              "scrap": 12035.999999999984,
+              "wood": 1551.2999999999975,
+              "iron": 1426.4999999999984
+            },
+            "outputs": {
+              "tools": 8871.000000000018
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 22080,
+          "workforce": 68640,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 120,
+            "standardBatches": 0,
+            "actualWorkers": 95280,
+            "inputs": {
+              "scrap": 38111.99999999991,
+              "wood": 7622.400000000023
+            },
+            "outputs": {
+              "tools": 19055.999999999956
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20955,
+          "workforce": 63678,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 24,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 110,
+            "standardBatches": 0,
+            "actualWorkers": 49280,
+            "inputs": {
+              "scrap": 19712.00000000004,
+              "wood": 3942.400000000006
+            },
+            "outputs": {
+              "tools": 9856.00000000002
+            }
+          }
+        }
+      ],
+      "proposals": [
+        {
+          "id": 14,
+          "at": 93564,
+          "order": 12841,
+          "kind": "housing",
+          "target": "home",
+          "mode": "specialist",
+          "members": [
+            "home",
+            "lake",
+            "ridge",
+            "estuary",
+            "bridge"
+          ],
+          "sites": {
+            "home": {
+              "wood": 480,
+              "tools": 96,
+              "medicine": 48,
+              "knowledge": 24
+            }
+          },
+          "allocations": [
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 96
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "medicine": 48
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "knowledge": 24
+              }
+            }
+          ],
+          "stances": [
+            {
+              "city": "home",
+              "share": 0,
+              "code": "support",
+              "population": 8619,
+              "beds": 8620,
+              "owed": 252
+            },
+            {
+              "city": "lake",
+              "share": 480,
+              "code": "support",
+              "population": 62514,
+              "beds": 62514,
+              "owed": 168
+            },
+            {
+              "city": "ridge",
+              "share": 768,
+              "code": "housingFirst",
+              "population": 83449,
+              "beds": 83449,
+              "owed": 3324
+            },
+            {
+              "city": "estuary",
+              "share": 192,
+              "code": "support",
+              "population": 142786,
+              "beds": 142786,
+              "owed": -2736
+            },
+            {
+              "city": "bridge",
+              "share": 48,
+              "code": "support",
+              "population": 113514,
+              "beds": 113514,
+              "owed": -1008
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "id": 15,
+          "at": 93564,
+          "order": 12842,
+          "kind": "housing",
+          "target": "home",
+          "mode": "charter",
+          "delegationVersion": 1,
+          "members": [
+            "home",
+            "lake",
+            "ridge",
+            "estuary",
+            "bridge"
+          ],
+          "sites": {
+            "home": {
+              "wood": 480,
+              "tools": 96,
+              "medicine": 48,
+              "knowledge": 24
+            }
+          },
+          "allocations": [
+            {
+              "from": "home",
+              "to": "home",
+              "required": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              }
+            },
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480,
+                "tools": 15
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            }
+          ],
+          "stances": [
+            {
+              "city": "home",
+              "share": 288,
+              "code": "support",
+              "population": 8619,
+              "beds": 8620,
+              "owed": 252
+            },
+            {
+              "city": "lake",
+              "share": 600,
+              "code": "support",
+              "population": 62514,
+              "beds": 62514,
+              "owed": 168
+            },
+            {
+              "city": "ridge",
+              "share": 200,
+              "code": "limitedSupport",
+              "population": 83449,
+              "beds": 83449,
+              "owed": 3324
+            },
+            {
+              "city": "estuary",
+              "share": 200,
+              "code": "support",
+              "population": 142786,
+              "beds": 142786,
+              "owed": -2736
+            },
+            {
+              "city": "bridge",
+              "share": 200,
+              "code": "support",
+              "population": 113514,
+              "beds": 113514,
+              "owed": -1008
+            }
+          ],
+          "accepted": true
+        }
+      ],
+      "projects": [
+        {
+          "id": 12,
+          "proposal": 15,
+          "at": 93564,
+          "kind": "housing",
+          "target": "home",
+          "mode": "charter",
+          "delegationVersion": 1,
+          "completedAt": null,
+          "sites": {
+            "home": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "worked": 0,
+              "remaining": 300,
+              "completedAt": null
+            }
+          },
+          "pledges": [
+            {
+              "from": "home",
+              "to": "home",
+              "required": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "allocated": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "delivered": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              }
+            },
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480,
+                "tools": 15
+              },
+              "allocated": {
+                "tools": 15,
+                "wood": 480
+              },
+              "delivered": {}
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {}
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {}
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {}
+            }
+          ]
+        }
+      ],
+      "shipments": [
+        {
+          "id": 44,
+          "project": 12,
+          "at": 93570,
+          "source": "lake",
+          "target": "home",
+          "carrier": "bulk",
+          "cargo": {
+            "tools": 15,
+            "wood": 480
+          },
+          "deliveredAt": null,
+          "returned": false
+        },
+        {
+          "id": 45,
+          "project": 12,
+          "at": 93570,
+          "source": "ridge",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": null,
+          "returned": false
+        },
+        {
+          "id": 46,
+          "project": 12,
+          "at": 93570,
+          "source": "estuary",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": null,
+          "returned": false
+        },
+        {
+          "id": 47,
+          "project": 12,
+          "at": 93570,
+          "source": "bridge",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": null,
+          "returned": false
+        }
+      ],
+      "ironTrade": [
+        {
+          "id": 197,
+          "startedAt": 92630,
+          "deliveredAt": 92810,
+          "finishedAt": 92990,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 198,
+          "startedAt": 92990,
+          "deliveredAt": 93170,
+          "finishedAt": 93350,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 199,
+          "startedAt": 93350,
+          "deliveredAt": 93530,
+          "finishedAt": null,
+          "status": "returning",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        }
+      ],
+      "publicReturned": false,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 120,
+          "tools": 23.999999999999947,
+          "knowledge": 23.999999999999947
+        }
+      }
+    },
+    {
+      "number": 273,
+      "name": "自然游玩_地方章程与公共职责结清273.json",
+      "sha256": "83edf9b7e8756dedde82cd3173e85685ab006671b2a5c26157d27ccbe185dcf2",
+      "at": 95270,
+      "year": 158,
+      "world": 930582189,
+      "initial": 495435159,
+      "born": 2393432173,
+      "dead": 1958285143,
+      "totalCities": 418449,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16186,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 2341,
+          "workforce": 3101,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12309,
+                "at": 92111,
+                "city": "home",
+                "kind": "governancePolicy",
+                "ref": "home",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 52,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12309,
+                "receipt": 12325,
+                "paid": true,
+                "iron": 255.800000000014,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 153,
+            "standardBatches": 0,
+            "actualWorkers": 17901,
+            "inputs": {
+              "scrap": 7160.400000000019,
+              "wood": 1432.079999999997
+            },
+            "outputs": {
+              "tools": 3580.2000000000094
+            }
+          }
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 10643,
+          "workforce": 43801,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12310,
+                "at": 92111,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12332,
+                "at": 92187,
+                "city": "lake",
+                "kind": "governancePolicy",
+                "ref": "lake",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 52,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12310,
+                "receipt": 12326,
+                "paid": true,
+                "iron": 150,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12332,
+                "receipt": 12346,
+                "paid": true,
+                "iron": 150,
+                "operation": "standard"
+              },
+              {
+                "at": 92520,
+                "authority": 12332,
+                "receipt": 12460,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              },
+              {
+                "at": 93540,
+                "authority": 12332,
+                "receipt": 12835,
+                "paid": true,
+                "iron": 72,
+                "operation": "standard"
+              },
+              {
+                "at": 93720,
+                "authority": 12332,
+                "receipt": 12905,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              },
+              {
+                "at": 94620,
+                "authority": 12332,
+                "receipt": 13232,
+                "paid": true,
+                "iron": 72,
+                "operation": "standard"
+              },
+              {
+                "at": 94800,
+                "authority": 12332,
+                "receipt": 13298,
+                "paid": true,
+                "iron": 0,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 245,
+            "standardBatches": 62,
+            "actualWorkers": 40460,
+            "inputs": {
+              "scrap": 17360.000000000007,
+              "wood": 3295.600000000009,
+              "iron": 293.99999999999966
+            },
+            "outputs": {
+              "tools": 9267.999999999996
+            }
+          }
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 16411,
+          "workforce": 53786,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ],
+          "governance": {
+            "mode": "standard",
+            "operation": "standard",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12311,
+                "at": 92111,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              },
+              {
+                "id": 12333,
+                "at": 92187,
+                "city": "ridge",
+                "kind": "governancePolicy",
+                "ref": "ridge",
+                "paid": {
+                  "tools": 2,
+                  "knowledge": 4
+                },
+                "mode": "standard"
+              }
+            ],
+            "maintenancePaid": 52,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12311,
+                "receipt": 12327,
+                "paid": true,
+                "iron": 817,
+                "operation": "repair"
+              },
+              {
+                "at": 92220,
+                "authority": 12333,
+                "receipt": 12347,
+                "paid": true,
+                "iron": 816,
+                "operation": "standard"
+              }
+            ],
+            "repairBatches": 4,
+            "standardBatches": 247,
+            "actualWorkers": 33903,
+            "inputs": {
+              "scrap": 26498.399999999885,
+              "wood": 3359.099999999985,
+              "iron": 3234.299999999986
+            },
+            "outputs": {
+              "tools": 19717.799999999992
+            }
+          }
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 21919,
+          "workforce": 75475,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12312,
+                "at": 92111,
+                "city": "estuary",
+                "kind": "governancePolicy",
+                "ref": "estuary",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 52,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12312,
+                "receipt": 12328,
+                "paid": true,
+                "iron": 80,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 263,
+            "standardBatches": 0,
+            "actualWorkers": 209647,
+            "inputs": {
+              "scrap": 83858.79999999994,
+              "wood": 16771.76000000004
+            },
+            "outputs": {
+              "tools": 41929.39999999997
+            }
+          }
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "stewards": 2,
+          "workers": 20952,
+          "workforce": 63678,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [],
+          "governance": {
+            "mode": "repair",
+            "operation": "repair",
+            "active": true,
+            "cap": 200,
+            "changes": [
+              {
+                "id": 12313,
+                "at": 92111,
+                "city": "bridge",
+                "kind": "governancePolicy",
+                "ref": "bridge",
+                "paid": {
+                  "wood": 40,
+                  "tools": 8,
+                  "knowledge": 12
+                },
+                "mode": "repair"
+              }
+            ],
+            "maintenancePaid": 52,
+            "maintenanceUnpaid": 0,
+            "transitions": [
+              {
+                "at": 92160,
+                "authority": 12313,
+                "receipt": 12329,
+                "paid": true,
+                "iron": 40,
+                "operation": "repair"
+              }
+            ],
+            "repairBatches": 241,
+            "standardBatches": 0,
+            "actualWorkers": 107968,
+            "inputs": {
+              "scrap": 43187.199999999924,
+              "wood": 8637.440000000024
+            },
+            "outputs": {
+              "tools": 21593.599999999962
+            }
+          }
+        }
+      ],
+      "proposals": [
+        {
+          "id": 14,
+          "at": 93564,
+          "order": 12841,
+          "kind": "housing",
+          "target": "home",
+          "mode": "specialist",
+          "members": [
+            "home",
+            "lake",
+            "ridge",
+            "estuary",
+            "bridge"
+          ],
+          "sites": {
+            "home": {
+              "wood": 480,
+              "tools": 96,
+              "medicine": 48,
+              "knowledge": 24
+            }
+          },
+          "allocations": [
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 96
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "medicine": 48
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "knowledge": 24
+              }
+            }
+          ],
+          "stances": [
+            {
+              "city": "home",
+              "share": 0,
+              "code": "support",
+              "population": 8619,
+              "beds": 8620,
+              "owed": 252
+            },
+            {
+              "city": "lake",
+              "share": 480,
+              "code": "support",
+              "population": 62514,
+              "beds": 62514,
+              "owed": 168
+            },
+            {
+              "city": "ridge",
+              "share": 768,
+              "code": "housingFirst",
+              "population": 83449,
+              "beds": 83449,
+              "owed": 3324
+            },
+            {
+              "city": "estuary",
+              "share": 192,
+              "code": "support",
+              "population": 142786,
+              "beds": 142786,
+              "owed": -2736
+            },
+            {
+              "city": "bridge",
+              "share": 48,
+              "code": "support",
+              "population": 113514,
+              "beds": 113514,
+              "owed": -1008
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "id": 15,
+          "at": 93564,
+          "order": 12842,
+          "kind": "housing",
+          "target": "home",
+          "mode": "charter",
+          "delegationVersion": 1,
+          "members": [
+            "home",
+            "lake",
+            "ridge",
+            "estuary",
+            "bridge"
+          ],
+          "sites": {
+            "home": {
+              "wood": 480,
+              "tools": 96,
+              "medicine": 48,
+              "knowledge": 24
+            }
+          },
+          "allocations": [
+            {
+              "from": "home",
+              "to": "home",
+              "required": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              }
+            },
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480,
+                "tools": 15
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              }
+            }
+          ],
+          "stances": [
+            {
+              "city": "home",
+              "share": 288,
+              "code": "support",
+              "population": 8619,
+              "beds": 8620,
+              "owed": 252
+            },
+            {
+              "city": "lake",
+              "share": 600,
+              "code": "support",
+              "population": 62514,
+              "beds": 62514,
+              "owed": 168
+            },
+            {
+              "city": "ridge",
+              "share": 200,
+              "code": "limitedSupport",
+              "population": 83449,
+              "beds": 83449,
+              "owed": 3324
+            },
+            {
+              "city": "estuary",
+              "share": 200,
+              "code": "support",
+              "population": 142786,
+              "beds": 142786,
+              "owed": -2736
+            },
+            {
+              "city": "bridge",
+              "share": 200,
+              "code": "support",
+              "population": 113514,
+              "beds": 113514,
+              "owed": -1008
+            }
+          ],
+          "accepted": true
+        }
+      ],
+      "projects": [
+        {
+          "id": 12,
+          "proposal": 15,
+          "at": 93564,
+          "kind": "housing",
+          "target": "home",
+          "mode": "charter",
+          "delegationVersion": 1,
+          "completedAt": 94650,
+          "sites": {
+            "home": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24,
+                "wood": 480
+              },
+              "worked": 300,
+              "remaining": 0,
+              "completedAt": 94650
+            }
+          },
+          "pledges": [
+            {
+              "from": "home",
+              "to": "home",
+              "required": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "allocated": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "delivered": {
+                "tools": 6,
+                "medicine": 48,
+                "knowledge": 24
+              }
+            },
+            {
+              "from": "lake",
+              "to": "home",
+              "required": {
+                "wood": 480,
+                "tools": 15
+              },
+              "allocated": {
+                "tools": 15,
+                "wood": 480
+              },
+              "delivered": {
+                "tools": 15,
+                "wood": 480
+              }
+            },
+            {
+              "from": "ridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "estuary",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {
+                "tools": 25
+              }
+            },
+            {
+              "from": "bridge",
+              "to": "home",
+              "required": {
+                "tools": 25
+              },
+              "allocated": {
+                "tools": 25
+              },
+              "delivered": {
+                "tools": 25
+              }
+            }
+          ]
+        }
+      ],
+      "shipments": [
+        {
+          "id": 44,
+          "project": 12,
+          "at": 93570,
+          "source": "lake",
+          "target": "home",
+          "carrier": "bulk",
+          "cargo": {
+            "tools": 15,
+            "wood": 480
+          },
+          "deliveredAt": 93750,
+          "returned": true
+        },
+        {
+          "id": 45,
+          "project": 12,
+          "at": 93570,
+          "source": "ridge",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": 93810,
+          "returned": true
+        },
+        {
+          "id": 46,
+          "project": 12,
+          "at": 93570,
+          "source": "estuary",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": 94350,
+          "returned": true
+        },
+        {
+          "id": 47,
+          "project": 12,
+          "at": 93570,
+          "source": "bridge",
+          "target": "home",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 25
+          },
+          "deliveredAt": 93990,
+          "returned": true
+        }
+      ],
+      "ironTrade": [
+        {
+          "id": 197,
+          "startedAt": 92630,
+          "deliveredAt": 92810,
+          "finishedAt": 92990,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 198,
+          "startedAt": 92990,
+          "deliveredAt": 93170,
+          "finishedAt": 93350,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 199,
+          "startedAt": 93350,
+          "deliveredAt": 93530,
+          "finishedAt": 93710,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 200,
+          "startedAt": 93710,
+          "deliveredAt": 93890,
+          "finishedAt": 94070,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 201,
+          "startedAt": 94070,
+          "deliveredAt": 94250,
+          "finishedAt": 94430,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 202,
+          "startedAt": 94430,
+          "deliveredAt": 94610,
+          "finishedAt": 94790,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 203,
+          "startedAt": 94790,
+          "deliveredAt": 94970,
+          "finishedAt": 95150,
+          "status": "complete",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        },
+        {
+          "id": 204,
+          "startedAt": 95150,
+          "deliveredAt": null,
+          "finishedAt": null,
+          "status": "outbound",
+          "out": {
+            "iron": 24,
+            "tools": 160
+          },
+          "back": {
+            "food": 1400
+          },
+          "fees": {
+            "home": {
+              "wood": 15,
+              "tools": 3,
+              "knowledge": 1.5,
+              "food": 25.919999999999998
+            },
+            "lake": {
+              "wood": 5,
+              "tools": 1,
+              "knowledge": 0.5,
+              "food": 25.919999999999998
+            }
+          }
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "fees": {
+        "policies": {
+          "wood": 200,
+          "tools": 44,
+          "knowledge": 68
+        },
+        "services": {
+          "food": 260,
+          "tools": 52.0000000000002,
+          "knowledge": 52.0000000000002
+        }
+      }
+    }
+  ],
+  "historicalFiles": 285
+}

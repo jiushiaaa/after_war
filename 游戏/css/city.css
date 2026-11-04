@@ -81,3 +81,10 @@ body.dark #cityTerrain .city-ground-road { color:#ccc; }
 .city-budget-table th:nth-child(3) { width:54px; }
 .city-budget-table small { display:block; font-weight:normal; color:#666; white-space:nowrap; }
 .city-budget-table th:last-child,.city-budget-table td:last-child { text-align:left; padding-left:8px; overflow-wrap:anywhere; }
+
+/* The shared-city docket keeps advanced controls inside three duty groups. */
+#governanceDocket { margin:12px 0; border-top:1px solid #aaa; }
+#governanceDocket p { margin:8px 0; }
+#governanceDocket a { text-decoration:underline; color:inherit; }
+#governanceOperations > summary, #governanceProjects > summary, #governanceAccounts > summary { line-height:2.5; }
+@media(max-width:560px){ #governanceDocket a { display:inline-block; min-height:44px; line-height:44px; } }

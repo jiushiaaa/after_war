@@ -60,6 +60,7 @@
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.validate(state);
     if(typeof CivilCityBudget!=='undefined')CivilCityBudget.validate(state);
     if(typeof CivilCityDispatch!=='undefined')CivilCityDispatch.validate(state);
+    if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

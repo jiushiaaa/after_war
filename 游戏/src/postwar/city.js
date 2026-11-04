@@ -88,9 +88,11 @@ var CivilCity={
     if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.plan(s,id,slots,want,reserved);
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.plan(s,id,slots,want,reserved);
     if(typeof CivilCityDispatch!=='undefined')CivilCityDispatch.plan(s,id,reserved);
+    if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.reserve(s,id,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.supplyPlan(s,id,want,n.workers.settler||0);
+    if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.plan(s,id,want);
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
     for(const job of order){const v=Math.min(left,slots[job],want[job]);n.workers[job]=v;left-=v;}return {slots,idle:left};
   },
@@ -121,7 +123,9 @@ var CivilCity={
     const clinical=id==='estuary'||typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
     run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:this.config(id).knowledgeRate||.2},true);
     run('smelter',{scrap:1,wood:.5},{iron:.3});
-    run('smith',n.method==='standard'?{scrap:.8,wood:.1,iron:.05}:{scrap:.6,wood:.2},{tools:n.method==='standard'?.6:.25});
+    const charterRecipe=typeof CivilCityGovernance!=='undefined'?CivilCityGovernance.recipe(s,id):null;
+    const smiths=run('smith',charterRecipe?.input||(n.method==='standard'?{scrap:.8,wood:.1,iron:.05}:{scrap:.6,wood:.2}),charterRecipe?.output||{tools:n.method==='standard'?.6:.25});
+    if(charterRecipe)CivilCityGovernance.recordProduction(s,id,smiths,charterRecipe);
     const wageServices=typeof CivilCityLabor!=='undefined'?CivilCityLabor.produce(s,id,run,wet):{taught:0,cared:0};
     const treated=((w.medic||0)+wageServices.cared>0)&&this.pay(n,{medicine:p*.01}),educated=((worked.teacher||0)+wageServices.taught)*20>=CivilPopulation.children(n.cohorts);
     const administered=id==='ridge'?(n.workers.clerk===2&&this.pay(n,{food:2,wood:1,knowledge:.1})):id==='lake'?CivilConurbation.officeReady(s)&&this.pay(n,{food:2,wood:1,knowledge:.1}):n.joinedAt===null||this.pay(n,{food:2,wood:1,knowledge:.1});

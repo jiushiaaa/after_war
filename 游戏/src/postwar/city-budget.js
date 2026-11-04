@@ -3,7 +3,7 @@
 var CivilCityBudget={
   modes:{balanced:'轮替办理',learning:'接班优先',delivery:'履约优先',manual:'恢复分项办理'},
   cost:{knowledge:4},
-  upkeepKinds:['service','homeMaintenance','continuityService','laborLodgingService','dispatchService'],
+  upkeepKinds:['service','homeMaintenance','continuityService','laborLodgingService','dispatchService','governanceService'],
   committedKinds:['continuityLesson','laborInput','laborMeals','leg'],
   c(){return CivilCityCouncil;},x(){return CivilCityContinuity;},l(){return CivilCityLabor;},
   data(s){return s.civilization.cityBudget;},
@@ -22,6 +22,7 @@ var CivilCityBudget={
     if(x?.completedAt!==null&&x?.enabled)rows.push({kind:'岗位工坊',cost:this.x().officeFee(s,id),last:x.lastPaidAt});
     for(const p of this.l().data(s)?.contracts||[])if(p.to===id&&p.from!==id&&(p.endedAt===null||this.l().shifts(s).some(t=>t.order===p.id&&t.leftAt===null)))rows.push({kind:'驻班临住',cost:this.l().lodgingFee(p.count),last:p.lastLodgingAt});
     const freight=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.depot(s,id):null;if(freight?.completedAt!==null&&freight?.enabled)rows.push({kind:'联运货场',cost:CivilCityDispatch.fee,last:freight.lastPaidAt});
+    const charter=typeof CivilCityGovernance!=='undefined'?CivilCityGovernance.office(s,id):null;if(charter&&charter.mode!=='manual')rows.push({kind:'机构调度',cost:CivilCityGovernance.fee,last:charter.lastPaidAt});
     const total={};for(const r of rows){r.rounds=this.ticks(start,end,60).filter(t=>r.last!==t).length;this.add(total,r.cost,r.rounds);}return {total,rows};
   },
   schedule(s){return {start:this.c().period(s),costs:[{},{},{}]};},

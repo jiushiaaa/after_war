@@ -157,6 +157,7 @@ var Civilization = {
     if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.tick(State);
     if(typeof CivilCityDispatch!=='undefined')CivilCityDispatch.tick(State);
     if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.tick(State);
+    if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.tick(State);
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.tick(State);
     if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.tick(State);
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.tick(State);

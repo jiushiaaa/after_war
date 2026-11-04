@@ -1,0 +1,290 @@
+{
+  "kind": "isolated native 268 branch; real input, no state/time injection",
+  "at": 92301,
+  "views": 14,
+  "keyboard": true,
+  "pausedNavigationUnchanged": true,
+  "draftsPreserved": true,
+  "localLedger": true,
+  "issueTargetsCity": true,
+  "paidScopedChange": true,
+  "pauseResume": true,
+  "evidence": [
+    {
+      "view": "folded",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n0 / 6在途\n已完成工程\n11\n本期剩余\n577秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "charter",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "governance_apply",
+          "height": 36.09375
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": true,
+      "text": "每名制器工每10秒耗废料0.4、木0.08，产工具0.2；不依赖铁料，较占工位。新工程对外最多200折值，出现住房诉求时降为100。\n使用现有工位和居民，另留2名办事员；每60秒实付粮1、工具0.2、知识0.2，纳入共同预算。\n湖滨市：议定与校准实付 工具 2、知识 4\n共同工程可选“依地方章程分担”：在限额内优先产业来源，不足部分由受益城自筹。当地诉求保留；不会自动批准工程或扩大预算。"
+    },
+    {
+      "view": "project",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "council_propose",
+          "height": 36.09375
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "完工增加800床；当地20人施工300秒。不增加人口，入住后的供养仍由当地承担。\n炉火城：木料 200 · 同意\n湖滨市：工具 56、药品 48、知识 24 · 同意\n矿岭市：木料 200 · 有限支持，仍要求安排本城安居\n河口市：木料 80、工具 15 · 同意\n桥原市：工具 25 · 同意\n提交需本城知识4；未通过的议案也会记入历史和费用。"
+    },
+    {
+      "view": "budget",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "budget_apply",
+          "height": 36.09375
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "共同预算与地方诉求\n\n先留维护，再安排新任务。额度只是各城实物支出的上限；库存仍由当地保管。\n\n城市 / 安排\t实付 / 上限\t待付维护\t当前诉求\n炉火城\n轮替办理\n\t74.6 / 1600\t671.4\t暂无待办\n湖滨市\n轮替办理\n\t85.4 / 1600\t768.6\t暂无待办\n矿岭市\n轮替办理\n\t70.2 / 1600\t631.8\t本城住房紧张且持续出料，要求先安排本地安居\n河口市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n桥原市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n办理范围\n登记各城\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n新任务办理次序\n轮替办理\n接班优先\n履约优先\n恢复分项办理\n\n每期轮换培养、用工、供料的先后；缺少需求或条件的事项会跳过。\n炉火城：安排已一致；本期次序 用工 → 供料 → 培养\n湖滨市：安排已一致；本期次序 用工 → 供料 → 培养\n矿岭市：安排已一致；本期次序 用工 → 供料 → 培养\n河口市：安排已一致；本期次序 用工 → 供料 → 培养\n桥原市：安排已一致；本期次序 用工 → 供料 → 培养\n各城已按此安排办理\n\n议定此安排\n查维护与本期实付"
+    },
+    {
+      "view": "folded",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n0 / 6在途\n已完成工程\n11\n本期剩余\n577秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "charter",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "governance_apply",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": true,
+      "text": "每名制器工每10秒耗废料0.4、木0.08，产工具0.2；不依赖铁料，较占工位。新工程对外最多200折值，出现住房诉求时降为100。\n使用现有工位和居民，另留2名办事员；每60秒实付粮1、工具0.2、知识0.2，纳入共同预算。\n湖滨市：议定与校准实付 工具 2、知识 4\n共同工程可选“依地方章程分担”：在限额内优先产业来源，不足部分由受益城自筹。当地诉求保留；不会自动批准工程或扩大预算。"
+    },
+    {
+      "view": "project",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "council_propose",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "完工增加800床；当地20人施工300秒。不增加人口，入住后的供养仍由当地承担。\n炉火城：木料 200 · 同意\n湖滨市：工具 56、药品 48、知识 24 · 同意\n矿岭市：木料 200 · 有限支持，仍要求安排本城安居\n河口市：木料 80、工具 15 · 同意\n桥原市：工具 25 · 同意\n提交需本城知识4；未通过的议案也会记入历史和费用。"
+    },
+    {
+      "view": "budget",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "budget_apply",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "共同预算与地方诉求\n\n先留维护，再安排新任务。额度只是各城实物支出的上限；库存仍由当地保管。\n\n城市 / 安排\t实付 / 上限\t待付维护\t当前诉求\n炉火城\n轮替办理\n\t74.6 / 1600\t671.4\t暂无待办\n湖滨市\n轮替办理\n\t85.4 / 1600\t768.6\t暂无待办\n矿岭市\n轮替办理\n\t70.2 / 1600\t631.8\t本城住房紧张且持续出料，要求先安排本地安居\n河口市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n桥原市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n办理范围\n登记各城\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n新任务办理次序\n轮替办理\n接班优先\n履约优先\n恢复分项办理\n\n每期轮换培养、用工、供料的先后；缺少需求或条件的事项会跳过。\n炉火城：安排已一致；本期次序 用工 → 供料 → 培养\n湖滨市：安排已一致；本期次序 用工 → 供料 → 培养\n矿岭市：安排已一致；本期次序 用工 → 供料 → 培养\n河口市：安排已一致；本期次序 用工 → 供料 → 培养\n桥原市：安排已一致；本期次序 用工 → 供料 → 培养\n各城已按此安排办理\n\n议定此安排\n查维护与本期实付"
+    },
+    {
+      "view": "folded",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n0 / 6在途\n已完成工程\n11\n本期剩余\n577秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "charter",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "governance_apply",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": true,
+      "text": "每名制器工每10秒耗废料0.4、木0.08，产工具0.2；不依赖铁料，较占工位。新工程对外最多200折值，出现住房诉求时降为100。\n使用现有工位和居民，另留2名办事员；每60秒实付粮1、工具0.2、知识0.2，纳入共同预算。\n湖滨市：议定与校准实付 工具 2、知识 4\n共同工程可选“依地方章程分担”：在限额内优先产业来源，不足部分由受益城自筹。当地诉求保留；不会自动批准工程或扩大预算。"
+    },
+    {
+      "view": "project",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "council_propose",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "完工增加800床；当地20人施工300秒。不增加人口，入住后的供养仍由当地承担。\n炉火城：木料 200 · 同意\n湖滨市：工具 56、药品 48、知识 24 · 同意\n矿岭市：木料 200 · 有限支持，仍要求安排本城安居\n河口市：木料 80、工具 15 · 同意\n桥原市：工具 25 · 同意\n提交需本城知识4；未通过的议案也会记入历史和费用。"
+    },
+    {
+      "view": "budget",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "budget_apply",
+          "height": 46
+        }
+      ],
+      "topGroups": [
+        "governanceOperations",
+        "governanceProjects",
+        "governanceAccounts"
+      ],
+      "urgent": 1,
+      "scopeVisible": false,
+      "text": "共同预算与地方诉求\n\n先留维护，再安排新任务。额度只是各城实物支出的上限；库存仍由当地保管。\n\n城市 / 安排\t实付 / 上限\t待付维护\t当前诉求\n炉火城\n轮替办理\n\t74.6 / 1600\t671.4\t暂无待办\n湖滨市\n轮替办理\n\t85.4 / 1600\t768.6\t暂无待办\n矿岭市\n轮替办理\n\t70.2 / 1600\t631.8\t本城住房紧张且持续出料，要求先安排本地安居\n河口市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n桥原市\n轮替办理\n\t70.2 / 1600\t631.8\t暂无待办\n办理范围\n登记各城\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n新任务办理次序\n轮替办理\n接班优先\n履约优先\n恢复分项办理\n\n每期轮换培养、用工、供料的先后；缺少需求或条件的事项会跳过。\n炉火城：安排已一致；本期次序 用工 → 供料 → 培养\n湖滨市：安排已一致；本期次序 用工 → 供料 → 培养\n矿岭市：安排已一致；本期次序 用工 → 供料 → 培养\n河口市：安排已一致；本期次序 用工 → 供料 → 培养\n桥原市：安排已一致；本期次序 用工 → 供料 → 培养\n各城已按此安排办理\n\n议定此安排\n查维护与本期实付"
+    }
+  ]
+}
