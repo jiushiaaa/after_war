@@ -25,9 +25,10 @@ var CivilCity={
   members(s){return Object.entries(this.data(s)?.wards||{}).filter(([,n])=>n.joinedAt!==null);},
   population(s){return s.game.population+this.members(s).reduce((a,[,n])=>a+this.count(n),0);},
   housing(s,id){return (id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??Math.ceil(this.config(id).population*11/10))+this.node(s,id).buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);},
+  serviceCapacity(s,id){const n=this.node(s,id);return (id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??this.config(id).population)+n.buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);},
   waterPerWorker(n){return n.buildings.water?160*n.buildings.water:45;},
   workforce(n){return CivilPopulation.workforce(n.cohorts);},
-  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0)+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.crew(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
+  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0)+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.crew(s,id):0)+(typeof CivilCityLabor!=='undefined'?CivilCityLabor.away(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
   crew(s){return (this.data(s)?.shipments||[]).filter(p=>p.source==='home').length*2+(this.data(s)?.contact?2:0);},
   freeCrew(s){return CivilSociety.workforce(s)-Object.values(s.game.workers).reduce((a,b)=>a+b,0);},
   note(s,kind,id,text){const d=this.data(s);d.history.push({at:s.civilization.elapsed,kind,id,text});if(typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined')Civilization.notify(text);},
@@ -71,7 +72,7 @@ var CivilCity={
     this.note(s,'policy',id,CivilCityContent.wards[id].name+'调整了'+({priority:'生产优先级',method:'制器工序',waterEnabled:'水务值守',freightEnabled:'公共货运'}[key])+'。');return true;
   },
   plan(s,id){
-    const n=this.node(s,id),cfg=this.config(id),p=this.count(n),meal=this.foodPopulation(s,id)*.12,cap=(id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??cfg.population)+n.buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);
+    const n=this.node(s,id),cfg=this.config(id),p=this.count(n),meal=this.foodPopulation(s,id)*.12,cap=this.serviceCapacity(s,id);
     const slots={farmer:Math.ceil(cap*.2),medic:Math.ceil(cap*.1),teacher:Math.ceil(cap*.02),smith:Math.ceil(cap*.025),salvager:Math.ceil(cap*.1),gatherer:Math.ceil(cap*.1),waterworker:Math.ceil(cap*.03),builder:40,driver:2,smelter:Math.ceil(cap*.01)};
     const med=Math.ceil(p*.01/.15)+2,smith=Math.ceil(p*.001/.25)+4,water=Math.ceil(p/this.waterPerWorker(n));
     const want={waterworker:n.waterEnabled?water:0,medic:med,farmer:Math.ceil((meal+med*.2+10)*1.18/cfg.foodRate),teacher:Math.ceil(CivilPopulation.children(n.cohorts)/20),smith,
@@ -85,6 +86,7 @@ var CivilCity={
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.plan(s,id,slots,want,reserved);
     if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.plan(s,id,slots,want,reserved);
     if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityLabor!=='undefined')CivilCityLabor.plan(s,id,slots,want,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
@@ -98,10 +100,11 @@ var CivilCity={
     const p=this.count(n);return {food:CivilPopulation.foodPopulation(n.cohorts)*.12*60,medicine:p*.01*60,wood:2500,scrap:2500,tools:300,knowledge:3000,iron:150};
   },
   settleWard(s,id){
-    const n=this.node(s,id),cfg=this.config(id),before={...n.stores},p=this.count(n),plan=this.plan(s,id),w=n.workers,target=this.targets(n,s,id),blocked=[],worked={};
+    const n=this.node(s,id),cfg=this.config(id),before={...n.stores},p=typeof CivilCityLabor!=='undefined'?CivilCityLabor.present(s,id):this.count(n),plan=this.plan(s,id),w=n.workers,target=this.targets(n,s,id),blocked=[],worked={};
     const run=(job,cost,out,continuous=false)=>{
       let batches=w[job]||0;
       if(!continuous&&Object.keys(out).length&&Object.entries(out).every(([k])=>(n.stores[k]||0)>=target[k]))batches=0;
+      if(!continuous&&typeof CivilCityLabor!=='undefined'){const promised=CivilCityLabor.reservedOutput(s,id,job);for(const [k,v]of Object.entries(out))if(promised[k])batches=Math.min(batches,Math.max(0,Math.floor((target[k]-(n.stores[k]||0)-promised[k])/v)));}
       for(const [k,v]of Object.entries(cost))batches=Math.min(batches,Math.floor(((n.stores[k]||0)+1e-8)/v));
       const paid=Object.fromEntries(Object.entries(cost).map(([k,v])=>[k,v*batches]));this.pay(n,paid);worked[job]=batches;
       for(const [k,v]of Object.entries(out)){const made=continuous?Math.min(v*batches,Math.max(0,target[k]-(n.stores[k]||0))):v*batches;n.stores[k]=(n.stores[k]||0)+made;n.budget.produced[k]=(n.budget.produced[k]||0)+made;}
@@ -111,17 +114,19 @@ var CivilCity={
     const waterWorkers=run('waterworker',{wood:.02,tools:.001},{}),water=waterWorkers*this.waterPerWorker(n),wet=water>=p;
     run('farmer',{tools:.01},{food:cfg.foodRate*(wet?1:.45)});
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.produce(s,id,run,wet);
-    const ate=this.pay(n,{food:this.foodPopulation(s,id)*.12});n.hunger=ate?Math.max(0,n.hunger-20):n.hunger+10;
+    const needFood=this.foodPopulation(s,id)*.12,householdFood=typeof CivilCityLabor!=='undefined'?CivilCityLabor.feed(s,id,needFood):0;
+    const ate=this.pay(n,{food:Math.max(0,needFood-householdFood)});n.hunger=ate?Math.max(0,n.hunger-20):n.hunger+10;
     const clinical=id==='estuary'||typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
     run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:this.config(id).knowledgeRate||.2},true);
     run('smelter',{scrap:1,wood:.5},{iron:.3});
     run('smith',n.method==='standard'?{scrap:.8,wood:.1,iron:.05}:{scrap:.6,wood:.2},{tools:n.method==='standard'?.6:.25});
-    const treated=(w.medic||0)>0&&this.pay(n,{medicine:p*.01}),educated=(worked.teacher||0)*20>=CivilPopulation.children(n.cohorts);
+    const wageServices=typeof CivilCityLabor!=='undefined'?CivilCityLabor.produce(s,id,run,wet):{taught:0,cared:0};
+    const treated=((w.medic||0)+wageServices.cared>0)&&this.pay(n,{medicine:p*.01}),educated=((worked.teacher||0)+wageServices.taught)*20>=CivilPopulation.children(n.cohorts);
     const administered=id==='ridge'?(n.workers.clerk===2&&this.pay(n,{food:2,wood:1,knowledge:.1})):id==='lake'?CivilConurbation.officeReady(s)&&this.pay(n,{food:2,wood:1,knowledge:.1}):n.joinedAt===null||this.pay(n,{food:2,wood:1,knowledge:.1});
     n.health=Math.max(0,Math.min(100,n.health+(ate&&treated&&wet?.25:-.3)));
     const ready=ate&&treated&&wet&&educated&&administered&&n.health>=60;
     n.stable=ready?Math.min(600,n.stable+10):0;
-    n.economy={at:s.civilization.elapsed,food:n.stores.food-before.food,medicine:n.stores.medicine-before.medicine,water,population:p,treated,educated,administered,ate,blocked,worked,idle:plan.idle,
+    n.economy={at:s.civilization.elapsed,food:n.stores.food-before.food,medicine:n.stores.medicine-before.medicine,water,population:p,treated,educated,administered,ate,...(householdFood?{householdFood}:{}),blocked,worked,idle:plan.idle,
       flow:Object.fromEntries(CivilCityContent.resources.map(k=>[k,(n.stores[k]||0)-(before[k]||0)]))};
     if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.lessonTick(s,id);
     if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.schoolTick(s,id);

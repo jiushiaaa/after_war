@@ -60,6 +60,11 @@ body.dark #cityTerrain .city-ground-road { color:#ccc; }
 /* Three-city duties reuse the ADR column and disclosure controls. */
 #cityNetworkBody h3, #cityCouncilBody h3 { font-size:16px; font-weight:normal; margin:14px 0 8px; }
 .city-net-lines { white-space:pre-line; line-height:1.8; overflow-wrap:anywhere; }
+.city-labor-table { width:100%; border-collapse:collapse; font-size:13px; margin:12px 0; }
+.city-labor-table caption { text-align:left; font-size:12px; margin-bottom:8px; }
+.city-labor-table th,.city-labor-table td { padding:7px 5px; border-bottom:1px solid #bbb; text-align:right; }
+.city-labor-table th:first-child { text-align:left; }
+@media(max-width:480px) { .city-labor-table { font-size:12px; } .city-labor-table th,.city-labor-table td { padding:7px 2px; } }
 #cityNetTabs { margin-bottom:12px; }
 #cityNetLedger, #cityNetRidgeBook { margin-top:16px; }
 #cityCouncilBody > details { margin-top:14px; }
