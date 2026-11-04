@@ -58,7 +58,13 @@ body.dark #cityTerrain .city-ground-road { color:#ccc; }
 #metroCityHistory ol { padding-left:20px; font-size:13px; line-height:1.8; }
 
 /* Three-city duties reuse the ADR column and disclosure controls. */
-#cityNetworkBody h3 { font-size:16px; font-weight:normal; margin:14px 0 8px; }
+#cityNetworkBody h3, #cityCouncilBody h3 { font-size:16px; font-weight:normal; margin:14px 0 8px; }
 .city-net-lines { white-space:pre-line; line-height:1.8; overflow-wrap:anywhere; }
 #cityNetTabs { margin-bottom:12px; }
 #cityNetLedger, #cityNetRidgeBook { margin-top:16px; }
+#cityCouncilBody > details { margin-top:14px; }
+#councilLocation { margin:4px 0; }
+#councilLocation > summary { font-size:13px; line-height:36px; cursor:pointer; }
+@media(max-width:939px) {
+  #councilLocation > summary { min-height:44px; }
+}

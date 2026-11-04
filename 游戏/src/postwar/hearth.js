@@ -1,5 +1,10 @@
 /* MPL-2.0 — Explain the original paid hearth watch; electrical production is not heating. */
 var CivilHearth={
+  quietRoutine(s,text){
+    const d=s.civilization?.cityCouncil;if(!d||!Object.values(d.offices).every(o=>o.completedAt!==null))return false;
+    const fire=s.game.fire?.value||0,temp=s.game.temperature?.value||0;if(fire<1||(s.stores.wood||0)<1)return false;
+    return text===_('builder stokes the fire')||text===_('the fire is {0}',Room.FireEnum.fromInt(fire).text)||temp>=2&&text===_('the room is {0}',Room.TempEnum.fromInt(temp).text);
+  },
   retired(s){return typeof CivilHeating!=='undefined'&&CivilHeating.handed(s);},
   stopLegacy(){if(typeof Engine!=='undefined'){Engine.clearTimeout(Room._fireTimer);Engine.clearTimeout(Room._tempTimer);}Room._fireTimer=null;Room._tempTimer=null;if(typeof CivilClock!=='undefined'&&CivilClock.restored){delete CivilClock.restored.fire;delete CivilClock.restored.temperature;}},
   emergency(){const ok=CivilHeating.emergency(State);Notifications.notify(Room,ok?'付出5木料，应急工作间维持120秒，可支持20人以内的零星恢复与修理。':'供热正常、应急余温尚在或木料不足，本次未支出。');Button.clearCooldown($('#lightButton.button'));if(typeof Civilization!=='undefined'){Civilization.refresh();Civilization.updateIncome();}return ok;},

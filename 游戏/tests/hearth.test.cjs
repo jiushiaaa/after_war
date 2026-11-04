@@ -55,6 +55,13 @@ test('introductory free fire and unattended early cooling retain the original be
   h.s.stores.wood=10;h.clock.advance(300000);assert.equal(h.s.game.fire.value,2);h.clock.advance(300000);assert.equal(h.s.game.fire.value,1);assert.equal(h.s.stores.wood,10,'the early stranger has not begun watching the fire');
 });
 
+test('municipal delegation can file routine hearth notices without changing fuel cadence or hiding an extinguished hearth',()=>{
+  const h=harness(),legacy=harness({state:copy(h.s)});h.s.civilization.cityCouncil={offices:{home:{completedAt:1},lake:{completedAt:1},ridge:{completedAt:1}}};
+  const notify=h.ctx.Notifications.notify;h.ctx.Notifications.notify=(module,text)=>{if(!h.ctx.CivilHearth.quietRoutine(h.s,text))notify(module,text);};
+  h.begin();legacy.begin();h.clock.advance(300000);legacy.clock.advance(300000);assert.equal(h.s.stores.wood,legacy.s.stores.wood);assert.equal(h.s.game.fire.value,legacy.s.game.fire.value);assert.equal(h.messages.length,0);assert.ok(legacy.messages.length>0);
+  h.s.stores.wood=0;h.clock.advance(600000);assert.equal(h.s.game.fire.value,0);assert.ok(h.messages.length>0);assert.equal(h.ctx.CivilHearth.quietRoutine(h.s,'not enough wood to get the fire going'),false);
+});
+
 test('town hearth controls fold once, preserve the native buttons and reveal shortages in the closed summary',()=>{
   const h=harness(),nodes=dom(h.ctx),light=nodes.get('#lightButton'),stoke=nodes.get('#stokeButton'),before=JSON.stringify(h.s);stoke.originalAction=h.ctx.Room.stokeFire;
   h.ctx.CivilHearth.refresh(h.s);assert.equal(nodes.has('#hearthManagement'),false);assert.match(nodes.get('#hearthNote').value,/工匠已接手/);assert.equal(JSON.stringify(h.s),before);

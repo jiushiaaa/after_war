@@ -154,6 +154,7 @@ var Civilization = {
     if(typeof CivilCity!=='undefined')CivilCity.tick(State);
     if(typeof CivilConurbation!=='undefined')CivilConurbation.tick(State);
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.tick(State);
+    if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -673,6 +674,7 @@ Events.startEvent=function(event,options) {if(Events.activeEvent())return;adrEve
 for(const key of ['playSound','playBackgroundMusic','playEventMusic','stopEventMusic','loadAudioFile']) AudioEngine[key]=function() {};
 Notifications.notify=function(module,text,noQueue) {
   if(typeof text!=='string')return;
+  if(module===Room&&noQueue&&typeof CivilHearth!=='undefined'&&CivilHearth.quietRoutine(State,text)){Engine.saveGame();return;}
   if(!/[。！？.!?]$/.test(text))text+='。';
   Notifications.printMessage(text);Engine.saveGame();
 };

@@ -3,8 +3,8 @@
 var CivilCity={
   data(s){return s.civilization.city;},
   enabled(s){return s.civilization.ruleset===2;},
-  node(s,id){return this.data(s)?.wards[id] || (id==='lake'?s.civilization.conurbation?.node:id==='ridge'?s.civilization.cityNetwork?.node:null);},
-  config(id){return CivilCityContent.wards[id] || (id==='lake'&&typeof CivilConurbation!=='undefined'?CivilConurbation.config:id==='ridge'&&typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.config:null);},
+  node(s,id){return this.data(s)?.wards[id] || (id==='lake'?s.civilization.conurbation?.node:id==='ridge'?s.civilization.cityNetwork?.node:s.civilization.cityCouncil?.locals[id]?.node);},
+  config(id){return CivilCityContent.wards[id] || (id==='lake'&&typeof CivilConurbation!=='undefined'?CivilConurbation.config:id==='ridge'&&typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.config:typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.content[id]:null);},
   count(n){return CivilPopulation.count(n.cohorts);},
   cohortSeed(pop){
     const a=[];for(let age=0;age<80;age++){const n=Math.floor((age+1)*pop/80)-Math.floor(age*pop/80),mutant=Math.floor(n*.2);if(n-mutant)a.push({age,count:n-mutant,identity:'human'});if(mutant)a.push({age,count:mutant,identity:'mutant'});}return a;
@@ -24,10 +24,10 @@ var CivilCity={
   available(s){return this.enabled(s)&&!!s.civilization.village?.town&&!!s.civilization.tech.survey;},
   members(s){return Object.entries(this.data(s)?.wards||{}).filter(([,n])=>n.joinedAt!==null);},
   population(s){return s.game.population+this.members(s).reduce((a,[,n])=>a+this.count(n),0);},
-  housing(s,id){return (id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:Math.ceil(this.config(id).population*11/10))+this.node(s,id).buildings.housing*800;},
+  housing(s,id){return (id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??Math.ceil(this.config(id).population*11/10))+this.node(s,id).buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);},
   waterPerWorker(n){return n.buildings.water?160*n.buildings.water:45;},
   workforce(n){return CivilPopulation.workforce(n.cohorts);},
-  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
+  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0)+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.crew(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
   crew(s){return (this.data(s)?.shipments||[]).filter(p=>p.source==='home').length*2+(this.data(s)?.contact?2:0);},
   freeCrew(s){return CivilSociety.workforce(s)-Object.values(s.game.workers).reduce((a,b)=>a+b,0);},
   note(s,kind,id,text){const d=this.data(s);d.history.push({at:s.civilization.elapsed,kind,id,text});if(typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined')Civilization.notify(text);},
@@ -71,7 +71,7 @@ var CivilCity={
     this.note(s,'policy',id,CivilCityContent.wards[id].name+'调整了'+({priority:'生产优先级',method:'制器工序',waterEnabled:'水务值守',freightEnabled:'公共货运'}[key])+'。');return true;
   },
   plan(s,id){
-    const n=this.node(s,id),cfg=this.config(id),p=this.count(n),meal=this.foodPopulation(s,id)*.12,cap=(id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:cfg.population)+n.buildings.housing*800;
+    const n=this.node(s,id),cfg=this.config(id),p=this.count(n),meal=this.foodPopulation(s,id)*.12,cap=(id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??cfg.population)+n.buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);
     const slots={farmer:Math.ceil(cap*.2),medic:Math.ceil(cap*.1),teacher:Math.ceil(cap*.02),smith:Math.ceil(cap*.025),salvager:Math.ceil(cap*.1),gatherer:Math.ceil(cap*.1),waterworker:Math.ceil(cap*.03),builder:40,driver:2,smelter:Math.ceil(cap*.01)};
     const med=Math.ceil(p*.01/.15)+2,smith=Math.ceil(p*.001/.25)+4,water=Math.ceil(p/this.waterPerWorker(n));
     const want={waterworker:n.waterEnabled?water:0,medic:med,farmer:Math.ceil((meal+med*.2+10)*1.18/cfg.foodRate),teacher:Math.ceil(CivilPopulation.children(n.cohorts)/20),smith,
@@ -81,12 +81,14 @@ var CivilCity={
     const reserved=typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.plan(s,id,slots,want):{};
     if(typeof CivilConurbation!=='undefined')CivilConurbation.plan(s,id,slots,want,reserved);
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.plan(s,id,slots,want,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
     for(const job of order){const v=Math.min(left,slots[job],want[job]);n.workers[job]=v;left-=v;}return {slots,idle:left};
   },
   targets(n,s,id){
+    if(s&&typeof CivilCityCouncil!=='undefined'&&CivilCityCouncil.node(s,id))return CivilCityCouncil.targets(s,id);
     if(id==='ridge'&&typeof CivilCityNetwork!=='undefined')return CivilCityNetwork.targets(s);
     if(id==='lake'&&typeof CivilConurbation!=='undefined')return CivilConurbation.targets(s);
     const civic=s&&typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.targets(n,CivilCityInstitutions.local(s,id)):null;if(civic)return civic;
@@ -106,7 +108,7 @@ var CivilCity={
     const waterWorkers=run('waterworker',{wood:.02,tools:.001},{}),water=waterWorkers*this.waterPerWorker(n),wet=water>=p;
     run('farmer',{tools:.01},{food:cfg.foodRate*(wet?1:.45)});
     const ate=this.pay(n,{food:this.foodPopulation(s,id)*.12});n.hunger=ate?Math.max(0,n.hunger-20):n.hunger+10;
-    const clinical=typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
+    const clinical=id==='estuary'||typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
     run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:.2},true);
     run('smelter',{scrap:1,wood:.5},{iron:.3});
     run('smith',n.method==='standard'?{scrap:.8,wood:.1,iron:.05}:{scrap:.6,wood:.2},{tools:n.method==='standard'?.6:.25});
@@ -122,7 +124,7 @@ var CivilCity={
     n.economy.flow=Object.fromEntries(CivilCityContent.resources.map(k=>[k,(n.stores[k]||0)-(before[k]||0)]));n.economy.food=n.economy.flow.food;n.economy.medicine=n.economy.flow.medicine;
   },
   annual(s,id){
-    const n=this.node(s,id),year=Math.floor(s.civilization.elapsed/600),account=['lake','ridge'].includes(id)?'city_'+id:'ward_'+id;
+    const n=this.node(s,id),year=Math.floor(s.civilization.elapsed/600),account=['lake','ridge','estuary'].includes(id)?'city_'+id:'ward_'+id;
     while(n.year<year){const old=this.count(n),aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.dead+=aged.deceased;CivilCensus.death(s,account,aged.deceased);
       const born=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:old,beds:this.housing(s,id)-this.count(n),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
       if(born.count&&this.pay(n,born.cost)){n.cohorts.push(...born.cohorts);n.born+=born.count;CivilCensus.birth(s,account,born.count);}
