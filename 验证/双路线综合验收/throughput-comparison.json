@@ -1,0 +1,33 @@
+{
+  "kind": "constructed ten-year comparison, not natural play; restock includes normal old-car return and paid signing",
+  "report": [
+    {
+      "choice": "industry",
+      "from": 95270,
+      "to": 101270,
+      "services": {
+        "repair": 82,
+        "standard": 18
+      },
+      "ironArrived": 408,
+      "deliveries": 17,
+      "finalIron": 0,
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "choice": "restock",
+      "from": 95390,
+      "to": 101390,
+      "services": {
+        "repair": 3,
+        "standard": 97
+      },
+      "ironArrived": 3642,
+      "deliveries": 17,
+      "finalIron": 475.30000000000604,
+      "health": 100,
+      "stable": 600
+    }
+  ]
+}

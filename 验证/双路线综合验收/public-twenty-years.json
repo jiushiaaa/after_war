@@ -1,0 +1,52 @@
+{
+  "kind": "constructed full-adapter twenty-year extension from natural 283; no injected inputs or research",
+  "from": 48002,
+  "to": 60002,
+  "minimum": {
+    "home": {
+      "health": 100,
+      "stable": 600
+    },
+    "lake": {
+      "health": 100,
+      "stable": 600
+    },
+    "ridge": {
+      "health": 100,
+      "stable": 600
+    }
+  },
+  "world": 521995451,
+  "initial": 350278429,
+  "born": 944408888,
+  "dead": 772691866,
+  "newServices": {
+    "home": {
+      "paid": 200,
+      "unpaid": 0
+    },
+    "lake": {
+      "paid": 200,
+      "unpaid": 0
+    },
+    "ridge": {
+      "paid": 200,
+      "unpaid": 0
+    }
+  },
+  "events": [
+    {
+      "at": 51000,
+      "pending": "succession"
+    },
+    {
+      "at": 54600,
+      "pending": "succession"
+    },
+    {
+      "at": 58200,
+      "pending": "succession"
+    }
+  ],
+  "roundtripExact": true
+}

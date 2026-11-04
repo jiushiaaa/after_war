@@ -100,7 +100,7 @@ var CivilCity={
     if(s&&typeof CivilCityCouncil!=='undefined'&&CivilCityCouncil.node(s,id))return CivilCityCouncil.targets(s,id);
     if(id==='ridge'&&typeof CivilCityNetwork!=='undefined')return CivilCityNetwork.targets(s);
     if(id==='lake'&&typeof CivilConurbation!=='undefined')return CivilConurbation.targets(s);
-    const civic=s&&typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.targets(n,CivilCityInstitutions.local(s,id)):null;if(civic)return civic;
+    const civic=s&&typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.targets(n,CivilCityInstitutions.local(s,id)):null;if(civic){if(typeof CivilConurbation!=='undefined'&&CivilConurbation.restockSource(s,id))civic.iron=Math.max(civic.iron,300);return civic;}
     const p=this.count(n);return {food:CivilPopulation.foodPopulation(n.cohorts)*.12*60,medicine:p*.01*60,wood:2500,scrap:2500,tools:300,knowledge:3000,iron:150};
   },
   settleWard(s,id){

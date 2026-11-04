@@ -1,0 +1,1598 @@
+{
+  "at": 108509,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "world": 1015942091,
+  "initial": 495435159,
+  "born": 2863012686,
+  "dead": 2342505754,
+  "offices": {
+    "home": {
+      "mode": "repair",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 108480,
+        "authority": 12309,
+        "receipt": 18956,
+        "paid": true,
+        "iron": 168.40000000001282,
+        "operation": "repair"
+      },
+      "repair": 816,
+      "standard": 0,
+      "paid": 273
+    },
+    "lake": {
+      "mode": "standard",
+      "operation": "standard",
+      "active": true,
+      "last": {
+        "at": 108480,
+        "authority": 12332,
+        "receipt": 18957,
+        "paid": true,
+        "iron": 345.00000000001353,
+        "operation": "standard"
+      },
+      "repair": 312,
+      "standard": 1316,
+      "paid": 273
+    },
+    "ridge": {
+      "mode": "standard",
+      "operation": "standard",
+      "active": true,
+      "last": {
+        "at": 108480,
+        "authority": 12333,
+        "receipt": 18958,
+        "paid": true,
+        "iron": 801.2000000000183,
+        "operation": "standard"
+      },
+      "repair": 4,
+      "standard": 1317,
+      "paid": 273
+    },
+    "estuary": {
+      "mode": "repair",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 108480,
+        "authority": 12312,
+        "receipt": 18959,
+        "paid": true,
+        "iron": 80,
+        "operation": "repair"
+      },
+      "repair": 1381,
+      "standard": 0,
+      "paid": 273
+    },
+    "bridge": {
+      "mode": "repair",
+      "operation": "repair",
+      "active": true,
+      "last": {
+        "at": 108480,
+        "authority": 12313,
+        "receipt": 18960,
+        "paid": true,
+        "iron": 40,
+        "operation": "repair"
+      },
+      "repair": 1264,
+      "standard": 0,
+      "paid": 273
+    }
+  },
+  "trade": {
+    "contract": "restock",
+    "suspended": false,
+    "active": {
+      "order": 297,
+      "id": 239,
+      "depot": "yards",
+      "mode": "restock",
+      "share": "host",
+      "startedAt": 108380,
+      "deliveredAt": null,
+      "recalledAt": null,
+      "finishedAt": null,
+      "status": "outbound",
+      "remaining": 51,
+      "out": {
+        "iron": 199,
+        "tools": 40
+      },
+      "back": {
+        "food": 1315
+      },
+      "fees": {
+        "home": {
+          "wood": 15,
+          "tools": 3,
+          "knowledge": 1.5,
+          "food": 25.919999999999998
+        },
+        "lake": {
+          "wood": 5,
+          "tools": 1,
+          "knowledge": 0.5,
+          "food": 25.919999999999998
+        }
+      }
+    },
+    "reason": "原车仍在途，不能重复占用车辆与人员",
+    "report": {
+      "stock": 331.60000000001355,
+      "used": 335.9999999999996,
+      "delivered": 199,
+      "cap": 240,
+      "roundTrip": 360,
+      "method": "standard",
+      "restock": true
+    },
+    "trips": [
+      {
+        "order": 254,
+        "id": 205,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 95520,
+        "deliveredAt": 95700,
+        "recalledAt": null,
+        "finishedAt": 95880,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 231,
+          "tools": 30
+        },
+        "back": {
+          "food": 1395
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 256,
+        "id": 206,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 95880,
+        "deliveredAt": 96060,
+        "recalledAt": null,
+        "finishedAt": 96240,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 237,
+          "tools": 27
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 1
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 257,
+        "id": 207,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 96240,
+        "deliveredAt": 96420,
+        "recalledAt": null,
+        "finishedAt": 96600,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 30
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 40
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 258,
+        "id": 208,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 96600,
+        "deliveredAt": 96780,
+        "recalledAt": null,
+        "finishedAt": 96960,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 239,
+          "tools": 34
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 67
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 259,
+        "id": 209,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 96960,
+        "deliveredAt": 97140,
+        "recalledAt": null,
+        "finishedAt": 97320,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 28
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 24
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 260,
+        "id": 210,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 97320,
+        "deliveredAt": 97500,
+        "recalledAt": null,
+        "finishedAt": 97680,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 239,
+          "tools": 25
+        },
+        "back": {
+          "food": 1395
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 262,
+        "id": 211,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 97680,
+        "deliveredAt": 97860,
+        "recalledAt": null,
+        "finishedAt": 98040,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 212,
+          "tools": 40
+        },
+        "back": {
+          "food": 1380
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 263,
+        "id": 212,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 98040,
+        "deliveredAt": 98220,
+        "recalledAt": null,
+        "finishedAt": 98400,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 264,
+        "id": 213,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 98400,
+        "deliveredAt": 98580,
+        "recalledAt": null,
+        "finishedAt": 98760,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 193,
+          "tools": 40
+        },
+        "back": {
+          "food": 1285
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 265,
+        "id": 214,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 98760,
+        "deliveredAt": 98940,
+        "recalledAt": null,
+        "finishedAt": 99120,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 200,
+          "tools": 40
+        },
+        "back": {
+          "food": 1320
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 266,
+        "id": 215,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 99120,
+        "deliveredAt": 99300,
+        "recalledAt": null,
+        "finishedAt": 99480,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 268,
+        "id": 216,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 99480,
+        "deliveredAt": 99660,
+        "recalledAt": null,
+        "finishedAt": 99840,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 193,
+          "tools": 40
+        },
+        "back": {
+          "food": 1285
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 269,
+        "id": 217,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 99840,
+        "deliveredAt": 100020,
+        "recalledAt": null,
+        "finishedAt": 100200,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 193,
+          "tools": 40
+        },
+        "back": {
+          "food": 1285
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 270,
+        "id": 218,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 100200,
+        "deliveredAt": 100380,
+        "recalledAt": null,
+        "finishedAt": 100560,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 271,
+        "id": 219,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 100560,
+        "deliveredAt": 100740,
+        "recalledAt": null,
+        "finishedAt": 100920,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 194,
+          "tools": 40
+        },
+        "back": {
+          "food": 1290
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 272,
+        "id": 220,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 100920,
+        "deliveredAt": 101100,
+        "recalledAt": null,
+        "finishedAt": 101280,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 274,
+        "id": 221,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 101280,
+        "deliveredAt": 101460,
+        "recalledAt": null,
+        "finishedAt": 101640,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 193,
+          "tools": 40
+        },
+        "back": {
+          "food": 1285
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 277,
+        "id": 222,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 102260,
+        "deliveredAt": 102440,
+        "recalledAt": null,
+        "finishedAt": 102620,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 236,
+          "tools": 34
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 52
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 278,
+        "id": 223,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 102620,
+        "deliveredAt": 102800,
+        "recalledAt": null,
+        "finishedAt": 102980,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 236,
+          "tools": 35
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 60
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 279,
+        "id": 224,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 102980,
+        "deliveredAt": 103160,
+        "recalledAt": null,
+        "finishedAt": 103340,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 25
+        },
+        "back": {
+          "food": 1400
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 280,
+        "id": 225,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 103340,
+        "deliveredAt": 103520,
+        "recalledAt": null,
+        "finishedAt": 103700,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 239,
+          "tools": 34
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 67
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 282,
+        "id": 226,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 103700,
+        "deliveredAt": 103880,
+        "recalledAt": null,
+        "finishedAt": 104060,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 25
+        },
+        "back": {
+          "food": 1400
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 283,
+        "id": 227,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 104060,
+        "deliveredAt": 104240,
+        "recalledAt": null,
+        "finishedAt": 104420,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 31
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 48
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 284,
+        "id": 228,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 104420,
+        "deliveredAt": 104600,
+        "recalledAt": null,
+        "finishedAt": 104780,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 240,
+          "tools": 28
+        },
+        "back": {
+          "food": 1400,
+          "scrap": 24
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 285,
+        "id": 229,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 104780,
+        "deliveredAt": 104960,
+        "recalledAt": null,
+        "finishedAt": 105140,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 205,
+          "tools": 40
+        },
+        "back": {
+          "food": 1345
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 286,
+        "id": 230,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 105140,
+        "deliveredAt": 105320,
+        "recalledAt": null,
+        "finishedAt": 105500,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 194,
+          "tools": 40
+        },
+        "back": {
+          "food": 1290
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 288,
+        "id": 231,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 105500,
+        "deliveredAt": 105680,
+        "recalledAt": null,
+        "finishedAt": 105860,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 289,
+        "id": 232,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 105860,
+        "deliveredAt": 106040,
+        "recalledAt": null,
+        "finishedAt": 106220,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 290,
+        "id": 233,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 106220,
+        "deliveredAt": 106400,
+        "recalledAt": null,
+        "finishedAt": 106580,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 193,
+          "tools": 40
+        },
+        "back": {
+          "food": 1285
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 291,
+        "id": 234,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 106580,
+        "deliveredAt": 106760,
+        "recalledAt": null,
+        "finishedAt": 106940,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 292,
+        "id": 235,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 106940,
+        "deliveredAt": 107120,
+        "recalledAt": null,
+        "finishedAt": 107300,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 194,
+          "tools": 40
+        },
+        "back": {
+          "food": 1290
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 294,
+        "id": 236,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 107300,
+        "deliveredAt": 107480,
+        "recalledAt": null,
+        "finishedAt": 107660,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 295,
+        "id": 237,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 107660,
+        "deliveredAt": 107840,
+        "recalledAt": null,
+        "finishedAt": 108020,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 296,
+        "id": 238,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 108020,
+        "deliveredAt": 108200,
+        "recalledAt": null,
+        "finishedAt": 108380,
+        "status": "complete",
+        "remaining": 0,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      },
+      {
+        "order": 297,
+        "id": 239,
+        "depot": "yards",
+        "mode": "restock",
+        "share": "host",
+        "startedAt": 108380,
+        "deliveredAt": null,
+        "recalledAt": null,
+        "finishedAt": null,
+        "status": "outbound",
+        "remaining": 51,
+        "out": {
+          "iron": 199,
+          "tools": 40
+        },
+        "back": {
+          "food": 1315
+        },
+        "fees": {
+          "home": {
+            "wood": 15,
+            "tools": 3,
+            "knowledge": 1.5,
+            "food": 25.919999999999998
+          },
+          "lake": {
+            "wood": 5,
+            "tools": 1,
+            "knowledge": 0.5,
+            "food": 25.919999999999998
+          }
+        }
+      }
+    ]
+  },
+  "issues": [
+    {
+      "city": "lake",
+      "kind": "housing",
+      "text": "本城住房紧张且持续出料，要求先安排本地安居"
+    },
+    {
+      "city": "ridge",
+      "kind": "housing",
+      "text": "本城住房紧张且持续出料，要求先安排本地安居"
+    }
+  ],
+  "cities": [
+    {
+      "id": "home",
+      "population": 16988,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 478,
+        "jobclerk": 2,
+        "joblearner": 2,
+        "jobtutor": 2,
+        "steward": 2,
+        "waterworker": 59,
+        "farmer": 725,
+        "medic": 637,
+        "teacher": 177,
+        "driver": 2,
+        "salvager": 96,
+        "gatherer": 130,
+        "smith": 90,
+        "builder": 0,
+        "smelter": 23
+      },
+      "worked": {
+        "gatherer": 130,
+        "salvager": 96,
+        "waterworker": 59,
+        "farmer": 726,
+        "settler": 0,
+        "medic": 638,
+        "teacher": 177,
+        "smelter": 23,
+        "smith": 0
+      },
+      "stocks": {
+        "food": 16737.30800000023,
+        "medicine": 748.7599999999588,
+        "wood": 2567.6200000005533,
+        "scrap": 2458.600000000615,
+        "tools": 551.261000000065,
+        "knowledge": 2998.9,
+        "iron": 182.20000000001284
+      },
+      "quota": "active"
+    },
+    {
+      "id": "lake",
+      "population": 62514,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 478,
+        "jobclerk": 2,
+        "joblearner": 5,
+        "jobtutor": 2,
+        "freightkeeper": 6,
+        "steward": 2,
+        "waterworker": 391,
+        "farmer": 2997,
+        "medic": 4335,
+        "teacher": 490,
+        "driver": 0,
+        "salvager": 962,
+        "gatherer": 794,
+        "smith": 67,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 0,
+        "waterworker": 391,
+        "farmer": 2489,
+        "settler": 478,
+        "medic": 4338,
+        "teacher": 490,
+        "smelter": 0,
+        "smith": 67
+      },
+      "stocks": {
+        "food": 120023.86800002413,
+        "medicine": 4654.909999997674,
+        "wood": 3632.9199999997863,
+        "scrap": 1951.2999999996625,
+        "tools": 231.71600000004318,
+        "knowledge": 2998.9,
+        "iron": 331.60000000001355
+      },
+      "quota": "active"
+    },
+    {
+      "id": "ridge",
+      "population": 83449,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 522,
+        "farmer": 7178,
+        "medic": 5755,
+        "teacher": 702,
+        "driver": 0,
+        "salvager": 519,
+        "gatherer": 1236,
+        "smith": 133,
+        "builder": 0,
+        "smelter": 160
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 519,
+        "waterworker": 522,
+        "farmer": 7179,
+        "settler": 0,
+        "medic": 5758,
+        "teacher": 702,
+        "smelter": 160,
+        "smith": 133
+      },
+      "stocks": {
+        "food": 170128.57000004526,
+        "medicine": 6603.890000002313,
+        "wood": 4301.340000001111,
+        "scrap": 4523.700000001151,
+        "tools": 1214.6470000004153,
+        "knowledge": 2999.9,
+        "iron": 822.6000000000184
+      },
+      "quota": "active"
+    },
+    {
+      "id": "estuary",
+      "population": 142786,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 893,
+        "farmer": 10698,
+        "medic": 4930,
+        "teacher": 1315,
+        "driver": 0,
+        "salvager": 814,
+        "gatherer": 1963,
+        "smith": 827,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 0,
+        "waterworker": 893,
+        "farmer": 10698,
+        "settler": 0,
+        "medic": 4930,
+        "teacher": 1315,
+        "smelter": 0,
+        "smith": 827
+      },
+      "stocks": {
+        "food": 279731.4200001603,
+        "medicine": 12932.739999994175,
+        "wood": 4646.68000000145,
+        "scrap": 4313.100000000216,
+        "tools": 1747.9229999994825,
+        "knowledge": 4000,
+        "iron": 80
+      },
+      "quota": "active"
+    },
+    {
+      "id": "bridge",
+      "population": 113514,
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "steward": 2,
+        "waterworker": 710,
+        "farmer": 7947,
+        "medic": 7863,
+        "teacher": 1497,
+        "driver": 0,
+        "salvager": 1252,
+        "gatherer": 1352,
+        "smith": 442,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 1252,
+        "waterworker": 710,
+        "farmer": 7947,
+        "settler": 0,
+        "medic": 7863,
+        "teacher": 1497,
+        "smelter": 0,
+        "smith": 442
+      },
+      "stocks": {
+        "food": 214413.54000001,
+        "medicine": 10403.9500000046,
+        "wood": 4728.339999999438,
+        "scrap": 4398.700000000549,
+        "tools": 1679.818000000126,
+        "knowledge": 4000,
+        "iron": 40
+      },
+      "quota": "active"
+    }
+  ]
+}

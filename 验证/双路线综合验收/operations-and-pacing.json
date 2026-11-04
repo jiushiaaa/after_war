@@ -1,0 +1,163 @@
+{
+  "kind": "successful strategy button submissions only; selection/navigation/export are not strategy decisions; scripted experienced operator, not new-player evidence",
+  "branches": {
+    "industrial": {
+      "strategySubmissions": 4,
+      "actions": {
+        "#metroCity_end": 1,
+        "#metroCity_sign": 1,
+        "#metroCity_pause": 2
+      },
+      "mandatoryEvents": [
+        {
+          "at": 97200,
+          "pending": "succession"
+        },
+        {
+          "at": 100800,
+          "pending": "succession"
+        },
+        {
+          "at": 104401,
+          "pending": "succession"
+        },
+        {
+          "at": 108000,
+          "pending": "succession"
+        }
+      ],
+      "exports": [
+        {
+          "wall": "2026-11-04T13:37:57.856Z",
+          "kind": "export",
+          "label": "274_industrial_paid_restock",
+          "at": 95518
+        },
+        {
+          "wall": "2026-11-04T13:45:15.324Z",
+          "kind": "export",
+          "label": "275_industrial_ten_years_supply",
+          "at": 101535,
+          "sincePrevious": {
+            "simulatedSeconds": 6017,
+            "wallSecondsIncludingExportsAndController": 437.468
+          }
+        },
+        {
+          "wall": "2026-11-04T13:46:13.355Z",
+          "kind": "export",
+          "label": "276_industrial_cut_and_fallback",
+          "at": 102250,
+          "sincePrevious": {
+            "simulatedSeconds": 715,
+            "wallSecondsIncludingExportsAndController": 58.031
+          }
+        },
+        {
+          "wall": "2026-11-04T13:46:37.868Z",
+          "kind": "export",
+          "label": "277_industrial_delivered_recovery",
+          "at": 102491,
+          "sincePrevious": {
+            "simulatedSeconds": 241,
+            "wallSecondsIncludingExportsAndController": 24.513
+          }
+        },
+        {
+          "wall": "2026-11-04T13:54:05.115Z",
+          "kind": "export",
+          "label": "278_industrial_stable_ten_years",
+          "at": 108509,
+          "sincePrevious": {
+            "simulatedSeconds": 6018,
+            "wallSecondsIncludingExportsAndController": 447.247
+          }
+        }
+      ]
+    },
+    "public": {
+      "strategySubmissions": 16,
+      "actions": {
+        "#metroCity_network": 1,
+        "#cityNet_survey": 1,
+        "#cityNet_build": 1,
+        "#cityNet_enable": 1,
+        "#cityNet_expand": 1,
+        "#cityNet_budget": 3,
+        "#cityNet_formCouncil": 1,
+        "#council_quota": 1,
+        "#council_propose": 2,
+        "#continuity_found": 1,
+        "#continuity_policy": 1,
+        "#budget_apply": 1,
+        "#governance_apply": 1
+      },
+      "mandatoryEvents": [
+        {
+          "at": 36600,
+          "pending": "succession"
+        },
+        {
+          "at": 40200,
+          "pending": "succession"
+        },
+        {
+          "at": 43801,
+          "pending": "succession"
+        },
+        {
+          "at": 47400,
+          "pending": "succession"
+        }
+      ],
+      "exports": [
+        {
+          "wall": "2026-11-04T13:40:49.291Z",
+          "kind": "export",
+          "label": "279_public_three_cities",
+          "at": 37522
+        },
+        {
+          "wall": "2026-11-04T13:42:41.337Z",
+          "kind": "export",
+          "label": "280_public_station_not_yet_serviced",
+          "at": 37522,
+          "sincePrevious": {
+            "simulatedSeconds": 0,
+            "wallSecondsIncludingExportsAndController": 112.046
+          }
+        },
+        {
+          "wall": "2026-11-04T13:46:31.290Z",
+          "kind": "export",
+          "label": "281_public_housing_and_stewardship",
+          "at": 39544,
+          "sincePrevious": {
+            "simulatedSeconds": 2022,
+            "wallSecondsIncludingExportsAndController": 229.953
+          }
+        },
+        {
+          "wall": "2026-11-04T13:49:16.185Z",
+          "kind": "export",
+          "label": "282_public_transport_withdrawn",
+          "at": 41985,
+          "sincePrevious": {
+            "simulatedSeconds": 2441,
+            "wallSecondsIncludingExportsAndController": 164.895
+          }
+        },
+        {
+          "wall": "2026-11-04T13:55:57.855Z",
+          "kind": "export",
+          "label": "283_public_recovery_ten_years",
+          "at": 48002,
+          "sincePrevious": {
+            "simulatedSeconds": 6017,
+            "wallSecondsIncludingExportsAndController": 401.67
+          }
+        }
+      ]
+    }
+  }
+}

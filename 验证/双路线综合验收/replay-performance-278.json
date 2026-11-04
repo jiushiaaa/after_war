@@ -1,0 +1,29 @@
+{
+  "kind": "paired validation-only replay of the same native save in the same process; not overall frame rate",
+  "number": 278,
+  "at": 108509,
+  "productionRows": 6410,
+  "services": 1365,
+  "milliseconds": {
+    "original": [
+      699.8355,
+      655.7519169999999,
+      640.6326249999997,
+      649.94875,
+      646.9270839999999
+    ],
+    "indexed": [
+      19.885915999999952,
+      17.925250000000005,
+      17.420333000000028,
+      17.961541000000125,
+      16.614958000000115
+    ]
+  },
+  "medianMs": {
+    "original": 649.94875,
+    "indexed": 17.925250000000005
+  },
+  "ratio": 36.25883878885928,
+  "stateUnchanged": true
+}
