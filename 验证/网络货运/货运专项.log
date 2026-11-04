@@ -1,0 +1,20 @@
+CONSTRUCTED dispatch comparison [{"duration":2465,"trips":3,"wood":480},{"duration":1235,"trips":1,"wood":480}]
+✔ 259 imports unchanged and read-only network status grants no fleet, people or inventory (1455.186709ms)
+✔ paid capital construction occupies finite residents before enabling a maintained freight asset (5970.705375ms)
+✔ duplicate, unknown and unauthorised builds and inherited routing choices fail without payment (6830.454041ms)
+✔ new freight moves a real 480-unit cargo, reserves eight drivers and pays its own travel fee (2844.220792ms)
+✔ dedicated freight and a real duty vehicle run together with twelve distinct driver posts (3833.603667ms)
+✔ pausing freight stops maintenance and new dispatch, preserves the loaded voyage, and resumes after real payment (4897.445917ms)
+✔ funded freight maintenance is reserved once; a real spending cut and restoration retain old bills (4825.366083ms)
+✔ routing mandate is paid and reversible; rotating delivery changes actual two-site dispatch order (3858.457334ms)
+✔ unknown carriage versions, unpaid assets, early completion and altered travel fees reject import (3304.497708ms)
+✔ funded freight delivers the same materials with fewer wood trips than the original public vehicle (28906.129958ms)
+✔ twenty adapter years retain exact population, local material ledgers and healthy services with paid freight upkeep (26910.395041ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 93698.646458

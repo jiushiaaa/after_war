@@ -1,0 +1,1967 @@
+{
+  "kind": "read-only native exports; 262 is an isolated driver-selection branch, not merged into 263–266",
+  "baseline": "8ef92e95a6912faf7858f891d6656eb3a7193e48",
+  "saves": [
+    {
+      "number": 259,
+      "name": "自然游玩_两城互助安居与湖滨岗位结清259.json",
+      "sha256": "d068aa531570ea9b96f7cae9640bc4ffb4d4460720b28a63a2b5e87131ec4f61",
+      "at": 88905,
+      "year": 148,
+      "world": 894190922,
+      "initial": 495435159,
+      "born": 2193243294,
+      "dead": 1794487531,
+      "totalCities": 416759,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "2名入住成人等待取得岗位资格"
+            }
+          ]
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "estuary",
+          "population": 141895,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "已有可接纳住房；接续工坊可承接入住家庭的培训与补员"
+            }
+          ]
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        }
+      ],
+      "dispatch": null,
+      "projects": [],
+      "shipments": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [],
+      "maintenancePaid": {}
+    },
+    {
+      "number": 260,
+      "name": "自然游玩_湖滨货场实付施工260.json",
+      "sha256": "b09f16e7926a9ecfeece5e6b9a8a1f696c9cf5ffbeb57ece1663db94f27d5e2b",
+      "at": 88970,
+      "year": 148,
+      "world": 894190922,
+      "initial": 495435159,
+      "born": 2193243294,
+      "dead": 1794487531,
+      "totalCities": 416759,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 30,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "2名入住成人等待取得岗位资格"
+            }
+          ]
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "estuary",
+          "population": 141895,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "已有可接纳住房；接续工坊可承接入住家庭的培训与补员"
+            }
+          ]
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "rotation",
+        "changes": [],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 360,
+            "completedAt": null,
+            "enabled": true,
+            "active": false,
+            "maintenancePaid": 0,
+            "maintenanceUnpaid": 0,
+            "lastPaidAt": null,
+            "changes": []
+          }
+        }
+      },
+      "projects": [],
+      "shipments": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {}
+    },
+    {
+      "number": 261,
+      "name": "自然游玩_货场启用与网络委托261.json",
+      "sha256": "f550ec092df404b760afaf8be689255f62bf8cbb2abd0f2cd938c80f853b35c1",
+      "at": 89358,
+      "year": 148,
+      "world": 894190922,
+      "initial": 495435159,
+      "born": 2193243294,
+      "dead": 1794487531,
+      "totalCities": 416759,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 6,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "2名入住成人等待取得岗位资格"
+            }
+          ]
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "estuary",
+          "population": 141895,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "已有可接纳住房；接续工坊可承接入住家庭的培训与补员"
+            }
+          ]
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "focused",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": true,
+            "active": true,
+            "maintenancePaid": 1,
+            "maintenanceUnpaid": 0,
+            "lastPaidAt": 89340,
+            "changes": []
+          }
+        }
+      },
+      "projects": [],
+      "shipments": [],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 4,
+        "tools": 0.8,
+        "knowledge": 0.2
+      }
+    },
+    {
+      "number": 262,
+      "name": "自然游玩_工程选项误点保留旁支262.json",
+      "sha256": "1324d6f62c6237b15c336d5d750b780a28b2eb3ecf17172b4cb3ad2e9d3e2f6f",
+      "at": 90798,
+      "year": 151,
+      "world": 904957365,
+      "initial": 495435159,
+      "born": 2252464595,
+      "dead": 1842942389,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 63314,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 6,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "focused",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": true,
+            "active": true,
+            "maintenancePaid": 25,
+            "maintenanceUnpaid": 0,
+            "lastPaidAt": 90780,
+            "changes": []
+          }
+        }
+      },
+      "projects": [
+        {
+          "id": 11,
+          "at": 89358,
+          "kind": "housing",
+          "target": "lake",
+          "completedAt": 89960,
+          "sites": {
+            "lake": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "wood": 480,
+                "tools": 96,
+                "knowledge": 24,
+                "medicine": 48
+              },
+              "worked": 300,
+              "remaining": 0,
+              "completedAt": 89960
+            }
+          }
+        }
+      ],
+      "shipments": [
+        {
+          "id": 40,
+          "project": 11,
+          "at": 89360,
+          "source": "ridge",
+          "target": "lake",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 96
+          },
+          "deliveredAt": 89570,
+          "legs": [
+            {
+              "from": "ridge",
+              "to": "lake",
+              "travel": 210,
+              "route": "cross",
+              "index": 0,
+              "startedAt": 89360,
+              "deliveredAt": 89570,
+              "finishedAt": 89780,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 20.16,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "project": 11,
+          "at": 89360,
+          "source": "estuary",
+          "target": "lake",
+          "carrier": "duty",
+          "cargo": {
+            "medicine": 48
+          },
+          "deliveredAt": 89660,
+          "legs": [
+            {
+              "from": "estuary",
+              "to": "lake",
+              "travel": 300,
+              "route": "river",
+              "index": 0,
+              "startedAt": 89360,
+              "deliveredAt": 89660,
+              "finishedAt": 89960,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 28.8,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "project": 11,
+          "at": 89360,
+          "source": "bridge",
+          "target": "lake",
+          "carrier": "duty",
+          "cargo": {
+            "knowledge": 24
+          },
+          "deliveredAt": 89600,
+          "legs": [
+            {
+              "from": "bridge",
+              "to": "lake",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89360,
+              "deliveredAt": 89600,
+              "finishedAt": 89840,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 100,
+        "tools": 20.000000000000007,
+        "knowledge": 5.000000000000002
+      }
+    },
+    {
+      "number": 263,
+      "name": "自然游玩_桥原供料与货运在途263.json",
+      "sha256": "bb4f68eebc2eb61d81c7762e883bb528fe6fc9f2df087cb4d6dc81cba5db7f8c",
+      "at": 89888,
+      "year": 149,
+      "world": 897765749,
+      "initial": 495435159,
+      "born": 2212905200,
+      "dead": 1810574610,
+      "totalCities": 417650,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 12,
+          "builders": 0,
+          "keepers": 6,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 4,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "drivers": 4,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城安居已列入共同工程，待实际完工启用"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "focused",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": true,
+            "active": true,
+            "maintenancePaid": 10,
+            "maintenanceUnpaid": 0,
+            "lastPaidAt": 89880,
+            "changes": []
+          }
+        }
+      },
+      "projects": [
+        {
+          "id": 11,
+          "at": 89851,
+          "kind": "housing",
+          "target": "bridge",
+          "completedAt": null,
+          "sites": {
+            "bridge": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "knowledge": 24
+              },
+              "worked": 0,
+              "remaining": 300,
+              "completedAt": null
+            }
+          }
+        }
+      ],
+      "shipments": [
+        {
+          "id": 40,
+          "project": 11,
+          "at": 89860,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "wood": 173
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 212,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "project": 11,
+          "at": 89860,
+          "source": "ridge",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 96
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "ridge",
+              "to": "lake",
+              "travel": 210,
+              "route": "cross",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 182,
+              "paid": {
+                "food": 20.16,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "project": 11,
+          "at": 89860,
+          "source": "estuary",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "medicine": 48
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "estuary",
+              "to": "lake",
+              "travel": 300,
+              "route": "river",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 272,
+              "paid": {
+                "food": 28.8,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "project": 11,
+          "at": 89880,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "bulk",
+          "cargo": {
+            "wood": 307
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89880,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 232,
+              "paid": {
+                "food": 46.08,
+                "wood": 12,
+                "tools": 2,
+                "knowledge": 1
+              }
+            }
+          ]
+        }
+      ],
+      "publicReturned": false,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 40,
+        "tools": 7.999999999999999,
+        "knowledge": 1.9999999999999998
+      }
+    },
+    {
+      "number": 264,
+      "name": "自然游玩_货场停办在途履约264.json",
+      "sha256": "3eac0a89f600791016235801146c46999ffab5dc9e92565962d2e35d0ea5c7a5",
+      "at": 89888,
+      "year": 149,
+      "world": 897765749,
+      "initial": 495435159,
+      "born": 2212905200,
+      "dead": 1810574610,
+      "totalCities": 417650,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 12,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 4,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "drivers": 4,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "delivery",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城安居已列入共同工程，待实际完工启用"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "focused",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": false,
+            "active": false,
+            "maintenancePaid": 10,
+            "maintenanceUnpaid": 0,
+            "lastPaidAt": 89880,
+            "changes": [
+              {
+                "id": 11613,
+                "at": 89888,
+                "city": "lake",
+                "kind": "dispatchPolicy",
+                "ref": "lake",
+                "paid": {
+                  "knowledge": 4
+                },
+                "field": "enabled",
+                "value": false
+              }
+            ]
+          }
+        }
+      },
+      "projects": [
+        {
+          "id": 11,
+          "at": 89851,
+          "kind": "housing",
+          "target": "bridge",
+          "completedAt": null,
+          "sites": {
+            "bridge": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "knowledge": 24
+              },
+              "worked": 0,
+              "remaining": 300,
+              "completedAt": null
+            }
+          }
+        }
+      ],
+      "shipments": [
+        {
+          "id": 40,
+          "project": 11,
+          "at": 89860,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "wood": 173
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 212,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "project": 11,
+          "at": 89860,
+          "source": "ridge",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 96
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "ridge",
+              "to": "lake",
+              "travel": 210,
+              "route": "cross",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 182,
+              "paid": {
+                "food": 20.16,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "project": 11,
+          "at": 89860,
+          "source": "estuary",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "medicine": 48
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "estuary",
+              "to": "lake",
+              "travel": 300,
+              "route": "river",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 272,
+              "paid": {
+                "food": 28.8,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "project": 11,
+          "at": 89880,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "bulk",
+          "cargo": {
+            "wood": 307
+          },
+          "deliveredAt": null,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89880,
+              "deliveredAt": null,
+              "finishedAt": null,
+              "status": "outbound",
+              "remaining": 232,
+              "paid": {
+                "food": 46.08,
+                "wood": 12,
+                "tools": 2,
+                "knowledge": 1
+              }
+            }
+          ]
+        }
+      ],
+      "publicReturned": false,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 40,
+        "tools": 7.999999999999999,
+        "knowledge": 1.9999999999999998
+      }
+    },
+    {
+      "number": 265,
+      "name": "自然游玩_桥原完工与货场恢复265.json",
+      "sha256": "fe8005dd0bf13f01809e3dc2697d80d545c73e6cb7f5d0c92dc7756329652922",
+      "at": 91370,
+      "year": 152,
+      "world": 908573559,
+      "initial": 495435159,
+      "born": 2272361762,
+      "dead": 1859223362,
+      "totalCities": 417650,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 6,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "freight",
+              "text": "货场待维护；大宗新发车暂停，原勤务车仍可按条件办理"
+            }
+          ]
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "bridge",
+          "population": 112714,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "intake",
+              "text": "已有可接纳住房；接续工坊可承接入住家庭的培训与补员"
+            }
+          ]
+        }
+      ],
+      "dispatch": {
+        "mode": "rotation",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          },
+          {
+            "id": 12077,
+            "at": 91370,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "rotation"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": true,
+            "active": false,
+            "maintenancePaid": 10,
+            "maintenanceUnpaid": 24,
+            "lastPaidAt": 89880,
+            "changes": [
+              {
+                "id": 11613,
+                "at": 89888,
+                "city": "lake",
+                "kind": "dispatchPolicy",
+                "ref": "lake",
+                "paid": {
+                  "knowledge": 4
+                },
+                "field": "enabled",
+                "value": false
+              },
+              {
+                "id": 12076,
+                "at": 91370,
+                "city": "lake",
+                "kind": "dispatchPolicy",
+                "ref": "lake",
+                "paid": {
+                  "knowledge": 4
+                },
+                "field": "enabled",
+                "value": true
+              }
+            ]
+          }
+        }
+      },
+      "projects": [
+        {
+          "id": 11,
+          "at": 89851,
+          "kind": "housing",
+          "target": "bridge",
+          "completedAt": 91360,
+          "sites": {
+            "bridge": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "knowledge": 24,
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48
+              },
+              "worked": 300,
+              "remaining": 0,
+              "completedAt": 91360
+            }
+          }
+        }
+      ],
+      "shipments": [
+        {
+          "id": 40,
+          "project": 11,
+          "at": 89860,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "wood": 173
+          },
+          "deliveredAt": 90100,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90100,
+              "finishedAt": 90340,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "project": 11,
+          "at": 89860,
+          "source": "ridge",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 96
+          },
+          "deliveredAt": 90580,
+          "legs": [
+            {
+              "from": "ridge",
+              "to": "lake",
+              "travel": 210,
+              "route": "cross",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90070,
+              "finishedAt": 90280,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 20.16,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            },
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 1,
+              "startedAt": 90340,
+              "deliveredAt": 90580,
+              "finishedAt": 90820,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "project": 11,
+          "at": 89860,
+          "source": "estuary",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "medicine": 48
+          },
+          "deliveredAt": 91060,
+          "legs": [
+            {
+              "from": "estuary",
+              "to": "lake",
+              "travel": 300,
+              "route": "river",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90160,
+              "finishedAt": 90460,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 28.8,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            },
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 1,
+              "startedAt": 90820,
+              "deliveredAt": 91060,
+              "finishedAt": 91300,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "project": 11,
+          "at": 89880,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "bulk",
+          "cargo": {
+            "wood": 307
+          },
+          "deliveredAt": 90120,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89880,
+              "deliveredAt": 90120,
+              "finishedAt": 90360,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 46.08,
+                "wood": 12,
+                "tools": 2,
+                "knowledge": 1
+              }
+            }
+          ]
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 40,
+        "tools": 7.999999999999999,
+        "knowledge": 1.9999999999999998
+      }
+    },
+    {
+      "number": 266,
+      "name": "自然游玩_网络货运与持续维护结清266.json",
+      "sha256": "c06d1a0f03e81507c06eabc29385623bff83e61da69d002f1e041133b1d691c5",
+      "at": 91983,
+      "year": 153,
+      "world": 912205821,
+      "initial": 495435159,
+      "born": 2292340107,
+      "dead": 1875569445,
+      "totalCities": 418450,
+      "cities": [
+        {
+          "id": "home",
+          "population": 16187,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 6,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": [
+            {
+              "kind": "housing",
+              "text": "本城住房紧张且持续出料，要求先安排本地安居"
+            }
+          ]
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600,
+          "drivers": 0,
+          "builders": 0,
+          "keepers": 0,
+          "mode": "balanced",
+          "quota": "active",
+          "requests": []
+        }
+      ],
+      "dispatch": {
+        "mode": "rotation",
+        "changes": [
+          {
+            "id": 11399,
+            "at": 89358,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "focused"
+          },
+          {
+            "id": 12077,
+            "at": 91370,
+            "city": "home",
+            "kind": "dispatchPolicy",
+            "ref": "network",
+            "paid": {
+              "knowledge": 4
+            },
+            "field": "mode",
+            "value": "rotation"
+          }
+        ],
+        "depots": {
+          "lake": {
+            "at": 88970,
+            "capital": {
+              "wood": 240,
+              "tools": 48,
+              "knowledge": 40
+            },
+            "capitalReceipt": 11287,
+            "remaining": 0,
+            "completedAt": 89330,
+            "enabled": true,
+            "active": true,
+            "maintenancePaid": 21,
+            "maintenanceUnpaid": 24,
+            "lastPaidAt": 91980,
+            "changes": [
+              {
+                "id": 11613,
+                "at": 89888,
+                "city": "lake",
+                "kind": "dispatchPolicy",
+                "ref": "lake",
+                "paid": {
+                  "knowledge": 4
+                },
+                "field": "enabled",
+                "value": false
+              },
+              {
+                "id": 12076,
+                "at": 91370,
+                "city": "lake",
+                "kind": "dispatchPolicy",
+                "ref": "lake",
+                "paid": {
+                  "knowledge": 4
+                },
+                "field": "enabled",
+                "value": true
+              }
+            ]
+          }
+        }
+      },
+      "projects": [
+        {
+          "id": 11,
+          "at": 89851,
+          "kind": "housing",
+          "target": "bridge",
+          "completedAt": 91360,
+          "sites": {
+            "bridge": {
+              "required": {
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48,
+                "knowledge": 24
+              },
+              "installed": {
+                "knowledge": 24,
+                "wood": 480,
+                "tools": 96,
+                "medicine": 48
+              },
+              "worked": 300,
+              "remaining": 0,
+              "completedAt": 91360
+            }
+          }
+        }
+      ],
+      "shipments": [
+        {
+          "id": 40,
+          "project": 11,
+          "at": 89860,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "wood": 173
+          },
+          "deliveredAt": 90100,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90100,
+              "finishedAt": 90340,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "project": 11,
+          "at": 89860,
+          "source": "ridge",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "tools": 96
+          },
+          "deliveredAt": 90580,
+          "legs": [
+            {
+              "from": "ridge",
+              "to": "lake",
+              "travel": 210,
+              "route": "cross",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90070,
+              "finishedAt": 90280,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 20.16,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            },
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 1,
+              "startedAt": 90340,
+              "deliveredAt": 90580,
+              "finishedAt": 90820,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "project": 11,
+          "at": 89860,
+          "source": "estuary",
+          "target": "bridge",
+          "carrier": "duty",
+          "cargo": {
+            "medicine": 48
+          },
+          "deliveredAt": 91060,
+          "legs": [
+            {
+              "from": "estuary",
+              "to": "lake",
+              "travel": 300,
+              "route": "river",
+              "index": 0,
+              "startedAt": 89860,
+              "deliveredAt": 90160,
+              "finishedAt": 90460,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 28.8,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            },
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 1,
+              "startedAt": 90820,
+              "deliveredAt": 91060,
+              "finishedAt": 91300,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 23.04,
+                "wood": 6,
+                "tools": 1,
+                "knowledge": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "project": 11,
+          "at": 89880,
+          "source": "lake",
+          "target": "bridge",
+          "carrier": "bulk",
+          "cargo": {
+            "wood": 307
+          },
+          "deliveredAt": 90120,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "bridge",
+              "travel": 240,
+              "route": "academy",
+              "index": 0,
+              "startedAt": 89880,
+              "deliveredAt": 90120,
+              "finishedAt": 90360,
+              "status": "complete",
+              "remaining": 0,
+              "paid": {
+                "food": 46.08,
+                "wood": 12,
+                "tools": 2,
+                "knowledge": 1
+              }
+            }
+          ]
+        }
+      ],
+      "publicReturned": true,
+      "familiesReturned": true,
+      "capitalPaid": [
+        {
+          "city": "lake",
+          "at": 88970,
+          "paid": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 40
+          }
+        }
+      ],
+      "maintenancePaid": {
+        "wood": 84,
+        "tools": 16.800000000000004,
+        "knowledge": 4.200000000000001
+      }
+    }
+  ],
+  "historicalFiles": 278
+}

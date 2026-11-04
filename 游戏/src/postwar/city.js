@@ -87,6 +87,7 @@ var CivilCity={
     if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.plan(s,id,slots,want,reserved);
     if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.plan(s,id,slots,want,reserved);
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityDispatch!=='undefined')CivilCityDispatch.plan(s,id,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.supplyPlan(s,id,want,n.workers.settler||0);

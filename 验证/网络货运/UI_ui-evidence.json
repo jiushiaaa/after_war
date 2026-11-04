@@ -1,0 +1,216 @@
+{
+  "kind": "isolated native 263 branch; real input, no state/time injection",
+  "at": 90023,
+  "views": 12,
+  "keyboard": true,
+  "pausedNavigationUnchanged": true,
+  "draftsPreserved": true,
+  "paidRoutingAndCapital": true,
+  "scopedPauseResume": true,
+  "evidence": [
+    {
+      "view": "folded",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n4 / 6在途\n已完成工程\n10\n本期剩余\n455秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "overview",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "当前运输委托：集中供料\n\n炉火城 · 勤务车可用\n原勤务车承运；暂无工程待供料\n\n湖滨市 · 勤务车载货，77秒\n载货，97秒到站；暂无工程待供料\n\n矿岭市 · 勤务车载货，47秒\n原勤务车承运；暂无工程待供料\n\n河口市 · 勤务车载货，137秒\n原勤务车承运；暂无工程待供料\n\n桥原市 · 勤务车可用\n原勤务车承运；暂无工程待供料"
+    },
+    {
+      "view": "manage",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "dispatch_toggle",
+          "height": 36.09375
+        }
+      ],
+      "cityVisible": true,
+      "modeVisible": false,
+      "text": "货场建设与续办\n承担货场的城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n\n湖滨市 · 载货，97秒到站\n完工后增加一组8人货运车列，直达单批至多768件；原勤务车单批192件，仍办理接力、迁居与通勤。货物价值和现有预算可能限制装载。\n6名维护人员，每60秒 木料 4、工具 0.8、知识 0.2，每期108折值；计入当地共同预算。新车旅费为原勤务车两倍，往返时间不变。\n停办后停止维护与新发车，已出发的车列按原路线交付并返回。\n\n暂停货场续办"
+    },
+    {
+      "view": "routing",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "right": 845,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 36
+        },
+        {
+          "id": "dispatch_apply",
+          "height": 36.09375
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": true,
+      "text": "议定运输次序\n已批准工程如何供料\n各地轮送\n集中供料\n\n货场所属城市轮流向不同受益地发货，优先更久未获得本城发车的地点。减少后一座城市长期排队。\n只调整既有供料约，不改分担、不重发在途货，也不替地方扩大预算。议定实付本城知识4。\n\n采用运输委托"
+    },
+    {
+      "view": "folded",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n4 / 6在途\n已完成工程\n10\n本期剩余\n455秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "overview",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "当前运输委托：集中供料\n\n炉火城 · 勤务车可用\n原勤务车承运；暂无工程待供料\n\n湖滨市 · 勤务车载货，77秒\n载货，97秒到站；暂无工程待供料\n\n矿岭市 · 勤务车载货，47秒\n原勤务车承运；暂无工程待供料\n\n河口市 · 勤务车载货，137秒\n原勤务车承运；暂无工程待供料\n\n桥原市 · 勤务车可用\n原勤务车承运；暂无工程待供料"
+    },
+    {
+      "view": "manage",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "dispatch_toggle",
+          "height": 46
+        }
+      ],
+      "cityVisible": true,
+      "modeVisible": false,
+      "text": "货场建设与续办\n承担货场的城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n\n湖滨市 · 载货，97秒到站\n完工后增加一组8人货运车列，直达单批至多768件；原勤务车单批192件，仍办理接力、迁居与通勤。货物价值和现有预算可能限制装载。\n6名维护人员，每60秒 木料 4、工具 0.8、知识 0.2，每期108折值；计入当地共同预算。新车旅费为原勤务车两倍，往返时间不变。\n停办后停止维护与新发车，已出发的车列按原路线交付并返回。\n\n暂停货场续办"
+    },
+    {
+      "view": "routing",
+      "width": 390,
+      "scrollWidth": 390,
+      "right": 380,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "dispatch_apply",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": true,
+      "text": "议定运输次序\n已批准工程如何供料\n各地轮送\n集中供料\n\n货场所属城市轮流向不同受益地发货，优先更久未获得本城发车的地点。减少后一座城市长期排队。\n只调整既有供料约，不改分担、不重发在途货，也不替地方扩大预算。议定实付本城知识4。\n\n采用运输委托"
+    },
+    {
+      "view": "folded",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "各城共办，各城实付\n登记公用站\n5 / 5\n公共车组\n4 / 6在途\n已完成工程\n10\n本期剩余\n455秒\n委托按已批准工程办理供料和运输。各城保留库存、供养责任与暂停权。本城供料及安居落在出发片区。\n查看明细"
+    },
+    {
+      "view": "overview",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": false,
+      "text": "当前运输委托：集中供料\n\n炉火城 · 勤务车可用\n原勤务车承运；暂无工程待供料\n\n湖滨市 · 勤务车载货，77秒\n载货，97秒到站；暂无工程待供料\n\n矿岭市 · 勤务车载货，47秒\n原勤务车承运；暂无工程待供料\n\n河口市 · 勤务车载货，137秒\n原勤务车承运；暂无工程待供料\n\n桥原市 · 勤务车可用\n原勤务车承运；暂无工程待供料"
+    },
+    {
+      "view": "manage",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "dispatch_toggle",
+          "height": 46
+        }
+      ],
+      "cityVisible": true,
+      "modeVisible": false,
+      "text": "货场建设与续办\n承担货场的城市\n炉火城\n湖滨市\n矿岭市\n河口市\n桥原市\n\n湖滨市 · 载货，97秒到站\n完工后增加一组8人货运车列，直达单批至多768件；原勤务车单批192件，仍办理接力、迁居与通勤。货物价值和现有预算可能限制装载。\n6名维护人员，每60秒 木料 4、工具 0.8、知识 0.2，每期108折值；计入当地共同预算。新车旅费为原勤务车两倍，往返时间不变。\n停办后停止维护与新发车，已出发的车列按原路线交付并返回。\n\n暂停货场续办"
+    },
+    {
+      "view": "routing",
+      "width": 853,
+      "scrollWidth": 853,
+      "right": 843,
+      "visibleButtons": [
+        {
+          "id": "council_back",
+          "height": 46
+        },
+        {
+          "id": "dispatch_apply",
+          "height": 46
+        }
+      ],
+      "cityVisible": false,
+      "modeVisible": true,
+      "text": "议定运输次序\n已批准工程如何供料\n各地轮送\n集中供料\n\n货场所属城市轮流向不同受益地发货，优先更久未获得本城发车的地点。减少后一座城市长期排队。\n只调整既有供料约，不改分担、不重发在途货，也不替地方扩大预算。议定实付本城知识4。\n\n采用运输委托"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 var CivilCityBudget={
   modes:{balanced:'轮替办理',learning:'接班优先',delivery:'履约优先',manual:'恢复分项办理'},
   cost:{knowledge:4},
-  upkeepKinds:['service','homeMaintenance','continuityService','laborLodgingService'],
+  upkeepKinds:['service','homeMaintenance','continuityService','laborLodgingService','dispatchService'],
   committedKinds:['continuityLesson','laborInput','laborMeals','leg'],
   c(){return CivilCityCouncil;},x(){return CivilCityContinuity;},l(){return CivilCityLabor;},
   data(s){return s.civilization.cityBudget;},
@@ -21,6 +21,7 @@ var CivilCityBudget={
     if(h?.enabled)rows.push({kind:'安居社区',cost:CivilCityHomes.fee(s,id),last:h.lastPaidAt});
     if(x?.completedAt!==null&&x?.enabled)rows.push({kind:'岗位工坊',cost:this.x().officeFee(s,id),last:x.lastPaidAt});
     for(const p of this.l().data(s)?.contracts||[])if(p.to===id&&p.from!==id&&(p.endedAt===null||this.l().shifts(s).some(t=>t.order===p.id&&t.leftAt===null)))rows.push({kind:'驻班临住',cost:this.l().lodgingFee(p.count),last:p.lastLodgingAt});
+    const freight=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.depot(s,id):null;if(freight?.completedAt!==null&&freight?.enabled)rows.push({kind:'联运货场',cost:CivilCityDispatch.fee,last:freight.lastPaidAt});
     const total={};for(const r of rows){r.rounds=this.ticks(start,end,60).filter(t=>r.last!==t).length;this.add(total,r.cost,r.rounds);}return {total,rows};
   },
   schedule(s){return {start:this.c().period(s),costs:[{},{},{}]};},
@@ -48,8 +49,7 @@ var CivilCityBudget={
     return a.stockReason(s,id,plan.costs[0]);
   },
   freight(s,id){const a=this.c(),p=a.data(s).projects.find(p=>p.completedAt===null);if(!p)return null;for(const q of p.pledges.filter(q=>q.from===id&&!a.full({required:q.required,installed:q.allocated}))){
-    if(!a.activeOffice(s,id))continue;const route=id===q.to?null:a.path(s,id,q.to),leg=route?.legs[0];if(id!==q.to&&(!leg||a.legReason(s,id,leg.travel,true)))continue;
-    const remaining=Object.fromEntries(Object.entries(q.required).map(([k,n])=>[k,n-(q.allocated[k]||0)])),fee=leg?a.legFee(leg.travel):{},cargo=a.batch(s,id,remaining,fee,true);if(!Object.keys(cargo).length)continue;
+    if(!a.activeOffice(s,id))continue;const remaining=Object.fromEntries(Object.entries(q.required).map(([k,n])=>[k,n-(q.allocated[k]||0)])),offer=id===q.to?{fee:{},cargo:a.batch(s,id,remaining,{},true)}:a.offer(s,q,remaining,true);if(!offer||!Object.keys(offer.cargo).length)continue;const {fee,cargo}=offer;
     const plan=this.schedule(s);this.put(plan,s.civilization.elapsed,this.add({...cargo},fee));if(!this.fits(s,id,plan))return plan;
   }return null;},
   order(s,id){const mode=this.mode(s,id);if(mode==='learning')return ['learning','employment','delivery'];if(mode==='delivery')return ['delivery','employment','learning'];const start=this.data(s)?.at||0,i=Math.floor((this.c().period(s)-this.c().period(s,start))/600)%3;return [['learning','employment','delivery'],['employment','delivery','learning'],['delivery','learning','employment']][i];},
@@ -78,9 +78,10 @@ var CivilCityBudget={
     const held=a.data(s).shipments.filter(p=>p.deliveredAt===null&&p.legs.at(-1)?.deliveredAt!==null&&p.path.legs[p.legs.length]?.from===id);if(held.length)out.unshift({kind:'delivery',text:held.length+'批寄存货等待本城接力，先留下一段旅费'});
     const housing=a.request(s,id);if(housing.due)out.push({kind:'housing',text:p&&a.housingKind(p.kind)&&Object.hasOwn(p.sites,id)?'本城安居已列入共同工程，待实际完工启用':'本城住房紧张且持续出料，要求先安排本地安居'});
     const estate=CivilCityHomes.estate(s,id);if(estate&&CivilCityHomes.freeBeds(s,id)>=120&&!o)out.push({kind:'intake',text:'已有可接纳住房；接续工坊可承接入住家庭的培训与补员'});if(o&&x.count(x.waiting(s,id))>0)out.push({kind:'intake',text:x.count(x.waiting(s,id))+'名入住成人等待取得岗位资格'});
+    if(typeof CivilCityDispatch!=='undefined'&&CivilCityDispatch.ready(s,id)&&CivilCityDispatch.depot(s,id).enabled&&!CivilCityDispatch.active(s,id))out.push({kind:'freight',text:'货场待维护；大宗新发车暂停，原勤务车仍可按条件办理'});
     return out;
   },
-  plannedUpkeep(s,id){const a=this.c(),start=a.period(s)+600,total=this.upkeep(s,id,start,start+600).total,p=a.data(s).projects.find(p=>p.completedAt===null&&a.scheme(p.kind)&&Object.hasOwn(p.sites,id));if(p&&!CivilCityHomes.estate(s,id))this.add(total,CivilCityHomes.schemeFee(p.kind),10);const office=this.x().local(s,id);if(office&&office.completedAt===null)this.add(total,this.x().officeFee(s,id),10);return total;},
+  plannedUpkeep(s,id){const a=this.c(),start=a.period(s)+600,total=this.upkeep(s,id,start,start+600).total,p=a.data(s).projects.find(p=>p.completedAt===null&&a.scheme(p.kind)&&Object.hasOwn(p.sites,id));if(p&&!CivilCityHomes.estate(s,id))this.add(total,CivilCityHomes.schemeFee(p.kind),10);const office=this.x().local(s,id);if(office&&office.completedAt===null)this.add(total,this.x().officeFee(s,id),10);const freight=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.depot(s,id):null;if(freight?.completedAt===null)this.add(total,CivilCityDispatch.fee,10);return total;},
   recommended(s,id){const a=this.c(),life=a.value(this.plannedUpkeep(s,id)),o=this.l().contract(s,id),task=o?a.value(this.laborPlans(s,o)[id].costs.reduce((r,c)=>this.add(r,c),{})):400,need=life+Math.max(400,task),current=a.data(s).offices[id].quota;return Object.keys(a.quotas).find(k=>a.quotas[k].value>=Math.max(need,a.quotas[current].value))||'active';},
   preview(s,scope,mode){if(!this.available(s)||!Object.hasOwn(this.modes,mode))return [];const a=this.c(),ids=a.membersAt(s,s.civilization.elapsed);if(scope!=='all'&&!ids.includes(scope))return [];return ids.filter(id=>scope==='all'||scope===id).map(city=>{const quota=mode==='manual'?a.data(s).offices[city].quota:this.recommended(s,city),quotaChanged=quota!==a.data(s).offices[city].quota,changed=quotaChanged||this.mode(s,city)!==mode;return {city,quota,quotaChanged,changed,cost:{knowledge:changed?4+(quotaChanged?4:0):0}};});},
   applyReason(s,scope,mode){const rows=this.preview(s,scope,mode);if(!rows.length)return '先完成接续工坊和三城公用站';if(!rows.some(r=>r.changed))return '各城已按此安排办理';for(const r of rows)if(r.changed&&!CivilRules.canPay({stores:this.c().local(s,r.city).stores},r.cost))return this.c().name(s,r.city)+'需知识'+r.cost.knowledge;return null;},

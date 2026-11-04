@@ -45,6 +45,10 @@ CivilCityCouncil.validate=function(s){
     if(e.kind==='policy'){
       if(!['enabled','quota'].includes(e.field)||e.field==='enabled'&&typeof e.value!=='boolean'||e.field==='quota'&&!this.quotas[e.value]||policy[e.field]===e.value)fail('重复或无效授权');
       policy[e.field]=e.value;expected={knowledge:4};once=null;
+    }else if(e.kind==='dispatchBuild'){
+      expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货场资本实付');
+    }else if(e.kind==='dispatchPolicy'){
+      expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货运委托');once=null;
     }else if(e.kind==='budgetPolicy'){
       expected=typeof CivilCityBudget!=='undefined'?CivilCityBudget.receipt(s,e):null;if(!expected)fail('共同预算约定');once=null;
     }else if(e.kind==='laborPolicy'){
@@ -60,13 +64,14 @@ CivilCityCouncil.validate=function(s){
       if(e.kind==='service'){if(e.ref!==e.at||e.at%60)fail('续办时点');expected=this.serviceCost;policy.lastPaidAt=e.at;}
       else{
         if(policy.lastPaidAt===null||e.at-policy.lastPaidAt>=120)fail('未续办执行');
-        if(['laborRecognition','laborBuild','laborTravel','laborPack','laborEscrow','laborInput','laborMeals','laborLodging','laborLodgingService'].includes(e.kind)){expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务支出');}
+        if(e.kind==='dispatchService'){expected=typeof CivilCityDispatch!=='undefined'?CivilCityDispatch.receipt(s,e):null;if(!expected)fail('货场维护');}
+        else if(['laborRecognition','laborBuild','laborTravel','laborPack','laborEscrow','laborInput','laborMeals','laborLodging','laborLodgingService'].includes(e.kind)){expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务支出');}
         else if(['continuityService','continuityEnroll','continuityLesson','continuityInvite'].includes(e.kind)){expected=typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.receipt(s,e):null;if(!expected)fail('接续开支');}
         else if(['homeMaintenance','moveFee','movePack'].includes(e.kind)){expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居支出');}
         else if(e.kind==='cargo'){const p=d.shipments[e.ref-1];if(!p||p.at!==e.at||p.source!==e.city)fail('供料付款');expected=p.cargo;}
         else if(e.kind==='leg'){
           const [ship,index]=String(e.ref).split(':').map(Number),l=d.shipments[ship-1]?.legs[index];
-          if(!l||l.from!==e.city||l.startedAt!==e.at)fail('分段运费');expected=this.legFee(l.travel);
+          if(!l||l.from!==e.city||l.startedAt!==e.at)fail('分段运费');expected=this.freightFee(l.travel,d.shipments[ship-1].carrier);
         }else if(e.kind==='localMaterials'){
           const p=d.projects[e.project-1],q=p?.pledges[e.pledge];if(!q||e.ref!==e.project+':'+e.pledge||q.from!==e.city||q.to!==e.city||e.at<p.at||p.completedAt!==null&&e.at>=p.completedAt||Object.keys(e.paid).some(k=>!q.required[k])||Object.values(e.paid).some(v=>!int(v)||!v)||Object.values(e.paid).reduce((a,b)=>a+b,0)>192)fail('本地材料');
           expected=e.paid;once=null;const key=e.ref;locals[key]||={};this.sum(locals[key],e.paid);
@@ -88,14 +93,15 @@ CivilCityCouncil.validate=function(s){
   const endByCity={};
   for(const [i,p]of d.shipments.entries()){
     const project=d.projects[p.project-1],q=project?.pledges[p.pledge];
-    if(p.id!==i+1||!q||p.source!==q.from||p.target!==q.to||p.source===p.target||!time(p.at)||p.at<project.at||i&&p.at<d.shipments[i-1].at||!cost(p.cargo)||!Object.keys(p.cargo).length||Object.keys(p.cargo).some(k=>!q.required[k])||Object.values(p.cargo).some(v=>!int(v)||!v)||Object.values(p.cargo).reduce((a,b)=>a+b,0)>192||!Array.isArray(p.legs)||!p.legs.length||!same(p.path,this.path(s,p.source,p.target,p.at))||p.legs.length>p.path.legs.length||!unique.has(p.source+':cargo:'+p.id))fail('公共运单');
+    if(p.carrier!==undefined&&(p.carrier!=='bulk'||p.version!==2)||p.carrier===undefined&&p.version!==undefined)fail('未知货运版本');
+    if(p.id!==i+1||!q||p.source!==q.from||p.target!==q.to||p.source===p.target||!time(p.at)||p.at<project.at||i&&p.at<d.shipments[i-1].at||!cost(p.cargo)||!Object.keys(p.cargo).length||Object.keys(p.cargo).some(k=>!q.required[k])||Object.values(p.cargo).some(v=>!int(v)||!v)||Object.values(p.cargo).reduce((a,b)=>a+b,0)>(p.carrier==='bulk'?768:192)||!Array.isArray(p.legs)||!p.legs.length||!same(p.path,this.path(s,p.source,p.target,p.at))||p.legs.length>p.path.legs.length||!unique.has(p.source+':cargo:'+p.id))fail('公共运单');
     const key=p.project+':'+p.pledge;allocated[key]||={};this.sum(allocated[key],p.cargo);
     for(const [j,l]of p.legs.entries()){
-      const route=p.path.legs[j];if(!same({from:l.from,to:l.to,travel:l.travel,route:l.route},route)||l.index!==j||!time(l.startedAt)||l.startedAt<(j?p.legs[j-1].deliveredAt??Infinity:p.at)||j===0&&l.startedAt!==p.at||!same(l.paid,this.legFee(l.travel))||!unique.has(l.from+':leg:'+p.id+':'+j))fail('分段路径/运费');
+      const route=p.path.legs[j];if(!same({from:l.from,to:l.to,travel:l.travel,route:l.route},route)||l.index!==j||!time(l.startedAt)||l.startedAt<(j?p.legs[j-1].deliveredAt??Infinity:p.at)||j===0&&l.startedAt!==p.at||!same(l.paid,this.freightFee(l.travel,p.carrier))||!unique.has(l.from+':leg:'+p.id+':'+j))fail('分段路径/运费');
       if(l.deliveredAt!==null&&(l.deliveredAt!==l.startedAt+l.travel||!time(l.deliveredAt)))fail('到站时间');
       if(l.status==='complete'){if(l.finishedAt!==l.startedAt+l.travel*2||!time(l.finishedAt)||l.remaining!==0||l.deliveredAt===null)fail('空返');}
       else if(['outbound','returning'].includes(l.status)){if(l.finishedAt!==null||!int(l.remaining)||l.remaining<1||l.remaining!==l.startedAt+l.travel*(l.status==='outbound'?1:2)-s.civilization.elapsed||(l.status==='outbound')!==(l.deliveredAt===null))fail('在途');}else fail('车组状态');
-      (endByCity[l.from]||=[]).push(l);
+      (endByCity[l.from+(p.carrier==='bulk'?':bulk':'')]||=[]).push(l);
     }
     const final=p.legs[p.path.legs.length-1]?.deliveredAt??null;if(p.deliveredAt!==final)fail('货物交付');
     if(final!==null){delivered[key]||={};this.sum(delivered[key],p.cargo);this.sum(consumed[p.target],p.cargo);}
