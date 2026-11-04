@@ -1,0 +1,3464 @@
+{
+  "at": 43103,
+  "seed": 1345435167,
+  "world": 657718265,
+  "born": 892370486,
+  "dead": 730087380,
+  "paused": true,
+  "speed": 16,
+  "buttons": [],
+  "homes": {
+    "schema": 1,
+    "at": 40130,
+    "estates": {
+      "home": {
+        "project": 6,
+        "at": 40130,
+        "enabled": true,
+        "mode": "tools",
+        "condition": 100,
+        "lastPaidAt": 43080,
+        "records": [
+          {
+            "at": 40140,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40200,
+            "paid": false,
+            "condition": 96
+          },
+          {
+            "at": 40260,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40320,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40380,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40440,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40500,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 40560,
+            "paid": false,
+            "condition": 96
+          },
+          {
+            "at": 40620,
+            "paid": false,
+            "condition": 92
+          },
+          {
+            "at": 40680,
+            "paid": false,
+            "condition": 88
+          },
+          {
+            "at": 40740,
+            "paid": false,
+            "condition": 84
+          },
+          {
+            "at": 40800,
+            "paid": false,
+            "condition": 80
+          },
+          {
+            "at": 40860,
+            "paid": false,
+            "condition": 76
+          },
+          {
+            "at": 40920,
+            "paid": false,
+            "condition": 72
+          },
+          {
+            "at": 40980,
+            "paid": false,
+            "condition": 68
+          },
+          {
+            "at": 41040,
+            "paid": true,
+            "condition": 73
+          },
+          {
+            "at": 41100,
+            "paid": true,
+            "condition": 78
+          },
+          {
+            "at": 41160,
+            "paid": true,
+            "condition": 83
+          },
+          {
+            "at": 41220,
+            "paid": true,
+            "condition": 88
+          },
+          {
+            "at": 41280,
+            "paid": true,
+            "condition": 93
+          },
+          {
+            "at": 41340,
+            "paid": true,
+            "condition": 98
+          },
+          {
+            "at": 41400,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41460,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41520,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41580,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41640,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41700,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41760,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41820,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41880,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 41940,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42000,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42060,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42120,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42180,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42240,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42300,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42360,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42420,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42480,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42540,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42600,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42660,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42720,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42780,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42840,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42900,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 42960,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 43020,
+            "paid": true,
+            "condition": 100
+          },
+          {
+            "at": 43080,
+            "paid": true,
+            "condition": 100
+          }
+        ],
+        "changes": [
+          552,
+          585,
+          749
+        ]
+      }
+    },
+    "orders": [
+      {
+        "id": 1,
+        "from": "lake",
+        "to": "home",
+        "total": 120,
+        "at": 40507,
+        "endedAt": 40520,
+        "cancelled": false
+      },
+      {
+        "id": 2,
+        "from": "lake",
+        "to": "home",
+        "total": 480,
+        "at": 41420,
+        "endedAt": 42520,
+        "cancelled": false
+      }
+    ],
+    "trips": [
+      {
+        "id": 1,
+        "order": 1,
+        "from": "lake",
+        "to": "home",
+        "at": 40510,
+        "path": {
+          "ids": [
+            "lake",
+            "home"
+          ],
+          "distance": 180,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "home",
+              "travel": 180,
+              "route": "oldLake"
+            }
+          ]
+        },
+        "initial": [
+          {
+            "age": 38,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 38,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 37,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 36,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 35,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 34,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 33,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 32,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 31,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 30,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 29,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 28,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 27,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 25,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 23,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 22,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 21,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 16,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 16,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 15,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 15,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 14,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 14,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 13,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 13,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 12,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 12,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 11,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 11,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 10,
+            "count": 4,
+            "identity": "human"
+          },
+          {
+            "age": 10,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 9,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 8,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 7,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 6,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 5,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 4,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 3,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 2,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 1,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 0,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 66,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 66,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 67,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 67,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 68,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 68,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 69,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 70,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 71,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 72,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 73,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 74,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 75,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 76,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 77,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 78,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 79,
+            "count": 1,
+            "identity": "human"
+          }
+        ],
+        "cohorts": [],
+        "year": 68,
+        "dead": 1,
+        "food": 0,
+        "consumed": 622.0800000000022,
+        "pack": {
+          "food": 623
+        },
+        "fee": {
+          "food": 17.279999999999998,
+          "wood": 6,
+          "tools": 1,
+          "knowledge": 0.5
+        },
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 40690,
+        "waited": 120,
+        "settledAt": 40990,
+        "outcome": "returned",
+        "received": 0.9199999999978004,
+        "finishedAt": 40990
+      },
+      {
+        "id": 2,
+        "order": 2,
+        "from": "lake",
+        "to": "home",
+        "at": 41430,
+        "path": {
+          "ids": [
+            "lake",
+            "home"
+          ],
+          "distance": 180,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "home",
+              "travel": 180,
+              "route": "oldLake"
+            }
+          ]
+        },
+        "initial": [
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 39,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 38,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 37,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 36,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 35,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 34,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 33,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 32,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 31,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 30,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 29,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 28,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 27,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 25,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 23,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 16,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 16,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 15,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 15,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 14,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 14,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 13,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 13,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 12,
+            "count": 4,
+            "identity": "human"
+          },
+          {
+            "age": 12,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 11,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 11,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 10,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 10,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 9,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 8,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 7,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 6,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 5,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 4,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 3,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 2,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 1,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 0,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 66,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 66,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 67,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 67,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 68,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 68,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 69,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 70,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 71,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 72,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 73,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 74,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 75,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 76,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 77,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 78,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 79,
+            "count": 1,
+            "identity": "human"
+          }
+        ],
+        "cohorts": [],
+        "year": 69,
+        "dead": 0,
+        "food": 0,
+        "consumed": 233.2799999999997,
+        "pack": {
+          "food": 623
+        },
+        "fee": {
+          "food": 17.279999999999998,
+          "wood": 6,
+          "tools": 1,
+          "knowledge": 0.5
+        },
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 41610,
+        "waited": 0,
+        "settledAt": 41610,
+        "outcome": "arrived",
+        "received": 389.71999999999656,
+        "finishedAt": 41790
+      },
+      {
+        "id": 3,
+        "order": 2,
+        "from": "lake",
+        "to": "home",
+        "at": 41790,
+        "path": {
+          "ids": [
+            "lake",
+            "home"
+          ],
+          "distance": 180,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "home",
+              "travel": 180,
+              "route": "oldLake"
+            }
+          ]
+        },
+        "initial": [
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 39,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 38,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 37,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 36,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 35,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 34,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 33,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 32,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 31,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 30,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 29,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 28,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 27,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 25,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 23,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 16,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 16,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 15,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 15,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 14,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 14,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 13,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 13,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 12,
+            "count": 4,
+            "identity": "human"
+          },
+          {
+            "age": 12,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 11,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 11,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 10,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 10,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 9,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 8,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 7,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 6,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 5,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 4,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 3,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 2,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 1,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 0,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 66,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 66,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 67,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 67,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 68,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 68,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 69,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 70,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 71,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 72,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 73,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 74,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 75,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 76,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 77,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 78,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 79,
+            "count": 1,
+            "identity": "human"
+          }
+        ],
+        "cohorts": [],
+        "year": 69,
+        "dead": 0,
+        "food": 0,
+        "consumed": 233.2799999999997,
+        "pack": {
+          "food": 623
+        },
+        "fee": {
+          "food": 17.279999999999998,
+          "wood": 6,
+          "tools": 1,
+          "knowledge": 0.5
+        },
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 41970,
+        "waited": 0,
+        "settledAt": 41970,
+        "outcome": "arrived",
+        "received": 389.71999999999656,
+        "finishedAt": 42150
+      },
+      {
+        "id": 4,
+        "order": 2,
+        "from": "lake",
+        "to": "home",
+        "at": 42150,
+        "path": {
+          "ids": [
+            "lake",
+            "home"
+          ],
+          "distance": 180,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "home",
+              "travel": 180,
+              "route": "oldLake"
+            }
+          ]
+        },
+        "initial": [
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 40,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 39,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 38,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 37,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 36,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 35,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 34,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 33,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 32,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 31,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 30,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 29,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 28,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 27,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 25,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 16,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 16,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 15,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 15,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 14,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 14,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 13,
+            "count": 4,
+            "identity": "human"
+          },
+          {
+            "age": 13,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 12,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 12,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 11,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 11,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 10,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 9,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 8,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 7,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 6,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 5,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 4,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 3,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 2,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 1,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 0,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 66,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 66,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 67,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 67,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 68,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 68,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 69,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 70,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 71,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 72,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 73,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 74,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 75,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 76,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 77,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 78,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 79,
+            "count": 1,
+            "identity": "human"
+          }
+        ],
+        "cohorts": [],
+        "year": 70,
+        "dead": 0,
+        "food": 0,
+        "consumed": 233.2799999999997,
+        "pack": {
+          "food": 623
+        },
+        "fee": {
+          "food": 17.279999999999998,
+          "wood": 6,
+          "tools": 1,
+          "knowledge": 0.5
+        },
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 42330,
+        "waited": 0,
+        "settledAt": 42330,
+        "outcome": "arrived",
+        "received": 389.71999999999656,
+        "finishedAt": 42510
+      },
+      {
+        "id": 5,
+        "order": 2,
+        "from": "lake",
+        "to": "home",
+        "at": 42510,
+        "path": {
+          "ids": [
+            "lake",
+            "home"
+          ],
+          "distance": 180,
+          "legs": [
+            {
+              "from": "lake",
+              "to": "home",
+              "travel": 180,
+              "route": "oldLake"
+            }
+          ]
+        },
+        "initial": [
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 41,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 42,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 43,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 44,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 45,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 46,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 47,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 48,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 49,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 50,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 51,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 52,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 53,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 54,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 55,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 56,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 57,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 58,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 59,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 40,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 40,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 39,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 39,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 38,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 37,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 36,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 35,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 34,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 33,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 32,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 31,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 30,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 29,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 28,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 27,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 25,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 17,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 16,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 16,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 15,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 15,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 14,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 14,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 13,
+            "count": 4,
+            "identity": "human"
+          },
+          {
+            "age": 13,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 12,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 12,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 11,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 11,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 10,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 9,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 8,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 7,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 6,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 5,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 4,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 3,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 2,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 1,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 0,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 65,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 66,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 66,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 67,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 67,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 68,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 68,
+            "count": 1,
+            "identity": "mutant"
+          },
+          {
+            "age": 69,
+            "count": 2,
+            "identity": "human"
+          },
+          {
+            "age": 70,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 71,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 72,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 73,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 74,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 75,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 76,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 77,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 78,
+            "count": 1,
+            "identity": "human"
+          },
+          {
+            "age": 79,
+            "count": 1,
+            "identity": "human"
+          }
+        ],
+        "cohorts": [],
+        "year": 71,
+        "dead": 1,
+        "food": 0,
+        "consumed": 233.2799999999997,
+        "pack": {
+          "food": 623
+        },
+        "fee": {
+          "food": 17.279999999999998,
+          "wood": 6,
+          "tools": 1,
+          "knowledge": 0.5
+        },
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 42690,
+        "waited": 0,
+        "settledAt": 42690,
+        "outcome": "arrived",
+        "received": 389.71999999999656,
+        "finishedAt": 42870
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "kind": "housing",
+      "target": "lake",
+      "done": 34080,
+      "sites": {
+        "lake": {
+          "required": {
+            "wood": 480,
+            "tools": 96,
+            "medicine": 48,
+            "knowledge": 24
+          },
+          "installed": {
+            "tools": 96,
+            "medicine": 48,
+            "knowledge": 24,
+            "wood": 480
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 34080
+        }
+      }
+    },
+    {
+      "id": 2,
+      "kind": "housing",
+      "target": "home",
+      "done": 34990,
+      "sites": {
+        "home": {
+          "required": {
+            "wood": 480,
+            "tools": 96,
+            "medicine": 48,
+            "knowledge": 24
+          },
+          "installed": {
+            "tools": 96,
+            "medicine": 48,
+            "knowledge": 24,
+            "wood": 480
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 34990
+        }
+      }
+    },
+    {
+      "id": 3,
+      "kind": "road",
+      "target": "river",
+      "done": 35640,
+      "sites": {
+        "lake": {
+          "required": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 12
+          },
+          "installed": {
+            "tools": 48,
+            "knowledge": 12,
+            "wood": 240
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 35640
+        },
+        "estuary": {
+          "required": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 12
+          },
+          "installed": {
+            "tools": 48,
+            "knowledge": 12,
+            "wood": 240
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 35640
+        }
+      }
+    },
+    {
+      "id": 4,
+      "kind": "road",
+      "target": "cross",
+      "done": 36190,
+      "sites": {
+        "lake": {
+          "required": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 12
+          },
+          "installed": {
+            "tools": 48,
+            "knowledge": 12,
+            "wood": 240
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 36190
+        },
+        "ridge": {
+          "required": {
+            "wood": 240,
+            "tools": 48,
+            "knowledge": 12
+          },
+          "installed": {
+            "tools": 48,
+            "knowledge": 12,
+            "wood": 240
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 36010
+        }
+      }
+    },
+    {
+      "id": 5,
+      "kind": "housing",
+      "target": "ridge",
+      "done": 38070,
+      "sites": {
+        "ridge": {
+          "required": {
+            "wood": 480,
+            "tools": 96,
+            "medicine": 48,
+            "knowledge": 24
+          },
+          "installed": {
+            "tools": 96,
+            "wood": 480,
+            "knowledge": 24,
+            "medicine": 48
+          },
+          "worked": 300,
+          "remaining": 0,
+          "completedAt": 38070
+        }
+      }
+    },
+    {
+      "id": 6,
+      "kind": "neighborhood",
+      "target": "home",
+      "done": 40130,
+      "sites": {
+        "home": {
+          "required": {
+            "wood": 1440,
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72
+          },
+          "installed": {
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72,
+            "wood": 1440
+          },
+          "worked": 600,
+          "remaining": 0,
+          "completedAt": 40130
+        }
+      }
+    }
+  ],
+  "offices": [
+    {
+      "id": "home",
+      "active": true,
+      "population": 6039,
+      "beds": 8620,
+      "stores": {
+        "food": 10678.7099999999,
+        "medicine": 328.21000000017904,
+        "wood": 2511.8200000002175,
+        "scrap": 2405.3999999998637,
+        "tools": 536.2810000000123,
+        "knowledge": 2999.9,
+        "iron": 253.20000000000203
+      },
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 258,
+        "waterworker": 38,
+        "farmer": 481,
+        "medic": 429,
+        "teacher": 101,
+        "driver": 2,
+        "salvager": 71,
+        "gatherer": 88,
+        "smith": 32,
+        "builder": 0,
+        "smelter": 8
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 71,
+        "waterworker": 38,
+        "farmer": 481,
+        "settler": 0,
+        "medic": 430,
+        "teacher": 101,
+        "smelter": 0,
+        "smith": 0
+      },
+      "quota": 1532.8
+    },
+    {
+      "id": "lake",
+      "active": true,
+      "population": 59194,
+      "beds": 59314,
+      "stores": {
+        "food": 113499.20000001014,
+        "medicine": 4480.8599999999005,
+        "wood": 3332.4600000000223,
+        "scrap": 2379.1999999999152,
+        "tools": 255.97799999998875,
+        "knowledge": 2999.9,
+        "iron": 150
+      },
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "waterworker": 370,
+        "farmer": 3122,
+        "medic": 4097,
+        "teacher": 545,
+        "driver": 0,
+        "salvager": 904,
+        "gatherer": 748,
+        "smith": 16,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 904,
+        "waterworker": 370,
+        "farmer": 0,
+        "medic": 4097,
+        "teacher": 545,
+        "smelter": 0,
+        "smith": 160
+      },
+      "quota": 1592
+    },
+    {
+      "id": "ridge",
+      "active": true,
+      "population": 80249,
+      "beds": 80249,
+      "stores": {
+        "food": 151687.54000001002,
+        "medicine": 6065.490000000387,
+        "wood": 4619.10000000011,
+        "scrap": 5093.700000000185,
+        "tools": 1235.0500000000072,
+        "knowledge": 2999.9,
+        "iron": 831
+      },
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "waterworker": 502,
+        "farmer": 6774,
+        "medic": 5527,
+        "teacher": 914,
+        "driver": 0,
+        "salvager": 501,
+        "gatherer": 1188,
+        "smith": 301,
+        "builder": 0,
+        "smelter": 160
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 501,
+        "waterworker": 502,
+        "farmer": 0,
+        "medic": 5527,
+        "teacher": 914,
+        "smelter": 0,
+        "smith": 301
+      },
+      "quota": 792
+    },
+    {
+      "id": "estuary",
+      "active": true,
+      "population": 139586,
+      "beds": 139586,
+      "stores": {
+        "food": 268253.9600000015,
+        "medicine": 13737.039999999695,
+        "wood": 5002.659999999996,
+        "scrap": 4208.100000000163,
+        "tools": 1614.9729999999581,
+        "knowledge": 4000,
+        "iron": 80
+      },
+      "health": 100,
+      "stable": 600,
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "waterworker": 873,
+        "farmer": 9880,
+        "medic": 4818,
+        "teacher": 2452,
+        "driver": 0,
+        "salvager": 783,
+        "gatherer": 1909,
+        "smith": 624,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 1909,
+        "salvager": 0,
+        "waterworker": 873,
+        "farmer": 9880,
+        "medic": 4818,
+        "teacher": 2452,
+        "smelter": 0,
+        "smith": 624
+      },
+      "quota": 792
+    }
+  ],
+  "departure": null
+}

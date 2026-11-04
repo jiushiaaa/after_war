@@ -100,7 +100,7 @@ var CivilCensus={
     for(const [id,n]of Object.entries(c.regions?.nodes||{}))eq('local_'+id,n.population);
     for(const [id,n]of Object.entries(c.worldstage?.nodes||{}))eq('macro_'+id,n.population);
     if(c.urban?.registered)eq('dispersed',CivilPopulation.count(c.urban.source));
-    eq('transit',(c.urban?.parties||[]).reduce((a,p)=>a+CivilPopulation.count(p.cohorts),0));
+    eq('transit',(c.urban?.parties||[]).reduce((a,p)=>a+CivilPopulation.count(p.cohorts),0)+(c.cityHomes?.trips||[]).reduce((a,p)=>a+CivilPopulation.count(p.cohorts),0));
     eq('cellar',c.expedition?.sites?.cellar?.state==='joined'?0:3);
     eq('patients',(c.frontier?.patients||[]).filter(p=>p.diedAt===null&&p.recoveredAt===null).length);
     for(const [id,n]of Object.entries(c.city?.wards||{}))eq('ward_'+id,CivilPopulation.count(n.cohorts));

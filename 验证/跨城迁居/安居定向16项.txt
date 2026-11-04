@@ -1,0 +1,24 @@
+✔ 223 imports exactly, without retroactive housing debt or a resettlement ledger (201.582125ms)
+✔ 3200 beds require paid materials, 60 real workers and 600 seconds; old 800-bed assets stay intact (596.101042ms)
+✔ 8000-bed community has its own duration, upkeep and finite jobs, with no free population (1516.303291ms)
+✔ departure removes actual age/identity groups; both ends reserve beds and the public vehicle is occupied (625.533291ms)
+✔ full-adapter per-second food, material and world population conservation through arrival and empty return (290.583167ms)
+✔ maintenance revocation blocks arrival, preserves escrow, and resumes the same families without double receipt (547.069875ms)
+✔ a failed reception returns surviving families to reserved original beds and refunds unused food once (275.585625ms)
+✔ births cannot take in-transit or return beds, and annual deaths are recorded inside the travelling account (229.149583ms)
+✔ four batches obey a finite contract, do not reselect resettled/professional households, and can be cancelled (702.899541ms)
+✔ the four-batch plan completes with real jobs; material work uses inputs and pause suspends that output (777.956166ms)
+✔ maintenance consumes actual stock and shared allowance; prolonged closure degrades, funded reopening repairs (1049.812209ms)
+✔ mutations cannot forge cohorts, duplicate refunds, receipts, calendars, maintenance or transport paths (405.066625ms)
+✔ twenty years of full-adapter upkeep, ageing and births preserve bounded cohorts and all ledgers (3405.537417ms)
+✔ the origin district can send unqualified families to another real city without exporting its certificates (2063.573416ms)
+✔ the public-service route can build a maintained 3200-bed district without mining or power technologies (823.550292ms)
+✔ cooperative farming also suffers a real water cut instead of bypassing the city supply constraint (238.174ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13810.59025

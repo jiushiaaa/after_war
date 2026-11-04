@@ -1,0 +1,45 @@
+{"at":38529,"stage":"build","departure":null}
+{"at":38651,"stage":"building","departure":null}
+{"at":38772,"stage":"building","departure":null}
+{"at":38904,"stage":"building","departure":null}
+{"at":39036,"stage":"building","departure":null}
+{"at":39158,"stage":"building","departure":null}
+{"at":39289,"stage":"building","departure":null}
+{"at":39410,"stage":"building","departure":null}
+{"at":39533,"stage":"building","departure":null}
+{"at":39660,"stage":"building","departure":null}
+{"at":39780,"stage":"building","departure":null}
+{"at":39901,"stage":"building","departure":null}
+{"at":40033,"stage":"building","departure":null}
+{"at":40198,"stage":"fault","homes":{"home":{"condition":100,"enabled":true,"lastPaid":40140}},"trips":[],"departure":null}
+file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/%E8%B7%A8%E5%9F%8E%E8%BF%81%E5%B1%85%E7%8E%A9%E5%AE%B6.mjs:37
+async function order(total){await council();await select('#homesChoice_from','lake');await select('#homesChoice_to','home');await select('#homesChoice_total',String(total));if(!await click('#homes_order'))throw Error('order unavailable');}
+                                                                                                                                                                                                                   ^
+
+Error: order unavailable
+    at order (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/%E8%B7%A8%E5%9F%8E%E8%BF%81%E5%B1%85%E7%8E%A9%E5%AE%B6.mjs:37:212)
+    at async file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/%E8%B7%A8%E5%9F%8E%E8%BF%81%E5%B1%85%E7%8E%A9%E5%AE%B6.mjs:48:70
+
+Node.js v24.22.2
+{"at":40498,"stage":"fault","homes":{"home":{"condition":100,"enabled":true,"lastPaid":40440}},"trips":[],"departure":null}
+{"at":40620,"stage":"waiting","homes":{"home":{"condition":92,"enabled":false,"lastPaid":40500}},"trips":[{"id":1,"phase":"outbound","outcome":null,"remaining":70}],"departure":"接收社区维护未续办或完好度不足60"}
+{"at":40752,"stage":"returning","homes":{"home":{"condition":84,"enabled":false,"lastPaid":40500}},"trips":[{"id":1,"phase":"waiting","outcome":null,"remaining":0}],"departure":"接收社区维护未续办或完好度不足60"}
+{"at":40881,"stage":"returning","homes":{"home":{"condition":76,"enabled":false,"lastPaid":40500}},"trips":[{"id":1,"phase":"returning","outcome":null,"remaining":109}],"departure":"接收社区维护未续办或完好度不足60"}
+{"at":41045,"stage":"repair","homes":{"home":{"condition":73,"enabled":true,"lastPaid":41040}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0}],"departure":null}
+{"at":41172,"stage":"repair","homes":{"home":{"condition":83,"enabled":true,"lastPaid":41160}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0}],"departure":null}
+{"at":41299,"stage":"repair","homes":{"home":{"condition":93,"enabled":true,"lastPaid":41280}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0}],"departure":null}
+{"at":41437,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":41400}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"outbound","outcome":null,"remaining":173}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":41564,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":41520}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"outbound","outcome":null,"remaining":46}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":41691,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":41640}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"empty","outcome":"arrived","remaining":99}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":41818,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":41760}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"outbound","outcome":null,"remaining":152}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":41944,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":41940}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"outbound","outcome":null,"remaining":26}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42069,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42060}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"empty","outcome":"arrived","remaining":81}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42196,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42180}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"outbound","outcome":null,"remaining":134}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42323,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42300}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"outbound","outcome":null,"remaining":7}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42448,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42420}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"empty","outcome":"arrived","remaining":62}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42572,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42540}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"complete","outcome":"arrived","remaining":0},{"id":5,"phase":"outbound","outcome":null,"remaining":118}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42698,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42660}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"complete","outcome":"arrived","remaining":0},{"id":5,"phase":"empty","outcome":"arrived","remaining":172}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42823,"stage":"resettle","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42780}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"complete","outcome":"arrived","remaining":0},{"id":5,"phase":"empty","outcome":"arrived","remaining":47}],"departure":"来源勤务车尚未返回，迁居与共同供料共用车辆"}
+{"at":42946,"stage":"work","homes":{"home":{"condition":100,"enabled":true,"lastPaid":42900}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"complete","outcome":"arrived","remaining":0},{"id":5,"phase":"complete","outcome":"arrived","remaining":0}],"departure":null}
+{"at":43072,"stage":"work","homes":{"home":{"condition":100,"enabled":true,"lastPaid":43020}},"trips":[{"id":1,"phase":"complete","outcome":"returned","remaining":0},{"id":2,"phase":"complete","outcome":"arrived","remaining":0},{"id":3,"phase":"complete","outcome":"arrived","remaining":0},{"id":4,"phase":"complete","outcome":"arrived","remaining":0},{"id":5,"phase":"complete","outcome":"arrived","remaining":0}],"departure":null}
+ACCEPTED {"start":38529,"seed":1345435167,"stage":"done","last":43072}

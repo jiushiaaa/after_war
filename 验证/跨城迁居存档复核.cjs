@@ -1,0 +1,15 @@
+// Read-only native-save verification. Original envelopes, including gzip bytes, are never rewritten.
+const fs=require('fs'),path=require('path'),z=require('zlib'),assert=require('node:assert/strict'),cp=require('child_process');
+const {harness,clone,near}=require('../游戏/tests/helpers/metro-fixture.cjs'),root=path.resolve(__dirname,'..'),dir=path.join(__dirname,'存档'),base='bf007779cc6c8310cdf385de948c6fc0bfc9b85a';
+const read=file=>{let v=JSON.parse(fs.readFileSync(file));if(v.encoding)v=JSON.parse(z.gunzipSync(Buffer.from(v.data,'base64')));return v.state;};
+const reports=[];
+for(const number of [223,224,225,226,227]){const name=fs.readdirSync(dir).find(n=>n.endsWith(number+'.json'));assert.ok(name,'missing native '+number);const original=read(path.join(dir,name)),h=harness(original),s=h.s,C=h.ctx.CivilCityCouncil,H=h.ctx.CivilCityHomes,c=s.civilization.census;assert.deepEqual(clone(s),original);h.roundtrip();const homes=H.data(s);
+ reports.push({number,file:name,elapsed:s.civilization.elapsed,year:Math.floor(s.civilization.elapsed/600),world:h.ctx.CivilCensus.total(s),initial:c.initial,born:c.born,dead:c.dead,
+ cities:C.ids(s).map(id=>{const n=C.local(s,id),e=H.estate(s,id);return {id,residents:h.ctx.CivilCity.count(n),physicalBeds:h.ctx.CivilCity.housing(s,C.physical(s,id)),netMigration:H.delta(s,id),reserved:H.reserved(s,id),freeBeds:H.freeBeds(s,id),health:n.health,stable:n.stable,workers:n.workers,worked:n.economy?.worked,stocks:n.stores,maintenance:e?{condition:e.condition,enabled:e.enabled,paid:e.records.filter(x=>x.paid).length,missed:e.records.filter(x=>!x.paid).length,mode:e.mode}:null};}),
+ homeTotal:h.ctx.CivilCity.population(s),trips:homes?.trips.map(p=>({id:p.id,from:p.from,to:p.to,count:120,dead:p.dead,inTransit:H.count(p.cohorts),phase:p.phase,outcome:p.outcome,at:p.at,arrivedAt:p.arrivedAt,settledAt:p.settledAt,finishedAt:p.finishedAt,pack:p.pack.food,consumed:p.consumed,received:p.received})),orders:homes?.orders});
+ assert.equal(h.ctx.CivilCensus.total(s),c.initial+c.born-c.dead);for(const p of homes?.trips||[])near(p.pack.food,p.food+p.consumed+p.received);
+}
+const tracked=cp.execFileSync('git',['ls-tree','-r','-z',base,'--','验证/存档'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean).map(line=>{const [meta,file]=line.split('\t');return {hash:meta.split(' ')[2],file};}).filter(x=>x.file.endsWith('.json'));
+for(const x of tracked)assert.equal(cp.execFileSync('git',['hash-object',x.file],{cwd:root,encoding:'utf8'}).trim(),x.hash,'historical bytes changed '+x.file);
+const result={kind:'read-only native exports and immutable baseline',baseline:base,oldRawFilesUnchanged:tracked.length,reports};
+if(process.argv[2])fs.writeFileSync(path.resolve(process.argv[2]),JSON.stringify(result,null,2));console.log(JSON.stringify({oldRawFilesUnchanged:tracked.length,reports:reports.map(r=>({number:r.number,at:r.elapsed,cities:r.cities.map(x=>({id:x.id,pop:x.residents,health:x.health,stable:x.stable,net:x.netMigration})),trips:r.trips?.map(p=>({id:p.id,outcome:p.outcome,phase:p.phase,dead:p.dead}))}))},null,2));

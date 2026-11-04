@@ -155,6 +155,7 @@ var Civilization = {
     if(typeof CivilConurbation!=='undefined')CivilConurbation.tick(State);
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.tick(State);
     if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.tick(State);
+    if(typeof CivilCityHomes!=='undefined')CivilCityHomes.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}

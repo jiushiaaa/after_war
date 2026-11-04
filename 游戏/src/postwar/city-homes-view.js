@@ -1,0 +1,29 @@
+/* MPL-2.0 — One folded housing desk, within the existing municipal page. */
+var CivilCityHomesView={
+  from:'lake',to:'home',total:'120',city:'home',mode:'food',built:false,
+  reset(){this.from='lake';this.to='home';this.total='120';this.city='home';this.mode='food';this.built=false;},
+  choice(key,label,options,host){const box=$('<label>').addClass('city-setting').appendTo(host);$('<span>').text(label).appendTo(box);const field=$('<select>').attr({id:'homesChoice_'+key,'aria-label':label,size:Math.min(4,Object.keys(options).length)}).appendTo(box);for(const [id,text]of Object.entries(options))$('<option>').val(id).text(text).appendTo(field);field.val(this[key]).on('change',()=>{this[key]=field.val();CivilCityView.refresh(State);}).on('keydown keyup',e=>e.stopPropagation());},
+  ensure(s){if(this.built&&$('#cityHomesDesk').length)return;this.built=true;
+    const box=$('<details>').attr('id','cityHomesDesk').addClass('civil-details').insertAfter('#councilNeeds').append($('<summary>').text('安居与迁居'));$('<p>').attr('id','homesStatus').addClass('city-net-lines').appendTo(box);
+    const manage=$('<details>').attr('id','homesManage').appendTo(box).append($('<summary>').text('社区维护与接纳岗位'));
+    const cities=Object.fromEntries(CivilCityCouncil.ids(s).map(id=>[id,CivilCityCouncil.name(s,id)]));
+    this.choice('city','社区所在城市',cities,manage);this.choice('mode','接纳岗位工序',CivilCityHomes.modes,manage);$('<p>').attr('id','homesTerms').addClass('city-net-lines').appendTo(manage);$('<div>').attr('id','homesManageActions').appendTo(manage);
+    const move=$('<details>').attr('id','homesMove').appendTo(box).append($('<summary>').text('议定一批家庭迁居'));
+    this.choice('from','迁居来源',cities,move);this.choice('to','接收城市',cities,move);this.choice('total','本次约定人数',{'120':'120人 · 一批','480':'480人 · 四批自动办理'},move);$('<p>').attr('id','homesPreview').addClass('city-net-lines').appendTo(move);$('<div>').attr('id','homesMoveActions').appendTo(move);
+    const transit=$('<details>').attr('id','homesTransit').appendTo(box).append($('<summary>').text('途中家庭与结算'));$('<p>').addClass('city-net-lines').appendTo(transit);
+  },
+  refresh(s){const h=CivilCityHomes,d=h.data(s);if(!d){$('#cityHomesDesk').hide();return;}this.ensure(s);$('#cityHomesDesk').show();const api=CivilCityCouncil,v=CivilCityView,a=n=>v.amount(n),cost=x=>v.cost(x),b=(id,label,host,reason,fn)=>v.button('homes_'+id,label,host,reason,fn);
+    for(const key of ['from','to','city'])for(const id of api.ids(s))if(!$('#homesChoice_'+key+' option[value="'+id+'"]').length)$('<option>').val(id).text(api.name(s,id)).appendTo('#homesChoice_'+key);
+    const valid=Object.keys(d.estates);for(const key of ['city','to']){if(!valid.includes(this[key])){this[key]=valid[0];$('#homesChoice_'+key).val(this[key]);}$('#homesChoice_'+key+' option').each(function(){$(this).prop({hidden:!valid.includes(this.value),disabled:!valid.includes(this.value)});});$('#homesChoice_'+key).attr('size',Math.max(2,Math.min(4,valid.length)));}
+    const rows=Object.entries(d.estates).map(([id,e])=>api.name(s,id)+' · '+h.cfg(s,id).beds+'床社区 · 完好 '+e.condition+'\n可接纳空床 '+a(h.freeBeds(s,id))+' · 保留岗位 '+a(h.freeJobs(s,id))+' / '+h.cfg(s,id).jobs+' · '+(h.active(s,id)?'维护正常':!e.enabled?'维护暂停':'等待续办/修复'));
+    const order=d.orders.find(o=>o.endedAt===null),last=d.orders.at(-1);if(order){const trips=d.trips.filter(p=>p.order===order.id),busy=trips.find(p=>p.finishedAt===null);rows.push('当前迁居约：'+api.name(s,order.from)+' → '+api.name(s,order.to)+' · 已出发 '+trips.length*120+' / '+order.total+'\n'+(busy?'第'+busy.id+'批办理中；空车回到来源后才办下一批':h.departureReason(s,order.from,order.to)||'条件具备，下一轮发车'));}else if(last)rows.push('上项迁居约'+(last.cancelled?'已撤销未出发部分':'已完成发车')+'；入住和空返仍以运单为准。');
+    rows.push('炉火城的安居与迁居落在'+CivilCityContent.wards[api.depot(s)].name+'，原镇及其余片区名册保留。');
+    $('#homesStatus').text(rows.join('\n\n'));
+    const e=h.estate(s,this.city),n=api.local(s,this.city);$('#homesTerms').text(api.name(s,this.city)+' · 当前'+h.modes[e.mode]+'\n每60秒：'+cost(h.fee(s,this.city))+'；'+h.maintainers(s,this.city)+'名维护人员；计入当地共同事务额度。\n实际接纳岗位 '+(n.workers.settler||0)+'，近轮工作 '+(n.economy?.worked.settler||0)+'。每人每10秒：粮作用工具0.015产粮1.6；制器用废料0.8、木0.2产工具0.3。库存充足停产，居民仍需供养。\n暂停会停止新入住与合作工序；每轮未维护完好度−4，实付维护+5。旧住户不被驱逐。调整各付知识2。');
+    const reason=!CivilRules.canPay({stores:n.stores},{knowledge:2})?'当地尚缺2知识':null;
+    b('mode','采用合作工序','#homesManageActions',reason||(e.mode===this.mode?'当前工序':null),()=>h.set(State,this.city,'mode',this.mode));b('maintain',e.enabled?'暂停社区维护':'恢复社区维护','#homesManageActions',reason,()=>h.set(State,this.city,'enabled',!h.estate(State,this.city).enabled));
+    const groups=h.candidates(s,this.from),path=api.path(s,this.from,this.to),why=h.orderReason(s,this.from,this.to,Number(this.total));$('#homesPreview').text('每批60名成年、36名儿童、24名老人；按现有年龄与身份迁居。住房与岗位按批保留，未出发家庭仍在原处。\n'+(path?'路线 '+path.ids.map(id=>api.name(s,id)).join(' → ')+'，单程'+path.distance+'秒；来源勤务车4人，往返前不接公共货。\n封存口粮 '+cost(h.pack(groups,path.distance,s.civilization.elapsed))+'；往返车费 '+cost(api.legFee(path.distance))+'。余粮到达后入当地公仓。\n':'')+(why||'可议定。出发与到达均复核接收条件；受阻等待120秒后原路返乡。'));
+    b('order','议定迁居约','#homesMoveActions',why,()=>{const changed=h.order(State,this.from,this.to,Number(this.total));if(changed){$('#homesMove').prop('open',false);$('#homesStatus').attr('tabindex',-1).trigger('focus');}return changed;});b('cancel','撤销未出发部分','#homesMoveActions',null,()=>h.cancel(State)).toggle(!!order);
+    $('#homesTransit p').text(d.trips.length?d.trips.slice(-8).map(p=>'第'+p.id+'批 · '+api.name(s,p.from)+' → '+api.name(s,p.to)+'\n'+({outbound:'途中 '+p.remaining+'秒到站',waiting:'等候接收 '+p.waited+'/120秒：'+(h.intakeReason(s,p.to,p.cohorts,p)||'正在安排'),returning:'原路返乡 '+p.remaining+'秒',empty:'已入住，空车返程 '+p.remaining+'秒',complete:p.outcome==='returned'?'已返乡，车辆结清':'已入住，车辆结清'}[p.phase])+'\n在途 '+h.count(p.cohorts)+'人 · 途中离世 '+p.dead+'人 · 口粮余 '+a(p.food)+' / 已用 '+a(p.consumed)+' / 已入仓 '+a(p.received)).join('\n\n'):'暂无迁居批次。');
+  }
+};

@@ -82,6 +82,7 @@ var CivilCity={
     if(typeof CivilConurbation!=='undefined')CivilConurbation.plan(s,id,slots,want,reserved);
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.plan(s,id,slots,want,reserved);
     if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityHomes!=='undefined')CivilCityHomes.plan(s,id,slots,want,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
@@ -107,6 +108,7 @@ var CivilCity={
     run('gatherer',{}, {wood:cfg.woodRate});run('salvager',{}, {scrap:cfg.scrapRate});
     const waterWorkers=run('waterworker',{wood:.02,tools:.001},{}),water=waterWorkers*this.waterPerWorker(n),wet=water>=p;
     run('farmer',{tools:.01},{food:cfg.foodRate*(wet?1:.45)});
+    if(typeof CivilCityHomes!=='undefined')CivilCityHomes.produce(s,id,run,wet);
     const ate=this.pay(n,{food:this.foodPopulation(s,id)*.12});n.hunger=ate?Math.max(0,n.hunger-20):n.hunger+10;
     const clinical=id==='estuary'||typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
     run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:.2},true);
@@ -126,7 +128,7 @@ var CivilCity={
   annual(s,id){
     const n=this.node(s,id),year=Math.floor(s.civilization.elapsed/600),account=['lake','ridge','estuary'].includes(id)?'city_'+id:'ward_'+id;
     while(n.year<year){const old=this.count(n),aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.dead+=aged.deceased;CivilCensus.death(s,account,aged.deceased);
-      const born=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:old,beds:this.housing(s,id)-this.count(n),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
+      const born=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:old,beds:typeof CivilCityHomes!=='undefined'?CivilCityHomes.birthBeds(s,id):this.housing(s,id)-this.count(n),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
       if(born.count&&this.pay(n,born.cost)){n.cohorts.push(...born.cohorts);n.born+=born.count;CivilCensus.birth(s,account,born.count);}
       // Merge equal groups, never average away age or mutant identity.
       const groups=new Map();for(const c of n.cohorts){const key=c.age+'_'+c.identity;if(groups.has(key))groups.get(key).count+=c.count;else groups.set(key,{...c});}n.cohorts=[...groups.values()];
@@ -186,7 +188,7 @@ var CivilCity={
     if(d.cityAt!==null&&(!time(d.cityAt)||!s.civilization.urban?.city||!d.history.some(e=>e.kind==='city'&&e.at===d.cityAt)))fail();
     let last=0;for(const e of d.history){if(!time(e.at)||e.at<last||!['contact','project','complete','join','policy','city'].includes(e.kind)||e.id!=='home'&&!d.wards[e.id]||typeof e.text!=='string'||e.text.length>300)fail();last=e.at;}
     for(const [id,n]of Object.entries(d.wards)){
-      if(!Array.isArray(n.cohorts)||n.cohorts.length>160||n.cohorts.some(c=>!int(c.age)||c.age>=80||!int(c.count)||!c.count||!['human','mutant'].includes(c.identity))||!num(n.health)||n.health>100||!int(n.year)||n.year!==Math.floor(s.civilization.elapsed/600)||!int(n.born)||!int(n.dead)||this.count(n)!==CivilCityContent.wards[id].population+n.born-n.dead)fail();
+      if(!Array.isArray(n.cohorts)||n.cohorts.length>160||n.cohorts.some(c=>!int(c.age)||c.age>=80||!int(c.count)||!c.count||!['human','mutant'].includes(c.identity))||!num(n.health)||n.health>100||!int(n.year)||n.year!==Math.floor(s.civilization.elapsed/600)||!int(n.born)||!int(n.dead)||this.count(n)!==CivilCityContent.wards[id].population+n.born-n.dead+(typeof CivilCityHomes!=='undefined'?CivilCityHomes.delta(s,id):0))fail();
       if(!num(n.hunger)||!n.births||n.births.scaled!==true||!num(n.births.credit)||n.births.credit>=1||!num(n.births.mutantCredit)||n.births.mutantCredit>=1||!int(n.nextProject)||n.nextProject!==n.completed.length+(n.project?1:0)+1)fail();
       if(!Object.hasOwn(CivilCityContent.priorities,n.priority)||!Object.hasOwn(CivilCityContent.methods,n.method)||typeof n.waterEnabled!=='boolean'||typeof n.freightEnabled!=='boolean'||!num(n.stable)||n.stable>600||!Array.isArray(n.completed))fail();
       if(this.count(n)>this.housing(s,id))fail();
