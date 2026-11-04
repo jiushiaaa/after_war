@@ -73,3 +73,11 @@ body.dark #cityTerrain .city-ground-road { color:#ccc; }
 @media(max-width:939px) {
   #councilLocation > summary { min-height:44px; }
 }
+
+/* A compact, optional municipal docket; keeps ADR typography and borders. */
+.city-budget-table { table-layout:fixed; }
+.city-budget-table th:first-child { width:76px; }
+.city-budget-table th:nth-child(2) { width:86px; }
+.city-budget-table th:nth-child(3) { width:54px; }
+.city-budget-table small { display:block; font-weight:normal; color:#666; white-space:nowrap; }
+.city-budget-table th:last-child,.city-budget-table td:last-child { text-align:left; padding-left:8px; overflow-wrap:anywhere; }

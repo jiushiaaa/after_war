@@ -1,7 +1,7 @@
 /* MPL-2.0 — Municipal choices within the ADR city page; drafts survive refresh. */
 var CivilCityCouncilView={
   built:false,scale:'housing',project:'housing:lake',mode:'equal',city:'home',quota:'normal',
-  reset(){this.built=false;this.scale='housing';CivilCityHomesView.reset();CivilCityContinuityView.reset();CivilCityLaborView.reset();this.project='housing:lake';this.mode='equal';this.city='home';this.quota='normal';},
+  reset(){this.built=false;this.scale='housing';CivilCityBudgetView.reset();CivilCityHomesView.reset();CivilCityContinuityView.reset();CivilCityLaborView.reset();this.project='housing:lake';this.mode='equal';this.city='home';this.quota='normal';},
   b(id,label,host,reason,fn){return CivilCityView.button('council_'+id,label,host,reason,fn);},
   choice(id,label,options,host){const box=$('<label>').addClass('city-setting').appendTo(host);$('<span>').text(label).appendTo(box);const select=$('<select>').attr({id:'councilChoice_'+id,'aria-label':label,size:Object.keys(options).length}).appendTo(box);for(const [key,name]of Object.entries(options))$('<option>').val(key).text(name).appendTo(select);select.val(this[id]).on('change',()=>{this[id]=select.val();CivilCityView.refresh(State);}).on('keydown keyup',e=>e.stopPropagation());return select;},
   ensure(){if(this.built&&$('#cityCouncilBody').length)return;this.built=true;const body=$('<div>').attr('id','cityCouncilBody').appendTo('#cityBody');
@@ -30,13 +30,14 @@ var CivilCityCouncilView={
     const show=['council','estuary','bridge'].includes(cv.selected);$('#cityCouncilBody').toggle(show);if(!show)return false;
     $('#cityBody').children().not('#metroCitySwitch,#cityCouncilBody').hide();$('#metroCitySwitch,#cityCouncilBody').show();const local=['estuary','bridge'].includes(cv.selected);
     $('#councilTitle').text(local?'河口市':'共同事务');this.b('back','返回城际概况','#councilNav',null,()=>{cv.select('link');return false;});
-    $('#cityLaborDesk').toggle(!local);$('#cityHomesDesk').toggle(!local&&!!CivilCityHomes.data(s));$('#cityContinuityDesk').toggle(!local&&(CivilCityContinuity.available(s)||!!CivilCityContinuity.data(s)));for(const id of ['Proposal','Mandates','Growth','Freight'])$('#council'+id).toggle(!local);$('#councilNeeds').toggle(!local);
+    $('#cityBudgetDesk').toggle(!local);$('#cityLaborDesk').toggle(!local);$('#cityHomesDesk').toggle(!local&&!!CivilCityHomes.data(s));$('#cityContinuityDesk').toggle(!local&&(CivilCityContinuity.available(s)||!!CivilCityContinuity.data(s)));for(const id of ['Proposal','Mandates','Growth','Freight'])$('#council'+id).toggle(!local);$('#councilNeeds').toggle(!local);
     if(cv.selected==='bridge')return CivilCityRegistryView.city(s);
     if(local){const n=estuary,o=d.locals.estuary.origin;
       CivilInterface.summary('#councilSummary',{title:'河口药务与生活',cards:[['居民',a(CivilCity.count(n))],['家庭床位',a(CivilCity.housing(s,'estuary'))],['健康',Math.floor(n.health)],['公共服务',n.stable+'秒']],brief:'河口保留战前药务与水务。临床生产消耗工具和知识，可承担共同工程药品；人口与仓库仍留在当地。',notices:v.issues(s,n),details:[['人口来源','东陆失联名册细分 '+a(o.population)+'；其后出生 '+a(n.born)+'，死亡 '+a(n.dead)+'，净迁居 '+a(CivilCityHomes.delta(s,'estuary'))],['实际岗位','诊疗 '+n.workers.medic+'、农业 '+n.workers.farmer+'、水务 '+n.workers.waterworker],['公用责任',d.offices.estuary?(d.offices.estuary.completedAt===null?'设站施工中':d.offices.estuary.enabled?'已授权':'已暂停'):'尚未登记公用站']]});
       $('#councilCurrent').text(CivilCityContent.resources.map(k=>(CivilText.labels[k]||k)+' '+a(n.stores[k])+' · 近轮 '+CivilInterface.signed(n.economy?.flow[k]||0)).join('\n'));
       $('#councilLedger p').text(CivilCityContent.resources.map(k=>(CivilText.labels[k]||k)+'：原有 '+a(o.stores[k])+' + 生产 '+a(n.budget.produced[k])+' + 收货 '+a(n.budget.received[k])+' − 消耗 '+a(n.budget.consumed[k])+' − 发货 '+a(n.budget.sent[k])+' = '+a(n.stores[k])).join('\n'));return true;
     }
+    CivilCityBudgetView.refresh(s);
     CivilCityHomesView.refresh(s);
     CivilCityContinuityView.refresh(s);
     CivilCityLaborView.refresh(s);
@@ -46,7 +47,7 @@ var CivilCityCouncilView={
     let current=p?this.title(s,p)+' · '+api.modes[p.mode]+'\n'+Object.entries(p.sites).map(([id,site])=>api.name(s,id)+'：'+(site.completedAt!==null?'施工完成':api.full(site)?(api.activeOffice(s,id)?'已到料，尚需 '+site.remaining+'工时':'已到料，待恢复当地委托'):'到料 '+a(api.value(site.installed))+' / '+a(api.value(site.required))+'折值；货到即安装')).join('\n'):'暂无进行中的共同工程。先看地方诉求，再议定下一项职责。';
     if(p){const holds=p.pledges.filter(q=>!api.full({required:q.required,installed:q.allocated})).map(q=>api.name(s,q.from)+'：'+(!api.activeOffice(s,q.from)?'等待续办或恢复授权':api.allowance(s,q.from)<20?'本期额度已紧，等待下期或调整限额':'按留足地方储备和车辆次序备料'));current+='\n'+[...new Set(holds)].join('\n');}
     $('#councilCurrent').text(current);
-    $('#councilNeeds').text(api.ids(s).map(id=>{const r=api.request(s,id);return api.name(s,id)+' · 空床 '+a(r.beds-r.population)+' · 对外供料 '+a(r.given)+' / 已收 '+a(r.received)+'折值'+(r.due?'\n诉求：先安排本城安居；暂不再承担别城的大额份额。':'');}).join('\n'));
+    $('#councilNeeds').toggle(!CivilCityBudget.data(s)).text(api.ids(s).map(id=>{const r=api.request(s,id);return api.name(s,id)+' · 空床 '+a(r.beds-r.population)+' · 对外供料 '+a(r.given)+' / 已收 '+a(r.received)+'折值'+(r.due?'\n诉求：先安排本城安居；暂不再承担别城的大额份额。':'');}).join('\n'));
     const known=!!estuary;for(const key of ['housing:estuary','road:river'])$('#councilChoice_project option[value="'+key+'"]').prop({hidden:!known,disabled:!known});$('#councilChoice_project').attr('size',known?6:4);
     $('#councilChoice_city option[value=estuary]').prop({hidden:!d.offices.estuary,disabled:!d.offices.estuary});$('#councilChoice_city').attr('size',d.offices.estuary?4:3);
     const [baseKind,target]=this.project.split(':'),kind=baseKind==='housing'?this.scale:baseKind;$('#councilChoice_scale').closest('label').toggle(baseKind==='housing');const review=api.review(s,kind,target,this.mode),reason=api.reason(s,kind,target,this.mode);
@@ -61,7 +62,7 @@ var CivilCityCouncilView={
     CivilCityRegistryView.growth(s);
     const shipments=d.shipments.filter(x=>x.deliveredAt===null||x.legs.some(l=>l.finishedAt===null));
     $('#councilFreight p').text(shipments.length?shipments.map(x=>{const last=x.legs.at(-1),held=last.deliveredAt!==null&&x.deliveredAt===null;return '第'+x.id+'批 · '+api.name(s,x.source)+' → '+api.name(s,x.target)+'\n'+cost(x.cargo)+' · '+x.path.ids.map(id=>api.name(s,id)).join(' → ')+'\n'+(x.deliveredAt!==null?'材料已到场，车辆仍在空返':held?'寄存在'+api.name(s,last.to)+'，'+(api.legReason(s,last.to,x.path.legs[x.legs.length].travel)||'等待下次接力发运'):api.name(s,last.from)+'车辆载货，'+last.remaining+'秒到站');}).join('\n\n'):'当前没有公共在途。中转寄存不进入中转城可用库存。');
-    $('#councilLedger p').text('近期待办结果\n'+d.proposals.slice(-5).map(x=>this.title(s,x)+' · '+api.modes[x.mode]+' · '+(x.accepted?'通过':'未通过：'+x.stances.filter(r=>['suspended','housingFirst'].includes(r.code)).map(r=>api.name(s,r.city)+' '+this.stance(r.code)).join('；'))).join('\n')+'\n\n最近实付\n'+d.receipts.slice(-10).map(e=>api.name(s,e.city)+' · '+({service:'续办',policy:'授权议定',meeting:'议案',cargo:'供料发出',localMaterials:'本地安装',leg:'分段旅费',homesPolicy:'社区议定',homeMaintenance:'社区维护',movePack:'途中口粮',moveFee:'迁居车费',continuityPolicy:'岗位委托',continuityService:'岗位续办',continuityEnroll:'开班教具',continuityLesson:'岗位课程',continuityInvite:'跨城招工',laborRecognition:'班组资格互认',laborBuild:'劳务工位',laborPolicy:'劳务授权',laborTravel:'通勤车费',laborPack:'封存旅粮',laborEscrow:'封存工资',laborInput:'劳务生产',laborMeals:'驻班口粮',laborLodging:'临住整备',laborLodgingService:'临住维护'}[e.kind])+' · '+cost(e.paid)).join('\n')+'\n\n'+d.history.slice(-5).map(e=>'重建'+Math.floor(e.at/600)+'年：'+e.text).join('\n'));
+    $('#councilLedger p').text('近期待办结果\n'+d.proposals.slice(-5).map(x=>this.title(s,x)+' · '+api.modes[x.mode]+' · '+(x.accepted?'通过':'未通过：'+x.stances.filter(r=>['suspended','housingFirst'].includes(r.code)).map(r=>api.name(s,r.city)+' '+this.stance(r.code)).join('；'))).join('\n')+'\n\n最近实付\n'+d.receipts.slice(-10).map(e=>api.name(s,e.city)+' · '+({service:'续办',budgetPolicy:'共同预算议定',policy:'授权议定',meeting:'议案',cargo:'供料发出',localMaterials:'本地安装',leg:'分段旅费',homesPolicy:'社区议定',homeMaintenance:'社区维护',movePack:'途中口粮',moveFee:'迁居车费',continuityPolicy:'岗位委托',continuityService:'岗位续办',continuityEnroll:'开班教具',continuityLesson:'岗位课程',continuityInvite:'跨城招工',laborRecognition:'班组资格互认',laborBuild:'劳务工位',laborPolicy:'劳务授权',laborTravel:'通勤车费',laborPack:'封存旅粮',laborEscrow:'封存工资',laborInput:'劳务生产',laborMeals:'驻班口粮',laborLodging:'临住整备',laborLodgingService:'临住维护'}[e.kind])+' · '+cost(e.paid)).join('\n')+'\n\n'+d.history.slice(-5).map(e=>'重建'+Math.floor(e.at/600)+'年：'+e.text).join('\n'));
     return true;
   }
 };

@@ -45,6 +45,8 @@ CivilCityCouncil.validate=function(s){
     if(e.kind==='policy'){
       if(!['enabled','quota'].includes(e.field)||e.field==='enabled'&&typeof e.value!=='boolean'||e.field==='quota'&&!this.quotas[e.value]||policy[e.field]===e.value)fail('重复或无效授权');
       policy[e.field]=e.value;expected={knowledge:4};once=null;
+    }else if(e.kind==='budgetPolicy'){
+      expected=typeof CivilCityBudget!=='undefined'?CivilCityBudget.receipt(s,e):null;if(!expected)fail('共同预算约定');once=null;
     }else if(e.kind==='laborPolicy'){
       expected=typeof CivilCityLabor!=='undefined'?CivilCityLabor.receipt(s,e):null;if(!expected)fail('劳务授权');once=null;
     }else if(e.kind==='continuityPolicy'){

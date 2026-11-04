@@ -58,6 +58,7 @@
     if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.validate(state);
     if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.validate(state);
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.validate(state);
+    if(typeof CivilCityBudget!=='undefined')CivilCityBudget.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

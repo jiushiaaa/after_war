@@ -1,0 +1,1725 @@
+{
+  "at": 70823,
+  "seed": 1345435167,
+  "world": 793337140,
+  "born": 1638409414,
+  "dead": 1340507433,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "labor": {
+    "schema": 1,
+    "at": 52567,
+    "offices": {
+      "home": {
+        "at": 52567,
+        "paid": {
+          "wood": 120,
+          "tools": 24,
+          "knowledge": 12
+        },
+        "worked": 120,
+        "remaining": 0,
+        "completedAt": 52687,
+        "enabled": true,
+        "changes": []
+      },
+      "lake": {
+        "at": 52567,
+        "paid": {
+          "wood": 120,
+          "tools": 24,
+          "knowledge": 12
+        },
+        "worked": 120,
+        "remaining": 0,
+        "completedAt": 52687,
+        "enabled": true,
+        "changes": []
+      },
+      "ridge": {
+        "at": 52567,
+        "paid": {
+          "wood": 120,
+          "tools": 24,
+          "knowledge": 12
+        },
+        "worked": 120,
+        "remaining": 0,
+        "completedAt": 52687,
+        "enabled": true,
+        "changes": []
+      },
+      "estuary": {
+        "at": 52567,
+        "paid": {
+          "wood": 120,
+          "tools": 24,
+          "knowledge": 12
+        },
+        "worked": 120,
+        "remaining": 0,
+        "completedAt": 52687,
+        "enabled": true,
+        "changes": []
+      },
+      "bridge": {
+        "at": 52700,
+        "paid": {
+          "wood": 120,
+          "tools": 24,
+          "knowledge": 12
+        },
+        "worked": 120,
+        "remaining": 0,
+        "completedAt": 52820,
+        "enabled": true,
+        "changes": [
+          2508,
+          2565
+        ]
+      }
+    },
+    "contracts": [
+      {
+        "id": 11,
+        "at": 68426,
+        "from": "home",
+        "to": "home",
+        "count": 24,
+        "lastAt": 70510,
+        "endedAt": null,
+        "paid": {},
+        "lastLodgingAt": null,
+        "services": [],
+        "version": 2,
+        "task": "tools",
+        "recognition": {
+          "knowledge": 4
+        }
+      }
+    ],
+    "shifts": [
+      {
+        "id": 24,
+        "order": 11,
+        "from": "home",
+        "to": "home",
+        "count": 24,
+        "at": 69380,
+        "cohorts": [
+          {
+            "age": 18,
+            "count": 6,
+            "identity": "human"
+          },
+          {
+            "age": 24,
+            "count": 6,
+            "identity": "human"
+          },
+          {
+            "age": 26,
+            "count": 12,
+            "identity": "human"
+          }
+        ],
+        "path": null,
+        "pack": {
+          "food": 0
+        },
+        "fee": {},
+        "escrow": 172.79999999999998,
+        "earned": 92.16000000000001,
+        "refunded": 80.63999999999997,
+        "food": 0,
+        "consumed": 0,
+        "received": 0,
+        "hospitality": 0,
+        "rounds": [
+          {
+            "at": 69390,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69400,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69410,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69420,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69430,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69440,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69450,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69460,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69470,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69480,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69490,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69500,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69510,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69520,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69530,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 69540,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          }
+        ],
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 69380,
+        "leftAt": 69550,
+        "finishedAt": 69550,
+        "reason": "当地储备已足，结束本班"
+      },
+      {
+        "id": 25,
+        "order": 11,
+        "from": "home",
+        "to": "home",
+        "count": 24,
+        "at": 70510,
+        "cohorts": [
+          {
+            "age": 18,
+            "count": 12,
+            "identity": "human"
+          },
+          {
+            "age": 19,
+            "count": 12,
+            "identity": "human"
+          }
+        ],
+        "path": null,
+        "pack": {
+          "food": 0
+        },
+        "fee": {},
+        "escrow": 172.79999999999998,
+        "earned": 171.83999999999997,
+        "refunded": 0.960000000000008,
+        "food": 0,
+        "consumed": 0,
+        "received": 0,
+        "hospitality": 0,
+        "rounds": [
+          {
+            "at": 70520,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70530,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70540,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70550,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70560,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70570,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70580,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70590,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70600,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70610,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70620,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70630,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70640,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70650,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70660,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70670,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70680,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70690,
+            "workers": 20,
+            "paid": {
+              "scrap": 16,
+              "wood": 4
+            },
+            "output": {
+              "tools": 5.783999999988225
+            },
+            "wage": 4.8,
+            "meal": 0
+          },
+          {
+            "at": 70700,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70710,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70720,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70730,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70740,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70750,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70760,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70770,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70780,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70790,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70800,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          },
+          {
+            "at": 70810,
+            "workers": 24,
+            "paid": {
+              "scrap": 19.200000000000003,
+              "wood": 4.800000000000001
+            },
+            "output": {
+              "tools": 7.199999999999999
+            },
+            "wage": 5.76,
+            "meal": 0
+          }
+        ],
+        "phase": "complete",
+        "remaining": 0,
+        "arrivedAt": 70510,
+        "leftAt": 70810,
+        "finishedAt": 70810,
+        "reason": "完成本班"
+      }
+    ],
+    "households": {
+      "home": {
+        "food": 0,
+        "received": 1673.04,
+        "consumed": 1673.04,
+        "rounds": 13,
+        "lastAt": 70820
+      },
+      "estuary": {
+        "food": 0,
+        "received": 0,
+        "consumed": 0,
+        "rounds": 0,
+        "lastAt": null
+      },
+      "lake": {
+        "food": 0,
+        "received": 23.04,
+        "consumed": 23.04,
+        "rounds": 2,
+        "lastAt": 54660
+      },
+      "ridge": {
+        "food": 0,
+        "received": 380.15999999999997,
+        "consumed": 380.15999999999997,
+        "rounds": 4,
+        "lastAt": 58600
+      }
+    }
+  },
+  "budget": {
+    "schema": 1,
+    "at": 68426,
+    "decisions": [
+      {
+        "id": 1,
+        "at": 68426,
+        "scope": "all",
+        "mode": "balanced",
+        "cities": [
+          {
+            "city": "home",
+            "receipt": 5429,
+            "quotaReceipt": null
+          },
+          {
+            "city": "lake",
+            "receipt": 5430,
+            "quotaReceipt": null
+          },
+          {
+            "city": "ridge",
+            "receipt": 5431,
+            "quotaReceipt": null
+          },
+          {
+            "city": "estuary",
+            "receipt": 5432,
+            "quotaReceipt": null
+          },
+          {
+            "city": "bridge",
+            "receipt": 5433,
+            "quotaReceipt": null
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "at": 68804,
+        "scope": "all",
+        "mode": "balanced",
+        "cities": [
+          {
+            "city": "home",
+            "receipt": 5479,
+            "quotaReceipt": 5478
+          }
+        ]
+      }
+    ]
+  },
+  "requests": [
+    {
+      "id": "home",
+      "issues": []
+    },
+    {
+      "id": "lake",
+      "issues": []
+    },
+    {
+      "id": "ridge",
+      "issues": []
+    },
+    {
+      "id": "estuary",
+      "issues": []
+    },
+    {
+      "id": "bridge",
+      "issues": []
+    }
+  ],
+  "homeCourses": 47,
+  "maintenance": {
+    "home": {
+      "project": 6,
+      "at": 40130,
+      "enabled": true,
+      "mode": "food",
+      "condition": 100,
+      "lastPaidAt": 70800,
+      "records": [
+        {
+          "at": 68340,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68400,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68460,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68520,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68580,
+          "paid": false,
+          "condition": 96
+        },
+        {
+          "at": 68640,
+          "paid": false,
+          "condition": 92
+        },
+        {
+          "at": 68700,
+          "paid": false,
+          "condition": 88
+        },
+        {
+          "at": 68760,
+          "paid": false,
+          "condition": 84
+        },
+        {
+          "at": 68820,
+          "paid": false,
+          "condition": 80
+        },
+        {
+          "at": 68880,
+          "paid": true,
+          "condition": 85
+        },
+        {
+          "at": 68940,
+          "paid": true,
+          "condition": 90
+        },
+        {
+          "at": 69000,
+          "paid": true,
+          "condition": 95
+        },
+        {
+          "at": 69060,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69120,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69180,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69240,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69300,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69360,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69420,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69480,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69540,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69600,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69660,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69720,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69780,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69840,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69900,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69960,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70020,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70080,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70140,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70200,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70260,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70320,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70380,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70440,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70500,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70560,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70620,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70680,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70740,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70800,
+          "paid": true,
+          "condition": 100
+        }
+      ],
+      "changes": [
+        552,
+        585,
+        749,
+        4341,
+        4865,
+        5434
+      ],
+      "totalRecords": 512
+    },
+    "bridge": {
+      "project": 8,
+      "at": 67130,
+      "enabled": true,
+      "mode": "food",
+      "condition": 100,
+      "lastPaidAt": 70800,
+      "records": [
+        {
+          "at": 68340,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68400,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68460,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68520,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68580,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68640,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68700,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68760,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68820,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68880,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 68940,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69000,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69060,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69120,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69180,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69240,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69300,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69360,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69420,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69480,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69540,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69600,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69660,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69720,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69780,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69840,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69900,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 69960,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70020,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70080,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70140,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70200,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70260,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70320,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70380,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70440,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70500,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70560,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70620,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70680,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70740,
+          "paid": true,
+          "condition": 100
+        },
+        {
+          "at": 70800,
+          "paid": true,
+          "condition": 100
+        }
+      ],
+      "changes": [],
+      "totalRecords": 62
+    }
+  },
+  "shipments": [],
+  "homePolicy": "local",
+  "projects": [],
+  "cities": [
+    {
+      "id": "home",
+      "population": 8620,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 17034.28799999939,
+        "medicine": 546.8100000001061,
+        "wood": 2554.4800000002465,
+        "scrap": 2410.2000000000994,
+        "tools": 494.2580000000002,
+        "knowledge": 2988.5,
+        "iron": 253.75000000000298
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 478,
+        "jobclerk": 2,
+        "joblearner": 15,
+        "jobtutor": 2,
+        "waterworker": 54,
+        "farmer": 719,
+        "medic": 600,
+        "teacher": 60,
+        "driver": 2,
+        "salvager": 91,
+        "gatherer": 120,
+        "smith": 39,
+        "builder": 0,
+        "smelter": 10
+      },
+      "economy": {
+        "at": 70820,
+        "food": 177.29000000000087,
+        "medicine": 3.7999999999999545,
+        "water": 8640,
+        "population": 8620,
+        "treated": true,
+        "educated": true,
+        "administered": true,
+        "ate": true,
+        "householdFood": 171.83999999999997,
+        "blocked": [],
+        "worked": {
+          "gatherer": 0,
+          "salvager": 0,
+          "waterworker": 54,
+          "farmer": 719,
+          "settler": 0,
+          "medic": 600,
+          "teacher": 60,
+          "smelter": 0,
+          "smith": 39
+        },
+        "idle": 4381,
+        "flow": {
+          "food": 177.29000000000087,
+          "wood": -11.980000000000018,
+          "scrap": -91.19999999999982,
+          "tools": 16.156000000000006,
+          "medicine": 3.7999999999999545,
+          "knowledge": 11.900000000000091,
+          "iron": -1.9499999999999886
+        }
+      },
+      "allowance": 886,
+      "beds": 0,
+      "build": "当地劳务工位已有登记",
+      "ready": true,
+      "qualified": 492,
+      "dispatched": 0,
+      "quota": "active",
+      "order": "当地储备已足，保留委托，暂不发班"
+    },
+    {
+      "id": "lake",
+      "population": 59314,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 106858.84000001858,
+        "medicine": 4511.679999998812,
+        "wood": 3278.040000000028,
+        "scrap": 2348.5999999997566,
+        "tools": 234.85199999997974,
+        "knowledge": 2999.9,
+        "iron": 150
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "waterworker": 371,
+        "farmer": 2989,
+        "medic": 4268,
+        "teacher": 868,
+        "driver": 0,
+        "salvager": 906,
+        "gatherer": 750,
+        "smith": 160,
+        "builder": 0,
+        "smelter": 0
+      },
+      "economy": {
+        "at": 70820,
+        "food": 1389.2599999999948,
+        "medicine": 47.05999999999949,
+        "water": 59360,
+        "population": 59314,
+        "treated": true,
+        "educated": true,
+        "administered": true,
+        "ate": true,
+        "blocked": [],
+        "worked": {
+          "gatherer": 0,
+          "salvager": 906,
+          "waterworker": 371,
+          "farmer": 2989,
+          "medic": 4268,
+          "teacher": 868,
+          "smelter": 0,
+          "smith": 160
+        },
+        "idle": 16473,
+        "flow": {
+          "food": 1389.2599999999948,
+          "wood": -127.22000000000025,
+          "scrap": 20.799999999999727,
+          "tools": 9.738999999999976,
+          "medicine": 47.05999999999949,
+          "knowledge": 0,
+          "iron": 0
+        }
+      },
+      "allowance": 1576,
+      "beds": 0,
+      "build": "当地劳务工位已有登记",
+      "ready": true,
+      "qualified": 0,
+      "dispatched": 0,
+      "quota": "active",
+      "order": null
+    },
+    {
+      "id": "ridge",
+      "population": 80249,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 161479.88000002518,
+        "medicine": 5560.760000001433,
+        "wood": 4551.520000000445,
+        "scrap": 4742.800000000722,
+        "tools": 1242.9160000002894,
+        "knowledge": 2999.9,
+        "iron": 806
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "waterworker": 502,
+        "farmer": 6887,
+        "medic": 5527,
+        "teacher": 705,
+        "driver": 0,
+        "salvager": 502,
+        "gatherer": 1189,
+        "smith": 306,
+        "builder": 0,
+        "smelter": 160
+      },
+      "economy": {
+        "at": 70820,
+        "food": 1879.4500000000116,
+        "medicine": 26.5600000000004,
+        "water": 80320,
+        "population": 80249,
+        "treated": true,
+        "educated": true,
+        "administered": true,
+        "ate": true,
+        "blocked": [],
+        "worked": {
+          "gatherer": 0,
+          "salvager": 502,
+          "waterworker": 502,
+          "farmer": 6887,
+          "medic": 5527,
+          "teacher": 705,
+          "smelter": 0,
+          "smith": 306
+        },
+        "idle": 25186,
+        "flow": {
+          "food": 1879.4500000000116,
+          "wood": -142.73999999999978,
+          "scrap": 167.30000000000018,
+          "tools": 7.128000000000156,
+          "medicine": 26.5600000000004,
+          "knowledge": 0,
+          "iron": 0
+        }
+      },
+      "allowance": 776,
+      "beds": 0,
+      "build": "当地劳务工位已有登记",
+      "ready": true,
+      "qualified": 0,
+      "dispatched": 0,
+      "quota": "normal",
+      "order": null
+    },
+    {
+      "id": "estuary",
+      "population": 139586,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 272364.8200001112,
+        "medicine": 13015.119999997092,
+        "wood": 4163.640000000406,
+        "scrap": 4896.200000000135,
+        "tools": 1722.9569999996033,
+        "knowledge": 4000,
+        "iron": 80
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "waterworker": 873,
+        "farmer": 10446,
+        "medic": 4818,
+        "teacher": 1315,
+        "driver": 0,
+        "salvager": 795,
+        "gatherer": 1915,
+        "smith": 647,
+        "builder": 0,
+        "smelter": 0
+      },
+      "economy": {
+        "at": 70820,
+        "food": 3185.000000000058,
+        "medicine": 49.539999999999054,
+        "water": 139680,
+        "population": 139586,
+        "treated": true,
+        "educated": true,
+        "administered": true,
+        "ate": true,
+        "blocked": [],
+        "worked": {
+          "gatherer": 0,
+          "salvager": 795,
+          "waterworker": 873,
+          "farmer": 10446,
+          "medic": 4818,
+          "teacher": 1315,
+          "smelter": 0,
+          "smith": 647
+        },
+        "idle": 70578,
+        "flow": {
+          "food": 3185.000000000058,
+          "wood": -278.3599999999997,
+          "scrap": 4.5,
+          "tools": 8.236999999999853,
+          "medicine": 49.539999999999054,
+          "knowledge": 0,
+          "iron": 0
+        }
+      },
+      "allowance": 776,
+      "beds": 0,
+      "build": "当地劳务工位已有登记",
+      "ready": true,
+      "qualified": 0,
+      "dispatched": 0,
+      "quota": "normal",
+      "order": null
+    },
+    {
+      "id": "bridge",
+      "population": 112714,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 211731.34000001848,
+        "medicine": 10984.220000001356,
+        "wood": 4320.740000000304,
+        "scrap": 4049.999999999582,
+        "tools": 1670.0230000000347,
+        "knowledge": 4000,
+        "iron": 40
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 0,
+        "waterworker": 705,
+        "farmer": 7964,
+        "medic": 7810,
+        "teacher": 1326,
+        "driver": 0,
+        "salvager": 1246,
+        "gatherer": 1343,
+        "smith": 354,
+        "builder": 0,
+        "smelter": 0
+      },
+      "economy": {
+        "at": 70820,
+        "food": 2690.7999999999884,
+        "medicine": 44.36000000000058,
+        "water": 112800,
+        "population": 112714,
+        "treated": true,
+        "educated": true,
+        "administered": true,
+        "ate": true,
+        "blocked": [],
+        "worked": {
+          "gatherer": 0,
+          "salvager": 1246,
+          "waterworker": 705,
+          "farmer": 7964,
+          "settler": 0,
+          "medic": 7810,
+          "teacher": 1326,
+          "smelter": 0,
+          "smith": 354
+        },
+        "idle": 46284,
+        "flow": {
+          "food": 2690.7999999999884,
+          "wood": -217.5000000000009,
+          "scrap": 3.399999999999636,
+          "tools": 8.154999999999973,
+          "medicine": 44.36000000000058,
+          "knowledge": 0,
+          "iron": 0
+        }
+      },
+      "allowance": 1398.4,
+      "beds": 0,
+      "build": "当地劳务工位已有登记",
+      "ready": true,
+      "qualified": 0,
+      "dispatched": 0,
+      "quota": "active",
+      "order": null
+    }
+  ],
+  "homeBridge": "雇用城市临住空床不足，含已承诺入住与返乡预留",
+  "ridgeBlocked": "雇用城市临住空床不足，含已承诺入住与返乡预留",
+  "evidenceScope": "Read-only browser observation; repeated pre-246 history omitted here only. Full authoritative history remains in byte-identical native downloads."
+}

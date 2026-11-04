@@ -39,7 +39,7 @@ var CivilCityLabor={
     return this.x().pick(this.x().subtract(n.cohorts,used),count,50);
   },
   idle(s,id){const n=this.c().local(s,id);return Math.max(0,CivilCity.workforce(n)-Object.values(n.workers).reduce((a,b)=>a+b,0));},
-  buildReason(s,id){if(!this.available(s))return '先完成接续工坊与三城公用站';if(!this.c().membersAt(s,s.civilization.elapsed).includes(id)||!this.trades[id])return '当地尚未登记公用站';if(this.office(s,id))return '当地劳务工位已有登记';if(!this.c().activeOffice(s,id))return '先续办当地公用站';return this.c().payReason(s,id,this.cost);},
+  buildReason(s,id){if(!this.available(s))return '先完成接续工坊与三城公用站';if(!this.c().membersAt(s,s.civilization.elapsed).includes(id)||!this.trades[id])return '当地尚未登记公用站';if(this.office(s,id))return '当地劳务工位已有登记';if(!this.c().activeOffice(s,id))return '先续办当地公用站';return this.c().payReason(s,id,this.cost,'laborBuild');},
   build(s,id){if(this.buildReason(s,id))return false;const at=s.civilization.elapsed;
     if(!this.data(s))s.civilization.cityLabor={schema:1,at,offices:{},contracts:[],shifts:[],households:{}};
     this.c().pay(s,id,'laborBuild',id,this.cost);this.data(s).offices[id]={at,paid:{...this.cost},worked:0,remaining:120,completedAt:null,enabled:true,changes:[]};this.c().replan(s);this.c().note(s,this.c().name(s,id)+'实付开设120个'+this.trades[id].name+'劳务工位，20名居民安装120秒；工资仍须逐班封存。');return true;
@@ -54,7 +54,7 @@ var CivilCityLabor={
   quote(s,o){const distance=o.from===o.to?0:this.c().path(s,o.from,o.to)?.distance;
     return {distance,escrow:{food:o.count*this.wage*30},pack:{food:distance?Math.ceil((o.count+4)*.012*(2*distance+this.duration)):0},fee:distance?{...this.fee}:{}};
   },
-  departureReason(s,o,preview=false){
+  departureReason(s,o,preview=false,probe=false){
     const {from,to,count}=o,a=this.c();if(!this.active(s,to))return '雇用城市劳务委托或公用站未续办';if(!a.membersAt(s,s.civilization.elapsed).includes(from)||!a.activeOffice(s,from))return '来源城公用事务尚未续办';
     if(count>this.slots(s,to))return '当地须留'+this.schoolPlaces(s,to)+'个工位作补充课堂，当前可用工位'+this.slots(s,to);
     if(this.shifts(s).some(p=>p.to===to))return '当地上一班尚未结清';if(!preview&&!this.demand(s,to,o))return '当地储备已足，保留委托，暂不发班';if(!preview&&o.lastAt!==null&&s.civilization.elapsed-o.lastAt<600)return '先观察本期产销和家庭收入，下期再开班';
@@ -66,7 +66,7 @@ var CivilCityLabor={
     if(target.health<60||target.stable<120||n.health<60||n.stable<120)return '双方先恢复基本供养';
     const sourceCost={...q.pack};a.sum(sourceCost,q.fee);if(from===to){a.sum(sourceCost,q.escrow);if(preview&&o.version===2)a.sum(sourceCost,this.recognitionCost);}
     const employerCost={...q.escrow};if(preview&&from!==to){a.sum(employerCost,this.lodgingCost(count));if(o.version===2)a.sum(employerCost,this.recognitionCost);}
-    return a.payReason(s,from,sourceCost)||(from===to?null:a.payReason(s,to,employerCost));
+    return a.payReason(s,from,sourceCost,probe?'probe':'laborEscrow')||(from===to?null:a.payReason(s,to,employerCost,probe?'probe':'laborEscrow'))||(!preview&&!probe&&typeof CivilCityBudget!=='undefined'?CivilCityBudget.departureReason(s,o):null);
   },
   send(s,id,kind,ref,goods){const a=this.c(),n=a.local(s,id);CivilRules.pay({stores:n.stores},goods);a.sum(n.budget.sent,goods);a.record(s,id,kind,ref,goods);},
   depart(s,o){if(this.departureReason(s,o))return false;const d=this.data(s),a=this.c(),q=this.quote(s,o),at=s.civilization.elapsed,cohorts=this.candidates(s,o.from,o.count,o),p={id:d.shifts.length+1,order:o.id,from:o.from,to:o.to,count:o.count,at,cohorts,path:o.from===o.to?null:a.path(s,o.from,o.to),pack:q.pack,fee:q.fee,escrow:q.escrow.food,earned:0,refunded:0,food:q.pack.food,consumed:0,received:0,hospitality:0,rounds:[],phase:o.from===o.to?'working':'outbound',remaining:o.from===o.to?this.duration:q.distance,arrivedAt:o.from===o.to?at:null,leftAt:null,finishedAt:null,reason:null};
@@ -93,7 +93,7 @@ var CivilCityLabor={
       const target=CivilCity.targets(n,s,id),workers=trade.job==='teacher'?p.count:Math.min(p.count,Math.max(...Object.entries(trade.output).map(([k,v])=>Math.ceil(Math.max(0,target[k]-(n.stores[k]||0))/v))));
       if(!workers)reason=reason||'当地储备已足，结束本班';
       const inputs=Object.fromEntries(Object.entries(trade.input).map(([k,v])=>[k,v*workers])),meal=p.from===p.to?0:p.count*.12,cost={...inputs};cost.food=(cost.food||0)+meal;
-      if(!reason)reason=this.c().payReason(s,city,cost);
+      if(!reason)reason=this.c().payReason(s,city,cost,'laborInput');
       if(reason){p.reason=reason;this.leave(s,p);continue;}
       // Inputs are consumed; reimbursement is a physical return cargo. Home
       // packed all journey meals, so guests never eat from two warehouses.

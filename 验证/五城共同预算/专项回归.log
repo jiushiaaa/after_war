@@ -1,0 +1,18 @@
+✔ 246 is unchanged on import; read-only budget previews never create assets or policies (556.341792ms)
+✔ joint policy charges each city once, does not pool stocks or erase already-used authority (512.344ms)
+✔ invalid or unaffordable shared decisions fail atomically, including inherited mode keys (138.528541ms)
+✔ reservations protect real recurring maintenance and do not count a paid deadline twice (1178.007542ms)
+✔ real budget cuts cause a maintenance request, and reviewed funding restores upkeep without resetting ledgers (2632.106625ms)
+✔ a new paid shift waits for a feasible current and next period instead of losing its wages to a mid-shift cap (3688.917041ms)
+✔ current commitments remain protected on policy reversal, with no refund or duplicated production (7806.247667ms)
+✔ forged budget payments, scopes, modes and quota links are rejected on import (1464.940417ms)
+✔ specialist construction completes through real multi-city deliveries while each city pays its own upkeep (13778.932334ms)
+✔ twenty years of shared authority preserve population, stock, wages and finite qualified jobs (12431.892083ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44253.939375
