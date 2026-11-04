@@ -18,7 +18,7 @@ var CivilCityNetworkView={
   },
   refresh(s){const api=CivilCityNetwork,d=api.data(s),cv=CivilConurbationView,view=CivilCityView,a=n=>view.amount(n),cost=x=>view.cost(x)||'无';
     if(!d){$('#cityNetworkBody').hide();return false;}this.ensure();
-    cv.b('select_ridge','矿岭市','#metroCitySwitch',null,()=>{cv.select('ridge');return false;}).toggle(!!d.node&&!s.civilization.cityCouncil?.locals.estuary?.node).attr('aria-pressed',cv.selected==='ridge').toggleClass('selected',cv.selected==='ridge');
+    cv.b('select_ridge','矿岭市','#metroCitySwitch',null,()=>{cv.select('ridge');return false;}).toggle(!!d.node&&!Object.values(s.civilization.cityCouncil?.locals||{}).some(r=>r.node)).attr('aria-pressed',cv.selected==='ridge').toggleClass('selected',cv.selected==='ridge');
     $('#metroCity_select_ridge').insertBefore('#metroCity_select_link');
     const show=['link','ridge'].includes(cv.selected);$('#cityNetworkBody').toggle(show);if(!show)return false;
     $('#cityBody').children().not('#metroCitySwitch,#cityNetworkBody').hide();$('#metroCitySwitch,#cityNetworkBody').show();
@@ -28,7 +28,7 @@ var CivilCityNetworkView={
     if(typeof CivilCityCouncil!=='undefined'){const council=CivilCityCouncil,book=council.data(s);this.b('council','共同事务','#cityNetTabs',null,()=>{cv.select('council');return false;}).toggle(!!book);this.b('formCouncil','筹办公用委托','#cityNetActions_overview',council.formReason(s),()=>council.form(State)).toggle(!book&&council.available(s)).attr('title','三城各付 '+cost(council.stationCost)+'，各20人施工300秒；地方承担持续办公和勤务费用。');}
     for(const id of ['overview','transport','budget','ridge'])$('#cityNetSection_'+id).toggle(section===id);
     $('#cityNetLedger').toggle(!ridge);
-    const known=2+(d.node?1:0)+(s.civilization.cityCouncil?.locals.estuary?.node?1:0),busy=api.occupied(s),fleet=api.capacity(s),total=CivilCity.population(s)+CivilCity.count(CivilConurbation.data(s).node)+(d.node?CivilCity.count(d.node):0)+(s.civilization.cityCouncil?.locals.estuary?.node?CivilCity.count(s.civilization.cityCouncil.locals.estuary.node):0);
+    const additional=Object.values(s.civilization.cityCouncil?.locals||{}).filter(r=>r.node),known=2+(d.node?1:0)+additional.length,busy=api.occupied(s),fleet=api.capacity(s),total=CivilCity.population(s)+CivilCity.count(CivilConurbation.data(s).node)+(d.node?CivilCity.count(d.node):0)+additional.reduce((sum,r)=>sum+CivilCity.count(r.node),0);
     CivilInterface.summary('#cityNetSummary_overview',{title:'共同职责',cards:[['已知城市',known],['共同车辆',busy+' / '+fleet+'组在途'],['居民合计',a(total)],['运转安排',api.priorities[d.priority]]],brief:'各城继续独立供养。共同车组返程前不能被另一条线路重复使用。',notices:['home','lake',...(d.node?['ridge']:[])].filter(id=>!api.inspected(s,id)).map(id=>api.name(id)+'：交通检修待支付'),details:[['本城出发仓',CivilCity.config(d.depot).name],['基础服务','口粮、诊疗、课堂和水务独立运行；交通预算收紧不会取消这些岗位'],['预算周期','每300秒重计支出额度，已花掉的物资不会补回']]});
     $('#cityNetText_overview').text(!d.survey?'沿旧铁路普查：出发仓实付 '+cost(api.surveyCost)+'，2名居民离岗420秒。先了解地方资产，再决定是否修路。':!d.node?'普查在途，还需 '+d.survey.remaining+' 秒。两名当地居民暂离岗位，旅费已实付。':!d.road?'矿岭已普查。修路由双方各付 '+cost(api.roadCost)+'，各20人施工300秒；先留足当地供养储备。':!d.road.completedAt?'道路施工还需 '+d.road.remaining+' 工时，双方各20人。':'各城保留地方账。运输之外，可以筹办公用委托，按各城住房压力与已出材料议定共同工程。');
     this.b('survey','沿旧铁路普查','#cityNetActions_overview',api.surveyReason(s),()=>api.survey(State)).toggle(!d.survey);

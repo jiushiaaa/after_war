@@ -5,7 +5,7 @@ CivilCityCouncil.validate=function(s){
   const time=n=>int(n)&&n<=s.civilization.elapsed,near=(a,b)=>num(a)&&num(b)&&Math.abs(a-b)<1e-4,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),resources=CivilCityContent.resources;
   const cost=x=>x&&typeof x==='object'&&!Array.isArray(x)&&Object.entries(x).every(([k,v])=>resources.includes(k)&&num(v));
   const equalCost=(a,b)=>cost(a)&&cost(b)&&resources.every(k=>near(a[k]||0,b[k]||0));
-  if(d.schema!==1||!this.available(s)||!time(d.at)||d.at<CivilCityNetwork.data(s).at||!d.offices||!d.locals||Object.keys(d.locals).some(k=>k!=='estuary'))fail('设立');
+  if(d.schema!==1||!this.available(s)||!time(d.at)||d.at<CivilCityNetwork.data(s).at||!d.offices||!d.locals||Object.keys(d.locals).some(k=>!['estuary','bridge'].includes(k)))fail('设立');
   for(const key of ['receipts','proposals','projects','shipments','history'])if(!Array.isArray(d[key]))fail(key);
   const ids=this.ids(s),consumed=Object.fromEntries(ids.map(id=>[id,{}]));
   if(Object.keys(d.offices).some(id=>!ids.includes(id))||['home','lake','ridge'].some(id=>!d.offices[id]))fail('登记城市');
@@ -13,7 +13,7 @@ CivilCityCouncil.validate=function(s){
     if(!int(p.worked)||p.worked>duration||p.worked>s.civilization.elapsed-start||p.remaining!==duration-p.worked||p.completedAt===null&&p.remaining<1||p.completedAt!==null&&(!time(p.completedAt)||p.completedAt-start<duration||p.worked!==duration))fail('实际施工');
   };
   for(const [id,o]of Object.entries(d.offices)){
-    if(!time(o.startedAt)||o.startedAt<d.at||id!=='estuary'&&o.startedAt!==d.at||id==='estuary'&&o.startedAt<d.locals.estuary.origin.at||!same(o.paid,this.stationCost)||typeof o.enabled!=='boolean'||!this.quotas[o.quota]||o.lastPaidAt!==null&&!time(o.lastPaidAt))fail('公用站');
+    if(!time(o.startedAt)||o.startedAt<d.at||['home','lake','ridge'].includes(id)&&o.startedAt!==d.at||!['home','lake','ridge'].includes(id)&&(!d.locals[id]?.origin||o.startedAt<d.locals[id].origin.at)||!same(o.paid,this.stationCost)||typeof o.enabled!=='boolean'||!this.quotas[o.quota]||o.lastPaidAt!==null&&!time(o.lastPaidAt))fail('公用站');
     work(o,o.startedAt);this.sum(consumed[id],o.paid);
   }
   const remote=d.locals.estuary;
@@ -45,6 +45,8 @@ CivilCityCouncil.validate=function(s){
     if(e.kind==='policy'){
       if(!['enabled','quota'].includes(e.field)||e.field==='enabled'&&typeof e.value!=='boolean'||e.field==='quota'&&!this.quotas[e.value]||policy[e.field]===e.value)fail('重复或无效授权');
       policy[e.field]=e.value;expected={knowledge:4};once=null;
+    }else if(e.kind==='continuityPolicy'){
+      expected=typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.receipt(s,e):null;if(!expected)fail('岗位授权');once=null;
     }else if(e.kind==='homesPolicy'){
       expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居授权');once=null;
     }else if(e.kind==='meeting'){
@@ -54,7 +56,8 @@ CivilCityCouncil.validate=function(s){
       if(e.kind==='service'){if(e.ref!==e.at||e.at%60)fail('续办时点');expected=this.serviceCost;policy.lastPaidAt=e.at;}
       else{
         if(policy.lastPaidAt===null||e.at-policy.lastPaidAt>=120)fail('未续办执行');
-        if(['homeMaintenance','moveFee','movePack'].includes(e.kind)){expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居支出');}
+        if(['continuityService','continuityEnroll','continuityLesson','continuityInvite'].includes(e.kind)){expected=typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.receipt(s,e):null;if(!expected)fail('接续开支');}
+        else if(['homeMaintenance','moveFee','movePack'].includes(e.kind)){expected=typeof CivilCityHomes!=='undefined'?CivilCityHomes.receipt(s,e):null;if(!expected)fail('安居支出');}
         else if(e.kind==='cargo'){const p=d.shipments[e.ref-1];if(!p||p.at!==e.at||p.source!==e.city)fail('供料付款');expected=p.cargo;}
         else if(e.kind==='leg'){
           const [ship,index]=String(e.ref).split(':').map(Number),l=d.shipments[ship-1]?.legs[index];

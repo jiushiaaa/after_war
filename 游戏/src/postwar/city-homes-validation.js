@@ -26,7 +26,7 @@ CivilCityHomes.validate=function(s){
     }
     if(e.condition!==condition||e.lastPaidAt!==lastPaidAt)fail('维护结果');
     const n=api.local(s,id),occupied=this.settled(s,id);for(const c of occupied)if(c.count>(n.cohorts.find(x=>x.age===c.age&&x.identity===c.identity)?.count||0))fail('安置家庭子集');
-    const expectedWorkers=this.active(s,id)?Math.min(this.cfg(s,id).jobs,CivilPopulation.workforce(occupied)):0;
+    const expectedWorkers=this.active(s,id)?(typeof CivilCityContinuity!=='undefined'&&CivilCityContinuity.ready(s,id)?CivilCityContinuity.workers(s,id):Math.min(this.cfg(s,id).jobs,CivilPopulation.workforce(occupied))):0;
     if((n.workers.settler||0)>expectedWorkers||(n.workers.homekeeper||0)>this.maintainers(s,id))fail('真实居民岗位');
   }
   let end=d.at;

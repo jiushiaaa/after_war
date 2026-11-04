@@ -29,7 +29,7 @@ var CivilCityInstitutions = {
   trained(s,id,subject){return CivilPopulation.count(this.qualified(s,id,subject));},
   candidates(s,id,count){
     const n=CivilCity.data(s).wards[id],x=this.local(s,id),used=new Map(),out=[];
-    const busy=[...(typeof CivilCityHomes!=='undefined'?CivilCityHomes.settled(s,id,true):[]),...this.qualified(s,id,'craft'),...this.qualified(s,id,'care'),...(x?.training?this.aged(x.training.cohorts,x.training.startedAt,s.civilization.elapsed):[])];
+    const busy=[...(typeof CivilCityHomes!=='undefined'?CivilCityHomes.settled(s,id,true):[]),...(typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.extraProtected(s,id):[]),...this.qualified(s,id,'craft'),...this.qualified(s,id,'care'),...(x?.training?this.aged(x.training.cohorts,x.training.startedAt,s.civilization.elapsed):[])];
     for(const c of busy)used.set(this.key(c),(used.get(this.key(c))||0)+c.count);
     // Young adults first; this is a subset of the actual residents, never additional population.
     for(const c of [...n.cohorts].sort((a,b)=>a.age-b.age))if(c.age>=18&&c.age<=49){const take=Math.min(count,Math.max(0,c.count-(used.get(this.key(c))||0)));if(take){out.push({...c,count:take});count-=take;}if(!count)break;}
@@ -205,7 +205,7 @@ var CivilCityInstitutions = {
   },
   delegate(s,enabled){
     const h=this.data(s)?.home;if(!h||typeof enabled!=='boolean'||h.enabled===enabled)return false;
-    h.enabled=enabled;h.changes.push({at:s.civilization.elapsed,kind:'enabled',value:enabled});
+    h.enabled=enabled;if(typeof CivilCityContinuity!=='undefined'&&CivilCityContinuity.data(s))CivilSociety.trimJobs(s);h.changes.push({at:s.civilization.elapsed,kind:'enabled',value:enabled});
     CivilCity.note(s,'policy','home',enabled?'原镇例行岗位交给公署：每60秒检查供养与岗位，并实付办公开支。工程、研究、法律与对外决定仍由共同体决定。':'原镇岗位委托已暂停，保留当前岗位安排。');return true;
   },
   manual(s){if(this.data(s)?.home.enabled)this.delegate(s,false);},
@@ -227,6 +227,7 @@ var CivilCityInstitutions = {
     return next;
   },
   homeTick(s){
+    if(typeof CivilCityContinuity!=='undefined'&&CivilCityContinuity.data(s))return CivilCityContinuity.homeTick(s);
     const h=this.data(s)?.home,at=s.civilization.elapsed;if(!h?.enabled||h.lastAt!==null&&at-h.lastAt<60)return;
     const paid={food:2,tools:.2,knowledge:.1};h.lastAt=at;
     if(!CivilRules.pay(s,paid)){h.records.push({at,paid:{},status:'shortage',changes:{}});return;}

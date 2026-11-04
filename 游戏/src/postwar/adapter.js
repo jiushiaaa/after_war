@@ -154,8 +154,10 @@ var Civilization = {
     if(typeof CivilCity!=='undefined')CivilCity.tick(State);
     if(typeof CivilConurbation!=='undefined')CivilConurbation.tick(State);
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.tick(State);
+    if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.tick(State);
     if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.tick(State);
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.tick(State);
+    if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -632,6 +634,7 @@ const adrWorkersView=Outside.updateWorkersView;
 Outside.updateWorkersView=function(){
   adrWorkersView();
   $('#workers_row_gatherer > .row_val > span').text(Outside.getNumGatherers());
+  $('#workers_row_gatherer .row_key').text(typeof CivilCityContinuity!=='undefined'&&CivilCityContinuity.townActive(State)&&State.stores.wood>=CivilCityContinuity.targets(State).wood?'轮休与机动':'采木工');
   for(const [job,n]of Object.entries(State.game.workers)){
     const cap=CivilCatalog.jobCapacity(State,job);
     $('#workers_row_'+job+' .upBtn,#workers_row_'+job+' .upManyBtn').toggleClass('disabled',n>=cap || Outside.getNumGatherers()<=0);

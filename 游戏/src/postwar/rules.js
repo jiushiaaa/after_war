@@ -15,7 +15,7 @@
     const gatherers = Math.max(0, (typeof CivilSociety!=='undefined'?CivilSociety.workforce(state):Math.max(0,p-away)) - Object.values(jobs).reduce((a,b) => a+b,0));
     const farmers=Math.min(jobs.farmer||0,CivilCatalog.jobCapacity(state,'farmer')),serviceCap=typeof CivilServices!=='undefined'?(CivilServices.jobs(state,'home').farmer||0):0,legacyCap=CivilCatalog.jobCapacity(state,'farmer')-serviceCap;
     const legacyFarmers=Math.min(farmers,legacyCap),serviceFarmers=Math.min(Math.max(0,farmers-legacyCap),Math.floor(((state.stores.tools||0)+1e-8)/.01)),serviceRate=typeof CivilServices!=='undefined'?CivilServices.farmRate(state,'home'):1.4;
-    return {
+    const flow = {
       '工匠': {wood:state.game.builder?.level >= 4 && !(typeof CivilHeating!=='undefined'&&CivilHeating.handed(state)) ? (typeof CivilCourse!=='undefined'?CivilCourse.craftsmanWood(state):2) : 0},
       '采木工': {wood:gatherers * factor},
       '猎人': {food:(jobs.hunter || 0) * .8 * factor, fur:(jobs.hunter || 0) * .3 * factor},
@@ -24,15 +24,17 @@
       ...(state.game.buildings.outpost ? {'外站维护':{wood:-.5,food:-.2}} : {}),
       '口粮': {food:-(typeof CivilSociety!=='undefined'?CivilSociety.foodPopulation(state):Math.max(0,p-(typeof CivilExpedition!=='undefined'?CivilExpedition.awayEaters(state):0))) * .12 * policy.food * (state.game.buildings.cistern ? .9 : 1)}
     };
+    return typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.limitRates(state,flow):flow;
   }
   function industry(state) {
     const j=state.game.workers,c=state.civilization;
     const factor=(policies[c.policy]||policies.equal).output*(c.hunger>=30?.65:1)*((c.village?.health??80)<30?.75:1)*(typeof CivilSociety!=='undefined'?CivilSociety.outputFactor(state):1);
-    return {
+    const rows = {
       '制器工':{count:j.smith||0,cost:{scrap:.6,wood:.2},output:{tools:.25*factor*(typeof CivilCourse!=='undefined'?CivilCourse.smithFactor(state):1)}},
       '医护':{count:j.medic||0,cost:{food:.2,scrap:.1},output:{medicine:.15*factor}},
       '教师':{count:j.teacher||0,cost:{wood:.1},output:{knowledge:.2*factor}}
     };
+    return typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.limitIndustry(state,rows):rows;
   }
   function settleIndustry(state,consume) {
     const flows={};

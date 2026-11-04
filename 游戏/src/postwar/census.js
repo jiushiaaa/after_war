@@ -33,9 +33,9 @@ var CivilCensus={
     d.entries.push({at:s.civilization.elapsed,kind,from,to,count,reason});return true;
   },
   partition(s,count,id='lake'){
-    const source={lake:'reserve_north',ridge:'reserve_west',estuary:'reserve_east'}[id],to='city_'+id,d=this.data(s);
+    const source={lake:'reserve_north',ridge:'reserve_west',estuary:'reserve_east',bridge:'reserve_north'}[id],to='city_'+id,d=this.data(s);
     if(!source||!this.enabled(s)||Object.hasOwn(d.accounts,to)||!Number.isSafeInteger(count)||count<1||d.accounts[source]<count)return false;
-    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市'}[id])+'普查细分，居民仍在当地'});return true;
+    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市',bridge:'桥原市'}[id])+'普查细分，居民仍在当地'});return true;
   },
   move(s,from,to,n,reason='迁居'){return this.record(s,'move',from,to,n,reason);},
   birth(s,to,n){return this.record(s,'birth',null,to,n,'出生');},
@@ -73,6 +73,7 @@ var CivilCensus={
     if(c.urban?.registered)rows.push({id:'dispersed',name:'沿路待迁家庭',count:CivilPopulation.count(c.urban.source),member:false});
     if(c.cityNetwork?.node)rows.push({id:'city_ridge',name:'矿岭市（独立城市）',count:CivilPopulation.count(c.cityNetwork.node.cohorts),member:false});
     if(c.conurbation?.node)rows.push({id:'city_lake',name:'湖滨市（独立城市）',count:CivilPopulation.count(c.conurbation.node.cohorts),member:false});
+    if(c.cityCouncil?.locals.bridge?.node)rows.push({id:'city_bridge',name:'桥原市（独立城市）',count:CivilPopulation.count(c.cityCouncil.locals.bridge.node.cohorts),member:false});
     if(c.cityCouncil?.locals.estuary?.node)rows.push({id:'city_estuary',name:'河口市（独立城市）',count:CivilPopulation.count(c.cityCouncil.locals.estuary.node.cohorts),member:false});
     return rows;
   },
@@ -84,7 +85,7 @@ var CivilCensus={
     if(d.initial!==base.total||!d.accounts)fail();
     for(const e of d.entries){
       if(!e||!int(e.at)||e.at<last||e.at>s.civilization.elapsed||!int(e.count)||!e.count||typeof e.reason!=='string'||e.reason.length>80)fail();last=e.at;
-      if(e.kind==='partition'){if(!({city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east'}[e.to])||e.from!==({city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
+      if(e.kind==='partition'){if(!({city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east',city_bridge:s.civilization.cityRegistry&&s.civilization.cityCouncil?.locals.bridge?.node&&'reserve_north'}[e.to])||e.from!==({city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east',city_bridge:'reserve_north'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
       else if(e.kind==='move'){if(!Object.hasOwn(counts,e.from)||!Object.hasOwn(counts,e.to)||e.from===e.to)fail();}
       else if(e.kind==='birth'){if(e.from!==null||!Object.hasOwn(counts,e.to))fail();born+=e.count;}
       else if(e.kind==='death'){if(e.to!==null||!Object.hasOwn(counts,e.from))fail();dead+=e.count;}else fail();
@@ -105,6 +106,7 @@ var CivilCensus={
     eq('patients',(c.frontier?.patients||[]).filter(p=>p.diedAt===null&&p.recoveredAt===null).length);
     for(const [id,n]of Object.entries(c.city?.wards||{}))eq('ward_'+id,CivilPopulation.count(n.cohorts));
     if(c.cityNetwork?.node)eq('city_ridge',CivilPopulation.count(c.cityNetwork.node.cohorts));
+    if(c.cityCouncil?.locals.bridge?.node)eq('city_bridge',CivilPopulation.count(c.cityCouncil.locals.bridge.node.cohorts));
     if(c.cityCouncil?.locals.estuary?.node)eq('city_estuary',CivilPopulation.count(c.cityCouncil.locals.estuary.node.cohorts));
     if(c.conurbation?.node)eq('city_lake',CivilPopulation.count(c.conurbation.node.cohorts));
   }

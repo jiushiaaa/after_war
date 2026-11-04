@@ -1,13 +1,13 @@
 /* MPL-2.0 — Opt-in municipal mandates. Local stock, resident crews, recorded
  * contribution and completed public assets; no annexation or pooled free treasury. */
 var CivilCityCouncil={
-  content:{estuary:{name:'河口市',population:90000,foodRate:1.9,scrapRate:1.1,woodRate:.8,source:'reserve_east'}},
+  content:{bridge:{name:'桥原市',population:70000,foodRate:2.1,scrapRate:.8,woodRate:.9,knowledgeRate:.3,source:'reserve_north'},estuary:{name:'河口市',population:90000,foodRate:1.9,scrapRate:1.1,woodRate:.8,source:'reserve_east'}},
   stationCost:{wood:320,tools:64,knowledge:24},surveyCost:{food:60,tools:16,knowledge:24},
   serviceCost:{food:4,wood:2,knowledge:1},housingCost:{wood:480,tools:96,medicine:48,knowledge:24},roadCost:{wood:240,tools:48,knowledge:12},
   quotas:{careful:{name:'节制支出',value:400},normal:{name:'常规委托',value:800},active:{name:'优先办理',value:1600}},
   modes:{equal:'各城均摊',beneficiary:'受益城承担八成',specialist:'按产业供料',self:'地方自筹'},
   values:{food:1,wood:1,scrap:1,tools:8,medicine:4,knowledge:2,iron:5},
-  links:{cross:{name:'湖滨—矿岭直路',a:'lake',b:'ridge',travel:210},river:{name:'湖滨—河口通路',a:'lake',b:'estuary',travel:300}},
+  links:{academy:{name:'湖滨—桥原校道',a:'lake',b:'bridge',travel:240},cross:{name:'湖滨—矿岭直路',a:'lake',b:'ridge',travel:210},river:{name:'湖滨—河口通路',a:'lake',b:'estuary',travel:300}},
   scheme(kind){return typeof CivilCityHomes!=='undefined'?CivilCityHomes.schemes[kind]:null;},housingKind(kind){return kind==='housing'||!!this.scheme(kind);},duration(kind){return this.scheme(kind)?.duration||300;},builders(kind){return this.scheme(kind)?.builders||20;},beds(kind){return this.scheme(kind)?.beds||800;},
   data(s){return s.civilization.cityCouncil;},copy(x){return JSON.parse(JSON.stringify(x));},
   depot(s){return CivilCityNetwork.data(s)?.depot;},physical(s,id){return id==='home'?this.depot(s):id;},
@@ -27,7 +27,7 @@ var CivilCityCouncil={
     s.civilization.cityCouncil={schema:1,at,offices,locals:{},receipts:[],nextReceipt:1,proposals:[],projects:[],shipments:[],history:[]};this.replan(s);this.note(s,'三城各付站材、各派20名居民筹办公用站。完工后每站有一组公共勤务车辆，按地方授权办理共同事务。');return true;},
   record(s,city,kind,ref,paid,extra={}){const d=this.data(s),e={id:d.nextReceipt++,at:s.civilization.elapsed,city,kind,ref,paid:this.copy(paid),...extra};d.receipts.push(e);return e;},
   period(s,at=s.civilization.elapsed){const start=this.data(s).at;return start+Math.floor((at-start)/600)*600;},
-  spent(s,id){const d=this.data(s),start=this.period(s);let used=0;for(let i=d.receipts.length-1;i>=0&&d.receipts[i].at>=start;i--){const e=d.receipts[i];if(e.city===id&&!['policy','meeting','homesPolicy'].includes(e.kind))used+=this.value(e.paid);}return used;},
+  spent(s,id){const d=this.data(s),start=this.period(s);let used=0;for(let i=d.receipts.length-1;i>=0&&d.receipts[i].at>=start;i--){const e=d.receipts[i];if(e.city===id&&!['policy','meeting','homesPolicy','continuityPolicy'].includes(e.kind))used+=this.value(e.paid);}return used;},
   stockReason(s,id,cost){const n=this.local(s,id);if(!n||n.stable<120||n.health<60)return '基础供养尚未稳定';const floor={food:CivilPopulation.foodPopulation(n.cohorts)*.12*6,medicine:CivilCity.count(n)*.01*4,tools:32};for(const [k,v]of Object.entries(cost))if((n.stores[k]||0)-v<(floor[k]||0)-1e-7)return (CivilText.labels[k]||k)+'要先留给当地';return null;},
   allowance(s,id){const o=this.data(s).offices[id];return Math.max(0,this.quotas[o.quota].value-this.spent(s,id));},
   payReason(s,id,cost){const o=this.data(s)?.offices[id];if(!o||o.completedAt===null)return '公用站还未完工';if(!o.enabled)return '当地暂停了公用委托';if(this.value(cost)>this.allowance(s,id)+1e-6)return '本期共同事务额度不足';return this.stockReason(s,id,cost);},
@@ -48,7 +48,7 @@ var CivilCityCouncil={
   spec(s,kind,target){if(this.scheme(kind)&&this.ids(s).includes(target))return {[target]:this.copy(this.scheme(kind).cost)};if(kind==='housing'&&this.ids(s).includes(target))return {[target]:this.copy(this.housingCost)};const l=this.links[target];if(kind==='road'&&l&&this.ids(s).includes(l.a)&&this.ids(s).includes(l.b))return {[l.a]:this.copy(this.roadCost),[l.b]:this.copy(this.roadCost)};return null;},
   allocations(s,sites,mode,members){const out=[];for(const [to,cost]of Object.entries(sites)){const buckets=Object.fromEntries(members.map(id=>[id,{}]));for(const [resource,total]of Object.entries(cost)){
       let weights=members.map(id=>mode==='self'?(id===to?1:0):mode==='beneficiary'?(id===to?.8:.2/(members.length-1)):1/members.length);
-      if(mode==='specialist'){const specialist={wood:'lake',tools:'ridge',medicine:members.includes('estuary')?'estuary':'home',knowledge:'home'}[resource]||to;weights=members.map(id=>id===specialist?1:0);}
+      if(mode==='specialist'){const specialist={wood:'lake',tools:'ridge',medicine:members.includes('estuary')?'estuary':'home',knowledge:members.includes('bridge')?'bridge':'home'}[resource]||to;weights=members.map(id=>id===specialist?1:0);}
       let used=0;members.forEach((id,i)=>{const amount=Math.floor(total*weights[i]);buckets[id][resource]=amount;used+=amount;});
       // Deterministic integer remainders go to the beneficiary first, then by registry order.
       for(const id of [to,...members.filter(id=>id!==to)])if(used<total&&weights[members.indexOf(id)]>0){buckets[id][resource]++;used++;}
@@ -75,7 +75,7 @@ var CivilCityCouncil={
   path(s,from,to,at=s.civilization.elapsed){const edges=this.graph(s,at),queue=[{ids:[from],distance:0,legs:[]}];while(queue.length){queue.sort((a,b)=>a.distance-b.distance);const x=queue.shift(),last=x.ids.at(-1);if(last===to)return x;for(const e of edges){const next=e.a===last?e.b:e.b===last?e.a:null;if(next&&!x.ids.includes(next))queue.push({ids:[...x.ids,next],distance:x.distance+e.travel,legs:[...x.legs,{from:last,to:next,travel:e.travel,route:e.id}]});}}return null;},
   legFee(travel){return {food:4*.12*travel*2/10,wood:6,tools:1,knowledge:.5};},
   activeLegs(s){return (this.data(s)?.shipments||[]).flatMap(p=>p.legs.filter(l=>l.finishedAt===null));},
-  crew(s,id){const d=this.data(s),city=this.logical(s,id);if(!d)return 0;return this.activeLegs(s).filter(l=>l.from===city).length*4+(typeof CivilCityHomes!=='undefined'?CivilCityHomes.crew(s,id):0)+(city==='lake'&&d.locals.estuary&&!d.locals.estuary.node?2:0);},
+  crew(s,id){const d=this.data(s),city=this.logical(s,id);if(!d)return 0;return this.activeLegs(s).filter(l=>l.from===city).length*4+(typeof CivilCityHomes!=='undefined'?CivilCityHomes.crew(s,id):0)+(city==='lake'&&d.locals.estuary&&!d.locals.estuary.node?2:0)+(typeof CivilCityRegistry!=='undefined'?CivilCityRegistry.crew(s,city):0);},
   replan(s){for(const id of this.ids(s))CivilCity.plan(s,this.physical(s,id));},
   full(site){return Object.entries(site.required).every(([k,v])=>(site.installed[k]||0)>=v);},
   plan(s,id,slots,want,reserved){const d=this.data(s);if(!d)return;const city=this.logical(s,id),o=d.offices[city];

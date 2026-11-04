@@ -83,6 +83,8 @@ var CivilCity={
     if(typeof CivilCityNetwork!=='undefined')CivilCityNetwork.plan(s,id,slots,want,reserved);
     if(typeof CivilCityCouncil!=='undefined')CivilCityCouncil.plan(s,id,slots,want,reserved);
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.plan(s,id,slots,want,reserved);
+    if(typeof CivilCityRegistry!=='undefined')CivilCityRegistry.plan(s,id,slots,want,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     const order=n.priority==='building'?['waterworker','farmer','medic','driver','builder','gatherer','salvager','smith','teacher','smelter']:['waterworker','farmer','medic','teacher','driver','salvager','gatherer','smith','builder','smelter'];
@@ -111,7 +113,7 @@ var CivilCity={
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.produce(s,id,run,wet);
     const ate=this.pay(n,{food:this.foodPopulation(s,id)*.12});n.hunger=ate?Math.max(0,n.hunger-20):n.hunger+10;
     const clinical=id==='estuary'||typeof CivilCityInstitutions!=='undefined'&&CivilCityInstitutions.local(s,id)?.careMethod==='clinical';
-    run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:.2},true);
+    run('medic',clinical?{food:.2,scrap:.1,tools:.01,knowledge:.02}:{food:.2,scrap:.1},{medicine:clinical?.3:.15});run('teacher',{wood:.1},{knowledge:this.config(id).knowledgeRate||.2},true);
     run('smelter',{scrap:1,wood:.5},{iron:.3});
     run('smith',n.method==='standard'?{scrap:.8,wood:.1,iron:.05}:{scrap:.6,wood:.2},{tools:n.method==='standard'?.6:.25});
     const treated=(w.medic||0)>0&&this.pay(n,{medicine:p*.01}),educated=(worked.teacher||0)*20>=CivilPopulation.children(n.cohorts);
@@ -126,7 +128,7 @@ var CivilCity={
     n.economy.flow=Object.fromEntries(CivilCityContent.resources.map(k=>[k,(n.stores[k]||0)-(before[k]||0)]));n.economy.food=n.economy.flow.food;n.economy.medicine=n.economy.flow.medicine;
   },
   annual(s,id){
-    const n=this.node(s,id),year=Math.floor(s.civilization.elapsed/600),account=['lake','ridge','estuary'].includes(id)?'city_'+id:'ward_'+id;
+    const n=this.node(s,id),year=Math.floor(s.civilization.elapsed/600),account=CivilCityContent.wards[id]?'ward_'+id:'city_'+id;
     while(n.year<year){const old=this.count(n),aged=CivilPopulation.age(n.cohorts);n.year++;n.cohorts=aged.cohorts;n.dead+=aged.deceased;CivilCensus.death(s,account,aged.deceased);
       const born=CivilPopulation.births(n.cohorts,n.births,{yearStartPopulation:old,beds:typeof CivilCityHomes!=='undefined'?CivilCityHomes.birthBeds(s,id):this.housing(s,id)-this.count(n),health:n.health,hunger:n.hunger,food:n.stores.food,medicine:n.stores.medicine});
       if(born.count&&this.pay(n,born.cost)){n.cohorts.push(...born.cohorts);n.born+=born.count;CivilCensus.birth(s,account,born.count);}
