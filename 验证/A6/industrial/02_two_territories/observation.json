@@ -1,0 +1,236 @@
+{
+  "at": 200653,
+  "speed": 32,
+  "max": 32,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "g": {
+    "tech": {
+      "mapping": 199800
+    },
+    "work": {
+      "at": 200640,
+      "office": 8,
+      "field": 0,
+      "research": 12,
+      "builders": 0,
+      "manufacturing": 0,
+      "control": 0,
+      "power": 18,
+      "produced": [],
+      "researchPower": true
+    },
+    "research": {
+      "id": "navigation",
+      "at": 200451,
+      "remaining": 240
+    },
+    "build": null,
+    "survey": null,
+    "ground": null,
+    "unity": null,
+    "ending": null,
+    "last": {
+      "at": 200640,
+      "paid": true,
+      "cost": {
+        "food": 6,
+        "tools": 1,
+        "knowledge": 4
+      },
+      "reason": null
+    },
+    "paid": 25,
+    "missed": 0,
+    "flights": [],
+    "regions": {
+      "west": {
+        "mode": null,
+        "project": null,
+        "stable": 0,
+        "paid": 0,
+        "missed": 0,
+        "last": null
+      },
+      "desert": {
+        "mode": null,
+        "project": null,
+        "stable": 0,
+        "paid": 0,
+        "missed": 0,
+        "last": null
+      },
+      "north": {
+        "mode": "reserve",
+        "project": {
+          "at": 199894,
+          "mode": "reserve",
+          "remaining": 0,
+          "startedAt": 200100,
+          "completedAt": 200400,
+          "local": {
+            "wood": 1600,
+            "knowledge": 80
+          }
+        },
+        "stable": 300,
+        "paid": 5,
+        "missed": 0,
+        "last": {
+          "at": 200640,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "wood": 60,
+            "tools": 1,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "east": {
+        "mode": null,
+        "project": {
+          "at": 200423,
+          "mode": "levee",
+          "remaining": 300,
+          "startedAt": 200640,
+          "completedAt": null,
+          "local": {
+            "wood": 1200,
+            "tools": 200
+          }
+        },
+        "stable": 0,
+        "paid": 0,
+        "missed": 0,
+        "last": null
+      }
+    }
+  },
+  "f": {
+    "health": 100,
+    "condition": 100,
+    "assets": {
+      "housing": 2,
+      "laboratory": 1,
+      "workshop": 3,
+      "solar": 3,
+      "garden": 2,
+      "clinic": 2,
+      "repair": 1,
+      "hall": 1,
+      "reactor": 1
+    },
+    "stock": {
+      "food": 36899.48000000014,
+      "medicine": 113.44000000000005,
+      "wood": 228,
+      "tools": 76.74599999999938,
+      "iron": 208,
+      "knowledge": 310.0399999999899,
+      "parts": 137.15000000000015,
+      "electronics": 79.68000000000164,
+      "culture": 83.0399999999993,
+      "steel": 84,
+      "cell": 104.4,
+      "body": 64
+    },
+    "counts": {
+      "total": 260,
+      "bio": 164,
+      "machine": 96,
+      "mechanical": 48,
+      "synthetic": 48,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 164,
+      "workers": 216,
+      "children": 44,
+      "mutant": 61,
+      "citizens": 260
+    },
+    "away": 0,
+    "last": {
+      "at": 200640,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 12,
+        "courier": 4,
+        "care": 23,
+        "maintenance": 13,
+        "clerk": 6,
+        "teacher": 7,
+        "earthOffice": 8,
+        "earthResearch": 12,
+        "gardener": 32,
+        "manufacturing": 48
+      },
+      "assignments": {
+        "energy": {
+          "organic": 12
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 23
+        },
+        "maintenance": {
+          "mechanical": 13
+        },
+        "clerk": {
+          "synthetic": 6
+        },
+        "teacher": {
+          "organic": 7
+        },
+        "earthOffice": {
+          "organic": 8
+        },
+        "earthResearch": {
+          "organic": 12
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "synthetic": 42,
+          "mechanical": 6
+        }
+      },
+      "idle": 51,
+      "produced": [
+        "culture"
+      ],
+      "energy": {
+        "generated": 540,
+        "used": 137.12,
+        "stored": 2400,
+        "capacity": 2400,
+        "heat": 1200,
+        "sources": {
+          "renewable": 540,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 107.52000000000004,
+      "upkeep": {
+        "tools": 3.72,
+        "parts": 4.32
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "proposal": null
+  }
+}

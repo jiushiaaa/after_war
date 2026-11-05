@@ -15,12 +15,13 @@ var CivilPolity={
  safe(cost,source){const p=source.population,keep={food:p*.12*18,medicine:p*.01*18,tools:p*.002};return Object.entries(cost).every(([k,v])=>Number.isFinite(v)&&v>=0&&(source.stock[k]||0)-v>=(keep[k]||0)-1e-7);},
  consent(sources,laws){if(!sources.north.permit||!sources.east.permit)return '两区共同服务须在办理';if(!sources.east.cofunded)return '先实付设立东原地方防疫共筹';if(Object.values(sources).some(x=>x.health<90||x.condition<90||x.idle<96))return '两区须恢复健康、设施至90并留出96个实际工位';if(laws.devolution==='central'&&laws.rights==='custom')return '东原拒绝同时交出地方决定权并保留身份差等';return null;},
  initial(at){return {schema:1,at,records:[],laws:{...this.charter},proposal:null,foundedAt:null,stable:0,legitimacy:60,enabled:true,peers:{},contacts:[],cargo:[],public:{received:{},consumed:{},produced:{},sent:{},external:{}},world:{nodes:{north:{population:0,stores:this.book(),infrastructure:100,trust:60,control:'shared',joinedAt:at,stableSeconds:0,casualties:0}},missions:[],populationModel:2},periods:0,paid:0,missed:0,industry:{},history:[]};},
- reason(s,action,args={}){try{const d=this.data(s);if(!d&&!this.available(s))return '先办理两区共同责任并覆盖一千万人';const e={at:s.civilization.elapsed,action,args:this.copy(args),sources:this.sources(s)};if(action==='future'&&['start','migrate'].includes(args.op))e.volunteers=CivilFuturePeople.volunteers(this.dataLocal(s,'north'),240);this.reduce(d?this.copy({...d,records:[]}):null,e);return null;}catch(e){return e.message;}},
+ reason(s,action,args={}){try{const d=this.data(s);if(!d&&!this.available(s))return '先办理两区共同责任并覆盖一千万人';const e={at:s.civilization.elapsed,action,args:this.copy(args),sources:this.sources(s)};if(typeof CivilEarth!=='undefined')CivilEarth.attach(s,e);if(action==='future'&&['start','migrate'].includes(args.op))e.volunteers=CivilFuturePeople.volunteers(this.dataLocal(s,'north'),240);this.reduce(d?this.copy({...d,records:[]}):null,e);return null;}catch(e){return e.message;}},
  act(s,action,args={}){if(this.reason(s,action,args))return false;return this.record(s,action,args);},
- record(s,action,args={}){const old=this.data(s),e={id:(old?.records.length||0)+1,at:s.civilization.elapsed,action,args:this.copy(args),sources:this.sources(s)};if(action==='future'&&['start','migrate'].includes(args.op))e.volunteers=CivilFuturePeople.volunteers(this.dataLocal(s,'north'),240);if(old&&typeof CivilPolityForeign!=='undefined')e.reserves=Object.fromEntries(old.contacts.filter(c=>c.finishedAt===null&&e.at>=c.at+600).map(c=>[c.actor,CivilCensus.data(s).accounts['reserve_'+c.actor]]));const result=this.reduce(old,e);s.civilization.polity=result.d;e.effects=result.effects;e.outcome=result.outcome;result.d.records.push(e);
+ record(s,action,args={}){const old=this.data(s),e={id:(old?.records.length||0)+1,at:s.civilization.elapsed,action,args:this.copy(args),sources:this.sources(s)};if(typeof CivilEarth!=='undefined')CivilEarth.attach(s,e);if(action==='future'&&['start','migrate'].includes(args.op))e.volunteers=CivilFuturePeople.volunteers(this.dataLocal(s,'north'),240);if(old&&typeof CivilPolityForeign!=='undefined')e.reserves=Object.fromEntries(old.contacts.filter(c=>c.finishedAt===null&&e.at>=c.at+600).map(c=>[c.actor,CivilCensus.data(s).accounts['reserve_'+c.actor]]));const result=this.reduce(old,e);s.civilization.polity=result.d;e.effects=result.effects;e.outcome=result.outcome;result.d.records.push(e);
   for(const id of ['north','east']){if(!this.applyLocal(this.dataLocal(s,id),e,id))throw Error('公共责任无法在地方履行');if(id==='north')CivilDomain.record(s,'polity',{ref:e.id});else CivilRegional.row(s,'polity',{ref:e.id});const dead=e.effects[id]?.dead||0;if(dead)CivilCensus.death(s,'district_'+id,dead,'共同体实际战损');}
   if(typeof CivilPolityForeign!=='undefined')CivilPolityForeign.syncCensus(s,e);
   if(typeof CivilFuture!=='undefined')CivilFuture.syncCensus(s,e);
+  if(typeof CivilEarth!=='undefined')CivilEarth.syncCensus(s,e);
   if(typeof State!=='undefined'&&s===State&&action!=='period'&&action!=='annual')Civilization.notify(result.outcome);
   return true;
  },
@@ -49,13 +50,14 @@ var CivilPolity={
     if(paid&&!CivilForeign.fighting(d.world,'north')&&d.world.nodes.north.infrastructure===100)this.work(d,'north',d.laws.priority);
     d.world.nodes.north.population=sources.north.population+sources.east.population;d.world.nodes.north.trust=d.legitimacy;d.world.nodes.north.stableSeconds=d.stable;
     if(typeof CivilPolityForeign!=='undefined')CivilPolityForeign.period(d,e,effects,paid);
-    if(d.future){effects.futureDelta=CivilFuture.period(d,e);d.world.nodes.north.population+=CivilFuture.count(d.future);}
+    if(d.future){effects.futureDelta=CivilFuture.period(d,e);d.world.nodes.north.population+=CivilFuturePeople.total(d.future);}
+    if(d.earth)CivilEarth.period(d,e,effects);
     outcome=paid?'本期公共机构实付运行':d.lastService.reason;
    }else if(e.action==='pause'){
     if(typeof args.enabled!=='boolean'||args.enabled===d.enabled)fail('授权没有变化');this.spend(d,{knowledge:12});d.enabled=args.enabled;outcome=d.enabled?'公共机构恢复；旧承诺与欠款继续履行。':'暂停新公共征调与生产；已装船货物继续交付。';
    }else if(e.action==='law'){
     if(!d.foundedAt||d.proposal)fail('先确认国约并结清当前议案');const laws=args.laws;if(!laws||Object.keys(laws).length!==3||Object.entries(this.laws).some(([key,items])=>!Object.hasOwn(items,laws[key]))||this.same(d.laws,laws))fail('选择不同的完整制度安排');const why=this.consent(sources,laws);if(why)fail(why);this.spend(d,{knowledge:180,food:60});d.proposal={at,laws:this.copy(laws)};outcome='议案已实付提出；600秒后按实际地方服务和同意条件表决，费用不因拒绝退还。';
-   }else if(e.action==='future')outcome=CivilFuture.action(d,e,effects);else if(typeof CivilPolityForeign!=='undefined')outcome=CivilPolityForeign.action(d,e,effects);else fail('未知公共行动');
+   }else if(e.action==='earth')outcome=CivilEarth.action(d,e,effects);else if(e.action==='future')outcome=CivilFuture.action(d,e,effects);else if(typeof CivilPolityForeign!=='undefined')outcome=CivilPolityForeign.action(d,e,effects);else fail('未知公共行动');
   }
   return {d,effects,outcome};
  },
@@ -81,5 +83,5 @@ var CivilPolity={
   if(!CivilCity.pay(n,x.cost)||!CivilRules.pay({stores:n.stores},x.sent))return false;CivilCity.sum(n.budget.sent,x.sent);CivilConurbation.receive(n,x.received);if(x.dead)this.casualties(n,x.dead);if(x.moved&&!CivilFuturePeople.take(n,x.moved))return false;if(x.futureStaff){if(n.economy.idle<x.futureStaff)return false;n.economy.idle-=x.futureStaff;n.workers.futureService=(n.workers.futureService||0)+x.futureStaff;}return true;
  },
  tick(s){if(!this.data(s))return;if(s.civilization.elapsed%60===0)this.record(s,'period');},
- population(s){const d=this.data(s);if(!d)return 0;return CivilDomain.known(s)+CivilRegional.known(s)+(d.future?CivilFuture.count(d.future):0)+Object.entries(d.peers).filter(([id])=>d.world.nodes[id].joinedAt!==null).reduce((v,[,p])=>v+CivilDomain.count(p.local),0);}
+ population(s){const d=this.data(s);if(!d)return 0;return CivilDomain.known(s)+CivilRegional.known(s)+(d.future?CivilFuturePeople.total(d.future):0)+Object.entries(d.peers).filter(([id])=>d.world.nodes[id].joinedAt!==null).reduce((v,[,p])=>v+CivilDomain.count(p.local),0);}
 };

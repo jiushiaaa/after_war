@@ -38,6 +38,7 @@ var CivilDomainView={
     if($('#domainAccounts').prop('open'))$('#domainAccounts p').text('普查从北陆名册细分 '+a(d.origin.population)+'人；此后出生 '+a(n.born)+'、死亡 '+a(n.dead)+'、迁往先进共同体 '+a(s.civilization.polity?.future?.migrated||0)+'，现 '+a(f.known(s))+'人。原城市不计入北岸。\n居民职业总数 '+a(Object.values(n.workers).reduce((x,y)=>x+y,0))+' / 劳动力 '+a(CivilPopulation.workforce(n.cohorts))+'。\n'+CivilCityContent.resources.map(k=>(CivilText.labels[k]||k)+'：原有 '+a(d.origin.stores[k])+' + 生产 '+a(n.budget.produced[k]||0)+' + 收货 '+a(n.budget.received[k]||0)+' − 消耗 '+a(n.budget.consumed[k]||0)+' − 发货 '+a(n.budget.sent[k]||0)+' = '+a(n.stores[k])).join('\n')+'\n联络处续办 '+d.ledger.filter(e=>e.kind==='service'&&e.paid).length+'期实付 / '+d.ledger.filter(e=>e.kind==='service'&&!e.paid).length+'期待付；失联年代为年度粗算，不是精确历史流水。');
     CivilRegionalView.refresh(s);
     if(typeof CivilPolityView!=='undefined')CivilPolityView.refresh(s);
+    if(s.civilization.polity?.earth)CivilEarthView.map(s);
     return true;
   }
 };

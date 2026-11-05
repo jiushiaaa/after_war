@@ -34,9 +34,10 @@ var CivilCensus={
   },
   partition(s,count,id='lake'){
     const peer=id.startsWith('polity_')&&Object.hasOwn(CivilPolityForeign.peers,id.slice(7))?id.slice(7):null;
-    const source=peer?'reserve_'+peer:{lake:'reserve_north',ridge:'reserve_west',estuary:'reserve_east',bridge:'reserve_north',northDistrict:'reserve_north',eastDistrict:'reserve_east'}[id],to=peer?id:id==='northDistrict'?'district_north':id==='eastDistrict'?'district_east':'city_'+id,d=this.data(s);
+    const earth=id.startsWith('earth_')&&s.civilization.polity?.earth?.regions[id.slice(6)]?.source==='reserve'?id.slice(6):null;
+    const source=earth?'reserve_'+earth:peer?'reserve_'+peer:{lake:'reserve_north',ridge:'reserve_west',estuary:'reserve_east',bridge:'reserve_north',northDistrict:'reserve_north',eastDistrict:'reserve_east'}[id],to=peer||earth?id:id==='northDistrict'?'district_north':id==='eastDistrict'?'district_east':'city_'+id,d=this.data(s);
     if(!source||!this.enabled(s)||Object.hasOwn(d.accounts,to)||!Number.isSafeInteger(count)||count<1||d.accounts[source]<count)return false;
-    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:(peer?CivilPolityForeign.peers[peer].name:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市',bridge:'桥原市',northDistrict:'北岸地区',eastDistrict:'东原地区'}[id]))+'普查细分，居民仍在当地'});return true;
+    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:(earth?CivilEarthContent.regions[earth].name:peer?CivilPolityForeign.peers[peer].name:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市',bridge:'桥原市',northDistrict:'北岸地区',eastDistrict:'东原地区'}[id]))+'普查细分，居民仍在当地'});return true;
   },
   move(s,from,to,n,reason='迁居'){return this.record(s,'move',from,to,n,reason);},
   birth(s,to,n){return this.record(s,'birth',null,to,n,'出生');},
@@ -80,6 +81,8 @@ var CivilCensus={
     if(c.regional?.node)rows.push({id:'district_east',name:'东原地区',count:CivilPopulation.count(c.regional.node.cohorts),member:!!c.regional.pact});
     for(const [id,p]of Object.entries(c.polity?.peers||{}))rows.push({id:'polity_'+id,name:CivilPolityForeign.peers[id].name,count:CivilPopulation.count(p.local.cohorts),member:c.polity.world.nodes[id].joinedAt!==null});
     if(c.polity?.future)rows.push({id:'future_common',name:'先进共同体（实际居住）',count:CivilFuture.count(c.polity.future),member:true});
+    for(const [id,r]of Object.entries(c.polity?.earth?.regions||{}))if(r.source==='reserve')rows.push({id:'earth_'+id,name:CivilCensus.regions[id]+'腹地',count:CivilDomain.count(r.local),member:r.acceptedAt!==null});
+    if(c.polity?.earth?.voyageOpenedAt!==undefined)rows.push({id:'future_voyage',name:'航天乘员（在途）',count:CivilFuturePeople.away(c.polity.future),member:true});
     return rows;
   },
   validate(s){
@@ -90,9 +93,9 @@ var CivilCensus={
     if(d.initial!==base.total||!d.accounts)fail();
     for(const e of d.entries){
       if(!e||!int(e.at)||e.at<last||e.at>s.civilization.elapsed||!int(e.count)||(!e.count&&e.kind!=='account')||typeof e.reason!=='string'||e.reason.length>80)fail();last=e.at;
-      if(e.kind==='account'){if(e.to!=='future_common'||!s.civilization.polity?.future||e.at!==s.civilization.polity.future.at||e.from!==null||e.count!==0||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
+      if(e.kind==='account'){if(!({future_common:s.civilization.polity?.future?.at,future_voyage:s.civilization.polity?.earth?.voyageOpenedAt}[e.to]===e.at)||e.from!==null||e.count!==0||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
       else if(e.kind==='create'){if(e.to!=='future_common'||e.from!==null||!Object.hasOwn(counts,e.to)||!s.civilization.polity?.future)fail();created+=e.count;}
-      else if(e.kind==='partition'){const peer=e.to?.startsWith('polity_')?e.to.slice(7):null;if(peer){if(!Object.hasOwn(CivilPolityForeign.peers,peer)||!s.civilization.polity?.peers[peer]||e.from!=='reserve_'+peer||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}else{if(!({district_east:s.civilization.regional?.node&&'reserve_east',district_north:s.civilization.domain?.node&&'reserve_north',city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east',city_bridge:s.civilization.cityRegistry&&s.civilization.cityCouncil?.locals.bridge?.node&&'reserve_north'}[e.to])||e.from!==({district_east:'reserve_east',district_north:'reserve_north',city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east',city_bridge:'reserve_north'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}}
+      else if(e.kind==='partition'){const earth=e.to?.startsWith('earth_')?e.to.slice(6):null;if(earth){if(!Object.hasOwn(this.regions,earth)||s.civilization.polity?.earth?.regions[earth]?.source!=='reserve'||e.from!=='reserve_'+earth||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}else{const peer=e.to?.startsWith('polity_')?e.to.slice(7):null;if(peer){if(!Object.hasOwn(CivilPolityForeign.peers,peer)||!s.civilization.polity?.peers[peer]||e.from!=='reserve_'+peer||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}else{if(!({district_east:s.civilization.regional?.node&&'reserve_east',district_north:s.civilization.domain?.node&&'reserve_north',city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east',city_bridge:s.civilization.cityRegistry&&s.civilization.cityCouncil?.locals.bridge?.node&&'reserve_north'}[e.to])||e.from!==({district_east:'reserve_east',district_north:'reserve_north',city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east',city_bridge:'reserve_north'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}}}
       else if(e.kind==='move'){if(!Object.hasOwn(counts,e.from)||!Object.hasOwn(counts,e.to)||e.from===e.to)fail();}
       else if(e.kind==='birth'){if(e.from!==null||!Object.hasOwn(counts,e.to))fail();born+=e.count;}
       else if(e.kind==='death'){if(e.to!==null||!Object.hasOwn(counts,e.from))fail();dead+=e.count;}else fail();

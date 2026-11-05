@@ -232,7 +232,7 @@ var Civilization = {
     if(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt))limit=Math.max(limit,8);
     if(c.ruleset===2&&Number.isSafeInteger(c.conurbation?.clusterAt))limit=Math.max(limit,16);
     if(limit>=16&&(c.tech.orbital_survey||c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)))limit=32;
-    if(limit>=32&&c.space?.unification)limit=64;
+    if(limit>=32&&(c.space?.unification||c.polity?.earth?.unity))limit=64;
     return limit;
   },
   unlockSpeed(announce=false) {
@@ -530,6 +530,7 @@ var Civilization = {
     if(typeof CivilHeating!=='undefined')CivilHeating.refresh();
     if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State,{summaries:false});
     if(typeof CivilFutureView!=='undefined')CivilFutureView.refresh(State);
+    if(typeof CivilEarthView!=='undefined')CivilEarthView.refresh(State);
     if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.refresh(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.refresh();
@@ -569,6 +570,7 @@ var Civilization = {
     if(typeof CivilServices!=='undefined')CivilServices.reset();
     if(typeof CivilInterface!=='undefined')CivilInterface.reset();
     if(typeof CivilFutureView!=='undefined')CivilFutureView.reset();
+    if(typeof CivilEarthView!=='undefined')CivilEarthView.reset();
     if(typeof CivilCityView!=='undefined')CivilCityView.reset();
     if(typeof CivilRegionMap!=='undefined')CivilRegionMap.reset();
     if(typeof CivilHistory!=='undefined')CivilHistory.reset();

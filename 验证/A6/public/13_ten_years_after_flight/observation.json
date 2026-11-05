@@ -1,0 +1,950 @@
+{
+  "at": 163666,
+  "speed": 64,
+  "max": 64,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "g": {
+    "tech": {
+      "mapping": 147900,
+      "navigation": 148980,
+      "fabrication": 152640,
+      "closed": 153240,
+      "guidance": 153720
+    },
+    "work": {
+      "at": 163620,
+      "office": 8,
+      "field": 0,
+      "research": 0,
+      "builders": 0,
+      "manufacturing": 0,
+      "control": 4,
+      "power": 12,
+      "produced": [],
+      "controlPower": true
+    },
+    "research": null,
+    "build": null,
+    "survey": null,
+    "ground": {
+      "at": 154170,
+      "progress": 300,
+      "completedAt": 154740,
+      "paid": 7,
+      "missed": 3,
+      "stock": {
+        "culture": 0,
+        "medicine": 0,
+        "parts": 0,
+        "knowledge": 0
+      },
+      "book": {
+        "received": {
+          "culture": 14,
+          "medicine": 14,
+          "parts": 7,
+          "knowledge": 14
+        },
+        "consumed": {
+          "culture": 14,
+          "medicine": 14,
+          "parts": 7,
+          "knowledge": 14
+        },
+        "sent": {}
+      },
+      "last": {
+        "at": 154740,
+        "paid": true,
+        "reason": null
+      }
+    },
+    "unity": {
+      "at": 152090,
+      "mode": "federal",
+      "accounts": [
+        "cellar",
+        "city_lake",
+        "city_ridge",
+        "dispersed",
+        "district_east",
+        "district_north",
+        "earth_east",
+        "earth_islands",
+        "earth_north",
+        "earth_plateau",
+        "earth_polar",
+        "earth_rainforest",
+        "future_common",
+        "home",
+        "local_ford",
+        "local_highland",
+        "local_rail",
+        "local_river",
+        "macro_desert",
+        "macro_east",
+        "macro_islands",
+        "macro_north",
+        "macro_plateau",
+        "macro_polar",
+        "macro_rainforest",
+        "macro_west",
+        "origin_mountain_settlements",
+        "origin_old_city_fringe",
+        "origin_river_network",
+        "patients",
+        "polity_desert",
+        "polity_west",
+        "reserve_desert",
+        "reserve_east",
+        "reserve_islands",
+        "reserve_north",
+        "reserve_plateau",
+        "reserve_polar",
+        "reserve_rainforest",
+        "reserve_west",
+        "transit",
+        "wanderers",
+        "ward_canal",
+        "ward_terraces",
+        "ward_yards"
+      ],
+      "population": 921588681,
+      "nationalLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      }
+    },
+    "ending": {
+      "at": 157380,
+      "flight": 3,
+      "mode": "federal",
+      "crew": {
+        "total": 12,
+        "bio": 12,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 12
+      },
+      "missionMode": "organic",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "last": {
+      "at": 163620,
+      "paid": true,
+      "cost": {
+        "food": 48,
+        "tools": 12,
+        "knowledge": 44
+      },
+      "reason": null
+    },
+    "paid": 273,
+    "missed": 0,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 43.2,
+            "medicine": 3.5999999999999996,
+            "culture": 0,
+            "parts": 2.5,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 100.80000000000001,
+            "medicine": 10.799999999999995,
+            "parts": 21.5,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 156300,
+        "charge": 36,
+        "energy": {
+          "generated": 120,
+          "used": 84,
+          "spill": 0
+        },
+        "last": {
+          "at": 156300,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 36
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156979,
+        "crew": [
+          {
+            "first": 315,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 55,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 326,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 3,
+            "food": 86.4,
+            "medicine": 7.199999999999998,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 57.60000000000001,
+            "medicine": 7.199999999999994,
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 33,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 157560,
+        "charge": 11.999999999999993,
+        "energy": {
+          "generated": 180,
+          "used": 168.00000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 157560,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 11.999999999999993
+        }
+      }
+    ],
+    "regions": {
+      "west": {
+        "mode": "open",
+        "project": {
+          "at": 148785,
+          "mode": "open",
+          "remaining": 0,
+          "startedAt": 149100,
+          "completedAt": 149400,
+          "local": {
+            "tools": 120,
+            "knowledge": 200
+          }
+        },
+        "stable": 600,
+        "paid": 238,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "knowledge": 8,
+            "tools": 2,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "desert": {
+        "mode": "reclaim",
+        "project": {
+          "at": 148815,
+          "mode": "reclaim",
+          "remaining": 0,
+          "startedAt": 149280,
+          "completedAt": 149580,
+          "local": {
+            "knowledge": 200,
+            "wood": 400
+          }
+        },
+        "stable": 600,
+        "paid": 235,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "medicine": 6,
+            "knowledge": 6,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "north": {
+        "mode": "network",
+        "project": {
+          "at": 147991,
+          "mode": "network",
+          "remaining": 0,
+          "startedAt": 148200,
+          "completedAt": 148500,
+          "local": {
+            "wood": 800,
+            "tools": 120
+          }
+        },
+        "stable": 600,
+        "paid": 251,
+        "missed": 2,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "wood": 24,
+            "tools": 2,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "east": {
+        "mode": "wetland",
+        "project": {
+          "at": 148526,
+          "mode": "wetland",
+          "remaining": 0,
+          "startedAt": 148740,
+          "completedAt": 149040,
+          "local": {
+            "wood": 600,
+            "knowledge": 160
+          }
+        },
+        "stable": 600,
+        "paid": 244,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "medicine": 8,
+            "knowledge": 4,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "rainforest": {
+        "mode": "corridor",
+        "project": {
+          "at": 149192,
+          "mode": "corridor",
+          "remaining": 0,
+          "startedAt": 149460,
+          "completedAt": 149760,
+          "local": {
+            "wood": 800,
+            "knowledge": 160
+          }
+        },
+        "stable": 600,
+        "paid": 232,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "medicine": 8,
+            "tools": 2,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "islands": {
+        "mode": "beacons",
+        "project": {
+          "at": 149736,
+          "mode": "beacons",
+          "remaining": 0,
+          "startedAt": 150000,
+          "completedAt": 150300,
+          "local": {
+            "wood": 800,
+            "knowledge": 240
+          }
+        },
+        "stable": 600,
+        "paid": 223,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "tools": 4,
+            "knowledge": 8,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "plateau": {
+        "mode": "station",
+        "project": {
+          "at": 150264,
+          "mode": "station",
+          "remaining": 0,
+          "startedAt": 150540,
+          "completedAt": 150840,
+          "local": {
+            "wood": 1200,
+            "tools": 200
+          }
+        },
+        "stable": 600,
+        "paid": 214,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "wood": 36,
+            "tools": 4,
+            "food": 24
+          },
+          "reason": null
+        }
+      },
+      "polar": {
+        "mode": "restore",
+        "project": {
+          "at": 150806,
+          "mode": "restore",
+          "remaining": 0,
+          "startedAt": 151080,
+          "completedAt": 151380,
+          "local": {
+            "tools": 240,
+            "knowledge": 240
+          }
+        },
+        "stable": 600,
+        "paid": 205,
+        "missed": 0,
+        "last": {
+          "at": 163620,
+          "paid": true,
+          "staff": 24,
+          "cost": {
+            "knowledge": 8,
+            "tools": 4,
+            "food": 24
+          },
+          "reason": null
+        }
+      }
+    }
+  },
+  "f": {
+    "health": 100,
+    "condition": 100,
+    "assets": {
+      "housing": 3,
+      "laboratory": 1,
+      "workshop": 3,
+      "solar": 2,
+      "garden": 2,
+      "clinic": 2,
+      "hall": 1
+    },
+    "stock": {
+      "food": 5018.679999999755,
+      "medicine": 312.5799999999949,
+      "wood": 224,
+      "tools": 85.4099999999965,
+      "iron": 164,
+      "knowledge": 312,
+      "parts": 144.79999999999367,
+      "electronics": 89.7,
+      "culture": 74.63999999999885,
+      "steel": 124,
+      "cell": 104,
+      "spaceparts": 64,
+      "lifesupport": 64,
+      "shielding": 72,
+      "propellant": 121
+    },
+    "counts": {
+      "total": 484,
+      "bio": 484,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 484,
+      "workers": 238,
+      "children": 85,
+      "mutant": 185,
+      "citizens": 484
+    },
+    "away": 0,
+    "last": {
+      "at": 163620,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 29,
+        "maintenance": 9,
+        "clerk": 6,
+        "teacher": 9,
+        "earthOffice": 8,
+        "flightControl": 4,
+        "gardener": 32,
+        "manufacturing": 36
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 29
+        },
+        "maintenance": {
+          "organic": 9
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 9
+        },
+        "earthOffice": {
+          "organic": 8
+        },
+        "flightControl": {
+          "organic": 4
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "organic": 36
+        }
+      },
+      "idle": 97,
+      "produced": [
+        "culture",
+        "parts",
+        "electronics",
+        "steel"
+      ],
+      "energy": {
+        "generated": 280,
+        "used": 155.12,
+        "stored": 1200,
+        "capacity": 1200,
+        "heat": 560,
+        "sources": {
+          "renewable": 280,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 328.08,
+      "upkeep": {
+        "tools": 3.7680000000000002,
+        "parts": 2.1
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "proposal": null
+  }
+}

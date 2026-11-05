@@ -1,0 +1,4460 @@
+[
+  {
+    "number": 382,
+    "route": "public",
+    "label": "01_global_start",
+    "file": "验证/存档/自然游玩_A6公共全球议约382.json",
+    "sha256": "3f461be4a623447df12c8b9fcc53dee162b6a29f6fad4e0e2e7751dd48854756",
+    "elapsed": 147329,
+    "world": 886129350,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 383,
+    "route": "public",
+    "label": "02_two_territories",
+    "file": "验证/存档/自然游玩_A6公共两域联络383.json",
+    "sha256": "7acb9c781f99c6764bc03a07fd0d2985c3aa8f39201ec7ec4a8845f327f067ad",
+    "elapsed": 148754,
+    "world": 892142062,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 384,
+    "route": "public",
+    "label": "03_eight_regions",
+    "file": "验证/存档/自然游玩_A6公共八区履约384.json",
+    "sha256": "3469cfbf679961371d3a9318e4baa3c6b54a50054e95fda0c048404f381ac987",
+    "elapsed": 151633,
+    "world": 915985383,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 385,
+    "route": "public",
+    "label": "04_service_interrupted",
+    "file": "验证/存档/自然游玩_A6公共地方停办385.json",
+    "sha256": "1ea3e4bcb75b494b8f377b0f57f6cb43c31e9fea84ae154de4d2107448167457",
+    "elapsed": 151754,
+    "world": 915985383,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 386,
+    "route": "public",
+    "label": "05_service_recovered",
+    "file": "验证/存档/自然游玩_A6公共地方恢复386.json",
+    "sha256": "c7730968174c5452336bdb278d02b76b42c6623939973e134027b48b6cee954a",
+    "elapsed": 152058,
+    "world": 921588681,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 387,
+    "route": "public",
+    "label": "06_earth_unified",
+    "file": "验证/存档/自然游玩_A6公共统一地球387.json",
+    "sha256": "5cba72dfcfca1ce25cb8588ddad50755628721a08f618f129909981e9a8912ac",
+    "elapsed": 152157,
+    "world": 921588681,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 388,
+    "route": "public",
+    "label": "07_ground_interrupted",
+    "file": "验证/存档/自然游玩_A6公共闭环中断388.json",
+    "sha256": "e8a0662f20c6f0893d640bcd2be63d95b99cf08834bf0d65f1e0a1a2e66dfa51",
+    "elapsed": 154405,
+    "world": 945145175,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 389,
+    "route": "public",
+    "label": "08_ground_proven",
+    "file": "验证/存档/自然游玩_A6公共闭环合格389.json",
+    "sha256": "cc17b116951ea4d41ecca2f666eec0e005bdc134e26a003c3b496bae81d41d7e",
+    "elapsed": 154764,
+    "world": 945145175,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 390,
+    "route": "public",
+    "label": "09_orbit_verified",
+    "file": "验证/存档/自然游玩_A6公共轨道验证390.json",
+    "sha256": "4d702db25f6e17356e48cd4c4fa9c3f6b38c001b2210557a5d14dfeec30dc64b",
+    "elapsed": 155922,
+    "world": 957641895,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      }
+    ]
+  },
+  {
+    "number": 391,
+    "route": "public",
+    "label": "10_crew_in_flight",
+    "file": "验证/存档/自然游玩_A6公共乘员在途391.json",
+    "sha256": "546fc9aa1b5bff22276856fbaefda46a4727c0c2912b8b3a82f45bd890f7b5f7",
+    "elapsed": 156087,
+    "world": 964078325,
+    "unity": "federal",
+    "aboard": 12,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 135.36,
+          "medicine": 13.679999999999998,
+          "culture": 0,
+          "parts": 23.5,
+          "electronics": 11.9,
+          "propellant": 35,
+          "shielding": 8
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 1,
+            "food": 8.64,
+            "medicine": 0.72,
+            "culture": 0,
+            "parts": 0.5,
+            "electronics": 0.1
+          },
+          "sent": {}
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "outbound",
+        "remaining": 60,
+        "elapsed": 60,
+        "success": false,
+        "aborted": false,
+        "returnedAt": null,
+        "charge": 43.2,
+        "energy": {
+          "generated": 60,
+          "used": 16.8,
+          "spill": 0
+        },
+        "last": {
+          "at": 156060,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 60,
+          "used": 16.8,
+          "charge": 43.2
+        }
+      }
+    ]
+  },
+  {
+    "number": 392,
+    "route": "public",
+    "label": "11_crew_returned_after_failure",
+    "file": "验证/存档/自然游玩_A6公共保护返航392.json",
+    "sha256": "e5214e4ea66faf4bf3ec2378b51ad7b758a0c86ccfe44cd52768c66de5787475",
+    "elapsed": 156324,
+    "world": 964078325,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 43.2,
+            "medicine": 3.5999999999999996,
+            "culture": 0,
+            "parts": 2.5,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 100.80000000000001,
+            "medicine": 10.799999999999995,
+            "parts": 21.5,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 156300,
+        "charge": 36,
+        "energy": {
+          "generated": 120,
+          "used": 84,
+          "spill": 0
+        },
+        "last": {
+          "at": 156300,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 36
+        }
+      }
+    ]
+  },
+  {
+    "number": 393,
+    "route": "public",
+    "label": "12_first_flight_complete",
+    "file": "验证/存档/自然游玩_A6公共首航完成393.json",
+    "sha256": "6dbf386937352a0ada8aa7b3aab8df5966cbfb844d8a283b06e760a30368024a",
+    "elapsed": 157599,
+    "world": 977339946,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": {
+      "at": 157380,
+      "flight": 3,
+      "mode": "federal",
+      "crew": {
+        "total": 12,
+        "bio": 12,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 12
+      },
+      "missionMode": "organic",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 43.2,
+            "medicine": 3.5999999999999996,
+            "culture": 0,
+            "parts": 2.5,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 100.80000000000001,
+            "medicine": 10.799999999999995,
+            "parts": 21.5,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 156300,
+        "charge": 36,
+        "energy": {
+          "generated": 120,
+          "used": 84,
+          "spill": 0
+        },
+        "last": {
+          "at": 156300,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 36
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156979,
+        "crew": [
+          {
+            "first": 315,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 55,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 326,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 3,
+            "food": 86.4,
+            "medicine": 7.199999999999998,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 57.60000000000001,
+            "medicine": 7.199999999999994,
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 33,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 157560,
+        "charge": 11.999999999999993,
+        "energy": {
+          "generated": 180,
+          "used": 168.00000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 157560,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 11.999999999999993
+        }
+      }
+    ]
+  },
+  {
+    "number": 394,
+    "route": "public",
+    "label": "13_ten_years_after_flight",
+    "file": "验证/存档/自然游玩_A6公共首航后十年394.json",
+    "sha256": "55bfa1f0de934ed62d88712a66a26dc90900dd23ca9a4bec3764b8e37acec208",
+    "elapsed": 163666,
+    "world": 1051728506,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": {
+      "at": 157380,
+      "flight": 3,
+      "mode": "federal",
+      "crew": {
+        "total": 12,
+        "bio": 12,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 12
+      },
+      "missionMode": "organic",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 43.2,
+            "medicine": 3.5999999999999996,
+            "culture": 0,
+            "parts": 2.5,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 100.80000000000001,
+            "medicine": 10.799999999999995,
+            "parts": 21.5,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 156300,
+        "charge": 36,
+        "energy": {
+          "generated": 120,
+          "used": 84,
+          "spill": 0
+        },
+        "last": {
+          "at": 156300,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 36
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156979,
+        "crew": [
+          {
+            "first": 315,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 55,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 326,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 3,
+            "food": 86.4,
+            "medicine": 7.199999999999998,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 57.60000000000001,
+            "medicine": 7.199999999999994,
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 33,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 157560,
+        "charge": 11.999999999999993,
+        "energy": {
+          "generated": 180,
+          "used": 168.00000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 157560,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 11.999999999999993
+        }
+      }
+    ]
+  },
+  {
+    "number": 395,
+    "route": "industrial",
+    "label": "01_global_start",
+    "file": "验证/存档/自然游玩_A6工业全球议约395.json",
+    "sha256": "db70e5edb3a56e486b7609fce3adb49ae9351e2010020233f5a354f30fe67571",
+    "elapsed": 199199,
+    "world": 1766722394,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 396,
+    "route": "industrial",
+    "label": "02_two_territories",
+    "file": "验证/存档/自然游玩_A6工业两域联络396.json",
+    "sha256": "98b834109e98b548ef9a3073c43d17f64455d37716abb996a6cd251c68dd543b",
+    "elapsed": 200653,
+    "world": 1784385087,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 397,
+    "route": "industrial",
+    "label": "03_eight_regions",
+    "file": "验证/存档/自然游玩_A6工业八区履约397.json",
+    "sha256": "6a0cd46aa7002b54c2dd297ce08b5f633a2d4311f68164c536e5da04ad760cfe",
+    "elapsed": 203533,
+    "world": 1833754373,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 398,
+    "route": "industrial",
+    "label": "04_service_interrupted",
+    "file": "验证/存档/自然游玩_A6工业地方停办398.json",
+    "sha256": "dc82ab8e0c448a4def04e49ad0d53eea2ff8a5e9803b92df01924d103487c8c0",
+    "elapsed": 203652,
+    "world": 1833754373,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 399,
+    "route": "industrial",
+    "label": "05_service_recovered",
+    "file": "验证/存档/自然游玩_A6工业地方恢复399.json",
+    "sha256": "dd3d1e23533a5688c474797aad71bfe2611e9113299da79c7e6de1cb75b1ec12",
+    "elapsed": 203951,
+    "world": 1833754373,
+    "unity": null,
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 400,
+    "route": "industrial",
+    "label": "06_earth_unified",
+    "file": "验证/存档/自然游玩_A6工业统一地球400.json",
+    "sha256": "0c7d0f6d508f5b0e041731b1cf8a04da40aa095b123dc88e094d71a40b52efdf",
+    "elapsed": 204027,
+    "world": 1845131101,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 401,
+    "route": "industrial",
+    "label": "08_ground_proven",
+    "file": "验证/存档/自然游玩_A6工业闭环合格401.json",
+    "sha256": "9d13ac49873e8ff6795e26166d3d6365004acfa50216cba37caf7ae34281322c",
+    "elapsed": 206304,
+    "world": 1880644788,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": null,
+    "flights": []
+  },
+  {
+    "number": 402,
+    "route": "industrial",
+    "label": "09_orbit_verified",
+    "file": "验证/存档/自然游玩_A6工业轨道验证402.json",
+    "sha256": "7b2722a62d1b71fa2f1f9ea9bcc95108377e035a12f5f9551d32cea5e326e0d2",
+    "elapsed": 207741,
+    "world": 1918332193,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      }
+    ]
+  },
+  {
+    "number": 403,
+    "route": "industrial",
+    "label": "10_crew_in_flight",
+    "file": "验证/存档/自然游玩_A6工业乘员在途403.json",
+    "sha256": "9ec507223531873ea11f56ae5e999dd3803a659e4fabf73a8644e7ca2bd782ac",
+    "elapsed": 207917,
+    "world": 1918332193,
+    "unity": "covenant",
+    "aboard": 12,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 207871,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 90,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 52,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 59,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 67.68,
+          "medicine": 6.839999999999999,
+          "culture": 0,
+          "parts": 35.26,
+          "electronics": 11.9,
+          "propellant": 35,
+          "shielding": 8
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 1,
+            "food": 4.32,
+            "medicine": 0.36,
+            "culture": 0,
+            "parts": 0.74,
+            "electronics": 0.1
+          },
+          "sent": {}
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "outbound",
+        "remaining": 60,
+        "elapsed": 60,
+        "success": false,
+        "aborted": false,
+        "returnedAt": null,
+        "charge": 40.8,
+        "energy": {
+          "generated": 60,
+          "used": 19.200000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 207900,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 60,
+          "used": 19.200000000000003,
+          "charge": 40.8
+        }
+      }
+    ]
+  },
+  {
+    "number": 404,
+    "route": "industrial",
+    "label": "11_crew_returned_after_failure",
+    "file": "验证/存档/自然游玩_A6工业保护返航404.json",
+    "sha256": "25d03a498ec82efed1e2dfb40ef55e3d2a90c03ad9dc48edc20859a379ea0bce",
+    "elapsed": 208167,
+    "world": 1918332193,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": null,
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 207871,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 90,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 52,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 59,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 21.6,
+            "medicine": 1.7999999999999998,
+            "culture": 0,
+            "parts": 3.7,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 50.400000000000006,
+            "medicine": 5.399999999999998,
+            "parts": 32.29999999999999,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 208140,
+        "charge": 23.999999999999986,
+        "energy": {
+          "generated": 120,
+          "used": 96.00000000000001,
+          "spill": 0
+        },
+        "last": {
+          "at": 208140,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 0,
+          "used": 19.200000000000003,
+          "charge": 23.999999999999986
+        }
+      }
+    ]
+  },
+  {
+    "number": 405,
+    "route": "industrial",
+    "label": "12_first_flight_complete",
+    "file": "验证/存档/自然游玩_A6工业首航完成405.json",
+    "sha256": "1ddd468584cbc7d5b85781c91f5cf739815cf3f057cc7eb6b5d1c8c08b16993e",
+    "elapsed": 209367,
+    "world": 1944730131,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": {
+      "at": 209160,
+      "flight": 3,
+      "mode": "covenant",
+      "crew": {
+        "total": 12,
+        "bio": 6,
+        "mechanical": 3,
+        "synthetic": 3,
+        "gene": 0,
+        "organic": 6
+      },
+      "missionMode": "mixed",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "echo": "exploit"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 207871,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 90,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 52,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 59,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 21.6,
+            "medicine": 1.7999999999999998,
+            "culture": 0,
+            "parts": 3.7,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 50.400000000000006,
+            "medicine": 5.399999999999998,
+            "parts": 32.29999999999999,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 208140,
+        "charge": 23.999999999999986,
+        "energy": {
+          "generated": 120,
+          "used": 96.00000000000001,
+          "spill": 0
+        },
+        "last": {
+          "at": 208140,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 0,
+          "used": 19.200000000000003,
+          "charge": 23.999999999999986
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 208758,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 91,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 53,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 60,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 4,
+            "food": 43.2,
+            "medicine": 3.599999999999999,
+            "culture": 0,
+            "parts": 7.400000000000001,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 28.800000000000004,
+            "medicine": 3.599999999999997,
+            "parts": 28.599999999999998,
+            "electronics": 11.000000000000004,
+            "propellant": 32,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 209340,
+        "charge": 47.99999999999997,
+        "energy": {
+          "generated": 240,
+          "used": 192,
+          "spill": 0
+        },
+        "last": {
+          "at": 209340,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 60,
+          "used": 19.200000000000003,
+          "charge": 47.99999999999997
+        }
+      }
+    ]
+  },
+  {
+    "number": 406,
+    "route": "industrial",
+    "label": "13_ten_years_after_flight",
+    "file": "验证/存档/自然游玩_A6工业首航后十年406.json",
+    "sha256": "b84e3e5ab88f4d651723ab454f8b1223ba50115c3fc8c20a877dbd9bce950800",
+    "elapsed": 215421,
+    "world": 2109360095,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": {
+      "at": 209160,
+      "flight": 3,
+      "mode": "covenant",
+      "crew": {
+        "total": 12,
+        "bio": 6,
+        "mechanical": 3,
+        "synthetic": 3,
+        "gene": 0,
+        "organic": 6
+      },
+      "missionMode": "mixed",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "echo": "exploit"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 207871,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 90,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 52,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 59,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 21.6,
+            "medicine": 1.7999999999999998,
+            "culture": 0,
+            "parts": 3.7,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 50.400000000000006,
+            "medicine": 5.399999999999998,
+            "parts": 32.29999999999999,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 208140,
+        "charge": 23.999999999999986,
+        "energy": {
+          "generated": 120,
+          "used": 96.00000000000001,
+          "spill": 0
+        },
+        "last": {
+          "at": 208140,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 0,
+          "used": 19.200000000000003,
+          "charge": 23.999999999999986
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 208758,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 91,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 53,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 60,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 4,
+            "food": 43.2,
+            "medicine": 3.599999999999999,
+            "culture": 0,
+            "parts": 7.400000000000001,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 28.800000000000004,
+            "medicine": 3.599999999999997,
+            "parts": 28.599999999999998,
+            "electronics": 11.000000000000004,
+            "propellant": 32,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 209340,
+        "charge": 47.99999999999997,
+        "energy": {
+          "generated": 240,
+          "used": 192,
+          "spill": 0
+        },
+        "last": {
+          "at": 209340,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 60,
+          "used": 19.200000000000003,
+          "charge": 47.99999999999997
+        }
+      }
+    ]
+  },
+  {
+    "number": 407,
+    "route": "public-branch",
+    "parent": 390,
+    "label": "无常驻乘员结局",
+    "file": "验证/存档/自然游玩_A6无常驻乘员结局407.json",
+    "sha256": "1fa3893520b6c538e5f56b53746956a65c5cfda0c73511878bca941f723c5799",
+    "elapsed": 159684,
+    "world": 1005492118,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": {
+      "at": 159480,
+      "flight": 2,
+      "mode": "federal",
+      "crew": {
+        "total": 0,
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 0
+      },
+      "missionMode": "uncrewed",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "uncrewed",
+        "at": 159099,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 159660,
+        "charge": 0,
+        "energy": {
+          "generated": 120,
+          "used": 120,
+          "spill": 0
+        },
+        "last": {
+          "at": 159660,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 0
+        }
+      }
+    ]
+  },
+  {
+    "number": 408,
+    "route": "public",
+    "parent": 394,
+    "label": "公共原生重导",
+    "file": "验证/存档/自然游玩_A6公共原生重导408.json",
+    "sha256": "48cd9d8bbfb7f25300f78fafdcd8d06f24ea220cc83671bb9bc00521126cc91f",
+    "elapsed": 163687,
+    "world": 1051728506,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": {
+      "at": 157380,
+      "flight": 3,
+      "mode": "federal",
+      "crew": {
+        "total": 12,
+        "bio": 12,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 12
+      },
+      "missionMode": "organic",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 43.2,
+            "medicine": 3.5999999999999996,
+            "culture": 0,
+            "parts": 2.5,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 100.80000000000001,
+            "medicine": 10.799999999999995,
+            "parts": 21.5,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 156300,
+        "charge": 36,
+        "energy": {
+          "generated": 120,
+          "used": 84,
+          "spill": 0
+        },
+        "last": {
+          "at": 156300,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 36
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156979,
+        "crew": [
+          {
+            "first": 315,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 55,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 326,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 3,
+            "food": 86.4,
+            "medicine": 7.199999999999998,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 57.60000000000001,
+            "medicine": 7.199999999999994,
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 33,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 157560,
+        "charge": 11.999999999999993,
+        "energy": {
+          "generated": 180,
+          "used": 168.00000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 157560,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 11.999999999999993
+        }
+      }
+    ]
+  },
+  {
+    "number": 409,
+    "route": "industrial",
+    "parent": 406,
+    "label": "工业原生重导",
+    "file": "验证/存档/自然游玩_A6工业原生重导409.json",
+    "sha256": "951a79b7d310e53a892687daebdf964135af4b5057bc08f6e34f5e29c9200c78",
+    "elapsed": 215441,
+    "world": 2109360095,
+    "unity": "covenant",
+    "aboard": 0,
+    "ending": {
+      "at": 209160,
+      "flight": 3,
+      "mode": "covenant",
+      "crew": {
+        "total": 12,
+        "bio": 6,
+        "mechanical": 3,
+        "synthetic": 3,
+        "gene": 0,
+        "organic": 6
+      },
+      "missionMode": "mixed",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "echo": "exploit"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 207272,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 207720,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 207720,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 207871,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 90,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 52,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 59,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 21.6,
+            "medicine": 1.7999999999999998,
+            "culture": 0,
+            "parts": 3.7,
+            "electronics": 0.5
+          },
+          "sent": {
+            "food": 50.400000000000006,
+            "medicine": 5.399999999999998,
+            "parts": 32.29999999999999,
+            "electronics": 11.500000000000002,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 300,
+        "success": false,
+        "aborted": true,
+        "returnedAt": 208140,
+        "charge": 23.999999999999986,
+        "energy": {
+          "generated": 120,
+          "used": 96.00000000000001,
+          "spill": 0
+        },
+        "last": {
+          "at": 208140,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 0,
+          "used": 19.200000000000003,
+          "charge": 23.999999999999986
+        }
+      },
+      {
+        "id": 3,
+        "kind": "departure",
+        "mode": "mixed",
+        "at": 208758,
+        "crew": [
+          {
+            "first": 277,
+            "count": 3,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 1,
+            "count": 3,
+            "age": 91,
+            "identity": "human",
+            "body": "mechanical",
+            "origin": "district_north",
+            "claims": "retained"
+          },
+          {
+            "first": 310,
+            "count": 3,
+            "age": 53,
+            "identity": "synthetic",
+            "body": "synthetic",
+            "origin": "created",
+            "claims": "independent"
+          },
+          {
+            "first": 280,
+            "count": 1,
+            "age": 60,
+            "identity": "mutant",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 281,
+            "count": 2,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 72,
+            "medicine": 7.199999999999999,
+            "culture": 0,
+            "parts": 36,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 4,
+            "food": 43.2,
+            "medicine": 3.599999999999999,
+            "culture": 0,
+            "parts": 7.400000000000001,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 28.800000000000004,
+            "medicine": 3.599999999999997,
+            "parts": 28.599999999999998,
+            "electronics": 11.000000000000004,
+            "propellant": 32,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 209340,
+        "charge": 47.99999999999997,
+        "energy": {
+          "generated": 240,
+          "used": 192,
+          "spill": 0
+        },
+        "last": {
+          "at": 209340,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "generated": 60,
+          "used": 19.200000000000003,
+          "charge": 47.99999999999997
+        }
+      }
+    ]
+  },
+  {
+    "number": 410,
+    "route": "public-branch",
+    "parent": 391,
+    "label": "乘员在途重读返回",
+    "file": "验证/存档/自然游玩_A6乘员在途重读返回410.json",
+    "sha256": "56c43f4c30c5a5cf81a0572c51dcb2b0bc2cf00e31a99ab94c18356e71beb648",
+    "elapsed": 159174,
+    "world": 998243658,
+    "unity": "federal",
+    "aboard": 0,
+    "ending": {
+      "at": 156420,
+      "flight": 2,
+      "mode": "federal",
+      "crew": {
+        "total": 12,
+        "bio": 12,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "organic": 12
+      },
+      "missionMode": "organic",
+      "publicLaws": {
+        "devolution": "local",
+        "rights": "equal",
+        "priority": "care"
+      },
+      "bodyLaws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "echo": "study"
+    },
+    "flights": [
+      {
+        "id": 1,
+        "kind": "probe",
+        "mode": "uncrewed",
+        "at": 155438,
+        "crew": [],
+        "counts": {
+          "total": 0,
+          "bio": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 0
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 2,
+            "food": 0,
+            "medicine": 0,
+            "culture": 0,
+            "parts": 4,
+            "electronics": 0.7999999999999999
+          },
+          "sent": {
+            "parts": 20,
+            "electronics": 11.200000000000003,
+            "propellant": 34,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 16,
+          "lifesupport": 4,
+          "shielding": 8,
+          "propellant": 24
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 480,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 155880,
+        "charge": 24,
+        "energy": {
+          "generated": 120,
+          "used": 96,
+          "spill": 0
+        },
+        "last": {
+          "at": 155880,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "generated": 0,
+          "used": 12,
+          "charge": 24
+        }
+      },
+      {
+        "id": 2,
+        "kind": "departure",
+        "mode": "organic",
+        "at": 156039,
+        "crew": [
+          {
+            "first": 314,
+            "count": 1,
+            "age": 60,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 315,
+            "count": 1,
+            "age": 59,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 316,
+            "count": 1,
+            "age": 58,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 317,
+            "count": 1,
+            "age": 57,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 318,
+            "count": 1,
+            "age": 56,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 319,
+            "count": 1,
+            "age": 54,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 320,
+            "count": 2,
+            "age": 53,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 322,
+            "count": 1,
+            "age": 52,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 323,
+            "count": 2,
+            "age": 51,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          },
+          {
+            "first": 325,
+            "count": 1,
+            "age": 50,
+            "identity": "human",
+            "body": "organic",
+            "origin": "birth",
+            "claims": "retained"
+          }
+        ],
+        "counts": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "stock": {
+          "food": 0,
+          "medicine": 0,
+          "culture": 0,
+          "parts": 0,
+          "electronics": 0,
+          "propellant": 0,
+          "shielding": 0
+        },
+        "book": {
+          "received": {
+            "food": 144,
+            "medicine": 14.399999999999999,
+            "culture": 0,
+            "parts": 24,
+            "electronics": 12,
+            "propellant": 36,
+            "shielding": 8
+          },
+          "consumed": {
+            "propellant": 3,
+            "food": 86.4,
+            "medicine": 7.199999999999998,
+            "culture": 0,
+            "parts": 5,
+            "electronics": 0.9999999999999999
+          },
+          "sent": {
+            "food": 57.60000000000001,
+            "medicine": 7.199999999999994,
+            "parts": 19,
+            "electronics": 11.000000000000004,
+            "propellant": 33,
+            "shielding": 8
+          }
+        },
+        "capital": {
+          "spaceparts": 24,
+          "lifesupport": 16,
+          "shielding": 12,
+          "propellant": 32
+        },
+        "phase": "returned",
+        "remaining": 0,
+        "elapsed": 600,
+        "success": true,
+        "aborted": false,
+        "returnedAt": 156600,
+        "charge": 11.999999999999993,
+        "energy": {
+          "generated": 180,
+          "used": 168.00000000000003,
+          "spill": 0
+        },
+        "last": {
+          "at": 156600,
+          "powered": true,
+          "supplied": true,
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "generated": 0,
+          "used": 16.8,
+          "charge": 11.999999999999993
+        }
+      }
+    ]
+  }
+]

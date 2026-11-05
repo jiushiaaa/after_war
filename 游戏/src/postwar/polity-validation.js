@@ -13,4 +13,5 @@ CivilPolity.validate=function(s){const d=this.data(s);if(d===undefined)return;co
  if(d.world.foreign){const f=d.world.foreign;if(Object.values(f.actors).reduce((n,a)=>n+a.balance,0)!==0)fail('清算不守恒');}
  if(typeof CivilPolityForeign!=='undefined')CivilPolityForeign.validateCensus(s);
  if(typeof CivilFuture!=='undefined')CivilFuture.validateCensus(s);
+ if(typeof CivilEarth!=='undefined')CivilEarth.validate(s);
 };

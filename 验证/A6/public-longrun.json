@@ -1,0 +1,3703 @@
+{
+  "kind": "constructed-20-years-full-adapter-not-natural",
+  "input": "/tmp/postwar-a6-20261105/public/13_ten_years_after_flight/战后文明-存档.json",
+  "before": {
+    "at": 163666,
+    "world": 1051728506,
+    "born": 3484614374,
+    "dead": 2783164297,
+    "created": 0,
+    "totalIdentities": 484,
+    "away": 0,
+    "health": 100,
+    "condition": 100,
+    "last": {
+      "at": 163620,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 29,
+        "maintenance": 9,
+        "clerk": 6,
+        "teacher": 9,
+        "earthOffice": 8,
+        "flightControl": 4,
+        "gardener": 32,
+        "manufacturing": 36
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 29
+        },
+        "maintenance": {
+          "organic": 9
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 9
+        },
+        "earthOffice": {
+          "organic": 8
+        },
+        "flightControl": {
+          "organic": 4
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "organic": 36
+        }
+      },
+      "idle": 97,
+      "produced": [
+        "culture",
+        "parts",
+        "electronics",
+        "steel"
+      ],
+      "energy": {
+        "generated": 280,
+        "used": 155.12,
+        "stored": 1200,
+        "capacity": 1200,
+        "heat": 560,
+        "sources": {
+          "renewable": 280,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 328.08,
+      "upkeep": {
+        "tools": 3.7680000000000002,
+        "parts": 2.1
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "global": {
+      "paid": 273,
+      "missed": 0,
+      "stable": 600
+    },
+    "regions": {
+      "west": {
+        "population": 131658416,
+        "health": 100,
+        "condition": 100,
+        "paid": 238,
+        "missed": 0,
+        "stable": 600
+      },
+      "desert": {
+        "population": 54418294,
+        "health": 100,
+        "condition": 100,
+        "paid": 235,
+        "missed": 0,
+        "stable": 600
+      },
+      "north": {
+        "population": 204661192,
+        "health": 100,
+        "condition": 100,
+        "paid": 251,
+        "missed": 2,
+        "stable": 600
+      },
+      "east": {
+        "population": 212645268,
+        "health": 100,
+        "condition": 100,
+        "paid": 244,
+        "missed": 0,
+        "stable": 600
+      },
+      "rainforest": {
+        "population": 173535094,
+        "health": 100,
+        "condition": 100,
+        "paid": 232,
+        "missed": 0,
+        "stable": 600
+      },
+      "islands": {
+        "population": 103468895,
+        "health": 100,
+        "condition": 100,
+        "paid": 223,
+        "missed": 0,
+        "stable": 600
+      },
+      "plateau": {
+        "population": 114440813,
+        "health": 100,
+        "condition": 100,
+        "paid": 214,
+        "missed": 0,
+        "stable": 600
+      },
+      "polar": {
+        "population": 56900534,
+        "health": 100,
+        "condition": 100,
+        "paid": 205,
+        "missed": 0,
+        "stable": 600
+      }
+    },
+    "national": {
+      "paid": 1315,
+      "missed": 46
+    },
+    "flights": 3,
+    "returned": 3
+  },
+  "years": [
+    {
+      "at": 164266,
+      "world": 1057653669,
+      "born": 3501199199,
+      "dead": 2793823959,
+      "created": 0,
+      "totalIdentities": 462,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 164220,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 28,
+          "maintenance": 8,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 28
+          },
+          "maintenance": {
+            "organic": 8
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 102,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "parts"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 145.36,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 312,
+        "upkeep": {
+          "tools": 3.724,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 283,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 248,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 245,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661170,
+          "health": 100,
+          "condition": 100,
+          "paid": 261,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 254,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 175239022,
+          "health": 100,
+          "condition": 100,
+          "paid": 242,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 104474345,
+          "health": 100,
+          "condition": 100,
+          "paid": 233,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 115542058,
+          "health": 100,
+          "condition": 100,
+          "paid": 224,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 57442427,
+          "health": 100,
+          "condition": 100,
+          "paid": 215,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1325,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 164866,
+      "world": 1061735587,
+      "born": 3515940779,
+      "dead": 2804483621,
+      "created": 0,
+      "totalIdentities": 441,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 164820,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 28,
+          "maintenance": 8,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 28
+          },
+          "maintenance": {
+            "organic": 8
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 104,
+        "produced": [],
+        "energy": {
+          "generated": 360,
+          "used": 85.68,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 296.64,
+        "upkeep": {
+          "tools": 3.6820000000000004,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 293,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 258,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 255,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661149,
+          "health": 100,
+          "condition": 100,
+          "paid": 271,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 264,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 252,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 105499905,
+          "health": 100,
+          "condition": 100,
+          "paid": 243,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 116665327,
+          "health": 100,
+          "condition": 100,
+          "paid": 234,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 57995157,
+          "health": 100,
+          "condition": 100,
+          "paid": 225,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1335,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 165466,
+      "world": 1064275904,
+      "born": 3529140757,
+      "dead": 2815143282,
+      "created": 0,
+      "totalIdentities": 420,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 165420,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 27,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 27
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 109,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 142,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 281.52,
+        "upkeep": {
+          "tools": 3.64,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 303,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 268,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 265,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661128,
+          "health": 100,
+          "condition": 100,
+          "paid": 281,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 274,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 262,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 253,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 117811062,
+          "health": 100,
+          "condition": 100,
+          "paid": 244,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 58558943,
+          "health": 100,
+          "condition": 100,
+          "paid": 235,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1345,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 166066,
+      "world": 1065779117,
+      "born": 3541303629,
+      "dead": 2825802941,
+      "created": 0,
+      "totalIdentities": 400,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 166020,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 113,
+        "produced": [
+          "parts",
+          "electronics",
+          "steel",
+          "parts"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 142.4,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 267.12,
+        "upkeep": {
+          "tools": 3.6000000000000005,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 313,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 278,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 275,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661109,
+          "health": 100,
+          "condition": 100,
+          "paid": 291,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 284,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 272,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 263,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 254,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59134003,
+          "health": 100,
+          "condition": 100,
+          "paid": 245,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1355,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 166666,
+      "world": 1066244950,
+      "born": 3552429082,
+      "dead": 2836462561,
+      "created": 0,
+      "totalIdentities": 379,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 166620,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 115,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "parts"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 138.72,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 252.00000000000003,
+        "upkeep": {
+          "tools": 3.5580000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 323,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 288,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 285,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661087,
+          "health": 100,
+          "condition": 100,
+          "paid": 301,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 294,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 282,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 273,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 264,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 255,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1365,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 167266,
+      "world": 1066244931,
+      "born": 3563088679,
+      "dead": 2847122177,
+      "created": 0,
+      "totalIdentities": 359,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 167220,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 25,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 25
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 121,
+        "produced": [],
+        "energy": {
+          "generated": 280,
+          "used": 79.12,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 237.84000000000006,
+        "upkeep": {
+          "tools": 3.5180000000000002,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 333,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 298,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 295,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661068,
+          "health": 100,
+          "condition": 100,
+          "paid": 311,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 304,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 292,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 283,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 274,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 265,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1375,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 167866,
+      "world": 1066244934,
+      "born": 3573748300,
+      "dead": 2857781795,
+      "created": 0,
+      "totalIdentities": 362,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 167820,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 122,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 137.36,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 240.2400000000001,
+        "upkeep": {
+          "tools": 3.524,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 343,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 308,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 305,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661071,
+          "health": 100,
+          "condition": 100,
+          "paid": 321,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 314,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 302,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 293,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 284,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 275,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1385,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 168466,
+      "world": 1066244938,
+      "born": 3584486038,
+      "dead": 2868519529,
+      "created": 0,
+      "totalIdentities": 366,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 168420,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 125,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 145.68,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 243.12000000000012,
+        "upkeep": {
+          "tools": 3.532,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 353,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 318,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 315,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661075,
+          "health": 100,
+          "condition": 100,
+          "paid": 331,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 324,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 312,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 303,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 294,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 285,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1395,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 169066,
+      "world": 1066244941,
+      "born": 3595225339,
+      "dead": 2879258827,
+      "created": 0,
+      "totalIdentities": 369,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 169020,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 128,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "parts"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 129.92,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 245.52000000000015,
+        "upkeep": {
+          "tools": 3.5380000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 363,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 328,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 325,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661078,
+          "health": 100,
+          "condition": 100,
+          "paid": 341,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 334,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 322,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 313,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 304,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 295,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1405,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 169666,
+      "world": 1066244944,
+      "born": 3605966233,
+      "dead": 2889999718,
+      "created": 0,
+      "totalIdentities": 372,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 169620,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 131,
+        "produced": [],
+        "energy": {
+          "generated": 200,
+          "used": 80.16,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 247.9200000000002,
+        "upkeep": {
+          "tools": 3.5440000000000005,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 373,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 338,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 335,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661081,
+          "health": 100,
+          "condition": 100,
+          "paid": 351,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 344,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 332,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 323,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 314,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 305,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1415,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 170266,
+      "world": 1066244947,
+      "born": 3616708753,
+      "dead": 2900742235,
+      "created": 0,
+      "totalIdentities": 375,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 170220,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 135,
+        "produced": [
+          "parts",
+          "electronics",
+          "steel",
+          "parts"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 140.4,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 250.32000000000022,
+        "upkeep": {
+          "tools": 3.5500000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 383,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 348,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 345,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661084,
+          "health": 100,
+          "condition": 100,
+          "paid": 361,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 354,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 342,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 333,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 324,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 315,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1425,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 170866,
+      "world": 1066244950,
+      "born": 3627452930,
+      "dead": 2911486409,
+      "created": 0,
+      "totalIdentities": 378,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 170820,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 9,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 132,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 138.64,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 252.72000000000023,
+        "upkeep": {
+          "tools": 3.556,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 393,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 358,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 355,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661087,
+          "health": 100,
+          "condition": 100,
+          "paid": 371,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 364,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 352,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 343,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 334,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 325,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1435,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 171466,
+      "world": 1066244953,
+      "born": 3638198798,
+      "dead": 2922232274,
+      "created": 0,
+      "totalIdentities": 381,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 171420,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 130,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "parts"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 138.88,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 255.36000000000024,
+        "upkeep": {
+          "tools": 3.5620000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 403,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 368,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 365,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661090,
+          "health": 100,
+          "condition": 100,
+          "paid": 381,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 374,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 362,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 353,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 344,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 335,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1445,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 172066,
+      "world": 1066244956,
+      "born": 3648946392,
+      "dead": 2932979865,
+      "created": 0,
+      "totalIdentities": 384,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 172020,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 127,
+        "produced": [],
+        "energy": {
+          "generated": 360,
+          "used": 81.12,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 257.7600000000003,
+        "upkeep": {
+          "tools": 3.5680000000000005,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 413,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 378,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 375,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661093,
+          "health": 100,
+          "condition": 100,
+          "paid": 391,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 384,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 372,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 363,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 354,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 345,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1455,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 172666,
+      "world": 1066244958,
+      "born": 3659695746,
+      "dead": 2943729217,
+      "created": 0,
+      "totalIdentities": 386,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 172620,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 125,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 147.28,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 259.4400000000003,
+        "upkeep": {
+          "tools": 3.572,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 423,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 388,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 385,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661095,
+          "health": 100,
+          "condition": 100,
+          "paid": 401,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 394,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 382,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 373,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 364,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 355,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1465,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 173266,
+      "world": 1066244961,
+      "born": 3670447025,
+      "dead": 2954480493,
+      "created": 0,
+      "totalIdentities": 389,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 173220,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 123,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 147.52,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 261.8400000000003,
+        "upkeep": {
+          "tools": 3.5780000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 433,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 398,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 395,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661098,
+          "health": 100,
+          "condition": 100,
+          "paid": 411,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 404,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 392,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 383,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 374,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 365,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1475,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 173866,
+      "world": 1066244962,
+      "born": 3681200137,
+      "dead": 2965233604,
+      "created": 0,
+      "totalIdentities": 390,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 173820,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 121,
+        "produced": [
+          "parts",
+          "electronics",
+          "parts",
+          "parts"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 133.6,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 263.04000000000025,
+        "upkeep": {
+          "tools": 3.58,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 443,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 408,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 405,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661099,
+          "health": 100,
+          "condition": 100,
+          "paid": 421,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 414,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 402,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 393,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 384,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 375,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1485,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 174466,
+      "world": 1066244965,
+      "born": 3691955118,
+      "dead": 2975988582,
+      "created": 0,
+      "totalIdentities": 393,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 174420,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 117,
+        "produced": [],
+        "energy": {
+          "generated": 280,
+          "used": 81.84,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 265.2000000000003,
+        "upkeep": {
+          "tools": 3.5860000000000003,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 453,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 418,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 415,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661102,
+          "health": 100,
+          "condition": 100,
+          "paid": 431,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 424,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 412,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 403,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 394,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 385,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1495,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 175066,
+      "world": 1066244966,
+      "born": 3702711997,
+      "dead": 2986745460,
+      "created": 0,
+      "totalIdentities": 394,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 175020,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 115,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 139.92,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 266.40000000000026,
+        "upkeep": {
+          "tools": 3.588,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 463,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 428,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 425,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661103,
+          "health": 100,
+          "condition": 100,
+          "paid": 441,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 434,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 422,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 413,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 404,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 395,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1505,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    },
+    {
+      "at": 175666,
+      "world": 1066244968,
+      "born": 3713470817,
+      "dead": 2997504278,
+      "created": 0,
+      "totalIdentities": 396,
+      "away": 0,
+      "health": 100,
+      "condition": 100,
+      "last": {
+        "at": 175620,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 26,
+          "maintenance": 7,
+          "clerk": 6,
+          "teacher": 8,
+          "earthOffice": 8,
+          "flightControl": 4,
+          "gardener": 32,
+          "manufacturing": 36
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 26
+          },
+          "maintenance": {
+            "organic": 7
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "earthOffice": {
+            "organic": 8
+          },
+          "flightControl": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 36
+          }
+        },
+        "idle": 113,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics",
+          "steel"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 140.07999999999998,
+          "stored": 1200,
+          "capacity": 1200,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 268.0800000000002,
+        "upkeep": {
+          "tools": 3.5920000000000005,
+          "parts": 2.1
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "global": {
+        "paid": 473,
+        "missed": 0,
+        "stable": 600
+      },
+      "regions": {
+        "west": {
+          "population": 131658416,
+          "health": 100,
+          "condition": 100,
+          "paid": 438,
+          "missed": 0,
+          "stable": 600
+        },
+        "desert": {
+          "population": 54418294,
+          "health": 100,
+          "condition": 100,
+          "paid": 435,
+          "missed": 0,
+          "stable": 600
+        },
+        "north": {
+          "population": 204661105,
+          "health": 100,
+          "condition": 100,
+          "paid": 451,
+          "missed": 2,
+          "stable": 600
+        },
+        "east": {
+          "population": 214217937,
+          "health": 100,
+          "condition": 100,
+          "paid": 444,
+          "missed": 0,
+          "stable": 600
+        },
+        "rainforest": {
+          "population": 176619402,
+          "health": 100,
+          "condition": 100,
+          "paid": 432,
+          "missed": 0,
+          "stable": 600
+        },
+        "islands": {
+          "population": 106330722,
+          "health": 100,
+          "condition": 100,
+          "paid": 423,
+          "missed": 0,
+          "stable": 600
+        },
+        "plateau": {
+          "population": 118739234,
+          "health": 100,
+          "condition": 100,
+          "paid": 414,
+          "missed": 0,
+          "stable": 600
+        },
+        "polar": {
+          "population": 59599858,
+          "health": 100,
+          "condition": 100,
+          "paid": 405,
+          "missed": 0,
+          "stable": 600
+        }
+      },
+      "national": {
+        "paid": 1515,
+        "missed": 46
+      },
+      "flights": 3,
+      "returned": 3
+    }
+  ],
+  "after": {
+    "at": 175666,
+    "world": 1066244968,
+    "born": 3713470817,
+    "dead": 2997504278,
+    "created": 0,
+    "totalIdentities": 396,
+    "away": 0,
+    "health": 100,
+    "condition": 100,
+    "last": {
+      "at": 175620,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 26,
+        "maintenance": 7,
+        "clerk": 6,
+        "teacher": 8,
+        "earthOffice": 8,
+        "flightControl": 4,
+        "gardener": 32,
+        "manufacturing": 36
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 26
+        },
+        "maintenance": {
+          "organic": 7
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 8
+        },
+        "earthOffice": {
+          "organic": 8
+        },
+        "flightControl": {
+          "organic": 4
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "organic": 36
+        }
+      },
+      "idle": 113,
+      "produced": [
+        "culture",
+        "parts",
+        "electronics",
+        "steel"
+      ],
+      "energy": {
+        "generated": 360,
+        "used": 140.07999999999998,
+        "stored": 1200,
+        "capacity": 1200,
+        "heat": 560,
+        "sources": {
+          "renewable": 360,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 268.0800000000002,
+      "upkeep": {
+        "tools": 3.5920000000000005,
+        "parts": 2.1
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "global": {
+      "paid": 473,
+      "missed": 0,
+      "stable": 600
+    },
+    "regions": {
+      "west": {
+        "population": 131658416,
+        "health": 100,
+        "condition": 100,
+        "paid": 438,
+        "missed": 0,
+        "stable": 600
+      },
+      "desert": {
+        "population": 54418294,
+        "health": 100,
+        "condition": 100,
+        "paid": 435,
+        "missed": 0,
+        "stable": 600
+      },
+      "north": {
+        "population": 204661105,
+        "health": 100,
+        "condition": 100,
+        "paid": 451,
+        "missed": 2,
+        "stable": 600
+      },
+      "east": {
+        "population": 214217937,
+        "health": 100,
+        "condition": 100,
+        "paid": 444,
+        "missed": 0,
+        "stable": 600
+      },
+      "rainforest": {
+        "population": 176619402,
+        "health": 100,
+        "condition": 100,
+        "paid": 432,
+        "missed": 0,
+        "stable": 600
+      },
+      "islands": {
+        "population": 106330722,
+        "health": 100,
+        "condition": 100,
+        "paid": 423,
+        "missed": 0,
+        "stable": 600
+      },
+      "plateau": {
+        "population": 118739234,
+        "health": 100,
+        "condition": 100,
+        "paid": 414,
+        "missed": 0,
+        "stable": 600
+      },
+      "polar": {
+        "population": 59599858,
+        "health": 100,
+        "condition": 100,
+        "paid": 405,
+        "missed": 0,
+        "stable": 600
+      }
+    },
+    "national": {
+      "paid": 1515,
+      "missed": 46
+    },
+    "flights": 3,
+    "returned": 3
+  },
+  "exactReplay": true,
+  "allYearsHealthy": true,
+  "allRegionsHealthy": true,
+  "allPublicPeriodsPaid": true
+}
