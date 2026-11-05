@@ -21,6 +21,8 @@ var CivilHistory={
       if(seen.has(key))return;seen.add(key);
       entries.push({key,category,title,detail,at:this.time(s,at),...extra});
     };
+    for(const [i,e]of (c.deliberation?.records||[]).entries()){const a=CivilCivic.agenda(s).find(x=>x.id===e.id),o=a?.options.find(x=>x.value===e.value);add('civic_'+i,'governance',a?.title||e.id,(o?.label||String(e.value))+' · '+({passed:'落实',refused:'未获同意',cancelled:'撤回'}[e.result]||e.result)+'。'+(o?.consequence||'')+' '+(e.reason||''),e.endedAt);}
+    for(const [i,e]of (c.deliberation?.pressureHistory||[]).entries())add('pressure_'+i,'governance',e.reason,e.diagnosis,e.at);
     for(const [id,e]of Object.entries(c.modern?.eras||{}))add('era_'+id,'technology',CivilModernContent.eras[id].title,CivilModernContent.eras[id].lines.join('\n')+'\n已交接：'+e.retired.join('、'),e.at);
     for(const [id,at]of Object.entries(c.modern?.learned||{}))add('modern_'+id,'technology',CivilText.research[id].name,CivilText.research[id].done,at);
     for(const [i,e]of (c.generations?.records||[]).entries())add('generations_'+i,'people',e.text,'机构接续记录',e.at);

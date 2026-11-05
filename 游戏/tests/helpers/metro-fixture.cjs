@@ -26,6 +26,8 @@ function harness(saved){
       if(pending==='succession'){this.click(Object.hasOwn(buttons,'engineer')?'engineer':Object.keys(buttons)[0]);return;}
       if(pending==='generation_head'){this.click('keep');return;}
       if(pending==='modern_era'){this.click('continue');return;}
+      if(pending==='civic_issue'){this.click('later');return;}
+      if(pending==='civic_pressure'){this.click('read');return;}
       if(pending==='cold'){this.click('wood');return;}
       // The test operator pays each real warning through its native choice;
       // no random incidents, costs or automatic-maintenance decisions are skipped.

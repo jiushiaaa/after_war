@@ -31,7 +31,7 @@ var CivilPolity={
  reduce(d,e){const fail=x=>{throw Error(x);},sources=e.sources,effects={north:this.effect(),east:this.effect()},at=e.at,args=e.args;let outcome='';
   if(e.action==='start'){
    if(d)fail('共同机构已存在');if(sources.north.population+sources.east.population<10000000)fail('两区共同责任不足一千万人');const why=this.consent(sources,this.charter);if(why)fail(why);
-   for(const id of ['north','east'])this.localCost(effects,sources,id,this.capital);d=this.initial(at);if(typeof CivilEquipment!=='undefined')CivilEquipment.open(d,e);outcome='两区实付设立共同议事与运输机构。先经历连续600秒公共履约，再确认国约；居民与地方仓库保持原处。';
+   for(const id of ['north','east'])this.localCost(effects,sources,id,this.capital);d=this.initial(at);if(typeof CivilEquipment!=='undefined')CivilEquipment.open(d,e);if(typeof CivilCivic!=='undefined')CivilCivic.open(d,e);outcome='两区实付设立共同议事与运输机构。先经历连续600秒公共履约，再确认国约；居民与地方仓库保持原处。';
   }else{
    if(!d)fail('先设立共同机构');
    if(e.action==='period'){
@@ -57,7 +57,7 @@ var CivilPolity={
     if(typeof args.enabled!=='boolean'||args.enabled===d.enabled)fail('授权没有变化');this.spend(d,{knowledge:12});d.enabled=args.enabled;outcome=d.enabled?'公共机构恢复；旧承诺与欠款继续履行。':'暂停新公共征调与生产；已装船货物继续交付。';
    }else if(e.action==='law'){
     if(!d.foundedAt||d.proposal)fail('先确认国约并结清当前议案');const laws=args.laws;if(!laws||Object.keys(laws).length!==3||Object.entries(this.laws).some(([key,items])=>!Object.hasOwn(items,laws[key]))||this.same(d.laws,laws))fail('选择不同的完整制度安排');const why=this.consent(sources,laws);if(why)fail(why);this.spend(d,{knowledge:180,food:60});d.proposal={at,laws:this.copy(laws)};outcome='议案已实付提出；600秒后按实际地方服务和同意条件表决，费用不因拒绝退还。';
-   }else if(e.action==='equipment')outcome=CivilEquipment.action(d,e);else if(e.action==='earth')outcome=CivilEarth.action(d,e,effects);else if(e.action==='future')outcome=CivilFuture.action(d,e,effects);else if(typeof CivilPolityForeign!=='undefined')outcome=CivilPolityForeign.action(d,e,effects);else fail('未知公共行动');
+   }else if(e.action==='renewals')outcome=CivilCivic.renewalAction(d,e);else if(e.action==='equipment')outcome=CivilEquipment.action(d,e);else if(e.action==='earth')outcome=CivilEarth.action(d,e,effects);else if(e.action==='future')outcome=CivilFuture.action(d,e,effects);else if(typeof CivilPolityForeign!=='undefined')outcome=CivilPolityForeign.action(d,e,effects);else fail('未知公共行动');
   }
   return {d,effects,outcome};
  },
