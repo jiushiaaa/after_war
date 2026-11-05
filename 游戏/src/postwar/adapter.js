@@ -37,6 +37,7 @@ var Civilization = {
     $('<span>').addClass('menuBtn').attr({id:'saveMenu',role:'button',tabindex:0}).text('存档').click(()=>CivilPlatform.menu()).appendTo(menu);
     $('<span>').attr('id','speedMenu').appendTo(menu);
     this.renderSpeed();
+    if(typeof CivilSound!=='undefined')CivilSound.init();
     if(!State.civilization.events.awake) {
       CivilText.opening.forEach(t=>this.notify(t)); State.civilization.events.awake=true;
     } else this.notify('你重新翻开了'+CivilNarrative.community(State)+'的记录。');
@@ -696,9 +697,9 @@ Events.buttonClick=function(btn) {
   Events._choosing=true;try{adrEventClick(btn);}finally{setTimeout(()=>{Events._choosing=false;},250);}
 };
 const adrEventStart=Events.startEvent;
-Events.startEvent=function(event,options) {if(Events.activeEvent())return;adrEventStart(event,options);};
-// Audio is deliberately absent until this adaptation has its own working sound design.
-for(const key of ['playSound','playBackgroundMusic','playEventMusic','stopEventMusic','loadAudioFile']) AudioEngine[key]=function() {};
+Events.startEvent=function(event,options) {if(Events.activeEvent())return;adrEventStart(event,options);if(typeof CivilSound!=='undefined')CivilSound.update();};
+// ADR short effects share the new gesture-gated mixer; its original music is not resumed.
+if(typeof CivilSound!=='undefined')CivilSound.install(AudioEngine);
 Notifications.notify=function(module,text,noQueue) {
   if(typeof text!=='string')return;
   if(module===Room&&(noQueue||State.civilization?.polity?.foundedAt)&&typeof CivilHearth!=='undefined'&&CivilHearth.quietRoutine(State,text)){Engine.saveGame();return;}

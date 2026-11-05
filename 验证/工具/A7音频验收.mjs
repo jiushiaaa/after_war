@@ -1,0 +1,13 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
+const port=process.argv[2]||'9372',dir=process.argv[3]||'验证/A7/5-音频/浏览器',b=await connect(port,dir),{send,read,sleep,raw,click,shot}=b;const report={kind:'separate UI test, not natural route progress'};
+await send('Page.reload',{ignoreCache:true});await sleep(2000);
+await click('#civilSound > summary');for(const k of ['music','ambient','effects'])if(!await read(`CivilSound.prefs.${k}`))await raw('#sound_'+k);
+await send('Page.reload',{ignoreCache:true});await sleep(2000);b.events.length=0;
+report.beforeGesture=await read('({context:!!CivilSound.context,unlocked:CivilSound.unlocked,failures:CivilSound.failures})');assert.equal(report.beforeGesture.context,false);
+assert.ok(await raw('#saveMenu'));await sleep(1800);
+report.afterGesture=await read('({state:CivilSound.context?.state,music:CivilSound.channels.music?.id,duck:CivilSound.buses.music.gain.value,failures:CivilSound.failures})');assert.equal(report.afterGesture.state,'running');assert.equal(report.afterGesture.music,'room');assert.equal(report.afterGesture.failures.length,0);assert.ok(Math.abs(report.afterGesture.duck-.6*Math.pow(10,-6/20))<.01);
+await raw('#event #close');await click('#civilSound > summary');for(const k of ['music','ambient','effects'])if(await read(`CivilSound.prefs.${k}`))await raw('#sound_'+k);await sleep(3500);report.muted=await read('({prefs:CivilSound.prefs,music:!!CivilSound.channels.music,ambient:!!CivilSound.channels.ambient,retiring:CivilSound.retiring.size})');assert.equal(report.muted.music,false);assert.equal(report.muted.ambient,false);assert.equal(report.muted.retiring,0);await shot('muted');
+await send('Page.reload',{ignoreCache:true});await sleep(1700);report.reloaded=await read('({prefs:CivilSound.prefs,unlocked:CivilSound.unlocked,context:!!CivilSound.context})');assert.equal(report.reloaded.prefs.music,false);assert.equal(report.reloaded.prefs.ambient,false);assert.equal(report.reloaded.prefs.effects,false);assert.equal(report.reloaded.context,false);
+await click('#civilSound > summary');await raw('#sound_music');await sleep(1800);report.resumed=await read('({music:CivilSound.channels.music?.id,failures:CivilSound.failures,state:CivilSound.context?.state})');assert.equal(report.resumed.music,'room');assert.equal(report.resumed.failures.length,0);await shot('playing');
+// Restore a quiet test browser; native preference toggles do not change a game export.
+await raw('#sound_music');report.errors=b.events;fs.writeFileSync(dir+'/report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));b.close();

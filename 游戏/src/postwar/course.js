@@ -5,7 +5,7 @@
 var CivilCourse={
   pendingIds:['course_choice','course_issue','course_craftsman','course_coop'],
   choices:{
-    commons:{name:'田地与公共服务优先',short:'田地与公共服务',detail:'先扩灌溉、诊疗与课堂，用木料、工具和人手修合作联排。不挖矿、不建电站也能成城，但金属只能靠回收和邻居。农夫产粮 +15%。'},
+    commons:{name:'田地与公共服务优先',short:'田地与公共服务',detail:'先扩灌溉、诊疗与课堂，用木料、工具和人手修合作联排。不挖矿、不建燃煤电站也能成城，金属主要来自回收和邻居。农夫产粮 +15%。'},
     industry:{name:'回收、工业与贸易优先',short:'回收与工业',detail:'先勘矿、冶铁、造机器和发电，用铁与零件建公共设施和住宅。产出多、进度快，但烟尘伤健康。回收工产出 +25%。'}
   },
   // Research that each course reaches differently. Industry keeps the original table.

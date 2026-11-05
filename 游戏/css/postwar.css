@@ -83,3 +83,17 @@ body { --civil-ink:#222; --civil-muted:#666; --civil-rule:#b8b8b8; color:var(--c
   .civil-metrics { grid-template-columns:1fr; }
   .civil-table { font-size:.85em; }
 }
+
+/* Device-only sound preferences, kept compact beside save and speed. */
+.civil-sound { display:inline-block; position:relative; text-align:left; margin-left:12px; }
+.civil-sound > summary { cursor:pointer; list-style:none; }
+.civil-sound-options { position:absolute; right:0; bottom:28px; width:240px; max-width:80vw; border:1px solid #777; background:#fff; color:#222; padding:14px; box-sizing:border-box; z-index:30; }
+.civil-sound-options label { display:flex; align-items:center; gap:8px; min-height:32px; }
+.civil-sound-options input[type=range] { width:150px; }
+.civil-sound-options p { font-size:12px; line-height:1.5; margin:8px 0 0; }
+html.dark .civil-sound-options, body.dark .civil-sound-options { color:#ddd; background:#171717; }
+/* Footer items share one row; a popover must never expand the mobile layout viewport. */
+.menu { display:flex; justify-content:flex-end; align-items:center; gap:16px; }
+.menu span { float:none; margin-left:0; }
+.civil-sound { margin-left:0; }
+.civil-sound-options { position:fixed; right:10px; bottom:50px; max-width:calc(100vw - 20px); }

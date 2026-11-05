@@ -345,6 +345,7 @@ var CivilExpedition={
   after(){$SM.fireUpdate('stores');if(typeof Outside!=='undefined'){Outside.updateVillage?.();Outside.updateWorkersView?.();}Civilization.updateIncome();this.refresh(true);Engine.saveGame();},
   moveUI(dx,dy){
     const r=this.act(()=>this.move(State,dx,dy));
+    if(r&&typeof CivilSound!=='undefined')CivilSound.effect(r==='encounter'?'audio/encounter-tier-1.flac':'audio/footsteps-1.flac');
     if(r==='home')Civilization.notify(this.C().text.home);
     else if(r==='collapse')Civilization.notify(this.C().text.collapse+' 背包留在了荒地，小队带伤回到聚落。');
     else if(r==='encounter')this.openChoices();
@@ -362,7 +363,7 @@ var CivilExpedition={
       pump:d.sites.pump.state==='repaired'?['泵轮在转。清水从过滤管里流出来。']:['水从裂开的管道漏进地下。控制柜已经停电，机械旁路还在。'],
       ruin:d.sites.ruin.state==='new'?['屋顶的风杯早就不转了。值班室里堆着一卷卷风速纸带，最后一页写着：轨道补给中断，全员撤离。','纸带能告诉你们这里的寒潮什么时候来；仪器外壳和支架则是现成的金属。只能二选一。']:['旧气象站只剩空架子。']
       ,cellar:['半埋的储藏室门口压着沙袋。门缝里有灯，一位老测量员带着两个年轻徒弟守在里面。',d.sites.cellar.state==='helped'?'他们认得你们了。':'他们不认识你们，也不急着出来。']}[info.site];
-    for(const o of info.options)buttons['ex_'+o.id]={text:o.text+(o.reason?'（'+o.reason+'）':''),nextScene:'end',available:()=>!o.reason,onChoose:()=>{const msg=this.choose(State,o.id);if(msg)Civilization.notify(msg);this.after();}};
+    for(const o of info.options)buttons['ex_'+o.id]={text:o.text+(o.reason?'（'+o.reason+'）':''),nextScene:'end',available:()=>!o.reason,onChoose:()=>{const msg=this.choose(State,o.id);if(msg){Civilization.notify(msg);if(o.id==='shoot'&&typeof CivilSound!=='undefined')CivilSound.effect('audio/weapon-ranged-1.flac');}this.after();}};
     Events.startEvent({title,scenes:{start:{text,buttons}}});return true;
   },
   keyUp(e){

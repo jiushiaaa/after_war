@@ -1,0 +1,29 @@
+{
+  "initialBatch": {
+    "requestedSeconds": 1710,
+    "succeeded": 16,
+    "failed": [
+      {
+        "id": "M7",
+        "code": 55001310,
+        "message": "audio risk audit tts_create_output: chunk 4 rejected (decision_in_reject_list)",
+        "usableAudio": false,
+        "prompt": "为末日后文明重建的文字策略游戏创作背景音乐。场景：先进社会。合成器 pad 与弦乐，未来、清澈、略带不安。没有歌词，没有可辨识的说话内容，无口播。自然完整乐句，起止柔和，不要突然强音，适合低音量长时间循环。"
+      }
+    ]
+  },
+  "singleRecovery": {
+    "id": "M7",
+    "requestedSeconds": 120,
+    "reason": "首次输出被服务端审核拒绝，未生成可用文件；使用明确纯器乐的原创配乐说明，仅补这一条",
+    "maximumBudgetIncludingFailedAttempt": 1830,
+    "automaticRetry": false,
+    "succeeded": true
+  },
+  "final": {
+    "usableTracks": 17,
+    "returnedSeconds": 1710,
+    "decodedSeconds": 1710.6285714285718,
+    "chargedAmount": "服务未返回计费金额；失败请求仍按120秒保守计入预算"
+  }
+}

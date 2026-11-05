@@ -1,0 +1,57 @@
+{
+  "kind": "separate UI test, not natural route progress",
+  "beforeGesture": {
+    "context": false,
+    "unlocked": false,
+    "failures": []
+  },
+  "afterGesture": {
+    "state": "running",
+    "music": "room",
+    "duck": 0.30071234703063965,
+    "failures": [
+      "部分声音未能加载"
+    ]
+  },
+  "muted": {
+    "prefs": {
+      "music": false,
+      "ambient": false,
+      "effects": false,
+      "volume": 0.55
+    },
+    "music": false,
+    "ambient": false,
+    "retiring": 0
+  },
+  "reloaded": {
+    "prefs": {
+      "music": false,
+      "ambient": false,
+      "effects": false,
+      "volume": 0.55
+    },
+    "unlocked": false,
+    "context": false
+  },
+  "resumed": {
+    "music": "room",
+    "failures": [],
+    "state": "running"
+  },
+  "errors": [
+    {
+      "method": "Log.entryAdded",
+      "params": {
+        "entry": {
+          "source": "network",
+          "level": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "timestamp": 1793885161215.228,
+          "url": "http://127.0.0.1:4180/audio/postwar/amb_fire.mp3",
+          "networkRequestId": "63048.1475"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "separate UI test, not natural route progress",
+  "beforeGesture": {
+    "context": false,
+    "unlocked": false,
+    "failures": []
+  },
+  "afterGesture": {
+    "state": "running",
+    "music": "room",
+    "duck": 0.30071234703063965,
+    "failures": []
+  },
+  "muted": {
+    "prefs": {
+      "music": false,
+      "ambient": false,
+      "effects": false,
+      "volume": 0.55
+    },
+    "music": false,
+    "ambient": false,
+    "retiring": 0
+  },
+  "reloaded": {
+    "prefs": {
+      "music": false,
+      "ambient": false,
+      "effects": false,
+      "volume": 0.55
+    },
+    "unlocked": false,
+    "context": false
+  },
+  "resumed": {
+    "music": "room",
+    "failures": [],
+    "state": "running"
+  },
+  "errors": []
+}
