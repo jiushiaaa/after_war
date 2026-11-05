@@ -49,3 +49,12 @@ test('A7 queued local snapshots cannot overwrite a different world after asynchr
 test('A7 local write errors preserve dirty status and explicit saves surface the error',async()=>{
  const {a}=local();a.write=async()=>{throw Error('quota');};assert.equal(await a.save(),false);assert.equal(a.dirty,true);await assert.rejects(a.save(2,true),/quota/);
 });
+
+test('A7 archives wait for an actual echo decision and preserve a completed sealing ending',()=>{
+ const {s,ctx}=fresh(),a=ctx.CivilArchives;
+ s.civilization.polity={future:{tech:{echo:true},assets:{},echo:{stage:'outward',choice:null,visits:0}}};
+ const echo=s.civilization.polity.future.echo;
+ for(const stage of ['outward','choice']){echo.stage=stage;const before=JSON.stringify(s);assert.doesNotThrow(()=>a.history(s));assert.equal(JSON.stringify(s),before);a.tick(s);assert.equal(s.civilization.archives.records.echo_choice,undefined);assert.equal(s.civilization.archives.records.echo_followup,undefined);}
+ echo.choice='seal';echo.stage='returning';s.civilization.elapsed=40;a.tick(s);assert.equal(s.civilization.archives.records.echo_choice,40);assert.equal(s.civilization.archives.records.echo_followup,undefined);
+ echo.stage='complete';s.civilization.elapsed=90;const assets=JSON.stringify([s.stores,s.game.population,s.civilization.census]);a.tick(s);a.tick(s);assert.equal(s.civilization.archives.records.echo_followup,90);assert.equal(JSON.stringify([s.stores,s.game.population,s.civilization.census]),assets);a.validate(s);
+});

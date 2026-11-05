@@ -20,8 +20,8 @@ var CivilArchives={
   add('machine_automation','machines','指令的主人',['自动班组能搬运、焊接，也能重复一条已经不合时宜的命令。','监督者在交班时写下责任人，而不是写“系统已经决定”。'],f?.tech.automation);
   add('machine_person','machines','设备清单之外',[f?.created?'登记员把新自治人格从设备清单移入居民名册。':'议事厅保留了普通机器的设备编号，也留下判断自治人格的程序。','谁能作证，谁能申诉，谁承担错误——这些问题不能交给一个开关。'],f?.assets.hall&&f?.tech.automation);
   add('echo_boundary','echo','战场的残余带宽',['接收器只在旧战场近旁拾到碎片，离开后很快失真。','它来自战时神经联接项目的残余，没有物资，没有预言，也没有全知的观察者。'],f?.tech.echo);
-  add('echo_choice','echo','没有完整的命令',[f?.echo?CivilFutureContent.echoes[f.echo.choice].text:'三份记录相互矛盾。','记录员在空白处写下：不知道，也必须被保存。'],f?.echo);
-  add('echo_followup','echo','接收者的后来',[f?.echo?.choice==='exploit'?'有人仍需要随访。获得的知识没有抵销那段伤害。':f?.echo?.choice==='seal'?'封存的入口仍由普通巡护维护。安静不等于从未有人来过。':'研究者拒绝把相互矛盾的残片拼成一份确定命令。','档案停在地面，不为共同体打开一条超自然的捷径。'],f?.echo?.visits>=3);
+  add('echo_choice','echo','没有完整的命令',[CivilFutureContent.echoes[f?.echo?.choice]?.text||'三份记录相互矛盾。','记录员在空白处写下：不知道，也必须被保存。'],f?.echo?.choice);
+  add('echo_followup','echo','接收者的后来',[f?.echo?.choice==='exploit'?'有人仍需要随访。获得的知识没有抵销那段伤害。':f?.echo?.choice==='seal'?'封存的入口仍由普通巡护维护。安静不等于从未有人来过。':'研究者拒绝把相互矛盾的残片拼成一份确定命令。','档案停在地面，不为共同体打开一条超自然的捷径。'],f?.echo?.visits>=3||f?.echo?.choice==='seal'&&f.echo.stage==='complete');
   add('mars_schedule','mars','表格上的另一颗星',['货运表上的目的地仍写着火星。','在战争之前，那也曾经是回家和远行的方向。'],c.station);
   add('mars_gap','mars','撤离之前的天气',[exp?.sites.ruin.state==='preserved'?'纸带写着：轨道补给中断，全员撤离。':'收集到的地面记录反复提到轨道补给中断。','关于谁先失约，不同保管者留下了不同记述。没有一张纸足以替所有死者作证。'],exp?.sites.ruin.state==='preserved'||g?.tech.mapping);
   add('mars_orbit','mars','向外发送的第一句话',['新测控站校准了指向星空的天线。','这次发出的首先是呼号和航道信息，没有宣战书。远处是否有人接收，仍未得到证实。'],g&&CivilEarthFlight.done(g,'probe'));
