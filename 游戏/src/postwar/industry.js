@@ -50,7 +50,7 @@ var CivilIndustry = {
     const advanced=typeof CivilAdvanced!=='undefined'?CivilAdvanced:null;
     const prepared=advanced?advanced.prepare(s,{factor,run}):{generation:0,pollution:0};
     // Output debuffs affect generation too; unused capacity is discarded at the next settlement.
-    i.generation=generators*4*factor+prepared.generation;i.online=i.generation>0;
+    i.generation=generators*4*factor+prepared.generation+(typeof CivilModern!=='undefined'?CivilModern.prepare(s,flow):0);i.online=i.generation>0;
     let remainingPower=i.generation;
     const machines=this.jobCount(s,'machinist');
     i.demand=machines*2+(b.scrubber?1:0)+(advanced?advanced.demand(s):0);
@@ -59,6 +59,7 @@ var CivilIndustry = {
       if(!Number.isFinite(service.used)||service.used<0||service.used>remainingPower+1e-8||!Number.isFinite(service.demand)||service.demand<service.used)throw Error('公共服务电力预算无效');
       remainingPower-=service.used;i.used+=service.used;i.demand+=service.demand;
     }
+    if(typeof CivilModern!=='undefined'){const modern=CivilModern.run(s,remainingPower,flow);remainingPower-=modern.used;i.used+=modern.used;i.demand+=modern.demand;}
     let scrubbed=false;
     if(b.scrubber && remainingPower>=1 && CivilRules.pay(s,{wood:.2,parts:.01})) {
       remainingPower-=1;i.used+=1;scrubbed=true;flow['烟尘处理']={wood:-.2,parts:-.01};
@@ -87,8 +88,9 @@ var CivilIndustry = {
     if(!i || typeof i!=='object' || Array.isArray(i) || i.schema!==1 || typeof i.mineKnown!=='boolean' || typeof i.online!=='boolean' || typeof i.announcedPower!=='boolean')throw Error('工业状态无效');
     // Last-tick evidence can outlive worker reassignment or a policy change. Bound it by built capacity and all legal output bonuses.
     const maxFactor=Math.max(...Object.values(CivilRules.policies).map(p=>p.output))*1.18;
-    const generationCapacity=CivilCatalog.jobCapacity(s,'electrician')*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s):0);
-    const demandCapacity=CivilCatalog.jobCapacity(s,'machinist')*2+(s.game.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s):0)+(typeof CivilServices!=='undefined'&&CivilServices.demandCapacity?CivilServices.demandCapacity(s,'home'):0);
+    const modernCapacity=typeof CivilModern!=='undefined'?CivilModern.capacity(s):0;
+    const generationCapacity=modernCapacity+CivilCatalog.jobCapacity(s,'electrician')*4+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.generationCapacity(s):0);
+    const demandCapacity=modernCapacity+CivilCatalog.jobCapacity(s,'machinist')*2+(s.game.buildings.scrubber?1:0)+(typeof CivilAdvanced!=='undefined'?CivilAdvanced.demandCapacity(s):0)+(typeof CivilServices!=='undefined'&&CivilServices.demandCapacity?CivilServices.demandCapacity(s,'home'):0);
     const precisionDemand=(typeof CivilPrecision!=='undefined'?CivilPrecision.demandCapacity(s):0)+(typeof CivilSpace!=='undefined'?CivilSpace.demandCapacity(s):0);
     const limits={pollution:100,generation:generationCapacity*maxFactor,demand:demandCapacity+precisionDemand,used:Math.min(generationCapacity*maxFactor,demandCapacity+precisionDemand)};
     for(const [key,limit]of Object.entries(limits))if(!Number.isFinite(i[key])||i[key]<0||i[key]>limit+1e-8)throw Error('工业数值超过设施容量');

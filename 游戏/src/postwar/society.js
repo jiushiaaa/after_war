@@ -64,7 +64,7 @@ var CivilSociety = {
   // Near-field party members and recovering residents are real people away from home jobs;
   // those in the field eat from their own pack instead of home rations.
   workforce(s){
-    const x=s.civilization.society,away=(typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(s):0)+(typeof CivilCity!=='undefined'?CivilCity.crew(s):0)+(typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.townCrew(s):0);if(!x)return Math.max(0,s.game.population-away);
+    const x=s.civilization.society,away=(typeof CivilModern!=='undefined'?CivilModern.crew(s):0)+(typeof CivilExpedition!=='undefined'?CivilExpedition.unavailable(s):0)+(typeof CivilCity!=='undefined'?CivilCity.crew(s):0)+(typeof CivilCityContinuity!=='undefined'?CivilCityContinuity.townCrew(s):0);if(!x)return Math.max(0,s.game.population-away);
     return Math.max(0,CivilPopulation.workforce(x.cohorts)+Math.max(0,s.game.population-this.total(x))-away);
   },
   foodPopulation(s){

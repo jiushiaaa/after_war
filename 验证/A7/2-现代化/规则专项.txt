@@ -1,0 +1,38 @@
+✔ old saves are never asked to choose a course and keep the original tech table (36.063958ms)
+✔ a town under the new rule is asked once; the commons route reaches city research without mining or power (13.047167ms)
+✔ the industry route keeps the original iron/parts costs and the mine chain (9.375541ms)
+✔ course bonuses act on the real settlement rates (25.323417ms)
+✔ commons city conditions are explicit and require real fields, care and food surplus (10.053ms)
+✔ the social issue fires on real conditions, moves real workers once and is recorded (9.957292ms)
+✔ the tool-bench cooperative keeps its own ledger; tools are neither created nor lost (8.809792ms)
+✔ the founding craftsman retires once; the apprentice needs a working smith (10.331375ms)
+✔ survivors who joined from the cellar shorten the commons survey research (8.432833ms)
+✔ commons bootstrap requires no unavailable industrial materials, including its first public project (8.300417ms)
+✔ the city guide reports the same health threshold as the public-service rule (8.308833ms)
+✔ industrial research remains hidden until the physical mineral discovery, then respects dependencies (2.151875ms)
+✔ a real mine and workers consume tools and produce ore; excess workers cannot exceed its capacity (0.946292ms)
+✔ industrial shortages stop whole worker batches atomically and recover with supplies (1.015458ms)
+✔ manual mechanical production can bootstrap a generator and recover from total blackout (0.728375ms)
+✔ power is a per-settlement capacity with paid fuel and maintenance, never an accumulating resource (0.623458ms)
+✔ a preview on a deep clone produces exact resource deltas without touching the authoritative state (0.779167ms)
+✔ cleaning competes for power, consumes actual maintenance and lowers accumulated pollution (0.682041ms)
+✔ industrial output honors the shared society multiplier and its state survives serialization (0.856667ms)
+✔ the first sustained-power announcement occurs once and does not replay after loading (0.651ms)
+✔ the full mine-to-powered-workshop chain is affordable from the natural town without gifted industrial inputs (9.878375ms)
+✔ null industrial state is rejected rather than reset and power evidence remains bounded by actual installed plant (0.928375ms)
+✔ mechanical power is actual powered output only and old missing evidence is neither fabricated nor required (0.918333ms)
+✔ A7 public modernization has no mining, coal or mechanical-transmission dependency; industry retains it (36.415833ms)
+✔ A7 public grid pays capital, reserves six real workers, trains, and transforms finite scrap into iron/parts (12.247875ms)
+✔ A7 missing materials, labor or grid cannot mint outputs; a paid restart restores capability (10.300917ms)
+✔ A7 early industrial power and the finite accumulator obey instantaneous capacity (10.271375ms)
+✔ A7 known old public and industrial histories do not acquire modern gates or fields (351.15325ms)
+✔ A7 retirement lists report actual delegated operations rather than technology promises (7.857917ms)
+✔ A7 minimum main-path capability closure exceeds 35 on both routes without forcing ascension (14.732709ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 496.516125

@@ -38,7 +38,7 @@ var CivilCourse={
   // Only saves started under this rule (courseRule 1) are offered the choice; older saves keep their history.
   needsChoice(s){const c=s.civilization;return c.courseRule===1&&!!c.village?.town&&!this.data(s)&&!this.legacy(s);},
   override(s,id){return this.research[this.id(s)]?.[id]||null;},
-  requires(s,id){return this.override(s,id)?.requires||CivilText.research[id]?.requires||[];},
+  requires(s,id){return (typeof CivilModern!=='undefined'&&CivilModern.enabled(s)?CivilModern.requires(s,id):null)||this.override(s,id)?.requires||CivilText.research[id]?.requires||[];},
   cost(s,id){return this.override(s,id)?.cost||CivilText.research[id]?.cost||{};},
   discover(s,id){const o=this.override(s,id),r=CivilText.research[id];const fn=o&&o.discover?o.discover:r?.discover;return !fn||!!fn(s);},
   available(s,id){

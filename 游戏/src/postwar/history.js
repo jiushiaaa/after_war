@@ -21,6 +21,8 @@ var CivilHistory={
       if(seen.has(key))return;seen.add(key);
       entries.push({key,category,title,detail,at:this.time(s,at),...extra});
     };
+    for(const [id,e]of Object.entries(c.modern?.eras||{}))add('era_'+id,'technology',CivilModernContent.eras[id].title,CivilModernContent.eras[id].lines.join('\n')+'\n已交接：'+e.retired.join('、'),e.at);
+    for(const [id,at]of Object.entries(c.modern?.learned||{}))add('modern_'+id,'technology',CivilText.research[id].name,CivilText.research[id].done,at);
     for(const [i,e]of (c.generations?.records||[]).entries())add('generations_'+i,'people',e.text,'机构接续记录',e.at);
     for(const [i,e]of (c.city?.history||[]).entries())add('city_district_'+i,e.kind==='project'||e.kind==='complete'?'projects':e.kind==='policy'?'governance':'cities',e.text,'城域记录 · '+(typeof CivilCityContent!=='undefined'?CivilCityContent.wards[e.id]?.name||'原镇':e.id),e.at);
     for(const [i,e]of (c.cityCouncil?.history||[]).entries())add('city_council_'+i,'cities',e.text,'城市共同事务 · 地方承诺与实付工程',e.at);
