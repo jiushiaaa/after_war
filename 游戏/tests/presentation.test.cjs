@@ -60,7 +60,7 @@ function viewHarness(){
     $SM:{get:(key,zero)=>key.split('.').reduce((v,k)=>v?.[k],s)??(zero?0:undefined),fireUpdate(){}}});
   const files=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]).filter(f=>f.startsWith('content/')||f.startsWith('src/postwar/'));
   for(const file of files)vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});
-  for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices','CivilHearth','CivilFinance','CivilMetro','CivilHistory'])ctx[name].refresh=()=>{};
+  for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices','CivilHearth','CivilFinance','CivilMetro','CivilHistory','CivilReadable','CivilModern','CivilEquipment','CivilCivic','CivilArchives'])ctx[name].refresh=()=>{};
   ctx.CivilInterface.refresh=(_s,options)=>{assert.equal(options.summaries,false);calls.renders++;};
   ctx.Room.updateBuildButtons=()=>{};ctx.Outside.updateWorkersView=()=>{calls.workers++;};ctx.Civilization.roadModule={};
   ctx.CivilClock={stop(){}};ctx.Civilization.initState();

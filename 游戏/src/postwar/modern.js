@@ -20,7 +20,7 @@ var CivilModern={
   if(c.tech.vaccines&&c.village.health<95){d.last.care=work('无菌接种与预防',{medicine:.5,knowledge:.05},{},1);if(d.last.care)c.village.health=Math.min(95,c.village.health+.5);}
   const recipes={iron:{need:'precisionFit',cost:{scrap:2,wood:.4},out:{iron:.8},power:2,target:80},parts:{need:'precisionFit',cost:{iron:.5,scrap:.2,tools:.02},out:{parts:.4},power:2,target:80},medicine:{need:'vaccines',cost:{food:1,scrap:.3},out:{medicine:.6},power:2,target:60},knowledge:{need:'scientificMethod',cost:{food:.4,tools:.05},out:{knowledge:.8},power:1,target:500},electronics:{need:'semiconductor',cost:{parts:.4,knowledge:.3},out:{electronics:.2},power:3,target:40},steel:{need:'electroalloy',cost:{iron:1,scrap:.3},out:{steel:.6},power:3,target:60}};
   const order=d.mode==='materials'?['iron','parts','steel','electronics','medicine','knowledge']:d.mode==='care'?['medicine','knowledge','iron','parts','electronics','steel']:['medicine','iron','parts','knowledge','electronics','steel'];let slots=4;
-  for(const id of order){const r=recipes[id];if(slots&&c.tech[r.need]&&(s.stores[id]||0)<r.target&&work('电动工序·'+CivilText.labels[id],r.cost,r.out,r.power)){slots--;d.last.products[id]=r.out[id];}}
+  for(const id of order){const r=recipes[id];if(slots&&c.tech[r.need]&&(s.stores[id]||0)<r.target&&work('电动工序 '+CivilText.labels[id],r.cost,r.out,r.power)){slots--;d.last.products[id]=r.out[id];}}
   // External grid energy is drawn only when used or placed in the finite accumulator.
   const cap=c.tech.powerstorage?64:0,oldCharge=d.charge;d.charge=Math.min(cap,Math.max(0,left));const drawn=Math.min(inputPower,Math.max(0,spent+d.charge-oldCharge));
   d.energy.generated+=drawn;d.energy.used+=spent;d.last.used=spent;d.last.drawn=drawn;

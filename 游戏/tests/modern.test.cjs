@@ -1,5 +1,13 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {fresh}=require('./helpers/census-fixture.cjs');const {start}=require('./helpers/polity-fixture.cjs');
+test('A7 native modern income captions round-trip without accepting arbitrary punctuated state keys',()=>{
+ const fs=require('node:fs'),z=require('node:zlib'),{harness}=require('./helpers/metro-fixture.cjs');
+ const bytes=fs.readFileSync('../验证/A7/7-全流程/public/village/after-cut/战后文明-存档.json'),raw=JSON.parse(bytes),s=(raw.encoding?JSON.parse(z.gunzipSync(Buffer.from(raw.data,'base64'))):raw).state,h=harness(s),exact=JSON.stringify(s);
+ assert.ok(Object.keys(s.income).some(k=>k.startsWith('电动工序·')));h.ctx.CivilPlatform.validate(s);assert.equal(JSON.stringify(s),exact);
+ for(const key of ['unexpected.key','电动工序·伪造']){s.income[key]={delay:10,stores:{}};assert.throws(()=>h.ctx.CivilPlatform.validate(s),/字段/);delete s.income[key];}
+ s.civilization['电动工序·药品']=0;assert.throws(()=>h.ctx.CivilPlatform.validate(s),/字段/);delete s.civilization['电动工序·药品'];
+ const flow=h.ctx.CivilIndustry.settle(s);assert.ok(Object.keys(flow).every(k=>/^[\p{L}\p{N}_ -]+$/u.test(k)));h.ctx.CivilModern.validate(s);
+});
 function setup(route='commons'){const h=fresh(),{s,ctx}=h,c=s.civilization;c.village.town=true;c.course={schema:1,id:route,chosenAt:0,generation:1,issue:null,craftsman:null};ctx.CivilCensus.move(s,'wanderers','home',40,'构造测试人口');s.game.population=40;ctx.CivilSociety.sync(s);Object.assign(s.stores,{wood:1000,scrap:1000,tools:200,food:1000,medicine:100,knowledge:1000,iron:0});s.game.buildings.workshop=1;return {...h,m:ctx.CivilModern};}
 function chain(h,id,set=new Set(),stack=new Set()){assert.equal(stack.has(id),false,'cycle: '+id);if(set.has(id))return set;assert.ok(h.ctx.CivilText.research[id],id);stack.add(id);for(const pre of h.ctx.CivilCourse.requires(h.s,id))chain(h,pre,set,stack);stack.delete(id);set.add(id);return set;}
 test('A7 public modernization has no mining, coal or mechanical-transmission dependency; industry retains it',()=>{for(const route of ['commons','industry']){const h=setup(route),needed=chain(h,'systemsafety');for(const id of h.ctx.CivilModernContent.middle)assert.ok(needed.has(id),id);for(const id of ['mining','furnace','mechanics','power'])assert.equal(needed.has(id),route==='industry');for(const id of needed){h.s.civilization.tech[id]=true;}for(const id of Object.keys(h.ctx.CivilModernContent.tech))chain(h,id);assert.equal(h.m.gate(h.s,'future'),null);}});

@@ -7,7 +7,10 @@
       if(depth > 30) throw Error('存档层级过深');
       if(typeof v === 'number' && !Number.isFinite(v)) throw Error('存档含无效数值');
       if(v && typeof v === 'object') for(const k of Object.keys(v)) {
-        if(!/^[\p{L}\p{N}_ -]+$/u.test(k) || ['__proto__','constructor','prototype'].includes(k)) throw Error('存档字段无效');
+        // Early A7 exports used a middle dot in these derived income captions.
+        // Accept only that exact display location; arbitrary keys remain rejected.
+        const a7Income=state.civilization.polishVersion===1&&v===state.income&&/^电动工序·(?:药品|铁锭|机械零件|知识|电子元件|钢材)$/.test(k);
+        if((!/^[\p{L}\p{N}_ -]+$/u.test(k)&&!a7Income) || ['__proto__','constructor','prototype'].includes(k)) throw Error('存档字段无效');
         walk(v[k],depth+1);
       }
     }; walk(state);
