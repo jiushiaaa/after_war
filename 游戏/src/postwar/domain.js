@@ -39,17 +39,17 @@ var CivilDomain={
     CivilCity.pay(n,born.cost);n.cohorts.push(...born.cohorts);n.born+=born.count;return {born:born.count,dead:aged.deceased};
   },
   // Pure regional production: a bounded set of occupations, paid recipes, physical services.
-  settle(n,priority,enabled,away=0){
-    const p=this.count(n),cap=n.housing,weighted=CivilPopulation.foodPopulation(n.cohorts)-away,work=CivilPopulation.workforce(n.cohorts)-away,before={...n.stores},workers={},worked={};let left=Math.max(0,work);
+  settle(n,priority,enabled,away=0,profile=null){
+    const p=this.count(n),cap=n.housing,weighted=CivilPopulation.foodPopulation(n.cohorts)-away,work=CivilPopulation.workforce(n.cohorts)-away,rates=profile||{food:1.8,wood:.8,scrap:1.5,tools:.25,iron:.3},before={...n.stores},workers={},worked={};let left=Math.max(0,work);
     const reserve=(k,count)=>{workers[k]=Math.min(left,Math.max(0,Math.ceil(count)));left-=workers[k];};
-    reserve('water',p/160);reserve('medic',p*.012/.15);reserve('teacher',CivilPopulation.children(n.cohorts)/20);reserve('farmer',(weighted*.12+workers.medic*.2+p*.004)*1.12/1.8);
+    reserve('water',p/160);reserve('medic',p*.012/.15);reserve('teacher',CivilPopulation.children(n.cohorts)/20);reserve('farmer',(weighted*.12+workers.medic*.2+p*.004)*1.12/rates.food);
     reserve('maintenance',enabled?p*.001:0);reserve('clerk',p*.0005);
     const smelters=n.condition>=60?Math.floor(cap*(priority==='works'?.002:.0005)):0;
     const smiths=Math.ceil((workers.farmer*.01+p*.00015)/.25)+2;
-    reserve('salvager',(workers.medic*.1+smiths*.6+smelters)/1.5+2);reserve('gatherer',(smiths*.2+smelters*.5+workers.teacher*.1+p*.0001)/.8+2);reserve('smith',Math.min(cap*.01,smiths));reserve('smelter',smelters);
+    reserve('salvager',(workers.medic*.1+smiths*.6+smelters)/rates.scrap+2);reserve('gatherer',(smiths*.2+smelters*.5+workers.teacher*.1+p*.0001)/rates.wood+2);reserve('smith',Math.min(cap*.01,smiths));reserve('smelter',smelters);
     const targets={food:p*.12*36,medicine:p*.01*24,wood:p*.08,scrap:p*.12,tools:p*.03,knowledge:p*.01,iron:p*.03};
     const run=(job,input,output)=>{let units=workers[job]*6;for(const [k,v]of Object.entries(output))units=Math.min(units,Math.max(0,(targets[k]-(n.stores[k]||0))/v));for(const [k,v]of Object.entries(input))units=Math.min(units,(n.stores[k]||0)/v);units=Math.max(0,units);const paid={},made={};for(const [k,v]of Object.entries(input))paid[k]=v*units;for(const [k,v]of Object.entries(output))made[k]=v*units;CivilCity.pay(n,paid);CivilCity.sum(n.stores,made);CivilCity.sum(n.budget.produced,made);worked[job]=units/6;};
-    run('gatherer',{}, {wood:.8});run('salvager',{}, {scrap:1.5});run('smith',{scrap:.6,wood:.2},{tools:.25});run('farmer',{tools:.01},{food:1.8});run('medic',{food:.2,scrap:.1},{medicine:.15});run('teacher',{wood:.1},{knowledge:.2});run('smelter',{scrap:1,wood:.5},{iron:.3});
+    run('gatherer',{}, {wood:rates.wood});run('salvager',{}, {scrap:rates.scrap});run('smith',{scrap:.6,wood:.2},{tools:rates.tools});run('farmer',{tools:.01},{food:rates.food});run('medic',{food:.2,scrap:.1},{medicine:.15});run('teacher',{wood:.1},{knowledge:.2});run('smelter',{scrap:1,wood:.5},{iron:rates.iron});
     const meals={food:Math.max(0,weighted)*.12*6},treatment={medicine:p*.01*6};const fed=CivilCity.pay(n,meals),treated=CivilCity.pay(n,treatment),educated=workers.teacher*20>=CivilPopulation.children(n.cohorts),water=workers.water*160>=p;
     const factor=priority==='works'?2:1,cost={food:p*.001,wood:p*.0001*factor,tools:p*.0001*factor,knowledge:p*.00002};
     const maintained=enabled&&workers.maintenance>=Math.ceil(p*.001)&&CivilCity.pay(n,cost);
@@ -93,6 +93,6 @@ var CivilDomain={
     if(d.survey.finishedAt===null){d.survey.remaining=Math.max(0,this.surveyTime-(at-d.at));if(!d.survey.remaining)this.discover(s);return;}
     if(at%600===0){const result=this.annual(d.node);CivilCensus.death(s,this.account,result.dead,'北岸年度死亡');CivilCensus.birth(s,this.account,result.born);this.record(s,'annual');}
     for(const p of d.trips){if(p.deliveredAt===null&&at>=p.startedAt+this.travel){CivilConurbation.receive(this.city(s,'lake'),p.back);CivilConurbation.receive(d.node,p.out);p.deliveredAt=at;this.record(s,'arrival',{id:p.id});}if(p.finishedAt===null&&at>=p.startedAt+this.travel*2){p.finishedAt=at;this.record(s,'return',{id:p.id});this.replan(s);}}
-    if(at%60===0){this.settle(d.node,d.priority,d.mode==='shared'?d.enabled:true,this.active(s)?4:0);this.record(s,'round');if(d.mode){const reason=this.serviceReason(s),paid=!reason;if(paid)CivilCity.pay(this.city(s,'home'),this.fees(d.mode));this.record(s,'service',{mode:d.mode,paid,reason});}this.prepareExport(s);this.dispatch(s);}
+    if(at%60===0){const regionalAway=typeof CivilRegional!=='undefined'?CivilRegional.northCrew(s):0;this.settle(d.node,d.priority,d.mode==='shared'?d.enabled:true,(this.active(s)?4:0)+regionalAway);this.record(s,'round',s.civilization.regional?{regionalAway}:{});if(d.mode){const reason=this.serviceReason(s),paid=!reason;if(paid)CivilCity.pay(this.city(s,'home'),this.fees(d.mode));this.record(s,'service',{mode:d.mode,paid,reason});}this.prepareExport(s);this.dispatch(s);}
   }
 };

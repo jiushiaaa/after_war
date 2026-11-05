@@ -17,11 +17,13 @@ CivilDomain.validate=function(s){
       if(e.key==='priority'){if(!Object.hasOwn(this.priorities,e.value)||e.value==='works'&&(mode!=='shared'||node.condition<80))fail('产业');priority=e.value;}
       if(e.key==='good'){if(!Object.hasOwn(this.goods,e.value))fail('货物');good=e.value;}CivilCity.sum(home,{knowledge:4});
     }else if(e.kind==='withdraw'){if(!mode||active)fail('退出');mode=null;priority='care';enabled=true;CivilCity.sum(home,{knowledge:4});
+    }else if(e.kind==='regional'){
+      const r=s.civilization.regional?.ledger[e.ref-1];if(!r||r.id!==e.ref||r.at!==e.at||!CivilRegional.applyNorth(node,r,s,{mode,enabled}))fail('跨地区流水');
     }else if(e.kind==='annual'){
       years++;if(e.at!==(Math.floor(d.origin.at/600)+years)*600)fail('年界');const delta=this.annual(node);
       for(const [kind,count]of [['birth',delta.born],['death',delta.dead]]){const rows=c.entries.filter(r=>r.kind===kind&&r.at===e.at&&(kind==='birth'?r.to:r.from)===this.account);if(count?(rows.length!==1||rows[0].count!==count):rows.length)fail('出生死亡');}
     }else if(e.kind==='round'){
-      rounds++;if(e.at!==(Math.floor(d.origin.at/60)+rounds)*60||serviceDue!==null)fail('缺失结算');this.settle(node,priority,mode==='shared'?enabled:true,active?4:0);serviceDue=mode?e.at:null;
+      rounds++;if(e.at!==(Math.floor(d.origin.at/60)+rounds)*60||serviceDue!==null)fail('缺失结算');const regionalAway=typeof CivilRegional!=='undefined'?CivilRegional.northCrewAt(s,e.at):0;if(s.civilization.regional&&e.at>s.civilization.regional.at){if(e.regionalAway!==regionalAway)fail('跨地区驾驶员');}else if(e.regionalAway!==undefined)fail('未知跨地区岗位');this.settle(node,priority,mode==='shared'?enabled:true,(active?4:0)+regionalAway);serviceDue=mode?e.at:null;
     }else if(e.kind==='service'){
       if(!mode||e.mode!==mode||e.at!==serviceDue||typeof e.paid!=='boolean'||e.paid&&(!enabled||e.reason!==null)||!e.paid&&typeof e.reason!=='string')fail('共同维护');service=e;serviceDue=null;if(e.paid)CivilCity.sum(home,this.fees(mode));
     }else if(e.kind==='exportPrep'){
@@ -41,5 +43,6 @@ CivilDomain.validate=function(s){
   if(d.mode!==mode||d.priority!==priority||d.enabled!==enabled||d.good!==good||!same(d.node,node))fail('地区经济回放');
   if(node.cohorts.length>160||this.count(node)!==d.origin.population+node.born-node.dead||this.count(node)!==c.accounts[this.account]||Object.values(node.workers).reduce((a,b)=>a+b,0)+(active?4:0)>CivilPopulation.workforce(node.cohorts))fail('人口岗位');
   for(const [id,cost]of [['home',home],['lake',lake]])for(const [k,v]of Object.entries(cost))if((this.city(s,id).budget.consumed[k]||0)+1e-5<v)fail('城市实付');
-  for(const k of CivilCityContent.resources)if(!near(node.stores[k],d.origin.stores[k]+(node.budget.produced[k]||0)-(node.budget.consumed[k]||0)+(node.budget.received[k]||0)-(node.budget.sent[k]||0)))fail('地方物资');
+  // Exact event replay above still rejects any changed stock; this sum only allows accumulated floating-point cancellation.
+  for(const k of CivilCityContent.resources)if(Math.abs(node.stores[k]-(d.origin.stores[k]+(node.budget.produced[k]||0)-(node.budget.consumed[k]||0)+(node.budget.received[k]||0)-(node.budget.sent[k]||0)))>1e-4+((node.budget.produced[k]||0)+(node.budget.consumed[k]||0))*1e-12)fail('地方物资');
 };

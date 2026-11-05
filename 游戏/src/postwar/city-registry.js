@@ -27,6 +27,11 @@ var CivilCityRegistry={
     if(!Array.isArray(n.cohorts)||n.cohorts.length>160||n.cohorts.some(c=>!int(c.age)||c.age>=80||!int(c.count)||!c.count||!['human','mutant'].includes(c.identity))||n.year!==Math.floor(now/600)||n.contactedAt!==o.at||n.joinedAt!==null||!int(n.born)||!int(n.dead)||CivilCity.count(n)!==o.population+n.born-n.dead+CivilCityHomes.delta(s,'bridge')||CivilCity.count(n)>CivilCity.housing(s,'bridge'))fail('人口守恒');
     if(!num(n.health)||n.health>100||!num(n.hunger)||!int(n.stable)||n.stable>600||!same(n.buildings,{road:0,water:1,housing:0})||n.project!==null||n.priority!=='balanced'||n.method!=='manual'||n.waterEnabled!==true||n.freightEnabled!==true||n.births?.scaled!==true||!num(n.births.credit)||n.births.credit>=1||!num(n.births.mutantCredit)||n.births.mutantCredit>=1||Object.values(n.workers).some(v=>!int(v))||Object.values(n.workers).reduce((a,b)=>a+b,0)>CivilCity.workforce(n))fail('服务岗位');
     for(const b of [n.stores,...['produced','consumed','received','sent'].map(k=>n.budget?.[k])])if(!cost(b))fail('地方账册');
-    const transfer=a.transfers(s,'bridge');for(const k of CivilCityContent.resources){if(!near(n.budget.sent[k]||0,transfer.sent[k]||0)||!near(n.budget.received[k]||0,transfer.received[k]||0)||!near(n.stores[k],o.stores[k]+(n.budget.produced[k]||0)+(n.budget.received[k]||0)-(n.budget.consumed[k]||0)-(n.budget.sent[k]||0)))fail('物资守恒');}
+    const transfer=a.transfers(s,'bridge');for(const k of CivilCityContent.resources){
+      // Cumulative production/consumption can exceed 100 million; cancellation
+      // leaves a small floating-point residue while physical transfers still agree.
+      const tolerance=1e-5+((n.budget.produced[k]||0)+(n.budget.consumed[k]||0))*1e-12;
+      if(!near(n.budget.sent[k]||0,transfer.sent[k]||0)||!near(n.budget.received[k]||0,transfer.received[k]||0)||!Number.isFinite(n.stores[k])||Math.abs(n.stores[k]-(o.stores[k]+(n.budget.produced[k]||0)+(n.budget.received[k]||0)-(n.budget.consumed[k]||0)-(n.budget.sent[k]||0)))>tolerance)fail('物资守恒');
+    }
   }
 };

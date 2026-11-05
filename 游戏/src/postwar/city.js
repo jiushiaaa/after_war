@@ -28,7 +28,7 @@ var CivilCity={
   serviceCapacity(s,id){const n=this.node(s,id);return (id==='lake'?s.civilization.conurbation.origin.housing:id==='ridge'?s.civilization.cityNetwork.origin.housing:s.civilization.cityCouncil?.locals[id]?.origin?.housing??this.config(id).population)+n.buildings.housing*800+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.extraHousing(s,id):0);},
   waterPerWorker(n){return n.buildings.water?160*n.buildings.water:45;},
   workforce(n){return CivilPopulation.workforce(n.cohorts);},
-  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0)+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.crew(s,id):0)+(typeof CivilCityLabor!=='undefined'?CivilCityLabor.away(s,id):0)+(typeof CivilDomain!=='undefined'?CivilDomain.crew(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
+  foodPopulation(s,id){const n=this.node(s,id),away=(this.data(s).shipments.some(p=>p.source===id)?2:0)+(typeof CivilConurbation!=='undefined'?CivilConurbation.crew(s,id):0)+(typeof CivilCityNetwork!=='undefined'?CivilCityNetwork.crew(s,id):0)+(typeof CivilCityCouncil!=='undefined'?CivilCityCouncil.crew(s,id):0)+(typeof CivilCityLabor!=='undefined'?CivilCityLabor.away(s,id):0)+(typeof CivilDomain!=='undefined'?CivilDomain.crew(s,id):0)+(typeof CivilRegional!=='undefined'?CivilRegional.cityCrew(s,id):0);return Math.max(0,CivilPopulation.foodPopulation(n.cohorts)-away);},
   crew(s){return (this.data(s)?.shipments||[]).filter(p=>p.source==='home').length*2+(this.data(s)?.contact?2:0);},
   freeCrew(s){return CivilSociety.workforce(s)-Object.values(s.game.workers).reduce((a,b)=>a+b,0);},
   note(s,kind,id,text){const d=this.data(s);d.history.push({at:s.civilization.elapsed,kind,id,text});if(typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined')Civilization.notify(text);},
@@ -90,6 +90,7 @@ var CivilCity={
     if(typeof CivilCityDispatch!=='undefined')CivilCityDispatch.plan(s,id,reserved);
     if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.reserve(s,id,reserved);
     if(typeof CivilDomain!=='undefined')CivilDomain.reserve(s,id,reserved);
+    if(typeof CivilRegional!=='undefined')CivilRegional.reserve(s,id,reserved);
     let left=this.workforce(n);n.workers={};
     for(const [job,count]of Object.entries(reserved)){n.workers[job]=Math.min(left,count);left-=n.workers[job];}
     if(typeof CivilCityHomes!=='undefined')CivilCityHomes.supplyPlan(s,id,want,n.workers.settler||0);

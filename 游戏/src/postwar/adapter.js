@@ -162,6 +162,7 @@ var Civilization = {
     if(typeof CivilCityContinuity!=='undefined')CivilCityContinuity.tick(State);
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.tick(State);
     if(typeof CivilDomain!=='undefined')CivilDomain.tick(State);
+    if(typeof CivilRegional!=='undefined')CivilRegional.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}

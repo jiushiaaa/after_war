@@ -1,6 +1,6 @@
 /* MPL-2.0 — Regional scale in the existing text-first city location. */
 var CivilDomainView={
-  reset(){this.built=false;this.mode='trade';this.priority='care';this.good='iron';this.signature=null;},
+  reset(){if(typeof CivilRegionalView!=='undefined')CivilRegionalView.reset();this.built=false;this.mode='trade';this.priority='care';this.good='iron';this.signature=null;},
   built:false,mode:'trade',priority:'care',good:'iron',signature:null,
   b(id,label,host,reason,fn){return CivilCityView.button('domain_'+id,label,host,reason,fn);},
   entry(s){
@@ -36,6 +36,7 @@ var CivilDomainView={
     this.b('priority','调整地方委托','#domainPolicyActions',!d.mode?'先议定协约':this.priority===d.priority?'已按此安排':this.priority==='works'&&(d.mode!=='shared'||n.condition<80)?'共同服务并恢复维护80后可委托':null,()=>f.change(State,'priority',this.priority));this.b('good','调整进口货物','#domainPolicyActions',!d.mode?'先议定协约':this.good===d.good?'已按此货物办理':null,()=>f.change(State,'good',this.good));
     $('#domainTransport p').text('湖滨与北岸各4名驾驶员，一组船队，单向最多2048件；360秒抵达，720秒完成往返。旅粮一次付清，离岗者不重复领取家中口粮。\n铁1换粮6；药1换粮4。双方每班另付 '+cost(f.freightFees())+'。地方保留粮药18轮；外供药品由本期空余诊疗岗位实付备料，不挪用保留量。\n'+(flight?'第'+flight.id+'班：湖滨 '+cost(flight.out)+' ⇄ 北岸 '+cost(flight.back)+'；'+(flight.deliveredAt===null?'待抵达 '+(flight.startedAt+f.travel-s.civilization.elapsed):'已交割，返航 '+(flight.startedAt+2*f.travel-s.civilization.elapsed))+'秒。':'船队空闲：'+(f.tradeReason(s)||'待下次调度'))+'\n累计已交付 '+d.trips.filter(p=>p.deliveredAt!==null).length+'班；暂停不撤回已装船货物。');
     if($('#domainAccounts').prop('open'))$('#domainAccounts p').text('普查从北陆名册细分 '+a(d.origin.population)+'人；此后出生 '+a(n.born)+'、死亡 '+a(n.dead)+'，现 '+a(f.known(s))+'人。原城市不计入北岸。\n居民职业总数 '+a(Object.values(n.workers).reduce((x,y)=>x+y,0))+' / 劳动力 '+a(CivilPopulation.workforce(n.cohorts))+'。\n'+CivilCityContent.resources.map(k=>(CivilText.labels[k]||k)+'：原有 '+a(d.origin.stores[k])+' + 生产 '+a(n.budget.produced[k]||0)+' + 收货 '+a(n.budget.received[k]||0)+' − 消耗 '+a(n.budget.consumed[k]||0)+' − 发货 '+a(n.budget.sent[k]||0)+' = '+a(n.stores[k])).join('\n')+'\n联络处续办 '+d.ledger.filter(e=>e.kind==='service'&&e.paid).length+'期实付 / '+d.ledger.filter(e=>e.kind==='service'&&!e.paid).length+'期待付；失联年代为年度粗算，不是精确历史流水。');
+    CivilRegionalView.refresh(s);
     return true;
   }
 };

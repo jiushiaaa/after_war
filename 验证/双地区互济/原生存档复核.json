@@ -1,0 +1,4759 @@
+{
+  "baseline": "797d5d73bffbaf8258344899a58b478ea0dc0d6b",
+  "kind": "read-only native exports, two independent worlds; not constructed years",
+  "historicalFiles": 319,
+  "saves": [
+    {
+      "number": 301,
+      "name": "自然游玩_公共东原普查301.json",
+      "sha256": "a35e2c756766712528d9e05bfae133cae499c7c777ef5b951b1d8faf77107d3b",
+      "at": 71348,
+      "seed": 750278434,
+      "world": 561289130,
+      "initial": 350278429,
+      "born": 1157367056,
+      "dead": 946356355,
+      "north": 6004357,
+      "east": 0,
+      "sharedResponsibility": 6004357,
+      "depot": "canal",
+      "pact": null,
+      "enabled": true,
+      "survey": {
+        "remaining": 480,
+        "finishedAt": null
+      },
+      "origin": null,
+      "region": null,
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 0,
+        "used": 0
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 6151755
+    },
+    {
+      "number": 302,
+      "name": "自然游玩_公共东原分担被拒302.json",
+      "sha256": "f012853de88e059ffe8b2f40b664b083c8fe17ad08caf8beb1e9d1d9bd2b4152",
+      "at": 71898,
+      "seed": 750278434,
+      "world": 563508518,
+      "initial": 350278429,
+      "born": 1169635280,
+      "dead": 956405191,
+      "north": 6004357,
+      "east": 10415529,
+      "sharedResponsibility": 6004357,
+      "depot": "canal",
+      "pact": null,
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 65098,
+          "medic": 833243,
+          "teacher": 117175,
+          "farmer": 587757,
+          "maintenance": 10416,
+          "clerk": 5208,
+          "salvager": 89745,
+          "gatherer": 18307,
+          "smith": 29762,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 38046816.441240005,
+          "medicine": 1874795.22,
+          "wood": 743809.6523600001,
+          "scrap": 1103476.96512,
+          "tools": 311111.85123,
+          "knowledge": 103894.901775,
+          "iron": 36290.07
+        },
+        "budget": {
+          "produced": {
+            "wood": 56010.24000000011,
+            "scrap": 602170.08,
+            "tools": 53388.50999999999,
+            "food": 0,
+            "medicine": 833.2423200000001,
+            "knowledge": 65293.686000000016,
+            "iron": 3905.4
+          },
+          "consumed": {
+            "scrap": 146386.51487999997,
+            "wood": 89432.66763999999,
+            "tools": 1354.0187700000001,
+            "food": 6948268.838759999,
+            "medicine": 624931.74,
+            "knowledge": 260.38822500000003
+          },
+          "sent": {
+            "medicine": 833.2423200000001
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 833.2423200000001,
+        "used": 833.2423200000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16567284
+    },
+    {
+      "number": 303,
+      "name": "自然游玩_公共两区议定303.json",
+      "sha256": "facdc0d727845520e76dbe54e35bf06eb60066702df8cd10b2e4b934d9de481e",
+      "at": 71898,
+      "seed": 750278434,
+      "world": 563508518,
+      "initial": 350278429,
+      "born": 1169635280,
+      "dead": 956405191,
+      "north": 6004357,
+      "east": 10415529,
+      "sharedResponsibility": 16419886,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 65098,
+          "medic": 833243,
+          "teacher": 117175,
+          "farmer": 587757,
+          "maintenance": 10416,
+          "clerk": 5208,
+          "salvager": 89745,
+          "gatherer": 18307,
+          "smith": 29762,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 38046816.441240005,
+          "medicine": 1874795.22,
+          "wood": 739009.6523600001,
+          "scrap": 1103476.96512,
+          "tools": 310151.85123,
+          "knowledge": 103654.901775,
+          "iron": 36290.07
+        },
+        "budget": {
+          "produced": {
+            "wood": 56010.24000000011,
+            "scrap": 602170.08,
+            "tools": 53388.50999999999,
+            "food": 0,
+            "medicine": 833.2423200000001,
+            "knowledge": 65293.686000000016,
+            "iron": 3905.4
+          },
+          "consumed": {
+            "scrap": 146386.51487999997,
+            "wood": 94232.66763999999,
+            "tools": 2314.01877,
+            "food": 6948268.838759999,
+            "medicine": 624931.74,
+            "knowledge": 500.38822500000003
+          },
+          "sent": {
+            "medicine": 833.2423200000001
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 833.2423200000001,
+        "used": 833.2423200000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16567284
+    },
+    {
+      "number": 304,
+      "name": "自然游玩_公共分药在途304.json",
+      "sha256": "0b308efa45c3a2cddec967f00588ef940549d8d6f14d9b191b5faf16a46c7bb2",
+      "at": 72432,
+      "seed": 750278434,
+      "world": 565773237,
+      "initial": 350278429,
+      "born": 1181931499,
+      "dead": 966436691,
+      "north": 6004357,
+      "east": 10493645,
+      "sharedResponsibility": 16498002,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 56,
+        "born": 208311,
+        "dead": 130195,
+        "groups": 160,
+        "workforce": 6119124,
+        "workers": {
+          "water": 65586,
+          "medic": 839492,
+          "teacher": 121081,
+          "farmer": 591121,
+          "maintenance": 10494,
+          "clerk": 5247,
+          "salvager": 90356,
+          "gatherer": 18670,
+          "smith": 29944,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 37487323.38499999,
+          "medicine": 1888856.0999999999,
+          "wood": 797361.2091064102,
+          "scrap": 737991.1862692304,
+          "tools": 283270.33378461533,
+          "knowledge": 104674.10887499999,
+          "iron": 71438.67
+        },
+        "budget": {
+          "produced": {
+            "wood": 480878.625391116,
+            "scrap": 4937387.3506258475,
+            "tools": 322128.894738308,
+            "food": 71201942.22276005,
+            "medicine": 5718437.66232,
+            "knowledge": 68252.65510500003,
+            "iron": 39054.00000000001
+          },
+          "consumed": {
+            "scrap": 4847089.564356617,
+            "wood": 460749.49628470524,
+            "tools": 285935.92095369246,
+            "food": 78709704.11776003,
+            "medicine": 6328475.280000001,
+            "knowledge": 2440.15023
+          },
+          "sent": {
+            "medicine": 833.2423200000001,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 20760.5084,
+        "received": 21600,
+        "local": 833.2423200000001,
+        "used": 1672.7339200000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 2400,
+        "loadedToCity": 2400,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 9,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 2,
+        "unpaid": 8
+      },
+      "floodLoss": 62961.87,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": null,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16645400
+    },
+    {
+      "number": 305,
+      "name": "自然游玩_公共原城收药305.json",
+      "sha256": "8ac06084b3b0d7a35f36d20dad36f4d4c2ee51e6c3ac1feea615773613496eab",
+      "at": 72670,
+      "seed": 750278434,
+      "world": 568048267,
+      "initial": 350278429,
+      "born": 1194277389,
+      "dead": 976507551,
+      "north": 6004357,
+      "east": 10573324,
+      "sharedResponsibility": 16577681,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 72,
+        "born": 418184,
+        "dead": 260389,
+        "groups": 160,
+        "workforce": 6119124,
+        "workers": {
+          "water": 66084,
+          "medic": 845866,
+          "teacher": 125065,
+          "farmer": 594553,
+          "maintenance": 10574,
+          "clerk": 5287,
+          "salvager": 90980,
+          "gatherer": 19039,
+          "smith": 30129,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 37807850.915999986,
+          "medicine": 1903198.3200000003,
+          "wood": 799816.5468633336,
+          "scrap": 732716.4957599998,
+          "tools": 284684.29871717945,
+          "knowledge": 105468.9069,
+          "iron": 87060.26999999997
+        },
+        "budget": {
+          "produced": {
+            "wood": 658422.4608993855,
+            "scrap": 7079175.710084823,
+            "tools": 456101.38638907735,
+            "food": 104243032.0650934,
+            "medicine": 8302790.762320001,
+            "knowledge": 70100.80158000006,
+            "iron": 54675.60000000001
+          },
+          "consumed": {
+            "scrap": 6994152.614324821,
+            "wood": 635837.9940360513,
+            "tools": 418494.44767189765,
+            "food": 111430266.42909333,
+            "medicine": 8898486.160000002,
+            "knowledge": 3493.4986799999997
+          },
+          "sent": {
+            "medicine": 833.2423200000001,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17389.793359999996,
+        "received": 21600,
+        "local": 833.2423200000001,
+        "used": 5043.448960000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 2400,
+        "loadedToCity": 2400,
+        "receivedByCity": 2400
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 6,
+        "unpaid": 8
+      },
+      "floodLoss": 62961.87,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 72660,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16725079
+    },
+    {
+      "number": 306,
+      "name": "自然游玩_公共两区停办失养306.json",
+      "sha256": "231d63ae27b58b168c59106155c32cdf0108d187dd4695dbf077b073538ac607",
+      "at": 74490,
+      "seed": 750278434,
+      "world": 574935873,
+      "initial": 350278429,
+      "born": 1231615304,
+      "dead": 1006957860,
+      "north": 6004357,
+      "east": 10822051,
+      "sharedResponsibility": 16826408,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": false,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 20,
+        "born": 1057493,
+        "dead": 650971,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 67638,
+          "medic": 865765,
+          "teacher": 137501,
+          "farmer": 605269,
+          "maintenance": 10823,
+          "clerk": 5412,
+          "salvager": 92927,
+          "gatherer": 20193,
+          "smith": 30706,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 38721157.206999995,
+          "medicine": 1947969.1800000002,
+          "wood": 820114.4243233333,
+          "scrap": 751913.3897999998,
+          "tools": 291649.5294205128,
+          "knowledge": 108004.06898000001,
+          "iron": 204222.26999999981
+        },
+        "budget": {
+          "produced": {
+            "wood": 1950796.0499031455,
+            "scrap": 23140489.9630161,
+            "tools": 1430773.5658347178,
+            "food": 347522896.7740933,
+            "medicine": 27684520.26231999,
+            "knowledge": 79038.99594000002,
+            "iron": 171837.59999999986
+          },
+          "consumed": {
+            "scrap": 23036269.973216105,
+            "wood": 1907913.7055798133,
+            "tools": 1386201.3964142038,
+            "food": 353796824.8470936,
+            "medicine": 28235444.79999999,
+            "knowledge": 9896.530960000006
+          },
+          "sent": {
+            "medicine": 833.2423200000001,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17389.793359999996,
+        "received": 21600,
+        "local": 833.2423200000001,
+        "used": 5043.448960000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 2400,
+        "loadedToCity": 2400,
+        "receivedByCity": 2400
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 6,
+        "unpaid": 38
+      },
+      "floodLoss": 639825.1539999999,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": 72900
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 72660,
+          "finishedAt": 72900
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16973806
+    },
+    {
+      "number": 307,
+      "name": "自然游玩_公共两区恢复307.json",
+      "sha256": "7129843f7e6a4bda23d36f415f8a9a15a6ecfa63148723959053e3857be2839b",
+      "at": 75668,
+      "seed": 750278434,
+      "world": 579580392,
+      "initial": 350278429,
+      "born": 1256759726,
+      "dead": 1027457763,
+      "north": 6004357,
+      "east": 10996271,
+      "sharedResponsibility": 17000628,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 1492101,
+        "dead": 911359,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 68727,
+          "medic": 879702,
+          "teacher": 146212,
+          "farmer": 612772,
+          "maintenance": 10997,
+          "clerk": 5499,
+          "salvager": 94291,
+          "gatherer": 21000,
+          "smith": 31111,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 39397708.689,
+          "medicine": 1979328.78,
+          "wood": 832813.9330991667,
+          "scrap": 764256.00954,
+          "tools": 296258.14796230773,
+          "knowledge": 109687.80322500001,
+          "iron": 282330.26999999984
+        },
+        "budget": {
+          "produced": {
+            "wood": 2844194.9365682337,
+            "scrap": 34073957.96943967,
+            "tools": 2108330.3925098474,
+            "food": 512008375.3167598,
+            "medicine": 40861917.862319954,
+            "knowledge": 86164.02868500008,
+            "iron": 249945.59999999974
+          },
+          "consumed": {
+            "scrap": 33957395.3598997,
+            "wood": 2788613.0834690635,
+            "tools": 2047149.6045475374,
+            "food": 517605751.9077603,
+            "medicine": 41381482.79999995,
+            "knowledge": 15337.829459999995
+          },
+          "sent": {
+            "medicine": 833.2423200000001,
+            "tools": 24000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 21577.638159999988,
+        "received": 43200,
+        "local": 833.2423200000001,
+        "used": 22455.604160000003
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 48000,
+        "allocatedToCity": 4800,
+        "loadedToCity": 4800,
+        "receivedByCity": 2400
+      },
+      "service": {
+        "paid": 33,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 26,
+        "unpaid": 38
+      },
+      "floodLoss": 834794.5679999995,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": 72900
+        },
+        {
+          "id": 2,
+          "at": 75060,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 75540,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 72660,
+          "finishedAt": 72900
+        },
+        {
+          "id": 2,
+          "at": 75540,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": null,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 17148026
+    },
+    {
+      "number": 308,
+      "name": "自然游玩_公共两区恢复后十年308.json",
+      "sha256": "2599db3481e00ea5f7441de457d5e0da4cef19bdbc71822e73ba1ad97bfb0786",
+      "at": 81684,
+      "seed": 750278434,
+      "world": 603457706,
+      "initial": 350278429,
+      "born": 1385582240,
+      "dead": 1132402963,
+      "north": 6004357,
+      "east": 11978810,
+      "sharedResponsibility": 17983167,
+      "depot": "canal",
+      "pact": {
+        "at": 71898,
+        "share": 2400
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 3776581,
+        "dead": 2213300,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 74868,
+          "medic": 958305,
+          "teacher": 195339,
+          "farmer": 655097,
+          "maintenance": 11979,
+          "clerk": 5990,
+          "salvager": 101982,
+          "gatherer": 25557,
+          "smith": 33394,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 43091072.79,
+          "medicine": 2156185.8000000003,
+          "wood": 928996.4117416666,
+          "scrap": 876578.6693999998,
+          "tools": 323145.47169230774,
+          "knowledge": 119488.62975000001,
+          "iron": 359364.3
+        },
+        "budget": {
+          "produced": {
+            "wood": 5882802.4239714835,
+            "scrap": 88210928.7202627,
+            "tools": 5640187.721324726,
+            "food": 1365880019.6424274,
+            "medicine": 110147807.5623199,
+            "knowledge": 124569.91216000002,
+            "iron": 326979.6299999998
+          },
+          "consumed": {
+            "scrap": 87982043.45086272,
+            "wood": 5731038.092229815,
+            "tools": 5480119.609632415,
+            "food": 1367784032.1324248,
+            "medicine": 110490515.47999977,
+            "knowledge": 43942.88640999991
+          },
+          "sent": {
+            "medicine": 833.2423200000001,
+            "tools": 96000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 59641.45591999998,
+        "received": 172800,
+        "local": 833.2423200000001,
+        "used": 113991.78640000011
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 192000,
+        "allocatedToCity": 19200,
+        "loadedToCity": 19200,
+        "receivedByCity": 19200
+      },
+      "service": {
+        "paid": 133,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 126,
+        "unpaid": 38
+      },
+      "floodLoss": 834794.5679999995,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": 72900
+        },
+        {
+          "id": 2,
+          "at": 75060,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 75540,
+          "finishedAt": 76020
+        },
+        {
+          "id": 3,
+          "at": 76020,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 76500,
+          "finishedAt": 76980
+        },
+        {
+          "id": 4,
+          "at": 76980,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 77460,
+          "finishedAt": 77940
+        },
+        {
+          "id": 5,
+          "at": 77940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 78420,
+          "finishedAt": 78900
+        },
+        {
+          "id": 6,
+          "at": 78900,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 79380,
+          "finishedAt": 79860
+        },
+        {
+          "id": 7,
+          "at": 79860,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 80340,
+          "finishedAt": 80820
+        },
+        {
+          "id": 8,
+          "at": 80820,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 81300,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 72660,
+          "finishedAt": 72900
+        },
+        {
+          "id": 2,
+          "at": 75540,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 75780,
+          "finishedAt": 76020
+        },
+        {
+          "id": 3,
+          "at": 76500,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 76740,
+          "finishedAt": 76980
+        },
+        {
+          "id": 4,
+          "at": 77460,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 77700,
+          "finishedAt": 77940
+        },
+        {
+          "id": 5,
+          "at": 78420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 78660,
+          "finishedAt": 78900
+        },
+        {
+          "id": 6,
+          "at": 79380,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 79620,
+          "finishedAt": 79860
+        },
+        {
+          "id": 7,
+          "at": 80340,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 80580,
+          "finishedAt": 80820
+        },
+        {
+          "id": 8,
+          "at": 81300,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 81540,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 18130565,
+      "lastTenYears": {
+        "from": 75668,
+        "seconds": 6016,
+        "cityMaintenance": {
+          "paid": 100,
+          "delayed": 0
+        },
+        "regionalService": {
+          "paid": 100,
+          "unpaid": 0
+        },
+        "levee": {
+          "paid": 100,
+          "unpaid": 0
+        },
+        "minCityHealth": 100,
+        "minCityStable": 600
+      }
+    },
+    {
+      "number": 310,
+      "name": "自然游玩_工业东原普查310.json",
+      "sha256": "0724a14de966edbbdd90a5a075a451a3db5aac912edd12a182b11a1b7b77ff94",
+      "at": 121370,
+      "seed": 1345435167,
+      "world": 1109839938,
+      "initial": 495435159,
+      "born": 3375515727,
+      "dead": 2761110948,
+      "north": 8386117,
+      "east": 0,
+      "sharedResponsibility": 8386117,
+      "depot": "yards",
+      "pact": null,
+      "enabled": true,
+      "survey": {
+        "remaining": 480,
+        "finishedAt": null
+      },
+      "origin": null,
+      "region": null,
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 0,
+        "used": 0
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419251,
+      "knownCityAndRegions": 8805368
+    },
+    {
+      "number": 311,
+      "name": "自然游玩_工业东原分担被拒311.json",
+      "sha256": "12f828799c4dcdb5ecc5974df318d99fec981a2f3ccd7b3d037e9077b00659b6",
+      "at": 121879,
+      "seed": 1345435167,
+      "world": 1114321966,
+      "initial": 495435159,
+      "born": 3399906163,
+      "dead": 2781019356,
+      "north": 8465172,
+      "east": 14908361,
+      "sharedResponsibility": 8465172,
+      "depot": "yards",
+      "pact": null,
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93178,
+          "medic": 1192669,
+          "teacher": 167720,
+          "farmer": 841291,
+          "maintenance": 14909,
+          "clerk": 7455,
+          "salvager": 128455,
+          "gatherer": 26203,
+          "smith": 42599,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 54458652.453826666,
+          "medicine": 2683504.9800000004,
+          "wood": 848459.3282400001,
+          "scrap": 1378070.1874133337,
+          "tools": 340039.19307000004,
+          "knowledge": 148710.90097500003,
+          "iron": 38752.58500000001
+        },
+        "budget": {
+          "produced": {
+            "wood": 188661.6,
+            "scrap": 924876,
+            "tools": 76678.2,
+            "food": 0,
+            "medicine": 1192.6688800000002,
+            "knowledge": 109288.74800000002,
+            "iron": 5590.200000000001
+          },
+          "consumed": {
+            "scrap": 210053.51258666665,
+            "wood": 136099.51176,
+            "tools": 1938.08693,
+            "food": 9945467.066173332,
+            "medicine": 894501.6600000001,
+            "knowledge": 372.70902500000005
+          },
+          "sent": {
+            "medicine": 1192.6688800000002
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 1192.6688800000002,
+        "used": 1192.6688800000002
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83445,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419247,
+      "knownCityAndRegions": 23792780
+    },
+    {
+      "number": 312,
+      "name": "自然游玩_工业两区议定312.json",
+      "sha256": "f9a54f8154b5ad3514d5dfaeed248f802bccd93cf944e3eeec0383a3db9189a1",
+      "at": 121879,
+      "seed": 1345435167,
+      "world": 1114321966,
+      "initial": 495435159,
+      "born": 3399906163,
+      "dead": 2781019356,
+      "north": 8465172,
+      "east": 14908361,
+      "sharedResponsibility": 23373533,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93178,
+          "medic": 1192669,
+          "teacher": 167720,
+          "farmer": 841291,
+          "maintenance": 14909,
+          "clerk": 7455,
+          "salvager": 128455,
+          "gatherer": 26203,
+          "smith": 42599,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 54458652.453826666,
+          "medicine": 2683504.9800000004,
+          "wood": 843659.3282400001,
+          "scrap": 1378070.1874133337,
+          "tools": 339079.19307000004,
+          "knowledge": 148470.90097500003,
+          "iron": 38752.58500000001
+        },
+        "budget": {
+          "produced": {
+            "wood": 188661.6,
+            "scrap": 924876,
+            "tools": 76678.2,
+            "food": 0,
+            "medicine": 1192.6688800000002,
+            "knowledge": 109288.74800000002,
+            "iron": 5590.200000000001
+          },
+          "consumed": {
+            "scrap": 210053.51258666665,
+            "wood": 140899.51176,
+            "tools": 2898.08693,
+            "food": 9945467.066173332,
+            "medicine": 894501.6600000001,
+            "knowledge": 612.7090250000001
+          },
+          "sent": {
+            "medicine": 1192.6688800000002
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 1192.6688800000002,
+        "used": 1192.6688800000002
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83445,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419247,
+      "knownCityAndRegions": 23792780
+    },
+    {
+      "number": 313,
+      "name": "自然游玩_工业分药在途313.json",
+      "sha256": "16185f210f1bf3b76bf20ac5a08840ce8b78f072701947f4799ddc0ecc6ba510",
+      "at": 122413,
+      "seed": 1345435167,
+      "world": 1118875369,
+      "initial": 495435159,
+      "born": 3424365231,
+      "dead": 2800925021,
+      "north": 8545807,
+      "east": 15020174,
+      "sharedResponsibility": 23565981,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 56,
+        "born": 298168,
+        "dead": 186355,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93877,
+          "medic": 1201614,
+          "teacher": 173310,
+          "farmer": 846107,
+          "maintenance": 15021,
+          "clerk": 7511,
+          "salvager": 129331,
+          "gatherer": 26722,
+          "smith": 42859,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 53312357.56833333,
+          "medicine": 2703631.32,
+          "wood": 1138685.723783333,
+          "scrap": 996953.1673666667,
+          "tools": 397885.17737999995,
+          "knowledge": 149826.23565,
+          "iron": 89064.38499999998
+        },
+        "budget": {
+          "produced": {
+            "wood": 1067480.1616142264,
+            "scrap": 7418864.236401847,
+            "tools": 550343.94155759,
+            "food": 101130495.91517337,
+            "medicine": 8138176.328880001,
+            "knowledge": 113404.92478500001,
+            "iron": 55902
+          },
+          "consumed": {
+            "scrap": 7085158.769035181,
+            "wood": 724691.6778308934,
+            "tools": 405757.8441775898,
+            "food": 112222257.86683999,
+            "medicine": 9011358.98,
+            "knowledge": 3373.5511350000015
+          },
+          "sent": {
+            "medicine": 1192.6688800000002,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 22318.38608,
+        "received": 23520,
+        "local": 1192.6688800000002,
+        "used": 2394.2828
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 480,
+        "loadedToCity": 480,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 9,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 2,
+        "unpaid": 8
+      },
+      "floodLoss": 89673.792,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": null,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83443,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419245,
+      "knownCityAndRegions": 23985226
+    },
+    {
+      "number": 314,
+      "name": "自然游玩_工业原城收药314.json",
+      "sha256": "8d2352ca7ef607ce1f611225773e045aa9cd91d3dab5a043a8a28bbd65d5c984",
+      "at": 122652,
+      "seed": 1345435167,
+      "world": 1118875369,
+      "initial": 495435159,
+      "born": 3424365231,
+      "dead": 2800925021,
+      "north": 8545807,
+      "east": 15020174,
+      "sharedResponsibility": 23565981,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 72,
+        "born": 298168,
+        "dead": 186355,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93877,
+          "medic": 1201614,
+          "teacher": 173310,
+          "farmer": 846106,
+          "maintenance": 15021,
+          "clerk": 7511,
+          "salvager": 129331,
+          "gatherer": 26722,
+          "smith": 42859,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 53687893.26599999,
+          "medicine": 2703631.32,
+          "wood": 1141054.1443562817,
+          "scrap": 1055658.533113846,
+          "tools": 405578.526556923,
+          "knowledge": 149826.23565,
+          "iron": 111425.18499999997
+        },
+        "budget": {
+          "produced": {
+            "wood": 1318179.4962586288,
+            "scrap": 10482894.424183384,
+            "tools": 739588.4325747697,
+            "food": 146303065.26884004,
+            "medicine": 11743018.088879999,
+            "knowledge": 114906.94218500002,
+            "iron": 78262.79999999999
+          },
+          "consumed": {
+            "scrap": 10090483.591069542,
+            "wood": 973022.5919023468,
+            "tools": 587308.9860178463,
+            "food": 157019291.52283993,
+            "medicine": 12616200.739999998,
+            "knowledge": 4875.568535000002
+          },
+          "sent": {
+            "medicine": 1192.6688800000002,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17511.9304,
+        "received": 23520,
+        "local": 1192.6688800000002,
+        "used": 7200.738479999999
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 480,
+        "loadedToCity": 480,
+        "receivedByCity": 480
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 6,
+        "unpaid": 8
+      },
+      "floodLoss": 89673.792,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 122640,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83443,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419245,
+      "knownCityAndRegions": 23985226
+    },
+    {
+      "number": 315,
+      "name": "自然游玩_工业两区停办失养315.json",
+      "sha256": "4867b3b1b1a94a2d52dfabab3d59e8731bd8bb5a67256b6ef3229e7a615b6003",
+      "at": 124468,
+      "seed": 1345435167,
+      "world": 1132663926,
+      "initial": 495435159,
+      "born": 3498342986,
+      "dead": 2861114219,
+      "north": 8797521,
+      "east": 15369211,
+      "sharedResponsibility": 24166732,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": false,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 20,
+        "born": 1206269,
+        "dead": 745419,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 96058,
+          "medic": 1229537,
+          "teacher": 190762,
+          "farmer": 861143,
+          "maintenance": 15370,
+          "clerk": 7685,
+          "salvager": 132063,
+          "gatherer": 28341,
+          "smith": 43670,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 54969170.76699999,
+          "medicine": 2766457.9800000004,
+          "wood": 1169573.67643359,
+          "scrap": 1082670.108930769,
+          "tools": 415593.9444653846,
+          "knowledge": 153384.72578,
+          "iron": 279131.18500000023
+        },
+        "budget": {
+          "produced": {
+            "wood": 3163354.368863418,
+            "scrap": 33360344.410371087,
+            "tools": 2128901.4510934884,
+            "food": 493069779.3575069,
+            "medicine": 39335146.64887999,
+            "knowledge": 127581.32621499998,
+            "iron": 245968.8000000002
+          },
+          "consumed": {
+            "scrap": 32940922.001440328,
+            "wood": 2789677.932429826,
+            "tools": 1966606.5866281025,
+            "food": 502504728.1105063,
+            "medicine": 40145502.63999997,
+            "knowledge": 13991.462435000007
+          },
+          "sent": {
+            "medicine": 1192.6688800000002,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17511.9304,
+        "received": 23520,
+        "local": 1192.6688800000002,
+        "used": 7200.738479999999
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 480,
+        "loadedToCity": 480,
+        "receivedByCity": 480
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 6,
+        "unpaid": 38
+      },
+      "floodLoss": 911142.1380000002,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": 122880
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 122640,
+          "finishedAt": 122880
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83437,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419239,
+      "knownCityAndRegions": 24585971
+    },
+    {
+      "number": 316,
+      "name": "自然游玩_工业两区恢复316.json",
+      "sha256": "b11cd6d1c4add7c27c46b59b242b5d32d8aeb9139e8c0b2354eb96f91daf7c9b",
+      "at": 125648,
+      "seed": 1345435167,
+      "world": 1141857740,
+      "initial": 495435159,
+      "born": 3548059812,
+      "dead": 2901637231,
+      "north": 8866828,
+      "east": 15613692,
+      "sharedResponsibility": 24480520,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 1823459,
+        "dead": 1118128,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 97586,
+          "medic": 1249096,
+          "teacher": 202986,
+          "farmer": 871673,
+          "maintenance": 15614,
+          "clerk": 7807,
+          "salvager": 133977,
+          "gatherer": 29474,
+          "smith": 44238,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 55918927.668,
+          "medicine": 2810464.56,
+          "wood": 1187527.9431515385,
+          "scrap": 1100424.1950646155,
+          "tools": 422026.2809169231,
+          "knowledge": 155746.5777,
+          "iron": 390935.18500000046
+        },
+        "budget": {
+          "produced": {
+            "wood": 4435282.844646986,
+            "scrap": 48927840.53529262,
+            "tools": 3089294.2438206673,
+            "food": 727503265.5861735,
+            "medicine": 58101521.32888002,
+            "knowledge": 137688.60151000007,
+            "iron": 357772.8000000004
+          },
+          "consumed": {
+            "scrap": 48490664.04022802,
+            "wood": 4043652.141495448,
+            "tools": 2908567.0429037428,
+            "food": 735988457.4381734,
+            "medicine": 58857956.74,
+            "knowledge": 21736.885810000007
+          },
+          "sent": {
+            "medicine": 11106.668880000001,
+            "tools": 24000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 26160.57560000001,
+        "received": 47040,
+        "local": 11106.668880000001,
+        "used": 31986.093279999986
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 48000,
+        "allocatedToCity": 960,
+        "loadedToCity": 960,
+        "receivedByCity": 480
+      },
+      "service": {
+        "paid": 33,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 26,
+        "unpaid": 38
+      },
+      "floodLoss": 1188756.184,
+      "emergency": [
+        {
+          "id": 206,
+          "at": 124866,
+          "kind": "selfCare",
+          "amount": 9914
+        }
+      ],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": 122880
+        },
+        {
+          "id": 2,
+          "at": 125040,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 125520,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 122640,
+          "finishedAt": 122880
+        },
+        {
+          "id": 2,
+          "at": 125520,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": null,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83436,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419238,
+      "knownCityAndRegions": 24899758
+    },
+    {
+      "number": 317,
+      "name": "自然游玩_工业两区恢复后十年317.json",
+      "sha256": "eea4bacc968a5ba071912b5c219865008e5968d4ecabd666fd34742c36bf847a",
+      "at": 131664,
+      "seed": 1345435167,
+      "world": 1188715889,
+      "initial": 495435159,
+      "born": 3802382545,
+      "dead": 3109101815,
+      "north": 8866828,
+      "east": 16992479,
+      "sharedResponsibility": 25859307,
+      "depot": "yards",
+      "pact": {
+        "at": 121879,
+        "share": 480
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 5065791,
+        "dead": 2981673,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 106203,
+          "medic": 1359399,
+          "teacher": 271925,
+          "farmer": 931067,
+          "maintenance": 16993,
+          "clerk": 8497,
+          "salvager": 144770,
+          "gatherer": 35868,
+          "smith": 47441,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 61101788.00100001,
+          "medicine": 3058646.2199999997,
+          "wood": 1323441.3043745514,
+          "scrap": 1260320.8810061538,
+          "tools": 460235.6505030769,
+          "knowledge": 169499.978025,
+          "iron": 509774.37
+        },
+        "budget": {
+          "produced": {
+            "wood": 8787305.27670991,
+            "scrap": 125997559.82793713,
+            "tools": 8089977.035505538,
+            "food": 1943971492.0008388,
+            "medicine": 156681619.08888,
+            "knowledge": 192143.43921000074,
+            "iron": 476611.9849999999
+          },
+          "consumed": {
+            "scrap": 125400486.64693105,
+            "wood": 8259761.212335355,
+            "tools": 7799040.465002466,
+            "food": 1947273823.5198402,
+            "medicine": 157189872.84,
+            "knowledge": 62438.323185000045
+          },
+          "sent": {
+            "medicine": 11106.668880000001,
+            "tools": 96000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 37035.975999999966,
+        "received": 188160,
+        "local": 11106.668880000001,
+        "used": 162230.6928799998
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 192000,
+        "allocatedToCity": 3840,
+        "loadedToCity": 3840,
+        "receivedByCity": 3840
+      },
+      "service": {
+        "paid": 133,
+        "unpaid": 30
+      },
+      "levee": {
+        "paid": 126,
+        "unpaid": 38
+      },
+      "floodLoss": 1188756.184,
+      "emergency": [
+        {
+          "id": 206,
+          "at": 124866,
+          "kind": "selfCare",
+          "amount": 9914
+        }
+      ],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": 122880
+        },
+        {
+          "id": 2,
+          "at": 125040,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 125520,
+          "finishedAt": 126000
+        },
+        {
+          "id": 3,
+          "at": 126000,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 126480,
+          "finishedAt": 126960
+        },
+        {
+          "id": 4,
+          "at": 126960,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 127440,
+          "finishedAt": 127920
+        },
+        {
+          "id": 5,
+          "at": 127920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 128400,
+          "finishedAt": 128880
+        },
+        {
+          "id": 6,
+          "at": 128880,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 129360,
+          "finishedAt": 129840
+        },
+        {
+          "id": 7,
+          "at": 129840,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 130320,
+          "finishedAt": 130800
+        },
+        {
+          "id": 8,
+          "at": 130800,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 131280,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 122640,
+          "finishedAt": 122880
+        },
+        {
+          "id": 2,
+          "at": 125520,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 125760,
+          "finishedAt": 126000
+        },
+        {
+          "id": 3,
+          "at": 126480,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 126720,
+          "finishedAt": 126960
+        },
+        {
+          "id": 4,
+          "at": 127440,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 127680,
+          "finishedAt": 127920
+        },
+        {
+          "id": 5,
+          "at": 128400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 128640,
+          "finishedAt": 128880
+        },
+        {
+          "id": 6,
+          "at": 129360,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 129600,
+          "finishedAt": 129840
+        },
+        {
+          "id": 7,
+          "at": 130320,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 130560,
+          "finishedAt": 130800
+        },
+        {
+          "id": 8,
+          "at": 131280,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 131520,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83449,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419251,
+      "knownCityAndRegions": 26278558,
+      "lastTenYears": {
+        "from": 125648,
+        "seconds": 6016,
+        "cityMaintenance": {
+          "paid": 100,
+          "delayed": 0
+        },
+        "regionalService": {
+          "paid": 100,
+          "unpaid": 0
+        },
+        "levee": {
+          "paid": 100,
+          "unpaid": 0
+        },
+        "minCityHealth": 100,
+        "minCityStable": 600
+      }
+    },
+    {
+      "number": 318,
+      "name": "自然游玩_公共首班备药交接318.json",
+      "sha256": "35f10e709e76826bdf581569fba6ea45ce51a668db2d3ba6baf02f6f931b8128",
+      "at": 71907,
+      "seed": 750278434,
+      "world": 563508518,
+      "initial": 350278429,
+      "born": 1169635280,
+      "dead": 956405191,
+      "north": 6004357,
+      "east": 10415529,
+      "sharedResponsibility": 16419886,
+      "depot": "canal",
+      "pact": {
+        "at": 71907,
+        "share": 2400,
+        "handoff": 1
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 6119123,
+        "workers": {
+          "water": 65098,
+          "medic": 833243,
+          "teacher": 117175,
+          "farmer": 587757,
+          "maintenance": 10416,
+          "clerk": 5208,
+          "salvager": 89745,
+          "gatherer": 18307,
+          "smith": 29762,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 38046816.441240005,
+          "medicine": 1874795.22,
+          "wood": 739009.6523600001,
+          "scrap": 1103476.96512,
+          "tools": 310151.85123,
+          "knowledge": 103654.901775,
+          "iron": 36290.07
+        },
+        "budget": {
+          "produced": {
+            "wood": 56010.24000000011,
+            "scrap": 602170.08,
+            "tools": 53388.50999999999,
+            "food": 0,
+            "medicine": 833.2423200000001,
+            "knowledge": 65293.686000000016,
+            "iron": 3905.4
+          },
+          "consumed": {
+            "scrap": 146386.51487999997,
+            "wood": 94232.66763999999,
+            "tools": 2314.01877,
+            "food": 6948268.838759999,
+            "medicine": 624931.74,
+            "knowledge": 500.38822500000003
+          },
+          "sent": {
+            "medicine": 833.2423200000001
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 833.2423200000001,
+        "used": 833.2423200000001
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16567284
+    },
+    {
+      "number": 319,
+      "name": "自然游玩_公共首班交接实到319.json",
+      "sha256": "019a8d1dbace6ccd2ed9adf6ca9f3c20668ca871adaa8f945b7a774ce5c1b4a8",
+      "at": 72670,
+      "seed": 750278434,
+      "world": 568048267,
+      "initial": 350278429,
+      "born": 1194277389,
+      "dead": 976507551,
+      "north": 6004357,
+      "east": 10573324,
+      "sharedResponsibility": 16577681,
+      "depot": "canal",
+      "pact": {
+        "at": 71907,
+        "share": 2400,
+        "handoff": 1
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 71828
+      },
+      "origin": {
+        "at": 71828,
+        "initial": 6476934,
+        "population": 10415529,
+        "born": 21662206,
+        "dead": 17723611,
+        "housing": 13019412,
+        "initialStores": {
+          "food": 27980354.88,
+          "medicine": 1554464.1600000001,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "stores": {
+          "food": 44995085.28,
+          "medicine": 2499726.96,
+          "wood": 777232.08,
+          "scrap": 647693.4,
+          "tools": 259077.36000000002,
+          "knowledge": 38861.604,
+          "iron": 32384.670000000002
+        },
+        "produced": {
+          "food": 7134841951.200001,
+          "medicine": 594097531.1999999,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "consumed": {
+          "food": 7117827220.800001,
+          "medicine": 593152268.4000001,
+          "wood": 42497430.95999999,
+          "scrap": 39543484.55999999,
+          "tools": 20165601.79999999,
+          "knowledge": 1977174.2279999992
+        },
+        "assets": {
+          "beds": 13019412,
+          "waterCapacity": 13019412,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 418184,
+        "dead": 260389,
+        "groups": 160,
+        "workforce": 6119124,
+        "workers": {
+          "water": 66084,
+          "medic": 845866,
+          "teacher": 125065,
+          "farmer": 594553,
+          "maintenance": 10574,
+          "clerk": 5287,
+          "salvager": 90980,
+          "gatherer": 19039,
+          "smith": 30129,
+          "smelter": 6509
+        },
+        "stocks": {
+          "food": 37807850.915999986,
+          "medicine": 1903198.3200000003,
+          "wood": 799816.5468633336,
+          "scrap": 732716.4957599998,
+          "tools": 284684.29871717945,
+          "knowledge": 105468.9069,
+          "iron": 87060.26999999997
+        },
+        "budget": {
+          "produced": {
+            "wood": 665203.3204260347,
+            "scrap": 7088265.590261438,
+            "tools": 458409.7653040519,
+            "food": 104189016.43978673,
+            "medicine": 8309500.445840001,
+            "knowledge": 70520.15680000008,
+            "iron": 54675.60000000001
+          },
+          "consumed": {
+            "scrap": 7003242.494501436,
+            "wood": 642618.8535627013,
+            "tools": 420802.82658687205,
+            "food": 111376250.80378665,
+            "medicine": 8898486.160000002,
+            "knowledge": 3912.8538999999996
+          },
+          "sent": {
+            "medicine": 7542.925840000002,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17389.793359999996,
+        "received": 21600,
+        "local": 7542.925840000002,
+        "used": 11753.13248
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 2400,
+        "loadedToCity": 2400,
+        "receivedByCity": 2400
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 14,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 71940,
+          "share": 2400,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 72420,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 72420,
+          "cargo": {
+            "medicine": 2400
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 72660,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "agronomy": true,
+        "metal": true,
+        "preservation": true,
+        "handtools": true,
+        "records": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "logistics": true,
+        "survey": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 15292,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 54992,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 77114,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 147398,
+      "knownCityAndRegions": 16725079
+    },
+    {
+      "number": 320,
+      "name": "自然游玩_工业首班备药交接320.json",
+      "sha256": "b04dc7576463dbb9e1f3c67aa3d8acf9b43f732e20a105d3a05e2fa536f28ff8",
+      "at": 121886,
+      "seed": 1345435167,
+      "world": 1114321966,
+      "initial": 495435159,
+      "born": 3399906163,
+      "dead": 2781019356,
+      "north": 8465172,
+      "east": 14908361,
+      "sharedResponsibility": 23373533,
+      "depot": "yards",
+      "pact": {
+        "at": 121886,
+        "share": 480,
+        "handoff": 1
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 91,
+        "condition": 95,
+        "levee": 84,
+        "born": 0,
+        "dead": 0,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93178,
+          "medic": 1192669,
+          "teacher": 167720,
+          "farmer": 841291,
+          "maintenance": 14909,
+          "clerk": 7455,
+          "salvager": 128455,
+          "gatherer": 26203,
+          "smith": 42599,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 54458652.453826666,
+          "medicine": 2683504.9800000004,
+          "wood": 843659.3282400001,
+          "scrap": 1378070.1874133337,
+          "tools": 339079.19307000004,
+          "knowledge": 148470.90097500003,
+          "iron": 38752.58500000001
+        },
+        "budget": {
+          "produced": {
+            "wood": 188661.6,
+            "scrap": 924876,
+            "tools": 76678.2,
+            "food": 0,
+            "medicine": 1192.6688800000002,
+            "knowledge": 109288.74800000002,
+            "iron": 5590.200000000001
+          },
+          "consumed": {
+            "scrap": 210053.51258666665,
+            "wood": 140899.51176,
+            "tools": 2898.08693,
+            "food": 9945467.066173332,
+            "medicine": 894501.6600000001,
+            "knowledge": 612.7090250000001
+          },
+          "sent": {
+            "medicine": 1192.6688800000002
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 0,
+        "received": 0,
+        "local": 1192.6688800000002,
+        "used": 1192.6688800000002
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 0,
+        "allocatedToCity": 0,
+        "loadedToCity": 0,
+        "receivedByCity": 0
+      },
+      "service": {
+        "paid": 0,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 1,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [],
+      "deliveries": [],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83445,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419247,
+      "knownCityAndRegions": 23792780
+    },
+    {
+      "number": 321,
+      "name": "自然游玩_工业首班交接实到321.json",
+      "sha256": "85443a179fcc5b198afad9fa611b8a54f66928b8234c443345032f5eb35f8aef",
+      "at": 122648,
+      "seed": 1345435167,
+      "world": 1118875369,
+      "initial": 495435159,
+      "born": 3424365231,
+      "dead": 2800925021,
+      "north": 8545807,
+      "east": 15020174,
+      "sharedResponsibility": 23565981,
+      "depot": "yards",
+      "pact": {
+        "at": 121886,
+        "share": 480,
+        "handoff": 1
+      },
+      "enabled": true,
+      "survey": {
+        "remaining": 0,
+        "finishedAt": 121850
+      },
+      "origin": {
+        "at": 121850,
+        "initial": 6632477,
+        "population": 14908361,
+        "born": 45517217,
+        "dead": 37241333,
+        "housing": 18635452,
+        "initialStores": {
+          "food": 28652300.64,
+          "medicine": 1591794.48,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "stores": {
+          "food": 64404119.519999996,
+          "medicine": 3578006.6400000006,
+          "wood": 795897.24,
+          "scrap": 663247.7000000001,
+          "tools": 265299.08,
+          "knowledge": 39794.862,
+          "iron": 33162.385
+        },
+        "produced": {
+          "food": 15000581436.480003,
+          "medicine": 1249055346.9599998,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "consumed": {
+          "food": 14964829617.599997,
+          "medicine": 1247069134.8000004,
+          "wood": 89344855.32000004,
+          "scrap": 83137942.32,
+          "tools": 42396559.55999998,
+          "knowledge": 4156897.1160000013
+        },
+        "assets": {
+          "beds": 18635452,
+          "waterCapacity": 18635452,
+          "coastalBarges": 16,
+          "freightCapacity": 96000,
+          "publicCart": 1
+        },
+        "model": "east-floodplain-annual-subsistence-v1"
+      },
+      "region": {
+        "health": 100,
+        "condition": 100,
+        "levee": 100,
+        "born": 298168,
+        "dead": 186355,
+        "groups": 160,
+        "workforce": 8758662,
+        "workers": {
+          "water": 93877,
+          "medic": 1201614,
+          "teacher": 173310,
+          "farmer": 846106,
+          "maintenance": 15021,
+          "clerk": 7511,
+          "salvager": 129331,
+          "gatherer": 26722,
+          "smith": 42859,
+          "smelter": 9317
+        },
+        "stocks": {
+          "food": 53687893.26599999,
+          "medicine": 2703631.32,
+          "wood": 1141054.1443562817,
+          "scrap": 1055658.533113846,
+          "tools": 405578.526556923,
+          "knowledge": 149826.23565,
+          "iron": 111425.18499999997
+        },
+        "budget": {
+          "produced": {
+            "wood": 1327821.7017221854,
+            "scrap": 10495819.399767386,
+            "tools": 742870.4700201026,
+            "food": 146226113.2782267,
+            "medicine": 11752559.439919997,
+            "knowledge": 115503.27662499991,
+            "iron": 78262.79999999999
+          },
+          "consumed": {
+            "scrap": 10103408.566653538,
+            "wood": 982664.797365902,
+            "tools": 590591.0234631796,
+            "food": 156942339.5322266,
+            "medicine": 12616200.739999998,
+            "knowledge": 5471.902975000002
+          },
+          "sent": {
+            "medicine": 10734.019920000002,
+            "tools": 12000
+          },
+          "received": {}
+        }
+      },
+      "medical": {
+        "stock": 17511.9304,
+        "received": 23520,
+        "local": 10734.019920000002,
+        "used": 16742.08952
+      },
+      "buffer": 0,
+      "material": {
+        "deliveredBetweenRegions": 24000,
+        "allocatedToCity": 480,
+        "loadedToCity": 480,
+        "receivedByCity": 480
+      },
+      "service": {
+        "paid": 13,
+        "unpaid": 0
+      },
+      "levee": {
+        "paid": 14,
+        "unpaid": 0
+      },
+      "floodLoss": 0,
+      "emergency": [],
+      "trips": [
+        {
+          "id": 1,
+          "at": 121920,
+          "share": 480,
+          "out": {
+            "medicine": 24000
+          },
+          "back": {
+            "tools": 12000
+          },
+          "fees": {
+            "food": 192,
+            "wood": 64,
+            "tools": 16
+          },
+          "deliveredAt": 122400,
+          "finishedAt": null
+        }
+      ],
+      "deliveries": [
+        {
+          "id": 1,
+          "at": 122400,
+          "cargo": {
+            "medicine": 480
+          },
+          "fees": {
+            "food": 24,
+            "wood": 4,
+            "tools": 1
+          },
+          "deliveredAt": 122640,
+          "finishedAt": null
+        }
+      ],
+      "tech": {
+        "water": true,
+        "metal": true,
+        "agronomy": true,
+        "records": true,
+        "preservation": true,
+        "handtools": true,
+        "sanitation": true,
+        "irrigation": true,
+        "school": true,
+        "trails": true,
+        "mining": true,
+        "furnace": true,
+        "mechanics": true,
+        "power": true,
+        "survey": true,
+        "logistics": true,
+        "standards": true,
+        "administration": true,
+        "urbanworks": true
+      },
+      "cities": [
+        {
+          "id": "home",
+          "population": 16988,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "population": 62514,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "population": 83443,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "population": 142786,
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "population": 113514,
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "cityPopulation": 419245,
+      "knownCityAndRegions": 23985226
+    }
+  ]
+}
