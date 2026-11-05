@@ -31,7 +31,13 @@ CivilCityCouncil.validate=function(s){
       for(const b of [n.stores,...['produced','consumed','received','sent'].map(k=>n.budget?.[k])])if(!cost(b))fail('河口仓库');
       const transfer=this.transfers(s,'estuary');
       if(!equalCost(n.budget.sent,transfer.sent)||!equalCost(n.budget.received,transfer.received))fail('河口收发');
-      for(const k of resources)if(!near(n.stores[k],o.stores[k]+(n.budget.produced[k]||0)+(n.budget.received[k]||0)-(n.budget.consumed[k]||0)-(n.budget.sent[k]||0)))fail('河口物资守恒');
+      // Hundreds of millions of cumulative units may differ by floating-point
+      // summation order. Bound only this stock equation; receipts stay strict.
+      for(const k of resources){
+        const flows=['produced','received','consumed','sent'].map(key=>n.budget[key][k]||0),expected=o.stores[k]+flows[0]+flows[1]-flows[2]-flows[3];
+        const tolerance=Math.min(.001,1e-4+flows.reduce((sum,value)=>sum+value,0)*1e-12);
+        if(!num(n.stores[k])||!num(expected)||Math.abs(n.stores[k]-expected)>=tolerance)fail('河口物资守恒');
+      }
     }
   }
   const policies=Object.fromEntries(Object.keys(d.offices).map(id=>[id,{enabled:true,quota:'normal',lastPaidAt:null}]));

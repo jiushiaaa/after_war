@@ -43,7 +43,7 @@ CivilDomain.validate=function(s){
   if(rounds!==dueRounds||years!==dueYears||serviceDue!==null||tripCount!==d.trips.length)fail('遗漏结算');
   for(const p of d.trips){if(!used.has(p.id)||p.deliveredAt!==(p.startedAt+this.travel<=s.civilization.elapsed?p.startedAt+this.travel:null)||p.finishedAt!==(p.startedAt+this.travel*2<=s.civilization.elapsed?p.startedAt+this.travel*2:null))fail('在途保管');}
   if(d.mode!==mode||d.priority!==priority||d.enabled!==enabled||d.good!==good||!same(d.node,node))fail('地区经济回放');
-  if(node.cohorts.length>160||this.count(node)!==d.origin.population+node.born-node.dead||this.count(node)!==c.accounts[this.account]||Object.values(node.workers).reduce((a,b)=>a+b,0)+(active?4:0)>CivilPopulation.workforce(node.cohorts))fail('人口岗位');
+  if(node.cohorts.length>160||this.count(node)!==d.origin.population+node.born-node.dead-(s.civilization.polity?.future?.migrated||0)||this.count(node)!==c.accounts[this.account]||Object.values(node.workers).reduce((a,b)=>a+b,0)+(active?4:0)>CivilPopulation.workforce(node.cohorts))fail('人口岗位');
   for(const [id,cost]of [['home',home],['lake',lake]])for(const [k,v]of Object.entries(cost))if((this.city(s,id).budget.consumed[k]||0)+1e-5<v)fail('城市实付');
   // Exact event replay above still rejects any changed stock; this sum only allows accumulated floating-point cancellation.
   for(const k of CivilCityContent.resources)if(Math.abs(node.stores[k]-(d.origin.stores[k]+(node.budget.produced[k]||0)-(node.budget.consumed[k]||0)+(node.budget.received[k]||0)-(node.budget.sent[k]||0)))>1e-4+((node.budget.produced[k]||0)+(node.budget.consumed[k]||0))*1e-12)fail('地方物资');

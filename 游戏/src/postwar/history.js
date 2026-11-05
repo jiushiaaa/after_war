@@ -23,6 +23,7 @@ var CivilHistory={
     };
     for(const [i,e]of (c.city?.history||[]).entries())add('city_district_'+i,e.kind==='project'||e.kind==='complete'?'projects':e.kind==='policy'?'governance':'cities',e.text,'城域记录 · '+(typeof CivilCityContent!=='undefined'?CivilCityContent.wards[e.id]?.name||'原镇':e.id),e.at);
     for(const [i,e]of (c.cityCouncil?.history||[]).entries())add('city_council_'+i,'cities',e.text,'城市共同事务 · 地方承诺与实付工程',e.at);
+    for(const [i,e]of (c.polity?.future?.history||[]).entries())add('advanced_society_'+i,e.kind==='technology'?'technology':e.kind==='building'?'projects':e.kind==='echo'?'ruins':'governance','先进共同体 · '+({adoption:'身体与人格',consent:'本人同意',law:'权利议决',society:'持续生活',foundation:'居民迁居',migration:'安居迁居',mandate:'公共委托',workforce:'班组交接',repair:'身份恢复',treatment:'临床恢复',isolation:'可申诉隔离',echo:'旧战场回响',technology:'新能力',building:'工程竣工'}[e.kind]||'共同记录'),e.text,e.at);
     for(const h of x?.history||[]){
       const reason={death:'因前任离世而完成交接',retirement:'退休交接',election:'选举交接',regency:'摄政结束后的交接'}[h.reason]||'职责交接';
       add('tenure_'+h.generation,'tenures','第'+h.generation+'任 '+h.title,'交接时'+h.age+'岁；'+reason+'。',null,{generation:h.generation,from:h.from,to:h.to,current:false});

@@ -1,0 +1,140 @@
+{
+  "at": 165682,
+  "speed": 32,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "f": {
+    "assets": {
+      "housing": 1
+    },
+    "tech": {},
+    "research": null,
+    "project": null,
+    "adoption": null,
+    "counts": {
+      "total": 240,
+      "bio": 240,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 240,
+      "workers": 240,
+      "children": 0,
+      "mutant": 120,
+      "citizens": 240
+    },
+    "stock": {
+      "food": 547.2,
+      "medicine": 45.6,
+      "wood": 90,
+      "tools": 29.12,
+      "iron": 100,
+      "knowledge": 180,
+      "parts": 59.85,
+      "electronics": 20,
+      "culture": 0
+    },
+    "condition": 100,
+    "health": 100,
+    "soil": 48,
+    "geneSafety": 100,
+    "machineWear": 0,
+    "auditRisk": 0,
+    "quarantined": false,
+    "law": {
+      "care": "treatment",
+      "ownership": "personal",
+      "citizenship": "residence",
+      "work": "mixed"
+    },
+    "proposal": null,
+    "converted": {},
+    "created": 0,
+    "born": 0,
+    "dead": 0,
+    "migrated": 240,
+    "power": "auto",
+    "monitor": true,
+    "audit": true,
+    "last": {
+      "at": 165660,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 6,
+        "maintenance": 4,
+        "clerk": 2,
+        "teacher": 4,
+        "gardener": 0,
+        "manufacturing": 0
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 6
+        },
+        "maintenance": {
+          "organic": 4
+        },
+        "clerk": {
+          "organic": 2
+        },
+        "teacher": {
+          "organic": 4
+        },
+        "gardener": {},
+        "manufacturing": {}
+      },
+      "idle": 216,
+      "produced": [],
+      "energy": {
+        "generated": 120,
+        "used": 27.2,
+        "stored": 92.8,
+        "capacity": 400,
+        "heat": 240,
+        "sources": {
+          "renewable": 0,
+          "thermal": 120,
+          "fusion": 0
+        }
+      },
+      "food": 172.79999999999998,
+      "upkeep": {
+        "tools": 0.6799999999999999,
+        "parts": 0.15
+      },
+      "dormant": 0
+    },
+    "qualified": {
+      "bio": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "recovered": {
+      "bio": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "echo": null,
+    "exports": 0
+  }
+}

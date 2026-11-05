@@ -72,3 +72,10 @@ test('native decoding rejects unpaid public cargo, ghost inhabitants, forged vot
 test('public town route can fund municipal stations and housing without granting industrial technologies',()=>{
  const h=start(save(214)),n=h.ctx.CivilCityNetwork,s=h.s;assert.ok(!s.civilization.tech.mechanics);n.form(s);n.survey(s);h.step(600);h.until(()=>!n.buildReason(s),1200);n.build(s);h.step(310);n.setEnabled(s,true);h.until(()=>h.a.available(s),3500);assert.ok(h.a.form(s));h.until(()=>['home','lake','ridge'].every(id=>h.a.activeOffice(s,id)),420);finish(h,'housing','lake','equal');assert.ok(!s.civilization.tech.mechanics);h.roundtrip();
 });
+
+test('very long cumulative river flows tolerate rounding but still reject a hundredth of unpaid goods',()=>{
+ const h=four(),n=h.d().locals.estuary.node;
+ // Declared numerical boundary: equal inflow/outflow leaves the physical stock unchanged.
+ n.budget.produced.food+=300000000;n.budget.consumed.food+=300000000;n.stores.food+=.00011;
+ h.a.validate(h.s);n.stores.food+=.01;assert.throws(()=>h.a.validate(h.s),/河口物资守恒/);
+});

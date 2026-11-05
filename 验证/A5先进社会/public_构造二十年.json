@@ -1,0 +1,3199 @@
+{
+  "kind": "constructed-20-years-full-adapter-not-natural",
+  "input": "验证/存档/自然游玩_A5公共持续维护364.json",
+  "before": {
+    "at": 145886,
+    "world": 880715981,
+    "born": 2974950917,
+    "dead": 2444513365,
+    "created": 0,
+    "counts": {
+      "total": 519,
+      "bio": 519,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 24,
+      "prosthetic": 0,
+      "organic": 495,
+      "workers": 362,
+      "children": 127,
+      "mutant": 222,
+      "citizens": 519
+    },
+    "migrated": 480,
+    "localBirths": 279,
+    "localDeaths": 240,
+    "localCreated": 0,
+    "condition": 100,
+    "health": 100,
+    "geneSafety": 100,
+    "machineWear": 0,
+    "quarantined": false,
+    "qualified": {
+      "bio": 106,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 106
+    },
+    "stock": {
+      "food": 5416.9999999998545,
+      "medicine": 342.7799999999972,
+      "wood": 232,
+      "tools": 107.93799999999767,
+      "iron": 244,
+      "knowledge": 344,
+      "parts": 163.49999999999443,
+      "electronics": 98,
+      "culture": 76.47999999999911,
+      "steel": 108,
+      "cell": 104
+    },
+    "last": {
+      "at": 145860,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 29,
+        "maintenance": 9,
+        "clerk": 6,
+        "teacher": 11,
+        "gardener": 32,
+        "manufacturing": 24
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 29
+        },
+        "maintenance": {
+          "organic": 9
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 11
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "organic": 24
+        }
+      },
+      "idle": 243,
+      "produced": [
+        "culture",
+        "parts",
+        "steel"
+      ],
+      "energy": {
+        "generated": 100,
+        "used": 129.92000000000002,
+        "stored": 748.1600000000001,
+        "capacity": 800,
+        "heat": 400,
+        "sources": {
+          "renewable": 100,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 343.2,
+      "upkeep": {
+        "tools": 3.4380000000000006,
+        "parts": 1.7999999999999998
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "exports": 103,
+    "completedShipments": 191,
+    "globalPublic": {
+      "paid": 1019,
+      "missed": 46,
+      "stable": 600
+    },
+    "cities": [
+      {
+        "id": "home",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "lake",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "ridge",
+        "health": 100,
+        "stable": 600
+      }
+    ]
+  },
+  "years": [
+    {
+      "at": 146486,
+      "world": 883417263,
+      "born": 2993545158,
+      "dead": 2460406324,
+      "created": 0,
+      "counts": {
+        "total": 524,
+        "bio": 524,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 500,
+        "workers": 369,
+        "children": 125,
+        "mutant": 224,
+        "citizens": 524
+      },
+      "migrated": 480,
+      "localBirths": 284,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 116,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 116
+      },
+      "stock": {
+        "food": 5268.839999999853,
+        "medicine": 327.579999999997,
+        "wood": 232,
+        "tools": 87.1379999999976,
+        "iron": 228,
+        "knowledge": 328,
+        "parts": 142.99999999999426,
+        "electronics": 82,
+        "culture": 75.67999999999907,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 146460,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 11,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 11
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 249,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 126.32,
+          "stored": 656.1600000000005,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 347.28,
+        "upkeep": {
+          "tools": 3.4480000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 105,
+      "completedShipments": 193,
+      "globalPublic": {
+        "paid": 1029,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 147086,
+      "world": 886129350,
+      "born": 3012232549,
+      "dead": 2476381628,
+      "created": 0,
+      "counts": {
+        "total": 528,
+        "bio": 528,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 504,
+        "workers": 376,
+        "children": 122,
+        "mutant": 225,
+        "citizens": 528
+      },
+      "migrated": 480,
+      "localBirths": 288,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 126,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 126
+      },
+      "stock": {
+        "food": 5307.839999999851,
+        "medicine": 319.69999999999675,
+        "wood": 232,
+        "tools": 67.2419999999975,
+        "iron": 212,
+        "knowledge": 312,
+        "parts": 146.4999999999941,
+        "electronics": 90,
+        "culture": 74.87999999999903,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 147060,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 11,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 11
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 256,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 126.64,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 350.88,
+        "upkeep": {
+          "tools": 3.4560000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 106,
+      "completedShipments": 196,
+      "globalPublic": {
+        "paid": 1039,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 147686,
+      "world": 888852287,
+      "born": 3031013868,
+      "dead": 2492440010,
+      "created": 0,
+      "counts": {
+        "total": 532,
+        "bio": 532,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 508,
+        "workers": 384,
+        "children": 118,
+        "mutant": 226,
+        "citizens": 532
+      },
+      "migrated": 480,
+      "localBirths": 292,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 136,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 136
+      },
+      "stock": {
+        "food": 5396.359999999846,
+        "medicine": 309.4199999999964,
+        "wood": 232,
+        "tools": 46.26599999999745,
+        "iron": 196,
+        "knowledge": 296,
+        "parts": 150.99999999999392,
+        "electronics": 98,
+        "culture": 74.07999999999899,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 147660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 265,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 126.96000000000001,
+          "stored": 746.0799999999999,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 354.72,
+        "upkeep": {
+          "tools": 3.4640000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 107,
+      "completedShipments": 198,
+      "globalPublic": {
+        "paid": 1049,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 148286,
+      "world": 891586113,
+      "born": 3049890393,
+      "dead": 2508582709,
+      "created": 0,
+      "counts": {
+        "total": 535,
+        "bio": 535,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 511,
+        "workers": 391,
+        "children": 114,
+        "mutant": 227,
+        "citizens": 535
+      },
+      "migrated": 480,
+      "localBirths": 295,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 146,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 146
+      },
+      "stock": {
+        "food": 5483.91999999984,
+        "medicine": 352.0599999999959,
+        "wood": 232,
+        "tools": 109.21399999999743,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.49999999999375,
+        "electronics": 98,
+        "culture": 73.27999999999895,
+        "steel": 108,
+        "cell": 104
+      },
+      "last": {
+        "at": 148260,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 272,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 131.2,
+          "stored": 635.9999999999995,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 357.84,
+        "upkeep": {
+          "tools": 3.4700000000000006,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 108,
+      "completedShipments": 201,
+      "globalPublic": {
+        "paid": 1059,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 148886,
+      "world": 894330876,
+      "born": 3068862604,
+      "dead": 2524810157,
+      "created": 0,
+      "counts": {
+        "total": 538,
+        "bio": 538,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 514,
+        "workers": 399,
+        "children": 109,
+        "mutant": 228,
+        "citizens": 538
+      },
+      "migrated": 480,
+      "localBirths": 298,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 156,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 156
+      },
+      "stock": {
+        "food": 5380.799999999836,
+        "medicine": 341.89999999999543,
+        "wood": 232,
+        "tools": 87.6019999999974,
+        "iron": 228,
+        "knowledge": 328,
+        "parts": 142.99999999999358,
+        "electronics": 82,
+        "culture": 70.47999999999891,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 148860,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 280,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 127.44,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 361.2,
+        "upkeep": {
+          "tools": 3.4760000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 110,
+      "completedShipments": 203,
+      "globalPublic": {
+        "paid": 1069,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 149486,
+      "world": 897086617,
+      "born": 3087665242,
+      "dead": 2540857054,
+      "created": 0,
+      "counts": {
+        "total": 541,
+        "bio": 541,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 517,
+        "workers": 400,
+        "children": 105,
+        "mutant": 229,
+        "citizens": 541
+      },
+      "migrated": 480,
+      "localBirths": 301,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 166,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 166
+      },
+      "stock": {
+        "food": 5398.559999999834,
+        "medicine": 330.9399999999954,
+        "wood": 232,
+        "tools": 66.92999999999738,
+        "iron": 212,
+        "knowledge": 312,
+        "parts": 146.4999999999934,
+        "electronics": 90,
+        "culture": 67.67999999999887,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 149460,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 280,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 127.68,
+          "stored": 744.6399999999999,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 364.32,
+        "upkeep": {
+          "tools": 3.482,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 111,
+      "completedShipments": 206,
+      "globalPublic": {
+        "paid": 1079,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 150086,
+      "world": 899853381,
+      "born": 3105401195,
+      "dead": 2555826243,
+      "created": 0,
+      "counts": {
+        "total": 544,
+        "bio": 544,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 520,
+        "workers": 402,
+        "children": 100,
+        "mutant": 230,
+        "citizens": 544
+      },
+      "migrated": 480,
+      "localBirths": 304,
+      "localDeaths": 240,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 176,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 176
+      },
+      "stock": {
+        "food": 5451.639999999832,
+        "medicine": 319.1799999999953,
+        "wood": 232,
+        "tools": 46.19799999999735,
+        "iron": 196,
+        "knowledge": 296,
+        "parts": 150.99999999999324,
+        "electronics": 98,
+        "culture": 64.87999999999883,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 150060,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 283,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 127.92,
+          "stored": 627.3599999999994,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 367.68,
+        "upkeep": {
+          "tools": 3.4880000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 112,
+      "completedShipments": 208,
+      "globalPublic": {
+        "paid": 1089,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 150686,
+      "world": 902631200,
+      "born": 3122773661,
+      "dead": 2570420890,
+      "created": 0,
+      "counts": {
+        "total": 535,
+        "bio": 535,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 12,
+        "prosthetic": 0,
+        "organic": 523,
+        "workers": 403,
+        "children": 96,
+        "mutant": 225,
+        "citizens": 535
+      },
+      "migrated": 480,
+      "localBirths": 307,
+      "localDeaths": 252,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 186
+      },
+      "stock": {
+        "food": 5524.879999999826,
+        "medicine": 351.7799999999951,
+        "wood": 232,
+        "tools": 109.45399999999732,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.49999999999307,
+        "electronics": 98,
+        "culture": 66.55999999999882,
+        "steel": 108,
+        "cell": 104
+      },
+      "last": {
+        "at": 150660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 285,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 131.2,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 362.15999999999997,
+        "upkeep": {
+          "tools": 3.4700000000000006,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 113,
+      "completedShipments": 211,
+      "globalPublic": {
+        "paid": 1099,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 151286,
+      "world": 905420123,
+      "born": 3140208056,
+      "dead": 2585066362,
+      "created": 0,
+      "counts": {
+        "total": 521,
+        "bio": 521,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 521,
+        "workers": 411,
+        "children": 92,
+        "mutant": 217,
+        "citizens": 521
+      },
+      "migrated": 480,
+      "localBirths": 311,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 196
+      },
+      "stock": {
+        "food": 5227.519999999824,
+        "medicine": 338.7799999999948,
+        "wood": 232,
+        "tools": 87.40999999999728,
+        "iron": 228,
+        "knowledge": 328,
+        "parts": 142.9999999999929,
+        "electronics": 82,
+        "culture": 68.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 151260,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 293,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 126.08,
+          "stored": 747.8399999999999,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 353.04,
+        "upkeep": {
+          "tools": 3.442,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 115,
+      "completedShipments": 213,
+      "globalPublic": {
+        "paid": 1109,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 151886,
+      "world": 908220222,
+      "born": 3157704679,
+      "dead": 2599762886,
+      "created": 0,
+      "counts": {
+        "total": 525,
+        "bio": 525,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 525,
+        "workers": 414,
+        "children": 89,
+        "mutant": 218,
+        "citizens": 525
+      },
+      "migrated": 480,
+      "localBirths": 315,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 206
+      },
+      "stock": {
+        "food": 5254.91999999982,
+        "medicine": 323.89999999999486,
+        "wood": 232,
+        "tools": 66.57399999999721,
+        "iron": 212,
+        "knowledge": 312,
+        "parts": 146.49999999999272,
+        "electronics": 90,
+        "culture": 72.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 151860,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 296,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 126.4,
+          "stored": 654.3999999999996,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 356.64,
+        "upkeep": {
+          "tools": 3.45,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 116,
+      "completedShipments": 216,
+      "globalPublic": {
+        "paid": 1119,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 152486,
+      "world": 911031521,
+      "born": 3175263775,
+      "dead": 2614510683,
+      "created": 0,
+      "counts": {
+        "total": 529,
+        "bio": 529,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 529,
+        "workers": 392,
+        "children": 86,
+        "mutant": 219,
+        "citizens": 529
+      },
+      "migrated": 480,
+      "localBirths": 319,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 216
+      },
+      "stock": {
+        "food": 5332.319999999814,
+        "medicine": 316.61999999999483,
+        "wood": 232,
+        "tools": 46.65799999999716,
+        "iron": 196,
+        "knowledge": 296,
+        "parts": 150.99999999999255,
+        "electronics": 98,
+        "culture": 76.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 152460,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 274,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 126.72,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 360.24,
+        "upkeep": {
+          "tools": 3.458,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 117,
+      "completedShipments": 218,
+      "globalPublic": {
+        "paid": 1129,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 153086,
+      "world": 913854064,
+      "born": 3192885640,
+      "dead": 2629310005,
+      "created": 0,
+      "counts": {
+        "total": 533,
+        "bio": 533,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 533,
+        "workers": 372,
+        "children": 82,
+        "mutant": 220,
+        "citizens": 533
+      },
+      "migrated": 480,
+      "localBirths": 323,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 226
+      },
+      "stock": {
+        "food": 5402.239999999812,
+        "medicine": 352.9399999999947,
+        "wood": 232,
+        "tools": 109.16199999999715,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.49999999999238,
+        "electronics": 98,
+        "culture": 74.63999999999886,
+        "steel": 108,
+        "cell": 104
+      },
+      "last": {
+        "at": 153060,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 254,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 131.04,
+          "stored": 745.9200000000001,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 364.08000000000004,
+        "upkeep": {
+          "tools": 3.466,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 118,
+      "completedShipments": 221,
+      "globalPublic": {
+        "paid": 1139,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 153686,
+      "world": 916687899,
+      "born": 3210570535,
+      "dead": 2644161065,
+      "created": 0,
+      "counts": {
+        "total": 537,
+        "bio": 537,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 537,
+        "workers": 355,
+        "children": 79,
+        "mutant": 221,
+        "citizens": 537
+      },
+      "migrated": 480,
+      "localBirths": 327,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 236
+      },
+      "stock": {
+        "food": 5357.239999999809,
+        "medicine": 336.85999999999456,
+        "wood": 232,
+        "tools": 88.08599999999713,
+        "iron": 228,
+        "knowledge": 328,
+        "parts": 142.9999999999922,
+        "electronics": 82,
+        "culture": 78.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 153660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 238,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 127.36,
+          "stored": 642.8800000000003,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 367.68000000000006,
+        "upkeep": {
+          "tools": 3.474,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 120,
+      "completedShipments": 223,
+      "globalPublic": {
+        "paid": 1149,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 154286,
+      "world": 919533070,
+      "born": 3228318734,
+      "dead": 2659064093,
+      "created": 0,
+      "counts": {
+        "total": 541,
+        "bio": 541,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 541,
+        "workers": 336,
+        "children": 75,
+        "mutant": 222,
+        "citizens": 541
+      },
+      "migrated": 480,
+      "localBirths": 331,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 246
+      },
+      "stock": {
+        "food": 5355.759999999802,
+        "medicine": 332.37999999999437,
+        "wood": 232,
+        "tools": 64.92999999999707,
+        "iron": 204,
+        "knowledge": 312,
+        "parts": 146.49999999999204,
+        "electronics": 90,
+        "culture": 74.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 154260,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 218,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 127.68,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 371.52,
+        "upkeep": {
+          "tools": 3.482,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 121,
+      "completedShipments": 226,
+      "globalPublic": {
+        "paid": 1159,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 154886,
+      "world": 922389621,
+      "born": 3246130497,
+      "dead": 2674019305,
+      "created": 0,
+      "counts": {
+        "total": 546,
+        "bio": 546,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 546,
+        "workers": 315,
+        "children": 74,
+        "mutant": 224,
+        "citizens": 546
+      },
+      "migrated": 480,
+      "localBirths": 336,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 256
+      },
+      "stock": {
+        "food": 5395.8799999997955,
+        "medicine": 318.17999999999455,
+        "wood": 232,
+        "tools": 46.68999999999704,
+        "iron": 196,
+        "knowledge": 296,
+        "parts": 150.99999999999187,
+        "electronics": 98,
+        "culture": 78.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 154860,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 197,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 128.07999999999998,
+          "stored": 743.8400000000001,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 375.35999999999996,
+        "upkeep": {
+          "tools": 3.4920000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 122,
+      "completedShipments": 228,
+      "globalPublic": {
+        "paid": 1169,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 155486,
+      "world": 925257598,
+      "born": 3264006104,
+      "dead": 2689026935,
+      "created": 0,
+      "counts": {
+        "total": 550,
+        "bio": 550,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 550,
+        "workers": 295,
+        "children": 72,
+        "mutant": 225,
+        "citizens": 550
+      },
+      "migrated": 480,
+      "localBirths": 340,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 266
+      },
+      "stock": {
+        "food": 5451.559999999794,
+        "medicine": 361.2999999999946,
+        "wood": 232,
+        "tools": 108.85399999999699,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.4999999999917,
+        "electronics": 98,
+        "culture": 76.63999999999886,
+        "steel": 108,
+        "cell": 104
+      },
+      "last": {
+        "at": 155460,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 177,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 132.4,
+          "stored": 628.4000000000005,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 378.7199999999999,
+        "upkeep": {
+          "tools": 3.5000000000000004,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 123,
+      "completedShipments": 231,
+      "globalPublic": {
+        "paid": 1179,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 156086,
+      "world": 928137048,
+      "born": 3281945819,
+      "dead": 2704087200,
+      "created": 0,
+      "counts": {
+        "total": 555,
+        "bio": 555,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 555,
+        "workers": 276,
+        "children": 71,
+        "mutant": 227,
+        "citizens": 555
+      },
+      "migrated": 480,
+      "localBirths": 345,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 276
+      },
+      "stock": {
+        "food": 5442.679999999789,
+        "medicine": 350.6999999999946,
+        "wood": 232,
+        "tools": 86.93399999999694,
+        "iron": 228,
+        "knowledge": 328,
+        "parts": 142.99999999999153,
+        "electronics": 82,
+        "culture": 78.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 156060,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 158,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 128.8,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 382.55999999999995,
+        "upkeep": {
+          "tools": 3.5100000000000007,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 125,
+      "completedShipments": 233,
+      "globalPublic": {
+        "paid": 1189,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 156686,
+      "world": 931028015,
+      "born": 3299949920,
+      "dead": 2719200334,
+      "created": 0,
+      "counts": {
+        "total": 560,
+        "bio": 560,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 560,
+        "workers": 256,
+        "children": 71,
+        "mutant": 229,
+        "citizens": 560
+      },
+      "migrated": 480,
+      "localBirths": 350,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 286
+      },
+      "stock": {
+        "food": 5411.87999999979,
+        "medicine": 344.09999999999445,
+        "wood": 232,
+        "tools": 63.9139999999969,
+        "iron": 204,
+        "knowledge": 312,
+        "parts": 146.49999999999136,
+        "electronics": 90,
+        "culture": 72.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 156660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 30,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 30
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 138,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 129.2,
+          "stored": 741.5999999999999,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 386.1599999999999,
+        "upkeep": {
+          "tools": 3.5200000000000005,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 126,
+      "completedShipments": 236,
+      "globalPublic": {
+        "paid": 1199,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 157286,
+      "world": 933930544,
+      "born": 3318018492,
+      "dead": 2734366377,
+      "created": 0,
+      "counts": {
+        "total": 565,
+        "bio": 565,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 565,
+        "workers": 236,
+        "children": 71,
+        "mutant": 231,
+        "citizens": 565
+      },
+      "migrated": 480,
+      "localBirths": 355,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 296
+      },
+      "stock": {
+        "food": 5337.079999999787,
+        "medicine": 328.4999999999943,
+        "wood": 232,
+        "tools": 45.7939999999969,
+        "iron": 196,
+        "knowledge": 296,
+        "parts": 150.9999999999912,
+        "electronics": 98,
+        "culture": 74.63999999999886,
+        "steel": 92,
+        "cell": 104
+      },
+      "last": {
+        "at": 157260,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 31,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 31
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 117,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 129.6,
+          "stored": 608.7999999999995,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 389.75999999999993,
+        "upkeep": {
+          "tools": 3.5300000000000002,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 127,
+      "completedShipments": 238,
+      "globalPublic": {
+        "paid": 1209,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    {
+      "at": 157886,
+      "world": 936844686,
+      "born": 3336152184,
+      "dead": 2749585927,
+      "created": 0,
+      "counts": {
+        "total": 570,
+        "bio": 570,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 570,
+        "workers": 216,
+        "children": 72,
+        "mutant": 233,
+        "citizens": 570
+      },
+      "migrated": 480,
+      "localBirths": 360,
+      "localDeaths": 270,
+      "localCreated": 0,
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "machineWear": 0,
+      "quarantined": false,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 306
+      },
+      "stock": {
+        "food": 5234.759999999782,
+        "medicine": 369.8999999999945,
+        "wood": 232,
+        "tools": 110.07399999999684,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.49999999999102,
+        "electronics": 98,
+        "culture": 78.63999999999886,
+        "steel": 108,
+        "cell": 104
+      },
+      "last": {
+        "at": 157860,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 31,
+          "maintenance": 10,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 31
+          },
+          "maintenance": {
+            "organic": 10
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 97,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 134,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 393.12,
+        "upkeep": {
+          "tools": 3.5400000000000005,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "exports": 128,
+      "completedShipments": 241,
+      "globalPublic": {
+        "paid": 1219,
+        "missed": 46,
+        "stable": 600
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    }
+  ],
+  "after": {
+    "at": 157886,
+    "world": 936844686,
+    "born": 3336152184,
+    "dead": 2749585927,
+    "created": 0,
+    "counts": {
+      "total": 570,
+      "bio": 570,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 570,
+      "workers": 216,
+      "children": 72,
+      "mutant": 233,
+      "citizens": 570
+    },
+    "migrated": 480,
+    "localBirths": 360,
+    "localDeaths": 270,
+    "localCreated": 0,
+    "condition": 100,
+    "health": 100,
+    "geneSafety": 100,
+    "machineWear": 0,
+    "quarantined": false,
+    "qualified": {
+      "bio": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 306
+    },
+    "stock": {
+      "food": 5234.759999999782,
+      "medicine": 369.8999999999945,
+      "wood": 232,
+      "tools": 110.07399999999684,
+      "iron": 244,
+      "knowledge": 344,
+      "parts": 163.49999999999102,
+      "electronics": 98,
+      "culture": 78.63999999999886,
+      "steel": 108,
+      "cell": 104
+    },
+    "last": {
+      "at": 157860,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 31,
+        "maintenance": 10,
+        "clerk": 6,
+        "teacher": 8,
+        "gardener": 32,
+        "manufacturing": 24
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 31
+        },
+        "maintenance": {
+          "organic": 10
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 8
+        },
+        "gardener": {
+          "organic": 32
+        },
+        "manufacturing": {
+          "organic": 24
+        }
+      },
+      "idle": 97,
+      "produced": [
+        "culture",
+        "parts",
+        "steel"
+      ],
+      "energy": {
+        "generated": 140,
+        "used": 134,
+        "stored": 800,
+        "capacity": 800,
+        "heat": 400,
+        "sources": {
+          "renewable": 140,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 393.12,
+      "upkeep": {
+        "tools": 3.5400000000000005,
+        "parts": 1.7999999999999998
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "exports": 128,
+    "completedShipments": 241,
+    "globalPublic": {
+      "paid": 1219,
+      "missed": 46,
+      "stable": 600
+    },
+    "cities": [
+      {
+        "id": "home",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "lake",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "ridge",
+        "health": 100,
+        "stable": 600
+      }
+    ]
+  },
+  "exactReplay": true,
+  "allYearsHealthy": true,
+  "allYearsOldCitiesHealthy": true
+}

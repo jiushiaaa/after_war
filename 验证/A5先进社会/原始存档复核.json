@@ -1,0 +1,6096 @@
+{
+  "kind": "original-native-ui-read-only",
+  "baseline": "db13686f73a547fed580ac8393db86b85aad08ac",
+  "historicalFiles": 362,
+  "saves": [
+    {
+      "number": 351,
+      "file": "验证/存档/自然游玩_A5公共设立351.json",
+      "source": "public/351_public_foundation/战后文明-存档.json",
+      "sha256": "9d8319bfe29f04c1de697cc602422adbcbc79d54556cb4ded55e9b1d513fffd9",
+      "at": 100060,
+      "world": 696491908,
+      "globalBorn": 1798236352,
+      "globalDead": 1452022873,
+      "globalCreated": 0,
+      "counts": {
+        "total": 240,
+        "bio": 240,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 240,
+        "workers": 240,
+        "children": 0,
+        "mutant": 120,
+        "citizens": 240
+      },
+      "migrated": 240,
+      "born": 0,
+      "dead": 0,
+      "created": 0,
+      "converted": {},
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 1,
+      "last": null,
+      "stock": {
+        "food": 720,
+        "medicine": 60,
+        "wood": 100,
+        "tools": 30,
+        "iron": 100,
+        "knowledge": 180,
+        "parts": 60,
+        "electronics": 20
+      },
+      "book": {
+        "received": {
+          "food": 720,
+          "medicine": 60,
+          "wood": 100,
+          "tools": 30,
+          "iron": 100,
+          "knowledge": 180,
+          "parts": 60,
+          "electronics": 20
+        },
+        "consumed": {},
+        "produced": {},
+        "sent": {}
+      },
+      "energy": {
+        "generated": 0,
+        "used": 0,
+        "spill": 0
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 352,
+      "file": "验证/存档/自然游玩_A5公共诊疗不足352.json",
+      "source": "public/352_before_clinical_mandate/战后文明-存档.json",
+      "sha256": "4c5aa2ef35a04336da2bbae64c8a6877b175d083efa46e415e369eddd11c832d",
+      "at": 106159,
+      "world": 722229585,
+      "globalBorn": 1935938552,
+      "globalDead": 1563987396,
+      "globalCreated": 0,
+      "counts": {
+        "total": 270,
+        "bio": 270,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 270,
+        "workers": 240,
+        "children": 30,
+        "mutant": 135,
+        "citizens": 270
+      },
+      "migrated": 240,
+      "born": 30,
+      "dead": 0,
+      "created": 0,
+      "converted": {},
+      "condition": 100,
+      "health": 20,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 13,
+      "last": {
+        "at": 106140,
+        "fed": true,
+        "treated": false,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 15,
+          "maintenance": 5,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 15
+          },
+          "maintenance": {
+            "organic": 5
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 152,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 64,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 187.2,
+        "upkeep": {
+          "tools": 2.34,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 3145.600000000013,
+        "medicine": 4.60000000000003,
+        "wood": 236,
+        "tools": 27.09999999999984,
+        "iron": 176,
+        "knowledge": 264,
+        "parts": 143.54999999999976,
+        "electronics": 82,
+        "culture": 80,
+        "steel": 92
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 1178,
+          "wood": 1202,
+          "tools": 750,
+          "iron": 1096,
+          "knowledge": 1184,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 966,
+          "tools": 722.9000000000003,
+          "parts": 425.45000000000016,
+          "medicine": 1173.4000000000005,
+          "culture": 0,
+          "knowledge": 920,
+          "electronics": 8,
+          "food": 17714.400000000045,
+          "iron": 920
+        },
+        "produced": {
+          "parts": 512,
+          "steel": 152,
+          "electronics": 208,
+          "food": 22848.00000000001,
+          "culture": 80
+        },
+        "sent": {
+          "food": 7900,
+          "electronics": 182,
+          "parts": 96,
+          "steel": 60
+        }
+      },
+      "energy": {
+        "generated": 12540,
+        "used": 6144.800000000003,
+        "spill": 5595.199999999999
+      },
+      "exports": 11,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 353,
+      "file": "验证/存档/自然游玩_A5普通生态生活353.json",
+      "source": "public/352_public_ecology/战后文明-存档.json",
+      "sha256": "732e27171da829af0f7df83fc7fd07a11e3c3b6140f5c0ba03bc1685f94f4283",
+      "at": 112035,
+      "world": 743279059,
+      "globalBorn": 2072754118,
+      "globalDead": 1679753488,
+      "globalCreated": 0,
+      "counts": {
+        "total": 288,
+        "bio": 288,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 288,
+        "workers": 240,
+        "children": 48,
+        "mutant": 144,
+        "citizens": 288
+      },
+      "migrated": 240,
+      "born": 48,
+      "dead": 0,
+      "created": 0,
+      "converted": {},
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 10
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 15,
+      "last": {
+        "at": 112020,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 5,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 5
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 150,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 65.44,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 195.84,
+        "upkeep": {
+          "tools": 2.3760000000000003,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 3760.680000000031,
+        "medicine": 31.400000000000205,
+        "wood": 228,
+        "tools": 44.07999999999942,
+        "iron": 184,
+        "knowledge": 280,
+        "parts": 149.14999999999972,
+        "electronics": 90,
+        "culture": 0,
+        "steel": 92
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 2113,
+          "wood": 1290,
+          "tools": 1421,
+          "iron": 2056,
+          "knowledge": 1896,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1062,
+          "tools": 1376.9200000000092,
+          "parts": 893.85,
+          "medicine": 2561.6000000000035,
+          "culture": 120,
+          "knowledge": 1616,
+          "electronics": 8,
+          "food": 37027.52000000008,
+          "iron": 1872
+        },
+        "produced": {
+          "parts": 1176,
+          "steel": 344,
+          "electronics": 536,
+          "food": 60019.200000000135,
+          "culture": 120,
+          "medicine": 480
+        },
+        "sent": {
+          "food": 25143,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 25000,
+        "used": 13016.719999999994,
+        "spill": 11183.280000000004
+      },
+      "exports": 29,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 354,
+      "file": "验证/存档/自然游玩_A5生物改造生活354.json",
+      "source": "public/353_public_gene_life/战后文明-存档.json",
+      "sha256": "b4e9429c16bd9cb460a8c3fcffbd1d26aa35d5536ac50ba2e098a0baad91694c",
+      "at": 113896,
+      "world": 749759512,
+      "globalBorn": 2114597381,
+      "globalDead": 1715116298,
+      "globalCreated": 0,
+      "counts": {
+        "total": 297,
+        "bio": 297,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 273,
+        "workers": 252,
+        "children": 45,
+        "mutant": 148,
+        "citizens": 297
+      },
+      "migrated": 240,
+      "born": 57,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 10,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 18
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 22,
+      "last": {
+        "at": 113880,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 5,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 5
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 162,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 64.16,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 203.03999999999996,
+        "upkeep": {
+          "tools": 2.394,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 8894.040000000023,
+        "medicine": 75.66000000000022,
+        "wood": 240,
+        "tools": 102.14199999999924,
+        "iron": 300,
+        "knowledge": 360,
+        "parts": 182.64999999999972,
+        "electronics": 98,
+        "culture": 80.79999999999995,
+        "steel": 124
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 2590,
+          "wood": 1318,
+          "tools": 1691,
+          "iron": 2324,
+          "knowledge": 2374,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 1588.8580000000136,
+          "parts": 964.35,
+          "medicine": 3394.3400000000042,
+          "culture": 263.1999999999999,
+          "knowledge": 2014,
+          "electronics": 8,
+          "food": 43868.56000000006,
+          "iron": 2024
+        },
+        "produced": {
+          "parts": 1280,
+          "steel": 376,
+          "electronics": 544,
+          "food": 73593.60000000005,
+          "culture": 344,
+          "medicine": 880
+        },
+        "sent": {
+          "food": 26743,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 29300,
+        "used": 15541.04,
+        "spill": 12958.959999999997
+      },
+      "exports": 30,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 355,
+      "file": "验证/存档/自然游玩_A5生物随访中断355.json",
+      "source": "public/354_public_gene_failure/战后文明-存档.json",
+      "sha256": "e9ed19c94254911a7ef9c43fb65df0b80194d166b1724aea593d4462f3b9bd47",
+      "at": 114272,
+      "world": 751936968,
+      "globalBorn": 2128624600,
+      "globalDead": 1726966061,
+      "globalCreated": 0,
+      "counts": {
+        "total": 301,
+        "bio": 301,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 277,
+        "workers": 270,
+        "children": 31,
+        "mutant": 149,
+        "citizens": 301
+      },
+      "migrated": 240,
+      "born": 61,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 52,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 24
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 23,
+      "last": {
+        "at": 114240,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": false,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 180,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 64.47999999999999,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 209.27999999999997,
+        "upkeep": {
+          "tools": 2.402,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 8523.000000000018,
+        "medicine": 84.74000000000022,
+        "wood": 240,
+        "tools": 86.69799999999921,
+        "iron": 292,
+        "knowledge": 360,
+        "parts": 181.64999999999972,
+        "electronics": 98,
+        "culture": 80.79999999999995,
+        "steel": 124
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 2630,
+          "wood": 1318,
+          "tools": 1716,
+          "iron": 2324,
+          "knowledge": 2378,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 1629.3020000000147,
+          "parts": 973.35,
+          "medicine": 3521.2600000000043,
+          "culture": 287.1999999999999,
+          "knowledge": 2018,
+          "electronics": 8,
+          "food": 45270.00000000006,
+          "iron": 2032
+        },
+        "produced": {
+          "parts": 1288,
+          "steel": 376,
+          "electronics": 544,
+          "food": 76224.00000000001,
+          "culture": 368,
+          "medicine": 976
+        },
+        "sent": {
+          "food": 28343,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 30300,
+        "used": 15909.599999999999,
+        "spill": 13590.4
+      },
+      "exports": 31,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 356,
+      "file": "验证/存档/自然游玩_A5生物实付恢复356.json",
+      "source": "public/355_public_gene_recovery/战后文明-存档.json",
+      "sha256": "3462e3466ccdf906fed61f946a5b17488c80ef8b0b27c127230b3849dc885d42",
+      "at": 115156,
+      "world": 754123130,
+      "globalBorn": 2142699672,
+      "globalDead": 1738854971,
+      "globalCreated": 0,
+      "counts": {
+        "total": 301,
+        "bio": 301,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 277,
+        "workers": 270,
+        "children": 31,
+        "mutant": 149,
+        "citizens": 301
+      },
+      "migrated": 240,
+      "born": 61,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 10,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 10
+      },
+      "recovered": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 27,
+      "last": {
+        "at": 115140,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 180,
+        "produced": [],
+        "energy": {
+          "generated": 140,
+          "used": 54.48,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 209.27999999999997,
+        "upkeep": {
+          "tools": 2.402,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 10455.800000000003,
+        "medicine": 114.82000000000019,
+        "wood": 240,
+        "tools": 94.06799999999915,
+        "iron": 292,
+        "knowledge": 360,
+        "parts": 183.14999999999972,
+        "electronics": 98,
+        "culture": 78.07999999999991,
+        "steel": 124
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 2790,
+          "wood": 1318,
+          "tools": 1824,
+          "iron": 2348,
+          "knowledge": 2382,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 1729.9320000000175,
+          "parts": 995.85,
+          "medicine": 3891.1800000000007,
+          "culture": 377.92000000000013,
+          "knowledge": 2022,
+          "electronics": 8,
+          "food": 48745.20000000004,
+          "iron": 2056
+        },
+        "produced": {
+          "parts": 1312,
+          "steel": 376,
+          "electronics": 544,
+          "food": 83231.99999999993,
+          "culture": 456,
+          "medicine": 1216
+        },
+        "sent": {
+          "food": 29943,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 32600,
+        "used": 16872.799999999992,
+        "spill": 14927.200000000006
+      },
+      "exports": 32,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 357,
+      "file": "验证/存档/自然游玩_A5公共回响现场357.json",
+      "source": "public/356_public_echo_choice/战后文明-存档.json",
+      "sha256": "8bf5612a47bbddb509b9564ac995b920f0cadf2ac2079e9962eecef0d2d2e950",
+      "at": 116188,
+      "world": 758521730,
+      "globalBorn": 2170994296,
+      "globalDead": 1762750995,
+      "globalCreated": 0,
+      "counts": {
+        "total": 307,
+        "bio": 307,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 283,
+        "workers": 270,
+        "children": 37,
+        "mutant": 151,
+        "citizens": 307
+      },
+      "migrated": 240,
+      "born": 67,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 27,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 27
+      },
+      "recovered": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": {
+        "at": 115826,
+        "stage": "choice",
+        "remaining": 0,
+        "crew": 4,
+        "choice": null,
+        "exposure": 0,
+        "knowledge": 0,
+        "care": 0,
+        "visits": 0,
+        "finishedAt": null
+      },
+      "history": 31,
+      "last": {
+        "at": 116160,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "field": 4,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "field": {
+            "organic": 4
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 176,
+        "produced": [
+          "parts",
+          "culture"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 76.96000000000001,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 212.15999999999997,
+        "upkeep": {
+          "tools": 2.414,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 7944.280000000004,
+        "medicine": 90.04000000000028,
+        "wood": 240,
+        "tools": 50.809999999999064,
+        "iron": 252,
+        "knowledge": 310,
+        "parts": 185.64999999999972,
+        "electronics": 98,
+        "culture": 81.91999999999985,
+        "steel": 124,
+        "cell": 24
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 2910,
+          "wood": 1318,
+          "tools": 1911,
+          "iron": 2388,
+          "knowledge": 2650,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 1860.190000000019,
+          "parts": 1073.35,
+          "medicine": 4307.96,
+          "culture": 454.08000000000044,
+          "knowledge": 2340,
+          "electronics": 44,
+          "food": 52853.52000000008,
+          "iron": 2136,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 1392,
+          "steel": 376,
+          "electronics": 580,
+          "food": 91228.79999999983,
+          "culture": 536,
+          "medicine": 1488,
+          "cell": 32
+        },
+        "sent": {
+          "food": 36343,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 34860,
+        "used": 18430.719999999998,
+        "spill": 15629.280000000013
+      },
+      "exports": 36,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 358,
+      "file": "验证/存档/自然游玩_A5公共回响研究358.json",
+      "source": "public/357_public_echo_study/战后文明-存档.json",
+      "sha256": "939ee6442aaa4bd162c0b7f2110e622d7a8f701aa021d6569259e2866f937c0c",
+      "at": 116656,
+      "world": 760734234,
+      "globalBorn": 2185214229,
+      "globalDead": 1774758424,
+      "globalCreated": 0,
+      "counts": {
+        "total": 309,
+        "bio": 309,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 285,
+        "workers": 270,
+        "children": 39,
+        "mutant": 151,
+        "citizens": 309
+      },
+      "migrated": 240,
+      "born": 69,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 35,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 35
+      },
+      "recovered": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 34,
+      "last": {
+        "at": 116640,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "recovery": 4,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "recovery": {
+            "organic": 4
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 176,
+        "produced": [
+          "culture",
+          "cell"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 85.12,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 213.11999999999995,
+        "upkeep": {
+          "tools": 2.418,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 8217.399999999998,
+        "medicine": 107.9200000000003,
+        "wood": 240,
+        "tools": 84.75799999999903,
+        "iron": 284,
+        "knowledge": 422,
+        "parts": 177.64999999999972,
+        "electronics": 98,
+        "culture": 74.07999999999981,
+        "steel": 124,
+        "cell": 64
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 3030,
+          "wood": 1318,
+          "tools": 2004,
+          "iron": 2452,
+          "knowledge": 2788,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 1919.2420000000195,
+          "parts": 1113.35,
+          "medicine": 4538.080000000002,
+          "culture": 501.9200000000006,
+          "knowledge": 2446,
+          "electronics": 52,
+          "food": 54743.6000000001,
+          "iron": 2168,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 1424,
+          "steel": 376,
+          "electronics": 588,
+          "food": 94991.99999999978,
+          "culture": 576,
+          "medicine": 1616,
+          "cell": 72,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 37943,
+          "electronics": 502,
+          "parts": 286,
+          "steel": 252
+        }
+      },
+      "energy": {
+        "generated": 36100,
+        "used": 19093.19999999999,
+        "spill": 16206.800000000012
+      },
+      "exports": 37,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 359,
+      "file": "验证/存档/自然游玩_A5公共首次十年359.json",
+      "source": "public/358_public_ten_years/战后文明-存档.json",
+      "sha256": "939ddf53faf469f64386400dc2f265222602098c8ae8d7a1bd990ce53d6237c7",
+      "at": 122691,
+      "world": 783351901,
+      "globalBorn": 2330529243,
+      "globalDead": 1897455771,
+      "globalCreated": 0,
+      "counts": {
+        "total": 318,
+        "bio": 318,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 294,
+        "workers": 216,
+        "children": 30,
+        "mutant": 151,
+        "citizens": 318
+      },
+      "migrated": 240,
+      "born": 78,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 11,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 11
+      },
+      "recovered": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 38,
+      "last": {
+        "at": 122640,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 126,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 67.84,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 221.76000000000008,
+        "upkeep": {
+          "tools": 2.436,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 3400.5999999999544,
+        "medicine": 77.02000000000037,
+        "wood": 228,
+        "tools": 29.83999999999871,
+        "iron": 176,
+        "knowledge": 272,
+        "parts": 141.49999999999972,
+        "electronics": 78,
+        "culture": 0.0799999999995169,
+        "steel": 92,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 3739,
+          "wood": 1322,
+          "tools": 2653,
+          "iron": 2752,
+          "knowledge": 2876,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1094,
+          "tools": 2623.1599999999944,
+          "parts": 1381.5,
+          "medicine": 6757.980000000032,
+          "culture": 919.9200000000023,
+          "knowledge": 2684,
+          "electronics": 52,
+          "food": 78359.19999999997,
+          "iron": 2576,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 1784,
+          "steel": 408,
+          "electronics": 692,
+          "food": 140620.79999999923,
+          "culture": 920,
+          "medicine": 3096,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 64773,
+          "electronics": 626,
+          "parts": 414,
+          "steel": 316
+        }
+      },
+      "energy": {
+        "generated": 49520,
+        "used": 26065.999999999956,
+        "spill": 22654.00000000003
+      },
+      "exports": 56,
+      "supplyVersion": 1,
+      "originalExactReplay": true,
+      "lastTenYears": {
+        "seconds": 6000,
+        "periods": 100,
+        "minHealth": 100,
+        "minCondition": 88,
+        "fed": 100,
+        "treated": 100,
+        "powered": 100,
+        "maintained": 96,
+        "monitoring": 100
+      }
+    },
+    {
+      "number": 360,
+      "file": "验证/存档/自然游玩_A5公共原代退休360.json",
+      "source": "public-final/377_retired_generation/战后文明-存档.json",
+      "sha256": "d745a2e820c3f9b561f65de9c5f93398a2b97dbb2f6e6779e1fa422e884d5166",
+      "at": 130721,
+      "world": 814137559,
+      "globalBorn": 2527783048,
+      "globalDead": 2063923918,
+      "globalCreated": 0,
+      "counts": {
+        "total": 314,
+        "bio": 314,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 290,
+        "workers": 73,
+        "children": 25,
+        "mutant": 139,
+        "citizens": 314
+      },
+      "migrated": 240,
+      "born": 98,
+      "dead": 24,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 94,
+      "geneSafety": 0,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 1
+      },
+      "recovered": {
+        "bio": 2,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "lawsHistory": [
+        {
+          "at": 123720,
+          "key": "work",
+          "value": "ecological",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 49,
+      "last": {
+        "at": 130680,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": false,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 24,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 23,
+          "manufacturing": 0
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 24
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "organic": 23
+          },
+          "manufacturing": {}
+        },
+        "idle": 0,
+        "produced": [],
+        "energy": {
+          "generated": 180,
+          "used": 37.720000000000006,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 220.08,
+        "upkeep": {
+          "tools": 2.8280000000000003,
+          "parts": 1.65
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 4316.879999999947,
+        "medicine": 26.82000000000055,
+        "wood": 240,
+        "tools": 104.09799999999834,
+        "iron": 300,
+        "knowledge": 360,
+        "parts": 115.49999999999847,
+        "electronics": 74,
+        "culture": 0.15999999999949965,
+        "steel": 92,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 5380,
+          "wood": 1488,
+          "tools": 3619,
+          "iron": 3540,
+          "knowledge": 3442,
+          "parts": 274,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1248,
+          "tools": 3514.901999999973,
+          "parts": 1808.50000000002,
+          "medicine": 9689.18000000004,
+          "culture": 1255.8400000000033,
+          "knowledge": 3162,
+          "electronics": 52,
+          "food": 110881.91999999997,
+          "iron": 3240,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 2136,
+          "steel": 536,
+          "electronics": 872,
+          "food": 182218.79999999903,
+          "culture": 1256,
+          "medicine": 4336,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 72932,
+          "electronics": 810,
+          "parts": 486,
+          "steel": 444
+        }
+      },
+      "energy": {
+        "generated": 66880,
+        "used": 34642.27999999997,
+        "spill": 31437.719999999998
+      },
+      "exports": 73,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 361,
+      "file": "验证/存档/自然游玩_A5公共新代接续361.json",
+      "source": "public-final/372_public_actual_gene_work/战后文明-存档.json",
+      "sha256": "3031b68bba6e5edb4e5485dc8faf078fc961504aa89aae0496a462e77c8fb642",
+      "at": 132852,
+      "world": 823936184,
+      "globalBorn": 2590344136,
+      "globalDead": 2116686381,
+      "globalCreated": 0,
+      "counts": {
+        "total": 483,
+        "bio": 483,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 48,
+        "prosthetic": 0,
+        "organic": 435,
+        "workers": 317,
+        "children": 46,
+        "mutant": 220,
+        "citizens": 483
+      },
+      "migrated": 480,
+      "born": 123,
+      "dead": 120,
+      "created": 0,
+      "converted": {
+        "gene": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 98,
+      "wear": 0,
+      "qualified": {
+        "bio": 10,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 17
+      },
+      "recovered": {
+        "bio": 3,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "lawsHistory": [
+        {
+          "at": 123720,
+          "key": "work",
+          "value": "ecological",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 56,
+      "last": {
+        "at": 132840,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 29,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 29
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 202,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 95.03999999999999,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 336.71999999999997,
+        "upkeep": {
+          "tools": 3.3660000000000005,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 5403.199999999937,
+        "medicine": 71.80000000000057,
+        "wood": 240,
+        "tools": 93.65999999999818,
+        "iron": 292,
+        "knowledge": 360,
+        "parts": 183.899999999998,
+        "electronics": 98,
+        "culture": 90.23999999999951,
+        "steel": 124,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 6396,
+          "medicine": 5740,
+          "wood": 1684,
+          "tools": 3959,
+          "iron": 3732,
+          "knowledge": 3496,
+          "parts": 288,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1444,
+          "tools": 3865.3399999999633,
+          "parts": 1906.1000000000222,
+          "medicine": 10916.200000000033,
+          "culture": 1557.7600000000039,
+          "knowledge": 3216,
+          "electronics": 52,
+          "food": 124854.79999999997,
+          "iron": 3440,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 2288,
+          "steel": 568,
+          "electronics": 896,
+          "food": 196793.99999999886,
+          "culture": 1648,
+          "medicine": 5248,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 72932,
+          "electronics": 810,
+          "parts": 486,
+          "steel": 444
+        }
+      },
+      "energy": {
+        "generated": 71960,
+        "used": 38450.19999999993,
+        "spill": 32709.799999999985
+      },
+      "exports": 73,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 362,
+      "file": "验证/存档/自然游玩_A5公共维护余量不足362.json",
+      "source": "public-final/373_public_stable_institutions/战后文明-存档.json",
+      "sha256": "3fc3fadbfd64e1119a93862953a7495be16765a1455b097ec57c2f4883a7e3a3",
+      "at": 138896,
+      "world": 849127856,
+      "globalBorn": 2759097680,
+      "globalDead": 2260248253,
+      "globalCreated": 0,
+      "counts": {
+        "total": 436,
+        "bio": 436,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 412,
+        "workers": 330,
+        "children": 106,
+        "mutant": 190,
+        "citizens": 436
+      },
+      "migrated": 480,
+      "born": 196,
+      "dead": 240,
+      "created": 0,
+      "converted": {
+        "gene": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 1
+      },
+      "recovered": {
+        "bio": 3,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "lawsHistory": [
+        {
+          "at": 123720,
+          "key": "work",
+          "value": "ecological",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 66,
+      "last": {
+        "at": 138840,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 27,
+          "maintenance": 8,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 27
+          },
+          "maintenance": {
+            "organic": 8
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 215,
+        "produced": [
+          "parts",
+          "steel",
+          "parts"
+        ],
+        "energy": {
+          "generated": 0,
+          "used": 125.28,
+          "stored": 645.6000000000001,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 0,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 288.48,
+        "upkeep": {
+          "tools": 3.2720000000000002,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 4814.9999999999,
+        "medicine": 255.89999999999972,
+        "wood": 228,
+        "tools": 102.16599999999795,
+        "iron": 248,
+        "knowledge": 344,
+        "parts": 150.8499999999964,
+        "electronics": 98,
+        "culture": 76.63999999999957,
+        "steel": 116,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 6396,
+          "medicine": 6245,
+          "wood": 1768,
+          "tools": 4888,
+          "iron": 4632,
+          "knowledge": 4040,
+          "parts": 288,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1540,
+          "tools": 4785.833999999971,
+          "parts": 2367.150000000039,
+          "medicine": 14085.100000000017,
+          "culture": 2339.3600000000065,
+          "knowledge": 3776,
+          "electronics": 52,
+          "food": 158091.60000000012,
+          "iron": 4384,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 2944,
+          "steel": 760,
+          "electronics": 1176,
+          "food": 241011.59999999832,
+          "culture": 2416,
+          "medicine": 8096,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 84501,
+          "electronics": 1090,
+          "parts": 714,
+          "steel": 644
+        }
+      },
+      "energy": {
+        "generated": 84460,
+        "used": 49715.39999999989,
+        "spill": 34098.99999999999
+      },
+      "exports": 88,
+      "supplyVersion": 1,
+      "originalExactReplay": true,
+      "lastTenYears": {
+        "seconds": 6000,
+        "periods": 100,
+        "minHealth": 100,
+        "minCondition": 92,
+        "fed": 100,
+        "treated": 100,
+        "powered": 100,
+        "maintained": 93,
+        "monitoring": 100
+      }
+    },
+    {
+      "number": 363,
+      "file": "验证/存档/自然游玩_A5公共往返保留约363.json",
+      "source": "public-supply/379_public_roundtrip_reserves/战后文明-存档.json",
+      "sha256": "4bf33347370de5a07183852eb64b5de3c22cb9d07310eeb40c2f83cf7b787337",
+      "at": 139843,
+      "world": 854288023,
+      "globalBorn": 2794206229,
+      "globalDead": 2290196635,
+      "globalCreated": 0,
+      "counts": {
+        "total": 451,
+        "bio": 451,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 427,
+        "workers": 334,
+        "children": 117,
+        "mutant": 196,
+        "citizens": 451
+      },
+      "migrated": 480,
+      "born": 211,
+      "dead": 240,
+      "created": 0,
+      "converted": {
+        "gene": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 5,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 5
+      },
+      "recovered": {
+        "bio": 3,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "lawsHistory": [
+        {
+          "at": 123720,
+          "key": "work",
+          "value": "ecological",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 69,
+      "last": {
+        "at": 139800,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 28,
+          "maintenance": 8,
+          "clerk": 6,
+          "teacher": 10,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 28
+          },
+          "maintenance": {
+            "organic": 8
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 10
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 218,
+        "produced": [
+          "culture",
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 120.47999999999999,
+          "stored": 800,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 296.64,
+        "upkeep": {
+          "tools": 3.3020000000000005,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 4770.9599999998945,
+        "medicine": 265.1199999999996,
+        "wood": 228,
+        "tools": 58.61199999999789,
+        "iron": 208,
+        "knowledge": 316,
+        "parts": 144.44999999999615,
+        "electronics": 86,
+        "culture": 74.95999999999951,
+        "steel": 92,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 6396,
+          "medicine": 6312,
+          "wood": 1784,
+          "tools": 5000,
+          "iron": 4768,
+          "knowledge": 4120,
+          "parts": 288,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1556,
+          "tools": 4941.387999999968,
+          "parts": 2448.5500000000434,
+          "medicine": 14598.88,
+          "culture": 2461.040000000007,
+          "knowledge": 3884,
+          "electronics": 52,
+          "food": 163448.64000000007,
+          "iron": 4560,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 3072,
+          "steel": 792,
+          "electronics": 1228,
+          "food": 248067.59999999823,
+          "culture": 2536,
+          "medicine": 8552,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 86244,
+          "electronics": 1154,
+          "parts": 767,
+          "steel": 700
+        }
+      },
+      "energy": {
+        "generated": 86900,
+        "used": 51597.47999999987,
+        "spill": 34502.52
+      },
+      "exports": 91,
+      "supplyVersion": 2,
+      "originalExactReplay": true
+    },
+    {
+      "number": 364,
+      "file": "验证/存档/自然游玩_A5公共持续维护364.json",
+      "source": "public-supply/380_public_paid_maintenance/战后文明-存档.json",
+      "sha256": "f274e0ec2f722ca6521c6fa234899e3191089acf09bc6cc38733f81b2af61951",
+      "at": 145886,
+      "world": 880715981,
+      "globalBorn": 2974950917,
+      "globalDead": 2444513365,
+      "globalCreated": 0,
+      "counts": {
+        "total": 519,
+        "bio": 519,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 495,
+        "workers": 362,
+        "children": 127,
+        "mutant": 222,
+        "citizens": 519
+      },
+      "migrated": 480,
+      "born": 279,
+      "dead": 240,
+      "created": 0,
+      "converted": {
+        "gene": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 106,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 106
+      },
+      "recovered": {
+        "bio": 3,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "ecological"
+      },
+      "lawsHistory": [
+        {
+          "at": 123720,
+          "key": "work",
+          "value": "ecological",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "study",
+        "exposure": 0,
+        "knowledge": 80,
+        "care": 3,
+        "visits": 3,
+        "finishedAt": 116640
+      },
+      "history": 71,
+      "last": {
+        "at": 145860,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 29,
+          "maintenance": 9,
+          "clerk": 6,
+          "teacher": 11,
+          "gardener": 32,
+          "manufacturing": 24
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 29
+          },
+          "maintenance": {
+            "organic": 9
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 11
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "organic": 24
+          }
+        },
+        "idle": 243,
+        "produced": [
+          "culture",
+          "parts",
+          "steel"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 129.92000000000002,
+          "stored": 748.1600000000001,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 343.2,
+        "upkeep": {
+          "tools": 3.4380000000000006,
+          "parts": 1.7999999999999998
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 5416.9999999998545,
+        "medicine": 342.7799999999972,
+        "wood": 232,
+        "tools": 107.93799999999767,
+        "iron": 244,
+        "knowledge": 344,
+        "parts": 163.49999999999443,
+        "electronics": 98,
+        "culture": 76.47999999999911,
+        "steel": 108,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 6396,
+          "medicine": 6887,
+          "wood": 1892,
+          "tools": 6080,
+          "iron": 5924,
+          "knowledge": 4748,
+          "parts": 288,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1660,
+          "tools": 5972.061999999987,
+          "parts": 2945.500000000071,
+          "medicine": 18128.21999999998,
+          "culture": 3267.5200000000086,
+          "knowledge": 4484,
+          "electronics": 52,
+          "food": 199908.00000000035,
+          "iron": 5680,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 3880,
+          "steel": 1000,
+          "electronics": 1528,
+          "food": 292361.9999999997,
+          "culture": 3344,
+          "medicine": 11584,
+          "cell": 112,
+          "knowledge": 80
+        },
+        "sent": {
+          "food": 93433,
+          "electronics": 1442,
+          "parts": 1059,
+          "steel": 892
+        }
+      },
+      "energy": {
+        "generated": 100960,
+        "used": 63943.239999999874,
+        "spill": 36268.599999999984
+      },
+      "exports": 103,
+      "supplyVersion": 2,
+      "originalExactReplay": true,
+      "lastTenYears": {
+        "seconds": 6000,
+        "periods": 100,
+        "minHealth": 100,
+        "minCondition": 100,
+        "fed": 100,
+        "treated": 100,
+        "powered": 100,
+        "maintained": 100,
+        "monitoring": 100
+      }
+    },
+    {
+      "number": 365,
+      "file": "验证/存档/自然游玩_A5工业设立365.json",
+      "source": "industrial/351_industrial_foundation/战后文明-存档.json",
+      "sha256": "0179abef108b303a4d881bc9f4449b713ead9ec18a3474c962e65c39e0ef1721",
+      "at": 165682,
+      "world": 1496247202,
+      "globalBorn": 5355582900,
+      "globalDead": 4354770857,
+      "globalCreated": 0,
+      "counts": {
+        "total": 240,
+        "bio": 240,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 240,
+        "workers": 240,
+        "children": 0,
+        "mutant": 120,
+        "citizens": 240
+      },
+      "migrated": 240,
+      "born": 0,
+      "dead": 0,
+      "created": 0,
+      "converted": {},
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 1,
+      "last": {
+        "at": 165660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 6,
+          "maintenance": 4,
+          "clerk": 2,
+          "teacher": 4,
+          "gardener": 0,
+          "manufacturing": 0
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 6
+          },
+          "maintenance": {
+            "organic": 4
+          },
+          "clerk": {
+            "organic": 2
+          },
+          "teacher": {
+            "organic": 4
+          },
+          "gardener": {},
+          "manufacturing": {}
+        },
+        "idle": 216,
+        "produced": [],
+        "energy": {
+          "generated": 120,
+          "used": 27.2,
+          "stored": 92.8,
+          "capacity": 400,
+          "heat": 240,
+          "sources": {
+            "renewable": 0,
+            "thermal": 120,
+            "fusion": 0
+          }
+        },
+        "food": 172.79999999999998,
+        "upkeep": {
+          "tools": 0.6799999999999999,
+          "parts": 0.15
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 547.2,
+        "medicine": 45.6,
+        "wood": 90,
+        "tools": 29.12,
+        "iron": 100,
+        "knowledge": 180,
+        "parts": 59.85,
+        "electronics": 20,
+        "culture": 0
+      },
+      "book": {
+        "received": {
+          "food": 720,
+          "medicine": 60,
+          "wood": 100,
+          "tools": 30,
+          "iron": 100,
+          "knowledge": 180,
+          "parts": 60,
+          "electronics": 20
+        },
+        "consumed": {
+          "wood": 10,
+          "tools": 0.8799999999999999,
+          "parts": 0.15,
+          "medicine": 14.399999999999999,
+          "culture": 0,
+          "knowledge": 0,
+          "electronics": 0,
+          "food": 172.79999999999998
+        },
+        "produced": {},
+        "sent": {}
+      },
+      "energy": {
+        "generated": 120,
+        "used": 27.2,
+        "spill": 0
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 366,
+      "file": "验证/存档/自然游玩_A5工业实际义体366.json",
+      "source": "industrial/361_industrial_prosthetics/战后文明-存档.json",
+      "sha256": "f8d40c2c716e2811b7f939148827e0730bdd7213226a556d658d317b5bac9242",
+      "at": 169400,
+      "world": 1522951577,
+      "globalBorn": 5526565810,
+      "globalDead": 4499049392,
+      "globalCreated": 0,
+      "counts": {
+        "total": 276,
+        "bio": 276,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 24,
+        "organic": 252,
+        "workers": 240,
+        "children": 36,
+        "mutant": 138,
+        "citizens": 276
+      },
+      "migrated": 240,
+      "born": 36,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "prosthetic": 24
+      },
+      "condition": 100,
+      "health": 88,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 17,
+      "last": {
+        "at": 169380,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 15,
+          "maintenance": 13,
+          "clerk": 6,
+          "teacher": 6,
+          "adoption": 8,
+          "gardener": 16,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 15
+          },
+          "maintenance": {
+            "organic": 13
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "adoption": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 152,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 77.28,
+          "stored": 983.2800000000002,
+          "capacity": 1600,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 190.07999999999998,
+        "upkeep": {
+          "tools": 2.3520000000000003,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2332.880000000007,
+        "medicine": 35.439999999999785,
+        "wood": 236,
+        "tools": 100.51200000000011,
+        "iron": 264,
+        "knowledge": 352,
+        "parts": 121.24999999999966,
+        "electronics": 62,
+        "culture": 80,
+        "steel": 68,
+        "cell": 88,
+        "body": 32
+      },
+      "book": {
+        "received": {
+          "food": 6298,
+          "medicine": 1100,
+          "wood": 994,
+          "tools": 517,
+          "iron": 880,
+          "knowledge": 1446,
+          "parts": 320,
+          "electronics": 84,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 758,
+          "tools": 416.4879999999987,
+          "parts": 470.74999999999966,
+          "medicine": 1064.5600000000002,
+          "culture": 0,
+          "knowledge": 1094,
+          "electronics": 86,
+          "food": 10646.720000000007,
+          "iron": 616,
+          "steel": 48
+        },
+        "produced": {
+          "parts": 272,
+          "steel": 56,
+          "electronics": 64,
+          "food": 6681.600000000004,
+          "culture": 80,
+          "cell": 88,
+          "body": 32
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 7620,
+        "used": 4265.120000000005,
+        "spill": 2371.5999999999985
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 367,
+      "file": "验证/存档/自然游玩_A5工业诊疗不足367.json",
+      "source": "industrial/360_before_clinical_mandate/战后文明-存档.json",
+      "sha256": "9267ee35ddd4c6ca2538e1d046d3dde6c96a5217f84d186f12d7389d710f6419",
+      "at": 170079,
+      "world": 1527464777,
+      "globalBorn": 5555413221,
+      "globalDead": 4523383603,
+      "globalCreated": 0,
+      "counts": {
+        "total": 276,
+        "bio": 276,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 24,
+        "organic": 252,
+        "workers": 240,
+        "children": 36,
+        "mutant": 138,
+        "citizens": 276
+      },
+      "migrated": 240,
+      "born": 36,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "prosthetic": 24
+      },
+      "condition": 100,
+      "health": 74,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 18,
+      "last": {
+        "at": 170040,
+        "fed": true,
+        "treated": false,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 15,
+          "maintenance": 13,
+          "clerk": 6,
+          "teacher": 6,
+          "adoption": 8,
+          "gardener": 16,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 15
+          },
+          "maintenance": {
+            "organic": 13
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "adoption": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "prosthetic": 16
+          }
+        },
+        "idle": 152,
+        "produced": [
+          "body",
+          "cell"
+        ],
+        "energy": {
+          "generated": 180,
+          "used": 95.28,
+          "stored": 1600,
+          "capacity": 1600,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 190.07999999999998,
+        "upkeep": {
+          "tools": 2.3520000000000003,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2281.8000000000097,
+        "medicine": 0.639999999999791,
+        "wood": 232,
+        "tools": 87.92000000000012,
+        "iron": 244,
+        "knowledge": 308,
+        "parts": 108.74999999999966,
+        "electronics": 60,
+        "culture": 80,
+        "steel": 72,
+        "cell": 94.4,
+        "body": 8
+      },
+      "book": {
+        "received": {
+          "food": 6437,
+          "medicine": 1180,
+          "wood": 1010,
+          "tools": 568,
+          "iron": 984,
+          "knowledge": 1470,
+          "parts": 320,
+          "electronics": 84,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 778,
+          "tools": 480.0799999999982,
+          "parts": 547.2499999999997,
+          "medicine": 1179.36,
+          "culture": 0,
+          "knowledge": 1162,
+          "electronics": 104,
+          "food": 12737.600000000006,
+          "iron": 740,
+          "steel": 84,
+          "body": 48,
+          "cell": 9.600000000000001
+        },
+        "produced": {
+          "parts": 336,
+          "steel": 96,
+          "electronics": 80,
+          "food": 8582.400000000003,
+          "culture": 80,
+          "cell": 104,
+          "body": 56
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 9120,
+        "used": 5061.200000000003,
+        "spill": 2458.7999999999993
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 368,
+      "file": "验证/存档/自然游玩_A5工业全身机械化368.json",
+      "source": "industrial/362_industrial_full_body/战后文明-存档.json",
+      "sha256": "21468a1db108611ff35fe333a7ca038b9205748a802f71725130d69aaa221b2d",
+      "at": 172704,
+      "world": 1545698831,
+      "globalBorn": 5672276695,
+      "globalDead": 4622013023,
+      "globalCreated": 0,
+      "counts": {
+        "total": 280,
+        "bio": 232,
+        "machine": 48,
+        "mechanical": 48,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 232,
+        "workers": 240,
+        "children": 40,
+        "mutant": 139,
+        "citizens": 280
+      },
+      "migrated": 240,
+      "born": 40,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 10,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 21,
+      "last": {
+        "at": 172680,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 15,
+          "maintenance": 13,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 16,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 15
+          },
+          "maintenance": {
+            "organic": 13
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 160,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 140,
+          "used": 84.56,
+          "stored": 1600,
+          "capacity": 1600,
+          "heat": 400,
+          "sources": {
+            "renewable": 140,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 157.44,
+        "upkeep": {
+          "tools": 2.3600000000000003,
+          "parts": 2.3099999999999996
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2643.280000000018,
+        "medicine": 153.99999999999986,
+        "wood": 240,
+        "tools": 83.98000000000016,
+        "iron": 292,
+        "knowledge": 360,
+        "parts": 120.46999999999932,
+        "electronics": 64,
+        "culture": 82,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 6506,
+          "medicine": 1617,
+          "wood": 1066,
+          "tools": 852,
+          "iron": 1408,
+          "knowledge": 1648,
+          "parts": 347,
+          "electronics": 90,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 826,
+          "tools": 768.0200000000011,
+          "parts": 794.5299999999963,
+          "medicine": 1743.000000000002,
+          "culture": 70,
+          "knowledge": 1288,
+          "electronics": 146,
+          "food": 20048.320000000007,
+          "iron": 1116,
+          "steel": 168,
+          "body": 48,
+          "cell": 9.600000000000001
+        },
+        "produced": {
+          "parts": 568,
+          "steel": 192,
+          "electronics": 120,
+          "food": 16185.599999999971,
+          "culture": 152,
+          "cell": 112,
+          "body": 112,
+          "medicine": 280
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 15480,
+        "used": 8961.679999999991,
+        "spill": 4918.320000000009
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 369,
+      "file": "验证/存档/自然游玩_A5工业停电休眠369.json",
+      "source": "industrial/363_industrial_blackout/战后文明-存档.json",
+      "sha256": "232085576144e140c5e35009a33430fd9f0cc7c35b341d714db7dcb280f40237",
+      "at": 174382,
+      "world": 1559566737,
+      "globalBorn": 5760826704,
+      "globalDead": 4696695126,
+      "globalCreated": 0,
+      "counts": {
+        "total": 295,
+        "bio": 247,
+        "machine": 48,
+        "mechanical": 48,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 247,
+        "workers": 240,
+        "children": 55,
+        "mutant": 145,
+        "citizens": 295
+      },
+      "migrated": 240,
+      "born": 55,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 68,
+      "health": 68,
+      "geneSafety": 100,
+      "wear": 64,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 22,
+      "last": {
+        "at": 174360,
+        "fed": true,
+        "treated": true,
+        "powered": false,
+        "maintained": false,
+        "monitoring": false,
+        "audited": false,
+        "machineActive": false,
+        "syntheticActive": false,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 13,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 16,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 13
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 110,
+        "produced": [],
+        "energy": {
+          "generated": 0,
+          "used": 0,
+          "stored": 1.5999999999995964,
+          "capacity": 1600,
+          "heat": 400,
+          "sources": {
+            "renewable": 0,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 164.64000000000001,
+        "upkeep": {},
+        "dormant": 48
+      },
+      "stock": {
+        "food": 1150.5600000000213,
+        "medicine": 88.93999999999983,
+        "wood": 240,
+        "tools": 120.60000000000029,
+        "iron": 300,
+        "knowledge": 360,
+        "parts": 122.26999999999927,
+        "electronics": 64,
+        "culture": 80,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 6506,
+          "medicine": 1748,
+          "wood": 1066,
+          "tools": 1011,
+          "iron": 1464,
+          "knowledge": 1652,
+          "parts": 347,
+          "electronics": 90,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 826,
+          "tools": 890.4000000000021,
+          "parts": 840.7299999999952,
+          "medicine": 2203.0600000000036,
+          "culture": 136,
+          "knowledge": 1292,
+          "electronics": 146,
+          "food": 24997.04000000002,
+          "iron": 1164,
+          "steel": 168,
+          "body": 48,
+          "cell": 9.600000000000001
+        },
+        "produced": {
+          "parts": 616,
+          "steel": 192,
+          "electronics": 120,
+          "food": 19641.59999999996,
+          "culture": 216,
+          "cell": 112,
+          "body": 112,
+          "medicine": 544
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 15480,
+        "used": 10560.079999999987,
+        "spill": 4918.320000000009
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 370,
+      "file": "验证/存档/自然游玩_A5工业同一身份恢复370.json",
+      "source": "industrial/364_industrial_same_identity/战后文明-存档.json",
+      "sha256": "5f123038c3540dbca123bb94cad273114c68f5dc700c354960e599be0b2d0a42",
+      "at": 175572,
+      "world": 1568904702,
+      "globalBorn": 5820334760,
+      "globalDead": 4746865217,
+      "globalCreated": 0,
+      "counts": {
+        "total": 300,
+        "bio": 252,
+        "machine": 48,
+        "mechanical": 48,
+        "synthetic": 0,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 252,
+        "workers": 240,
+        "children": 60,
+        "mutant": 147,
+        "citizens": 300
+      },
+      "migrated": 240,
+      "born": 60,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 10,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": null,
+      "history": 25,
+      "last": {
+        "at": 175560,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 13,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 16,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 13
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 158,
+        "produced": [],
+        "energy": {
+          "generated": 180,
+          "used": 76.16,
+          "stored": 1441.5999999999992,
+          "capacity": 1600,
+          "heat": 400,
+          "sources": {
+            "renewable": 180,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 167.04000000000002,
+        "upkeep": {
+          "tools": 2.4,
+          "parts": 2.3099999999999996
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2091.960000000025,
+        "medicine": 169.43999999999988,
+        "wood": 240,
+        "tools": 83.53000000000031,
+        "iron": 292,
+        "knowledge": 360,
+        "parts": 120.06999999999911,
+        "electronics": 68,
+        "culture": 76,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 7707,
+          "medicine": 1880,
+          "wood": 1106,
+          "tools": 1108,
+          "iron": 1520,
+          "knowledge": 1688,
+          "parts": 362,
+          "electronics": 94,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 866,
+          "tools": 1024.470000000004,
+          "parts": 921.9299999999937,
+          "medicine": 2558.560000000005,
+          "culture": 212,
+          "knowledge": 1328,
+          "electronics": 154,
+          "food": 28712.640000000018,
+          "iron": 1228,
+          "steel": 168,
+          "body": 48,
+          "cell": 9.600000000000001
+        },
+        "produced": {
+          "parts": 680,
+          "steel": 192,
+          "electronics": 128,
+          "food": 23097.599999999944,
+          "culture": 288,
+          "cell": 112,
+          "body": 112,
+          "medicine": 848
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 18640,
+        "used": 12280.079999999989,
+        "spill": 4918.320000000009
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 371,
+      "file": "验证/存档/自然游玩_A5工业合成人社会371.json",
+      "source": "industrial/365_industrial_synthetic_society/战后文明-存档.json",
+      "sha256": "a84dfcf7674d7efde4f798dac037462107c62a3d68d4e9528026db840d4060ef",
+      "at": 177323,
+      "world": 1583052239,
+      "globalBorn": 5910389608,
+      "globalDead": 4822772576,
+      "globalCreated": 48,
+      "counts": {
+        "total": 362,
+        "bio": 266,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 266,
+        "workers": 288,
+        "children": 74,
+        "mutant": 151,
+        "citizens": 362
+      },
+      "migrated": 240,
+      "born": 74,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 39,
+        "synthetic": 10,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": null,
+      "history": 33,
+      "last": {
+        "at": 177300,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 185,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 116.08,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 560,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 173.76,
+        "upkeep": {
+          "tools": 2.9240000000000004,
+          "parts": 3.57
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2232.280000000028,
+        "medicine": 181.3199999999997,
+        "wood": 232,
+        "tools": 92.76200000000033,
+        "iron": 244,
+        "knowledge": 350.7999999999997,
+        "parts": 136.97999999999914,
+        "electronics": 67.6,
+        "culture": 82,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 8473,
+          "medicine": 1999,
+          "wood": 1134,
+          "tools": 1370,
+          "iron": 1952,
+          "knowledge": 2428,
+          "parts": 492,
+          "electronics": 154,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 902,
+          "tools": 1277.2380000000028,
+          "parts": 1227.0199999999916,
+          "medicine": 3121.680000000005,
+          "culture": 326,
+          "knowledge": 2077.1999999999994,
+          "electronics": 278.4000000000001,
+          "food": 34349.520000000026,
+          "iron": 1708,
+          "steel": 240,
+          "body": 96,
+          "cell": 33.6
+        },
+        "produced": {
+          "parts": 872,
+          "steel": 264,
+          "electronics": 192,
+          "food": 28108.799999999923,
+          "culture": 408,
+          "cell": 136,
+          "body": 160,
+          "medicine": 1304
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 24640,
+        "used": 16407.839999999982,
+        "spill": 6232.160000000012
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 372,
+      "file": "验证/存档/自然游玩_A5工业人格隔离372.json",
+      "source": "industrial/366_industrial_isolation/战后文明-存档.json",
+      "sha256": "5fec0eacc0b8381d39a44119faf11b3cfd67cb0056523ac59663e5db85afe10f",
+      "at": 177682,
+      "world": 1587805847,
+      "globalBorn": 5940621153,
+      "globalDead": 4848250513,
+      "globalCreated": 48,
+      "counts": {
+        "total": 367,
+        "bio": 271,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 271,
+        "workers": 288,
+        "children": 79,
+        "mutant": 152,
+        "citizens": 367
+      },
+      "migrated": 240,
+      "born": 79,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 45,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": null,
+      "history": 35,
+      "last": {
+        "at": 177660,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": false,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 185,
+        "produced": [
+          "culture"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 116.48,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 176.16,
+        "upkeep": {
+          "tools": 2.934,
+          "parts": 3.57
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2154.7200000000284,
+        "medicine": 173.9599999999997,
+        "wood": 240,
+        "tools": 85.87800000000031,
+        "iron": 292,
+        "knowledge": 360.7999999999997,
+        "parts": 121.75999999999915,
+        "electronics": 67.6,
+        "culture": 82,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 8556,
+          "medicine": 2011,
+          "wood": 1142,
+          "tools": 1405,
+          "iron": 2008,
+          "knowledge": 2442,
+          "parts": 492,
+          "electronics": 154,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 902,
+          "tools": 1319.1220000000028,
+          "parts": 1250.239999999991,
+          "medicine": 3237.0400000000054,
+          "culture": 350,
+          "knowledge": 2081.1999999999994,
+          "electronics": 278.4000000000001,
+          "food": 35546.88000000004,
+          "iron": 1716,
+          "steel": 240,
+          "body": 96,
+          "cell": 33.6
+        },
+        "produced": {
+          "parts": 880,
+          "steel": 264,
+          "electronics": 192,
+          "food": 29145.59999999992,
+          "culture": 432,
+          "cell": 136,
+          "body": 160,
+          "medicine": 1400
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 26640,
+        "used": 17087.119999999988,
+        "spill": 7552.880000000012
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 373,
+      "file": "验证/存档/自然游玩_A5工业协商维修373.json",
+      "source": "industrial/367_industrial_negotiated_repair/战后文明-存档.json",
+      "sha256": "153dda3af798b1523ded0ac63ed287965d571a03e255d1157335b2753f7ddf8f",
+      "at": 178332,
+      "world": 1592578469,
+      "globalBorn": 5970959917,
+      "globalDead": 4873816655,
+      "globalCreated": 48,
+      "counts": {
+        "total": 371,
+        "bio": 275,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 275,
+        "workers": 288,
+        "children": 83,
+        "mutant": 153,
+        "citizens": 371
+      },
+      "migrated": 240,
+      "born": 83,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 56,
+        "synthetic": 10,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "echo": null,
+      "history": 38,
+      "last": {
+        "at": 178320,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 9,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 9
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 184,
+        "produced": [
+          "parts"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 118.8,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 560,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 178.07999999999998,
+        "upkeep": {
+          "tools": 2.942,
+          "parts": 3.57
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2219.000000000032,
+        "medicine": 180.57999999999976,
+        "wood": 240,
+        "tools": 90.66000000000034,
+        "iron": 284,
+        "knowledge": 357.8799999999994,
+        "parts": 127.18999999999926,
+        "electronics": 64.96000000000004,
+        "culture": 78,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 8903,
+          "medicine": 2053,
+          "wood": 1142,
+          "tools": 1503,
+          "iron": 2080,
+          "knowledge": 2483,
+          "parts": 492,
+          "electronics": 154,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 902,
+          "tools": 1412.3400000000029,
+          "parts": 1324.8099999999897,
+          "medicine": 3448.4200000000073,
+          "culture": 394,
+          "knowledge": 2125.119999999997,
+          "electronics": 289.0400000000002,
+          "food": 37730.400000000074,
+          "iron": 1796,
+          "steel": 240,
+          "body": 96,
+          "cell": 33.6
+        },
+        "produced": {
+          "parts": 960,
+          "steel": 264,
+          "electronics": 200,
+          "food": 31046.39999999991,
+          "culture": 472,
+          "cell": 136,
+          "body": 160,
+          "medicine": 1576
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 29480,
+        "used": 18461.359999999982,
+        "spill": 9018.640000000018
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 374,
+      "file": "验证/存档/自然游玩_A5工业既有权利374.json",
+      "source": "industrial/368_industrial_rights_preserved/战后文明-存档.json",
+      "sha256": "8413cd2eff844d2b85b757444cef9cd7a4e770d8af552d9307a4806a0312658a",
+      "at": 179629,
+      "world": 1602181057,
+      "globalBorn": 6031964172,
+      "globalDead": 4925218322,
+      "globalCreated": 48,
+      "counts": {
+        "total": 379,
+        "bio": 283,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 283,
+        "workers": 318,
+        "children": 61,
+        "mutant": 155,
+        "citizens": 379
+      },
+      "migrated": 240,
+      "born": 91,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 77,
+        "synthetic": 31,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": null,
+      "history": 39,
+      "last": {
+        "at": 179580,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 8,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 215,
+        "produced": [
+          "electronics",
+          "culture",
+          "parts"
+        ],
+        "energy": {
+          "generated": 280,
+          "used": 145.44,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 560,
+          "sources": {
+            "renewable": 280,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 189.12,
+        "upkeep": {
+          "tools": 2.958,
+          "parts": 3.57
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2205.1600000000344,
+        "medicine": 179.15999999999968,
+        "wood": 240,
+        "tools": 81.61400000000029,
+        "iron": 276,
+        "knowledge": 348.75999999999885,
+        "parts": 125.91999999999946,
+        "electronics": 67.92000000000013,
+        "culture": 82,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 9623,
+          "medicine": 2133,
+          "wood": 1142,
+          "tools": 1656,
+          "iron": 2160,
+          "knowledge": 2565,
+          "parts": 492,
+          "electronics": 154,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 902,
+          "tools": 1574.3860000000043,
+          "parts": 1414.0799999999874,
+          "medicine": 3865.8400000000056,
+          "culture": 478,
+          "knowledge": 2216.239999999993,
+          "electronics": 294.0800000000004,
+          "food": 42093.04000000012,
+          "iron": 1884,
+          "steel": 240,
+          "body": 96,
+          "cell": 33.6
+        },
+        "produced": {
+          "parts": 1048,
+          "steel": 264,
+          "electronics": 208,
+          "food": 34675.19999999994,
+          "culture": 560,
+          "cell": 136,
+          "body": 160,
+          "medicine": 1912
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 35600,
+        "used": 20983.919999999962,
+        "spill": 12616.08000000003
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 375,
+      "file": "验证/存档/自然游玩_A5工业回响现场375.json",
+      "source": "industrial/369_industrial_echo_choice/战后文明-存档.json",
+      "sha256": "df855c1f0a41543f8420ddab9e0c3b28442cb58e4e76de1dde3bbd834ccb36d6",
+      "at": 180979,
+      "world": 1611860617,
+      "globalBorn": 6093403907,
+      "globalDead": 4976978497,
+      "globalCreated": 48,
+      "counts": {
+        "total": 385,
+        "bio": 289,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 289,
+        "workers": 324,
+        "children": 61,
+        "mutant": 157,
+        "citizens": 385
+      },
+      "migrated": 240,
+      "born": 97,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 100,
+        "synthetic": 54,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "choice",
+        "remaining": 0,
+        "crew": 4,
+        "choice": null,
+        "exposure": 0,
+        "knowledge": 0,
+        "care": 0,
+        "visits": 0,
+        "finishedAt": null
+      },
+      "history": 45,
+      "last": {
+        "at": 180960,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 8,
+          "field": 4,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "field": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 209,
+        "produced": [],
+        "energy": {
+          "generated": 360,
+          "used": 107.92,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 193.44000000000005,
+        "upkeep": {
+          "tools": 3.1700000000000004,
+          "parts": 3.7199999999999998
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2334.760000000039,
+        "medicine": 191.09999999999977,
+        "wood": 240,
+        "tools": 88.87600000000033,
+        "iron": 284,
+        "knowledge": 357.19999999999845,
+        "parts": 121.15999999999967,
+        "electronics": 65.40000000000018,
+        "culture": 78,
+        "steel": 84,
+        "cell": 102.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 10775,
+          "medicine": 2279,
+          "wood": 1182,
+          "tools": 1858,
+          "iron": 2448,
+          "knowledge": 3074,
+          "parts": 561,
+          "electronics": 177,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 942,
+          "tools": 1769.1240000000053,
+          "parts": 1647.8399999999854,
+          "medicine": 4367.900000000005,
+          "culture": 570,
+          "knowledge": 2716.7999999999884,
+          "electronics": 371.6000000000006,
+          "food": 47089.84000000015,
+          "iron": 2164,
+          "steel": 320,
+          "body": 96,
+          "cell": 41.6
+        },
+        "produced": {
+          "parts": 1208,
+          "steel": 344,
+          "electronics": 260,
+          "food": 38649.600000000006,
+          "culture": 648,
+          "cell": 144,
+          "body": 160,
+          "medicine": 2280
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 41800,
+        "used": 24588.799999999945,
+        "spill": 15211.200000000024
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 376,
+      "file": "验证/存档/自然游玩_A5工业回响利用恢复376.json",
+      "source": "industrial/370_industrial_echo_recovery/战后文明-存档.json",
+      "sha256": "20ce239161efb1d68b7123eedf1a25459b3eaf4cbb024e18be5883a2dd7fd9a5",
+      "at": 181942,
+      "world": 1621617765,
+      "globalBorn": 6155282930,
+      "globalDead": 5029100372,
+      "globalCreated": 48,
+      "counts": {
+        "total": 388,
+        "bio": 292,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 292,
+        "workers": 324,
+        "children": 64,
+        "mutant": 157,
+        "citizens": 388
+      },
+      "migrated": 240,
+      "born": 100,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 116,
+        "synthetic": 70,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "exploit",
+        "exposure": 0,
+        "knowledge": 180,
+        "care": 12,
+        "visits": 12,
+        "finishedAt": 181920
+      },
+      "history": 48,
+      "last": {
+        "at": 181920,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 18,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 8,
+          "recovery": 4,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 18
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 8
+          },
+          "recovery": {
+            "organic": 4
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 209,
+        "produced": [
+          "parts",
+          "culture"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 134.16,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 194.88000000000005,
+        "upkeep": {
+          "tools": 3.176,
+          "parts": 3.7199999999999998
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2324.6000000000404,
+        "medicine": 151.31999999999965,
+        "wood": 240,
+        "tools": 89.57800000000027,
+        "iron": 284,
+        "knowledge": 494.679999999998,
+        "parts": 124.83999999999973,
+        "electronics": 68.56000000000024,
+        "culture": 78,
+        "steel": 84,
+        "cell": 106.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 11495,
+          "medicine": 2443,
+          "wood": 1182,
+          "tools": 1991,
+          "iron": 2536,
+          "knowledge": 3077,
+          "parts": 561,
+          "electronics": 188,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 942,
+          "tools": 1901.4220000000055,
+          "parts": 1732.159999999985,
+          "medicine": 4827.680000000007,
+          "culture": 682,
+          "knowledge": 2762.319999999985,
+          "electronics": 387.44000000000074,
+          "food": 50584.80000000016,
+          "iron": 2252,
+          "steel": 320,
+          "body": 96,
+          "cell": 61.6
+        },
+        "produced": {
+          "parts": 1296,
+          "steel": 344,
+          "electronics": 268,
+          "food": 41414.40000000005,
+          "culture": 760,
+          "cell": 168,
+          "body": 160,
+          "medicine": 2536,
+          "knowledge": 180
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 46280,
+        "used": 26717.839999999956,
+        "spill": 17562.160000000014
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 377,
+      "file": "验证/存档/自然游玩_A5工业首次十年377.json",
+      "source": "industrial/371_industrial_ten_years/战后文明-存档.json",
+      "sha256": "b3daf667e9d35331617870dab2668fea93d29fe8ba1bd8bcb2a0e35195927c19",
+      "at": 187985,
+      "world": 1671589324,
+      "globalBorn": 6486213288,
+      "globalDead": 5310059171,
+      "globalCreated": 48,
+      "counts": {
+        "total": 402,
+        "bio": 306,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 0,
+        "prosthetic": 0,
+        "organic": 306,
+        "workers": 314,
+        "children": 40,
+        "mutant": 157,
+        "citizens": 402
+      },
+      "migrated": 240,
+      "born": 114,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 0,
+        "mechanical": 217,
+        "synthetic": 171,
+        "ecological": 0
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "exploit",
+        "exposure": 0,
+        "knowledge": 180,
+        "care": 12,
+        "visits": 12,
+        "finishedAt": 181920
+      },
+      "history": 48,
+      "last": {
+        "at": 187980,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 19,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 16,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 19
+          },
+          "maintenance": {
+            "organic": 15
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "organic": 16
+          },
+          "manufacturing": {
+            "organic": 32
+          }
+        },
+        "idle": 204,
+        "produced": [
+          "parts",
+          "culture"
+        ],
+        "energy": {
+          "generated": 360,
+          "used": 131.28,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 360,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 210.72000000000008,
+        "upkeep": {
+          "tools": 3.2040000000000006,
+          "parts": 3.7199999999999998
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 2323.360000000046,
+        "medicine": 190.0399999999999,
+        "wood": 240,
+        "tools": 79.85000000000008,
+        "iron": 276,
+        "knowledge": 381.95999999999526,
+        "parts": 124.82000000000014,
+        "electronics": 64.32000000000072,
+        "culture": 82,
+        "steel": 84,
+        "cell": 106.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 16524,
+          "medicine": 2980,
+          "wood": 1182,
+          "tools": 2785,
+          "iron": 2952,
+          "knowledge": 3077,
+          "parts": 563,
+          "electronics": 188,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 942,
+          "tools": 2705.150000000024,
+          "parts": 2158.179999999983,
+          "medicine": 6941.9600000000055,
+          "culture": 1086,
+          "knowledge": 2875.039999999965,
+          "electronics": 411.68000000000166,
+          "food": 73067.84000000032,
+          "iron": 2676,
+          "steel": 320,
+          "body": 96,
+          "cell": 61.6
+        },
+        "produced": {
+          "parts": 1720,
+          "steel": 344,
+          "electronics": 288,
+          "food": 58867.200000000346,
+          "culture": 1168,
+          "cell": 168,
+          "body": 160,
+          "medicine": 4152,
+          "knowledge": 180
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 74320,
+        "used": 38917.280000000006,
+        "spill": 33402.72
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true,
+      "lastTenYears": {
+        "seconds": 6000,
+        "periods": 100,
+        "minHealth": 100,
+        "minCondition": 100,
+        "fed": 100,
+        "treated": 100,
+        "powered": 100,
+        "maintained": 100,
+        "monitoring": 100
+      }
+    },
+    {
+      "number": 378,
+      "file": "验证/存档/自然游玩_A5工业四向并行378.json",
+      "source": "industrial-final/374_industrial_four_paths/战后文明-存档.json",
+      "sha256": "324968526b42fbbbec115f1036a87ec89a250dd200d8158e152f4e5a24db0c5d",
+      "at": 191244,
+      "world": 1697333213,
+      "globalBorn": 6660591452,
+      "globalDead": 5458693446,
+      "globalCreated": 48,
+      "counts": {
+        "total": 413,
+        "bio": 317,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 293,
+        "workers": 214,
+        "children": 31,
+        "mutant": 157,
+        "citizens": 413
+      },
+      "migrated": 240,
+      "born": 125,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48,
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 20,
+        "mechanical": 271,
+        "synthetic": 225,
+        "ecological": 10
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "exploit",
+        "exposure": 0,
+        "knowledge": 180,
+        "care": 12,
+        "visits": 12,
+        "finishedAt": 181920
+      },
+      "history": 59,
+      "last": {
+        "at": 191220,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 27,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 27
+          },
+          "maintenance": {
+            "mechanical": 15
+          },
+          "clerk": {
+            "synthetic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "synthetic": 32
+          }
+        },
+        "idle": 80,
+        "produced": [
+          "parts",
+          "culture"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 135.36,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 220.79999999999995,
+        "upkeep": {
+          "tools": 3.6260000000000003,
+          "parts": 4.02
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 5320.040000000048,
+        "medicine": 210.51999999999987,
+        "wood": 240,
+        "tools": 93.198,
+        "iron": 284,
+        "knowledge": 350.0799999999941,
+        "parts": 124.4300000000001,
+        "electronics": 67.36000000000095,
+        "culture": 85.9999999999999,
+        "steel": 84,
+        "cell": 106.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 19435,
+          "medicine": 3440,
+          "wood": 1402,
+          "tools": 3369,
+          "iron": 3256,
+          "knowledge": 3768,
+          "parts": 577,
+          "electronics": 188,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 1162,
+          "tools": 3275.802000000038,
+          "parts": 2468.569999999982,
+          "medicine": 8421.480000000003,
+          "culture": 1394.0000000000005,
+          "knowledge": 3597.919999999954,
+          "electronics": 432.64000000000215,
+          "food": 86175.76000000039,
+          "iron": 2972,
+          "steel": 320,
+          "body": 96,
+          "cell": 61.6
+        },
+        "produced": {
+          "parts": 2016,
+          "steel": 344,
+          "electronics": 312,
+          "food": 72060.80000000042,
+          "culture": 1480,
+          "cell": 168,
+          "body": 160,
+          "medicine": 5192,
+          "knowledge": 180
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 89280,
+        "used": 46957.84000000002,
+        "spill": 40322.15999999999
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 379,
+      "file": "验证/存档/自然游玩_A5工业实际聚变379.json",
+      "source": "industrial-final/378_industrial_actual_fusion/战后文明-存档.json",
+      "sha256": "e7032c036b1726cd3e2a170fdbbabacdb796cc6c3d3050aba328fd9643f01be3",
+      "at": 192139,
+      "world": 1707775514,
+      "globalBorn": 6731511987,
+      "globalDead": 5519171680,
+      "globalCreated": 48,
+      "counts": {
+        "total": 418,
+        "bio": 322,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 298,
+        "workers": 195,
+        "children": 31,
+        "mutant": 157,
+        "citizens": 418
+      },
+      "migrated": 240,
+      "born": 130,
+      "dead": 0,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48,
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 35,
+        "mechanical": 286,
+        "synthetic": 240,
+        "ecological": 25
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "exploit",
+        "exposure": 0,
+        "knowledge": 180,
+        "care": 12,
+        "visits": 12,
+        "finishedAt": 181920
+      },
+      "history": 61,
+      "last": {
+        "at": 192120,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 27,
+          "maintenance": 15,
+          "clerk": 6,
+          "teacher": 6,
+          "gardener": 32,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 27
+          },
+          "maintenance": {
+            "mechanical": 15
+          },
+          "clerk": {
+            "synthetic": 6
+          },
+          "teacher": {
+            "organic": 6
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "synthetic": 32
+          }
+        },
+        "idle": 61,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 1300,
+          "used": 157.76,
+          "stored": 1210.8,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 280,
+            "thermal": 120,
+            "fusion": 900
+          }
+        },
+        "food": 224.39999999999998,
+        "upkeep": {
+          "tools": 3.636,
+          "parts": 4.02
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 8006.440000000048,
+        "medicine": 216.31999999999977,
+        "wood": 230,
+        "tools": 68.03800000000003,
+        "iron": 276,
+        "knowledge": 344.27999999999366,
+        "parts": 120.0300000000001,
+        "electronics": 67.76000000000101,
+        "culture": 74.79999999999984,
+        "steel": 84,
+        "cell": 104.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 19435,
+          "medicine": 3492,
+          "wood": 1402,
+          "tools": 3474,
+          "iron": 3312,
+          "knowledge": 3789,
+          "parts": 577,
+          "electronics": 188,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 1172,
+          "tools": 3405.9620000000373,
+          "parts": 2536.9699999999802,
+          "medicine": 8771.679999999988,
+          "culture": 1477.2000000000007,
+          "knowledge": 3624.719999999951,
+          "electronics": 436.2400000000023,
+          "food": 89921.36000000034,
+          "iron": 3036,
+          "steel": 320,
+          "body": 96,
+          "cell": 63.6
+        },
+        "produced": {
+          "parts": 2080,
+          "steel": 344,
+          "electronics": 316,
+          "food": 78492.80000000034,
+          "culture": 1552,
+          "cell": 168,
+          "body": 160,
+          "medicine": 5496,
+          "knowledge": 180
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 90580,
+        "used": 49047.03999999999,
+        "spill": 40322.15999999999
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    },
+    {
+      "number": 380,
+      "file": "验证/存档/自然游玩_A5工业混合十年380.json",
+      "source": "industrial-final/375_industrial_mixed_ten_years/战后文明-存档.json",
+      "sha256": "44fe851d360d807a95fcf6782b21ead465f1b48c87e05e7b92d1e99361bd8be7",
+      "at": 198182,
+      "world": 1761255998,
+      "globalBorn": 7096685405,
+      "globalDead": 5830864614,
+      "globalCreated": 48,
+      "counts": {
+        "total": 348,
+        "bio": 252,
+        "machine": 96,
+        "mechanical": 48,
+        "synthetic": 48,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 228,
+        "workers": 208,
+        "children": 44,
+        "mutant": 109,
+        "citizens": 348
+      },
+      "migrated": 240,
+      "born": 156,
+      "dead": 96,
+      "created": 48,
+      "converted": {
+        "prosthetic": 24,
+        "mechanical": 48,
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 136,
+        "mechanical": 387,
+        "synthetic": 341,
+        "ecological": 126
+      },
+      "recovered": {
+        "bio": 0,
+        "mechanical": 1,
+        "synthetic": 1,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "equal",
+        "work": "mixed"
+      },
+      "lawsHistory": [
+        {
+          "at": 176760,
+          "key": "citizenship",
+          "value": "equal",
+          "accepted": true,
+          "reason": null
+        },
+        {
+          "at": 178620,
+          "key": "citizenship",
+          "value": "residence",
+          "accepted": false,
+          "reason": "共同体拒绝追夺已经取得的公民权"
+        }
+      ],
+      "echo": {
+        "at": 180623,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "exploit",
+        "exposure": 0,
+        "knowledge": 180,
+        "care": 12,
+        "visits": 12,
+        "finishedAt": 181920
+      },
+      "history": 61,
+      "last": {
+        "at": 198180,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 12,
+          "courier": 4,
+          "care": 25,
+          "maintenance": 14,
+          "clerk": 6,
+          "teacher": 7,
+          "gardener": 32,
+          "manufacturing": 32
+        },
+        "assignments": {
+          "energy": {
+            "organic": 12
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 25
+          },
+          "maintenance": {
+            "mechanical": 14
+          },
+          "clerk": {
+            "synthetic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "gardener": {
+            "organic": 32
+          },
+          "manufacturing": {
+            "synthetic": 32
+          }
+        },
+        "idle": 76,
+        "produced": [
+          "parts"
+        ],
+        "energy": {
+          "generated": 200,
+          "used": 120.16,
+          "stored": 2000,
+          "capacity": 2000,
+          "heat": 1160,
+          "sources": {
+            "renewable": 200,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 170.88000000000005,
+        "upkeep": {
+          "tools": 3.4960000000000004,
+          "parts": 4.02
+        },
+        "dormant": 0,
+        "patients": 0
+      },
+      "stock": {
+        "food": 25988.12000000013,
+        "medicine": 167.28000000000006,
+        "wood": 240,
+        "tools": 92.90199999999935,
+        "iron": 276,
+        "knowledge": 350.5599999999909,
+        "parts": 127.59000000000033,
+        "electronics": 67.52000000000147,
+        "culture": 78.31999999999944,
+        "steel": 84,
+        "cell": 104.4,
+        "body": 64
+      },
+      "book": {
+        "received": {
+          "food": 19435,
+          "medicine": 3899,
+          "wood": 1412,
+          "tools": 4411,
+          "iron": 3792,
+          "knowledge": 3916,
+          "parts": 577,
+          "electronics": 188,
+          "steel": 60
+        },
+        "consumed": {
+          "wood": 1172,
+          "tools": 4318.098000000035,
+          "parts": 3009.4099999999858,
+          "medicine": 11131.719999999936,
+          "culture": 2001.6800000000026,
+          "knowledge": 3745.439999999931,
+          "electronics": 460.4800000000032,
+          "food": 114602.08000000042,
+          "iron": 3516,
+          "steel": 320,
+          "body": 96,
+          "cell": 63.6
+        },
+        "produced": {
+          "parts": 2560,
+          "steel": 344,
+          "electronics": 340,
+          "food": 121155.19999999975,
+          "culture": 2080,
+          "cell": 168,
+          "body": 160,
+          "medicine": 7400,
+          "knowledge": 180
+        },
+        "sent": {}
+      },
+      "energy": {
+        "generated": 118540,
+        "used": 63063.19999999999,
+        "spill": 53476.8
+      },
+      "exports": 0,
+      "supplyVersion": 1,
+      "originalExactReplay": true,
+      "lastTenYears": {
+        "seconds": 6000,
+        "periods": 100,
+        "minHealth": 100,
+        "minCondition": 100,
+        "fed": 100,
+        "treated": 100,
+        "powered": 100,
+        "maintained": 100,
+        "monitoring": 100
+      }
+    },
+    {
+      "number": 381,
+      "file": "验证/存档/自然游玩_A5回响独立封存381.json",
+      "source": "echo-seal/376_echo_sealed/战后文明-存档.json",
+      "sha256": "314c22703cd238c9d8037f8cd1bb77a097f2106c4c5fe21d4bc1879d324e47c5",
+      "at": 118939,
+      "world": 769673101,
+      "globalBorn": 2242582573,
+      "globalDead": 1823187901,
+      "globalCreated": 0,
+      "counts": {
+        "total": 312,
+        "bio": 312,
+        "machine": 0,
+        "mechanical": 0,
+        "synthetic": 0,
+        "gene": 24,
+        "prosthetic": 0,
+        "organic": 288,
+        "workers": 270,
+        "children": 42,
+        "mutant": 151,
+        "citizens": 312
+      },
+      "migrated": 240,
+      "born": 72,
+      "dead": 0,
+      "created": 0,
+      "converted": {
+        "gene": 24
+      },
+      "condition": 100,
+      "health": 100,
+      "geneSafety": 100,
+      "wear": 0,
+      "qualified": {
+        "bio": 5,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 5
+      },
+      "recovered": {
+        "bio": 1,
+        "mechanical": 0,
+        "synthetic": 0,
+        "ecological": 0
+      },
+      "laws": {
+        "care": "treatment",
+        "ownership": "personal",
+        "citizenship": "residence",
+        "work": "mixed"
+      },
+      "lawsHistory": [],
+      "echo": {
+        "at": 115826,
+        "stage": "complete",
+        "remaining": 0,
+        "crew": 0,
+        "choice": "seal",
+        "exposure": 0,
+        "knowledge": 0,
+        "care": 0,
+        "visits": 0,
+        "finishedAt": 118920
+      },
+      "history": 35,
+      "last": {
+        "at": 118920,
+        "fed": true,
+        "treated": true,
+        "powered": true,
+        "maintained": true,
+        "monitoring": true,
+        "audited": true,
+        "machineActive": true,
+        "syntheticActive": true,
+        "workers": {
+          "energy": 4,
+          "courier": 4,
+          "care": 16,
+          "maintenance": 6,
+          "clerk": 6,
+          "teacher": 7,
+          "field": 4,
+          "gardener": 32,
+          "manufacturing": 16
+        },
+        "assignments": {
+          "energy": {
+            "organic": 4
+          },
+          "courier": {
+            "organic": 4
+          },
+          "care": {
+            "organic": 16
+          },
+          "maintenance": {
+            "organic": 6
+          },
+          "clerk": {
+            "organic": 6
+          },
+          "teacher": {
+            "organic": 7
+          },
+          "field": {
+            "organic": 4
+          },
+          "gardener": {
+            "gene": 24,
+            "organic": 8
+          },
+          "manufacturing": {
+            "organic": 16
+          }
+        },
+        "idle": 175,
+        "produced": [
+          "parts",
+          "electronics"
+        ],
+        "energy": {
+          "generated": 100,
+          "used": 83.36,
+          "stored": 739.1199999999999,
+          "capacity": 800,
+          "heat": 400,
+          "sources": {
+            "renewable": 100,
+            "thermal": 0,
+            "fusion": 0
+          }
+        },
+        "food": 214.56,
+        "upkeep": {
+          "tools": 2.424,
+          "parts": 1.3499999999999999
+        },
+        "dormant": 0
+      },
+      "stock": {
+        "food": 3811.919999999979,
+        "medicine": 164.30000000000047,
+        "wood": 240,
+        "tools": 59.907999999998935,
+        "iron": 268,
+        "knowledge": 336,
+        "parts": 145.94999999999973,
+        "electronics": 86,
+        "culture": 63.83999999999966,
+        "steel": 92,
+        "cell": 104
+      },
+      "book": {
+        "received": {
+          "food": 5912,
+          "medicine": 3344,
+          "wood": 1318,
+          "tools": 2239,
+          "iron": 2532,
+          "knowledge": 2760,
+          "parts": 153,
+          "electronics": 64
+        },
+        "consumed": {
+          "wood": 1078,
+          "tools": 2179.092000000018,
+          "parts": 1196.0499999999997,
+          "medicine": 5323.700000000016,
+          "culture": 640.1600000000012,
+          "knowledge": 2424,
+          "electronics": 44,
+          "food": 63605.280000000086,
+          "iron": 2264,
+          "cell": 8
+        },
+        "produced": {
+          "parts": 1520,
+          "steel": 376,
+          "electronics": 592,
+          "food": 110515.19999999959,
+          "culture": 704,
+          "medicine": 2144,
+          "cell": 112
+        },
+        "sent": {
+          "food": 49010,
+          "electronics": 526,
+          "parts": 331,
+          "steel": 284
+        }
+      },
+      "energy": {
+        "generated": 40540,
+        "used": 21501.279999999988,
+        "spill": 18299.600000000013
+      },
+      "exports": 44,
+      "supplyVersion": 1,
+      "originalExactReplay": true
+    }
+  ]
+}

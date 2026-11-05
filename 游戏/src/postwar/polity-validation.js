@@ -12,4 +12,5 @@ CivilPolity.validate=function(s){const d=this.data(s);if(d===undefined)return;co
  for(const [id,n]of Object.entries(d.world.nodes)){const b=id==='north'?d.public:d.peers[id].public;for(const k of this.resources){const expected=(b.received[k]||0)+(b.produced[k]||0)-(b.consumed[k]||0)-(b.sent[k]||0)+(b.external[k]||0);if(!Number.isFinite(n.stores[k])||n.stores[k]<-1e-7||Math.abs(n.stores[k]-expected)>1e-5+Math.abs(expected)*1e-11)fail('公共物资守恒');}}
  if(d.world.foreign){const f=d.world.foreign;if(Object.values(f.actors).reduce((n,a)=>n+a.balance,0)!==0)fail('清算不守恒');}
  if(typeof CivilPolityForeign!=='undefined')CivilPolityForeign.validateCensus(s);
+ if(typeof CivilFuture!=='undefined')CivilFuture.validateCensus(s);
 };

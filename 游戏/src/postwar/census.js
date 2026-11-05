@@ -79,17 +79,20 @@ var CivilCensus={
     if(c.domain?.node)rows.push({id:'district_north',name:'北岸地区',count:CivilPopulation.count(c.domain.node.cohorts),member:c.domain.mode==='shared'});
     if(c.regional?.node)rows.push({id:'district_east',name:'东原地区',count:CivilPopulation.count(c.regional.node.cohorts),member:!!c.regional.pact});
     for(const [id,p]of Object.entries(c.polity?.peers||{}))rows.push({id:'polity_'+id,name:CivilPolityForeign.peers[id].name,count:CivilPopulation.count(p.local.cohorts),member:c.polity.world.nodes[id].joinedAt!==null});
+    if(c.polity?.future)rows.push({id:'future_common',name:'先进共同体（实际居住）',count:CivilFuture.count(c.polity.future),member:true});
     return rows;
   },
   validate(s){
     if(!this.enabled(s)){if(this.data(s)!==undefined)throw Error('旧规则不能混入新世界底账');return;}
     const d=this.data(s),int=n=>Number.isSafeInteger(n)&&n>=0,fail=()=>{throw Error('世界人口底账不符');};
     if(!d||d.schema!==1||!int(d.seed)||d.seed>=0x7fffffff||!int(d.year)||d.year!==Math.floor(s.civilization.elapsed/600)||!Array.isArray(d.entries)||!int(d.born)||!int(d.dead))fail();
-    const base=this.initial(d.seed),counts={...base.counts};let born=0,dead=0,last=0;
+    const base=this.initial(d.seed),counts={...base.counts};let born=0,dead=0,created=0,last=0;
     if(d.initial!==base.total||!d.accounts)fail();
     for(const e of d.entries){
-      if(!e||!int(e.at)||e.at<last||e.at>s.civilization.elapsed||!int(e.count)||!e.count||typeof e.reason!=='string'||e.reason.length>80)fail();last=e.at;
-      if(e.kind==='partition'){const peer=e.to?.startsWith('polity_')?e.to.slice(7):null;if(peer){if(!Object.hasOwn(CivilPolityForeign.peers,peer)||!s.civilization.polity?.peers[peer]||e.from!=='reserve_'+peer||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}else{if(!({district_east:s.civilization.regional?.node&&'reserve_east',district_north:s.civilization.domain?.node&&'reserve_north',city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east',city_bridge:s.civilization.cityRegistry&&s.civilization.cityCouncil?.locals.bridge?.node&&'reserve_north'}[e.to])||e.from!==({district_east:'reserve_east',district_north:'reserve_north',city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east',city_bridge:'reserve_north'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}}
+      if(!e||!int(e.at)||e.at<last||e.at>s.civilization.elapsed||!int(e.count)||(!e.count&&e.kind!=='account')||typeof e.reason!=='string'||e.reason.length>80)fail();last=e.at;
+      if(e.kind==='account'){if(e.to!=='future_common'||!s.civilization.polity?.future||e.at!==s.civilization.polity.future.at||e.from!==null||e.count!==0||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}
+      else if(e.kind==='create'){if(e.to!=='future_common'||e.from!==null||!Object.hasOwn(counts,e.to)||!s.civilization.polity?.future)fail();created+=e.count;}
+      else if(e.kind==='partition'){const peer=e.to?.startsWith('polity_')?e.to.slice(7):null;if(peer){if(!Object.hasOwn(CivilPolityForeign.peers,peer)||!s.civilization.polity?.peers[peer]||e.from!=='reserve_'+peer||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}else{if(!({district_east:s.civilization.regional?.node&&'reserve_east',district_north:s.civilization.domain?.node&&'reserve_north',city_lake:s.civilization.conurbation?.node&&'reserve_north',city_ridge:s.civilization.cityNetwork?.node&&'reserve_west',city_estuary:s.civilization.cityCouncil?.locals.estuary?.node&&'reserve_east',city_bridge:s.civilization.cityRegistry&&s.civilization.cityCouncil?.locals.bridge?.node&&'reserve_north'}[e.to])||e.from!==({district_east:'reserve_east',district_north:'reserve_north',city_lake:'reserve_north',city_ridge:'reserve_west',city_estuary:'reserve_east',city_bridge:'reserve_north'}[e.to])||Object.hasOwn(counts,e.to))fail();counts[e.to]=0;}}
       else if(e.kind==='move'){if(!Object.hasOwn(counts,e.from)||!Object.hasOwn(counts,e.to)||e.from===e.to)fail();}
       else if(e.kind==='birth'){if(e.from!==null||!Object.hasOwn(counts,e.to))fail();born+=e.count;}
       else if(e.kind==='death'){if(e.to!==null||!Object.hasOwn(counts,e.from))fail();dead+=e.count;}else fail();
@@ -97,10 +100,10 @@ var CivilCensus={
       if(e.to!==null)counts[e.to]+=e.count;
     }
     if(Object.keys(d.accounts).sort().join()!==Object.keys(counts).sort().join())fail();
-    if(born!==d.born||dead!==d.dead||this.total(s)!==d.initial+born-dead)fail();
+    if(born!==d.born||dead!==d.dead||created!==(d.created||0)||this.total(s)!==d.initial+born+created-dead)fail();
     for(const [id,n]of Object.entries(counts))if(!int(d.accounts[id])||d.accounts[id]!==n)fail();
     const eq=(id,n)=>{if(counts[id]!==n)throw Error('人口所在名册不符：'+id);};
-    const c=s.civilization;eq('home',s.game.population);
+    const c=s.civilization;if(c.polity?.future)eq('future_common',CivilFuture.count(c.polity.future));eq('home',s.game.population);
     for(const [id,n]of Object.entries(c.origins?.nodes||{}))eq('origin_'+id,n.population);
     for(const [id,n]of Object.entries(c.regions?.nodes||{}))eq('local_'+id,n.population);
     for(const [id,n]of Object.entries(c.worldstage?.nodes||{}))eq('macro_'+id,n.population);

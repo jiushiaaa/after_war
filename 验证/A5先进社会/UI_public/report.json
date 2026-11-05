@@ -1,0 +1,482 @@
+{
+  "kind": "native-ui-paused-read-only",
+  "views": [
+    {
+      "width": 1280,
+      "section": "construction",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 716.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 736.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "research",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 782.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 802.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "production",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 694.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 714.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "people",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 716.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 736.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "laws",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 716.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 736.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "mandate",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 694.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 714.5,
+        "left": 400
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "section": "echo",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 19.515625,
+        "width": 700,
+        "height": 585.984375,
+        "top": 19.515625,
+        "right": 1100,
+        "bottom": 605.5,
+        "left": 400
+      },
+      "activeButtons": 0,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 1280,
+      "detail": "futureLife",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "detail": "futureLedger",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "detail": "futureTree",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "detail": "futureHistory",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "section": "construction",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 704.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 704.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "research",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 792.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 792.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "production",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 704.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 704.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "people",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 704.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 704.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "laws",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 726.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 726.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "mandate",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 704.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 704.890625,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "section": "echo",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.09375,
+        "width": 833,
+        "height": 585.984375,
+        "top": -0.09375,
+        "right": 843,
+        "bottom": 585.890625,
+        "left": 10
+      },
+      "activeButtons": 0,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 853,
+      "detail": "futureLife",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "detail": "futureLedger",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "detail": "futureTree",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "detail": "futureHistory",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "section": "construction",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 769.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 769.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "research",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 835.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 835.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "production",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 747.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 747.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "people",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 747.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 747.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "laws",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 769.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 769.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "mandate",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 747.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 747.875,
+        "left": 10
+      },
+      "activeButtons": 1,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "section": "echo",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.09375,
+        "width": 370,
+        "height": 606.78125,
+        "top": 0.09375,
+        "right": 380,
+        "bottom": 606.875,
+        "left": 10
+      },
+      "activeButtons": 0,
+      "hasLabel": true,
+      "paused": true
+    },
+    {
+      "width": 390,
+      "detail": "futureLife",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "detail": "futureLedger",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "detail": "futureTree",
+      "open": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "detail": "futureHistory",
+      "open": true,
+      "overflow": false
+    }
+  ],
+  "imported": "验证/存档/自然游玩_A5公共持续维护364.json",
+  "echoMapToResearch": true,
+  "exactStateUnchanged": true,
+  "historyEntries": 71,
+  "futureHistory": 71,
+  "replay": true
+}

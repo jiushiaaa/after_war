@@ -1,0 +1,77 @@
+{
+  "at": 100060,
+  "speed": 32,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "f": {
+    "assets": {
+      "housing": 1
+    },
+    "tech": {},
+    "research": null,
+    "project": null,
+    "adoption": null,
+    "counts": {
+      "total": 240,
+      "bio": 240,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 240,
+      "workers": 240,
+      "children": 0,
+      "mutant": 120,
+      "citizens": 240
+    },
+    "stock": {
+      "food": 720,
+      "medicine": 60,
+      "wood": 100,
+      "tools": 30,
+      "iron": 100,
+      "knowledge": 180,
+      "parts": 60,
+      "electronics": 20
+    },
+    "condition": 100,
+    "health": 100,
+    "soil": 50,
+    "geneSafety": 100,
+    "machineWear": 0,
+    "auditRisk": 0,
+    "quarantined": false,
+    "law": {
+      "care": "treatment",
+      "ownership": "personal",
+      "citizenship": "residence",
+      "work": "mixed"
+    },
+    "proposal": null,
+    "converted": {},
+    "created": 0,
+    "born": 0,
+    "dead": 0,
+    "migrated": 240,
+    "power": "auto",
+    "monitor": true,
+    "audit": true,
+    "last": null,
+    "qualified": {
+      "bio": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "recovered": {
+      "bio": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "echo": null,
+    "exports": 0
+  }
+}

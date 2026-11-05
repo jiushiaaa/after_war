@@ -529,6 +529,7 @@ var Civilization = {
     if(typeof CivilPlanning!=='undefined')CivilPlanning.refresh(State,CivilMunicipal.selected);
     if(typeof CivilHeating!=='undefined')CivilHeating.refresh();
     if(typeof CivilInterface!=='undefined')CivilInterface.refresh(State,{summaries:false});
+    if(typeof CivilFutureView!=='undefined')CivilFutureView.refresh(State);
     if(typeof CivilHearth!=='undefined')CivilHearth.refresh(State);
     if(typeof CivilFinance!=='undefined')CivilFinance.refresh(State);
     if(typeof CivilMetro!=='undefined')CivilMetro.refresh();
@@ -567,6 +568,7 @@ var Civilization = {
     if(typeof CivilAdvanced!=='undefined')CivilAdvanced.reset();
     if(typeof CivilServices!=='undefined')CivilServices.reset();
     if(typeof CivilInterface!=='undefined')CivilInterface.reset();
+    if(typeof CivilFutureView!=='undefined')CivilFutureView.reset();
     if(typeof CivilCityView!=='undefined')CivilCityView.reset();
     if(typeof CivilRegionMap!=='undefined')CivilRegionMap.reset();
     if(typeof CivilHistory!=='undefined')CivilHistory.reset();
