@@ -51,7 +51,7 @@ for(const width of [1280,853,390]){
   const state=await read(`(()=>{const e=document.querySelector('#${page}');return {width:${width},page:'${page}',open:e.open,visible:e.checkVisibility(),rows:e.querySelectorAll('.civil-kv > dt').length,overflow:e.scrollWidth>e.clientWidth+1,color:e.querySelector('dt')?getComputedStyle(e.querySelector('dt')).color:null};})()`);
   if(!state.open||!state.visible||state.overflow||!state.rows||state.color!=='rgb(34, 34, 34)')throw Error(JSON.stringify(state));
   const shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(dir,`${width}_${page}.png`),Buffer.from(shot.result.data,'base64'));report.views.push(state);
-  const source='#'+page+' .civil-source > summary';if(await read(`!!document.querySelector(${JSON.stringify(source)})`)){await click(source);if(!await read(`document.querySelector(${JSON.stringify(source)}).parentElement.open`))throw Error('Numeric source did not open');await click(source);}
+  const source='#'+page+' .civil-source > summary';if(await read(`!!document.querySelector(${JSON.stringify(source)})`)){await click(source);if(!await read(`document.querySelector(${JSON.stringify(source)}).parentElement.open && document.querySelector(${JSON.stringify(source)}).checkVisibility()`))throw Error('Numeric source did not visibly open');await click(source);}
   await click('#'+page+' > summary');
  }
 }

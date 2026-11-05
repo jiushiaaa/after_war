@@ -1,0 +1,27 @@
+{
+  "kind": "409 isolated native display copy; real live UI updates",
+  "checks": [
+    {
+      "css": "#futureSummary .civil-metric strong a",
+      "before": 215495,
+      "after": 215514,
+      "focused": true,
+      "sourceVisible": true
+    },
+    {
+      "css": "#earthSummary .civil-metric strong a",
+      "before": 215521,
+      "after": 215545,
+      "focused": true,
+      "sourceVisible": true
+    },
+    {
+      "css": "#futureTree [data-future-tech] > summary",
+      "before": 215553,
+      "after": 215577,
+      "focused": true,
+      "open": true
+    }
+  ],
+  "errors": []
+}

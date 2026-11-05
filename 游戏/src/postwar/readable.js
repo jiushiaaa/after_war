@@ -9,10 +9,11 @@ var CivilReadable={
   rows(selector,rows){
     const host=$(selector);if(!host.length)return;const signature=JSON.stringify(rows);
     if(host.attr('data-readable')===signature&&host.children('.civil-kv').length)return;
-    host.attr('data-readable',signature).empty().css('white-space','normal');const dl=$('<dl>').addClass('civil-kv').appendTo(host);
+    host.attr('data-readable',signature).css('white-space','normal');let dl=host.children('.civil-kv');if(!dl.length){host.empty();dl=$('<dl>').addClass('civil-kv').appendTo(host);}
+    while(dl.children().length<rows.length*2){$('<dt>').appendTo(dl);$('<dd>').appendTo(dl);}dl.children().slice(rows.length*2).remove();
     rows.forEach(([label,value,source],i)=>{
-      $('<dt>').text(label).appendTo(dl);const dd=$('<dd>').appendTo(dl);
-      if(source){const key=selector+'_'+i,details=$('<details>').addClass('civil-source').prop('open',this.opened.has(key)).appendTo(dd);$('<summary>').text(value).attr('aria-label',label+'：'+value+'，展开来源').appendTo(details);$('<p>').text(source).appendTo(details);details.on('toggle',()=>{if(details.prop('open'))this.opened.add(key);else this.opened.delete(key);});}
+      dl.children().eq(i*2).text(label);const dd=dl.children().eq(i*2+1);
+      if(source){const key=selector+'_'+i;let details=dd.children('details');if(!details.length){dd.empty();details=$('<details>').addClass('civil-source').prop('open',this.opened.has(key)).appendTo(dd);$('<summary>').appendTo(details);$('<p>').appendTo(details);details.on('toggle',()=>{if(details.prop('open'))this.opened.add(key);else this.opened.delete(key);});}details.children('summary').text(value).attr('aria-label',label+'：'+value+'，展开来源');details.children('p').text(source);}
       else dd.text(value);
     });
   },
@@ -46,25 +47,24 @@ var CivilReadable={
   census(s,selector){
     const p=this.population(s),host=$(selector);if(!p||!host.length)return;
     const sig=JSON.stringify([p,s.civilization.polity?.future?.converted]);if(host.attr('data-census')===sig&&host.children('details').length)return;
-    const censusKey='census_'+selector;host.attr('data-census',sig).empty();const f=s.civilization.polity?.future;
-    $('<p>').text((p.global?'地球现存主体':'目前已知居住名册')+' '+this.number(p.total,'人')+'。居民、在途、公民和身体是不同口径，不相加。').appendTo(host);
-    const details=$('<details>').attr('id','a7CensusSources_'+host.parent().attr('id')).prop('open',this.opened.has(censusKey)).appendTo(host).on('toggle',()=>{if(details.prop('open'))this.opened.add(censusKey);else this.opened.delete(censusKey);});$('<summary>').text('展开人口来源与近十年变化').appendTo(details);const dl=$('<dl>').addClass('civil-kv').appendTo(details);
-    for(const r of p.rows){$('<dt>').text(r.name).appendTo(dl);$('<dd>').text(this.number(r.count,'人')).attr('title',r.count.toLocaleString()+'人 · 独立居住账户 '+r.id).appendTo(dl);}
-    if(p.global)$('<p>').text('世界主体 = 初始 '+this.number(p.initial)+' + 出生 '+this.number(p.born)+' + 新人格 '+this.number(p.created)+' − 死亡 '+this.number(p.dead)+'。联络、接纳、迁徙和身体转换不生成新人。').appendTo(details);
-    const wrap=$('<div>').addClass('civil-table-scroll').appendTo(details),table=$('<table>').addClass('civil-table').appendTo(wrap);$('<caption>').text('近十年来源（当前已知名册；迁入/迁出含名册内搬家，须成对阅读）').appendTo(table);const tr=$('<tr>').appendTo($('<thead>').appendTo(table));for(const name of ['年','出生','死亡','普查接触','迁入','迁出','新人格'])$('<th>').attr('scope','col').text(name).appendTo(tr);
-    const body=$('<tbody>').appendTo(table);for(const y of p.years){const tr=$('<tr>').appendTo(body);$('<th>').attr('scope','row').text(y.year).appendTo(tr);for(const k of ['birth','death','contact','arrival','departure','created'])$('<td>').text(this.number(y[k])).attr('title',String(y[k])).appendTo(tr);}
-    $('<p>').addClass('civil-secondary').text('医疗改善通过实际存活与死亡记录体现，不另算“医疗新增人口”。身体转换 '+(f?Object.entries(f.converted).map(([k,n])=>(CivilFutureContent.bodies[k]||k)+' '+this.number(n,'人')).join('、')||'尚无':'尚无')+'；同一主体持续登记。').appendTo(details);
+    const censusKey='census_'+selector;host.attr('data-census',sig);const f=s.civilization.polity?.future;let details=host.children('details');
+    if(!details.length){host.empty();$('<p>').appendTo(host);details=$('<details>').attr('id','a7CensusSources_'+host.parent().attr('id')).prop('open',this.opened.has(censusKey)).appendTo(host).on('toggle',()=>{if(details.prop('open'))this.opened.add(censusKey);else this.opened.delete(censusKey);});$('<summary>').text('展开人口来源与近十年变化').appendTo(details);$('<dl>').addClass('civil-kv').appendTo(details);$('<p>').addClass('civil-census-equation').appendTo(details);const wrap=$('<div>').addClass('civil-table-scroll').appendTo(details),table=$('<table>').addClass('civil-table').appendTo(wrap);$('<caption>').text('近十年来源（当前已知名册；迁入/迁出含名册内搬家，须成对阅读）').appendTo(table);const tr=$('<tr>').appendTo($('<thead>').appendTo(table));for(const name of ['年','出生','死亡','普查接触','迁入','迁出','新人格'])$('<th>').attr('scope','col').text(name).appendTo(tr);$('<tbody>').appendTo(table);$('<p>').addClass('civil-secondary').appendTo(details);}
+    host.children('p').first().text((p.global?'地球现存主体':'目前已知居住名册')+' '+this.number(p.total,'人')+'。居民、在途、公民和身体是不同口径，不相加。');
+    const dl=details.children('dl');while(dl.children().length<p.rows.length*2){$('<dt>').appendTo(dl);$('<dd>').appendTo(dl);}dl.children().slice(p.rows.length*2).remove();p.rows.forEach((r,i)=>{dl.children().eq(i*2).text(r.name);dl.children().eq(i*2+1).text(this.number(r.count,'人')).attr('title',r.count.toLocaleString()+'人 · 独立居住账户 '+r.id);});
+    details.children('.civil-census-equation').toggle(p.global).text('世界主体 = 初始 '+this.number(p.initial)+' + 出生 '+this.number(p.born)+' + 新人格 '+this.number(p.created)+' − 死亡 '+this.number(p.dead)+'。联络、接纳、迁徙和身体转换不生成新人。');
+    const body=details.find('tbody');while(body.children().length<p.years.length){const row=$('<tr>').appendTo(body);$('<th>').attr('scope','row').appendTo(row);for(let i=0;i<6;i++)$('<td>').appendTo(row);}body.children().slice(p.years.length).remove();p.years.forEach((y,i)=>{const row=body.children().eq(i);row.children('th').text(y.year);['birth','death','contact','arrival','departure','created'].forEach((k,j)=>row.children('td').eq(j).text(this.number(y[k])).attr('title',String(y[k])));});
+    details.children('.civil-secondary').text('医疗改善通过实际存活与死亡记录体现，不另算“医疗新增人口”。身体转换 '+(f?Object.entries(f.converted).map(([k,n])=>(CivilFutureContent.bodies[k]||k)+' '+this.number(n,'人')).join('、')||'尚无':'尚无')+'；同一主体持续登记。');
   },
   alerts(selector,items){
-    const root=$(selector);if(!root.length)return;root.empty().toggle(items.length>0);const first=$('<ol>').addClass('civil-alerts').attr('aria-label','需要决定').appendTo(root);
-    const add=(list,item)=>{const li=$('<li>').appendTo(list);if(item.go)$('<a>').attr({href:'#',role:'button'}).text('！'+item.text+' · 办理').appendTo(li).on('click',e=>{e.preventDefault();item.go();});else $('<strong>').text('！'+item.text).appendTo(li);};
-    items.slice(0,3).forEach(i=>add(first,i));if(items.length>3){const more=$('<details>').appendTo(root);$('<summary>').text('另外 '+(items.length-3)+' 项待办').appendTo(more);const list=$('<ol>').appendTo(more);items.slice(3).forEach(i=>add(list,i));}
+    const root=$(selector);if(!root.length)return;root.toggle(items.length>0);let first=root.children('.civil-alerts');if(!first.length){root.empty();first=$('<ol>').addClass('civil-alerts').attr('aria-label','需要决定').appendTo(root);}
+    const fill=(list,rows)=>{while(list.children().length<rows.length)$('<li>').appendTo(list);list.children().slice(rows.length).remove();rows.forEach((item,i)=>{const li=list.children().eq(i);if(item.go){let a=li.children('a');if(!a.length){li.empty();a=$('<a>').attr({href:'#',role:'button'}).appendTo(li).on('click',e=>{e.preventDefault();$(e.currentTarget).data('action')?.();});}a.text('！'+item.text+' · 办理').data('action',item.go);}else{let strong=li.children('strong');if(!strong.length){li.empty();strong=$('<strong>').appendTo(li);}strong.text('！'+item.text);}});};
+    fill(first,items.slice(0,3));let more=root.children('details');if(items.length>3){if(!more.length){more=$('<details>').appendTo(root);$('<summary>').appendTo(more);$('<ol>').appendTo(more);}more.children('summary').text('另外 '+(items.length-3)+' 项待办');fill(more.children('ol'),items.slice(3));}else more.remove();
   },
   focus(selector){const el=$(selector);el.parents('details').prop('open',true);el.prop('open',true);const node=el[0];node?.scrollIntoView({block:'center'});if(node){node.tabIndex=-1;node.focus({preventScroll:true});}},
   metricSources(selector,sources){
     const root=$(selector);if(!root.length)return;let box=root.children('.civil-metric-sources');if(!box.length){box=$('<details>').addClass('civil-metric-sources civil-details').append($('<summary>').text('汇总数来源'),$('<div>')).appendTo(root);}
     this.rows(selector+' > .civil-metric-sources > div',sources);
-    root.find('.civil-metrics .civil-metric > strong').each((i,node)=>{const el=$(node),text=el.text();el.empty();$('<a>').attr({href:'#','aria-label':text+'，查看汇总来源'}).text(text).appendTo(el).on('click',e=>{e.preventDefault();box.prop('open',true);box[0].scrollIntoView({block:'nearest'});});});
+    root.find('.civil-metrics .civil-metric > strong').each((i,node)=>{const el=$(node),text=el.text();let a=el.children('a');if(!a.length){el.empty();a=$('<a>').attr('href','#').appendTo(el).on('click',e=>{e.preventDefault();box.prop('open',true);box[0].scrollIntoView({block:'nearest'});});}a.attr('aria-label',text+'，查看汇总来源').text(text);});
   },
   earth(s){
     const d=s.civilization.polity,g=d?.earth;if(!g||!$('#earthDesk').length)return;
@@ -119,7 +119,7 @@ var CivilReadable={
       ['当地居民',this.number(CivilDomain.count(n),'人'),'普查 '+d.origin.population+' + 出生 '+n.born+' − 死亡 '+n.dead+' − 迁居 '+(s.civilization.polity?.future?.migrated||0)+'。原城市另有名册。'],
       ['共同责任',this.number(CivilDomain.governed(s),'人'),d.mode==='shared'?'依据共同服务协约涵盖当地居民；签约不生成或迁移人口。':'互市/未签约不纳入共同服务。'],
       ['健康与维护',n.health+' / '+n.condition,'最近实际供养：'+(n.economy?.fed?'粮已付':'粮待恢复')+'，'+(n.economy?.treated?'诊疗已付':'诊疗待恢复')+'，'+(n.economy?.maintained?'维护已付':'维护待恢复')+'。']]);
-    if($('#domainAccounts').prop('open'))this.rows('#domainAccounts p',[
+    if($('#domainAccounts').prop('open'))this.rows('#domainAccounts > p',[
       ['北岸现住人口',this.number(CivilDomain.count(n),'人'),'普查 '+d.origin.population+' + 出生 '+n.born+' − 死亡 '+n.dead+' − 迁往共同体 '+(s.civilization.polity?.future?.migrated||0)+'；不含原城市重复人口。'],
       ['实际劳力',this.number(CivilPopulation.workforce(n.cohorts),'人')],...this.ledger(n.stores,n.budget,d.origin.stores,s.civilization.polishVersion===1)]);
   },

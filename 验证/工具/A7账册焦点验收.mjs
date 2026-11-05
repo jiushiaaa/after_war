@@ -1,0 +1,15 @@
+// Independent display copy, real keyboard/mouse, no writes to game state.
+import fs from 'node:fs';import assert from 'node:assert/strict';import{connect}from'./a7-cdp.mjs';
+const dir='验证/A7/7-全流程/界面复核/focus',b=await connect(9372,dir),report={kind:'native imported public regional copy; focus survives real settlement and annual changes',checks:[]};
+await b.send('Page.reload');await b.sleep(1800);
+async function clear(){for(let i=0;i<12;i++){const keys=await b.read('[...document.querySelectorAll("#event .button:not(.disabled)")].map(e=>e.id)');if(!keys.length)return;const k=['close','continue','repair','wood','medicine','automatic','keep','read'].find(k=>keys.includes(k));assert.ok(k,JSON.stringify(keys));await b.raw('#event #'+k);}}
+await clear();await b.click('#saveMenu');await b.raw('#event #import');await b.raw('#event textarea');await b.send('Input.insertText',{text:fs.readFileSync('验证/A7/7-全流程/public/regions/303_compact_paid/战后文明-存档.json','utf8')});await b.raw('#event #inspect');for(let i=0;i<100&&!await b.read('!!document.querySelector("#event #replace")');i++)await b.sleep(100);assert.ok(await b.raw('#event #replace'));await b.sleep(400);await clear();if(await b.read('CivilClock.paused')){await b.raw('#speedButton');await b.raw('#event #pause');}await b.raw('#speedButton');await b.raw('#event #speed_16');
+await b.send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await b.click('#location_city');await b.click('#domainEntry');
+for(const css of ['#domainSummary .civil-metric strong a','#domainAccounts .civil-source summary']){
+ if(css.startsWith('#domainAccounts')){await b.click('#domainAccounts > summary');await b.sleep(700);}
+ assert.ok(await b.click(css));const before=await b.read('State.civilization.elapsed');await b.sleep(2200);assert.ok(await b.read(`document.activeElement.matches(${JSON.stringify(css)})`),'focus lost '+css);report.checks.push({css,before,after:await b.read('State.civilization.elapsed'),focused:true});await b.shot('focus-'+report.checks.length);
+}
+// Return through native city controls, then test annual census refresh.
+await b.click('#metroCity_select_home');await b.click('#cityView_census');const css='#cityWorldBook > p > details > summary';assert.ok(await b.click(css));await b.key(' ','Space',32);const before=await b.read('State.civilization.elapsed'),year=Math.floor(before/600);
+for(let i=0;i<55&&await b.read('Math.floor(State.civilization.elapsed/600)')===year;i++)await b.sleep(1000);
+assert.ok(await b.read('Math.floor(State.civilization.elapsed/600)')>year,'annual tick did not occur');assert.ok(await b.read(`document.activeElement.matches(${JSON.stringify(css)})`),'census focus lost');report.checks.push({css,before,after:await b.read('State.civilization.elapsed'),focused:true,keyboardSpace:true});await b.shot('focus-census');await b.raw('#speedButton');await b.raw('#event #pause');report.errors=b.events;assert.equal(b.events.filter(e=>e.method==='Runtime.exceptionThrown').length,0);fs.writeFileSync(dir+'/report.json',JSON.stringify(report,null,2));console.log('Sources and census retained focus across real live updates');b.close();

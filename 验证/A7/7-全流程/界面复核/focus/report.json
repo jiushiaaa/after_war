@@ -1,0 +1,25 @@
+{
+  "kind": "native imported public regional copy; focus survives real settlement and annual changes",
+  "checks": [
+    {
+      "css": "#domainSummary .civil-metric strong a",
+      "before": 55383,
+      "after": 55416,
+      "focused": true
+    },
+    {
+      "css": "#domainAccounts .civil-source summary",
+      "before": 55438,
+      "after": 55471,
+      "focused": true
+    },
+    {
+      "css": "#cityWorldBook > p > details > summary",
+      "before": 55494,
+      "after": 55805,
+      "focused": true,
+      "keyboardSpace": true
+    }
+  ],
+  "errors": []
+}
