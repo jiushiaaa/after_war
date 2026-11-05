@@ -1,0 +1,23 @@
+{
+  "kind": "independent old-save UI branch; two real paid authorization changes",
+  "before": 215457,
+  "warning": "！共同职责暂停 · 办理",
+  "clicksToEntry": 1,
+  "reached": "mandates",
+  "interrupted": {
+    "at": 215460,
+    "paid": false,
+    "cost": {},
+    "reason": "共同职责暂停"
+  },
+  "restored": {
+    "at": 215520,
+    "paid": true,
+    "cost": {
+      "food": 48,
+      "tools": 10,
+      "knowledge": 52
+    },
+    "reason": null
+  }
+}

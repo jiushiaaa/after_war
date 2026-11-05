@@ -32,7 +32,7 @@ var CivilPolityView={
   const body=$('<div>').attr('id','polityBody').appendTo(box);this.select('politySection','查看',body,()=>{this.section=$('#politySection').val();this.task='';this.refresh(State);});const context=$('<div>').attr('id','polityContext').appendTo(body);this.select('polityActor','交涉对象',context,()=>{this.actor=$('#polityActor').val();this.task='';this.refresh(State);});$('<p>').attr('id','polityDetail').addClass('city-net-lines').appendTo(body);
   const laws=$('<div>').attr('id','polityLaws').appendTo(body);for(const [key,items]of Object.entries(CivilPolity.laws)){this.select('polityLaw_'+key,{devolution:'地方权责',rights:'公民资格',priority:'公共生产'}[key],laws,()=>this.refresh(State));this.choices('polityLaw_'+key,items,CivilPolity.charter[key]);}
   const actions=$('<div>').attr('id','polityActions').appendTo(body);this.select('polityTask','办理事项',actions,()=>{this.task=$('#polityTask').val();this.refresh(State);});$('<p>').attr('id','polityTerms').addClass('city-net-lines').appendTo(actions);$('<div>').attr('id','polityConfirm').appendTo(actions);
-  for(const [key,label]of [['Book','公共仓与运输明细'],['History','国约与交涉记录']])$('<details>').attr('id','polity'+key).appendTo(body).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines'));
+  for(const [key,label]of [['Book','公共仓与运输明细'],['History','国约与交涉记录']])$('<details>').attr('id','polity'+key).appendTo(body).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines')).on('toggle',function(){if(this.open)CivilPolityView.refresh(State);});
  },
  list(s){const p=CivilPolity,d=p.data(s),w=d.world,f=w.foreign,a=this.actor,pair=CivilForeign.pair('north',a),rows={},add=(key,label,action,args,terms)=>rows[key]={label,action,args,terms};
   const dip=(key,label,group,action,detail={})=>{const fee=CivilPolityForeign.cost(group,action,detail);add(key,label,'diplomacy',{group,action,detail},'公共仓实付 '+CivilCityView.cost(fee||{})+'；协议及当地后续开支另计。');};
@@ -78,5 +78,6 @@ var CivilPolityView={
   if(!$('#polityMapRoutes').length)$('<p>').attr('id','polityMapRoutes').addClass('city-net-lines').appendTo('#domainMap');$('#polityMapRoutes').text(f?Object.entries(f.pairs).map(([key,relation])=>CivilForeign.ids(key).map(id=>id==='north'?'本国两区':CivilPolityForeign.peers[id].name).join(' ↔ ')+'：'+CivilForeign.phaseName(relation.phase)+'；'+f.shipments.filter(o=>o.arrivedAt===null&&CivilForeign.pair(o.from,o.to)===key).length+'批在途').join('\n'):'尚无跨国运单。');
   if(d.future?.tech.echo&&!$('#futureEchoMap').length)$('<a>').attr({id:'futureEchoMap',href:'#',role:'button'}).addClass('polity-map-link').text('旧战场回响记录').appendTo('#domainMap_north').on('click',e=>{e.preventDefault();CivilFutureView.section='echo';CivilFutureView.task='';CivilFutureView.refresh(State);Engine.travelTo(CivilInterface.researchModule);document.getElementById('futureDesk').scrollIntoView({block:'start'});$('#futureSection').trigger('focus');});
   if(d.foundedAt){$('#domainEntry').text('地区与国家');$('#domainMap_north span').text('北岸国约成员 · 其余失联');$('#domainMap_east span').text('东原国约成员 · 其余失联');}
+  if(typeof CivilReadable!=='undefined')CivilReadable.polity(s);
  }
 };

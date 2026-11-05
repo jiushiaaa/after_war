@@ -52,3 +52,34 @@ div.headerButton.civil-group-start { margin-left:22px; }
 .domain-map-islands { grid-column: 3; grid-row: 3; }
 .domain-map-rainforest { grid-column: 2; grid-row: 4; }
 @media (max-width: 600px) { #domainEntry { min-height: 44px; margin-left: 8px; } .domain-map { gap: 8px 4px; } .domain-map > div { padding: 4px; } }
+/* A7: quiet ADR typography, visible primary text and inspectable numeric books. */
+@media(min-width:940px) {
+  div#header { width:420px; display:flow-root; height:auto; min-height:50px; padding-bottom:10px; }
+  div.headerButton { line-height:1.7; }
+}
+body { --civil-ink:#222; --civil-muted:#666; --civil-rule:#b8b8b8; color:var(--civil-ink); }
+.location .city-net-lines, .location .civil-brief, .location .civil-summary,
+.location .civil-details, .location .civil-details p, .location .city-setting,
+#earthNext, #futureNext, #domainIntro, #domainNext, #polityNext,
+#earthTerms, #futureTerms, #polityTerms { color:var(--civil-ink); line-height:1.65; }
+.civil-secondary { color:var(--civil-muted); font-size:.9em; }
+.civil-kv { display:grid; grid-template-columns:minmax(6em,1fr) minmax(0,1.65fr); gap:0; margin:.65em 0; }
+.location .civil-kv > dt, .location .civil-kv > dd { color:var(--civil-ink); margin:0; padding:.5em 0; border-bottom:1px dotted var(--civil-rule); min-width:0; overflow-wrap:anywhere; }
+.civil-kv > dd { text-align:right; font-variant-numeric:tabular-nums; }
+.civil-source { margin:0; }
+.civil-source > summary { cursor:pointer; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:.2em; }
+.civil-source > p { font-size:.9em; text-align:left; font-weight:normal; margin:.6em 0; }
+.civil-alerts { padding-left:1.4em; margin:.65em 0; }
+.civil-alerts li { margin:.4em 0; font-weight:bold; }
+.civil-alerts a { color:var(--civil-ink); text-decoration:underline; text-underline-offset:.2em; }
+.civil-table-scroll { overflow-x:auto; max-width:100%; }
+.civil-table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; margin:.8em 0; }
+.civil-table caption { text-align:left; padding:.5em 0; }
+.civil-table th, .civil-table td { text-align:right; padding:.45em .4em; border-bottom:1px dotted var(--civil-rule); white-space:nowrap; }
+.civil-table th:first-child { text-align:left; }
+.civil-metric > strong { text-align:right; font-variant-numeric:tabular-nums; }
+@media(max-width:600px) {
+  .civil-kv { grid-template-columns:minmax(5em,.8fr) minmax(0,1.4fr); }
+  .civil-metrics { grid-template-columns:1fr; }
+  .civil-table { font-size:.85em; }
+}

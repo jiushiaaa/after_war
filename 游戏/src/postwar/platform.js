@@ -174,6 +174,7 @@
       Events.startEvent({title:'存档', scenes:{start:{text:[cloud],buttons:{
         download:{text:'导出进度',onChoose:()=>this.download()},
         import:{text:'导入进度',nextScene:{1:'import'}},
+        theme:{text:'切换明暗',nextScene:'end',onChoose:()=>Engine.turnLightsOff()},
         ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
         close:{text:'关闭',nextScene:'end'}
       }},import:{text:['选择原始存档文件，或粘贴完整内容后检查。检查通过后，再确认是否替换当前进度。'],textarea:'',buttons:{

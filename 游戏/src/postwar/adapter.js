@@ -555,6 +555,7 @@ var Civilization = {
     if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
     if(typeof CivilCityView!=='undefined')CivilCityView.refresh(State);
     if(typeof CivilNav!=='undefined')CivilNav.order();
+    if(typeof CivilReadable!=='undefined')CivilReadable.refresh(State);
     $('#stores').attr('data-legend',c.ruleset===2?(CivilCity.available(State)?'原镇公仓':_('stores')):c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
@@ -690,7 +691,7 @@ Events.startEvent=function(event,options) {if(Events.activeEvent())return;adrEve
 for(const key of ['playSound','playBackgroundMusic','playEventMusic','stopEventMusic','loadAudioFile']) AudioEngine[key]=function() {};
 Notifications.notify=function(module,text,noQueue) {
   if(typeof text!=='string')return;
-  if(module===Room&&noQueue&&typeof CivilHearth!=='undefined'&&CivilHearth.quietRoutine(State,text)){Engine.saveGame();return;}
+  if(module===Room&&(noQueue||State.civilization?.polity?.foundedAt)&&typeof CivilHearth!=='undefined'&&CivilHearth.quietRoutine(State,text)){Engine.saveGame();return;}
   if(!/[。！？.!?]$/.test(text))text+='。';
   Notifications.printMessage(text);Engine.saveGame();
 };

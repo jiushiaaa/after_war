@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: summary boards are read-only and keep origin populations distinct from home residents
+ok 1 - summary boards are read-only and keep origin populations distinct from home residents
+  ---
+  duration_ms: 54.787292
+  type: 'test'
+  ...
+# Subtest: warnings reflect actual local shortages and migration reservations are not treated as residents
+ok 2 - warnings reflect actual local shortages and migration reservations are not treated as residents
+  ---
+  duration_ms: 13.18225
+  type: 'test'
+  ...
+# Subtest: technology route reveals immediate frontiers but not all future branches
+ok 3 - technology route reveals immediate frontiers but not all future branches
+  ---
+  duration_ms: 9.611083
+  type: 'test'
+  ...
+# Subtest: mastered technology records retain real costs and prerequisites without changing unlock authority
+ok 4 - mastered technology records retain real costs and prerequisites without changing unlock authority
+  ---
+  duration_ms: 10.761791
+  type: 'test'
+  ...
+# Subtest: the unchanged natural crisis shows empty food stores even when the recorded warehouse delta is zero
+ok 5 - the unchanged natural crisis shows empty food stores even when the recorded warehouse delta is zero
+  ---
+  duration_ms: 16.24925
+  type: 'test'
+  ...
+# Subtest: the real crisis construction wait is explained after actual freight fills the project
+ok 6 - the real crisis construction wait is explained after actual freight fills the project
+  ---
+  duration_ms: 1385.9035
+  type: 'test'
+  ...
+# Subtest: crisis planning uses actual reduced farm productivity without inventing workers, tools or food
+ok 7 - crisis planning uses actual reduced farm productivity without inventing workers, tools or food
+  ---
+  duration_ms: 26.678458
+  type: 'test'
+  ...
+# Subtest: A7 numeric units preserve exact source values and do not mix people with mass
+ok 8 - A7 numeric units preserve exact source values and do not mix people with mass
+  ---
+  duration_ms: 57.947333
+  type: 'test'
+  ...
+# Subtest: A7 census does not expose unknown reserves or count discoveries as births
+ok 9 - A7 census does not expose unknown reserves or count discoveries as births
+  ---
+  duration_ms: 12.097875
+  type: 'test'
+  ...
+# Subtest: A7 source rows distinguish genuine births/deaths and show only ten calendar years
+ok 10 - A7 source rows distinguish genuine births/deaths and show only ten calendar years
+  ---
+  duration_ms: 10.352917
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1579.024167

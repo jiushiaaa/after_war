@@ -3,7 +3,7 @@ var CivilCityView={
   selected:null,view:'overview',module:null,
   reset(){this.selected=null;this.view='overview';this.module=null;if(typeof CivilConurbationView!=='undefined')CivilConurbationView.reset();},
   act(fn){if(fn()){Engine.saveGame();Civilization.updateIncome();Civilization.refresh();}},
-  amount(n){return Number((n||0).toFixed(1)).toLocaleString('zh-CN');},
+  amount(n){return typeof CivilReadable!=='undefined'?CivilReadable.number(n):Number((n||0).toFixed(1)).toLocaleString('zh-CN');},
   cost(cost){return Object.entries(cost).map(([k,v])=>(CivilText.labels[k]||k)+' '+this.amount(v)).join('、');},
   button(id,text,host,reason,action){const b=Civilization.button(id,text,host,()=>this.act(action));b.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(text));b.attr('title',reason||'');Button.setDisabled(b,!!reason);return b;},
   ensure(){
@@ -92,6 +92,7 @@ var CivilCityView={
     this.button('cityJoin','登记共同公共职责','#cityContacts',CivilCity.joinReason(s,id),()=>CivilCity.join(State,this.selected)).toggle(n.joinedAt===null);
     $('#cityCensusRows').text('成年劳力 '+this.amount(labor)+'；儿童 '+this.amount(children)+'；退休居民 '+this.amount(p-labor-children)+'。累计出生 '+n.born+'，累计死亡 '+n.dead+'，净迁居 '+CivilCityHomes.delta(s,this.selected)+'。变异居民 '+this.amount(CivilPopulation.count(n.cohorts.filter(c=>c.identity==='mutant')))+'；他们与其他居民使用同一套供养和服务。');
     $('#cityWorldBook p').text('已知地区：'+CivilCensus.known(s).map(r=>r.name+' '+this.amount(r.count)).join('；')+'。\n八个大区的其他居民尚未普查，不显示后台精确数。普查、加盟、迁徙不改变全球人数，生物人口另记出生、寿终与完整载体转出；新合成人须经实际制造与人格登记，备份不重复计人。');
+    if(typeof CivilReadable!=='undefined')CivilReadable.census(s,'#cityWorldBook > p');
     $('#cityEmployment').text(Object.entries(n.workers).filter(([,v])=>v>0).map(([j,v])=>({waterworker:'取水与水务',farmer:'农业',medic:'诊疗',teacher:'教育',smith:'制器',salvager:'回收',gatherer:'木料',builder:'施工',driver:'运输',smelter:'冶炼',apprentice:'学员',tutor:'专业教员',clerk:'公署记录',publiccourier:'公共接力',publicclerk:'共同事务',regionalcourier:'两区驾驶',regionalclerk:'两区联络',regionclerk:'地区联络',regioncourier:'地区驾驶',steward:'生产办事',publicbuilder:'公共施工',homekeeper:'社区维护',settler:'合作岗位',jobbuilder:'接续施工',jobclerk:'就业办事',joblearner:'岗位学员',jobtutor:'岗位教员',wageworker:'轮班劳务',wagebuilder:'劳务工位安装'}[j]||j)+' '+v).join(' · ')+'。未安排 '+(e?.idle||0)+'。实际产量受库存、工序与用水限制。');
     for(const [key,label]of Object.entries(CivilCityContent.priorities))this.button('cityPriority_'+key,label,'#cityPriorities',n.joinedAt===null?'独立住区保留本地决定':n.priority===key?'当前优先级':null,()=>CivilCity.set(State,this.selected,'priority',key));
     for(const [key,label]of Object.entries(CivilCityContent.methods))this.button('cityMethod_'+key,label,'#cityMethods',n.joinedAt===null?'先取得共同治理授权':n.method===key?'当前工序':key==='standard'&&(!s.civilization.tech.mechanics||!s.civilization.tech.standards)?'需要机械传动与标准计量':null,()=>CivilCity.set(State,this.selected,'method',key));

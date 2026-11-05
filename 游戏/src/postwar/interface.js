@@ -46,6 +46,7 @@ var CivilInterface={
     const metrics=root.children('.civil-metrics');
     for(let i=0;i<model.cards.length;i++){let row=metrics.children().eq(i);if(!row.length){row=$('<div>').addClass('civil-metric').appendTo(metrics);$('<span>').appendTo(row);$('<strong>').appendTo(row);}const [label,value,bad]=model.cards[i];row.children('span').text(label);row.children('strong').text(value);row.toggleClass('needs-attention',!!bad);}
     metrics.children().slice(model.cards.length).remove();root.children('.civil-brief').text(model.brief||'').toggle(!!model.brief);root.children('.civil-notices').text(model.notices.join(' · ')).toggle(model.notices.length>0);
+    if(typeof CivilReadable!=='undefined')CivilReadable.alerts(selector+' > .civil-notices',model.notices.map(text=>({text,go:()=>{const panel=root.closest('.location');const target=panel.find('select:visible,.button:visible').first();target.parents('details').prop('open',true);if(target[0]){target[0].scrollIntoView({block:'center'});target.trigger('focus');}}})));
     const dl=root.find('details > dl');if(dl.children().length!==model.details.length*2){dl.empty();for(const row of model.details){$('<dt>').appendTo(dl);$('<dd>').appendTo(dl);}}
     model.details.forEach(([label,value],i)=>{dl.children().eq(i*2).text(label);dl.children().eq(i*2+1).text(value);});
   },

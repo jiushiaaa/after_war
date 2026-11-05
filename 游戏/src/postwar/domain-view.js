@@ -16,7 +16,7 @@ var CivilDomainView={
     const treaty=$('<details>').attr('id','domainTreaty').addClass('civil-details').appendTo(box).append($('<summary>').text('协约与公共责任'));
     this.choice('mode','拟议协作范围',CivilDomain.modes,treaty);$('<p>').attr('id','domainTerms').addClass('city-net-lines').appendTo(treaty);$('<div>').attr('id','domainAgreementActions').appendTo(treaty);
     const economy=$('<details>').attr('id','domainEconomy').addClass('civil-details').appendTo(box).append($('<summary>').text('地方生产与外供'));this.choice('priority','地方机构委托',CivilDomain.priorities,economy);this.choice('good','湖滨进口',Object.fromEntries(Object.entries(CivilDomain.goods).map(([k,v])=>[k,v.name])),economy);$('<p>').attr('id','domainProduction').addClass('city-net-lines').appendTo(economy);$('<div>').attr('id','domainPolicyActions').appendTo(economy);
-    for(const [id,label]of [['Transport','船期与货物'],['Accounts','人口、地方资产与账目']])$('<details>').attr('id','domain'+id).addClass('civil-details').appendTo(box).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines'));
+    for(const [id,label]of [['Transport','船期与货物'],['Accounts','人口、地方资产与账目']])$('<details>').attr('id','domain'+id).addClass('civil-details').appendTo(box).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines')).on('toggle',function(){if(this.open)CivilDomainView.refresh(State);});
   },
   refresh(s){
     if(CivilConurbationView.selected!=='domain'||!CivilDomain.available(s)){$('#domainBody').hide();return false;}this.ensure();$('#cityBody').children().not('#metroCitySwitch,#domainBody').hide();$('#metroCitySwitch,#domainBody').show();$('#councilLocation').hide();$('#metroCitySwitch > .button').show();
@@ -39,6 +39,7 @@ var CivilDomainView={
     CivilRegionalView.refresh(s);
     if(typeof CivilPolityView!=='undefined')CivilPolityView.refresh(s);
     if(s.civilization.polity?.earth)CivilEarthView.map(s);
+    if(typeof CivilReadable!=='undefined')CivilReadable.domain(s);
     return true;
   }
 };

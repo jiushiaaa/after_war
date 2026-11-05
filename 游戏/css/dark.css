@@ -1,7 +1,11 @@
 body {
 	background-color: #272823;
-	color: #EEE;
+	color: #ddd;
+  --civil-ink:#ddd;
+  --civil-muted:#aaa;
+  --civil-rule:#65665f;
 }
+.menu { background-color:#272823; color:#ddd; }
 
 div.headerButton {
 	border-left: 1px solid #EEE;
