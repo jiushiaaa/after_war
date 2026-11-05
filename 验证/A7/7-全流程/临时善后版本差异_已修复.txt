@@ -1,0 +1,6 @@
+Error: 共同国约账不符：最终公共仓或外交状态
+    at fail (src/postwar/polity-validation.js:2:102)
+    at CivilPolity.validate (src/postwar/polity-validation.js:12:62)
+    at Object.validate (src/postwar/platform.js:76:53)
+    at check (/Users/chuxinlei/Documents/幻光文游/战后文明/验证/工具/A7全程原生核验.cjs:8:173)
+    at main (/Users/chuxinlei/Documents/幻光文游/战后文明/验证/工具/A7全程原生核验.cjs:16:26)

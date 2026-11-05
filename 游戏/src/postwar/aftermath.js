@@ -3,7 +3,7 @@ var CivilAftermath={
  pendingIds:['aftermathCouncil',...Object.keys(CivilWorldContent.regions).map(id=>'aftermath_'+id),...CivilForeign.pendingIds.filter(id=>id.startsWith('foreignPair_')).map(id=>'aftermathPact_'+id.slice(12))],
  data(d){return d?.foreign?.aftermath;},
  seenWar(d){return !!d?.foreign?.network?.fronts.some(f=>f.history.length);},
- actors(d){return Object.keys(d.nodes).filter(id=>d.nodes[id].casualties>0||CivilForeign.fighting(d,id)).sort();},
+ actors(d){const veteran=this.data(d)?.participationVersion===1?new Set((d.foreign.network?.fronts||[]).filter(f=>f.history.length).flatMap(f=>CivilForeign.ids(f.pair))):new Set();return Object.keys(d.nodes).filter(id=>d.nodes[id].casualties>0||CivilForeign.fighting(d,id)||veteran.has(id)).sort();},
  live(d){return this.data(d)?.conferences.findLast(c=>['pending','active'].includes(c.status));},
  inputBuffer(d,id,item){const project=this.data(d)?.industries[id],cfg=CivilAftermathContent.industries[id];return project&&cfg?3*((project.completedAt===null?cfg.work:cfg.cost)[item]||0):0;},
  inputBatch(d,id,item){const a=this.data(d),project=a?.industries[id],cfg=CivilAftermathContent.industries[id];return project&&cfg&&a.mandates?.[id]?.mode==='rebuild'?((project.completedAt===null?cfg.work:cfg.cost)[item]||0)*CivilMarketContent.modes[CivilMarkets.mode(d,id)].batch:0;},
@@ -21,8 +21,8 @@ var CivilAftermath={
  },
  reason(s,action,args={}){const d=CivilWorld.data(s);if(!d?.foreign?.congress||!this.seenWar(d))return '先有多边议约与实际战争记录';if(!CivilWorld.political(s))return '先恢复国家行政';const why=this.localReason(d,action,args,s.civilization.elapsed);if(why)return why;const cost=this.cost(action);return cost&&CivilFinance.reserveCheck(s,'home',cost)?null:'备齐议事经费并保留本城供养';},
  act(s,action,args={}){if(this.reason(s,action,args))return false;const cost=this.cost(action);CivilServices.pay(s.stores,cost);CivilWorld.record(CivilWorld.data(s),{kind:'aftermath',action,...args,at:s.civilization.elapsed,cost:{...cost}});return true;},
- validateRecord(d,r){if(!d.foreign?.congress||!this.seenWar(d)||this.localReason(d,r.action,r,r.at)||JSON.stringify(this.cost(r.action))!==JSON.stringify(r.cost))throw Error('战争善后或重建记录无效');},
- apply(d,r){if(r.action==='open'){d.foreign.aftermath={schema:1,at:r.at,conferences:[],plans:{},industries:{},work:[],reductions:[]};return;}const a=this.data(d);
+ validateRecord(d,r){if(r.participationVersion!==undefined&&(r.action!=='open'||r.participationVersion!==1||!d.equipment))throw Error('善后参战记录版本无效');if(!d.foreign?.congress||!this.seenWar(d)||this.localReason(d,r.action,r,r.at)||JSON.stringify(this.cost(r.action))!==JSON.stringify(r.cost))throw Error('战争善后或重建记录无效');},
+ apply(d,r){if(r.action==='open'){d.foreign.aftermath={schema:1,at:r.at,conferences:[],plans:{},industries:{},work:[],reductions:[]};if(r.participationVersion===1)d.foreign.aftermath.participationVersion=1;return;}const a=this.data(d);
   if(r.action==='conference'){a.conferences.push({at:r.at,actors:this.actors(d),status:'pending',resolvedAt:null,votes:null,missed:{},cycles:0,completedAt:null});return;}
   if(r.action==='mandate'){a.mandates??={};a.mandates[r.actor]={mode:r.mode,at:r.at};return;}
   if(r.action==='plan'){a.plans[r.actor]={mode:r.mode,at:r.at};return;}
