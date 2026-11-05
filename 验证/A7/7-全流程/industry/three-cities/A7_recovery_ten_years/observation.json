@@ -1,0 +1,1842 @@
+{
+  "at": 79121,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "tech": {
+    "water": true,
+    "metal": true,
+    "agronomy": true,
+    "records": true,
+    "preservation": true,
+    "handtools": true,
+    "sanitation": true,
+    "irrigation": true,
+    "school": true,
+    "trails": true,
+    "vaccines": true,
+    "mining": true,
+    "furnace": true,
+    "mechanics": true,
+    "power": true,
+    "electricalSafety": true,
+    "survey": true,
+    "standards": true,
+    "logistics": true,
+    "radio": true,
+    "precisionFit": true,
+    "traction": true,
+    "dispatch": true,
+    "scientificMethod": true,
+    "administration": true,
+    "publicHealth": true,
+    "urbanworks": true
+  },
+  "network": {
+    "road": {
+      "startedAt": 67746,
+      "completedAt": 68046,
+      "worked": 300,
+      "remaining": 0,
+      "condition": 40,
+      "paid": {
+        "wood": 300,
+        "tools": 48,
+        "knowledge": 16
+      }
+    },
+    "node": true,
+    "enabled": true,
+    "expansion": {
+      "method": "steel",
+      "paid": {
+        "wood": 240,
+        "tools": 64,
+        "iron": 96
+      },
+      "startedAt": 68084,
+      "completedAt": 68384,
+      "remaining": 0,
+      "worked": 300
+    },
+    "trips": 23,
+    "delivered": 22,
+    "inspection": {
+      "home": 79080,
+      "lake": 79080,
+      "ridge": 79080
+    },
+    "budget": {
+      "home": "expand",
+      "lake": "regular",
+      "ridge": "expand"
+    }
+  },
+  "council": true,
+  "members": [
+    "home",
+    "lake",
+    "ridge"
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "proposal": 2,
+      "at": 68718,
+      "kind": "neighborhood",
+      "target": "home",
+      "mode": "self",
+      "completedAt": 70250,
+      "sites": {
+        "home": {
+          "required": {
+            "wood": 1440,
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72
+          },
+          "installed": {
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72,
+            "wood": 1440
+          },
+          "worked": 600,
+          "remaining": 0,
+          "completedAt": 70250
+        }
+      },
+      "pledges": [
+        {
+          "from": "home",
+          "to": "home",
+          "required": {
+            "wood": 1440,
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72
+          },
+          "allocated": {
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72,
+            "wood": 1440
+          },
+          "delivered": {
+            "tools": 288,
+            "medicine": 96,
+            "knowledge": 72,
+            "wood": 1440
+          }
+        }
+      ]
+    }
+  ],
+  "estate": {
+    "project": 1,
+    "at": 70250,
+    "enabled": true,
+    "mode": "tools",
+    "condition": 100,
+    "lastPaidAt": 79080,
+    "records": [
+      {
+        "at": 70260,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 70320,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70380,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70440,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70500,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70560,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70620,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70680,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70740,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70800,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70860,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70920,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 70980,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71040,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71100,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71160,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71220,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71280,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71340,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71400,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71460,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71520,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71580,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71640,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71700,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71760,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71820,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71880,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 71940,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72000,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 72060,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72120,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72180,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72240,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72300,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72360,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72420,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72480,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72540,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72600,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 72660,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72720,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72780,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72840,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72900,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 72960,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73020,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73080,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73140,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 73200,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73260,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73320,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73380,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73440,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73500,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73560,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73620,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 73680,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73740,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73800,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73860,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73920,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 73980,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74040,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74100,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 74160,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74220,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74280,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74340,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74400,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 74460,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74520,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74580,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 74640,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74700,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74760,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74820,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74880,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 74940,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75000,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75060,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 75120,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75180,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75240,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75300,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75360,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75420,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75480,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75540,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 75600,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75660,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75720,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75780,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75840,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75900,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 75960,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76020,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76080,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76140,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76200,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76260,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76320,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76380,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76440,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76500,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76560,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76620,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76680,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76740,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76800,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76860,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76920,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 76980,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77040,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77100,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77160,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77220,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77280,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77340,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77400,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77460,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77520,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77580,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77640,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77700,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77760,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77820,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77880,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 77940,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 78000,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78060,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 78120,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78180,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78240,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78300,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78360,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78420,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 78480,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78540,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78600,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 78660,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78720,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78780,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78840,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 78900,
+        "paid": false,
+        "condition": 96
+      },
+      {
+        "at": 78960,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 79020,
+        "paid": true,
+        "condition": 100
+      },
+      {
+        "at": 79080,
+        "paid": true,
+        "condition": 100
+      }
+    ],
+    "changes": [
+      84
+    ]
+  },
+  "homeActive": true,
+  "continuity": {
+    "ready": true,
+    "office": {
+      "at": 70329,
+      "paid": {
+        "wood": 240,
+        "tools": 48,
+        "knowledge": 48
+      },
+      "worked": 300,
+      "remaining": 0,
+      "completedAt": 70629,
+      "enabled": true,
+      "policy": "local",
+      "source": "lake",
+      "lastPaidAt": 79080,
+      "certificates": [
+        {
+          "kind": "legacy",
+          "at": 70629,
+          "source": "register",
+          "cohorts": []
+        },
+        {
+          "kind": "local",
+          "at": 70980,
+          "source": 1,
+          "cohorts": [
+            {
+              "age": 27,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 71280,
+          "source": 2,
+          "cohorts": [
+            {
+              "age": 27,
+              "count": 19,
+              "identity": "human"
+            },
+            {
+              "age": 27,
+              "count": 5,
+              "identity": "mutant"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 71580,
+          "source": 3,
+          "cohorts": [
+            {
+              "age": 28,
+              "count": 5,
+              "identity": "mutant"
+            },
+            {
+              "age": 29,
+              "count": 19,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 71880,
+          "source": 4,
+          "cohorts": [
+            {
+              "age": 29,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 72180,
+          "source": 5,
+          "cohorts": [
+            {
+              "age": 30,
+              "count": 9,
+              "identity": "mutant"
+            },
+            {
+              "age": 31,
+              "count": 15,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 72480,
+          "source": 6,
+          "cohorts": [
+            {
+              "age": 31,
+              "count": 3,
+              "identity": "human"
+            },
+            {
+              "age": 31,
+              "count": 11,
+              "identity": "mutant"
+            },
+            {
+              "age": 32,
+              "count": 10,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 72780,
+          "source": 7,
+          "cohorts": [
+            {
+              "age": 33,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 73080,
+          "source": 8,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 73380,
+          "source": 9,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 73680,
+          "source": 10,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 73980,
+          "source": 11,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 74280,
+          "source": 12,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 74580,
+          "source": 13,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 74880,
+          "source": 14,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 75180,
+          "source": 15,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 75480,
+          "source": 16,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 75780,
+          "source": 17,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 76080,
+          "source": 18,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 76380,
+          "source": 19,
+          "cohorts": [
+            {
+              "age": 19,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        },
+        {
+          "kind": "local",
+          "at": 76680,
+          "source": 20,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ]
+        }
+      ],
+      "courses": [
+        {
+          "id": 1,
+          "kind": "local",
+          "at": 70680,
+          "cohorts": [
+            {
+              "age": 26,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 70980,
+          "endedAt": 70980,
+          "status": "completed"
+        },
+        {
+          "id": 2,
+          "kind": "local",
+          "at": 70980,
+          "cohorts": [
+            {
+              "age": 27,
+              "count": 19,
+              "identity": "human"
+            },
+            {
+              "age": 27,
+              "count": 5,
+              "identity": "mutant"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 71280,
+          "endedAt": 71280,
+          "status": "completed"
+        },
+        {
+          "id": 3,
+          "kind": "local",
+          "at": 71280,
+          "cohorts": [
+            {
+              "age": 27,
+              "count": 5,
+              "identity": "mutant"
+            },
+            {
+              "age": 28,
+              "count": 19,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 71580,
+          "endedAt": 71580,
+          "status": "completed"
+        },
+        {
+          "id": 4,
+          "kind": "local",
+          "at": 71580,
+          "cohorts": [
+            {
+              "age": 29,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 71880,
+          "endedAt": 71880,
+          "status": "completed"
+        },
+        {
+          "id": 5,
+          "kind": "local",
+          "at": 71880,
+          "cohorts": [
+            {
+              "age": 29,
+              "count": 9,
+              "identity": "mutant"
+            },
+            {
+              "age": 30,
+              "count": 15,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 72180,
+          "endedAt": 72180,
+          "status": "completed"
+        },
+        {
+          "id": 6,
+          "kind": "local",
+          "at": 72180,
+          "cohorts": [
+            {
+              "age": 31,
+              "count": 3,
+              "identity": "human"
+            },
+            {
+              "age": 31,
+              "count": 11,
+              "identity": "mutant"
+            },
+            {
+              "age": 32,
+              "count": 10,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 72480,
+          "endedAt": 72480,
+          "status": "completed"
+        },
+        {
+          "id": 7,
+          "kind": "local",
+          "at": 72480,
+          "cohorts": [
+            {
+              "age": 32,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 72780,
+          "endedAt": 72780,
+          "status": "completed"
+        },
+        {
+          "id": 8,
+          "kind": "local",
+          "at": 72780,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 73080,
+          "endedAt": 73080,
+          "status": "completed"
+        },
+        {
+          "id": 9,
+          "kind": "local",
+          "at": 73080,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 73380,
+          "endedAt": 73380,
+          "status": "completed"
+        },
+        {
+          "id": 10,
+          "kind": "local",
+          "at": 73380,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 73680,
+          "endedAt": 73680,
+          "status": "completed"
+        },
+        {
+          "id": 11,
+          "kind": "local",
+          "at": 73680,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 73980,
+          "endedAt": 73980,
+          "status": "completed"
+        },
+        {
+          "id": 12,
+          "kind": "local",
+          "at": 73980,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 74280,
+          "endedAt": 74280,
+          "status": "completed"
+        },
+        {
+          "id": 13,
+          "kind": "local",
+          "at": 74280,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 74580,
+          "endedAt": 74580,
+          "status": "completed"
+        },
+        {
+          "id": 14,
+          "kind": "local",
+          "at": 74580,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 74880,
+          "endedAt": 74880,
+          "status": "completed"
+        },
+        {
+          "id": 15,
+          "kind": "local",
+          "at": 74880,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 75180,
+          "endedAt": 75180,
+          "status": "completed"
+        },
+        {
+          "id": 16,
+          "kind": "local",
+          "at": 75180,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 75480,
+          "endedAt": 75480,
+          "status": "completed"
+        },
+        {
+          "id": 17,
+          "kind": "local",
+          "at": 75480,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 75780,
+          "endedAt": 75780,
+          "status": "completed"
+        },
+        {
+          "id": 18,
+          "kind": "local",
+          "at": 75780,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 76080,
+          "endedAt": 76080,
+          "status": "completed"
+        },
+        {
+          "id": 19,
+          "kind": "local",
+          "at": 76080,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 76380,
+          "endedAt": 76380,
+          "status": "completed"
+        },
+        {
+          "id": 20,
+          "kind": "local",
+          "at": 76380,
+          "cohorts": [
+            {
+              "age": 18,
+              "count": 24,
+              "identity": "human"
+            }
+          ],
+          "rounds": 30,
+          "lastAt": 76680,
+          "endedAt": 76680,
+          "status": "completed"
+        }
+      ],
+      "training": null,
+      "changes": [
+        109
+      ],
+      "services": [
+        70680,
+        70740,
+        70800,
+        70860,
+        70920,
+        70980,
+        71040,
+        71100,
+        71160,
+        71220,
+        71280,
+        71340,
+        71400,
+        71460,
+        71520,
+        71580,
+        71640,
+        71700,
+        71760,
+        71820,
+        71880,
+        71940,
+        72000,
+        72060,
+        72120,
+        72180,
+        72240,
+        72300,
+        72360,
+        72420,
+        72480,
+        72540,
+        72600,
+        72660,
+        72720,
+        72780,
+        72840,
+        72900,
+        72960,
+        73020,
+        73080,
+        73140,
+        73200,
+        73260,
+        73320,
+        73380,
+        73440,
+        73500,
+        73560,
+        73620,
+        73680,
+        73740,
+        73800,
+        73860,
+        73920,
+        73980,
+        74040,
+        74100,
+        74160,
+        74220,
+        74280,
+        74340,
+        74400,
+        74460,
+        74520,
+        74580,
+        74640,
+        74700,
+        74760,
+        74820,
+        74880,
+        74940,
+        75000,
+        75060,
+        75120,
+        75180,
+        75240,
+        75300,
+        75360,
+        75420,
+        75480,
+        75540,
+        75600,
+        75660,
+        75720,
+        75780,
+        75840,
+        75900,
+        75960,
+        76020,
+        76080,
+        76140,
+        76200,
+        76260,
+        76320,
+        76380,
+        76440,
+        76500,
+        76560,
+        76620,
+        76680,
+        76740,
+        76800,
+        76860,
+        76920,
+        76980,
+        77040,
+        77100,
+        77160,
+        77220,
+        77280,
+        77340,
+        77400,
+        77460,
+        77520,
+        77580,
+        77640,
+        77700,
+        77760,
+        77820,
+        77880,
+        77940,
+        78000,
+        78060,
+        78120,
+        78180,
+        78240,
+        78300,
+        78360,
+        78420,
+        78480,
+        78540,
+        78600,
+        78660,
+        78720,
+        78780,
+        78840,
+        78900,
+        78960,
+        79020,
+        79080
+      ],
+      "lastInviteAt": null
+    },
+    "terms": 2
+  },
+  "budget": true,
+  "governance": {
+    "home": {
+      "mode": "standard",
+      "operation": "standard",
+      "services": 140,
+      "paid": 140,
+      "production": 88
+    },
+    "lake": {
+      "mode": "standard",
+      "operation": "repair",
+      "services": 140,
+      "paid": 108,
+      "production": 651
+    },
+    "ridge": {
+      "mode": "standard",
+      "operation": "standard",
+      "services": 140,
+      "paid": 140,
+      "production": 663
+    }
+  },
+  "world": 590244274,
+  "initial": 350007417,
+  "born": 1321350561,
+  "dead": 1081113704,
+  "cities": [
+    {
+      "id": "home",
+      "population": 13100,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 10325.690000000603,
+        "medicine": 257.25000000013125,
+        "wood": 2539.1800000000267,
+        "scrap": 2386.700000000439,
+        "tools": 510.27899999999886,
+        "knowledge": 2999.9,
+        "iron": 277.350000000009
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "homekeeper": 32,
+        "settler": 480,
+        "jobclerk": 2,
+        "steward": 2,
+        "waterworker": 35,
+        "farmer": 450,
+        "medic": 399,
+        "teacher": 93,
+        "driver": 2,
+        "salvager": 69,
+        "gatherer": 82,
+        "smith": 32,
+        "builder": 0,
+        "smelter": 8
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 69,
+        "waterworker": 35,
+        "farmer": 450,
+        "settler": 0,
+        "medic": 399,
+        "teacher": 93,
+        "smelter": 0,
+        "smith": 0
+      }
+    },
+    {
+      "id": "lake",
+      "population": 62344,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 114749.5000000011,
+        "medicine": 4595.429999999982,
+        "wood": 3614.5000000001246,
+        "scrap": 2307.299999999724,
+        "tools": 275.7700000000043,
+        "knowledge": 2999.9,
+        "iron": 0.5999999999999269
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "steward": 2,
+        "waterworker": 390,
+        "farmer": 3107,
+        "medic": 4541,
+        "teacher": 1229,
+        "driver": 0,
+        "salvager": 952,
+        "gatherer": 788,
+        "smith": 20,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 788,
+        "salvager": 952,
+        "waterworker": 390,
+        "farmer": 3107,
+        "medic": 4541,
+        "teacher": 1229,
+        "smelter": 0,
+        "smith": 20
+      }
+    },
+    {
+      "id": "ridge",
+      "population": 77324,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 147940.85999999463,
+        "medicine": 5427.480000000454,
+        "wood": 4308.920000000125,
+        "scrap": 4961.599999999863,
+        "tools": 1211.2160000000652,
+        "knowledge": 2999.9,
+        "iron": 803.399999999971
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "steward": 2,
+        "waterworker": 484,
+        "farmer": 6546,
+        "medic": 5372,
+        "teacher": 870,
+        "driver": 0,
+        "salvager": 489,
+        "gatherer": 1148,
+        "smith": 122,
+        "builder": 0,
+        "smelter": 160
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 0,
+        "waterworker": 484,
+        "farmer": 6546,
+        "medic": 0,
+        "teacher": 870,
+        "smelter": 0,
+        "smith": 122
+      }
+    }
+  ]
+}

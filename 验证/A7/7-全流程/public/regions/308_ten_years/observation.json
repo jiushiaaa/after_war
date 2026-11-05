@@ -1,0 +1,5013 @@
+{
+  "at": 65132,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "known": 10266231,
+  "common": 15696026,
+  "regional": {
+    "schema": 1,
+    "at": 54582,
+    "survey": {
+      "remaining": 0,
+      "finishedAt": 55062
+    },
+    "origin": {
+      "at": 55062,
+      "initial": 6207417,
+      "population": 8926447,
+      "born": 14954635,
+      "dead": 12235605,
+      "housing": 11158059,
+      "initialStores": {
+        "food": 26816041.439999998,
+        "medicine": 1489780.08,
+        "wood": 744890.0399999999,
+        "scrap": 620741.7000000001,
+        "tools": 248296.68,
+        "knowledge": 37244.502,
+        "iron": 31037.085
+      },
+      "stores": {
+        "food": 38562251.04,
+        "medicine": 2142347.2800000003,
+        "wood": 744890.0399999999,
+        "scrap": 620741.7000000001,
+        "tools": 248296.68,
+        "knowledge": 37244.502,
+        "iron": 31037.085
+      },
+      "produced": {
+        "food": 4925582445.6,
+        "medicine": 410138920.20000005,
+        "wood": 29338362.399999995,
+        "scrap": 27299090.200000007,
+        "tools": 13921448.060000006,
+        "knowledge": 1364954.5100000007
+      },
+      "consumed": {
+        "food": 4913836236,
+        "medicine": 409486352.99999994,
+        "wood": 29338362.399999995,
+        "scrap": 27299090.200000007,
+        "tools": 13921448.060000006,
+        "knowledge": 1364954.5100000007
+      },
+      "assets": {
+        "beds": 11158059,
+        "waterCapacity": 11158059,
+        "coastalBarges": 16,
+        "freightCapacity": 96000,
+        "publicCart": 1
+      },
+      "model": "east-floodplain-annual-subsistence-v1"
+    },
+    "node": {
+      "cohorts": [
+        {
+          "age": 17,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 17,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 18,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 18,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 19,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 19,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 20,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 20,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 21,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 21,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 22,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 22,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 23,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 23,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 24,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 24,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 25,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 25,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 26,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 26,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 27,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 27,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 28,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 28,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 29,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 29,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 30,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 30,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 31,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 31,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 32,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 32,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 33,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 33,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 34,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 34,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 35,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 35,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 36,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 36,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 37,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 37,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 38,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 38,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 39,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 39,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 40,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 40,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 41,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 41,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 42,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 42,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 43,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 43,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 44,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 44,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 45,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 45,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 46,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 46,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 47,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 47,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 48,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 48,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 49,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 49,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 50,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 50,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 51,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 51,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 52,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 52,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 53,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 53,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 54,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 54,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 55,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 55,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 56,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 56,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 57,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 57,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 58,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 58,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 59,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 59,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 60,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 60,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 61,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 61,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 62,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 62,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 63,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 63,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 64,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 64,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 65,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 65,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 66,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 66,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 67,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 67,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 68,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 68,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 69,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 69,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 70,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 70,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 71,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 71,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 72,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 72,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 73,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 73,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 74,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 74,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 75,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 75,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 76,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 76,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 77,
+          "count": 89264,
+          "identity": "human"
+        },
+        {
+          "age": 77,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 78,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 78,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 79,
+          "count": 89265,
+          "identity": "human"
+        },
+        {
+          "age": 79,
+          "count": 22316,
+          "identity": "mutant"
+        },
+        {
+          "age": 16,
+          "count": 142824,
+          "identity": "human"
+        },
+        {
+          "age": 16,
+          "count": 35705,
+          "identity": "mutant"
+        },
+        {
+          "age": 15,
+          "count": 143894,
+          "identity": "human"
+        },
+        {
+          "age": 15,
+          "count": 35974,
+          "identity": "mutant"
+        },
+        {
+          "age": 14,
+          "count": 144988,
+          "identity": "human"
+        },
+        {
+          "age": 14,
+          "count": 36246,
+          "identity": "mutant"
+        },
+        {
+          "age": 13,
+          "count": 146102,
+          "identity": "human"
+        },
+        {
+          "age": 13,
+          "count": 36525,
+          "identity": "mutant"
+        },
+        {
+          "age": 12,
+          "count": 147238,
+          "identity": "human"
+        },
+        {
+          "age": 12,
+          "count": 36810,
+          "identity": "mutant"
+        },
+        {
+          "age": 11,
+          "count": 148398,
+          "identity": "human"
+        },
+        {
+          "age": 11,
+          "count": 37099,
+          "identity": "mutant"
+        },
+        {
+          "age": 10,
+          "count": 149581,
+          "identity": "human"
+        },
+        {
+          "age": 10,
+          "count": 37395,
+          "identity": "mutant"
+        },
+        {
+          "age": 9,
+          "count": 150787,
+          "identity": "human"
+        },
+        {
+          "age": 9,
+          "count": 37697,
+          "identity": "mutant"
+        },
+        {
+          "age": 8,
+          "count": 152018,
+          "identity": "human"
+        },
+        {
+          "age": 8,
+          "count": 38004,
+          "identity": "mutant"
+        },
+        {
+          "age": 7,
+          "count": 153273,
+          "identity": "human"
+        },
+        {
+          "age": 7,
+          "count": 38318,
+          "identity": "mutant"
+        },
+        {
+          "age": 6,
+          "count": 154553,
+          "identity": "human"
+        },
+        {
+          "age": 6,
+          "count": 38638,
+          "identity": "mutant"
+        },
+        {
+          "age": 5,
+          "count": 155859,
+          "identity": "human"
+        },
+        {
+          "age": 5,
+          "count": 38964,
+          "identity": "mutant"
+        },
+        {
+          "age": 4,
+          "count": 157190,
+          "identity": "human"
+        },
+        {
+          "age": 4,
+          "count": 39298,
+          "identity": "mutant"
+        },
+        {
+          "age": 3,
+          "count": 158549,
+          "identity": "human"
+        },
+        {
+          "age": 3,
+          "count": 39637,
+          "identity": "mutant"
+        },
+        {
+          "age": 2,
+          "count": 159935,
+          "identity": "human"
+        },
+        {
+          "age": 2,
+          "count": 39983,
+          "identity": "mutant"
+        },
+        {
+          "age": 1,
+          "count": 161348,
+          "identity": "human"
+        },
+        {
+          "age": 1,
+          "count": 40337,
+          "identity": "mutant"
+        },
+        {
+          "age": 0,
+          "count": 162790,
+          "identity": "human"
+        },
+        {
+          "age": 0,
+          "count": 40697,
+          "identity": "mutant"
+        }
+      ],
+      "year": 108,
+      "born": 3236654,
+      "dead": 1896870,
+      "births": {
+        "scaled": true,
+        "credit": 0,
+        "mutantCredit": 0.38788919524813537
+      },
+      "housing": 11158059,
+      "health": 100,
+      "condition": 100,
+      "stores": {
+        "food": 36930457.44900001,
+        "medicine": 1847921.58,
+        "wood": 799613.0446940383,
+        "scrap": 761554.9486246153,
+        "tools": 278115.16431230766,
+        "knowledge": 102405.65422499999,
+        "iron": 307986.93
+      },
+      "budget": {
+        "produced": {
+          "wood": 5033508.349209509,
+          "scrap": 77379345.96566178,
+          "tools": 4943588.7394919535,
+          "food": 1200114524.003106,
+          "medicine": 96872785.18208003,
+          "knowledge": 104237.70893500022,
+          "iron": 276949.8449999999
+        },
+        "consumed": {
+          "scrap": 77238532.71703716,
+          "wood": 4978785.344515482,
+          "tools": 4817770.255179656,
+          "food": 1201746317.5941036,
+          "medicine": 97157863.00000004,
+          "knowledge": 39076.55670999994
+        },
+        "sent": {
+          "medicine": 9347.88208,
+          "tools": 96000
+        },
+        "received": {}
+      },
+      "workers": {
+        "water": 64164,
+        "medic": 821299,
+        "teacher": 167412,
+        "farmer": 561440,
+        "maintenance": 10267,
+        "clerk": 5134,
+        "salvager": 87403,
+        "gatherer": 21904,
+        "smith": 28620,
+        "smelter": 5579
+      },
+      "economy": {
+        "fed": true,
+        "treated": true,
+        "educated": true,
+        "water": true,
+        "maintained": true,
+        "upkeep": {
+          "food": 10266.231,
+          "wood": 1026.6231,
+          "tools": 1026.6231,
+          "knowledge": 205.32462
+        },
+        "worked": {
+          "gatherer": 3011.8660147168944,
+          "salvager": 65332.32935769231,
+          "smith": 16595.425382051293,
+          "farmer": 475619.260961538,
+          "medic": 684415.3999999999,
+          "teacher": 213.87981250000544,
+          "smelter": 0
+        },
+        "idle": 3471046,
+        "flow": {
+          "food": 0,
+          "medicine": 0,
+          "wood": 615.9738600000273,
+          "scrap": 0,
+          "tools": 307.9869300000137,
+          "knowledge": 51.33115500000713,
+          "iron": 0
+        }
+      }
+    },
+    "pact": {
+      "at": 55345,
+      "share": 2400,
+      "handoff": 1
+    },
+    "enabled": true,
+    "levee": 100,
+    "buffer": 0,
+    "medical": {
+      "stock": 75485.81312000006,
+      "received": 172800,
+      "local": 9347.88208,
+      "used": 106662.06895999977
+    },
+    "ledger": [
+      {
+        "id": 1,
+        "at": 54582,
+        "kind": "survey"
+      },
+      {
+        "id": 2,
+        "at": 55062,
+        "kind": "discover"
+      },
+      {
+        "id": 3,
+        "at": 55080,
+        "kind": "round"
+      },
+      {
+        "id": 4,
+        "at": 55080,
+        "kind": "levee",
+        "paid": true,
+        "local": 714.11576
+      },
+      {
+        "id": 5,
+        "at": 55140,
+        "kind": "round"
+      },
+      {
+        "id": 6,
+        "at": 55140,
+        "kind": "levee",
+        "paid": true,
+        "local": 714.11576
+      },
+      {
+        "id": 7,
+        "at": 55200,
+        "kind": "annual"
+      },
+      {
+        "id": 8,
+        "at": 55200,
+        "kind": "round"
+      },
+      {
+        "id": 9,
+        "at": 55200,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 10,
+        "at": 55260,
+        "kind": "round"
+      },
+      {
+        "id": 11,
+        "at": 55260,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 12,
+        "at": 55320,
+        "kind": "round"
+      },
+      {
+        "id": 13,
+        "at": 55320,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 14,
+        "at": 55345,
+        "kind": "agreement",
+        "share": 2400,
+        "handoff": 1
+      },
+      {
+        "id": 15,
+        "at": 55380,
+        "kind": "round"
+      },
+      {
+        "id": 16,
+        "at": 55380,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 17,
+        "at": 55380,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 18,
+        "at": 55380,
+        "kind": "dispatch",
+        "trip": 1,
+        "prepared": 24000
+      },
+      {
+        "id": 19,
+        "at": 55440,
+        "kind": "round"
+      },
+      {
+        "id": 20,
+        "at": 55440,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 21,
+        "at": 55440,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 22,
+        "at": 55500,
+        "kind": "round"
+      },
+      {
+        "id": 23,
+        "at": 55500,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 24,
+        "at": 55500,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 25,
+        "at": 55560,
+        "kind": "round"
+      },
+      {
+        "id": 26,
+        "at": 55560,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 27,
+        "at": 55560,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 28,
+        "at": 55620,
+        "kind": "round"
+      },
+      {
+        "id": 29,
+        "at": 55620,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 30,
+        "at": 55620,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 31,
+        "at": 55680,
+        "kind": "round"
+      },
+      {
+        "id": 32,
+        "at": 55680,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 33,
+        "at": 55680,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 34,
+        "at": 55740,
+        "kind": "round"
+      },
+      {
+        "id": 35,
+        "at": 55740,
+        "kind": "levee",
+        "paid": true,
+        "local": 719.4716000000001
+      },
+      {
+        "id": 36,
+        "at": 55740,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 37,
+        "at": 55800,
+        "kind": "annual"
+      },
+      {
+        "id": 38,
+        "at": 55800,
+        "kind": "round"
+      },
+      {
+        "id": 39,
+        "at": 55800,
+        "kind": "levee",
+        "paid": true,
+        "local": 724.93456
+      },
+      {
+        "id": 40,
+        "at": 55800,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 41,
+        "at": 55860,
+        "kind": "arrival",
+        "trip": 1
+      },
+      {
+        "id": 42,
+        "at": 55860,
+        "kind": "round"
+      },
+      {
+        "id": 43,
+        "at": 55860,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 44,
+        "at": 55860,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 45,
+        "at": 55860,
+        "kind": "distribution",
+        "trip": 1
+      },
+      {
+        "id": 46,
+        "at": 55920,
+        "kind": "round"
+      },
+      {
+        "id": 47,
+        "at": 55920,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 48,
+        "at": 55920,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 49,
+        "at": 55980,
+        "kind": "round"
+      },
+      {
+        "id": 50,
+        "at": 55980,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 51,
+        "at": 55980,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 52,
+        "at": 56040,
+        "kind": "round"
+      },
+      {
+        "id": 53,
+        "at": 56040,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 54,
+        "at": 56040,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 55,
+        "at": 56100,
+        "kind": "distributed",
+        "trip": 1
+      },
+      {
+        "id": 56,
+        "at": 56100,
+        "kind": "round"
+      },
+      {
+        "id": 57,
+        "at": 56100,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 58,
+        "at": 56100,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 59,
+        "at": 56116,
+        "kind": "policy",
+        "enabled": false
+      },
+      {
+        "id": 60,
+        "at": 56160,
+        "kind": "round"
+      },
+      {
+        "id": 61,
+        "at": 56160,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 62,
+        "at": 56160,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 63,
+        "at": 56220,
+        "kind": "round"
+      },
+      {
+        "id": 64,
+        "at": 56220,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 65,
+        "at": 56220,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 66,
+        "at": 56280,
+        "kind": "round"
+      },
+      {
+        "id": 67,
+        "at": 56280,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 68,
+        "at": 56280,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 69,
+        "at": 56340,
+        "kind": "return",
+        "trip": 1
+      },
+      {
+        "id": 70,
+        "at": 56340,
+        "kind": "cartReturn",
+        "trip": 1
+      },
+      {
+        "id": 71,
+        "at": 56340,
+        "kind": "round"
+      },
+      {
+        "id": 72,
+        "at": 56340,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 73,
+        "at": 56340,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 74,
+        "at": 56400,
+        "kind": "annual"
+      },
+      {
+        "id": 75,
+        "at": 56400,
+        "kind": "round"
+      },
+      {
+        "id": 76,
+        "at": 56400,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 77,
+        "at": 56400,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 78,
+        "at": 56460,
+        "kind": "round"
+      },
+      {
+        "id": 79,
+        "at": 56460,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 80,
+        "at": 56460,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 81,
+        "at": 56520,
+        "kind": "round"
+      },
+      {
+        "id": 82,
+        "at": 56520,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 83,
+        "at": 56520,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 84,
+        "at": 56580,
+        "kind": "round"
+      },
+      {
+        "id": 85,
+        "at": 56580,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 86,
+        "at": 56580,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 87,
+        "at": 56640,
+        "kind": "round"
+      },
+      {
+        "id": 88,
+        "at": 56640,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 89,
+        "at": 56640,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 90,
+        "at": 56700,
+        "kind": "round"
+      },
+      {
+        "id": 91,
+        "at": 56700,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 92,
+        "at": 56700,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 93,
+        "at": 56760,
+        "kind": "round"
+      },
+      {
+        "id": 94,
+        "at": 56760,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 95,
+        "at": 56760,
+        "kind": "flood",
+        "food": 18262.672
+      },
+      {
+        "id": 96,
+        "at": 56760,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 97,
+        "at": 56820,
+        "kind": "round"
+      },
+      {
+        "id": 98,
+        "at": 56820,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 99,
+        "at": 56820,
+        "kind": "flood",
+        "food": 18262.672
+      },
+      {
+        "id": 100,
+        "at": 56820,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 101,
+        "at": 56880,
+        "kind": "round"
+      },
+      {
+        "id": 102,
+        "at": 56880,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 103,
+        "at": 56880,
+        "kind": "flood",
+        "food": 18262.672
+      },
+      {
+        "id": 104,
+        "at": 56880,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 105,
+        "at": 56940,
+        "kind": "round"
+      },
+      {
+        "id": 106,
+        "at": 56940,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 107,
+        "at": 56940,
+        "kind": "flood",
+        "food": 18262.672
+      },
+      {
+        "id": 108,
+        "at": 56940,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 109,
+        "at": 57000,
+        "kind": "annual"
+      },
+      {
+        "id": 110,
+        "at": 57000,
+        "kind": "round"
+      },
+      {
+        "id": 111,
+        "at": 57000,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 112,
+        "at": 57000,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 113,
+        "at": 57000,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 114,
+        "at": 57060,
+        "kind": "round"
+      },
+      {
+        "id": 115,
+        "at": 57060,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 116,
+        "at": 57060,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 117,
+        "at": 57060,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 118,
+        "at": 57120,
+        "kind": "round"
+      },
+      {
+        "id": 119,
+        "at": 57120,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 120,
+        "at": 57120,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 121,
+        "at": 57120,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 122,
+        "at": 57180,
+        "kind": "round"
+      },
+      {
+        "id": 123,
+        "at": 57180,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 124,
+        "at": 57180,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 125,
+        "at": 57180,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 126,
+        "at": 57240,
+        "kind": "round"
+      },
+      {
+        "id": 127,
+        "at": 57240,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 128,
+        "at": 57240,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 129,
+        "at": 57240,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 130,
+        "at": 57300,
+        "kind": "round"
+      },
+      {
+        "id": 131,
+        "at": 57300,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 132,
+        "at": 57300,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 133,
+        "at": 57300,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 134,
+        "at": 57360,
+        "kind": "round"
+      },
+      {
+        "id": 135,
+        "at": 57360,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 136,
+        "at": 57360,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 137,
+        "at": 57360,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 138,
+        "at": 57420,
+        "kind": "round"
+      },
+      {
+        "id": 139,
+        "at": 57420,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 140,
+        "at": 57420,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 141,
+        "at": 57420,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 142,
+        "at": 57480,
+        "kind": "round"
+      },
+      {
+        "id": 143,
+        "at": 57480,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 144,
+        "at": 57480,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 145,
+        "at": 57480,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 146,
+        "at": 57540,
+        "kind": "round"
+      },
+      {
+        "id": 147,
+        "at": 57540,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 148,
+        "at": 57540,
+        "kind": "flood",
+        "food": 18404.764
+      },
+      {
+        "id": 149,
+        "at": 57540,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 150,
+        "at": 57600,
+        "kind": "annual"
+      },
+      {
+        "id": 151,
+        "at": 57600,
+        "kind": "round"
+      },
+      {
+        "id": 152,
+        "at": 57600,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 153,
+        "at": 57600,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 154,
+        "at": 57600,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 155,
+        "at": 57660,
+        "kind": "round"
+      },
+      {
+        "id": 156,
+        "at": 57660,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 157,
+        "at": 57660,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 158,
+        "at": 57660,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 159,
+        "at": 57720,
+        "kind": "round"
+      },
+      {
+        "id": 160,
+        "at": 57720,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 161,
+        "at": 57720,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 162,
+        "at": 57720,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 163,
+        "at": 57780,
+        "kind": "round"
+      },
+      {
+        "id": 164,
+        "at": 57780,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 165,
+        "at": 57780,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 166,
+        "at": 57780,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 167,
+        "at": 57840,
+        "kind": "round"
+      },
+      {
+        "id": 168,
+        "at": 57840,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 169,
+        "at": 57840,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 170,
+        "at": 57840,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 171,
+        "at": 57900,
+        "kind": "round"
+      },
+      {
+        "id": 172,
+        "at": 57900,
+        "kind": "levee",
+        "paid": false,
+        "local": 0
+      },
+      {
+        "id": 173,
+        "at": 57900,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 174,
+        "at": 57900,
+        "kind": "service",
+        "paid": false,
+        "reason": "已暂停新的共同支出"
+      },
+      {
+        "id": 175,
+        "at": 57926,
+        "kind": "policy",
+        "enabled": true
+      },
+      {
+        "id": 176,
+        "at": 57960,
+        "kind": "round"
+      },
+      {
+        "id": 177,
+        "at": 57960,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 178,
+        "at": 57960,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 179,
+        "at": 57960,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 180,
+        "at": 58020,
+        "kind": "round"
+      },
+      {
+        "id": 181,
+        "at": 58020,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 182,
+        "at": 58020,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 183,
+        "at": 58020,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 184,
+        "at": 58080,
+        "kind": "round"
+      },
+      {
+        "id": 185,
+        "at": 58080,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 186,
+        "at": 58080,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 187,
+        "at": 58080,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 188,
+        "at": 58140,
+        "kind": "round"
+      },
+      {
+        "id": 189,
+        "at": 58140,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 190,
+        "at": 58140,
+        "kind": "flood",
+        "food": 18549.7
+      },
+      {
+        "id": 191,
+        "at": 58140,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 192,
+        "at": 58200,
+        "kind": "annual"
+      },
+      {
+        "id": 193,
+        "at": 58200,
+        "kind": "round"
+      },
+      {
+        "id": 194,
+        "at": 58200,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 195,
+        "at": 58200,
+        "kind": "flood",
+        "food": 18697.532
+      },
+      {
+        "id": 196,
+        "at": 58200,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 197,
+        "at": 58260,
+        "kind": "round"
+      },
+      {
+        "id": 198,
+        "at": 58260,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 199,
+        "at": 58260,
+        "kind": "flood",
+        "food": 18697.532
+      },
+      {
+        "id": 200,
+        "at": 58260,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 201,
+        "at": 58320,
+        "kind": "round"
+      },
+      {
+        "id": 202,
+        "at": 58320,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 203,
+        "at": 58320,
+        "kind": "flood",
+        "food": 18697.532
+      },
+      {
+        "id": 204,
+        "at": 58320,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 205,
+        "at": 58380,
+        "kind": "round"
+      },
+      {
+        "id": 206,
+        "at": 58380,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 207,
+        "at": 58380,
+        "kind": "flood",
+        "food": 18697.532
+      },
+      {
+        "id": 208,
+        "at": 58380,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 209,
+        "at": 58440,
+        "kind": "round"
+      },
+      {
+        "id": 210,
+        "at": 58440,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 211,
+        "at": 58440,
+        "kind": "flood",
+        "food": 18697.532
+      },
+      {
+        "id": 212,
+        "at": 58440,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 213,
+        "at": 58500,
+        "kind": "round"
+      },
+      {
+        "id": 214,
+        "at": 58500,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 215,
+        "at": 58500,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 216,
+        "at": 58560,
+        "kind": "round"
+      },
+      {
+        "id": 217,
+        "at": 58560,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 218,
+        "at": 58560,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 219,
+        "at": 58560,
+        "kind": "dispatch",
+        "trip": 2,
+        "prepared": 23999.999999999884
+      },
+      {
+        "id": 220,
+        "at": 58620,
+        "kind": "round"
+      },
+      {
+        "id": 221,
+        "at": 58620,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 222,
+        "at": 58620,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 223,
+        "at": 58680,
+        "kind": "round"
+      },
+      {
+        "id": 224,
+        "at": 58680,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 225,
+        "at": 58680,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 226,
+        "at": 58740,
+        "kind": "round"
+      },
+      {
+        "id": 227,
+        "at": 58740,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 228,
+        "at": 58740,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 229,
+        "at": 58800,
+        "kind": "annual"
+      },
+      {
+        "id": 230,
+        "at": 58800,
+        "kind": "round"
+      },
+      {
+        "id": 231,
+        "at": 58800,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 232,
+        "at": 58800,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 233,
+        "at": 58860,
+        "kind": "round"
+      },
+      {
+        "id": 234,
+        "at": 58860,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 235,
+        "at": 58860,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 236,
+        "at": 58920,
+        "kind": "round"
+      },
+      {
+        "id": 237,
+        "at": 58920,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 238,
+        "at": 58920,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 239,
+        "at": 58980,
+        "kind": "round"
+      },
+      {
+        "id": 240,
+        "at": 58980,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 241,
+        "at": 58980,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 242,
+        "at": 59040,
+        "kind": "arrival",
+        "trip": 2
+      },
+      {
+        "id": 243,
+        "at": 59040,
+        "kind": "round"
+      },
+      {
+        "id": 244,
+        "at": 59040,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 245,
+        "at": 59040,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 246,
+        "at": 59040,
+        "kind": "distribution",
+        "trip": 2
+      },
+      {
+        "id": 247,
+        "at": 59100,
+        "kind": "round"
+      },
+      {
+        "id": 248,
+        "at": 59100,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 249,
+        "at": 59100,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 250,
+        "at": 59160,
+        "kind": "round"
+      },
+      {
+        "id": 251,
+        "at": 59160,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 252,
+        "at": 59160,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 253,
+        "at": 59220,
+        "kind": "round"
+      },
+      {
+        "id": 254,
+        "at": 59220,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 255,
+        "at": 59220,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 256,
+        "at": 59280,
+        "kind": "distributed",
+        "trip": 2
+      },
+      {
+        "id": 257,
+        "at": 59280,
+        "kind": "round"
+      },
+      {
+        "id": 258,
+        "at": 59280,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 259,
+        "at": 59280,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 260,
+        "at": 59340,
+        "kind": "round"
+      },
+      {
+        "id": 261,
+        "at": 59340,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 262,
+        "at": 59340,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 263,
+        "at": 59400,
+        "kind": "annual"
+      },
+      {
+        "id": 264,
+        "at": 59400,
+        "kind": "round"
+      },
+      {
+        "id": 265,
+        "at": 59400,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 266,
+        "at": 59400,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 267,
+        "at": 59460,
+        "kind": "round"
+      },
+      {
+        "id": 268,
+        "at": 59460,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 269,
+        "at": 59460,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 270,
+        "at": 59520,
+        "kind": "return",
+        "trip": 2
+      },
+      {
+        "id": 271,
+        "at": 59520,
+        "kind": "cartReturn",
+        "trip": 2
+      },
+      {
+        "id": 272,
+        "at": 59520,
+        "kind": "round"
+      },
+      {
+        "id": 273,
+        "at": 59520,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 274,
+        "at": 59520,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 275,
+        "at": 59520,
+        "kind": "dispatch",
+        "trip": 3,
+        "prepared": 24000
+      },
+      {
+        "id": 276,
+        "at": 59580,
+        "kind": "round"
+      },
+      {
+        "id": 277,
+        "at": 59580,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 278,
+        "at": 59580,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 279,
+        "at": 59640,
+        "kind": "round"
+      },
+      {
+        "id": 280,
+        "at": 59640,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 281,
+        "at": 59640,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 282,
+        "at": 59700,
+        "kind": "round"
+      },
+      {
+        "id": 283,
+        "at": 59700,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 284,
+        "at": 59700,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 285,
+        "at": 59760,
+        "kind": "round"
+      },
+      {
+        "id": 286,
+        "at": 59760,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 287,
+        "at": 59760,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 288,
+        "at": 59820,
+        "kind": "round"
+      },
+      {
+        "id": 289,
+        "at": 59820,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 290,
+        "at": 59820,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 291,
+        "at": 59880,
+        "kind": "round"
+      },
+      {
+        "id": 292,
+        "at": 59880,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 293,
+        "at": 59880,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 294,
+        "at": 59940,
+        "kind": "round"
+      },
+      {
+        "id": 295,
+        "at": 59940,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 296,
+        "at": 59940,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 297,
+        "at": 60000,
+        "kind": "annual"
+      },
+      {
+        "id": 298,
+        "at": 60000,
+        "kind": "arrival",
+        "trip": 3
+      },
+      {
+        "id": 299,
+        "at": 60000,
+        "kind": "round"
+      },
+      {
+        "id": 300,
+        "at": 60000,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 301,
+        "at": 60000,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 302,
+        "at": 60000,
+        "kind": "distribution",
+        "trip": 3
+      },
+      {
+        "id": 303,
+        "at": 60060,
+        "kind": "round"
+      },
+      {
+        "id": 304,
+        "at": 60060,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 305,
+        "at": 60060,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 306,
+        "at": 60120,
+        "kind": "round"
+      },
+      {
+        "id": 307,
+        "at": 60120,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 308,
+        "at": 60120,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 309,
+        "at": 60180,
+        "kind": "round"
+      },
+      {
+        "id": 310,
+        "at": 60180,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 311,
+        "at": 60180,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 312,
+        "at": 60240,
+        "kind": "distributed",
+        "trip": 3
+      },
+      {
+        "id": 313,
+        "at": 60240,
+        "kind": "round"
+      },
+      {
+        "id": 314,
+        "at": 60240,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 315,
+        "at": 60240,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 316,
+        "at": 60300,
+        "kind": "round"
+      },
+      {
+        "id": 317,
+        "at": 60300,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 318,
+        "at": 60300,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 319,
+        "at": 60360,
+        "kind": "round"
+      },
+      {
+        "id": 320,
+        "at": 60360,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 321,
+        "at": 60360,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 322,
+        "at": 60420,
+        "kind": "round"
+      },
+      {
+        "id": 323,
+        "at": 60420,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 324,
+        "at": 60420,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 325,
+        "at": 60480,
+        "kind": "return",
+        "trip": 3
+      },
+      {
+        "id": 326,
+        "at": 60480,
+        "kind": "cartReturn",
+        "trip": 3
+      },
+      {
+        "id": 327,
+        "at": 60480,
+        "kind": "round"
+      },
+      {
+        "id": 328,
+        "at": 60480,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 329,
+        "at": 60480,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 330,
+        "at": 60480,
+        "kind": "dispatch",
+        "trip": 4,
+        "prepared": 24000
+      },
+      {
+        "id": 331,
+        "at": 60540,
+        "kind": "round"
+      },
+      {
+        "id": 332,
+        "at": 60540,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 333,
+        "at": 60540,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 334,
+        "at": 60600,
+        "kind": "annual"
+      },
+      {
+        "id": 335,
+        "at": 60600,
+        "kind": "round"
+      },
+      {
+        "id": 336,
+        "at": 60600,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 337,
+        "at": 60600,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 338,
+        "at": 60660,
+        "kind": "round"
+      },
+      {
+        "id": 339,
+        "at": 60660,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 340,
+        "at": 60660,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 341,
+        "at": 60720,
+        "kind": "round"
+      },
+      {
+        "id": 342,
+        "at": 60720,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 343,
+        "at": 60720,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 344,
+        "at": 60780,
+        "kind": "round"
+      },
+      {
+        "id": 345,
+        "at": 60780,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 346,
+        "at": 60780,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 347,
+        "at": 60840,
+        "kind": "round"
+      },
+      {
+        "id": 348,
+        "at": 60840,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 349,
+        "at": 60840,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 350,
+        "at": 60900,
+        "kind": "round"
+      },
+      {
+        "id": 351,
+        "at": 60900,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 352,
+        "at": 60900,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 353,
+        "at": 60960,
+        "kind": "arrival",
+        "trip": 4
+      },
+      {
+        "id": 354,
+        "at": 60960,
+        "kind": "round"
+      },
+      {
+        "id": 355,
+        "at": 60960,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 356,
+        "at": 60960,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 357,
+        "at": 60960,
+        "kind": "distribution",
+        "trip": 4
+      },
+      {
+        "id": 358,
+        "at": 61020,
+        "kind": "round"
+      },
+      {
+        "id": 359,
+        "at": 61020,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 360,
+        "at": 61020,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 361,
+        "at": 61080,
+        "kind": "round"
+      },
+      {
+        "id": 362,
+        "at": 61080,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 363,
+        "at": 61080,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 364,
+        "at": 61140,
+        "kind": "round"
+      },
+      {
+        "id": 365,
+        "at": 61140,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 366,
+        "at": 61140,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 367,
+        "at": 61200,
+        "kind": "annual"
+      },
+      {
+        "id": 368,
+        "at": 61200,
+        "kind": "distributed",
+        "trip": 4
+      },
+      {
+        "id": 369,
+        "at": 61200,
+        "kind": "round"
+      },
+      {
+        "id": 370,
+        "at": 61200,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 371,
+        "at": 61200,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 372,
+        "at": 61260,
+        "kind": "round"
+      },
+      {
+        "id": 373,
+        "at": 61260,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 374,
+        "at": 61260,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 375,
+        "at": 61320,
+        "kind": "round"
+      },
+      {
+        "id": 376,
+        "at": 61320,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 377,
+        "at": 61320,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 378,
+        "at": 61380,
+        "kind": "round"
+      },
+      {
+        "id": 379,
+        "at": 61380,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 380,
+        "at": 61380,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 381,
+        "at": 61440,
+        "kind": "return",
+        "trip": 4
+      },
+      {
+        "id": 382,
+        "at": 61440,
+        "kind": "cartReturn",
+        "trip": 4
+      },
+      {
+        "id": 383,
+        "at": 61440,
+        "kind": "round"
+      },
+      {
+        "id": 384,
+        "at": 61440,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 385,
+        "at": 61440,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 386,
+        "at": 61440,
+        "kind": "dispatch",
+        "trip": 5,
+        "prepared": 24000
+      },
+      {
+        "id": 387,
+        "at": 61500,
+        "kind": "round"
+      },
+      {
+        "id": 388,
+        "at": 61500,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 389,
+        "at": 61500,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 390,
+        "at": 61560,
+        "kind": "round"
+      },
+      {
+        "id": 391,
+        "at": 61560,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 392,
+        "at": 61560,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 393,
+        "at": 61620,
+        "kind": "round"
+      },
+      {
+        "id": 394,
+        "at": 61620,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 395,
+        "at": 61620,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 396,
+        "at": 61680,
+        "kind": "round"
+      },
+      {
+        "id": 397,
+        "at": 61680,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 398,
+        "at": 61680,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 399,
+        "at": 61740,
+        "kind": "round"
+      },
+      {
+        "id": 400,
+        "at": 61740,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 401,
+        "at": 61740,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 402,
+        "at": 61800,
+        "kind": "annual"
+      },
+      {
+        "id": 403,
+        "at": 61800,
+        "kind": "round"
+      },
+      {
+        "id": 404,
+        "at": 61800,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 405,
+        "at": 61800,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 406,
+        "at": 61860,
+        "kind": "round"
+      },
+      {
+        "id": 407,
+        "at": 61860,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 408,
+        "at": 61860,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 409,
+        "at": 61920,
+        "kind": "arrival",
+        "trip": 5
+      },
+      {
+        "id": 410,
+        "at": 61920,
+        "kind": "round"
+      },
+      {
+        "id": 411,
+        "at": 61920,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 412,
+        "at": 61920,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 413,
+        "at": 61920,
+        "kind": "distribution",
+        "trip": 5
+      },
+      {
+        "id": 414,
+        "at": 61980,
+        "kind": "round"
+      },
+      {
+        "id": 415,
+        "at": 61980,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 416,
+        "at": 61980,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 417,
+        "at": 62040,
+        "kind": "round"
+      },
+      {
+        "id": 418,
+        "at": 62040,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 419,
+        "at": 62040,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 420,
+        "at": 62100,
+        "kind": "round"
+      },
+      {
+        "id": 421,
+        "at": 62100,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 422,
+        "at": 62100,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 423,
+        "at": 62160,
+        "kind": "distributed",
+        "trip": 5
+      },
+      {
+        "id": 424,
+        "at": 62160,
+        "kind": "round"
+      },
+      {
+        "id": 425,
+        "at": 62160,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 426,
+        "at": 62160,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 427,
+        "at": 62220,
+        "kind": "round"
+      },
+      {
+        "id": 428,
+        "at": 62220,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 429,
+        "at": 62220,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 430,
+        "at": 62280,
+        "kind": "round"
+      },
+      {
+        "id": 431,
+        "at": 62280,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 432,
+        "at": 62280,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 433,
+        "at": 62340,
+        "kind": "round"
+      },
+      {
+        "id": 434,
+        "at": 62340,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 435,
+        "at": 62340,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 436,
+        "at": 62400,
+        "kind": "annual"
+      },
+      {
+        "id": 437,
+        "at": 62400,
+        "kind": "return",
+        "trip": 5
+      },
+      {
+        "id": 438,
+        "at": 62400,
+        "kind": "cartReturn",
+        "trip": 5
+      },
+      {
+        "id": 439,
+        "at": 62400,
+        "kind": "round"
+      },
+      {
+        "id": 440,
+        "at": 62400,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 441,
+        "at": 62400,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 442,
+        "at": 62400,
+        "kind": "dispatch",
+        "trip": 6,
+        "prepared": 24000
+      },
+      {
+        "id": 443,
+        "at": 62460,
+        "kind": "round"
+      },
+      {
+        "id": 444,
+        "at": 62460,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 445,
+        "at": 62460,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 446,
+        "at": 62520,
+        "kind": "round"
+      },
+      {
+        "id": 447,
+        "at": 62520,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 448,
+        "at": 62520,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 449,
+        "at": 62580,
+        "kind": "round"
+      },
+      {
+        "id": 450,
+        "at": 62580,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 451,
+        "at": 62580,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 452,
+        "at": 62640,
+        "kind": "round"
+      },
+      {
+        "id": 453,
+        "at": 62640,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 454,
+        "at": 62640,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 455,
+        "at": 62700,
+        "kind": "round"
+      },
+      {
+        "id": 456,
+        "at": 62700,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 457,
+        "at": 62700,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 458,
+        "at": 62760,
+        "kind": "round"
+      },
+      {
+        "id": 459,
+        "at": 62760,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 460,
+        "at": 62760,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 461,
+        "at": 62820,
+        "kind": "round"
+      },
+      {
+        "id": 462,
+        "at": 62820,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 463,
+        "at": 62820,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 464,
+        "at": 62880,
+        "kind": "arrival",
+        "trip": 6
+      },
+      {
+        "id": 465,
+        "at": 62880,
+        "kind": "round"
+      },
+      {
+        "id": 466,
+        "at": 62880,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 467,
+        "at": 62880,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 468,
+        "at": 62880,
+        "kind": "distribution",
+        "trip": 6
+      },
+      {
+        "id": 469,
+        "at": 62940,
+        "kind": "round"
+      },
+      {
+        "id": 470,
+        "at": 62940,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 471,
+        "at": 62940,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 472,
+        "at": 63000,
+        "kind": "annual"
+      },
+      {
+        "id": 473,
+        "at": 63000,
+        "kind": "round"
+      },
+      {
+        "id": 474,
+        "at": 63000,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 475,
+        "at": 63000,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 476,
+        "at": 63060,
+        "kind": "round"
+      },
+      {
+        "id": 477,
+        "at": 63060,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 478,
+        "at": 63060,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 479,
+        "at": 63120,
+        "kind": "distributed",
+        "trip": 6
+      },
+      {
+        "id": 480,
+        "at": 63120,
+        "kind": "round"
+      },
+      {
+        "id": 481,
+        "at": 63120,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 482,
+        "at": 63120,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 483,
+        "at": 63180,
+        "kind": "round"
+      },
+      {
+        "id": 484,
+        "at": 63180,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 485,
+        "at": 63180,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 486,
+        "at": 63240,
+        "kind": "round"
+      },
+      {
+        "id": 487,
+        "at": 63240,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 488,
+        "at": 63240,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 489,
+        "at": 63300,
+        "kind": "round"
+      },
+      {
+        "id": 490,
+        "at": 63300,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 491,
+        "at": 63300,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 492,
+        "at": 63360,
+        "kind": "return",
+        "trip": 6
+      },
+      {
+        "id": 493,
+        "at": 63360,
+        "kind": "cartReturn",
+        "trip": 6
+      },
+      {
+        "id": 494,
+        "at": 63360,
+        "kind": "round"
+      },
+      {
+        "id": 495,
+        "at": 63360,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 496,
+        "at": 63360,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 497,
+        "at": 63360,
+        "kind": "dispatch",
+        "trip": 7,
+        "prepared": 24000
+      },
+      {
+        "id": 498,
+        "at": 63420,
+        "kind": "round"
+      },
+      {
+        "id": 499,
+        "at": 63420,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 500,
+        "at": 63420,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 501,
+        "at": 63480,
+        "kind": "round"
+      },
+      {
+        "id": 502,
+        "at": 63480,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 503,
+        "at": 63480,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 504,
+        "at": 63540,
+        "kind": "round"
+      },
+      {
+        "id": 505,
+        "at": 63540,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 506,
+        "at": 63540,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 507,
+        "at": 63600,
+        "kind": "annual"
+      },
+      {
+        "id": 508,
+        "at": 63600,
+        "kind": "round"
+      },
+      {
+        "id": 509,
+        "at": 63600,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 510,
+        "at": 63600,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 511,
+        "at": 63660,
+        "kind": "round"
+      },
+      {
+        "id": 512,
+        "at": 63660,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 513,
+        "at": 63660,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 514,
+        "at": 63720,
+        "kind": "round"
+      },
+      {
+        "id": 515,
+        "at": 63720,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 516,
+        "at": 63720,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 517,
+        "at": 63780,
+        "kind": "round"
+      },
+      {
+        "id": 518,
+        "at": 63780,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 519,
+        "at": 63780,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 520,
+        "at": 63840,
+        "kind": "arrival",
+        "trip": 7
+      },
+      {
+        "id": 521,
+        "at": 63840,
+        "kind": "round"
+      },
+      {
+        "id": 522,
+        "at": 63840,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 523,
+        "at": 63840,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 524,
+        "at": 63840,
+        "kind": "distribution",
+        "trip": 7
+      },
+      {
+        "id": 525,
+        "at": 63900,
+        "kind": "round"
+      },
+      {
+        "id": 526,
+        "at": 63900,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 527,
+        "at": 63900,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 528,
+        "at": 63960,
+        "kind": "round"
+      },
+      {
+        "id": 529,
+        "at": 63960,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 530,
+        "at": 63960,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 531,
+        "at": 64020,
+        "kind": "round"
+      },
+      {
+        "id": 532,
+        "at": 64020,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 533,
+        "at": 64020,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 534,
+        "at": 64080,
+        "kind": "distributed",
+        "trip": 7
+      },
+      {
+        "id": 535,
+        "at": 64080,
+        "kind": "round"
+      },
+      {
+        "id": 536,
+        "at": 64080,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 537,
+        "at": 64080,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 538,
+        "at": 64140,
+        "kind": "round"
+      },
+      {
+        "id": 539,
+        "at": 64140,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 540,
+        "at": 64140,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 541,
+        "at": 64200,
+        "kind": "annual"
+      },
+      {
+        "id": 542,
+        "at": 64200,
+        "kind": "round"
+      },
+      {
+        "id": 543,
+        "at": 64200,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 544,
+        "at": 64200,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 545,
+        "at": 64260,
+        "kind": "round"
+      },
+      {
+        "id": 546,
+        "at": 64260,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 547,
+        "at": 64260,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 548,
+        "at": 64320,
+        "kind": "return",
+        "trip": 7
+      },
+      {
+        "id": 549,
+        "at": 64320,
+        "kind": "cartReturn",
+        "trip": 7
+      },
+      {
+        "id": 550,
+        "at": 64320,
+        "kind": "round"
+      },
+      {
+        "id": 551,
+        "at": 64320,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 552,
+        "at": 64320,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 553,
+        "at": 64320,
+        "kind": "dispatch",
+        "trip": 8,
+        "prepared": 24000
+      },
+      {
+        "id": 554,
+        "at": 64380,
+        "kind": "round"
+      },
+      {
+        "id": 555,
+        "at": 64380,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 556,
+        "at": 64380,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 557,
+        "at": 64440,
+        "kind": "round"
+      },
+      {
+        "id": 558,
+        "at": 64440,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 559,
+        "at": 64440,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 560,
+        "at": 64500,
+        "kind": "round"
+      },
+      {
+        "id": 561,
+        "at": 64500,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 562,
+        "at": 64500,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 563,
+        "at": 64560,
+        "kind": "round"
+      },
+      {
+        "id": 564,
+        "at": 64560,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 565,
+        "at": 64560,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 566,
+        "at": 64620,
+        "kind": "round"
+      },
+      {
+        "id": 567,
+        "at": 64620,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 568,
+        "at": 64620,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 569,
+        "at": 64680,
+        "kind": "round"
+      },
+      {
+        "id": 570,
+        "at": 64680,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 571,
+        "at": 64680,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 572,
+        "at": 64740,
+        "kind": "round"
+      },
+      {
+        "id": 573,
+        "at": 64740,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 574,
+        "at": 64740,
+        "kind": "service",
+        "paid": false,
+        "reason": "工具要先留给当地"
+      },
+      {
+        "id": 575,
+        "at": 64800,
+        "kind": "annual"
+      },
+      {
+        "id": 576,
+        "at": 64800,
+        "kind": "arrival",
+        "trip": 8
+      },
+      {
+        "id": 577,
+        "at": 64800,
+        "kind": "round"
+      },
+      {
+        "id": 578,
+        "at": 64800,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 579,
+        "at": 64800,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 580,
+        "at": 64800,
+        "kind": "distribution",
+        "trip": 8
+      },
+      {
+        "id": 581,
+        "at": 64860,
+        "kind": "round"
+      },
+      {
+        "id": 582,
+        "at": 64860,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 583,
+        "at": 64860,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 584,
+        "at": 64920,
+        "kind": "round"
+      },
+      {
+        "id": 585,
+        "at": 64920,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 586,
+        "at": 64920,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 587,
+        "at": 64980,
+        "kind": "round"
+      },
+      {
+        "id": 588,
+        "at": 64980,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 589,
+        "at": 64980,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 590,
+        "at": 65040,
+        "kind": "distributed",
+        "trip": 8
+      },
+      {
+        "id": 591,
+        "at": 65040,
+        "kind": "round"
+      },
+      {
+        "id": 592,
+        "at": 65040,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 593,
+        "at": 65040,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      },
+      {
+        "id": 594,
+        "at": 65100,
+        "kind": "round"
+      },
+      {
+        "id": 595,
+        "at": 65100,
+        "kind": "levee",
+        "paid": true,
+        "local": 0
+      },
+      {
+        "id": 596,
+        "at": 65100,
+        "kind": "service",
+        "paid": true,
+        "reason": null
+      }
+    ],
+    "trips": [
+      {
+        "id": 1,
+        "at": 55380,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 55860,
+        "finishedAt": 56340
+      },
+      {
+        "id": 2,
+        "at": 58560,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 59040,
+        "finishedAt": 59520
+      },
+      {
+        "id": 3,
+        "at": 59520,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 60000,
+        "finishedAt": 60480
+      },
+      {
+        "id": 4,
+        "at": 60480,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 60960,
+        "finishedAt": 61440
+      },
+      {
+        "id": 5,
+        "at": 61440,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 61920,
+        "finishedAt": 62400
+      },
+      {
+        "id": 6,
+        "at": 62400,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 62880,
+        "finishedAt": 63360
+      },
+      {
+        "id": 7,
+        "at": 63360,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 63840,
+        "finishedAt": 64320
+      },
+      {
+        "id": 8,
+        "at": 64320,
+        "share": 2400,
+        "out": {
+          "medicine": 24000
+        },
+        "back": {
+          "tools": 12000
+        },
+        "fees": {
+          "food": 192,
+          "wood": 64,
+          "tools": 16
+        },
+        "deliveredAt": 64800,
+        "finishedAt": null
+      }
+    ],
+    "deliveries": [
+      {
+        "id": 1,
+        "at": 55860,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 56100,
+        "finishedAt": 56340
+      },
+      {
+        "id": 2,
+        "at": 59040,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 59280,
+        "finishedAt": 59520
+      },
+      {
+        "id": 3,
+        "at": 60000,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 60240,
+        "finishedAt": 60480
+      },
+      {
+        "id": 4,
+        "at": 60960,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 61200,
+        "finishedAt": 61440
+      },
+      {
+        "id": 5,
+        "at": 61920,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 62160,
+        "finishedAt": 62400
+      },
+      {
+        "id": 6,
+        "at": 62880,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 63120,
+        "finishedAt": 63360
+      },
+      {
+        "id": 7,
+        "at": 63840,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 64080,
+        "finishedAt": 64320
+      },
+      {
+        "id": 8,
+        "at": 64800,
+        "cargo": {
+          "medicine": 2400
+        },
+        "fees": {
+          "food": 24,
+          "wood": 4,
+          "tools": 1
+        },
+        "deliveredAt": 65040,
+        "finishedAt": null
+      }
+    ]
+  },
+  "regionReason": "地区船队仍在往返",
+  "consent": "东原拒绝：下一往返期防疫需 13141 药，分配后只留 4800 药",
+  "cityReason": "尚无已承诺城市药品",
+  "cities": [
+    {
+      "id": "home",
+      "people": 6068,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 10891.439999999544,
+        "medicine": 2855.3799999999615,
+        "wood": 2500.380000000082,
+        "scrap": 2540.100000000568,
+        "tools": 157.708999999998,
+        "knowledge": 2998.9,
+        "iron": 300
+      }
+    },
+    {
+      "id": "lake",
+      "people": 65126,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 132076.5800000065,
+        "medicine": 4923.320000000337,
+        "wood": 3527.6799999999603,
+        "scrap": 2472.999999999853,
+        "tools": 522.1339999999498,
+        "knowledge": 2999.9,
+        "iron": 0
+      }
+    },
+    {
+      "id": "ridge",
+      "people": 74124,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 145371.43999997652,
+        "medicine": 5798.320000000268,
+        "wood": 3973.7600000006446,
+        "scrap": 4408.400000000157,
+        "tools": 1249.3940000000337,
+        "knowledge": 2999.9,
+        "iron": 818
+      }
+    }
+  ]
+}
