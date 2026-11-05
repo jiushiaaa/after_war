@@ -15,7 +15,7 @@ var CivilEarth={
  activeShip(g){return g.ships.filter(p=>p.at!==null&&p.returnedAt===null).length;},
  dispatch(d,id,goods,direction,at){const g=d.earth,r=g.regions[id],fee=CivilEarthContent.fare;
   if(direction==='in'&&this.activeShip(g)>=2)throw Error('两组公用船车仍在往返');
-  if(direction==='out'){CivilPolity.spend(d,fee);if(!CivilRegions.canPay(d.world.nodes.north.stores,goods))throw Error('公共仓待备区域组件');CivilServices.pay(d.world.nodes.north.stores,goods);CivilCity.sum(d.public.sent,goods);}
+  if(direction==='out'){CivilPolity.spend(d,fee);if(!CivilRegions.canPay(d.world.nodes.north.stores,goods))throw Error('公共仓待备区域组件：'+CivilFuture.shortageText(d.world.nodes.north.stores,goods));CivilServices.pay(d.world.nodes.north.stores,goods);CivilCity.sum(d.public.sent,goods);}
   else {if(!CivilCity.pay(this.local(d,id),fee))throw Error('地方交通维护不足');if(!CivilRegions.canPay(r.stock,goods))throw Error('地方工料尚未备齐');CivilServices.pay(r.stock,goods);CivilCity.sum(r.book.sent,goods);}
   if(Object.values(goods).reduce((a,b)=>a+b,0)>1200)throw Error('超过单船1200件');g.ships.push({id:g.nextShip++,region:id,direction,queuedAt:at,at:this.activeShip(g)<2?at:null,goods:this.copy(goods),fee:this.copy(fee),arrivedAt:null,returnedAt:null});
  },
