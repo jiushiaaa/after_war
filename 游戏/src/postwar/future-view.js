@@ -3,7 +3,7 @@ var CivilFutureView={
  section:'construction',task:'',options:{},reset(){this.section='construction';this.task='';this.options={};},
  option(label,op,args,terms){return {label,op,args,terms};},
  list(s){const f=CivilFuture.data(s),C=CivilFutureContent,out={},put=(key,label,op,args,terms)=>out[key]=this.option(label,op,args,terms),cost=CivilFuture.costText.bind(CivilFuture);
-  if(this.section==='construction')for(const [id,cfg]of Object.entries(C.facilities))if(CivilFuture.canUse(f,cfg)&&(f.assets[id]||0)<cfg.limit)put('build_'+id,cfg.name,'build',{id},'材料 '+cost(cfg.cost)+'；12位施工人员，'+cfg.time+'秒实际施工。'+cfg.detail);
+  if(this.section==='construction')for(const [id,cfg]of Object.entries(C.facilities))if(CivilFuture.canUse(f,cfg)&&(f.assets[id]||0)<CivilFuture.facilityLimit(f,id))put('build_'+id,cfg.name,'build',{id},'材料 '+cost(cfg.cost)+'；12位施工人员，'+cfg.time+'秒实际施工。'+cfg.detail);
   if(this.section==='research')for(const [id,cfg]of Object.entries(C.tech))if(!f.tech[id]&&CivilFuture.canUse(f,cfg))put('research_'+id,cfg.name,'research',{id},cfg.ability+'\n日常变化：'+cfg.life+'\n取舍：'+cfg.choice+'\n交接：'+cfg.retires+'\n投入 '+cost(cfg.cost)+'，'+cfg.time+'秒实际研究；12个研究工位和电力。');
   if(this.section==='production'){
    for(const [value,name]of Object.entries({balanced:'均衡备料',clinical:'临床材料优先',mechanical:'身体制造优先',energy:'燃料组件优先',ecological:'生态与日常优先'}))if(f.method!==value&&(value!=='ecological'||f.tech.ecology))put('method_'+value,name,'policy',{key:'method',value},'改派实有工位，费用知识4。同一批人和电力不能同时用于全部工序；低库存补齐后停工。');
@@ -20,6 +20,7 @@ var CivilFutureView={
   if(this.section==='mandate'){
    if(f.assets.hall&&!f.laborMandate)put('workforce','委托混合班组与临床替岗','workforce',{},'知识48、粮24、工具8；4位实际教师和180秒交接。采纳者临床期间离岗，机械维修、合成制造与公民办事使用真实居民；不会凭空增加劳动力。');
    if(f.assets.clinic&&!f.careMandate)put('commission','委托临床生产与保底供料','commission',{},'零件12、知识40、粮40；随访站富余医护工位用培养物2、粮8、工具0.5、电8配制药8。运输先保四期口粮药物与维修，再发余料；绝不免费补仓。');
+   if(f.careMandate?.version===1)put('clinical_upgrade','交接临床扩容与余药配制','commission',{version:2},'零件24、知识60、工具12；随访站上限由2扩为4，设施仍须另行施工。每站8个真实医护工位。承担外供时提高药物生产目标，先保生活储备，再经同一车班实运公共仓。');
    for(const [key,label]of [['enabled','公共供料'],['monitor','临床随访'],['audit','人格审计']])if(key==='enabled'||f.tech[key==='monitor'?'clinical':'autonomy'])put(key,(f[key]?'暂停':'恢复')+label,'policy',{key,value:!f[key]},'知识4；已付费用不退，既有货物继续到达。暂停不删除居民或既有责任。');
    for(const budget of [800,1600,3200])if(f.budget!==budget)put('budget_'+budget,'单班最多'+budget+'件','policy',{key:'budget',value:budget,reserveVersion:2},'知识4；采用覆盖往返的八期生活与动态维护保留量，先补库再外供。4名驾驶员、120秒到货/240秒往返。每班实际粮8、工具1；源仓先留公共责任。');
    put('exports',f.exportPolicy==='reserve'?'承担公共余料外供':'改为保留备料','policy',{key:'exportPolicy',value:f.exportPolicy==='reserve'?'contribute':'reserve'},'知识4。只发超过生活保留量的粮、药、零件、控制器与合金，与进货竞争同一辆车；120秒实到公共仓。');

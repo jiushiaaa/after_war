@@ -18,6 +18,7 @@ var CivilFuture={
  startCost:{wood:360,tools:60,parts:20,knowledge:120},
  bodyCost(body,n){return body==='gene'?{culture:n*1.5,medicine:n*.5,knowledge:n*.25}:body==='prosthetic'?{parts:n*1.5,electronics:n*.25,medicine:n*.25}:body==='mechanical'?{body:n,medicine:n*.5,knowledge:n*.5,cell:n*.2}:{body:n,electronics:n*.5,knowledge:n*2,cell:n*.5};},
  canUse(f,cfg){return cfg.any?cfg.any.some(k=>f.tech[k]):(cfg.requires||[]).every(k=>f.tech[k]);},
+ facilityLimit(f,id){return id==='clinic'&&f.careMandate?.version===2?4:CivilFutureContent.facilities[id]?.limit;},
  action(d,e,effects){const a=e.args,at=e.at,fail=x=>{throw Error(x);};let f=d.future;if(!d.foundedAt)fail('先确认共同国约');
   if(a.op==='start'){
    if(f)fail('先进共同体已存在');if(!d.lastService?.paid||d.stable<600)fail('先恢复连续公共履约');const rows=e.volunteers;if(!rows||rows.reduce((n,c)=>n+c.count,0)!==240||e.sources.north.idle<240)fail('北岸须有240位可迁居的成年志愿者');
@@ -28,7 +29,7 @@ var CivilFuture={
    const cfg=CivilFutureContent.tech[a.id];if(!cfg||!this.canUse(f,cfg)||f.tech[a.id])fail('尚无前置能力，或已掌握');if(f.research)fail('先完成当前研究；同一研究班组不能同时占用');if(!f.assets.laboratory)fail('先建设临床与研究楼');this.mustPay(f,cfg.cost);f.research={id:a.id,at,remaining:cfg.time,paid:this.copy(cfg.cost)};return cfg.name+'已立项；实际研究员与电力决定进度。';
   }
   if(a.op==='build'){
-   const cfg=CivilFutureContent.facilities[a.id];if(!cfg||!this.canUse(f,cfg)||(f.assets[a.id]||0)>=cfg.limit)fail('设施尚未开放或已达承载上限');if(f.project)fail('建设班组仍在施工');this.mustPay(f,cfg.cost);f.project={id:a.id,at,remaining:cfg.time,paid:this.copy(cfg.cost)};return cfg.name+'实付施工，12名居民离开其他生产岗位。';
+   const cfg=CivilFutureContent.facilities[a.id];if(!cfg||!this.canUse(f,cfg)||(f.assets[a.id]||0)>=this.facilityLimit(f,a.id))fail('设施尚未开放或已达承载上限');if(f.project)fail('建设班组仍在施工');this.mustPay(f,cfg.cost);f.project={id:a.id,at,remaining:cfg.time,paid:this.copy(cfg.cost)};return cfg.name+'实付施工，12名居民离开其他生产岗位。';
   }
   if(a.op==='migrate'){
    const n=240;if(f.assets.housing*240-CivilFuturePeople.total(f)<n)fail('先预留240床');if(!f.last?.fed||!f.last?.treated||f.condition<90)fail('先恢复真实供养与维护');if(!e.volunteers||e.volunteers.reduce((n,c)=>n+c.count,0)!==240||e.sources.north.idle<240)fail('来源自愿居民不足');this.mustPay(f,{food:240,medicine:24,tools:12});CivilFuturePeople.add(f,e.volunteers);f.migrated+=n;effects.north.moved=this.copy(e.volunteers);this.note(f,at,'migration','240位北岸居民携带原有身份迁入，来源相应减员。');return '240位居民迁入已建住房；未增加世界总人口。';
@@ -48,6 +49,8 @@ var CivilFuture={
    if(!f.tech.automation||f.robots>=16)fail('先掌握自动化，或设备已达16台');this.mustPay(f,{parts:12,electronics:8});f.robots+=4;return '4台受限设备投入生产，未创建人格，不计人口。';
   }
   if(a.op==='commission'){
+   if(a.version!==undefined&&a.version!==2)fail('未知临床委托规格');
+   if(a.version===2){if(f.careMandate?.version!==1)fail('先完成基础临床委托，或已完成扩容交接');this.mustPay(f,{parts:24,knowledge:60,tools:12});f.careMandate.version=2;f.careMandate.expandedAt=at;this.note(f,at,'mandate','临床机构实付完成扩容交接：最多四座随访站另行施工，新增工位仍须居民承担；承担外供时配制超过生活储备的余药。');return '临床扩容与余药配制已交接；设施、医护、培养物和运费仍逐项实付。';}
    if(!f.assets.clinic||!f.tech.clinical)fail('先完成临床研究并建随访站');if(f.careMandate)fail('临床生产与保底供料已委托');this.mustPay(f,{parts:12,knowledge:40,food:40});f.careMandate={at,version:1,rounds:0,produced:0};this.note(f,at,'mandate','临床班组实付接管药物培养与配制；运输先补四期生活保留量，再发余料。');return '临床生产与保底供料正式接管：使用实际医护岗位、培养物、粮食、工具和电力，不免除成本。';
   }
   if(a.op==='workforce'){
@@ -117,7 +120,7 @@ var CivilFuture={
   const orders={balanced:['parts','electronics','steel','culture','body','cell'],clinical:['culture','parts','electronics','steel','body','cell'],mechanical:['body','parts','steel','electronics','cell','culture'],energy:['cell','parts','electronics','steel','body','culture'],ecological:['culture','parts','electronics','steel','cell','body']};let produced=[];
   for(let pass=0;pass<4&&batches;pass++)for(const id of orders[f.method]){const r=CivilFutureContent.recipes[id];if(!batches||r.requires&&!f.tech[r.requires]||(f.stock[id]||0)>=(targets[id]||80)*(f.exportPolicy==='contribute'&&['parts','electronics','steel'].includes(id)?1.5:1)||!CivilRegions.canPay(f.stock,r.input)||!this.usePower(power,r.power))continue;this.pay(f,r.input);this.make(f,r.output);batches--;produced.push(id);}
   const current=CivilFuturePeople.counts(f),fieldBio=Object.entries(assignments.earthField||{}).filter(([k])=>!['mechanical','synthetic'].includes(k)).reduce((v,[,n])=>v+n,0),food=foodAtStart-fieldBio*.72,meal={food},med={medicine:n.bio*.06};
-  if(f.careMandate&&powered){let batches=Math.floor(Math.max(0,carers-Math.ceil(n.total/40))/4);while(batches--&&(f.stock.medicine||0)<targets.medicine&&CivilRegions.canPay(f.stock,{culture:2,food:8,tools:.5})&&this.usePower(power,8)){this.pay(f,{culture:2,food:8,tools:.5});this.make(f,{medicine:8});f.careMandate.produced+=8;f.careMandate.rounds++;}}
+  if(f.careMandate&&powered){const medicineTarget=targets.medicine*(f.careMandate.version===2&&f.exportPolicy==='contribute'?1.5:1);let batches=Math.floor(Math.max(0,carers-Math.ceil(n.total/40))/4);while(batches--&&(f.stock.medicine||0)<medicineTarget&&CivilRegions.canPay(f.stock,{culture:2,food:8,tools:.5})&&this.usePower(power,8)){this.pay(f,{culture:2,food:8,tools:.5});this.make(f,{medicine:8});f.careMandate.produced+=8;f.careMandate.rounds++;}}
   const fed=this.pay(f,meal),treated=carers>=Math.ceil(current.total/40)&&this.pay(f,med);if(fed){f.income.earnedFood+=food;f.income.consumedFood+=food;}f.trained+=teachers>=4&&powered?1:0;
   f.health=Math.max(0,Math.min(100,f.health+(fed&&treated&&powered?2:-4)));const healthy=fed&&treated&&powered&&maintained&&f.health>=90;
   f.stable=healthy?f.stable+60:0;

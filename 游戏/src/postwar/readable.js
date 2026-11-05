@@ -98,13 +98,14 @@ var CivilReadable={
       ['生物 / 完整机械 / 合成',n.bio+' / '+n.mechanical+' / '+n.synthetic+'人','身体分类互斥；基因和义体仍属于生物身体，不再重复加到总人口。'],['公民',n.citizens+'人','按已生效的居住、公民资格与人格法律统计，不因身体材料自动剥夺身份。'],['当前劳力',n.workers+'人'],['实际退休',Math.max(0,n.total-n.workers-n.children)+'人'],['公共权利',Object.entries(f.laws).map(([k,v])=>CivilFutureContent.laws[k].values[v]).join(' · ')]
     ]);}
     const issues=[];
+    if(f.careMandate&&counts.bio*.06+counts.gene*.03+(f.tech.ecology?1:0)>(f.assets.clinic||0)*16)issues.push({text:'药物日耗超过本站配制能力：扩容临床或承担持续进口',section:f.careMandate.version===1?'mandate':'construction',task:f.careMandate.version===1?'clinical_upgrade':'build_clinic'});
     if(f.last&&!f.last.treated)issues.push({text:'诊疗缺药或缺员',section:'people'});
     if(f.last&&!f.last.maintained)issues.push({text:'公共维护缺料或缺电',section:'production'});
     if(f.quarantined)issues.push({text:'人格系统隔离中',section:'people'});
     if(f.echo?.stage==='choice')issues.push({text:'调查队等待现场决定',section:'echo'});
     for(const [field,job,min,text]of [['research','research',12,'研究缺少12名实际人员'],['adoption','adoption',8,'临床登记缺少8名实际人员'],['project','construction',12,'施工缺少12名实际人员']])if(f.last&&f[field]&&f[field].at<f.last.at&&(f.last.workers[job]||0)<min)issues.push({text,section:'mandate'});
     if(f.last&&!f.last.fed)issues.push({text:'共同体口粮未覆盖',section:'production'});if(f.last&&!f.last.powered)issues.push({text:'电力与身体供养不足',section:'production'});if(f.machineWear>=30)issues.push({text:'机械身体需要维修',section:'people'});if(f.geneSafety<90)issues.push({text:'基因随访需要恢复',section:'people'});
-    this.alerts('#futureSummary > .civil-notices',issues.map(x=>({text:x.text,go:()=>{CivilFutureView.section=x.section;CivilFutureView.task='';CivilFutureView.refresh(State);Engine.travelTo(CivilInterface.researchModule);this.focus('#futureDesk');}})));
+    this.alerts('#futureSummary > .civil-notices',issues.map(x=>({text:x.text,go:()=>{CivilFutureView.section=x.section;CivilFutureView.task=x.task||'';CivilFutureView.refresh(State);Engine.travelTo(CivilInterface.researchModule);this.focus('#futureDesk');}})));
   },
   polity(s){const d=s.civilization.polity;if(!d)return;
     const pop=[['北岸',this.number(CivilDomain.known(s),'人')],['东原',this.number(CivilRegional.known(s),'人')],...Object.entries(d.peers).filter(([id])=>d.world.nodes[id].joinedAt!==null).map(([id,p])=>[CivilCensus.regions[id],this.number(CivilDomain.count(p.local),'人')])];if(d.future)pop.push(['先进共同体（含在途）',this.number(CivilFuturePeople.total(d.future),'人')]);
