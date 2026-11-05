@@ -1,0 +1,358 @@
+TAP version 13
+# Subtest: old saves are never asked to choose a course and keep the original tech table
+ok 1 - old saves are never asked to choose a course and keep the original tech table
+  ---
+  duration_ms: 36.26525
+  type: 'test'
+  ...
+# Subtest: a town under the new rule is asked once; the commons route reaches city research without mining or power
+ok 2 - a town under the new rule is asked once; the commons route reaches city research without mining or power
+  ---
+  duration_ms: 15.36025
+  type: 'test'
+  ...
+# Subtest: the industry route keeps the original iron/parts costs and the mine chain
+ok 3 - the industry route keeps the original iron/parts costs and the mine chain
+  ---
+  duration_ms: 9.777583
+  type: 'test'
+  ...
+# Subtest: course bonuses act on the real settlement rates
+ok 4 - course bonuses act on the real settlement rates
+  ---
+  duration_ms: 27.56175
+  type: 'test'
+  ...
+# Subtest: commons city conditions are explicit and require real fields, care and food surplus
+ok 5 - commons city conditions are explicit and require real fields, care and food surplus
+  ---
+  duration_ms: 10.304167
+  type: 'test'
+  ...
+# Subtest: the social issue fires on real conditions, moves real workers once and is recorded
+ok 6 - the social issue fires on real conditions, moves real workers once and is recorded
+  ---
+  duration_ms: 9.711416
+  type: 'test'
+  ...
+# Subtest: the tool-bench cooperative keeps its own ledger; tools are neither created nor lost
+ok 7 - the tool-bench cooperative keeps its own ledger; tools are neither created nor lost
+  ---
+  duration_ms: 9.129917
+  type: 'test'
+  ...
+# Subtest: the founding craftsman retires once; the apprentice needs a working smith
+ok 8 - the founding craftsman retires once; the apprentice needs a working smith
+  ---
+  duration_ms: 9.282958
+  type: 'test'
+  ...
+# Subtest: survivors who joined from the cellar shorten the commons survey research
+ok 9 - survivors who joined from the cellar shorten the commons survey research
+  ---
+  duration_ms: 7.18975
+  type: 'test'
+  ...
+# Subtest: commons bootstrap requires no unavailable industrial materials, including its first public project
+ok 10 - commons bootstrap requires no unavailable industrial materials, including its first public project
+  ---
+  duration_ms: 8.490917
+  type: 'test'
+  ...
+# Subtest: the city guide reports the same health threshold as the public-service rule
+ok 11 - the city guide reports the same health threshold as the public-service rule
+  ---
+  duration_ms: 7.483
+  type: 'test'
+  ...
+# Subtest: A7 constructed 300 years: ten-year elections, reelection and 15–25 actual leaders without routine dialogs
+ok 12 - A7 constructed 300 years: ten-year elections, reelection and 15–25 actual leaders without routine dialogs
+  ---
+  duration_ms: 32.91025
+  type: 'test'
+  ...
+# Subtest: A7 appointment retires at 65; hereditary keeps a living head after 65 and ages the existing heir
+ok 13 - A7 appointment retires at 65; hereditary keeps a living head after 65 and ages the existing heir
+  ---
+  duration_ms: 21.75425
+  type: 'test'
+  ...
+# Subtest: A7 crisis asks once; routine delegated selection does not lose assets or mint population
+ok 14 - A7 crisis asks once; routine delegated selection does not lose assets or mint population
+  ---
+  duration_ms: 9.987958
+  type: 'test'
+  ...
+# Subtest: A7 biographies retire, age and pass to institutions without adding people; reload does not duplicate
+ok 15 - A7 biographies retire, age and pass to institutions without adding people; reload does not duplicate
+  ---
+  duration_ms: 12.115667
+  type: 'test'
+  ...
+# Subtest: A7 representation is one-shot and retaining a head does not reset tenure
+ok 16 - A7 representation is one-shot and retaining a head does not reset tenure
+  ---
+  duration_ms: 8.884583
+  type: 'test'
+  ...
+# Subtest: old ruleset:2 exports acquire no A7 data and retain six-year elections
+ok 17 - old ruleset:2 exports acquire no A7 data and retain six-year elections
+  ---
+  duration_ms: 9.091875
+  type: 'test'
+  ...
+# Subtest: unknown or malformed A7 state is rejected rather than reset on import
+ok 18 - unknown or malformed A7 state is rejected rather than reset on import
+  ---
+  duration_ms: 9.03675
+  type: 'test'
+  ...
+# Subtest: history derives detached views from the original natural save without creating or changing any saved state
+ok 19 - history derives detached views from the original natural save without creating or changing any saved state
+  ---
+  duration_ms: 11.875709
+  type: 'test'
+  ...
+# Subtest: all original terms remain visible and a death-related handover does not invent the year of death
+ok 20 - all original terms remain visible and a death-related handover does not invent the year of death
+  ---
+  duration_ms: 2.352583
+  type: 'test'
+  ...
+# Subtest: technology and city flags remain undated and source introduction is never reused as an agreement date
+ok 21 - technology and city flags remain undated and source introduction is never reused as an agreement date
+  ---
+  duration_ms: 1.642541
+  type: 'test'
+  ...
+# Subtest: only contacted sources and discovered towns expose completed records; paid in-progress projects never become achievements
+ok 22 - only contacted sources and discovered towns expose completed records; paid in-progress projects never become achievements
+  ---
+  duration_ms: 2.274333
+  type: 'test'
+  ...
+# Subtest: municipal services schools and freight use their own completion records without date guesses or duplicate IDs
+ok 23 - municipal services schools and freight use their own completion records without date guesses or duplicate IDs
+  ---
+  duration_ms: 1.747791
+  type: 'test'
+  ...
+# Subtest: native history pages reset only reading position and never grant rewards or spend resources
+ok 24 - native history pages reset only reading position and never grant rewards or spend resources
+  ---
+  duration_ms: 1.926
+  type: 'test'
+  ...
+# Subtest: opening never interrupts a live event or pending decision and does not change stores population or history
+ok 25 - opening never interrupts a live event or pending decision and does not change stores population or history
+  ---
+  duration_ms: 2.763875
+  type: 'test'
+  ...
+# Subtest: lower-right menu is progressive mounts once supports keyboard and follows the current imported state
+ok 26 - lower-right menu is progressive mounts once supports keyboard and follows the current imported state
+  ---
+  duration_ms: 3.369292
+  type: 'test'
+  ...
+# Subtest: untrusted text remains native story text and invented history is never an economic or achievement authority
+ok 27 - untrusted text remains native story text and invented history is never an economic or achievement authority
+  ---
+  duration_ms: 2.647125
+  type: 'test'
+  ...
+# Subtest: history scene transitions reset the text scroll position without modifying any saved state
+ok 28 - history scene transitions reset the text scroll position without modifying any saved state
+  ---
+  duration_ms: 2.721959
+  type: 'test'
+  ...
+# Subtest: common agreements and exits use their actual transaction dates without presenting promised deliveries as completed history
+ok 29 - common agreements and exits use their actual transaction dates without presenting promised deliveries as completed history
+  ---
+  duration_ms: 3.38575
+  type: 'test'
+  ...
+# Subtest: old population migrates as working adults, once, without retroactive birthdays
+ok 30 - old population migrates as working adults, once, without retroactive birthdays
+  ---
+  duration_ms: 1.979791
+  type: 'test'
+  ...
+# Subtest: children and retirees still eat, cannot work, and retirement trims overassigned jobs
+ok 31 - children and retirees still eat, cannot work, and retirement trims overassigned jobs
+  ---
+  duration_ms: 1.269708
+  type: 'test'
+  ...
+# Subtest: leader death and one-shot succession preserve collective assets and ongoing tasks
+ok 32 - leader death and one-shot succession preserve collective assets and ongoing tasks
+  ---
+  duration_ms: 0.667708
+  type: 'test'
+  ...
+# Subtest: zero supplies and an empty population do not prevent a successor
+ok 33 - zero supplies and an empty population do not prevent a successor
+  ---
+  duration_ms: 0.582584
+  type: 'test'
+  ...
+# Subtest: annual election fires at six years, age does not advance twice after reload
+ok 34 - annual election fires at six years, age does not advance twice after reload
+  ---
+  duration_ms: 0.629625
+  type: 'test'
+  ...
+# Subtest: constitutional combinations have recurring real costs and fail without negative stock
+ok 35 - constitutional combinations have recurring real costs and fail without negative stock
+  ---
+  duration_ms: 0.64625
+  type: 'test'
+  ...
+# Subtest: minor heir remains the same person through regency and can later inherit
+ok 36 - minor heir remains the same person through regency and can later inherit
+  ---
+  duration_ms: 0.570917
+  type: 'test'
+  ...
+# Subtest: births require spare housing and supplies; adulthood requires eighteen annual transitions
+ok 37 - births require spare housing and supplies; adulthood requires eighteen annual transitions
+  ---
+  duration_ms: 0.819792
+  type: 'test'
+  ...
+# Subtest: late legacy previews get a recorded age grace period without replaying past deaths
+ok 38 - late legacy previews get a recorded age grace period without replaying past deaths
+  ---
+  duration_ms: 0.605916
+  type: 'test'
+  ...
+# Subtest: regency is an institution rather than an ageing person, and reform does not restore the dynasty
+ok 39 - regency is an institution rather than an ageing person, and reform does not restore the dynasty
+  ---
+  duration_ms: 0.725916
+  type: 'test'
+  ...
+# Subtest: reform reservation is atomic, non-repeatable, refundable once, and has a genuine transition cost
+ok 40 - reform reservation is atomic, non-repeatable, refundable once, and has a genuine transition cost
+  ---
+  duration_ms: 0.936167
+  type: 'test'
+  ...
+# Subtest: the two elected platforms have different functioning benefits
+ok 41 - the two elected platforms have different functioning benefits
+  ---
+  duration_ms: 0.6535
+  type: 'test'
+  ...
+# Subtest: annual boundary survives save and reload with exactly one birthday
+ok 42 - annual boundary survives save and reload with exactly one birthday
+  ---
+  duration_ms: 0.753125
+  type: 'test'
+  ...
+# Subtest: unfinished constitution cannot trigger an election from the founders old tenure
+ok 43 - unfinished constitution cannot trigger an election from the founders old tenure
+  ---
+  duration_ms: 0.571917
+  type: 'test'
+  ...
+# Subtest: founder history includes survival years while elections start when the constitution is completed
+ok 44 - founder history includes survival years while elections start when the constitution is completed
+  ---
+  duration_ms: 0.700166
+  type: 'test'
+  ...
+# Subtest: unaltered second-leader preview migrates the founder history from year eleven back to year zero once
+ok 45 - unaltered second-leader preview migrates the founder history from year eleven back to year zero once
+  ---
+  duration_ms: 0.679375
+  type: 'test'
+  ...
+# Subtest: broken lineage, frozen years and missing succession are rejected before import
+ok 46 - broken lineage, frozen years and missing succession are rejected before import
+  ---
+  duration_ms: 2.197083
+  type: 'test'
+  ...
+# Subtest: a reserved reform must have the matching recoverable pending event
+ok 47 - a reserved reform must have the matching recoverable pending event
+  ---
+  duration_ms: 0.664416
+  type: 'test'
+  ...
+# Subtest: an old overage family candidate migrates once without altering census, assets or history
+ok 48 - an old overage family candidate migrates once without altering census, assets or history
+  ---
+  duration_ms: 0.723417
+  type: 'test'
+  ...
+# Subtest: a family candidate expires at eighty-five while society continues and replacement needs a player decision
+ok 49 - a family candidate expires at eighty-five while society continues and replacement needs a player decision
+  ---
+  duration_ms: 0.733
+  type: 'test'
+  ...
+# Subtest: succession signatures change only when the reason or eligible choices change
+ok 50 - succession signatures change only when the reason or eligible choices change
+  ---
+  duration_ms: 0.801625
+  type: 'test'
+  ...
+# Subtest: legacy birth records initialize once without retroactive people; malformed new records are rejected
+ok 51 - legacy birth records initialize once without retroactive people; malformed new records are rejected
+  ---
+  duration_ms: 0.780958
+  type: 'test'
+  ...
+# Subtest: small villages retain one paid newborn; public facilities enable proportional growth below eighty
+ok 52 - small villages retain one paid newborn; public facilities enable proportional growth below eighty
+  ---
+  duration_ms: 1.737708
+  type: 'test'
+  ...
+# Subtest: eighty residents activate proportional births before an annual death can lower the count to seventy-nine
+ok 53 - eighty residents activate proportional births before an annual death can lower the count to seventy-nine
+  ---
+  duration_ms: 1.890334
+  type: 'test'
+  ...
+# Subtest: birth identities come only from current reproductive cohorts, never retired or unknown parents
+ok 54 - birth identities come only from current reproductive cohorts, never retired or unknown parents
+  ---
+  duration_ms: 5.491166
+  type: 'test'
+  ...
+# Subtest: paid passenger reservations and newborns cannot consume the same available beds
+ok 55 - paid passenger reservations and newborns cannot consume the same available beds
+  ---
+  duration_ms: 0.822833
+  type: 'test'
+  ...
+# Subtest: supply, health and capacity shortages discard missed births instead of banking a later population burst
+ok 56 - supply, health and capacity shortages discard missed births instead of banking a later population burst
+  ---
+  duration_ms: 4.308291
+  type: 'test'
+  ...
+# Subtest: the six-hundred-second birthday boundary saves fractional births exactly once and resumes identically
+ok 57 - the six-hundred-second birthday boundary saves fractional births exactly once and resumes identically
+  ---
+  duration_ms: 2.159459
+  type: 'test'
+  ...
+# Subtest: an exhausted migration source no longer caps a supplied, age-diverse town at eighty residents
+ok 58 - an exhausted migration source no longer caps a supplied, age-diverse town at eighty residents
+  ---
+  duration_ms: 8.094291
+  type: 'test'
+  ...
+1..58
+# tests 58
+# suites 0
+# pass 58
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 186.303583

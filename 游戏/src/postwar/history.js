@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',transport:'国家交通',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索',expedition:'近郊勘察'},
+  categories:{people:'人物与机构',tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',transport:'国家交通',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索',expedition:'近郊勘察'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -21,6 +21,7 @@ var CivilHistory={
       if(seen.has(key))return;seen.add(key);
       entries.push({key,category,title,detail,at:this.time(s,at),...extra});
     };
+    for(const [i,e]of (c.generations?.records||[]).entries())add('generations_'+i,'people',e.text,'机构接续记录',e.at);
     for(const [i,e]of (c.city?.history||[]).entries())add('city_district_'+i,e.kind==='project'||e.kind==='complete'?'projects':e.kind==='policy'?'governance':'cities',e.text,'城域记录 · '+(typeof CivilCityContent!=='undefined'?CivilCityContent.wards[e.id]?.name||'原镇':e.id),e.at);
     for(const [i,e]of (c.cityCouncil?.history||[]).entries())add('city_council_'+i,'cities',e.text,'城市共同事务 · 地方承诺与实付工程',e.at);
     for(const [i,e]of (c.polity?.future?.history||[]).entries())add('advanced_society_'+i,e.kind==='technology'?'technology':e.kind==='building'?'projects':e.kind==='echo'?'ruins':'governance','先进共同体 · '+({adoption:'身体与人格',consent:'本人同意',law:'权利议决',society:'持续生活',foundation:'居民迁居',migration:'安居迁居',mandate:'公共委托',workforce:'班组交接',repair:'身份恢复',treatment:'临床恢复',isolation:'可申诉隔离',echo:'旧战场回响',technology:'新能力',building:'工程竣工'}[e.kind]||'共同记录'),e.text,e.at);

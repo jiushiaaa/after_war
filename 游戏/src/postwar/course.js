@@ -56,7 +56,7 @@ var CivilCourse={
   bonus(s){const id=s.civilization?.course?.id;return id==='commons'?{farmer:1.15}:id==='industry'?{salvager:1.25}:{};},
   // The founding craftsman: +2 wood until she retires; afterwards an apprentice (needs a working smith) or a rota.
   craftsmanWood(s){
-    const k=s.civilization?.course?.craftsman;if(!k)return 2;
+    const k=s.civilization?.course?.craftsman;if(!k)return Number.isInteger(s.civilization.generations?.people.craft?.retired)?1:2;
     return k.mode==='apprentice'?((s.game.workers.smith||0)>0?2:0):1;
   },
   craftsmanTitle(s){const k=s.civilization?.course?.craftsman;return !k?'工匠':k.mode==='apprentice'?'工坊学徒':'轮值的居民';},

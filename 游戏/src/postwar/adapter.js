@@ -3,7 +3,7 @@ var Civilization = {
   defaults() {
     return {elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:null,policySeen:{},trust:50,hunger:0,stableFor:0,
       populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,
-      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2};
+      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2,polishVersion:1};
   },
   initState() {
     State.civilization = State.civilization || this.defaults();
@@ -25,6 +25,7 @@ var Civilization = {
     if(typeof CivilIncidents!=='undefined')CivilIncidents.init(State);
     if(typeof CivilCity!=='undefined')CivilCity.init(State);
     if(typeof CivilCensus!=='undefined')CivilCensus.init(State);
+    if(typeof CivilGenerations!=='undefined')CivilGenerations.init(State);
   },
   init() {
     this.resetViewRefresh();
@@ -164,6 +165,7 @@ var Civilization = {
     if(typeof CivilDomain!=='undefined')CivilDomain.tick(State);
     if(typeof CivilRegional!=='undefined')CivilRegional.tick(State);
     if(typeof CivilPolity!=='undefined')CivilPolity.tick(State);
+    if(typeof CivilGenerations!=='undefined')CivilGenerations.observe(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
