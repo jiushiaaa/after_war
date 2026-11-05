@@ -6,7 +6,7 @@ var CivilModernContent={
   radio:['无线电联络',['electricalSafety','records'],{scrap:24,tools:8,knowledge:60},240,'固定联络站接续传令。城际启程须有可工作的调度与供电，不靠反复点派遣。'],
   vaccines:['疫苗与无菌诊疗',['sanitation','school'],{medicine:12,food:32,knowledge:60},240,'医护用真实药物、电力和岗位开展接种；公共卫生开始预防疾病。'],
   precisionFit:['标准配合与电动机床',['electricalSafety','handtools','standards'],{scrap:48,tools:16,knowledge:80},300,'回收铁料经电动机床变为标准零件；公共路线也能制造，不强制开矿。'],
-  traction:['电动轨道运输',['radio','precisionFit','logistics'],{scrap:64,tools:24,knowledge:80},300,'旧站之间接入电动货运与调度。运单、旅粮、返程和真实驾驶员仍须承担。'],
+  traction:['电动轨道运输',['radio','precisionFit','logistics'],{scrap:64,tools:24,knowledge:80},300,'旧站之间接入电动货运与调度；两城湖岸新运单单程从180秒缩至45秒。运单、旅粮、返程和真实驾驶员仍须承担。'],
   dispatch:['配电与机构调度',['radio','traction'],{tools:20,knowledge:100},300,'按库存与生活保留量安排电力，生产可转入自动配料；原镇日常岗位可交给现有公署。'],
   scientificMethod:['实验与公开复核',['school','precisionFit'],{scrap:24,tools:16,knowledge:80},300,'实验班组消耗教具与电力形成可复核知识，随后才能建立先进实验共同体。'],
   publicHealth:['公共卫生网络',['vaccines','radio','administration'],{medicine:24,tools:16,knowledge:100},300,'接种、诊疗、课堂有连续名册。跨城服务交接不再依赖创始人的年龄。'],

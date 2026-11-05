@@ -102,8 +102,8 @@ var CivilCityNetwork={
     }
     return best;
   },
-  guardLegacy(s,ignoreFleet=false){const d=this.data(s),old=CivilConurbation.data(s);if(!d)return null;if(old.route.depot!==d.depot)return '共同出发仓与旧道路不符';
-    for(const id of ['home','lake']){if(!this.inspected(s,id))return this.name(id)+'：交通检修待续费';const cost=CivilConurbation.plus(CivilConurbation.split(CivilConurbation.running,old.share,id),{food:25.92}),reason=this.canSpend(s,id,cost);if(reason)return reason;}
+  guardLegacy(s,ignoreFleet=false,relief=false){const d=this.data(s),old=CivilConurbation.data(s);if(!d)return null;if(old.route.depot!==d.depot)return '共同出发仓与旧道路不符';
+    for(const id of ['home','lake']){if(!this.inspected(s,id))return this.name(id)+'：交通检修待续费';const cost=relief?CivilConurbation.reliefFees(s)[id]:CivilConurbation.plus(CivilConurbation.split(CivilConurbation.running,old.share,id),{food:6*.12*CivilConurbation.travelTime(s)*2/10}),reason=this.canSpend(s,id,cost);if(reason)return reason;}
     return !ignoreFleet&&this.occupied(s)>=this.capacity(s)?'共同车组正被其他线路占用':null;
   },
   legacyTrip(s,p){if(!this.data(s))return;for(const id of ['home','lake'])this.receipt(s,id,'lakeTrip',p.id,p.fees[id]);this.departure(s,'lake',p.id);},
