@@ -12,6 +12,7 @@ const send=(method,params={})=>new Promise(r=>{if(method==='Input.dispatchKeyEve
 const read=async expression=>{const r=await send('Runtime.evaluate',{expression,returnByValue:true});if(r.result?.exceptionDetails)throw Error(JSON.stringify(r.result.exceptionDetails));return r.result.result.value;};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms)),q=css=>`document.querySelector(${JSON.stringify(css)})`;
 const log=(kind,data)=>fs.appendFileSync(path.join(dir,'actions.ndjson'),JSON.stringify({wall:new Date().toISOString(),kind,...data})+'\n');
+let stopping=false;process.on('SIGTERM',()=>{stopping=true;});
 async function raw(css){
  await read(`(()=>{const e=${q(css)};if(e?.checkVisibility())e.scrollIntoView({block:'center',inline:'nearest'});})()`);await sleep(120);
  const box=await read(`(()=>{const e=${q(css)};if(!e||!e.checkVisibility()||e.classList.contains('disabled')||e.disabled)return null;const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return e.contains(document.elementFromPoint(x,y))?{x,y,text:e.innerText.slice(0,90)}:null;})()`);
@@ -48,9 +49,26 @@ if(route==='public')plan.push(hold('g.ground.progress>=120'),policy('power',fals
 plan.push(hold('!!g.ground.completedAt','08_ground_proven'),launch('probe'),hold('CivilEarthFlight.done(g,"probe")','09_orbit_verified'),launch('departure',route==='public'?'organic':'mixed'),hold('CivilFuturePeople.away(f)===12','10_crew_in_flight'),policy('power',false),hold('!CivilEarthFlight.active(g)&&g.flights.at(-1).aborted','11_crew_returned_after_failure'),policy('power',true),launch('departure',route==='public'?'organic':'mixed'),hold('CivilEarthFlight.done(g,"departure")','12_first_flight_complete'),{duration:6000,label:'13_ten_years_after_flight'});
 const branch=[launch('departure','uncrewed'),hold('CivilEarthFlight.done(g,"departure")','14_uncrewed_ending')];
 const todo=process.env.A6_PHASE==='return'?[hold('CivilEarthFlight.done(g,"departure")','15_reimport_inflight_return')]:process.env.A6_PHASE==='uncrewed'?branch:plan,file=path.join(dir,'controller.json'),control=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)):{index:0,last:0};const save=()=>fs.writeFileSync(file,JSON.stringify(control));
+// Real, paid governance before global offers. No repairs run during deliberate service/power failures.
+async function capacity(){
+ if(route!=='public'||control.index>22)return false;
+ const f=await read('CivilFuture.data(State)'),steps=[];
+ if(f.careMandate?.version===1)steps.push({...a('commission',{version:2},'mandate','clinical_upgrade'),module:'future'});
+ else if((f.assets.clinic||0)<4&&!f.project)steps.push(fbuild('clinic'));
+ if((f.assets.garden||0)<3&&!f.project)steps.push(fbuild('garden'));
+ for(const step of steps)if(!await read(`CivilFuture.reason(State,${JSON.stringify(step.op)},${JSON.stringify(step.args)})`)){await action(step);log('capacity_governance',{at:await read('State.civilization.elapsed'),op:step.op,args:step.args});return true;}
+ return false;
+}
+async function researchMaterials(step){
+ if(step.op!=='research'||step.module==='future')return false;
+ const s=await read(`(()=>{const f=CivilFuture.data(State),cfg=CivilEarthContent.tech[${JSON.stringify(step.args.id)}];return {reserve: f.exportPolicy==='reserve',missingCulture:(f.stock.culture||0)<(cfg.cost.culture||0),publicMedicine:State.civilization.polity.world.nodes.north.stores.medicine};})()`);
+ // Pause paid outward orders while accumulating clinical research material; public supplies must cover the choice.
+ if(s.missingCulture&&!s.reserve&&s.publicMedicine>500){await action({...a('policy',{key:'exportPolicy',value:'reserve'},'mandate','exports'),module:'future'});log('research_tradeoff',{at:await read('State.civilization.elapsed'),choice:'reserve clinical stock before research; existing shipments still complete'});return true;}
+ return false;
+}
 await send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await pause(false);const deadline=Date.now()+60*60*1000;
-while(Date.now()<deadline&&control.index<todo.length){const s=await observe(),step=todo[control.index];if(await handle())continue;if(s.speed!==s.max){await raw('#speedButton');await raw('#event #speed_'+s.max);continue;}const module=step.module==='future'?'CivilFuture':'CivilEarth';if(s.at-control.last>=300){control.last=s.at;log('snapshot',{index:control.index,...s});console.log(JSON.stringify({at:s.at,index:control.index,next:step.key||step.label,reason:step.op?await read(`${module}.reason(State,${JSON.stringify(step.op)},${JSON.stringify(step.args)})`):null,pop:s.f?.counts.total,away:s.f?.away,health:s.f?.health,food:Math.floor(s.f?.stock.food||0)}));save();}
- let complete=false;if(step.op==='unity'&&s.g?.unity){log('already_effective_via_actual_rules',{at:s.at,op:step.op,unity:s.g.unity});complete=true;}else if(step.op){const why=await read(`${module}.reason(State,${JSON.stringify(step.op)},${JSON.stringify(step.args)})`);if(!why){await action(step);complete=true;}}
+while(Date.now()<deadline&&control.index<todo.length){if(stopping){await pause(true);save();done=true;ws.close();process.exit(75);}const s=await observe(),step=todo[control.index];if(await handle())continue;if(s.speed!==s.max){await raw('#speedButton');await raw('#event #speed_'+s.max);continue;}if(await capacity())continue;const module=step.module==='future'?'CivilFuture':'CivilEarth';if(s.at-control.last>=300){control.last=s.at;log('snapshot',{index:control.index,...s});console.log(JSON.stringify({at:s.at,index:control.index,next:step.key||step.label,reason:step.op?await read(`${module}.reason(State,${JSON.stringify(step.op)},${JSON.stringify(step.args)})`):null,pop:s.f?.counts.total,away:s.f?.away,health:s.f?.health,food:Math.floor(s.f?.stock.food||0)}));save();}
+ let complete=false;if(step.op==='unity'&&s.g?.unity){log('already_effective_via_actual_rules',{at:s.at,op:step.op,unity:s.g.unity});complete=true;}else if(step.op){const why=await read(`${module}.reason(State,${JSON.stringify(step.op)},${JSON.stringify(step.args)})`);if(!why){await action(step);complete=true;}else if(await researchMaterials(step))continue;}
  else if(step.test)complete=await read(`(()=>{const g=CivilEarth.data(State),f=CivilFuture.data(State);return !!(${step.test});})()`);
  else if(step.duration){if(!control.since){control.since=s.at;save();}complete=s.at-control.since>=step.duration;}
  if(complete){if(step.label)await exportSave(step.label);control.index++;delete control.since;save();if(control.index<todo.length)await pause(false);}await sleep(600);

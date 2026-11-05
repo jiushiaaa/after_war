@@ -45,8 +45,9 @@ async function exportSave(label){await pause(true);await desk();let destination=
 await send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await pause(true);await region();
 const file=path.join(dir,'controller.json'),control=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)):{stage:'cofund',start:(await observe()).at,last:0};const save=()=>fs.writeFileSync(file,JSON.stringify(control));
 const advance=async(stage,label)=>{if(label)await exportSave(label);control.stage=stage;control.after=(await observe()).at;save();await pause(false);};
+let stopRequested=false;process.on('SIGTERM',()=>{stopRequested=true;});
 if(control.stage!=='cofund')await pause(false);const deadline=Date.now()+60*60*1000;
-while(Date.now()<deadline){const s=await observe();if(s.at-control.last>=600){control.last=s.at;log('snapshot',{stage:control.stage,...s});console.log(JSON.stringify({at:s.at,stage:control.stage,common:s.common,stable:s.stable,round:s.foreign?.round}));}save();if(await handle())continue;
+while(Date.now()<deadline){if(stopRequested){await pause(true);save();log('operator_pause',{at:(await observe()).at,stage:control.stage});done=true;ws.close();process.exit(75);}const s=await observe();if(s.at-control.last>=600){control.last=s.at;log('snapshot',{stage:control.stage,...s});console.log(JSON.stringify({at:s.at,stage:control.stage,common:s.common,stable:s.stable,round:s.foreign?.round}));}save();if(await handle())continue;
  if(s.founded&&s.maxSpeed>=32&&s.speed!==32){await raw('#speedButton');await raw('#event #speed_32');continue;}
  const ready=async(action,args={})=>(await reason(action,args))===null;
  if(s.founded){const q=await read('State.civilization.polity.world.equipment?.north');if(q&&!q.training&&!q.patrol){const type=['infantry','mobile','support'].find(k=>q.levels[k]<2);if(type&&await ready('equipment',{op:'train',type})){await task('equipment','train_'+type);await pause(false);log('real_equipment_training',{at:s.at,type,level:q.levels[type]+1});continue;}}}
@@ -69,12 +70,14 @@ while(Date.now()<deadline){const s=await observe();if(s.at-control.last>=600){co
  }else if(control.stage==='steel'){if((s.nodes?.north.stores.steel||0)>=48){await advance('ally','338_industrial_equipped');}else if(await ready('purchase',{actor:'west',item:'steel',quantity:12})){await task('trade','buy_steel','west');await pause(false);}
  }else if(control.stage==='recoveryPrep'){
   const f=s.foreign,a=f.aftermath,dip=async(group,action,detail,section,key,actor='desert')=>{if(!await ready('diplomacy',{group,action,detail}))return false;await task(section,key,actor);await pause(false);return true;};
+  const peaceLaws={devolution:'local',rights:'equal',priority:'care'};if(await ready('law',{laws:peaceLaws})){await pause(true);await desk();await select('#politySection','institutions');for(const[key,value]of Object.entries(peaceLaws))await select('#polityLaw_'+key,value);await select('#polityTask','law');if(!await click('#polity_commit'))throw Error('Peace law proposal unavailable');await pause(false);log('governance_choice',{at:s.at,reason:'local guarantees and essential services to support an actual peace agreement',laws:peaceLaws});continue;}
   if(!a&&await ready('protocol',{mode:'aftermath'})){await task('conflict','aftermath','desert');await advance('recoveryPrep','340_industrial_recovery_governance');continue;}
   if(a?.mandates?.north?.mode!=='rebuild'&&await dip('aftermath','mandate',{actor:'north',mode:'rebuild'},'conflict','mandate'))continue;
   if(a&&!a.industries.north&&await dip('aftermath','industry',{actor:'north'},'conflict','industry'))continue;
   const pact=f.leagues.pacts.find(x=>x.pair==='north-west'&&x.status==='active');
   if(pact&&!pact.notice&&await dip('leagues','notice',{pair:'north-west',actor:'north'},'relations','notice','west'))continue;
-  if((f.reputation?.north||0)>40&&!f.reviews?.some(x=>x.completedAt===null)&&await dip('network','review',{actor:'north'},'trade','review'))continue;
+  if(f.actors.north.balance<0&&await dip('network','settle',{actor:'north'},'trade','settle'))continue;
+  if((f.votes?.north||0)<50&&(f.reputation?.north||0)>0&&!f.reviews?.some(x=>x.completedAt===null)&&await dip('network','review',{actor:'north'},'trade','review'))continue;
   if(s.nodes.desert.stores.parts<40&&await ready('relief',{actor:'desert',quantity:24})){await task('trade','relief','desert');await pause(false);continue;}
   if(a&&Object.values(f.votes).every(v=>v>=50)&&s.nodes.desert.stores.parts>=8&&await ready('diplomacy',{group:'aftermath',action:'conference',detail:{}})){await advance('conference','341_industrial_credit_repair');continue;}
  }else if(control.stage==='ally'){
@@ -90,7 +93,7 @@ while(Date.now()<deadline){const s=await observe();if(s.at-control.last>=600){co
  }else if(control.stage==='aftermath'&&await ready('protocol',{mode:'aftermath'})){await task('conflict','aftermath');await advance('conference');
  }else if(control.stage==='conference'&&await ready('diplomacy',{group:'aftermath',action:'conference',detail:{}})){await task('conflict','conference');await advance('consent');
  }else if(control.stage==='consent'){
-  const conf=s.foreign.aftermath.conferences.at(-1);if(conf.status==='active'){await advance('repair','342_industrial_ceasefire');}else if(['refused','expired','failed'].includes(conf.status)){await advance('conference');}
+  const conf=s.foreign.aftermath.conferences.at(-1);if(conf.status==='active'){await advance('repair','342_industrial_ceasefire');}else if(['refused','expired','failed'].includes(conf.status)){await advance('recoveryPrep');}
  }else if(control.stage==='repair'&&s.foreign.aftermath.plans.north?.mode==='services'){await advance('neighbor_repair');
  }else if(control.stage==='repair'&&await ready('diplomacy',{group:'aftermath',action:'plan',detail:{actor:'north',mode:'services'}})){await task('conflict','repair');await advance('neighbor_repair');
  }else if(control.stage==='neighbor_repair'){
