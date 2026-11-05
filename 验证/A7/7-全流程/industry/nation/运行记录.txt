@@ -1,0 +1,68 @@
+{"at":98369,"stage":"cofund","common":0}
+{"at":98969,"stage":"found","common":19627388,"stable":300}
+{"at":99588,"stage":"west","common":19744616,"stable":600}
+{"at":100200,"stage":"west","common":19986153,"stable":600}
+{"at":100822,"stage":"west","common":20110557,"stable":600}
+{"at":101426,"stage":"desert","common":20237449,"stable":600}
+{"at":102035,"stage":"shipping","common":20366879,"stable":600,"round":0}
+{"at":102651,"stage":"shipping","common":20498897,"stable":600,"round":1}
+{"at":103251,"stage":"trade","common":20633556,"stable":600,"round":3}
+{"at":103855,"stage":"trade","common":20742632,"stable":600,"round":5}
+{"at":104455,"stage":"steel","common":20742632,"stable":600,"round":7}
+{"at":105070,"stage":"steel","common":20742632,"stable":600,"round":10}
+{"at":105683,"stage":"steel","common":20742632,"stable":600,"round":12}
+{"at":106289,"stage":"steel","common":20742632,"stable":600,"round":14}
+{"at":106923,"stage":"steel","common":20742632,"stable":600,"round":16}
+{"at":107565,"stage":"ally","common":20742632,"stable":600,"round":18}
+{"at":108188,"stage":"ally","common":20742632,"stable":600,"round":20}
+{"at":108807,"stage":"ally","common":20742632,"stable":600,"round":22}
+{"at":109429,"stage":"ally","common":20742632,"stable":600,"round":24}
+{"at":110047,"stage":"ally","common":20742632,"stable":600,"round":26}
+{"at":110666,"stage":"ally","common":20742632,"stable":600,"round":28}
+{"at":111279,"stage":"ally","common":20742632,"stable":600,"round":30}
+{"at":111885,"stage":"ally","common":20742632,"stable":600,"round":32}
+{"at":112502,"stage":"ally","common":20742632,"stable":600,"round":34}
+{"at":113118,"stage":"ally","common":20742632,"stable":600,"round":36}
+{"at":113723,"stage":"ally","common":20742632,"stable":600,"round":38}
+{"at":114332,"stage":"ally","common":20742632,"stable":600,"round":40}
+{"at":114948,"stage":"ally","common":20742632,"stable":600,"round":42}
+{"at":115554,"stage":"ally","common":20742632,"stable":600,"round":44}
+{"at":116155,"stage":"ally","common":20742632,"stable":600,"round":46}
+{"at":116759,"stage":"war","common":20742632,"stable":600,"round":48}
+{"at":117361,"stage":"damage","common":20742630,"stable":600,"round":51}
+{"at":117972,"stage":"damage","common":20742630,"stable":600,"round":53}
+{"at":121309,"stage":"consent","common":20742632,"stable":600,"round":64}
+file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:93
+  const conf=s.foreign.aftermath.conferences.at(-1);if(conf.status==='active'){await advance('repair','342_industrial_ceasefire');}else if(['refused','expired','failed'].includes(conf.status)){await advance('conference');}
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'conferences')
+    at file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:93:34
+
+Node.js v24.22.2
+{"at":121921,"stage":"consent","common":20742632,"stable":600,"round":66}
+{"at":122532,"stage":"conference","common":20742632,"stable":600,"round":68}
+{"at":123147,"stage":"conference","common":20742632,"stable":600,"round":70}
+{"at":123750,"stage":"consent","common":20742632,"stable":600,"round":72}
+{"at":124355,"stage":"conference","common":20742632,"stable":600,"round":74}
+{"at":124959,"stage":"conference","common":20742632,"stable":600,"round":76}
+{"at":125581,"stage":"consent","common":20742632,"stable":600,"round":78}
+{"at":126189,"stage":"recoveryPrep","common":20742632,"stable":600,"round":80}
+{"at":126792,"stage":"recoveryPrep","common":20742632,"stable":600,"round":82}
+{"at":127413,"stage":"recoveryPrep","common":20742632,"stable":600,"round":84}
+{"at":128027,"stage":"recoveryPrep","common":20742632,"stable":600,"round":86}
+{"at":128641,"stage":"consent","common":20742632,"stable":600,"round":88}
+{"at":129246,"stage":"reconstruction","common":20742632,"stable":600,"round":90}
+{"at":129858,"stage":"reconstruction","common":20742632,"stable":600,"round":92}
+{"at":130476,"stage":"treaty_active","common":20742632,"stable":600,"round":94}
+{"at":131083,"stage":"sustain","common":20742632,"stable":600,"round":96}
+{"at":131692,"stage":"sustain","common":20742632,"stable":600,"round":98}
+{"at":132302,"stage":"sustain","common":20742632,"stable":600,"round":100}
+{"at":132913,"stage":"sustain","common":20742632,"stable":600,"round":102}
+{"at":133521,"stage":"sustain","common":20742632,"stable":600,"round":104}
+{"at":134126,"stage":"sustain","common":20742632,"stable":600,"round":106}
+{"at":134732,"stage":"sustain","common":20742632,"stable":600,"round":108}
+{"at":135333,"stage":"sustain","common":20742632,"stable":600,"round":110}
+{"at":135951,"stage":"sustain","common":20742632,"stable":600,"round":112}
+{"at":136558,"stage":"sustain","common":20742632,"stable":600,"round":114}
+ACCEPTED {"stage":"done","start":98369,"last":136558,"after":130872,"end":136904}

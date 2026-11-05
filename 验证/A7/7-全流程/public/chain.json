@@ -1,0 +1,254 @@
+{
+  "index": 11,
+  "phases": [
+    {
+      "id": "institutions",
+      "before": {
+        "at": 15629,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T15:34:13.482Z"
+    },
+    {
+      "id": "institutions",
+      "before": {
+        "at": 15629,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T15:35:52.428Z"
+    },
+    {
+      "id": "institutions",
+      "before": {
+        "at": 19759,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T15:44:55.865Z"
+    },
+    {
+      "id": "institutions",
+      "before": {
+        "at": 21766,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T15:49:21.357Z",
+      "end": "2026-11-05T15:49:25.807Z",
+      "code": 0
+    },
+    {
+      "id": "two-cities",
+      "before": {
+        "at": 21769,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T15:49:25.811Z"
+    },
+    {
+      "id": "two-cities",
+      "before": {
+        "at": 32352,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T16:22:23.513Z",
+      "end": "2026-11-05T16:23:19.639Z",
+      "code": 0
+    },
+    {
+      "id": "three-cities",
+      "before": {
+        "at": 33176,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T16:23:19.643Z",
+      "end": "2026-11-05T16:37:55.706Z",
+      "code": 0
+    },
+    {
+      "id": "region",
+      "before": {
+        "at": 45224,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T16:37:55.710Z",
+      "end": "2026-11-05T16:38:33.524Z",
+      "code": 1
+    },
+    {
+      "id": "region",
+      "before": {
+        "at": 45680,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T16:43:48.534Z",
+      "end": "2026-11-05T16:54:28.831Z",
+      "code": 0
+    },
+    {
+      "id": "regions",
+      "before": {
+        "at": 54582,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T16:54:28.835Z",
+      "end": "2026-11-05T17:09:40.229Z",
+      "code": 0
+    },
+    {
+      "id": "nation",
+      "before": {
+        "at": 65132,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:09:40.233Z",
+      "end": "2026-11-05T17:13:14.928Z",
+      "code": 1
+    },
+    {
+      "id": "nation",
+      "before": {
+        "at": 69298,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:17:42.010Z",
+      "end": "2026-11-05T17:25:58.526Z",
+      "code": 0
+    },
+    {
+      "id": "science",
+      "before": {
+        "at": 81155,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:25:58.532Z",
+      "end": "2026-11-05T17:27:10.004Z",
+      "code": 0
+    },
+    {
+      "id": "advanced",
+      "before": {
+        "at": 82906,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:27:10.008Z"
+    },
+    {
+      "id": "advanced",
+      "before": {
+        "at": 84586,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:29:38.899Z"
+    },
+    {
+      "id": "advanced",
+      "before": {
+        "at": 93553,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:36:21.458Z",
+      "end": "2026-11-05T17:36:21.507Z",
+      "code": 1
+    },
+    {
+      "id": "advanced",
+      "before": {
+        "at": 93553,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:36:50.682Z",
+      "end": "2026-11-05T17:45:03.840Z",
+      "code": 0
+    },
+    {
+      "id": "labor",
+      "before": {
+        "at": 104395,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:45:03.844Z"
+    },
+    {
+      "id": "labor",
+      "before": {
+        "at": 117561,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:54:57.045Z"
+    },
+    {
+      "id": "labor",
+      "before": {
+        "at": 120944,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T17:57:28.906Z",
+      "end": "2026-11-05T18:02:54.998Z",
+      "code": 0
+    },
+    {
+      "id": "supply",
+      "before": {
+        "at": 127789,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T18:02:55.008Z",
+      "end": "2026-11-05T18:07:53.743Z",
+      "code": 0
+    },
+    {
+      "id": "earth",
+      "before": {
+        "at": 133882,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T18:07:53.747Z",
+      "end": "2026-11-05T18:23:33.293Z",
+      "code": null
+    },
+    {
+      "id": "earth",
+      "before": {
+        "at": 152377,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T18:26:29.814Z",
+      "end": "2026-11-05T18:35:46.258Z",
+      "code": 75
+    },
+    {
+      "id": "earth",
+      "before": {
+        "at": 164086,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-05T18:35:47.033Z",
+      "end": "2026-11-05T18:43:05.092Z",
+      "code": 0
+    }
+  ],
+  "complete": true
+}

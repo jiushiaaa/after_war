@@ -1,0 +1,40 @@
+{"at":45224,"stage":"setup","known":0,"reason":"先议定有限协作"}
+{"at":45528,"stage":"survey","known":0,"reason":"先议定有限协作"}
+file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/%E5%9C%B0%E5%8C%BA%E6%8E%A5%E7%BB%AD%E7%8E%A9%E5%AE%B6.mjs:43
+ }else if(control.stage==='survey'&&s.domain?.node?.economy?.maintained){await pause(true);await select('#domainChoice_mode',route==='industrial'?'shared':'trade');if(s.domain.mode!==(route==='industrial'?'shared':'trade')&&!await click('#domain_agree'))throw Error('Agreement unavailable: '+s.agree);if(route==='industrial'){await select('#domainChoice_priority','works');if(s.domain.priority!=='works'&&!await click('#domain_priority'))throw Error('Works unavailable');}else {await select('#domainChoice_good','medicine');if(s.domain.good!=='medicine'&&!await click('#domain_good'))throw Error('Medicine unavailable');}await exportSave(route==='industrial'?'286_industrial_shared':'292_public_trade');control.after=(await observe()).at;control.stage='trade';save();await pause(false);
+                                                                                                                                                                                                                                                                    ^
+
+Error: Agreement unavailable: 工具要先留给当地
+    at file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/%E5%9C%B0%E5%8C%BA%E6%8E%A5%E7%BB%AD%E7%8E%A9%E5%AE%B6.mjs:43:261
+
+Node.js v24.22.2
+{"at":45839,"stage":"trade","known":4343836,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":46140,"stage":"trade","known":4343836,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":46443,"stage":"trade","known":4376415,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":46756,"stage":"trade","known":4376415,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":47064,"stage":"upgrade","known":4409646,"condition":100,"reason":"暂停新发运；在途仍履约"}
+{"at":47371,"stage":"cut","known":4409646,"condition":90,"reason":"暂停新发运；在途仍履约"}
+{"at":47683,"stage":"cut","known":4443541,"condition":65,"reason":"暂停新发运；在途仍履约"}
+{"at":47992,"stage":"recover","known":4443541,"condition":60,"reason":"北岸码头维护不足80"}
+{"at":48294,"stage":"recover","known":4478114,"condition":85,"reason":"唯一船队仍在往返"}
+{"at":48605,"stage":"sustain","known":4513379,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":48916,"stage":"sustain","known":4513379,"condition":100,"reason":"联络处未续付"}
+{"at":49225,"stage":"sustain","known":4549349,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":49537,"stage":"sustain","known":4549349,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":49848,"stage":"sustain","known":4586038,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":50158,"stage":"sustain","known":4586038,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":50461,"stage":"sustain","known":4623461,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":50771,"stage":"sustain","known":4623461,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":51080,"stage":"sustain","known":4661633,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":51388,"stage":"sustain","known":4661633,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":51700,"stage":"sustain","known":4700568,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":52010,"stage":"sustain","known":4700568,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":52321,"stage":"sustain","known":4740282,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":52629,"stage":"sustain","known":4740282,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":52938,"stage":"sustain","known":4780790,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":53247,"stage":"sustain","known":4780790,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":53556,"stage":"sustain","known":4822108,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":53867,"stage":"sustain","known":4822108,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":54177,"stage":"sustain","known":4864253,"condition":100,"reason":"唯一船队仍在往返"}
+{"at":54489,"stage":"sustain","known":4864253,"condition":100,"reason":"唯一船队仍在往返"}
+ACCEPTED {"stage":"done","start":45224,"last":54489,"after":48560}

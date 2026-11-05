@@ -1,0 +1,66 @@
+{
+  "at": 99313,
+  "paused": true,
+  "maxSpeed": 32,
+  "speed": 32,
+  "pending": null,
+  "buttons": [],
+  "cofund": true,
+  "founded": 99240,
+  "common": 19744616,
+  "stable": 600,
+  "service": {
+    "at": 99300,
+    "paid": true,
+    "cost": {
+      "food": 19.744616,
+      "tools": 1.9744616,
+      "knowledge": 2.843224704
+    },
+    "reason": null
+  },
+  "contacts": [],
+  "peers": [],
+  "nodes": {
+    "north": {
+      "population": 19744616,
+      "stores": {
+        "food": 2531.395364000001,
+        "wood": 1815,
+        "medicine": 110,
+        "scrap": 1410,
+        "tools": 900.7395363999997,
+        "iron": 880,
+        "knowledge": 1766.8089324159996,
+        "coal": 0,
+        "parts": 8,
+        "steel": 0,
+        "electronics": 18
+      },
+      "infrastructure": 100,
+      "trust": 66,
+      "control": "shared",
+      "joinedAt": 98369,
+      "stableSeconds": 600,
+      "casualties": 0
+    }
+  },
+  "foreign": null,
+  "cities": [
+    {
+      "id": "home",
+      "health": 100,
+      "stable": 0
+    },
+    {
+      "id": "lake",
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "id": "ridge",
+      "health": 100,
+      "stable": 600
+    }
+  ]
+}

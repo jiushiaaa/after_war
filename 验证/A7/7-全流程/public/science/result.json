@@ -1,0 +1,150 @@
+{
+  "at": 82906,
+  "tech": {
+    "water": true,
+    "metal": true,
+    "agronomy": true,
+    "records": true,
+    "preservation": true,
+    "handtools": true,
+    "sanitation": true,
+    "irrigation": true,
+    "school": true,
+    "trails": true,
+    "weather": true,
+    "vaccines": true,
+    "standards": true,
+    "survey": true,
+    "logistics": true,
+    "localgrid": true,
+    "electricalSafety": true,
+    "radio": true,
+    "precisionFit": true,
+    "traction": true,
+    "scientificMethod": true,
+    "administration": true,
+    "dispatch": true,
+    "publicHealth": true,
+    "urbanworks": true,
+    "semiconductor": true,
+    "electroalloy": true,
+    "powerstorage": true,
+    "systemsafety": true
+  },
+  "modern": {
+    "schema": 1,
+    "installedAt": 8410,
+    "remaining": 0,
+    "grid": "hydro",
+    "mode": "balanced",
+    "enabled": true,
+    "charge": 1,
+    "energy": {
+      "generated": 20920.5,
+      "used": 20919.5,
+      "spill": 0
+    },
+    "book": {
+      "consumed": {
+        "wood": 269.60000000000116,
+        "scrap": 951.200000000005,
+        "tools": 631.7799999998235,
+        "knowledge": 72.2999999999997,
+        "food": 267.40000000000083,
+        "medicine": 50,
+        "iron": 196,
+        "parts": 52.39999999999988
+      },
+      "produced": {
+        "medicine": 91.79999999999984,
+        "iron": 299.2000000000021,
+        "parts": 148.00000000000102,
+        "knowledge": 228.8000000000011,
+        "electronics": 26.19999999999994,
+        "steel": 6.599999999999999
+      }
+    },
+    "last": {
+      "at": 82900,
+      "crew": 6,
+      "generated": 10,
+      "used": 9.5,
+      "radio": true,
+      "traction": true,
+      "care": false,
+      "maintained": true,
+      "products": {
+        "iron": 0.8,
+        "parts": 0.4,
+        "electronics": 0.2
+      },
+      "reason": "",
+      "drawn": 10
+    },
+    "rounds": 7422,
+    "modernRounds": 7136,
+    "actions": [
+      {
+        "at": 8410,
+        "op": "install",
+        "arg": null,
+        "paid": {
+          "wood": 120,
+          "scrap": 80,
+          "tools": 20,
+          "knowledge": 20
+        }
+      },
+      {
+        "at": 9749,
+        "op": "enabled",
+        "arg": false,
+        "paid": {
+          "knowledge": 4
+        }
+      },
+      {
+        "at": 9835,
+        "op": "enabled",
+        "arg": true,
+        "paid": {
+          "knowledge": 4
+        }
+      }
+    ],
+    "eras": {
+      "early": {
+        "at": 8395,
+        "retired": [
+          "逐次采木",
+          "逐次采食",
+          "逐次回收"
+        ]
+      },
+      "middle": {
+        "at": 66019,
+        "retired": [
+          "逐人安排原镇岗位",
+          "手动逐期补报课堂",
+          "逐车发放片区互济"
+        ]
+      }
+    },
+    "learned": {
+      "vaccines": 6748,
+      "localgrid": 8177,
+      "electricalSafety": 8389,
+      "radio": 8823,
+      "precisionFit": 9318,
+      "traction": 9761,
+      "scientificMethod": 10244,
+      "dispatch": 11237,
+      "publicHealth": 11548,
+      "semiconductor": 81599,
+      "electroalloy": 81983,
+      "powerstorage": 82427,
+      "systemsafety": 82873
+    },
+    "nationalDelegated": true
+  }
+}

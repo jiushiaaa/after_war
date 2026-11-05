@@ -1,0 +1,11 @@
+Error: 存档字段无效
+    at walk (src/postwar/platform.js:10:105)
+    at walk (src/postwar/platform.js:11:9)
+    at Object.validate (src/postwar/platform.js:13:8)
+    at check (/Users/chuxinlei/Documents/幻光文游/战后文明/验证/工具/A7全程原生核验.cjs:8:173)
+    at main (/Users/chuxinlei/Documents/幻光文游/战后文明/验证/工具/A7全程原生核验.cjs:16:26)
+    at Object.<anonymous> (/Users/chuxinlei/Documents/幻光文游/战后文明/验证/工具/A7全程原生核验.cjs:17:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)

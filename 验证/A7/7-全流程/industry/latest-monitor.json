@@ -1,0 +1,120 @@
+{
+  "at": 183637,
+  "rate": 64,
+  "effectiveRate": 64,
+  "paused": true,
+  "event": "存档",
+  "pending": null,
+  "people": 528,
+  "total": 1151340276,
+  "known": 1151340276,
+  "food": 3477.3600000000015,
+  "foodLedgers": {
+    "origin": 3477.3600000000015,
+    "wards": {
+      "terraces": 14378.080000000959,
+      "yards": 15063.639999994668,
+      "canal": 8492.040000001092
+    },
+    "secondCity": 128995.57999999961,
+    "thirdCity": 146923.84000009872,
+    "northLocal": 24308258.127666663,
+    "eastLocal": 49666886.10699999,
+    "national": 1768.4841250000536,
+    "advanced": 12585.120000000055
+  },
+  "governed": 20742955,
+  "eraRecords": {
+    "early": {
+      "at": 9637,
+      "retired": [
+        "逐次采木",
+        "逐次采食",
+        "逐次回收"
+      ]
+    },
+    "middle": {
+      "at": 99251,
+      "retired": [
+        "逐人安排原镇岗位",
+        "手动逐期补报课堂",
+        "逐车发放片区互济"
+      ]
+    },
+    "late": {
+      "at": 183437,
+      "retired": [
+        "逐批准备临床药物",
+        "逐人安排临床替岗",
+        "手动逐班发放共同体补给"
+      ]
+    }
+  },
+  "wood": 1011909.5700005055,
+  "medicine": 310.00575000055335,
+  "knowledge": 5111.2549999955745,
+  "health": 100,
+  "tech": [
+    "water",
+    "metal",
+    "agronomy",
+    "records",
+    "preservation",
+    "handtools",
+    "sanitation",
+    "irrigation",
+    "school",
+    "trails",
+    "vaccines",
+    "mining",
+    "furnace",
+    "mechanics",
+    "power",
+    "electricalSafety",
+    "survey",
+    "standards",
+    "logistics",
+    "radio",
+    "precisionFit",
+    "traction",
+    "dispatch",
+    "scientificMethod",
+    "administration",
+    "publicHealth",
+    "urbanworks",
+    "semiconductor",
+    "electroalloy",
+    "powerstorage",
+    "systemsafety"
+  ],
+  "leader": 15,
+  "stage": "earth",
+  "modernRounds": 16802,
+  "city": 17821,
+  "nation": 99240,
+  "ending": true,
+  "proposals": 13,
+  "futureTech": [
+    "ecology",
+    "clinical",
+    "interface",
+    "automation",
+    "continuity",
+    "repairnet",
+    "autonomy",
+    "society",
+    "fusion",
+    "echo",
+    "genetics",
+    "adaptation",
+    "restoration"
+  ],
+  "earthTech": [
+    "mapping",
+    "navigation",
+    "fabrication",
+    "closed",
+    "guidance"
+  ],
+  "errors": null
+}

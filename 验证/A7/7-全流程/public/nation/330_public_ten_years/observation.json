@@ -1,0 +1,1007 @@
+{
+  "at": 81155,
+  "paused": true,
+  "maxSpeed": 32,
+  "speed": 32,
+  "pending": null,
+  "buttons": [],
+  "cofund": true,
+  "founded": 66000,
+  "common": 127765603,
+  "stable": 600,
+  "service": {
+    "at": 81120,
+    "paid": true,
+    "cost": {
+      "food": 127.765603,
+      "tools": 12.7765603,
+      "knowledge": 18.398246831999998
+    },
+    "reason": null
+  },
+  "contacts": [
+    {
+      "actor": "west",
+      "at": 68611,
+      "finishedAt": 69240
+    },
+    {
+      "actor": "desert",
+      "at": 69256,
+      "finishedAt": 69900
+    }
+  ],
+  "peers": [
+    "west",
+    "desert"
+  ],
+  "nodes": {
+    "north": {
+      "population": 16587854,
+      "stores": {
+        "food": 1365.7499750000013,
+        "wood": 2000,
+        "medicine": 500,
+        "scrap": 1600,
+        "tools": 847.1749974999884,
+        "iron": 1000,
+        "knowledge": 1770.2279963999986,
+        "coal": 48,
+        "parts": 309,
+        "steel": 0,
+        "electronics": 100
+      },
+      "infrastructure": 100,
+      "trust": 100,
+      "control": "shared",
+      "joinedAt": 65132,
+      "stableSeconds": 600,
+      "casualties": 0,
+      "staffed": true
+    },
+    "west": {
+      "population": 111177749,
+      "stores": {
+        "food": 8259.21767200002,
+        "wood": 1977,
+        "medicine": 500,
+        "scrap": 1600,
+        "tools": 807.9217672000005,
+        "iron": 963,
+        "knowledge": 1705.7061206399974,
+        "coal": 244,
+        "parts": 89,
+        "steel": 121,
+        "electronics": 0
+      },
+      "infrastructure": 100,
+      "trust": 79,
+      "control": "shared",
+      "joinedAt": 71479,
+      "stableSeconds": 600,
+      "casualties": 0,
+      "staffed": true
+    },
+    "desert": {
+      "population": 45535763,
+      "stores": {
+        "food": 4072.7943710000027,
+        "wood": 2000,
+        "medicine": 500,
+        "scrap": 1600,
+        "tools": 872.5794371000018,
+        "iron": 857,
+        "knowledge": 1855.695324519998,
+        "coal": 0,
+        "parts": 5,
+        "steel": 0,
+        "electronics": 0
+      },
+      "infrastructure": 100,
+      "trust": 78,
+      "control": "independent",
+      "joinedAt": null,
+      "stableSeconds": 600,
+      "casualties": 0,
+      "staffed": true
+    }
+  },
+  "foreign": {
+    "round": 39,
+    "actors": {
+      "north": {
+        "balance": -24,
+        "debtSince": 81000,
+        "overdueAt": null,
+        "decision": "按需进口煤 12，控制周转信用"
+      },
+      "west": {
+        "balance": 24,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、钢材 5，产出工具 16、煤 12"
+      },
+      "desert": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "公共工坊消耗粮食 12、零件 6，产出粮食 120；缺机械零件，等待出口回款或双方可接受的互换"
+      }
+    },
+    "pairs": {
+      "north-west": {
+        "pressure": 0,
+        "relation": 100,
+        "phase": "calm",
+        "since": 69298,
+        "truceUntil": 0,
+        "battles": 0,
+        "lastProposalAt": null
+      },
+      "desert-north": {
+        "pressure": 24,
+        "relation": 26,
+        "phase": "calm",
+        "since": 69900,
+        "truceUntil": 0,
+        "battles": 0,
+        "lastProposalAt": null
+      },
+      "desert-west": {
+        "pressure": 0,
+        "relation": 0,
+        "phase": "calm",
+        "since": 69900,
+        "truceUntil": 0,
+        "battles": 0,
+        "lastProposalAt": null
+      }
+    },
+    "shipments": [
+      {
+        "id": 1,
+        "from": "west",
+        "to": "north",
+        "departedAt": 69600,
+        "dueAt": 69900,
+        "arrivedAt": 69900,
+        "cargo": {
+          "coal": 18
+        },
+        "price": 4,
+        "value": 72,
+        "fare": {
+          "food": 8,
+          "parts": 1
+        }
+      },
+      {
+        "id": 2,
+        "from": "west",
+        "to": "north",
+        "departedAt": 69900,
+        "dueAt": 70200,
+        "arrivedAt": 70200,
+        "cargo": {
+          "coal": 18
+        },
+        "price": 4,
+        "value": 72,
+        "fare": {
+          "food": 8,
+          "parts": 1
+        }
+      },
+      {
+        "id": 3,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 24
+        },
+        "value": 120,
+        "price": 5,
+        "fare": {
+          "food": 8,
+          "parts": 1
+        },
+        "departedAt": 70200,
+        "dueAt": 70500,
+        "arrivedAt": 70500,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 4,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 5
+        },
+        "value": 24,
+        "price": 4.8,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 70500,
+        "dueAt": 70800,
+        "arrivedAt": 70800,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 5,
+        "from": "north",
+        "to": "desert",
+        "cargo": {
+          "parts": 18
+        },
+        "value": 90,
+        "price": 5,
+        "fare": {
+          "food": 8,
+          "parts": 1
+        },
+        "departedAt": 70800,
+        "dueAt": 71100,
+        "arrivedAt": 71100,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 6,
+        "from": "desert",
+        "to": "north",
+        "cargo": {
+          "food": 90
+        },
+        "value": 90,
+        "price": 1,
+        "fare": {
+          "food": 8,
+          "parts": 1
+        },
+        "departedAt": 71100,
+        "dueAt": 71400,
+        "arrivedAt": 71400,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 7,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 18
+        },
+        "value": 36,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 71400,
+        "dueAt": 71700,
+        "arrivedAt": 71700,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 8,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 8
+        },
+        "value": 36,
+        "price": 4.5,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 71700,
+        "dueAt": 72000,
+        "arrivedAt": 72000,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 9,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 18
+        },
+        "value": 36,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 72000,
+        "dueAt": 72300,
+        "arrivedAt": 72300,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 10,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 9
+        },
+        "value": 36,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 72300,
+        "dueAt": 72600,
+        "arrivedAt": 72600,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 11,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 18
+        },
+        "value": 36,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 72600,
+        "dueAt": 72900,
+        "arrivedAt": 72900,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 12,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 8
+        },
+        "value": 36,
+        "price": 4.5,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 72900,
+        "dueAt": 73200,
+        "arrivedAt": 73200,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 13,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 18
+        },
+        "value": 36,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 73200,
+        "dueAt": 73500,
+        "arrivedAt": 73500,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 14,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 8
+        },
+        "value": 36,
+        "price": 4.5,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 73500,
+        "dueAt": 73800,
+        "arrivedAt": 73800,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 15,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 73800,
+        "dueAt": 74100,
+        "arrivedAt": 74100,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 16,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 5
+        },
+        "value": 24,
+        "price": 4.8,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 74100,
+        "dueAt": 74400,
+        "arrivedAt": 74400,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 17,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 74400,
+        "dueAt": 74700,
+        "arrivedAt": 74700,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 18,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 74700,
+        "dueAt": 75000,
+        "arrivedAt": 75000,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 19,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 75000,
+        "dueAt": 75300,
+        "arrivedAt": 75300,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 20,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 75300,
+        "dueAt": 75600,
+        "arrivedAt": 75600,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 21,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 75600,
+        "dueAt": 75900,
+        "arrivedAt": 75900,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 22,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 75900,
+        "dueAt": 76200,
+        "arrivedAt": 76200,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 23,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 76200,
+        "dueAt": 76500,
+        "arrivedAt": 76500,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 24,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 76500,
+        "dueAt": 76800,
+        "arrivedAt": 76800,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 25,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 76800,
+        "dueAt": 77100,
+        "arrivedAt": 77100,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 26,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 77100,
+        "dueAt": 77400,
+        "arrivedAt": 77400,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 27,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 77400,
+        "dueAt": 77700,
+        "arrivedAt": 77700,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 28,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 77700,
+        "dueAt": 78000,
+        "arrivedAt": 78000,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 29,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 78000,
+        "dueAt": 78300,
+        "arrivedAt": 78300,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 30,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 78300,
+        "dueAt": 78600,
+        "arrivedAt": 78600,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 31,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 78600,
+        "dueAt": 78900,
+        "arrivedAt": 78900,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 32,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 78900,
+        "dueAt": 79200,
+        "arrivedAt": 79200,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 33,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 79200,
+        "dueAt": 79500,
+        "arrivedAt": 79500,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 34,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 79500,
+        "dueAt": 79800,
+        "arrivedAt": 79800,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 35,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 79800,
+        "dueAt": 80100,
+        "arrivedAt": 80100,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 36,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 80100,
+        "dueAt": 80400,
+        "arrivedAt": 80400,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 37,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 80400,
+        "dueAt": 80700,
+        "arrivedAt": 80700,
+        "route": "auto",
+        "market": "purchase"
+      },
+      {
+        "id": 38,
+        "from": "north",
+        "to": "west",
+        "cargo": {
+          "parts": 6
+        },
+        "value": 24,
+        "price": 4,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 80700,
+        "dueAt": 81000,
+        "arrivedAt": 81000,
+        "route": "auto",
+        "settlement": true,
+        "market": "redemption"
+      },
+      {
+        "id": 39,
+        "from": "west",
+        "to": "north",
+        "cargo": {
+          "coal": 12
+        },
+        "value": 24,
+        "price": 2,
+        "fare": {
+          "food": 6,
+          "parts": 1
+        },
+        "departedAt": 81000,
+        "dueAt": 81300,
+        "arrivedAt": null,
+        "route": "auto",
+        "market": "purchase"
+      }
+    ],
+    "leagues": {
+      "schema": 1,
+      "startedAt": 69934,
+      "pacts": [
+        {
+          "id": 1,
+          "pair": "north-west",
+          "type": "commerce",
+          "status": "active",
+          "at": 70500,
+          "paidCycles": 36,
+          "missed": {
+            "north": 0,
+            "west": 0
+          },
+          "calls": [],
+          "notice": null,
+          "endedAt": null
+        },
+        {
+          "id": 2,
+          "pair": "desert-north",
+          "type": "commerce",
+          "status": "active",
+          "at": 71700,
+          "paidCycles": 32,
+          "missed": {
+            "desert": 0,
+            "north": 0
+          },
+          "calls": [],
+          "notice": null,
+          "endedAt": null
+        }
+      ],
+      "offers": [
+        {
+          "pair": "north-west",
+          "type": "commerce",
+          "at": 70200,
+          "source": "各方根据往来主动议约",
+          "resolvedAt": 70500,
+          "accepted": true,
+          "score": 72
+        },
+        {
+          "pair": "desert-north",
+          "type": "commerce",
+          "at": 71400,
+          "source": "各方根据往来主动议约",
+          "resolvedAt": 71700,
+          "accepted": true,
+          "score": 66
+        }
+      ],
+      "reputation": {},
+      "routes": {},
+      "workouts": [],
+      "extensions": {}
+    },
+    "network": true,
+    "markets": true,
+    "congress": true,
+    "reputation": {},
+    "reviews": [],
+    "credits": {},
+    "votes": {
+      "north": 43,
+      "west": 43,
+      "desert": 53
+    }
+  },
+  "cities": [
+    {
+      "id": "home",
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "id": "lake",
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "id": "ridge",
+      "health": 100,
+      "stable": 600
+    }
+  ]
+}

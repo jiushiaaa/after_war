@@ -1,0 +1,39 @@
+{"at":65132,"stage":"cofund","common":0}
+{"at":65740,"stage":"found","common":15789770,"stable":300}
+{"at":66360,"stage":"west","common":15885389,"stable":600}
+{"at":66968,"stage":"west","common":15982921,"stable":600}
+{"at":67578,"stage":"west","common":16082403,"stable":600}
+{"at":68192,"stage":"west","common":16183876,"stable":600}
+{"at":68812,"stage":"desert","common":16287377,"stable":600}
+file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:12
+const read=async expression=>{const r=await send('Runtime.evaluate',{expression,returnByValue:true});if(r.result?.exceptionDetails)throw Error(JSON.stringify(r.result.exceptionDetails));return r.result.result.value;};
+                                                                                                                                         ^
+
+Error: {"exceptionId":1,"text":"Uncaught","lineNumber":32,"columnNumber":92,"scriptId":"108","stackTrace":{"callFrames":[{"functionName":"vote","scriptId":"108","url":"http://127.0.0.1:4180/src/postwar/aftermath.js","lineNumber":32,"columnNumber":92},{"functionName":"","scriptId":"2735","url":"","lineNumber":0,"columnNumber":1022},{"functionName":"","scriptId":"2735","url":"","lineNumber":0,"columnNumber":995},{"functionName":"","scriptId":"2735","url":"","lineNumber":0,"columnNumber":1183}]},"exception":{"type":"object","subtype":"error","className":"TypeError","description":"TypeError: Cannot read properties of undefined (reading 'fronts')\n    at Object.vote (http://127.0.0.1:4180/src/postwar/aftermath.js:33:93)\n    at <anonymous>:1:1023\n    at Array.map (<anonymous>)\n    at <anonymous>:1:996\n    at <anonymous>:1:1184","objectId":"-7547653551718459358.5.2"}}
+    at read (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:12:138)
+    at async exportSave (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:44:501)
+    at async advance (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:47:45)
+    at async file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A4%E5%9B%BD%E7%BA%A6%E7%8E%A9%E5%AE%B6.mjs:58:117
+
+Node.js v24.22.2
+{"at":69422,"stage":"shipping","common":16392948,"stable":600,"round":0}
+{"at":70036,"stage":"trade","common":16500632,"stable":600,"round":2}
+{"at":70652,"stage":"trade","common":16587854,"stable":600,"round":4}
+{"at":71276,"stage":"trade","common":16587854,"stable":600,"round":6}
+{"at":71894,"stage":"cut","common":113535526,"stable":600,"round":8}
+{"at":72516,"stage":"cut","common":114298972,"stable":600,"round":10}
+{"at":73135,"stage":"resume","common":115077686,"stable":0,"round":12}
+{"at":73755,"stage":"resume","common":115871975,"stable":0,"round":14}
+{"at":74374,"stage":"recover","common":116682149,"stable":480,"round":16}
+{"at":74976,"stage":"recover","common":117508527,"stable":600,"round":18}
+{"at":75589,"stage":"sustain","common":118351432,"stable":600,"round":20}
+{"at":76202,"stage":"sustain","common":120088154,"stable":600,"round":23}
+{"at":76813,"stage":"sustain","common":120982652,"stable":600,"round":25}
+{"at":77423,"stage":"sustain","common":121895039,"stable":600,"round":27}
+{"at":78028,"stage":"sustain","common":122825675,"stable":600,"round":29}
+{"at":78629,"stage":"sustain","common":123774923,"stable":600,"round":31}
+{"at":79235,"stage":"sustain","common":124743157,"stable":600,"round":33}
+{"at":79851,"stage":"sustain","common":125730755,"stable":600,"round":35}
+{"at":80455,"stage":"sustain","common":126738106,"stable":600,"round":37}
+{"at":81071,"stage":"sustain","common":127765603,"stable":600,"round":39}
+ACCEPTED {"stage":"done","start":65132,"last":81071,"after":75133,"end":81155}

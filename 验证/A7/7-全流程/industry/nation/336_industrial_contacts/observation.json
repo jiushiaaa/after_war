@@ -1,0 +1,134 @@
+{
+  "at": 102006,
+  "paused": true,
+  "maxSpeed": 32,
+  "speed": 32,
+  "pending": null,
+  "buttons": [],
+  "cofund": true,
+  "founded": 99240,
+  "common": 20366879,
+  "stable": 600,
+  "service": {
+    "at": 102000,
+    "paid": true,
+    "cost": {
+      "food": 20.366879,
+      "tools": 2.0366879,
+      "knowledge": 2.4440254799999996
+    },
+    "reason": null
+  },
+  "contacts": [
+    {
+      "actor": "west",
+      "at": 101299,
+      "finishedAt": 101940
+    },
+    {
+      "actor": "desert",
+      "at": 101964,
+      "finishedAt": null
+    }
+  ],
+  "peers": [
+    "west"
+  ],
+  "nodes": {
+    "north": {
+      "population": 20366879,
+      "stores": {
+        "food": 2455.066541000002,
+        "wood": 2000,
+        "medicine": 500,
+        "scrap": 1569,
+        "tools": 882.8066540999974,
+        "iron": 777,
+        "knowledge": 1537.4168067680002,
+        "coal": 0,
+        "parts": 88,
+        "steel": 0,
+        "electronics": 80
+      },
+      "infrastructure": 100,
+      "trust": 100,
+      "control": "shared",
+      "joinedAt": 98369,
+      "stableSeconds": 600,
+      "casualties": 0
+    },
+    "west": {
+      "population": 117538812,
+      "stores": {
+        "food": 0,
+        "wood": 0,
+        "medicine": 0,
+        "scrap": 0,
+        "tools": 0,
+        "iron": 0,
+        "knowledge": 0,
+        "coal": 0,
+        "parts": 0,
+        "steel": 0,
+        "electronics": 0
+      },
+      "infrastructure": 100,
+      "trust": 60,
+      "control": "independent",
+      "joinedAt": null,
+      "stableSeconds": 0,
+      "casualties": 0,
+      "staffed": true
+    }
+  },
+  "foreign": {
+    "round": 0,
+    "actors": {
+      "north": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "核对地方产业与公共储备"
+      },
+      "west": {
+        "balance": 0,
+        "debtSince": null,
+        "overdueAt": null,
+        "decision": "核对地方产业与公共储备"
+      }
+    },
+    "pairs": {
+      "north-west": {
+        "pressure": 0,
+        "relation": 0,
+        "phase": "calm",
+        "since": 102006,
+        "truceUntil": 0,
+        "battles": 0,
+        "lastProposalAt": null
+      }
+    },
+    "shipments": [],
+    "network": false,
+    "markets": false,
+    "congress": false,
+    "votes": {}
+  },
+  "cities": [
+    {
+      "id": "home",
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "id": "lake",
+      "health": 100,
+      "stable": 600
+    },
+    {
+      "id": "ridge",
+      "health": 100,
+      "stable": 600
+    }
+  ]
+}

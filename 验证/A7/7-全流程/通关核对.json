@@ -1,0 +1,1377 @@
+{
+  "kind": "strict read-only audit; fresh native UI saves, no injected state or simulated time",
+  "routes": {
+    "public": {
+      "complete": true,
+      "file": "验证/A7/7-全流程/public/earth/13_ten_years_after_flight/战后文明-存档.json",
+      "sha256": "542573cdfe47e358eb043aa13c3743549adea37b0c3eb03423c50862df31fcfb",
+      "endingAt": 168900,
+      "endingYear": 281.5,
+      "exportAt": 175172,
+      "yearsAfterEnding": 10.453333333333333,
+      "route": "commons",
+      "world": 1025606195,
+      "equation": {
+        "initial": 350007417,
+        "births": 3584480841,
+        "newPersons": 0,
+        "deaths": 2908882063
+      },
+      "accounts": {
+        "home": 432,
+        "wanderers": 458,
+        "origin_river_network": 2200,
+        "origin_old_city_fringe": 2400,
+        "origin_mountain_settlements": 2000,
+        "local_river": 24,
+        "local_highland": 18,
+        "local_ford": 60,
+        "macro_north": 26000,
+        "macro_east": 42000,
+        "macro_west": 31000,
+        "macro_rainforest": 58000,
+        "macro_desert": 34000,
+        "macro_plateau": 18000,
+        "macro_islands": 62000,
+        "macro_polar": 12000,
+        "ward_terraces": 3740,
+        "ward_yards": 4620,
+        "ward_canal": 6500,
+        "city_lake": 65126,
+        "city_ridge": 74124,
+        "district_north": 5429795,
+        "district_east": 11158059,
+        "polity_west": 117550852,
+        "polity_desert": 48595139,
+        "future_common": 417,
+        "earth_north": 182512274,
+        "earth_east": 184912730,
+        "earth_rainforest": 182149885,
+        "earth_islands": 109632253,
+        "earth_plateau": 121991069,
+        "earth_polar": 61229020
+      },
+      "technologyCount": 41,
+      "tech": {
+        "base": [
+          "water",
+          "metal",
+          "agronomy",
+          "records",
+          "preservation",
+          "handtools",
+          "sanitation",
+          "irrigation",
+          "school",
+          "trails",
+          "weather",
+          "vaccines",
+          "standards",
+          "survey",
+          "logistics",
+          "localgrid",
+          "electricalSafety",
+          "radio",
+          "precisionFit",
+          "traction",
+          "scientificMethod",
+          "administration",
+          "dispatch",
+          "publicHealth",
+          "urbanworks",
+          "semiconductor",
+          "electroalloy",
+          "powerstorage",
+          "systemsafety"
+        ],
+        "advanced": [
+          "ecology",
+          "clinical",
+          "restoration",
+          "genetics",
+          "adaptation",
+          "automation",
+          "echo"
+        ],
+        "earth": [
+          "mapping",
+          "navigation",
+          "fabrication",
+          "closed",
+          "guidance"
+        ]
+      },
+      "eras": {
+        "early": {
+          "at": 8395,
+          "retired": [
+            "逐次采木",
+            "逐次采食",
+            "逐次回收"
+          ]
+        },
+        "middle": {
+          "at": 66019,
+          "retired": [
+            "逐人安排原镇岗位",
+            "手动逐期补报课堂",
+            "逐车发放片区互济"
+          ]
+        },
+        "late": {
+          "at": 168908,
+          "retired": [
+            "逐批准备临床药物",
+            "逐人安排临床替岗",
+            "手动逐班发放共同体补给"
+          ]
+        }
+      },
+      "generations": {
+        "leaders": 15,
+        "dialogs": 2,
+        "elections": 28,
+        "figures": {
+          "craft": {
+            "title": "首任工匠·阿岑",
+            "born": -50,
+            "met": 0,
+            "institution": "工坊轮值",
+            "synthetic": false,
+            "retired": 15,
+            "died": 35
+          },
+          "surveyor": {
+            "title": "老测量员·林衡",
+            "born": -47,
+            "met": 11,
+            "institution": "测绘所",
+            "synthetic": false,
+            "retired": 18,
+            "died": 38
+          },
+          "mutant": {
+            "title": "变异居民代表·余禾",
+            "born": -19,
+            "met": 13,
+            "institution": "居民议事会",
+            "synthetic": false,
+            "retired": 46,
+            "died": 66
+          },
+          "captain": {
+            "title": "首航指挥·陆遥",
+            "born": 219,
+            "met": 279,
+            "institution": "航行指挥所",
+            "synthetic": false,
+            "retired": 284,
+            "died": null
+          }
+        }
+      },
+      "civic": [
+        {
+          "id": "grid_land",
+          "value": "hydro",
+          "at": 8420,
+          "result": "passed",
+          "endedAt": 8481,
+          "changedOwnerRule": null,
+          "wall": null
+        },
+        {
+          "id": "city_food",
+          "value": "provisioning",
+          "at": 15663,
+          "result": "passed",
+          "endedAt": 15724,
+          "changedOwnerRule": null,
+          "wall": "2026-11-05T15:35:58.016Z"
+        },
+        {
+          "id": "city_care",
+          "value": "clinical",
+          "at": 15753,
+          "result": "passed",
+          "endedAt": 15814,
+          "changedOwnerRule": null,
+          "wall": "2026-11-05T15:36:09.701Z"
+        },
+        {
+          "id": "city_school",
+          "value": true,
+          "at": 15816,
+          "result": "passed",
+          "endedAt": 15877,
+          "changedOwnerRule": null,
+          "wall": "2026-11-05T15:36:17.808Z"
+        },
+        {
+          "id": "cluster_homes",
+          "value": "food",
+          "at": 36393,
+          "result": "passed",
+          "endedAt": 36454,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T16:27:26.123Z"
+        },
+        {
+          "id": "cluster_budget",
+          "value": "learning",
+          "at": 36740,
+          "result": "passed",
+          "endedAt": 36801,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T16:27:52.595Z"
+        },
+        {
+          "id": "cluster_production",
+          "value": "repair",
+          "at": 36806,
+          "result": "passed",
+          "endedAt": 36927,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T16:28:10.830Z"
+        },
+        {
+          "id": "nation_local",
+          "value": "local",
+          "at": 66033,
+          "result": "passed",
+          "endedAt": 66124,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:10:51.007Z"
+        },
+        {
+          "id": "nation_rights",
+          "value": "equal",
+          "at": 66147,
+          "result": "passed",
+          "endedAt": 66208,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:11:02.901Z"
+        },
+        {
+          "id": "nation_work",
+          "value": "care",
+          "at": 66231,
+          "result": "passed",
+          "endedAt": 66292,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:11:06.049Z"
+        },
+        {
+          "id": "advanced_work",
+          "value": "ecological",
+          "at": 86055,
+          "result": "passed",
+          "endedAt": 86400,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T17:30:49.276Z"
+        },
+        {
+          "id": "advanced_body",
+          "value": "treatment",
+          "at": 87142,
+          "result": "passed",
+          "endedAt": 87203,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:31:45.863Z"
+        },
+        {
+          "id": "earth_public",
+          "value": "federal",
+          "at": 156134,
+          "result": "passed",
+          "endedAt": 156600,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T18:30:36.370Z"
+        }
+      ],
+      "pressure": 18,
+      "archives": {
+        "facilities": {
+          "title": "谁留下这些设施",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "belonging": {
+          "title": "谁属于共同体",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "inheritance": {
+          "title": "谁接过这把火",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "mutation": {
+          "title": "变异与生态",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "machines": {
+          "title": "机群",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "echo": {
+          "title": "回响",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "mars": {
+          "title": "火星",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "flight": {
+          "title": "首航",
+          "defined": 3,
+          "unlocked": 3
+        }
+      },
+      "achievements": {
+        "fire": 2,
+        "settled": 659,
+        "trip": 807,
+        "town": 6490,
+        "city": 15623,
+        "teaching": 16110,
+        "network": 23430,
+        "nation": 66000,
+        "future": 85620,
+        "earth": 156600,
+        "flight": 168900
+      },
+      "ending": {
+        "at": 168900,
+        "flight": 3,
+        "mode": "federal",
+        "crew": {
+          "total": 12,
+          "bio": 12,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "organic": 12
+        },
+        "missionMode": "organic",
+        "publicLaws": {
+          "devolution": "local",
+          "rights": "equal",
+          "priority": "care"
+        },
+        "bodyLaws": {
+          "care": "treatment",
+          "ownership": "personal",
+          "citizenship": "residence",
+          "work": "ecological"
+        },
+        "echo": "study"
+      },
+      "flights": [
+        {
+          "id": 1,
+          "kind": "probe",
+          "mode": "uncrewed",
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "aborted": false,
+          "success": true,
+          "returnedAt": 167460
+        },
+        {
+          "id": 2,
+          "kind": "departure",
+          "mode": "organic",
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "aborted": true,
+          "success": false,
+          "returnedAt": 167880
+        },
+        {
+          "id": 3,
+          "kind": "departure",
+          "mode": "organic",
+          "crew": {
+            "total": 12,
+            "bio": 12,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 12
+          },
+          "aborted": false,
+          "success": true,
+          "returnedAt": 169080
+        }
+      ],
+      "advanced": {
+        "health": 100,
+        "condition": 100,
+        "counts": {
+          "total": 417,
+          "bio": 417,
+          "machine": 0,
+          "mechanical": 0,
+          "synthetic": 0,
+          "gene": 0,
+          "prosthetic": 0,
+          "organic": 417,
+          "workers": 244,
+          "children": 77,
+          "mutant": 120,
+          "citizens": 417
+        },
+        "last": {
+          "at": 175140,
+          "fed": true,
+          "treated": true,
+          "powered": true,
+          "maintained": true,
+          "monitoring": true,
+          "audited": true,
+          "machineActive": true,
+          "syntheticActive": true,
+          "workers": {
+            "energy": 4,
+            "courier": 4,
+            "care": 43,
+            "maintenance": 7,
+            "clerk": 6,
+            "teacher": 8,
+            "earthOffice": 8,
+            "flightControl": 4,
+            "gardener": 48,
+            "manufacturing": 36
+          },
+          "assignments": {
+            "energy": {
+              "organic": 4
+            },
+            "courier": {
+              "organic": 4
+            },
+            "care": {
+              "organic": 43
+            },
+            "maintenance": {
+              "organic": 7
+            },
+            "clerk": {
+              "organic": 6
+            },
+            "teacher": {
+              "organic": 8
+            },
+            "earthOffice": {
+              "organic": 8
+            },
+            "flightControl": {
+              "organic": 4
+            },
+            "gardener": {
+              "organic": 48
+            },
+            "manufacturing": {
+              "organic": 36
+            }
+          },
+          "idle": 76,
+          "produced": [],
+          "energy": {
+            "generated": 200,
+            "used": 70.96000000000001,
+            "stored": 1200,
+            "capacity": 1200,
+            "heat": 560,
+            "sources": {
+              "renewable": 200,
+              "thermal": 0,
+              "fusion": 0
+            }
+          },
+          "food": 281.7600000000003,
+          "upkeep": {
+            "tools": 4.234,
+            "parts": 2.55
+          },
+          "dormant": 0,
+          "patients": 0
+        },
+        "echo": {
+          "at": 97527,
+          "stage": "complete",
+          "remaining": 0,
+          "crew": 0,
+          "choice": "study",
+          "exposure": 0,
+          "knowledge": 80,
+          "care": 3,
+          "visits": 3,
+          "finishedAt": 98340
+        }
+      },
+      "regions": {
+        "west": {
+          "acceptedAt": 154080,
+          "mode": "open",
+          "stable": 600,
+          "paid": 356,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "knowledge": 8,
+              "tools": 2,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "desert": {
+          "acceptedAt": 154320,
+          "mode": "reclaim",
+          "stable": 600,
+          "paid": 352,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "medicine": 6,
+              "knowledge": 6,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "north": {
+          "acceptedAt": 135360,
+          "mode": "network",
+          "stable": 600,
+          "paid": 666,
+          "missed": 2,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 24,
+              "tools": 2,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "east": {
+          "acceptedAt": 153960,
+          "mode": "wetland",
+          "stable": 600,
+          "paid": 358,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "medicine": 8,
+              "knowledge": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "rainforest": {
+          "acceptedAt": 154440,
+          "mode": "corridor",
+          "stable": 600,
+          "paid": 350,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "medicine": 8,
+              "tools": 2,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "islands": {
+          "acceptedAt": 155040,
+          "mode": "beacons",
+          "stable": 600,
+          "paid": 340,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "tools": 4,
+              "knowledge": 8,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "plateau": {
+          "acceptedAt": 155520,
+          "mode": "station",
+          "stable": 600,
+          "paid": 332,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 36,
+              "tools": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "polar": {
+          "acceptedAt": 156120,
+          "mode": "restore",
+          "stable": 600,
+          "paid": 322,
+          "missed": 0,
+          "last": {
+            "at": 175140,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "knowledge": 8,
+              "tools": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        }
+      }
+    },
+    "industry": {
+      "complete": true,
+      "file": "验证/A7/7-全流程/industry/earth/13_ten_years_after_flight/战后文明-存档.json",
+      "sha256": "c86b44c90f319e672693fe1971c8be7341b4e35c08c108a3964368507ae715d4",
+      "endingAt": 183420,
+      "endingYear": 305.7,
+      "exportAt": 189697,
+      "yearsAfterEnding": 10.461666666666666,
+      "route": "industry",
+      "world": 1238042853,
+      "equation": {
+        "initial": 350007417,
+        "births": 4462029223,
+        "newPersons": 48,
+        "deaths": 3573993835
+      },
+      "accounts": {
+        "home": 528,
+        "wanderers": 467,
+        "origin_river_network": 2200,
+        "origin_old_city_fringe": 2400,
+        "origin_mountain_settlements": 2000,
+        "local_river": 23,
+        "local_highland": 18,
+        "local_ford": 60,
+        "macro_north": 26000,
+        "macro_east": 42000,
+        "macro_west": 31000,
+        "macro_rainforest": 58000,
+        "macro_desert": 34000,
+        "macro_plateau": 18000,
+        "macro_islands": 62000,
+        "macro_polar": 12000,
+        "ward_terraces": 3740,
+        "ward_yards": 7820,
+        "ward_canal": 3300,
+        "city_lake": 65126,
+        "city_ridge": 77324,
+        "district_north": 6789339,
+        "district_east": 13953293,
+        "polity_west": 145829792,
+        "polity_desert": 60526698,
+        "future_common": 319,
+        "earth_north": 236584210,
+        "earth_east": 239694578,
+        "earth_rainforest": 206627886,
+        "earth_islands": 123167469,
+        "earth_plateau": 136288621,
+        "earth_polar": 68132642
+      },
+      "technologyCount": 49,
+      "tech": {
+        "base": [
+          "water",
+          "metal",
+          "agronomy",
+          "records",
+          "preservation",
+          "handtools",
+          "sanitation",
+          "irrigation",
+          "school",
+          "trails",
+          "vaccines",
+          "mining",
+          "furnace",
+          "mechanics",
+          "power",
+          "electricalSafety",
+          "survey",
+          "standards",
+          "logistics",
+          "radio",
+          "precisionFit",
+          "traction",
+          "dispatch",
+          "scientificMethod",
+          "administration",
+          "publicHealth",
+          "urbanworks",
+          "semiconductor",
+          "electroalloy",
+          "powerstorage",
+          "systemsafety"
+        ],
+        "advanced": [
+          "ecology",
+          "clinical",
+          "interface",
+          "automation",
+          "continuity",
+          "repairnet",
+          "autonomy",
+          "society",
+          "fusion",
+          "echo",
+          "genetics",
+          "adaptation",
+          "restoration"
+        ],
+        "earth": [
+          "mapping",
+          "navigation",
+          "fabrication",
+          "closed",
+          "guidance"
+        ]
+      },
+      "eras": {
+        "early": {
+          "at": 9637,
+          "retired": [
+            "逐次采木",
+            "逐次采食",
+            "逐次回收"
+          ]
+        },
+        "middle": {
+          "at": 99251,
+          "retired": [
+            "逐人安排原镇岗位",
+            "手动逐期补报课堂",
+            "逐车发放片区互济"
+          ]
+        },
+        "late": {
+          "at": 183437,
+          "retired": [
+            "逐批准备临床药物",
+            "逐人安排临床替岗",
+            "手动逐班发放共同体补给"
+          ]
+        }
+      },
+      "generations": {
+        "leaders": 16,
+        "dialogs": 2,
+        "elections": 30,
+        "figures": {
+          "craft": {
+            "title": "首任工匠·阿岑",
+            "born": -50,
+            "met": 0,
+            "institution": "工坊轮值",
+            "synthetic": false,
+            "retired": 15,
+            "died": 35
+          },
+          "surveyor": {
+            "title": "老测量员·林衡",
+            "born": -38,
+            "met": 20,
+            "institution": "测绘所",
+            "synthetic": false,
+            "retired": 27,
+            "died": 47
+          },
+          "mutant": {
+            "title": "变异居民代表·余禾",
+            "born": -11,
+            "met": 21,
+            "institution": "居民议事会",
+            "synthetic": false,
+            "retired": 54,
+            "died": 74
+          },
+          "synthetic": {
+            "title": "首位合成人代表·序七",
+            "born": 245,
+            "met": 245,
+            "institution": "人格与维修议事会",
+            "synthetic": true,
+            "retired": 270,
+            "died": null
+          },
+          "captain": {
+            "title": "首航指挥·陆遥",
+            "born": 243,
+            "met": 303,
+            "institution": "航行指挥所",
+            "synthetic": false,
+            "retired": 308,
+            "died": null
+          }
+        }
+      },
+      "civic": [
+        {
+          "id": "city_food",
+          "value": "workshop",
+          "at": 17861,
+          "result": "passed",
+          "endedAt": 17952,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T15:43:42.487Z"
+        },
+        {
+          "id": "city_care",
+          "value": "clinical",
+          "at": 17970,
+          "result": "passed",
+          "endedAt": 18052,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T15:43:56.703Z"
+        },
+        {
+          "id": "city_school",
+          "value": false,
+          "at": 18057,
+          "result": "passed",
+          "endedAt": 18133,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T15:44:08.094Z"
+        },
+        {
+          "id": "cluster_homes",
+          "value": "tools",
+          "at": 70254,
+          "result": "passed",
+          "endedAt": 70315,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T16:59:15.475Z"
+        },
+        {
+          "id": "cluster_budget",
+          "value": "delivery",
+          "at": 70642,
+          "result": "passed",
+          "endedAt": 70703,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T16:59:44.531Z"
+        },
+        {
+          "id": "cluster_production",
+          "value": "standard",
+          "at": 70711,
+          "result": "passed",
+          "endedAt": 70772,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:00:02.754Z"
+        },
+        {
+          "id": "nation_local",
+          "value": "central",
+          "at": 99257,
+          "result": "passed",
+          "endedAt": 99960,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T17:34:39.064Z"
+        },
+        {
+          "id": "nation_rights",
+          "value": "equal",
+          "at": 99983,
+          "result": "passed",
+          "endedAt": 100065,
+          "changedOwnerRule": false,
+          "wall": "2026-11-05T17:35:13.510Z"
+        },
+        {
+          "id": "nation_work",
+          "value": "industry",
+          "at": 100070,
+          "result": "passed",
+          "endedAt": 100740,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T17:35:16.675Z"
+        },
+        {
+          "id": "advanced_work",
+          "value": "industrial",
+          "at": 142267,
+          "result": "passed",
+          "endedAt": 142620,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T18:13:27.961Z"
+        },
+        {
+          "id": "advanced_machine",
+          "value": "equal",
+          "at": 146541,
+          "result": "refused",
+          "endedAt": 147000,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T18:17:06.293Z"
+        },
+        {
+          "id": "advanced_body",
+          "value": "enhancement",
+          "at": 158115,
+          "result": "passed",
+          "endedAt": 158460,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T18:27:12.813Z"
+        },
+        {
+          "id": "earth_public",
+          "value": "federal",
+          "at": 177845,
+          "result": "passed",
+          "endedAt": 178260,
+          "changedOwnerRule": true,
+          "wall": "2026-11-05T18:44:55.373Z"
+        }
+      ],
+      "pressure": 23,
+      "archives": {
+        "facilities": {
+          "title": "谁留下这些设施",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "belonging": {
+          "title": "谁属于共同体",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "inheritance": {
+          "title": "谁接过这把火",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "mutation": {
+          "title": "变异与生态",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "machines": {
+          "title": "机群",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "echo": {
+          "title": "回响",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "mars": {
+          "title": "火星",
+          "defined": 3,
+          "unlocked": 3
+        },
+        "flight": {
+          "title": "首航",
+          "defined": 3,
+          "unlocked": 3
+        }
+      },
+      "achievements": {
+        "fire": 2,
+        "settled": 659,
+        "trip": 796,
+        "town": 6460,
+        "city": 17821,
+        "teaching": 18240,
+        "network": 28630,
+        "nation": 99240,
+        "future": 139260,
+        "person": 147300,
+        "earth": 178260,
+        "flight": 183420
+      },
+      "ending": {
+        "at": 183420,
+        "flight": 3,
+        "mode": "federal",
+        "crew": {
+          "total": 12,
+          "bio": 6,
+          "mechanical": 3,
+          "synthetic": 3,
+          "gene": 0,
+          "organic": 6
+        },
+        "missionMode": "mixed",
+        "publicLaws": {
+          "devolution": "local",
+          "rights": "equal",
+          "priority": "care"
+        },
+        "bodyLaws": {
+          "care": "enhancement",
+          "ownership": "personal",
+          "citizenship": "equal",
+          "work": "industrial"
+        },
+        "echo": "exploit"
+      },
+      "flights": [
+        {
+          "id": 1,
+          "kind": "probe",
+          "mode": "uncrewed",
+          "crew": {
+            "total": 0,
+            "bio": 0,
+            "mechanical": 0,
+            "synthetic": 0,
+            "gene": 0,
+            "organic": 0
+          },
+          "aborted": false,
+          "success": true,
+          "returnedAt": 181980
+        },
+        {
+          "id": 2,
+          "kind": "departure",
+          "mode": "mixed",
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "aborted": true,
+          "success": false,
+          "returnedAt": 182400
+        },
+        {
+          "id": 3,
+          "kind": "departure",
+          "mode": "mixed",
+          "crew": {
+            "total": 12,
+            "bio": 6,
+            "mechanical": 3,
+            "synthetic": 3,
+            "gene": 0,
+            "organic": 6
+          },
+          "aborted": false,
+          "success": true,
+          "returnedAt": 183600
+        }
+      ],
+      "advanced": {
+        "health": 100,
+        "condition": 100,
+        "counts": {
+          "total": 319,
+          "bio": 223,
+          "machine": 96,
+          "mechanical": 48,
+          "synthetic": 48,
+          "gene": 0,
+          "prosthetic": 0,
+          "organic": 223,
+          "workers": 214,
+          "children": 36,
+          "mutant": 51,
+          "citizens": 319
+        },
+        "last": {
+          "at": 189660,
+          "fed": true,
+          "treated": true,
+          "powered": true,
+          "maintained": true,
+          "monitoring": true,
+          "audited": true,
+          "machineActive": true,
+          "syntheticActive": true,
+          "workers": {
+            "energy": 12,
+            "courier": 4,
+            "care": 24,
+            "maintenance": 14,
+            "clerk": 6,
+            "teacher": 6,
+            "earthOffice": 8,
+            "flightControl": 4,
+            "gardener": 16,
+            "manufacturing": 72
+          },
+          "assignments": {
+            "energy": {
+              "organic": 12
+            },
+            "courier": {
+              "organic": 4
+            },
+            "care": {
+              "organic": 24
+            },
+            "maintenance": {
+              "mechanical": 14
+            },
+            "clerk": {
+              "synthetic": 6
+            },
+            "teacher": {
+              "organic": 6
+            },
+            "earthOffice": {
+              "organic": 8
+            },
+            "flightControl": {
+              "organic": 4
+            },
+            "gardener": {
+              "organic": 16
+            },
+            "manufacturing": {
+              "synthetic": 42,
+              "mechanical": 30
+            }
+          },
+          "idle": 48,
+          "produced": [
+            "parts"
+          ],
+          "energy": {
+            "generated": 540,
+            "used": 126.64,
+            "stored": 2400,
+            "capacity": 2400,
+            "heat": 1200,
+            "sources": {
+              "renewable": 540,
+              "thermal": 0,
+              "fusion": 0
+            }
+          },
+          "food": 151.92000000000013,
+          "upkeep": {
+            "tools": 3.838,
+            "parts": 4.32
+          },
+          "dormant": 0,
+          "patients": 0
+        },
+        "echo": {
+          "at": 150137,
+          "stage": "complete",
+          "remaining": 0,
+          "crew": 0,
+          "choice": "exploit",
+          "exposure": 0,
+          "knowledge": 180,
+          "care": 12,
+          "visits": 12,
+          "finishedAt": 151440
+        }
+      },
+      "regions": {
+        "west": {
+          "acceptedAt": 175320,
+          "mode": "licensed",
+          "stable": 600,
+          "paid": 244,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 24,
+              "knowledge": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "desert": {
+          "acceptedAt": 175860,
+          "mode": "wells",
+          "stable": 600,
+          "paid": 235,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "tools": 4,
+              "wood": 24,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "north": {
+          "acceptedAt": 174420,
+          "mode": "reserve",
+          "stable": 600,
+          "paid": 257,
+          "missed": 2,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 60,
+              "tools": 1,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "east": {
+          "acceptedAt": 174960,
+          "mode": "levee",
+          "stable": 600,
+          "paid": 250,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 32,
+              "tools": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "rainforest": {
+          "acceptedAt": 176400,
+          "mode": "canopy",
+          "stable": 600,
+          "paid": 226,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 36,
+              "tools": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "islands": {
+          "acceptedAt": 176760,
+          "mode": "harbor",
+          "stable": 600,
+          "paid": 220,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "wood": 40,
+              "knowledge": 4,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "plateau": {
+          "acceptedAt": 177300,
+          "mode": "archive",
+          "stable": 600,
+          "paid": 211,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "knowledge": 10,
+              "tools": 2,
+              "food": 24
+            },
+            "reason": null
+          }
+        },
+        "polar": {
+          "acceptedAt": 177840,
+          "mode": "preserve",
+          "stable": 600,
+          "paid": 202,
+          "missed": 0,
+          "last": {
+            "at": 189660,
+            "paid": true,
+            "staff": 24,
+            "cost": {
+              "medicine": 8,
+              "wood": 32,
+              "food": 24
+            },
+            "reason": null
+          }
+        }
+      }
+    }
+  },
+  "originals": {
+    "count": 422,
+    "unchanged": true
+  },
+  "complete": true
+}

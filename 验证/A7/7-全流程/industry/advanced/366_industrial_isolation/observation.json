@@ -1,0 +1,166 @@
+{
+  "at": 148232,
+  "speed": 32,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "f": {
+    "assets": {
+      "housing": 2,
+      "laboratory": 1,
+      "workshop": 2,
+      "solar": 2,
+      "garden": 1,
+      "clinic": 1,
+      "repair": 1,
+      "hall": 1
+    },
+    "tech": {
+      "ecology": 139380,
+      "clinical": 139920,
+      "interface": 140580,
+      "automation": 140940,
+      "continuity": 141540,
+      "repairnet": 142020,
+      "autonomy": 146520,
+      "society": 147120
+    },
+    "research": null,
+    "project": null,
+    "adoption": null,
+    "counts": {
+      "total": 362,
+      "bio": 266,
+      "machine": 96,
+      "mechanical": 48,
+      "synthetic": 48,
+      "gene": 0,
+      "prosthetic": 0,
+      "organic": 266,
+      "workers": 288,
+      "children": 74,
+      "mutant": 150,
+      "citizens": 362
+    },
+    "stock": {
+      "food": 1592.8800000000147,
+      "medicine": 171.35999999999993,
+      "wood": 240,
+      "tools": 75.86800000000002,
+      "iron": 276,
+      "knowledge": 360.63999999999965,
+      "parts": 122.5899999999995,
+      "electronics": 67.88000000000005,
+      "culture": 76,
+      "steel": 80,
+      "cell": 102.4,
+      "body": 64
+    },
+    "condition": 100,
+    "health": 100,
+    "soil": 100,
+    "geneSafety": 100,
+    "machineWear": 0,
+    "auditRisk": 60,
+    "quarantined": true,
+    "law": {
+      "care": "treatment",
+      "ownership": "personal",
+      "citizenship": "equal",
+      "work": "industrial"
+    },
+    "proposal": null,
+    "converted": {
+      "prosthetic": 24,
+      "mechanical": 48
+    },
+    "created": 48,
+    "born": 74,
+    "dead": 0,
+    "migrated": 240,
+    "power": "auto",
+    "monitor": true,
+    "audit": false,
+    "last": {
+      "at": 148200,
+      "fed": true,
+      "treated": true,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": false,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 18,
+        "maintenance": 15,
+        "clerk": 6,
+        "teacher": 8,
+        "gardener": 8,
+        "manufacturing": 48
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 18
+        },
+        "maintenance": {
+          "organic": 15
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 8
+        },
+        "gardener": {
+          "organic": 8
+        },
+        "manufacturing": {
+          "organic": 48
+        }
+      },
+      "idle": 177,
+      "produced": [],
+      "energy": {
+        "generated": 360,
+        "used": 104.47999999999999,
+        "stored": 2000,
+        "capacity": 2000,
+        "heat": 560,
+        "sources": {
+          "renewable": 360,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 173.76,
+      "upkeep": {
+        "tools": 2.9240000000000004,
+        "parts": 3.57
+      },
+      "dormant": 0
+    },
+    "qualified": {
+      "bio": 0,
+      "mechanical": 49,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "recovered": {
+      "bio": 0,
+      "mechanical": 1,
+      "synthetic": 0,
+      "ecological": 0
+    },
+    "echo": null,
+    "exports": 0
+  }
+}

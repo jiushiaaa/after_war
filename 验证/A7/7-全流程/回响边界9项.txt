@@ -1,0 +1,17 @@
+✔ A7 new-world setup freezes until confirmed and chooses a conserved, reproducible world seed (30.69775ms)
+✔ A7 extra logistics stops only new departures and remains opt-in; old saves are untouched (11.145ms)
+✔ A7 fast-start river guidance reflects the actual alternative contact prerequisites (10.519209ms)
+✔ A7 archives have eight original chains with three gated nodes; awards never change assets (9.829417ms)
+✔ A7 archival imports reject unknown or future records; legacy history remains read-only (9.806042ms)
+✔ A7 failed local read prevents automatic saves; valid data never silently becomes a new game (0.770458ms)
+✔ A7 queued local snapshots cannot overwrite a different world after asynchronous encoding (1.142375ms)
+✔ A7 local write errors preserve dirty status and explicit saves surface the error (0.495125ms)
+✔ A7 archives wait for an actual echo decision and preserve a completed sealing ending (11.15625ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.230833

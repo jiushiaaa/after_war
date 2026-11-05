@@ -1,0 +1,364 @@
+{
+  "route": "industry",
+  "complete": true,
+  "native": "industry/earth/13_ten_years_after_flight/战后文明-存档.json",
+  "advanceMinutes": 226.1453125,
+  "choices": [
+    {
+      "at": 540,
+      "minute": 9,
+      "type": "配给政策",
+      "detail": "equal",
+      "proof": "decisions.records"
+    },
+    {
+      "at": 4792,
+      "minute": 31,
+      "type": "近郊选择",
+      "detail": "近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 5175,
+      "minute": 32.59583333333333,
+      "type": "近郊选择",
+      "detail": "静默绕行 小队花两步补给绕开，没有留下枪声。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 5212,
+      "minute": 32.75,
+      "type": "近郊选择",
+      "detail": "拆解旧气象站 仪器拆成了废料，纸质档案受潮散落，无法再整理。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 6460,
+      "minute": 37.95,
+      "type": "共同章程",
+      "detail": "structure:federation；selection:election；charter:constitution；devolution:local",
+      "proof": "four constitutional axes counted as one bundle"
+    },
+    {
+      "at": 6485,
+      "minute": 38.05416666666667,
+      "type": "城镇发展方向",
+      "detail": "industry",
+      "proof": "course.chosenAt"
+    },
+    {
+      "at": 9001,
+      "minute": 48.5375,
+      "type": "工匠交接",
+      "detail": "apprentice",
+      "proof": "course.craftsman"
+    },
+    {
+      "at": 17861,
+      "minute": 85.41458333333334,
+      "type": "已生效议案",
+      "detail": "city_food:workshop",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 17970,
+      "minute": 85.64166666666667,
+      "type": "已生效议案",
+      "detail": "city_care:clinical",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 70254,
+      "minute": 153.38958333333332,
+      "type": "已生效议案",
+      "detail": "cluster_homes:tools",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 70642,
+      "minute": 153.79375,
+      "type": "已生效议案",
+      "detail": "cluster_budget:delivery",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 99257,
+      "minute": 183.60104166666667,
+      "type": "已生效议案",
+      "detail": "nation_local:central",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 100070,
+      "minute": 184.04270833333334,
+      "type": "已生效议案",
+      "detail": "nation_work:industry",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 142075,
+      "minute": 205.9203125,
+      "type": "自愿身体与人格方向",
+      "detail": "prosthetic:24",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 142267,
+      "minute": 206.0203125,
+      "type": "已生效议案",
+      "detail": "advanced_work:industrial",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 142330,
+      "minute": 206.053125,
+      "type": "生产机会成本",
+      "detail": "mechanical",
+      "proof": "paid production priority change"
+    },
+    {
+      "at": 142575,
+      "minute": 206.18072916666668,
+      "type": "自愿身体与人格方向",
+      "detail": "mechanical:48",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 146734,
+      "minute": 208.346875,
+      "type": "身体与劳动制度",
+      "detail": "citizenship:equal",
+      "proof": "accepted lawsHistory"
+    },
+    {
+      "at": 146874,
+      "minute": 208.41979166666667,
+      "type": "自愿身体与人格方向",
+      "detail": "synthetic:48",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 147015,
+      "minute": 208.49322916666668,
+      "type": "身体与劳动制度",
+      "detail": "citizenship:equal",
+      "proof": "accepted lawsHistory"
+    },
+    {
+      "at": 149812,
+      "minute": 209.95,
+      "type": "生产机会成本",
+      "detail": "energy",
+      "proof": "paid production priority change"
+    },
+    {
+      "at": 150537,
+      "minute": 210.32760416666667,
+      "type": "回响处置",
+      "detail": "exploit",
+      "proof": "completed same expedition"
+    },
+    {
+      "at": 158115,
+      "minute": 214.27447916666668,
+      "type": "已生效议案",
+      "detail": "advanced_body:enhancement",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 158174,
+      "minute": 214.30520833333333,
+      "type": "生产机会成本",
+      "detail": "clinical",
+      "proof": "paid production priority change"
+    },
+    {
+      "at": 158191,
+      "minute": 214.3140625,
+      "type": "自愿身体与人格方向",
+      "detail": "gene:24",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 173672,
+      "minute": 222.37708333333333,
+      "type": "地区责任方案",
+      "detail": "north:reserve",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 174214,
+      "minute": 222.659375,
+      "type": "地区责任方案",
+      "detail": "east:levee",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 174463,
+      "minute": 222.7890625,
+      "type": "地区责任方案",
+      "detail": "west:licensed",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 174980,
+      "minute": 223.05833333333334,
+      "type": "地区责任方案",
+      "detail": "desert:wells",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 175522,
+      "minute": 223.340625,
+      "type": "地区责任方案",
+      "detail": "rainforest:canopy",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 175893,
+      "minute": 223.53385416666666,
+      "type": "地区责任方案",
+      "detail": "islands:harbor",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 176434,
+      "minute": 223.815625,
+      "type": "地区责任方案",
+      "detail": "plateau:archive",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 176965,
+      "minute": 224.0921875,
+      "type": "地区责任方案",
+      "detail": "polar:preserve",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 177845,
+      "minute": 224.55052083333334,
+      "type": "已生效议案",
+      "detail": "earth_public:federal",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    }
+  ],
+  "windows": [
+    {
+      "fromMinute": 0,
+      "toMinute": 30,
+      "count": 1,
+      "choices": [
+        "配给政策 equal"
+      ]
+    },
+    {
+      "fromMinute": 30,
+      "toMinute": 60,
+      "count": 6,
+      "choices": [
+        "近郊选择 近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+        "近郊选择 静默绕行 小队花两步补给绕开，没有留下枪声。",
+        "近郊选择 拆解旧气象站 仪器拆成了废料，纸质档案受潮散落，无法再整理。",
+        "共同章程 structure:federation；selection:election；charter:constitution；devolution:local",
+        "城镇发展方向 industry",
+        "工匠交接 apprentice"
+      ]
+    },
+    {
+      "fromMinute": 60,
+      "toMinute": 90,
+      "count": 2,
+      "choices": [
+        "已生效议案 city_food:workshop",
+        "已生效议案 city_care:clinical"
+      ]
+    },
+    {
+      "fromMinute": 90,
+      "toMinute": 120,
+      "count": 0,
+      "choices": []
+    },
+    {
+      "fromMinute": 120,
+      "toMinute": 150,
+      "count": 0,
+      "choices": []
+    },
+    {
+      "fromMinute": 150,
+      "toMinute": 180,
+      "count": 2,
+      "choices": [
+        "已生效议案 cluster_homes:tools",
+        "已生效议案 cluster_budget:delivery"
+      ]
+    },
+    {
+      "fromMinute": 180,
+      "toMinute": 210,
+      "count": 10,
+      "choices": [
+        "已生效议案 nation_local:central",
+        "已生效议案 nation_work:industry",
+        "自愿身体与人格方向 prosthetic:24",
+        "已生效议案 advanced_work:industrial",
+        "生产机会成本 mechanical",
+        "自愿身体与人格方向 mechanical:48",
+        "身体与劳动制度 citizenship:equal",
+        "自愿身体与人格方向 synthetic:48",
+        "身体与劳动制度 citizenship:equal",
+        "生产机会成本 energy"
+      ]
+    },
+    {
+      "fromMinute": 210,
+      "toMinute": 226.1453125,
+      "count": 13,
+      "choices": [
+        "回响处置 exploit",
+        "已生效议案 advanced_body:enhancement",
+        "生产机会成本 clinical",
+        "自愿身体与人格方向 gene:24",
+        "地区责任方案 north:reserve",
+        "地区责任方案 east:levee",
+        "地区责任方案 west:licensed",
+        "地区责任方案 desert:wells",
+        "地区责任方案 rainforest:canopy",
+        "地区责任方案 islands:harbor",
+        "地区责任方案 plateau:archive",
+        "地区责任方案 polar:preserve",
+        "已生效议案 earth_public:federal"
+      ]
+    }
+  ],
+  "fullWindowsBelowTwo": [
+    {
+      "fromMinute": 0,
+      "toMinute": 30,
+      "count": 1,
+      "choices": [
+        "配给政策 equal"
+      ]
+    },
+    {
+      "fromMinute": 90,
+      "toMinute": 120,
+      "count": 0,
+      "choices": []
+    },
+    {
+      "fromMinute": 120,
+      "toMinute": 150,
+      "count": 0,
+      "choices": []
+    }
+  ],
+  "limits": [
+    "These are conservative, result-backed strategic changes. Construction, research, repeats, rejected proposals, intentional test outages, default confirmations and routine renewals are excluded.",
+    "A four-axis founding constitution counts once. Civic and owner-law results are deduplicated.",
+    "Windows use observed simulation progress divided by the selected rate, excluding paused interaction and development time; this is not a human attention clock.",
+    "15-second sampling approximates rate transitions. Timing density is diagnostic, not a new-player usability test."
+  ]
+}

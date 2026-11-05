@@ -1,0 +1,112 @@
+{
+  "at": 169109,
+  "rate": 64,
+  "effectiveRate": 64,
+  "paused": true,
+  "event": "存档",
+  "pending": null,
+  "people": 432,
+  "total": 1018487114,
+  "known": 1018487114,
+  "food": 2972.3400000000015,
+  "foodLedgers": {
+    "origin": 2972.3400000000015,
+    "wards": {
+      "terraces": 662.8399999959976,
+      "yards": 1436.6400000028357,
+      "canal": 12035.560000002282
+    },
+    "secondCity": 125781.46000002114,
+    "thirdCity": 141446.6799998676,
+    "northLocal": 19341970.125,
+    "eastLocal": 40067334.741,
+    "national": 5193.83694599971,
+    "advanced": 28718.159999999683
+  },
+  "governed": 134139166,
+  "eraRecords": {
+    "early": {
+      "at": 8395,
+      "retired": [
+        "逐次采木",
+        "逐次采食",
+        "逐次回收"
+      ]
+    },
+    "middle": {
+      "at": 66019,
+      "retired": [
+        "逐人安排原镇岗位",
+        "手动逐期补报课堂",
+        "逐车发放片区互济"
+      ]
+    },
+    "late": {
+      "at": 168908,
+      "retired": [
+        "逐批准备临床药物",
+        "逐人安排临床替岗",
+        "手动逐班发放共同体补给"
+      ]
+    }
+  },
+  "wood": 500867.2350001398,
+  "medicine": 254.90100000018543,
+  "knowledge": 3999.999000001955,
+  "health": 100,
+  "tech": [
+    "water",
+    "metal",
+    "agronomy",
+    "records",
+    "preservation",
+    "handtools",
+    "sanitation",
+    "irrigation",
+    "school",
+    "trails",
+    "weather",
+    "vaccines",
+    "standards",
+    "survey",
+    "logistics",
+    "localgrid",
+    "electricalSafety",
+    "radio",
+    "precisionFit",
+    "traction",
+    "scientificMethod",
+    "administration",
+    "dispatch",
+    "publicHealth",
+    "urbanworks",
+    "semiconductor",
+    "electroalloy",
+    "powerstorage",
+    "systemsafety"
+  ],
+  "leader": 14,
+  "stage": "earth",
+  "modernRounds": 15756,
+  "city": 15623,
+  "nation": 66000,
+  "ending": true,
+  "proposals": 13,
+  "futureTech": [
+    "ecology",
+    "clinical",
+    "restoration",
+    "genetics",
+    "adaptation",
+    "automation",
+    "echo"
+  ],
+  "earthTech": [
+    "mapping",
+    "navigation",
+    "fabrication",
+    "closed",
+    "guidance"
+  ],
+  "errors": null
+}

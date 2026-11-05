@@ -1,0 +1,81 @@
+{"at":82913,"index":0,"next":"start","reason":null,"food":0}
+{"at":83221,"index":3,"next":"build_workshop","reason":"建设班组仍在施工","pop":240,"health":100,"food":8}
+{"at":83521,"index":5,"next":"build_solar","reason":"设施尚未开放或已达承载上限","pop":240,"health":100,"food":244}
+{"at":83825,"index":6,"next":"build_garden","reason":"建设班组仍在施工","pop":240,"health":84,"food":72}
+{"at":84130,"index":7,"next":"research_clinical","reason":"共同体仓不足：知识 80、药品 30","pop":240,"health":64,"food":980}
+{"at":84441,"index":8,"next":"build_clinic","reason":"设施尚未开放或已达承载上限","pop":240,"health":74,"food":596}
+{"at":84757,"index":9,"next":"build_housing","reason":"共同体仓不足：木料 180、工具 24、机械零件 4","pop":240,"health":78,"food":1686}
+{"at":85066,"index":9,"next":"build_housing","reason":"共同体仓不足：木料 180、工具 24、机械零件 4","pop":240,"health":88,"food":1376}
+{"at":85372,"index":11,"next":"build_hall","reason":"设施尚未开放或已达承载上限","pop":240,"health":98,"food":1922}
+{"at":85675,"index":11,"next":"build_hall","reason":"设施尚未开放或已达承载上限","pop":240,"health":100,"food":1930}
+{"at":85982,"index":12,"next":"build_garden","reason":"建设班组仍在施工","pop":258,"health":100,"food":1989}
+{"at":86295,"index":14,"next":"352_public_ecology","reason":null,"pop":258,"health":100,"food":2282}
+{"at":86595,"index":14,"next":"352_public_ecology","reason":null,"pop":264,"health":100,"food":3281}
+{"at":86902,"index":16,"next":"research_adaptation","reason":"尚无前置能力，或已掌握","pop":264,"health":100,"food":3503}
+{"at":87202,"index":16,"next":"research_adaptation","reason":"共同体仓不足：知识 200、药品 80、机械零件 16","pop":270,"health":100,"food":2881}
+{"at":87508,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":270,"health":100,"food":3113}
+{"at":87823,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":276,"health":100,"food":4218}
+{"at":88137,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":276,"health":100,"food":3771}
+{"at":88452,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":282,"health":100,"food":3507}
+{"at":88753,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":282,"health":100,"food":4654}
+{"at":89054,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":288,"health":100,"food":4079}
+{"at":89368,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":288,"health":100,"food":3491}
+{"at":89668,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":294,"health":100,"food":3329}
+{"at":89980,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":294,"health":100,"food":4367}
+{"at":90296,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":300,"health":100,"food":3856}
+{"at":90608,"index":17,"next":"adopt_gene_24","reason":"先恢复供养、医疗、电力与维护","pop":300,"health":92,"food":4298}
+{"at":90922,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":300,"health":100,"food":3794}
+{"at":91234,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":306,"health":96,"food":4859}
+{"at":91547,"index":17,"next":"adopt_gene_24","reason":"先恢复供养、医疗、电力与维护","pop":306,"health":96,"food":5949}
+{"at":91861,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":312,"health":100,"food":7127}
+{"at":92174,"index":17,"next":"adopt_gene_24","reason":"共同体仓不足：培养物 36、药品 12、知识 6","pop":312,"health":100,"food":8090}
+{"at":92474,"index":18,"next":"353_public_gene_life","reason":null,"pop":318,"health":100,"food":9027}
+{"at":92782,"index":18,"next":"353_public_gene_life","reason":null,"pop":318,"health":100,"food":10072}
+{"at":93096,"index":18,"next":"353_public_gene_life","reason":null,"pop":324,"health":100,"food":11211}
+{"at":93397,"index":20,"next":"354_public_gene_failure","reason":null,"pop":324,"health":100,"food":12337}
+file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A5%E5%85%88%E8%BF%9B%E7%A4%BE%E4%BC%9A%E7%8E%A9%E5%AE%B6.mjs:37
+async function handle(){if(await handlePolish({read,raw,log,route:port==='9374'?'public':'industrial'}))return true;const s=await observe();if(!s.event)return false;const key=s.pending==='succession'?'engineer':s.pending==='cold'?'wood':s.pending==='roadIncident'?'repair':null;if(!key||!s.buttons.includes(key))throw Error('Unknown event '+JSON.stringify({event:s.event,pending:s.pending,buttons:s.buttons}));log('decision',{at:s.at,pending:s.pending,key});await raw('#event #'+key);return true;}
+                                                                                                                                                                                                                                                                                                                              ^
+
+Error: Unknown event {"event":"存档","pending":null,"buttons":["download","import","local","theme","close"]}
+    at handle (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A5%E5%85%88%E8%BF%9B%E7%A4%BE%E4%BC%9A%E7%8E%A9%E5%AE%B6.mjs:37:319)
+    at async pause (file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A5%E5%85%88%E8%BF%9B%E7%A4%BE%E4%BC%9A%E7%8E%A9%E5%AE%B6.mjs:38:105)
+    at async file:///Users/chuxinlei/Documents/%E5%B9%BB%E5%85%89%E6%96%87%E6%B8%B8/%E6%88%98%E5%90%8E%E6%96%87%E6%98%8E/%E9%AA%8C%E8%AF%81/%E5%B7%A5%E5%85%B7/A7%E8%B7%AF%E7%BA%BF/A5%E5%85%88%E8%BF%9B%E7%A4%BE%E4%BC%9A%E7%8E%A9%E5%AE%B6.mjs:51:107
+
+Node.js v24.22.2
+{"at":93709,"index":23,"next":"355_public_gene_recovery","reason":null,"pop":330,"health":100,"food":13230}
+{"at":94017,"index":23,"next":"355_public_gene_recovery","reason":null,"pop":330,"health":100,"food":14382}
+{"at":94332,"index":25,"next":"research_echo","reason":"尚无前置能力，或已掌握","pop":336,"health":100,"food":15720}
+{"at":94666,"index":26,"next":"echo_depart","reason":"先完成战场回响调查方法","pop":336,"health":100,"food":16857}
+{"at":94980,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":342,"health":100,"food":18199}
+{"at":95289,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":342,"health":100,"food":19338}
+{"at":95594,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":347,"health":100,"food":20438}
+{"at":95911,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":347,"health":100,"food":21573}
+{"at":96220,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":352,"health":100,"food":22661}
+{"at":96531,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":352,"health":100,"food":23776}
+{"at":96839,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":356,"health":100,"food":24842}
+{"at":97155,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":356,"health":100,"food":26148}
+{"at":97461,"index":26,"next":"echo_depart","reason":"共同体仓不足：食物 96、药品 24、电子元件 12、燃料组件 8","pop":361,"health":100,"food":27183}
+{"at":97773,"index":27,"next":"356_public_echo_choice","reason":null,"pop":361,"health":100,"food":28151}
+{"at":98080,"index":29,"next":"357_public_echo_study","reason":null,"pop":364,"health":96,"food":29192}
+{"at":98380,"index":30,"next":"358_public_ten_years","reason":null,"pop":364,"health":98,"food":30226}
+{"at":98683,"index":30,"next":"358_public_ten_years","reason":null,"pop":368,"health":100,"food":31236}
+{"at":98991,"index":30,"next":"358_public_ten_years","reason":null,"pop":368,"health":100,"food":32277}
+{"at":99293,"index":30,"next":"358_public_ten_years","reason":null,"pop":370,"health":100,"food":33287}
+{"at":99600,"index":30,"next":"358_public_ten_years","reason":null,"pop":373,"health":100,"food":34489}
+{"at":99911,"index":30,"next":"358_public_ten_years","reason":null,"pop":373,"health":100,"food":35504}
+{"at":100223,"index":30,"next":"358_public_ten_years","reason":null,"pop":375,"health":100,"food":36497}
+{"at":100532,"index":30,"next":"358_public_ten_years","reason":null,"pop":375,"health":98,"food":37492}
+{"at":100848,"index":30,"next":"358_public_ten_years","reason":null,"pop":376,"health":100,"food":38479}
+{"at":101161,"index":30,"next":"358_public_ten_years","reason":null,"pop":376,"health":100,"food":39667}
+{"at":101475,"index":30,"next":"358_public_ten_years","reason":null,"pop":378,"health":100,"food":40638}
+{"at":101789,"index":30,"next":"358_public_ten_years","reason":null,"pop":378,"health":100,"food":41619}
+{"at":102101,"index":30,"next":"358_public_ten_years","reason":null,"pop":379,"health":100,"food":42590}
+{"at":102414,"index":30,"next":"358_public_ten_years","reason":null,"pop":379,"health":100,"food":43569}
+{"at":102720,"index":30,"next":"358_public_ten_years","reason":null,"pop":381,"health":100,"food":44712}
+{"at":103031,"index":30,"next":"358_public_ten_years","reason":null,"pop":381,"health":100,"food":45680}
+{"at":103335,"index":30,"next":"358_public_ten_years","reason":null,"pop":383,"health":100,"food":46620}
+{"at":103640,"index":30,"next":"358_public_ten_years","reason":null,"pop":383,"health":100,"food":47567}
+{"at":103941,"index":30,"next":"358_public_ten_years","reason":null,"pop":385,"health":100,"food":48495}
+{"at":104244,"index":30,"next":"358_public_ten_years","reason":null,"pop":385,"health":100,"food":49430}
+A5 route complete public

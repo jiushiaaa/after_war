@@ -1,0 +1,272 @@
+{
+  "route": "public",
+  "complete": true,
+  "native": "public/earth/13_ten_years_after_flight/战后文明-存档.json",
+  "advanceMinutes": 187.37473958333334,
+  "choices": [
+    {
+      "at": 540,
+      "minute": 9,
+      "type": "配给政策",
+      "detail": "equal",
+      "proof": "decisions.records"
+    },
+    {
+      "at": 4804,
+      "minute": 31.166666666666668,
+      "type": "近郊选择",
+      "detail": "近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 5192,
+      "minute": 32.78333333333333,
+      "type": "近郊选择",
+      "detail": "静默绕行 小队花两步补给绕开，没有留下枪声。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 5243,
+      "minute": 32.99583333333333,
+      "type": "近郊选择",
+      "detail": "旧气象站档案入库 风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 6491,
+      "minute": 38.19583333333333,
+      "type": "共同章程",
+      "detail": "structure:federation；selection:election；charter:constitution；devolution:local",
+      "proof": "four constitutional axes counted as one bundle"
+    },
+    {
+      "at": 6516,
+      "minute": 38.3,
+      "type": "城镇发展方向",
+      "detail": "commons",
+      "proof": "course.chosenAt"
+    },
+    {
+      "at": 9003,
+      "minute": 48.6625,
+      "type": "工匠交接",
+      "detail": "apprentice",
+      "proof": "course.craftsman"
+    },
+    {
+      "at": 36740,
+      "minute": 106.42291666666667,
+      "type": "已生效议案",
+      "detail": "cluster_budget:learning",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 86055,
+      "minute": 147.38229166666667,
+      "type": "已生效议案",
+      "detail": "advanced_work:ecological",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    },
+    {
+      "at": 92415,
+      "minute": 150.69479166666667,
+      "type": "自愿身体与人格方向",
+      "detail": "gene:24",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 93649,
+      "minute": 151.3375,
+      "type": "生产机会成本",
+      "detail": "clinical",
+      "proof": "paid production priority change"
+    },
+    {
+      "at": 97925,
+      "minute": 153.56458333333333,
+      "type": "回响处置",
+      "detail": "study",
+      "proof": "completed same expedition"
+    },
+    {
+      "at": 120975,
+      "minute": 165.56979166666667,
+      "type": "自愿身体与人格方向",
+      "detail": "gene:24",
+      "proof": "paid adoption + cumulative completed conversion/creation"
+    },
+    {
+      "at": 134617,
+      "minute": 172.675,
+      "type": "地区责任方案",
+      "detail": "north:network",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 153194,
+      "minute": 182.35052083333332,
+      "type": "地区责任方案",
+      "detail": "east:wetland",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 153283,
+      "minute": 182.396875,
+      "type": "地区责任方案",
+      "detail": "west:open",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 153316,
+      "minute": 182.4140625,
+      "type": "地区责任方案",
+      "detail": "desert:reclaim",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 153690,
+      "minute": 182.60885416666667,
+      "type": "地区责任方案",
+      "detail": "rainforest:corridor",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 154230,
+      "minute": 182.89010416666667,
+      "type": "地区责任方案",
+      "detail": "islands:beacons",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 154769,
+      "minute": 183.17083333333332,
+      "type": "地区责任方案",
+      "detail": "plateau:station",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 155308,
+      "minute": 183.4515625,
+      "type": "地区责任方案",
+      "detail": "polar:restore",
+      "proof": "funded earth offer in replay-validated public ledger"
+    },
+    {
+      "at": 156134,
+      "minute": 183.88177083333332,
+      "type": "已生效议案",
+      "detail": "earth_public:federal",
+      "proof": "passed civic record + before/after owner-rule comparison"
+    }
+  ],
+  "windows": [
+    {
+      "fromMinute": 0,
+      "toMinute": 30,
+      "count": 1,
+      "choices": [
+        "配给政策 equal"
+      ]
+    },
+    {
+      "fromMinute": 30,
+      "toMinute": 60,
+      "count": 6,
+      "choices": [
+        "近郊选择 近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+        "近郊选择 静默绕行 小队花两步补给绕开，没有留下枪声。",
+        "近郊选择 旧气象站档案入库 风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。",
+        "共同章程 structure:federation；selection:election；charter:constitution；devolution:local",
+        "城镇发展方向 commons",
+        "工匠交接 apprentice"
+      ]
+    },
+    {
+      "fromMinute": 60,
+      "toMinute": 90,
+      "count": 0,
+      "choices": []
+    },
+    {
+      "fromMinute": 90,
+      "toMinute": 120,
+      "count": 1,
+      "choices": [
+        "已生效议案 cluster_budget:learning"
+      ]
+    },
+    {
+      "fromMinute": 120,
+      "toMinute": 150,
+      "count": 1,
+      "choices": [
+        "已生效议案 advanced_work:ecological"
+      ]
+    },
+    {
+      "fromMinute": 150,
+      "toMinute": 180,
+      "count": 5,
+      "choices": [
+        "自愿身体与人格方向 gene:24",
+        "生产机会成本 clinical",
+        "回响处置 study",
+        "自愿身体与人格方向 gene:24",
+        "地区责任方案 north:network"
+      ]
+    },
+    {
+      "fromMinute": 180,
+      "toMinute": 187.37473958333334,
+      "count": 8,
+      "choices": [
+        "地区责任方案 east:wetland",
+        "地区责任方案 west:open",
+        "地区责任方案 desert:reclaim",
+        "地区责任方案 rainforest:corridor",
+        "地区责任方案 islands:beacons",
+        "地区责任方案 plateau:station",
+        "地区责任方案 polar:restore",
+        "已生效议案 earth_public:federal"
+      ]
+    }
+  ],
+  "fullWindowsBelowTwo": [
+    {
+      "fromMinute": 0,
+      "toMinute": 30,
+      "count": 1,
+      "choices": [
+        "配给政策 equal"
+      ]
+    },
+    {
+      "fromMinute": 60,
+      "toMinute": 90,
+      "count": 0,
+      "choices": []
+    },
+    {
+      "fromMinute": 90,
+      "toMinute": 120,
+      "count": 1,
+      "choices": [
+        "已生效议案 cluster_budget:learning"
+      ]
+    },
+    {
+      "fromMinute": 120,
+      "toMinute": 150,
+      "count": 1,
+      "choices": [
+        "已生效议案 advanced_work:ecological"
+      ]
+    }
+  ],
+  "limits": [
+    "These are conservative, result-backed strategic changes. Construction, research, repeats, rejected proposals, intentional test outages, default confirmations and routine renewals are excluded.",
+    "A four-axis founding constitution counts once. Civic and owner-law results are deduplicated.",
+    "Windows use observed simulation progress divided by the selected rate, excluding paused interaction and development time; this is not a human attention clock.",
+    "15-second sampling approximates rate transitions. Timing density is diagnostic, not a new-player usability test."
+  ]
+}

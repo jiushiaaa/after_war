@@ -1,0 +1,564 @@
+{
+  "route": "industry",
+  "lineageSamplingGaps": [
+    {
+      "from": "2026-11-05T17:49:05.876Z",
+      "to": "2026-11-05T17:52:48.288Z",
+      "checkpoint": 118335,
+      "resumedAt": 118351,
+      "source": "peace-update/战后文明-存档.json",
+      "reason": "Code-load import initially rejected. Intermediate cached-world frames are not this exported lineage; raw observations and error evidence remain intact."
+    }
+  ],
+  "excludedSampleCount": 15,
+  "excludedDebugInputCount": 26,
+  "complete": true,
+  "start": "2026-11-05T14:14:58.580Z",
+  "end": "2026-11-05T18:49:32.058Z",
+  "wallMinutes": 274.56,
+  "observedMinutes": 274.42,
+  "pausedMinutesLowerBound": 6.75,
+  "rateAdjustedSimulationMinutes": 226.05,
+  "rateSimulationSeconds": {
+    "1": 664,
+    "2": 922,
+    "4": 16540,
+    "8": 10831,
+    "16": 70326,
+    "32": 79102,
+    "64": 5243
+  },
+  "reloadObservations": [],
+  "elapsed": 183637,
+  "years": 306.06,
+  "operations": {
+    "mouseClicks": 9476,
+    "navigationClicks": 3408,
+    "speedAndPauseClicks": 924,
+    "loggedKeyboardEvents": 1017,
+    "nativeSelections": 368,
+    "explicitBranchClicks": 19
+  },
+  "stages": [
+    {
+      "stage": "early",
+      "wall": "2026-11-05T14:15:06.761Z",
+      "at": 9,
+      "minutes": 0.14,
+      "known": 0,
+      "world": 350007417
+    },
+    {
+      "stage": "town",
+      "wall": "2026-11-05T14:55:07.355Z",
+      "at": 6485,
+      "minutes": 40.15,
+      "known": 48,
+      "world": 364252329
+    },
+    {
+      "stage": "city",
+      "wall": "2026-11-05T15:43:40.146Z",
+      "at": 17842,
+      "minutes": 88.69,
+      "known": 12295,
+      "world": 392931425
+    },
+    {
+      "stage": "cluster",
+      "wall": "2026-11-05T16:56:56.481Z",
+      "at": 68454,
+      "minutes": 161.97,
+      "known": 146334,
+      "world": 551539304
+    },
+    {
+      "stage": "nation",
+      "wall": "2026-11-05T17:34:42.318Z",
+      "at": 99292,
+      "minutes": 199.73,
+      "known": 19902194,
+      "world": 677543246
+    },
+    {
+      "stage": "advanced",
+      "wall": "2026-11-05T18:10:13.386Z",
+      "at": 138725,
+      "minutes": 235.25,
+      "known": 227256984,
+      "world": 872099421
+    },
+    {
+      "stage": "earth",
+      "wall": "2026-11-05T18:39:45.287Z",
+      "at": 172959,
+      "minutes": 264.78,
+      "known": 227257291,
+      "world": 1036791985
+    }
+  ],
+  "windows": [
+    {
+      "fromMinute": 0,
+      "toMinute": 30,
+      "explicitBranchClicks": 0
+    },
+    {
+      "fromMinute": 30,
+      "toMinute": 60,
+      "explicitBranchClicks": 6
+    },
+    {
+      "fromMinute": 60,
+      "toMinute": 90,
+      "explicitBranchClicks": 3
+    },
+    {
+      "fromMinute": 90,
+      "toMinute": 120,
+      "explicitBranchClicks": 0
+    },
+    {
+      "fromMinute": 120,
+      "toMinute": 150,
+      "explicitBranchClicks": 0
+    },
+    {
+      "fromMinute": 150,
+      "toMinute": 180,
+      "explicitBranchClicks": 3
+    },
+    {
+      "fromMinute": 180,
+      "toMinute": 210,
+      "explicitBranchClicks": 3
+    },
+    {
+      "fromMinute": 210,
+      "toMinute": 240,
+      "explicitBranchClicks": 1
+    },
+    {
+      "fromMinute": 240,
+      "toMinute": 270,
+      "explicitBranchClicks": 3
+    },
+    {
+      "fromMinute": 270,
+      "toMinute": 274.56,
+      "explicitBranchClicks": 0
+    }
+  ],
+  "choices": [
+    {
+      "wall": "2026-11-05T14:48:01.135Z",
+      "at": 4792,
+      "button": "document.querySelector(\"#event #ex_shoot\")",
+      "text": "开枪驱散（2发；枪声会招来追随者）"
+    },
+    {
+      "wall": "2026-11-05T14:49:38.224Z",
+      "at": 5175,
+      "button": "document.querySelector(\"#event #ex_silent\")",
+      "text": "静默绕过（多耗两步口粮和水）"
+    },
+    {
+      "wall": "2026-11-05T14:49:47.513Z",
+      "at": 5212,
+      "button": "document.querySelector(\"#event #ex_dismantle\")",
+      "text": "拆下仪器的金属件"
+    },
+    {
+      "wall": "2026-11-05T14:52:57.622Z",
+      "at": 5969,
+      "button": "document.querySelector(\"#event #ex_share\")",
+      "text": "留下口粮 3"
+    },
+    {
+      "wall": "2026-11-05T14:52:58.389Z",
+      "at": 5972,
+      "button": "document.querySelector(\"#event #ex_invite\")",
+      "text": "邀请他们来聚落安家"
+    },
+    {
+      "wall": "2026-11-05T14:55:07.606Z",
+      "at": 6485,
+      "button": "document.querySelector(\"#event #course_industry\")",
+      "text": "回收、工业与贸易优先"
+    },
+    {
+      "wall": "2026-11-05T15:43:42.649Z",
+      "at": 17861,
+      "button": "#event #civic_workshop",
+      "text": "集中回收与制器"
+    },
+    {
+      "wall": "2026-11-05T15:43:56.866Z",
+      "at": 17970,
+      "button": "#event #civic_clinical",
+      "text": "临床配药"
+    },
+    {
+      "wall": "2026-11-05T15:44:08.256Z",
+      "at": 18057,
+      "button": "#event #civic_false",
+      "text": "按需手动开班"
+    },
+    {
+      "wall": "2026-11-05T16:59:15.658Z",
+      "at": 70254,
+      "button": "#event #civic_tools",
+      "text": "制器合作"
+    },
+    {
+      "wall": "2026-11-05T16:59:44.706Z",
+      "at": 70644,
+      "button": "#event #civic_delivery",
+      "text": "供料优先"
+    },
+    {
+      "wall": "2026-11-05T17:00:02.903Z",
+      "at": 70711,
+      "button": "#event #civic_standard",
+      "text": "标准加工"
+    },
+    {
+      "wall": "2026-11-05T17:34:39.234Z",
+      "at": 99257,
+      "button": "#event #civic_central",
+      "text": "中央统筹"
+    },
+    {
+      "wall": "2026-11-05T17:35:13.687Z",
+      "at": 99983,
+      "button": "#event #civic_equal",
+      "text": "平等公民资格"
+    },
+    {
+      "wall": "2026-11-05T17:35:16.856Z",
+      "at": 100073,
+      "button": "#event #civic_industry",
+      "text": "公共工业优先"
+    },
+    {
+      "wall": "2026-11-05T18:13:28.248Z",
+      "at": 142273,
+      "button": "#event #civic_industrial",
+      "text": "先进制造优先"
+    },
+    {
+      "wall": "2026-11-05T18:17:06.616Z",
+      "at": 146545,
+      "button": "#event #civic_equal",
+      "text": "平等公民与代表权"
+    },
+    {
+      "wall": "2026-11-05T18:27:13.168Z",
+      "at": 158121,
+      "button": "#event #civic_enhancement",
+      "text": "开放自愿增强"
+    },
+    {
+      "wall": "2026-11-05T18:44:55.813Z",
+      "at": 177852,
+      "button": "#event #civic_federal",
+      "text": "联邦共同法"
+    }
+  ],
+  "waits": [
+    {
+      "from": "2026-11-05T14:15:06.761Z",
+      "to": "2026-11-05T14:28:06.950Z",
+      "minutes": 13,
+      "stage": "early",
+      "simSeconds": 902,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T14:37:52.085Z",
+      "to": "2026-11-05T14:54:52.352Z",
+      "minutes": 17,
+      "stage": "early",
+      "simSeconds": 3589,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:00:52.411Z",
+      "to": "2026-11-05T15:06:22.479Z",
+      "minutes": 5.5,
+      "stage": "town",
+      "simSeconds": 1302,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:08:37.510Z",
+      "to": "2026-11-05T15:12:22.562Z",
+      "minutes": 3.75,
+      "stage": "town",
+      "simSeconds": 885,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:12:37.564Z",
+      "to": "2026-11-05T15:19:22.642Z",
+      "minutes": 6.75,
+      "stage": "town",
+      "simSeconds": 1588,
+      "pausedAtStart": true,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:19:37.646Z",
+      "to": "2026-11-05T15:22:07.693Z",
+      "minutes": 2.5,
+      "stage": "town",
+      "simSeconds": 587,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:23:52.717Z",
+      "to": "2026-11-05T15:25:52.745Z",
+      "minutes": 2,
+      "stage": "town",
+      "simSeconds": 469,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:36:07.891Z",
+      "to": "2026-11-05T15:43:25.144Z",
+      "minutes": 7.29,
+      "stage": "town",
+      "simSeconds": 1680,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T15:44:25.160Z",
+      "to": "2026-11-05T16:56:41.477Z",
+      "minutes": 72.27,
+      "stage": "city",
+      "simSeconds": 50083,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T16:56:56.481Z",
+      "to": "2026-11-05T16:59:11.524Z",
+      "minutes": 2.25,
+      "stage": "cluster",
+      "simSeconds": 1739,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T17:00:11.534Z",
+      "to": "2026-11-05T17:34:27.315Z",
+      "minutes": 34.26,
+      "stage": "cluster",
+      "simSeconds": 28246,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T17:35:42.329Z",
+      "to": "2026-11-05T18:08:58.389Z",
+      "minutes": 33.27,
+      "stage": "nation",
+      "simSeconds": 36374,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:10:13.386Z",
+      "to": "2026-11-05T18:13:43.700Z",
+      "minutes": 3.51,
+      "stage": "advanced",
+      "simSeconds": 3747,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:13:58.753Z",
+      "to": "2026-11-05T18:17:28.953Z",
+      "minutes": 3.5,
+      "stage": "advanced",
+      "simSeconds": 4082,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:17:43.957Z",
+      "to": "2026-11-05T18:27:29.555Z",
+      "minutes": 9.76,
+      "stage": "advanced",
+      "simSeconds": 11243,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:27:44.645Z",
+      "to": "2026-11-05T18:39:30.284Z",
+      "minutes": 11.76,
+      "stage": "advanced",
+      "simSeconds": 14171,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:39:45.287Z",
+      "to": "2026-11-05T18:45:31.082Z",
+      "minutes": 5.76,
+      "stage": "earth",
+      "simSeconds": 5267,
+      "pausedAtStart": true,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    },
+    {
+      "from": "2026-11-05T18:45:46.268Z",
+      "to": "2026-11-05T18:49:32.058Z",
+      "minutes": 3.76,
+      "stage": "earth",
+      "simSeconds": 5243,
+      "pausedAtStart": false,
+      "meaning": "same stage, learned base technology and civic-record count; may still contain real construction/transport/training"
+    }
+  ],
+  "last": {
+    "wall": "2026-11-05T18:49:32.058Z",
+    "at": 183637,
+    "rate": 64,
+    "effectiveRate": 64,
+    "paused": true,
+    "event": "存档",
+    "pending": null,
+    "people": 528,
+    "total": 1151340276,
+    "known": 1151340276,
+    "food": 3477.3600000000015,
+    "foodLedgers": {
+      "origin": 3477.3600000000015,
+      "wards": {
+        "terraces": 14378.080000000959,
+        "yards": 15063.639999994668,
+        "canal": 8492.040000001092
+      },
+      "secondCity": 128995.57999999961,
+      "thirdCity": 146923.84000009872,
+      "northLocal": 24308258.127666663,
+      "eastLocal": 49666886.10699999,
+      "national": 1768.4841250000536,
+      "advanced": 12585.120000000055
+    },
+    "governed": 20742955,
+    "eraRecords": {
+      "early": {
+        "at": 9637,
+        "retired": [
+          "逐次采木",
+          "逐次采食",
+          "逐次回收"
+        ]
+      },
+      "middle": {
+        "at": 99251,
+        "retired": [
+          "逐人安排原镇岗位",
+          "手动逐期补报课堂",
+          "逐车发放片区互济"
+        ]
+      },
+      "late": {
+        "at": 183437,
+        "retired": [
+          "逐批准备临床药物",
+          "逐人安排临床替岗",
+          "手动逐班发放共同体补给"
+        ]
+      }
+    },
+    "wood": 1011909.5700005055,
+    "medicine": 310.00575000055335,
+    "knowledge": 5111.2549999955745,
+    "health": 100,
+    "tech": [
+      "water",
+      "metal",
+      "agronomy",
+      "records",
+      "preservation",
+      "handtools",
+      "sanitation",
+      "irrigation",
+      "school",
+      "trails",
+      "vaccines",
+      "mining",
+      "furnace",
+      "mechanics",
+      "power",
+      "electricalSafety",
+      "survey",
+      "standards",
+      "logistics",
+      "radio",
+      "precisionFit",
+      "traction",
+      "dispatch",
+      "scientificMethod",
+      "administration",
+      "publicHealth",
+      "urbanworks",
+      "semiconductor",
+      "electroalloy",
+      "powerstorage",
+      "systemsafety"
+    ],
+    "leader": 15,
+    "stage": "earth",
+    "modernRounds": 16802,
+    "city": 17821,
+    "nation": 99240,
+    "ending": true,
+    "proposals": 13,
+    "futureTech": [
+      "ecology",
+      "clinical",
+      "interface",
+      "automation",
+      "continuity",
+      "repairnet",
+      "autonomy",
+      "society",
+      "fusion",
+      "echo",
+      "genetics",
+      "adaptation",
+      "restoration"
+    ],
+    "earthTech": [
+      "mapping",
+      "navigation",
+      "fabrication",
+      "closed",
+      "guidance"
+    ],
+    "errors": null
+  },
+  "limits": [
+    "15-second sampling; rate transitions and pauses are approximate.",
+    "Explicitly recorded cached-world intervals during failed import/recovery are excluded from lineage curves and action counts; original raw observations remain unchanged.",
+    "Reloaded intermediate observations below the prior maximum receive no additional simulation-time credit.",
+    "Wall time includes developer fixes and driver mistakes, retained rather than silently subtracted.",
+    "Scripted mouse/keyboard input is not a new-player usability test.",
+    "Early stage drivers logged native selection results without every key; keyboard events are a lower bound, not total actual keys.",
+    "Mouse counts include navigation, repeated polling and rejected/no-change controls; they are not the required player operation count.",
+    "Explicit branch clicks are an auditable lower bound, not proof that every click changed a rule.",
+    "Food accounts are separate local stocks; do not add a transit or public ledger twice."
+  ]
+}
