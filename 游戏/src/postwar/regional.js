@@ -7,6 +7,7 @@ var CivilRegional={
   surveyCost:{food:120,tools:24,knowledge:48},northSurvey:{wood:160,tools:24},
   setup:{home:{wood:240,tools:48,knowledge:48},north:{wood:2400,tools:480,knowledge:120},east:{wood:4800,tools:960,knowledge:240}},
   shares:{480:'地方优先 · 城市480药',2400:'兼顾城市 · 城市2400药',19200:'集中城市 · 城市19200药'},
+  cofundCost:{wood:1200,tools:240,knowledge:120},
   profiles:{food:2.6,wood:1.2,scrap:1.2,tools:.3,iron:.1},
   data(s){return s.civilization.regional;},copy(x){return JSON.parse(JSON.stringify(x));},
   north(s){return CivilDomain.data(s)?.node;},home(s){return CivilDomain.city(s,'home');},
@@ -29,7 +30,10 @@ var CivilRegional={
   discover(s){const d=this.data(s),o=this.origin(s,s.civilization.elapsed);if(!CivilCensus.partition(s,o.population,'eastDistrict'))throw Error('东原人口细分来源不足');d.origin=o;d.node=CivilDomain.initialNode(o);d.survey.remaining=0;d.survey.finishedAt=o.at;this.row(s,'discover');this.replan(s);this.note(s,'东原确认 '+o.population+' 名居民，从东陆失联名册细分。当地农田、木作、河堤与公仓属于当地；旧城市和北岸不重复计入。');},
   leveeCost(n){const p=CivilDomain.count(n);return {wood:p*.00006,tools:p*.00003,medicine:p*.00008,knowledge:p*.000005};},
   need(n){return Math.ceil(this.leveeCost(n).medicine*16);},
-  consent(s,share){const d=this.data(s);if(!d?.node)return '先完成东原普查';if(!Object.hasOwn(this.shares,share))return '未知分担方案';const remaining=24000-Number(share),need=this.need(d.node);if(remaining<need)return '东原拒绝：下一往返期防疫需 '+need+' 药，分配后只留 '+remaining+' 药';if(d.node.health<80||d.node.condition<80||!d.node.economy?.maintained)return '东原先要求恢复实际基础服务和维护';const north=CivilDomain.data(s);if(north.mode!=='shared'||!north.enabled||north.node.health<80||north.node.condition<80)return '北岸须恢复共同服务与地方维护';return null;},
+  consent(s,share){const d=this.data(s);if(!d?.node)return '先完成东原普查';if(!Object.hasOwn(this.shares,share))return '未知分担方案';const remaining=24000-Number(share),need=this.need(d.node);if(remaining<need&&!(d.cofunding&&this.localBacking(d.node,share)))return '东原拒绝：下一往返期防疫需 '+need+' 药，分配后只留 '+remaining+' 药';if(d.node.health<80||d.node.condition<80||!d.node.economy?.maintained)return '东原先要求恢复实际基础服务和维护';const north=CivilDomain.data(s);if(north.mode!=='shared'||!north.enabled||north.node.health<80||north.node.condition<80)return '北岸须恢复共同服务与地方维护';return null;},
+  localBacking(n,share){const amount=Math.max(0,(this.need(n)-(24000-Number(share)))/16),room=Math.max(0,((n.workers.medic||0)-(n.economy?.worked.medic||0))*6*.15);return room>=amount&&n.stores.food-amount/.15*.2>=CivilDomain.count(n)*.12*18&&n.stores.scrap>=amount/.15*.1;},
+  cofundReason(s){const d=this.data(s);if(!d?.pact)return '先议定两区共同责任';if(d.cofunding)return '地方共筹机构已办理';if(!d.enabled||d.node.health<80||d.node.condition<80)return '先恢复地方供养与共同服务';if(!CivilRules.canPay({stores:d.node.stores},this.cofundCost))return '东原需备木1200、工具240、知识120';return CivilCityCouncil.stockReason(s,'home',{knowledge:60});},
+  cofund(s){if(this.cofundReason(s))return false;const d=this.data(s);CivilCity.pay(d.node,this.cofundCost);CivilCity.pay(this.home(s),{knowledge:60});d.cofunding={at:s.civilization.elapsed};this.row(s,'cofund');this.note(s,'东原实付设立地方防疫共筹：船期不足时，既有诊疗岗位以当地粮食和废料补足本期防疫；原城分药与原约费用保持。');return true;},
   reason(s,share){const d=this.data(s);if(!d?.node)return '先完成普查';if(d.pact?.share===Number(share))return '正在按此份额履约';if(this.active(s)||this.delivery(s)||d.buffer>0)return '先暂停新发运，等在途与已承诺城市药品交清';const why=this.consent(s,share);if(why)return why;
     return CivilCityCouncil.stockReason(s,'home',this.setup.home)||(!CivilRules.canPay({stores:this.north(s).stores},this.setup.north)?'北岸尚缺协议修船材料':null)||(!CivilRules.canPay({stores:d.node.stores},this.setup.east)?'东原尚缺码头与堤务材料':null);},
   agree(s,share){if(this.reason(s,share))return false;const d=this.data(s),e=this.row(s,'agreement',{share:Number(share),handoff:1});CivilCity.pay(this.home(s),this.setup.home);CivilCity.pay(d.node,this.setup.east);this.payNorth(s,e,this.setup.north);d.pact={at:e.at,share:Number(share),handoff:1};d.enabled=true;this.replan(s);this.note(s,'两区议定公共互济：北岸每班出24000药，东原出12000工具，另把其中 '+share+' 药封存转送原城。各地同意的公共职责不等于中央接管或已经建国。');return true;},
@@ -63,7 +67,7 @@ var CivilRegional={
     // Newly signed compacts retain the paid local service until replacement cargo arrives.
     // Historical agreements without this marker replay their original costs and losses.
     const waiting=d.pact?.handoff===1&&d.enabled&&!d.trips.some(p=>p.at>=d.pact.at&&p.deliveredAt!==null);
-    let local=0;if((!d.pact||waiting)&&d.medical.stock<cost.medicine&&CivilDomain.prepareMedicine(d.node,cost.medicine)){local=cost.medicine;CivilRules.pay({stores:d.node.stores},{medicine:local});CivilCity.sum(d.node.budget.sent,{medicine:local});d.medical.local+=local;d.medical.stock+=local;}
+    let local=0;if((!d.pact||waiting||d.cofunding&&d.enabled)&&d.medical.stock<cost.medicine&&CivilDomain.prepareMedicine(d.node,cost.medicine)){local=cost.medicine;CivilRules.pay({stores:d.node.stores},{medicine:local});CivilCity.sum(d.node.budget.sent,{medicine:local});d.medical.local+=local;d.medical.stock+=local;}
     const paid=(!d.pact||d.enabled)&&d.node.economy.fed&&d.medical.stock>=cost.medicine&&CivilCity.pay(d.node,material);if(paid){d.medical.stock-=cost.medicine;d.medical.used+=cost.medicine;}d.levee=Math.max(20,Math.min(100,d.levee+(paid?4:-4)));this.row(s,'levee',{paid:!!paid,local});
     if(d.levee<60){const spoil=Math.min(d.node.stores.food,p*.002);CivilCity.pay(d.node,{food:spoil});this.row(s,'flood',{food:spoil});}
   },

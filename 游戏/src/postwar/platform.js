@@ -17,7 +17,7 @@
     const c = state.civilization;
     if(c.ruleset!==undefined&&c.ruleset!==2)throw Error('未知世界规则版本');
     if(![1,2,4,8,16,32,64].includes(c.speed) || ![1,2,4,8,16,32,64].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
-    if(c.maxSpeed>=32&&!c.tech?.orbital_survey)throw Error('32倍速需要轨道测绘');
+    if(c.maxSpeed>=32&&!c.tech?.orbital_survey&&!(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)))throw Error('32倍速需要实际国约机构或轨道测绘');
     if(c.maxSpeed>=64&&!c.space?.unification)throw Error('64倍速需要地球共同法');
     if(c.maxSpeed>=8&&!(c.urban?.city===true&&c.tech?.passenger_transport===true)&&!(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt)))throw Error('高级倍率缺少城市与运输进度');
     if(c.maxSpeed>=16&&!Object.entries(c.municipal?.nodes||{}).some(([key,n])=>n?.city===true&&Object.hasOwn(c.regions?.nodes||{},key))&&!(c.ruleset===2&&Number.isSafeInteger(c.conurbation?.clusterAt)))throw Error('16倍速需要第二座已登记城市');
@@ -63,6 +63,7 @@
     if(typeof CivilCityGovernance!=='undefined')CivilCityGovernance.validate(state);
     if(typeof CivilDomain!=='undefined')CivilDomain.validate(state);
     if(typeof CivilRegional!=='undefined')CivilRegional.validate(state);
+    if(typeof CivilPolity!=='undefined')CivilPolity.validate(state);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.validate(state);
     if(typeof CivilMetro!=='undefined')CivilMetro.validate(state);
     if(typeof CivilNation!=='undefined')CivilNation.validate(state);

@@ -30,7 +30,7 @@ var CivilAftermath={
   const p=CivilLeagues.active(d,r.pair);a.reductions.push({pair:r.pair,pact:p.id,at:r.at,resolvedAt:null,accepted:null,score:null});
  },
  log(d,at,text){CivilForeign.addEvent(d.foreign,at,'aftermath',text);},
- vote(d,id){const n=d.nodes[id],p=CivilForeignContent.profiles[id],rounds=d.foreign.network.fronts.filter(f=>CivilForeign.ids(f.pair).includes(id)).reduce((v,f)=>v+f.history.length,0);return 40+Math.floor((100-n.infrastructure)/2)+Math.min(24,rounds*3)+(CivilMarkets.deficit(d,id,p.need)>0?10:0)-p.resolve*4-Math.floor(CivilLeagues.reputation(d,id)/2);},
+ vote(d,id){const n=d.nodes[id],p=CivilForeignContent.profiles[id],rounds=d.foreign.network.fronts.filter(f=>CivilForeign.ids(f.pair).includes(id)).reduce((v,f)=>v+f.history.length,0);return 40+(d.populationModel===2&&d.publicGuarantee?15:0)+Math.floor((100-n.infrastructure)/2)+Math.min(24,rounds*3)+(CivilMarkets.deficit(d,id,p.need)>0?10:0)-p.resolve*4-Math.floor(CivilLeagues.reputation(d,id)/2);},
  cease(d,c,at){for(const[key,p]of Object.entries(d.foreign.pairs))if(CivilForeign.ids(key).every(id=>c.actors.includes(id))){if(p.phase==='war'||p.phase==='embargo'||p.phase==='warning'){p.phase='truce';p.since=at;p.battles=0;}p.truceUntil=Math.max(p.truceUntil,at+600);if(p.phase==='calm')p.phase='truce';}for(const front of d.foreign.network.fronts)if(front.status==='active'&&CivilForeign.ids(front.pair).every(id=>c.actors.includes(id))){front.status='ceasefire';front.endedAt=at;}},
  beforeRound(d,r){const a=this.data(d);if(!a)return;const at=r.at;
   for(const c of a.conferences){

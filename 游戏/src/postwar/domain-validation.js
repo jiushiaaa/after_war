@@ -19,9 +19,11 @@ CivilDomain.validate=function(s){
     }else if(e.kind==='withdraw'){if(!mode||active)fail('退出');mode=null;priority='care';enabled=true;CivilCity.sum(home,{knowledge:4});
     }else if(e.kind==='regional'){
       const r=s.civilization.regional?.ledger[e.ref-1];if(!r||r.id!==e.ref||r.at!==e.at||!CivilRegional.applyNorth(node,r,s,{mode,enabled}))fail('跨地区流水');
+    }else if(e.kind==='polity'){
+      const p=s.civilization.polity?.records[e.ref-1];if(!p||p.at!==e.at||!CivilPolity.applyLocal(node,p,'north',{permit:mode==='shared'&&enabled,cofunded:true}))fail('国家地方回执');
     }else if(e.kind==='annual'){
       years++;if(e.at!==(Math.floor(d.origin.at/600)+years)*600)fail('年界');const delta=this.annual(node);
-      for(const [kind,count]of [['birth',delta.born],['death',delta.dead]]){const rows=c.entries.filter(r=>r.kind===kind&&r.at===e.at&&(kind==='birth'?r.to:r.from)===this.account);if(count?(rows.length!==1||rows[0].count!==count):rows.length)fail('出生死亡');}
+      for(const [kind,count]of [['birth',delta.born],['death',delta.dead]]){const rows=c.entries.filter(r=>r.kind===kind&&r.at===e.at&&(kind==='birth'?r.to:r.from)===this.account&&(kind!=='death'||r.reason==='北岸年度死亡'));if(count?(rows.length!==1||rows[0].count!==count):rows.length)fail('出生死亡');}
     }else if(e.kind==='round'){
       rounds++;if(e.at!==(Math.floor(d.origin.at/60)+rounds)*60||serviceDue!==null)fail('缺失结算');const regionalAway=typeof CivilRegional!=='undefined'?CivilRegional.northCrewAt(s,e.at):0;if(s.civilization.regional&&e.at>s.civilization.regional.at){if(e.regionalAway!==regionalAway)fail('跨地区驾驶员');}else if(e.regionalAway!==undefined)fail('未知跨地区岗位');this.settle(node,priority,mode==='shared'?enabled:true,(active?4:0)+regionalAway);serviceDue=mode?e.at:null;
     }else if(e.kind==='service'){

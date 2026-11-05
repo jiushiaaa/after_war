@@ -163,6 +163,7 @@ var Civilization = {
     if(typeof CivilCityLabor!=='undefined')CivilCityLabor.tick(State);
     if(typeof CivilDomain!=='undefined')CivilDomain.tick(State);
     if(typeof CivilRegional!=='undefined')CivilRegional.tick(State);
+    if(typeof CivilPolity!=='undefined')CivilPolity.tick(State);
     this.unlockSpeed(true);
     // Cohorts, births and arriving parties reconcile before publishing native UI updates.
     if(State.game.population!==populationBefore){Outside.updateVillage();this.updateIncome();}
@@ -230,7 +231,7 @@ var Civilization = {
     }
     if(c.ruleset===2&&Number.isSafeInteger(c.city?.cityAt))limit=Math.max(limit,8);
     if(c.ruleset===2&&Number.isSafeInteger(c.conurbation?.clusterAt))limit=Math.max(limit,16);
-    if(limit>=16&&c.tech.orbital_survey)limit=32;
+    if(limit>=16&&(c.tech.orbital_survey||c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)))limit=32;
     if(limit>=32&&c.space?.unification)limit=64;
     return limit;
   },
@@ -241,7 +242,7 @@ var Civilization = {
     if(announce){
       if(limit===4)this.notify('补给线有了固定的轮值。4× 已永久开放。');
       if(limit===8)this.notify('城市与迁居车队各有了轮值安排。8× 已永久开放。');
-      if(limit===32)this.notify('轨道测绘完成，32× 已永久开放。');
+      if(limit===32)this.notify(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)?'共同机构已接续日常责任，32× 已永久开放。':'轨道测绘完成，32× 已永久开放。');
       if(limit===64)this.notify('地球共同法生效，64× 已永久开放。');
       if(limit===16)this.notify('两座城市已经登记了各自的公共职责。16× 已永久开放。');
       this.renderSpeed();

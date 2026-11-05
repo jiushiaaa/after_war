@@ -1,0 +1,2494 @@
+{
+  "kind": "constructed-full-adapter-continuation-not-natural",
+  "input": "验证/存档/自然游玩_工业战争恢复后十年350.json",
+  "years": 20,
+  "before": {
+    "at": 164692,
+    "total": 1487487029,
+    "common": 27502280,
+    "paid": 541,
+    "missed": 5,
+    "stable": 600,
+    "nodes": {
+      "north": {
+        "population": 27502280,
+        "infra": 100,
+        "service": 600,
+        "casualties": 8,
+        "stock": {
+          "food": 2784.8312419999024,
+          "wood": 2000,
+          "medicine": 500,
+          "scrap": 1600,
+          "tools": 971.9831242000063,
+          "iron": 1000,
+          "knowledge": 1962.3356988480505,
+          "coal": 66,
+          "parts": 437,
+          "steel": 60,
+          "electronics": 100
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      },
+      "west": {
+        "population": 259257700,
+        "infra": 100,
+        "service": 600,
+        "casualties": 9,
+        "stock": {
+          "food": 21209.636014000655,
+          "wood": 2000,
+          "medicine": 504,
+          "scrap": 1600,
+          "tools": 598.5636013999838,
+          "iron": 974,
+          "knowledge": 1440.8763216799719,
+          "coal": 370,
+          "parts": 25,
+          "steel": 115,
+          "electronics": 0
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      },
+      "desert": {
+        "population": 107181980,
+        "infra": 100,
+        "service": 600,
+        "casualties": 28,
+        "stock": {
+          "food": 9198.701838000256,
+          "wood": 2000,
+          "medicine": 506,
+          "scrap": 1600,
+          "tools": 818.5701837999881,
+          "iron": 1000,
+          "knowledge": 1782.0842205600275,
+          "coal": 0,
+          "parts": 76,
+          "steel": 0,
+          "electronics": 0
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      }
+    },
+    "cities": [
+      {
+        "id": "home",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "lake",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "ridge",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "estuary",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "bridge",
+        "health": 100,
+        "stable": 600
+      }
+    ],
+    "trades": 86,
+    "delivered": 83,
+    "phases": {
+      "north-west": "calm",
+      "desert-north": "truce",
+      "desert-west": "calm"
+    },
+    "cofund": {
+      "at": 131931
+    }
+  },
+  "yearly": [
+    {
+      "at": 165292,
+      "total": 1491858372,
+      "common": 27502280,
+      "paid": 551,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 88,
+      "delivered": 85,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 165892,
+      "total": 1496247202,
+      "common": 27502280,
+      "paid": 561,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 90,
+      "delivered": 87,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 166492,
+      "total": 1500653586,
+      "common": 27502280,
+      "paid": 571,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 92,
+      "delivered": 89,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 167092,
+      "total": 1505077595,
+      "common": 27502280,
+      "paid": 581,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 94,
+      "delivered": 91,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 167692,
+      "total": 1509519299,
+      "common": 27502280,
+      "paid": 591,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 96,
+      "delivered": 93,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 168292,
+      "total": 1513978773,
+      "common": 27502280,
+      "paid": 601,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 98,
+      "delivered": 95,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 168892,
+      "total": 1518456082,
+      "common": 27502280,
+      "paid": 611,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 100,
+      "delivered": 97,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 169492,
+      "total": 1522951301,
+      "common": 27502280,
+      "paid": 621,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 102,
+      "delivered": 99,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 170092,
+      "total": 1527464501,
+      "common": 27502280,
+      "paid": 631,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 104,
+      "delivered": 101,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 170692,
+      "total": 1531995753,
+      "common": 27502280,
+      "paid": 641,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 106,
+      "delivered": 103,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 171292,
+      "total": 1536545131,
+      "common": 27502280,
+      "paid": 651,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 108,
+      "delivered": 105,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 171892,
+      "total": 1541112705,
+      "common": 27502280,
+      "paid": 661,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 110,
+      "delivered": 107,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 172492,
+      "total": 1545698551,
+      "common": 27502280,
+      "paid": 671,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 112,
+      "delivered": 109,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 173092,
+      "total": 1550302739,
+      "common": 27502280,
+      "paid": 681,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 114,
+      "delivered": 111,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 173692,
+      "total": 1554925345,
+      "common": 27502280,
+      "paid": 691,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 116,
+      "delivered": 113,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 174292,
+      "total": 1559566442,
+      "common": 27502280,
+      "paid": 701,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 118,
+      "delivered": 115,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 174892,
+      "total": 1564226103,
+      "common": 27502280,
+      "paid": 711,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 120,
+      "delivered": 117,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 175492,
+      "total": 1568904402,
+      "common": 27502280,
+      "paid": 721,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 122,
+      "delivered": 119,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 176092,
+      "total": 1573601414,
+      "common": 27502280,
+      "paid": 731,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 124,
+      "delivered": 121,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    },
+    {
+      "at": 176692,
+      "total": 1578317215,
+      "common": 27502280,
+      "paid": 741,
+      "missed": 5,
+      "stable": 600,
+      "nodes": {
+        "north": {
+          "population": 27502280,
+          "infra": 100,
+          "service": 600,
+          "casualties": 8,
+          "stock": {
+            "food": 2784.8312419999024,
+            "wood": 2000,
+            "medicine": 500,
+            "scrap": 1600,
+            "tools": 971.9831242000063,
+            "iron": 1000,
+            "knowledge": 1962.3356988480505,
+            "coal": 66,
+            "parts": 437,
+            "steel": 60,
+            "electronics": 100
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "west": {
+          "population": 259257700,
+          "infra": 100,
+          "service": 600,
+          "casualties": 9,
+          "stock": {
+            "food": 21209.636014000655,
+            "wood": 2000,
+            "medicine": 504,
+            "scrap": 1600,
+            "tools": 598.5636013999838,
+            "iron": 974,
+            "knowledge": 1440.8763216799719,
+            "coal": 370,
+            "parts": 25,
+            "steel": 115,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        },
+        "desert": {
+          "population": 107181980,
+          "infra": 100,
+          "service": 600,
+          "casualties": 28,
+          "stock": {
+            "food": 9198.701838000256,
+            "wood": 2000,
+            "medicine": 506,
+            "scrap": 1600,
+            "tools": 818.5701837999881,
+            "iron": 1000,
+            "knowledge": 1782.0842205600275,
+            "coal": 0,
+            "parts": 76,
+            "steel": 0,
+            "electronics": 0
+          },
+          "balance": 0,
+          "overdue": null,
+          "localHealth": 100
+        }
+      },
+      "cities": [
+        {
+          "id": "home",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "lake",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "ridge",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "estuary",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "bridge",
+          "health": 100,
+          "stable": 600
+        }
+      ],
+      "trades": 126,
+      "delivered": 123,
+      "phases": {
+        "north-west": "calm",
+        "desert-north": "calm",
+        "desert-west": "calm"
+      },
+      "cofund": {
+        "at": 131931
+      }
+    }
+  ],
+  "after": {
+    "at": 176692,
+    "total": 1578317215,
+    "common": 27502280,
+    "paid": 741,
+    "missed": 5,
+    "stable": 600,
+    "nodes": {
+      "north": {
+        "population": 27502280,
+        "infra": 100,
+        "service": 600,
+        "casualties": 8,
+        "stock": {
+          "food": 2784.8312419999024,
+          "wood": 2000,
+          "medicine": 500,
+          "scrap": 1600,
+          "tools": 971.9831242000063,
+          "iron": 1000,
+          "knowledge": 1962.3356988480505,
+          "coal": 66,
+          "parts": 437,
+          "steel": 60,
+          "electronics": 100
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      },
+      "west": {
+        "population": 259257700,
+        "infra": 100,
+        "service": 600,
+        "casualties": 9,
+        "stock": {
+          "food": 21209.636014000655,
+          "wood": 2000,
+          "medicine": 504,
+          "scrap": 1600,
+          "tools": 598.5636013999838,
+          "iron": 974,
+          "knowledge": 1440.8763216799719,
+          "coal": 370,
+          "parts": 25,
+          "steel": 115,
+          "electronics": 0
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      },
+      "desert": {
+        "population": 107181980,
+        "infra": 100,
+        "service": 600,
+        "casualties": 28,
+        "stock": {
+          "food": 9198.701838000256,
+          "wood": 2000,
+          "medicine": 506,
+          "scrap": 1600,
+          "tools": 818.5701837999881,
+          "iron": 1000,
+          "knowledge": 1782.0842205600275,
+          "coal": 0,
+          "parts": 76,
+          "steel": 0,
+          "electronics": 0
+        },
+        "balance": 0,
+        "overdue": null,
+        "localHealth": 100
+      }
+    },
+    "cities": [
+      {
+        "id": "home",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "lake",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "ridge",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "estuary",
+        "health": 100,
+        "stable": 600
+      },
+      {
+        "id": "bridge",
+        "health": 100,
+        "stable": 600
+      }
+    ],
+    "trades": 126,
+    "delivered": 123,
+    "phases": {
+      "north-west": "calm",
+      "desert-north": "calm",
+      "desert-west": "calm"
+    },
+    "cofund": {
+      "at": 131931
+    }
+  },
+  "conservationAndReplay": true
+}

@@ -56,12 +56,14 @@ var CivilForeign={
     for(const o of f.proposals)if(o.resolvedAt===null&&at-o.at>=300){const p=f.pairs[o.pair];o.score=this.score(d,o.pair,o.kind,r.political);o.accepted=o.score>=50;o.resolvedAt=at;if(o.accepted){p.phase='truce';p.since=at;p.truceUntil=at+1800;p.pressure=Math.max(0,p.pressure-45);p.relation=this.clamp(p.relation+15,-100,100);p.battles=0;}else{p.relation=Math.max(-100,p.relation-5);}this.addEvent(f,at,'proposal',this.label(o.pair)+(o.accepted?'接受':'拒绝')+CivilForeignContent.proposals[o.kind].name+'（判断'+o.score+'/50）；'+(o.accepted?'1800秒停火与预算协商期，货物仍须实际采购。':'经费已经使用，须改善利益与关系后再议。'));}
     for(const id of ids){const n=d.nodes[id],p=CivilForeignContent.profiles[id],a=f.actors[id];
       if(this.overdue(f,id,at)&&a.overdueAt===null){a.overdueAt=at;this.addEvent(f,at,'credit',this.name(id)+'清算欠款到期，停止新增赊购；出口回款仍用于偿债。');}
+      if(d.populationModel===2&&!n.staffed){a.decision='公共岗位或地方授权未到位，等待恢复';continue;}
       if(this.fighting(d,id)||n.control==='occupied'){a.decision='冲突或占领中，地方工坊停产';continue;}
       if(CivilAftermath.recover(d,id,r))continue;
       if(n.infrastructure<100){if(d.missions.some(m=>m.region===id&&m.kind==='rebuild'&&m.departedAt<=at&&(m.completedAt===null||at<m.completedAt)&&(m.cancelledAt===null||at<m.cancelledAt))){a.decision='等待已经派出的重建队，避免重复施工';continue;}const repair={food:20,tools:6,parts:6};if(this.canSpend(n,repair)){CivilServices.pay(n.stores,repair);n.infrastructure=Math.min(100,n.infrastructure+5);a.decision='实付公共材料，修复5%设施';}continue;}
       const cost={food:12,[p.need]:p.use};if(p.need==='food')cost.food+=p.use;
       if(this.canSpend(n,cost)){CivilServices.pay(n.stores,cost);CivilRegions.credit(n.stores,p.output);a.decision='公共工坊消耗'+CivilHistory.costText(cost)+'，产出'+CivilHistory.costText(p.output);}else a.decision='缺少'+(CivilSettlement.data(d)?CivilSettlement.missing(n,cost):CivilText.labels[p.need])+'，公共工坊停产';
     }
+    if(d.populationModel===2&&f.markets)CivilPolityForeign.beforeTrade(d,r);
     if(f.markets)CivilMarkets.trade(d,r);else {
     // Rotate buyers to avoid a permanent alphabetical priority on scarce goods.
     const buyers=ids.slice(f.round%ids.length).concat(ids.slice(0,f.round%ids.length));

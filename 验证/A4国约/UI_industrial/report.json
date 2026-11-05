@@ -1,0 +1,542 @@
+{
+  "views": [
+    {
+      "width": 1280,
+      "name": "overview",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 123.71875,
+        "width": 420,
+        "height": 618.4375,
+        "top": 123.71875,
+        "right": 820,
+        "bottom": 742.15625,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "west",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 1280,
+      "name": "map",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -230.28125,
+        "width": 420,
+        "height": 1132.25,
+        "top": -230.28125,
+        "right": 820,
+        "bottom": 901.96875,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "west",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 1280,
+      "name": "map-target",
+      "actor": "desert"
+    },
+    {
+      "width": 1280,
+      "name": "institutions",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1431.53125,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1129.25,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "contact",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1437.09375,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1134.8125,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "contact",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "relations",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1413.703125,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1111.421875,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "relations",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "trade",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1437.09375,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1134.8125,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "trade",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "conflict",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1413.703125,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1111.421875,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "conflict",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "local-veto",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -302.28125,
+        "width": 420,
+        "height": 1454.921875,
+        "top": -302.28125,
+        "right": 820,
+        "bottom": 1152.640625,
+        "left": 400
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 1280,
+      "name": "return-city",
+      "hidden": true
+    },
+    {
+      "width": 853,
+      "name": "overview",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 0.109375,
+        "width": 833,
+        "height": 595.046875,
+        "top": 0.109375,
+        "right": 843,
+        "bottom": 595.15625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 853,
+      "name": "map",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -330.890625,
+        "width": 833,
+        "height": 1097.609375,
+        "top": -330.890625,
+        "right": 843,
+        "bottom": 766.71875,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 853,
+      "name": "map-target",
+      "actor": "desert"
+    },
+    {
+      "width": 853,
+      "name": "institutions",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1347.875,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 944.984375,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "contact",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1330.046875,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 927.15625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "contact",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "relations",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1330.046875,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 927.15625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "relations",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "trade",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1330.046875,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 927.15625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "trade",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "conflict",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1330.046875,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 927.15625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "conflict",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "local-veto",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -402.890625,
+        "width": 833,
+        "height": 1371.265625,
+        "top": -402.890625,
+        "right": 843,
+        "bottom": 968.375,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 853,
+      "name": "return-city",
+      "hidden": true
+    },
+    {
+      "width": 390,
+      "name": "overview",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -0.5,
+        "width": 370,
+        "height": 618.4375,
+        "top": -0.5,
+        "right": 380,
+        "bottom": 617.9375,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 390,
+      "name": "map",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -354.5,
+        "width": 370,
+        "height": 1115.640625,
+        "top": -354.5,
+        "right": 380,
+        "bottom": 761.140625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 0
+    },
+    {
+      "width": 390,
+      "name": "map-target",
+      "actor": "desert"
+    },
+    {
+      "width": 390,
+      "name": "institutions",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1441.4375,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 1015.9375,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "contact",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1470.390625,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 1044.890625,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "contact",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "relations",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1423.609375,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 998.109375,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "relations",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "trade",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1447,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 1021.5,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "trade",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "conflict",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1447,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 1021.5,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "conflict",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "local-veto",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -425.5,
+        "width": 370,
+        "height": 1464.828125,
+        "top": -425.5,
+        "right": 380,
+        "bottom": 1039.328125,
+        "left": 10
+      },
+      "at": 164704,
+      "paused": true,
+      "section": "institutions",
+      "actor": "desert",
+      "visibleActionButtons": 1
+    },
+    {
+      "width": 390,
+      "name": "return-city",
+      "hidden": true
+    }
+  ],
+  "errors": [],
+  "nativeImport": "验证/存档/自然游玩_工业战争恢复后十年350.json",
+  "importedAt": 164704,
+  "stateUnchanged": true
+}

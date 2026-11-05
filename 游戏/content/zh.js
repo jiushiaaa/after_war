@@ -46,7 +46,7 @@ _ = function(key) {
 // Stage-aware language uses attained institutions, never the player's chosen
 // political title alone. Local demographic figures remain explicitly local.
 var CivilNarrative={
-  stage(s){const c=s.civilization||{};return Number.isSafeInteger(c.space?.unification?.at)?'earth':Number.isSafeInteger(c.nation?.foundedAt)?'nation':(c.ruleset===2?c.city?.cityAt!==null&&c.city?.cityAt!==undefined:c.urban?.city)?'city':c.urban?.chartered||c.village?.town?'town':'village';},
+  stage(s){const c=s.civilization||{};return Number.isSafeInteger(c.space?.unification?.at)?'earth':(Number.isSafeInteger(c.nation?.foundedAt)||Number.isSafeInteger(c.polity?.foundedAt))?'nation':(c.ruleset===2?c.city?.cityAt!==null&&c.city?.cityAt!==undefined:c.urban?.city)?'city':c.urban?.chartered||c.village?.town?'town':'village';},
   home(s){if(s.civilization.ruleset===2)return s.civilization.city?.cityAt!==null&&s.civilization.city?.cityAt!==undefined?'炉火城原镇':s.civilization.village?.town?'河谷镇':'聚落';return s.civilization.urban?.city?'炉火城':s.civilization.urban?.chartered?'河谷镇':s.civilization.village?.town?'河谷小镇':'聚落';},
   community(s){const stage=this.stage(s);return stage==='earth'?'地球共同体':stage==='nation'?'国家共同体':this.home(s);},
   birth(s,count){return (count===1?'一名孩子':count+'名孩子')+'在'+this.home(s)+'出生。口粮与药品已备好，'+(s.civilization.urban?.city?'本城公共名册登记了这些新生儿。':'家人把他们记入名册。');},
