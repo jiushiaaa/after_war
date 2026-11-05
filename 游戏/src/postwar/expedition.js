@@ -27,7 +27,7 @@ var CivilExpedition={
   },
   ensure(s){
     const c=s.civilization;if(c.expedition)return c.expedition;
-    c.expedition=this.fresh(s,1+Math.floor(Math.random()*2147483646));return c.expedition;
+    c.expedition=this.fresh(s,typeof CivilSetup!=='undefined'&&CivilSetup.options(s).confirmed?(CivilSetup.options(s).seed+3571)%2147483647:1+Math.floor(Math.random()*2147483646));return c.expedition;
   },
   reveal(d,cx,cy,r){
     const C=this.C();

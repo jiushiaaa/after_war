@@ -1,0 +1,12 @@
+{
+  "kind": "constructed storage failure + real UI",
+  "checks": [
+    "seed form and paused opening; invalid seed rejected",
+    "actual IndexedDB atomic two-backup rotation preserves exact prior export bytes",
+    "all three native save slots write independently",
+    "corrupt startup blocks world and saving, leaving original and backups exact",
+    "valid backup restores through UI read-only, explicit other-slot save resumes safely"
+  ],
+  "errors": [],
+  "limit": "runner interrupted after backup click because its logger referenced State before Engine.init; corrected logger and resumed same recovered world, no test-world restart"
+}

@@ -97,3 +97,7 @@ html.dark .civil-sound-options, body.dark .civil-sound-options { color:#ddd; bac
 .menu span { float:none; margin-left:0; }
 .civil-sound { margin-left:0; }
 .civil-sound-options { position:fixed; right:10px; bottom:50px; max-width:calc(100vw - 20px); }
+
+#newWorldSettings label { display:flex; align-items:center; gap:8px; min-height:36px; }
+#newWorldSettings input[type=number] { max-width:170px; }
+#newWorldSettings .civil-secondary { font-size:13px; line-height:1.6; margin:0 0 10px; }

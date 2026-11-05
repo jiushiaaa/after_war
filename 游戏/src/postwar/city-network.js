@@ -108,7 +108,7 @@ var CivilCityNetwork={
   },
   legacyTrip(s,p){if(!this.data(s))return;for(const id of ['home','lake'])this.receipt(s,id,'lakeTrip',p.id,p.fees[id]);this.departure(s,'lake',p.id);},
   legacyRepair(s,ref,home,lake){if(!this.data(s))return;this.receipt(s,'home','lakeRepair',ref,home);this.receipt(s,'lake','lakeRepair',ref,lake);},
-  dispatchReason(s,ignoreFleet=false){const d=this.data(s);if(!d?.road?.completedAt)return '先完成双方道路';if(!d.enabled)return '工料互市尚未授权';if(this.active(s))return '矿岭原车仍在途';if(d.road.condition<20)return '矿岭道路待付检修';
+  dispatchReason(s,ignoreFleet=false){if(typeof CivilSetup!=='undefined'&&CivilSetup.freightReason(s))return CivilSetup.freightReason(s);const d=this.data(s);if(!d?.road?.completedAt)return '先完成双方道路';if(!d.enabled)return '工料互市尚未授权';if(this.active(s))return '矿岭原车仍在途';if(d.road.condition<20)return '矿岭道路待付检修';
     const order=this.order(s);if(CivilConurbation.value(order.out)<80||CivilConurbation.value(order.out)!==CivilConurbation.value(order.back))return '尚未形成等值的实际补库需求';
     for(const [id,cargo]of [['home',order.out],['ridge',order.back]]){if(!this.inspected(s,id))return this.name(id)+'：交通检修待续费';const reason=this.canSpend(s,id,this.fees())||CivilConurbation.safe(s,id==='home'?d.depot:id,CivilConurbation.plus(cargo,this.fees()),6);if(reason)return reason;}
     return !ignoreFleet&&this.occupied(s)>=this.capacity(s)?'共同车组正被湖滨线路占用':null;

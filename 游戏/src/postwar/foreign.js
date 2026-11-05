@@ -104,7 +104,7 @@ var CivilForeign={
       const broken=(na.accord?.missed||nb.accord?.missed)?8:0;
       const delta=(contested?12+pa.resolve+pb.resolve:supply?8: -8)+broken+(r.political?0:4)-(transit?16:0)-(p.relation>=40?6:0);
       const acute=(na.stores[pa.need]||0)<pa.use*3||(nb.stores[pb.need]||0)<pb.use*3||this.overdue(f,a,at)||this.overdue(f,b,at);
-      p.pressure=this.clamp(p.pressure+delta,0,acute?100:60);const previous=p.phase;
+      p.pressure=this.clamp(p.pressure+delta+(d.scenario?.autonomy&&!both&&acute&&delta>0?6:0),0,acute?100:60);const previous=p.phase;
       p.phase=both?(p.pressure>=40?'dispute':'calm'):p.pressure>=85?'war':p.pressure>=65?'embargo':p.pressure>=40?'warning':'calm';
       if(previous!==p.phase){p.since=at;if(p.phase==='war')p.battles=0;this.addEvent(f,at,'relation',this.label(key)+'：'+this.phaseName(p.phase)+'；压力'+p.pressure+'，原因：'+(contested?'争夺同类稀缺投入':supply?'供应依赖与交付不足':broken?'政治承诺中断':'关系与公共供给变化')+'。');}
       if(p.phase==='war'||p.phase==='dispute'&&p.pressure>=85){na.stableSeconds=0;nb.stableSeconds=0;}

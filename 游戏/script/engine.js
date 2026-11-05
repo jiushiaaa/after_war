@@ -537,9 +537,10 @@ $(function() {
     catch(error) {
       $('#startupError').remove();
       const box=$('<div>').attr('id','startupError').appendTo('body');
-      $('<p>').text('没有读到云端进度，游戏尚未开始。原存档不会被覆盖。').appendTo(box);
+      $('<p>').text('没有读到完整进度，游戏尚未开始。原存档不会被覆盖。').appendTo(box);
       $('<p>').text(error.message).appendTo(box);
       $('<button>').text('重试读取').on('click',async function(){this.disabled=true;await boot();}).appendTo(box);
+      if(!window.LumiMakerSdk&&typeof CivilLocalSaves!=='undefined')CivilLocalSaves.recovery(box,boot);
     }
   }
   boot();

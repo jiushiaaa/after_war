@@ -1,4 +1,4 @@
-/* MPL-2.0 — LumiMaker asynchronous single-slot persistence. No browser-storage fallback. */
+/* MPL-2.0 — Cloud persistence plus explicit local slots. Failed cloud reads never fall back to a fresh local game. */
 (function(root) {
   const id = 'postwar-civilization';
   function validate(state) {
@@ -21,6 +21,8 @@
     if(typeof CivilModern!=='undefined')CivilModern.validate(state);
     if(typeof CivilEquipment!=='undefined')CivilEquipment.fieldValidate(state);
     if(typeof CivilCivic!=='undefined')CivilCivic.validate(state);
+    if(typeof CivilSetup!=='undefined')CivilSetup.validate(state);
+    if(typeof CivilArchives!=='undefined')CivilArchives.validate(state);
     if(![1,2,4,8,16,32,64].includes(c.speed) || ![1,2,4,8,16,32,64].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
     if(c.maxSpeed>=32&&!c.tech?.orbital_survey&&!(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)))throw Error('32倍速需要实际国约机构或轨道测绘');
     if(c.maxSpeed>=64&&!c.space?.unification&&!c.polity?.earth?.unity)throw Error('64倍速需要地球共同法');
@@ -32,7 +34,7 @@
     for(const [key,value] of Object.entries(c.tech)) if(!Object.hasOwn(CivilText.research,key) || typeof value!=='boolean') throw Error('技术进度无效');
     const regionPending=typeof CivilRegions!=='undefined'?(CivilRegions.pendingIds||[]):[],urbanPending=typeof CivilUrban!=='undefined'?(CivilUrban.pendingIds||[]):[],originPending=typeof CivilOrigins!=='undefined'?(CivilOrigins.pendingIds||[]):[],municipalPending=typeof CivilMunicipal!=='undefined'?(CivilMunicipal.pendingIds||[]):[];
     const financePending=typeof CivilFinance!=='undefined'?(CivilFinance.pendingIds||[]):[],metroPending=typeof CivilMetro!=='undefined'?(CivilMetro.pendingIds||[]):[],incidentPending=typeof CivilIncidents!=='undefined'?(CivilIncidents.pendingIds||[]):[],culturePending=typeof CivilCulture!=='undefined'?CivilCulture.pendingIds:[],cooperativePending=typeof CivilCooperative!=='undefined'?CivilCooperative.pendingIds:[];
-    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession','generation_head','modern_era','civic_issue','civic_pressure',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilNation!=='undefined'?CivilNation.pendingIds:[]),...(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.pendingIds:[]),...(typeof CivilRailway!=='undefined'?CivilRailway.pendingIds:[]),...(typeof CivilCommerce!=='undefined'?CivilCommerce.pendingIds:[]),...(typeof CivilSecurity!=='undefined'?CivilSecurity.pendingIds:[]),...(typeof CivilAccession!=='undefined'?CivilAccession.pendingIds:[]),...(typeof CivilFrontier!=='undefined'?CivilFrontier.pendingIds:[]),...(typeof CivilIntercity!=='undefined'?CivilIntercity.pendingIds:[]),...(typeof CivilCorridor!=='undefined'?CivilCorridor.pendingIds:[]),...(typeof CivilPartnership!=='undefined'?CivilPartnership.pendingIds:[]),...(typeof CivilSettlement!=='undefined'?CivilSettlement.pendingIds:[]),...(typeof CivilAftermath!=='undefined'?CivilAftermath.pendingIds:[]),...(typeof CivilCongress!=='undefined'?CivilCongress.pendingIds:[]),...(typeof CivilMarkets!=='undefined'?CivilMarkets.pendingIds:[]),...(typeof CivilTransit!=='undefined'?CivilTransit.pendingIds:[]),...(typeof CivilLeagues!=='undefined'?CivilLeagues.pendingIds:[]),...(typeof CivilForeign!=='undefined'?CivilForeign.pendingIds:[]),...(typeof CivilStatecraft!=='undefined'?CivilStatecraft.pendingIds:[]),...(typeof CivilWorld!=='undefined'?CivilWorld.pendingIds:[]),...(typeof CivilSpace!=='undefined'?CivilSpace.pendingIds:[]),...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[]),...(typeof CivilCourse!=='undefined'?CivilCourse.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
+    if(![null,'policy','station','pump','salvage','merchant','cold','river','riverAid','geology','constitution_structure','constitution_selection','constitution_charter','constitution_devolution','succession','generation_head','modern_era','civic_issue','civic_pressure','game_setup','story_stage',...regionPending,...urbanPending,...originPending,...municipalPending,...financePending,...metroPending,...incidentPending,...culturePending,...cooperativePending,...(typeof CivilNation!=='undefined'?CivilNation.pendingIds:[]),...(typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.pendingIds:[]),...(typeof CivilRailway!=='undefined'?CivilRailway.pendingIds:[]),...(typeof CivilCommerce!=='undefined'?CivilCommerce.pendingIds:[]),...(typeof CivilSecurity!=='undefined'?CivilSecurity.pendingIds:[]),...(typeof CivilAccession!=='undefined'?CivilAccession.pendingIds:[]),...(typeof CivilFrontier!=='undefined'?CivilFrontier.pendingIds:[]),...(typeof CivilIntercity!=='undefined'?CivilIntercity.pendingIds:[]),...(typeof CivilCorridor!=='undefined'?CivilCorridor.pendingIds:[]),...(typeof CivilPartnership!=='undefined'?CivilPartnership.pendingIds:[]),...(typeof CivilSettlement!=='undefined'?CivilSettlement.pendingIds:[]),...(typeof CivilAftermath!=='undefined'?CivilAftermath.pendingIds:[]),...(typeof CivilCongress!=='undefined'?CivilCongress.pendingIds:[]),...(typeof CivilMarkets!=='undefined'?CivilMarkets.pendingIds:[]),...(typeof CivilTransit!=='undefined'?CivilTransit.pendingIds:[]),...(typeof CivilLeagues!=='undefined'?CivilLeagues.pendingIds:[]),...(typeof CivilForeign!=='undefined'?CivilForeign.pendingIds:[]),...(typeof CivilStatecraft!=='undefined'?CivilStatecraft.pendingIds:[]),...(typeof CivilWorld!=='undefined'?CivilWorld.pendingIds:[]),...(typeof CivilSpace!=='undefined'?CivilSpace.pendingIds:[]),...(typeof CivilRuins!=='undefined'?CivilRuins.pendingIds:[]),...(typeof CivilCourse!=='undefined'?CivilCourse.pendingIds:[])].includes(c.pending)) throw Error('事件进度无效');
     const pop = state.game.population || 0;
     if(!Number.isInteger(pop) || pop < 0 || pop > CivilCatalog.capacity(state)) throw Error('人口无效');
     if(c.society!==undefined)CivilSociety.validate(state);
@@ -120,8 +122,9 @@
     async decodeSave(text){return decode(typeof CivilSaveCodec==='undefined'?text:await CivilSaveCodec.unpack(text));},
     async load() {
       const sdk = root.LumiMakerSdk;
-      if(!sdk) { this.loaded=true; return {}; }
+      if(!sdk) { const state=typeof CivilLocalSaves==='undefined'?{}:await CivilLocalSaves.load();this.loaded=true;this.error=null;return state; }
       this.sdk = sdk;
+      if(typeof CivilLocalSaves!=='undefined')CivilLocalSaves.active=null; // choose a local slot explicitly for cloud progress
       const ready = await sdk.ready();
       if(!ready.ready) throw Error(ready.error || '尚未连接存档服务');
       const bytes = await sdk.readSave(); // Only null means no save. A rejection must block startup.
@@ -136,6 +139,7 @@
     changed() {
       if(!this.loaded || !root.State?.civilization) return;
       this.dirty=true;
+      if(typeof CivilLocalSaves!=='undefined')CivilLocalSaves.changed();
       if(this.sdk && !this.timer && !this.busy) this.timer=setTimeout(()=>{this.timer=null;this.flush();},2500);
     },
     async flush() {
@@ -173,10 +177,11 @@
     },
     menu() {
       if(Events.activeEvent()) return;
-      const cloud = this.sdk ? (this.error?'云端保存失败。当前进度仍在，请导出备份或重试。':'已连接云存档。进度自动保存。') : '本地预览没有云存档。刷新或关闭前，请导出进度；下次可导入继续。';
+      const cloud = this.sdk ? (this.error?'云端保存失败。当前进度仍在，请导出备份或重试。':'已连接云存档。进度自动保存。') : (CivilLocalSaves.blocked?'本地自动保存已停止，原槽与备份保留。请先导出或选择其他槽。':CivilLocalSaves.active?'本机每30秒自动保存到槽'+CivilLocalSaves.active+'，并保留最近两份备份；跨电脑请导出。':'当前只读查看进度，自动保存已关闭；请选择一个本地槽保存。');
       Events.startEvent({title:'存档', scenes:{start:{text:[cloud],buttons:{
         download:{text:'导出进度',onChoose:()=>this.download()},
         import:{text:'导入进度',nextScene:{1:'import'}},
+        local:{text:'三个本地存档槽',onChoose:()=>CivilLocalSaves.menu()},
         theme:{text:'切换明暗',nextScene:'end',onChoose:()=>Engine.turnLightsOff()},
         ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
         close:{text:'关闭',nextScene:'end'}

@@ -27,7 +27,7 @@
   div#content { order: 1; }
   div#notifications { order: 2; position: relative; top: 0; left: 0; width: auto; height: 220px; margin-top: 10px; border-top: 1px solid #999; padding-top: 8px; }
   div#notifyGradient { display: none; }
-  .eventPanel { left: 8px !important; right: 8px; top: 60px; width: auto !important; max-height: 80vh; overflow-y: auto; position: fixed; }
+  .eventPanel { left: 8px !important; right: 8px; top: 60px; width: auto !important; max-height: calc(100dvh - 125px); overflow-y: auto; position: fixed; box-sizing: border-box; }
   .eventPanel:before { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; }
   .button { min-height: 32px; line-height: 32px; }
   .civil-step { min-width: 44px; min-height: 40px; line-height: 38px; font-size: 16px; }
@@ -42,4 +42,9 @@
   .workerRow .upBtn, .workerRow .dnBtn, .workerRow .upManyBtn, .workerRow .dnManyBtn { transform: scale(1.6); margin: 0 4px; }
   .workerRow { min-height: 34px; }
   div.location, div#outerSlider > div, div#main { width: calc(100vw - 20px); }
+}
+
+@media (max-width: 939px) {
+  .eventPanel .eventTitle { position:sticky; top:0; display:block; background:inherit; margin-bottom:12px; z-index:2; }
+  .eventPanel .eventTitle:after { display:none; }
 }

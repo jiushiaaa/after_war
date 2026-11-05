@@ -25,6 +25,7 @@ function harness(saved){
     chooseRoutine(){if(!active)return;const pending=s.civilization.pending,buttons=active.scenes.start.buttons;if(pending==='metroCharter'||pending==='metroStatus')return;
       if(pending==='succession'){this.click(Object.hasOwn(buttons,'engineer')?'engineer':Object.keys(buttons)[0]);return;}
       if(pending==='generation_head'){this.click('keep');return;}
+      if(pending==='story_stage'){this.click('continue');return;}
       if(pending==='modern_era'){this.click('continue');return;}
       if(pending==='civic_issue'){this.click('later');return;}
       if(pending==='civic_pressure'){this.click('read');return;}

@@ -19,7 +19,7 @@ var CivilVillage = {
     road:{cost:()=>({wood:160,scrap:30,tools:10}),max:1,gate:()=>State.civilization.tech.trails && State.civilization.village.riverKnown}
   },
   journeys:{
-    river:{cost:{food:12,tools:4},duration:180,allowed:s=>s.civilization.tech.trails && s.game.buildings.outpost && !s.civilization.village.riverKnown},
+    river:{cost:{food:12,tools:4},duration:180,allowed:s=>(s.civilization.tech.trails||typeof CivilSetup!=='undefined'&&CivilSetup.options(s).fast&&s.civilization.tech.water&&s.civilization.tech.records) && s.game.buildings.outpost && !s.civilization.village.riverKnown},
     riverAid:{cost:{food:40,tools:12},duration:180,allowed:s=>s.civilization.village.riverKnown && !s.civilization.village.riverAllied && !s.civilization.village.aidDelivered}
   },
   // Pre-town recovery: once residents outgrow one clinic, medicine can never cover
@@ -80,7 +80,7 @@ var CivilVillage = {
   },
   refresh() {
     const c=State.civilization,v=c.village,b=State.game.buildings;
-    if(c.tech.trails && !c.regions?.active) {
+    if((c.tech.trails||typeof CivilSetup!=='undefined'&&CivilSetup.options(State).fast&&c.tech.water&&c.tech.records) && !c.regions?.active) {
       const id=v.riverKnown?'riverAid':'river',r=this.journeys[id];
       const btn=Civilization.button('riverButton',v.riverKnown?'援助河谷':'沿河勘察','#roadPanel',()=>Civilization.depart(v.riverKnown?'riverAid':'river'),r.cost);
       btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(v.riverKnown?'援助河谷':'沿河勘察'));

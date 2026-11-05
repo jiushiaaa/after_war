@@ -3,6 +3,7 @@ CivilPolity.validate=function(s){const d=this.data(s);if(d===undefined)return;co
  for(const [i,e]of d.records.entries()){
   if(e.id!==i+1||!Number.isSafeInteger(e.at)||e.at<last||e.at>s.civilization.elapsed||!e.sources||!e.args)fail('流水时序');last=e.at;if(i===0&&(e.action!=='start'||e.at!==d.at))fail('设立时点');
   if(typeof CivilEquipment!=='undefined'&&(CivilEquipment.enabled(s)?e.equipmentVersion!==1:e.equipmentVersion!==undefined))fail('装备版本');
+  if(e.action==='start'&&s.civilization.polishVersion===1){const options=typeof CivilSetup!=='undefined'?CivilSetup.options(s):{};if(!this.same(e.worldOptions,{logistics:!!options.logistics,autonomy:!!options.autonomy}))fail('局势来源');}
   const result=this.reduce(replay,e);replay=result.d;if(!this.same(e.effects,result.effects)||e.outcome!==result.outcome)fail('实付后果回放');
   for(const id of ['north','east']){const rows=(id==='north'?s.civilization.domain:s.civilization.regional).ledger.filter(r=>r.kind==='polity'&&r.ref===e.id);if(rows.length!==1||rows[0].at!==e.at)fail('地方回执');}
   if(e.action==='period')periods++;

@@ -1,7 +1,7 @@
 /* MPL-2.0 — Read-only views of existing records; no saved history or simulation hooks. */
 var CivilHistory={
   PAGE_SIZE:6,
-  categories:{people:'人物与机构',tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',transport:'国家交通',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索',expedition:'近郊勘察'},
+  categories:{archives:'档案',achievements:'里程碑',people:'人物与机构',tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',transport:'国家交通',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索',expedition:'近郊勘察'},
   unknownDate:'已有成果，原存档未记达成年份',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
@@ -21,6 +21,7 @@ var CivilHistory={
       if(seen.has(key))return;seen.add(key);
       entries.push({key,category,title,detail,at:this.time(s,at),...extra});
     };
+    if(typeof CivilArchives!=='undefined')for(const e of CivilArchives.history(s))add(e.key,e.category,e.title,e.detail,e.at);
     for(const [i,e]of (c.deliberation?.records||[]).entries()){const a=CivilCivic.agenda(s).find(x=>x.id===e.id),o=a?.options.find(x=>x.value===e.value);add('civic_'+i,'governance',a?.title||e.id,(o?.label||String(e.value))+' · '+({passed:'落实',refused:'未获同意',cancelled:'撤回'}[e.result]||e.result)+'。'+(o?.consequence||'')+' '+(e.reason||''),e.endedAt);}
     for(const [i,e]of (c.deliberation?.pressureHistory||[]).entries())add('pressure_'+i,'governance',e.reason,e.diagnosis,e.at);
     for(const [id,e]of Object.entries(c.modern?.eras||{}))add('era_'+id,'technology',CivilModernContent.eras[id].title,CivilModernContent.eras[id].lines.join('\n')+'\n已交接：'+e.retired.join('、'),e.at);
@@ -243,7 +244,7 @@ var CivilHistory={
     for(const [category,label]of Object.entries(this.categories)){
       const list=this.sorted(view.entries,category);if(!list.length)continue;
       scenes.start.buttons['history_'+category]={text:label+'（'+list.length+'）',nextScene:go(category+'_0')};
-      const pageSize=['governance','culture'].includes(category)?3:this.PAGE_SIZE,pages=Math.ceil(list.length/pageSize);
+      const pageSize=['governance','culture','archives'].includes(category)?3:this.PAGE_SIZE,pages=Math.ceil(list.length/pageSize);
       for(let page=0;page<pages;page++){
         const buttons={};if(page>0)buttons.previous={text:'上一页',nextScene:go(category+'_'+(page-1))};
         if(page+1<pages)buttons.next={text:'下一页',nextScene:go(category+'_'+(page+1))};

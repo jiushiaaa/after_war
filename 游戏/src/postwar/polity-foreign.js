@@ -50,7 +50,7 @@ var CivilPolityForeign={
   const total=Object.values(cargo).reduce((a,b)=>a+b,0);if(total>6000)for(const k of Object.keys(cargo))cargo[k]=Math.floor(cargo[k]*6000/total);for(const k of Object.keys(cargo))if(!cargo[k])delete cargo[k];
   if(!Object.keys(cargo).length||!CivilPolity.safe(CivilConurbation.plus(cargo,fees),source))return;CivilCity.pay(local,fees);CivilRules.pay({stores:local.stores},cargo);CivilCity.sum(local.budget.sent,cargo);peer.cargo.push({at,cargo,fees,arrivedAt:null,returnedAt:null});
  },
- period(d,e,effects,political){const at=e.at,w=d.world;w.publicGuarantee=!!(political&&d.stable===600&&d.laws.rights==='equal'&&d.laws.devolution==='local');CivilSettlement.budget(w,{rights:d.laws.rights,devolution:d.laws.devolution,political});
+ period(d,e,effects,political){const at=e.at,w=d.world;if(w.scenario)w.trafficAt=at;w.publicGuarantee=!!(political&&d.stable===600&&d.laws.rights==='equal'&&d.laws.devolution==='local');CivilSettlement.budget(w,{rights:d.laws.rights,devolution:d.laws.devolution,political});
   for(const c of d.contacts)if(c.finishedAt===null&&at>=c.at+600){const population=e.reserves?.[c.actor];this.discover(d,c.actor,at,population);}
   for(const [id,peer]of Object.entries(d.peers)){
    const l=peer.local,n=w.nodes[id];if(at%600===0&&at>peer.origin.at){const delta=CivilDomain.annual(l);peer.annual.push({at,...delta});}
