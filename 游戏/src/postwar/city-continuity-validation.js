@@ -33,7 +33,7 @@ CivilCityContinuity.validate=function(s){
   if(t.successor){const c=t.courses.find(c=>c.id===t.successor.source);if(!c||c.status!=='completed'||usedCourses.has(c.id)||t.successor.at!==c.endedAt||!same(t.successor.cohorts,this.aged(c.cohorts,c.at,c.endedAt)))fail('待接任名册');}
   const townUsed=[...this.townStaff(s),...(t.training?this.aged(t.training.cohorts,t.training.at,now):t.successor?this.aged(t.successor.cohorts,t.successor.at,now):[])];if(!subset(townUsed,s.civilization.society.cohorts))fail('原镇真实劳力');
   previous=null;for(const r of t.records){if(!time(r.at)||r.at<d.at||previous!==null&&r.at-previous<60||!['paid','shortage','unstaffed'].includes(r.status)||!same(r.paid,r.status==='paid'?this.townFee:{})||!r.changes||Object.values(r.changes).some(v=>!Array.isArray(v)||v.length!==2||v.some(n=>!int(n))))fail('原镇续办');previous=r.at;}if(t.lastAt!==previous)fail('原镇续办时点');
-  const receipts=a.data(s).receipts,forOffice=id=>receipts.filter(r=>r.city===id&&r.kind.startsWith('continuity'));
+  const receipts=a.data(s).receipts,officeRows=a.indexRows(receipts.filter(r=>r.kind.startsWith('continuity')),['city']),forOffice=id=>officeRows(id),byRef=a.indexRows(receipts,['kind','city','ref']),byCourse=a.indexRows(receipts.filter(r=>r.kind==='continuityLesson'),['city',r=>String(r.ref).split(':').slice(0,2).join(':')]);
   for(const [id,o]of Object.entries(d.offices)){
     if(!a.ids(s).includes(id)||!this.h().estate(s,id)||!time(o.at)||o.at<d.at||o.at<this.h().estate(s,id).at||id==='home'&&o.at!==d.at||!same(o.paid,this.officeCost(s,id))||!int(o.worked)||o.worked>this.duration(s,id)||o.worked>now-o.at||o.remaining!==this.duration(s,id)-o.worked||o.completedAt===null&&o.remaining<1||o.completedAt!==null&&(!time(o.completedAt)||o.completedAt<o.at+this.duration(s,id)||o.remaining!==0))fail('接续工坊');
     for(const k of ['changes','services','courses','certificates'])if(!Array.isArray(o[k]))fail('岗位册');
@@ -47,7 +47,7 @@ CivilCityContinuity.validate=function(s){
     const courses=[...o.courses,...(o.training?[o.training]:[])];let end=o.completedAt??now;
     for(const [i,c]of courses.entries()){
       if(c.id!==i+1||!time(c.at)||c.at<end||!['arrival','local'].includes(c.kind)||!groups(c.cohorts,62)||this.count(c.cohorts)<1||this.count(c.cohorts)>24||!int(c.rounds)||c.rounds>30)fail('岗位学员');
-      const enrolled=receipts.filter(r=>r.city===id&&r.kind==='continuityEnroll'&&r.ref===id+':'+c.id),lessons=receipts.filter(r=>r.city===id&&r.kind==='continuityLesson'&&String(r.ref).startsWith(id+':'+c.id+':'));
+      const enrolled=byRef('continuityEnroll',id,id+':'+c.id),lessons=byCourse(id,id+':'+c.id).filter(r=>String(r.ref).startsWith(id+':'+c.id+':'));
       if(enrolled.length!==1||lessons.length!==c.rounds||c.lastAt!==(lessons.at(-1)?.at??null))fail('课程实付');
       let lessonAt=c.at-10;for(const [j,r]of lessons.entries()){if(r.ref!==id+':'+c.id+':'+(j+1)||r.at<lessonAt+10)fail('课程时间');lessonAt=r.at;}
       if(i<o.courses.length){if(!time(c.endedAt)||c.endedAt<c.at||!['completed','cancelled','expired'].includes(c.status)||c.status==='completed'&&(c.rounds!==30||c.endedAt!==c.lastAt)||c.status!=='completed'&&c.rounds===30||c.status==='expired'&&this.count(this.aged(c.cohorts,c.at,c.endedAt))===this.count(c.cohorts))fail('课程结果');end=c.endedAt;}else if(c.status!=='learning'||c.endedAt!==null||c.rounds>=30)fail('在读结果');

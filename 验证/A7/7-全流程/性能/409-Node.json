@@ -1,0 +1,29 @@
+{
+  "kind": "constructed Node CPU, copy of old409; no DOM, disk, network or real-device timing claim",
+  "file": "自然游玩_A6工业原生重导409.json",
+  "bytes": 1934557,
+  "rawBytes": 24591785,
+  "unpackMs": 93.54475,
+  "moduleMs": 179.78670799999998,
+  "validateMs": 2844.5993750000002,
+  "export": {
+    "jsonMs": 45.641957999999704,
+    "gzipMs": 119.04058299999997,
+    "bytes": 1450837
+  },
+  "settlementMs": {
+    "n": 12,
+    "mean": 14.430760333333296,
+    "p95": 17.708082999999988,
+    "max": 20.150292000000263
+  },
+  "otherTickMs": {
+    "n": 108,
+    "mean": 0.14656092592592054,
+    "p95": 0.24037499999985812,
+    "max": 3.432749999999942
+  },
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v24.22.2"
+}

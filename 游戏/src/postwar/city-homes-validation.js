@@ -11,7 +11,10 @@ CivilCityHomes.validate=function(s){
   if(!d){if(projects.some(p=>p.completedAt!==null))fail('社区无维护册');return;}
   if(d.schema!==1||!time(d.at)||!api.data(s)||!d.estates||!Array.isArray(d.orders)||!Array.isArray(d.trips))fail('登记');
   const completed=projects.filter(p=>p.completedAt!==null);if(Object.keys(d.estates).length!==completed.reduce((n,p)=>n+Object.keys(p.sites).length,0)||d.at!==Math.min(...completed.map(p=>p.completedAt)))fail('社区来源');
-  const receipts=api.data(s).receipts,receipt=(kind,ref,city)=>receipts.filter(e=>e.kind===kind&&e.ref===ref&&e.city===city);
+  const receipts=api.data(s).receipts,byKind=new Map();
+  // Ephemeral typed indexes retain every duplicate receipt. Never cache across loads or mutate history.
+  for(const r of receipts){let refs=byKind.get(r.kind);if(!refs)byKind.set(r.kind,refs=new Map());let cities=refs.get(r.ref);if(!cities)refs.set(r.ref,cities=new Map());let rows=cities.get(r.city);if(!rows)cities.set(r.city,rows=[]);rows.push(r);}
+  const receipt=(kind,ref,city)=>byKind.get(kind)?.get(ref)?.get(city)||[];
   for(const p of projects)for(const id of Object.keys(p.sites))if(projects.filter(x=>Object.hasOwn(x.sites,id)).length!==1)fail('重复社区');
   for(const [id,e]of Object.entries(d.estates)){
     const p=completed.find(p=>Object.hasOwn(p.sites,id)&&p.id===e.project);if(!p||e.at!==p.completedAt||!Array.isArray(e.records)||!Array.isArray(e.changes)||!Object.hasOwn(this.modes,e.mode)||typeof e.enabled!=='boolean')fail('维护册');

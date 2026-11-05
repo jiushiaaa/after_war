@@ -22,7 +22,7 @@ CivilCityLabor.validate=function(s){
   const subset=(groups,pool)=>{const merged=this.x().merge(pool);return this.x().merge(groups).every(c=>c.count<=(merged.find(x=>this.x().key(x)===this.x().key(c))?.count||0));};
   const equal=(x,y)=>goods(x)&&goods(y)&&keys.every(k=>near(x[k]||0,y[k]||0));
   const groups=x=>Array.isArray(x)&&x.length>0&&x.length<=160&&x.every(c=>int(c.age)&&c.age>=18&&c.age<=50&&int(c.count)&&c.count>0&&['human','mutant'].includes(c.identity))&&new Set(x.map(c=>this.x().key(c))).size===x.length;
-  const receipts=a.data(s).receipts,lookup=(kind,city,ref)=>receipts.filter(r=>r.kind===kind&&r.city===city&&r.ref===ref);
+  const receipts=a.data(s).receipts,lookup=a.indexRows(receipts,['kind','city','ref']);
   const paid=(kind,city,ref,at,cost)=>{const rows=lookup(kind,city,ref);if(rows.length!==1||rows[0].at!==at||!equal(rows[0].paid,cost))fail('缺失或重复实付 '+kind);};
   if(d.schema!==1||!this.available(s)||!time(d.at)||d.at<this.x().local(s,'home').completedAt||!d.offices||!Object.keys(d.offices).length||!Array.isArray(d.contracts)||!Array.isArray(d.shifts)||!d.households)fail('登记');
   const enabledAt=(id,at,order=Infinity)=>{const o=d.offices[id];let enabled=true;for(const key of o.changes){const r=receipts[key-1];if(r.at<=at&&r.id<order)enabled=r.value;}return enabled&&o.completedAt!==null&&o.completedAt<=at;};

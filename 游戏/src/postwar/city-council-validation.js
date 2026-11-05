@@ -1,4 +1,10 @@
 /* MPL-2.0 — Replay the municipal mandate book, including goods held at a hub. */
+// Per-validation typed indexes preserve order and duplicate rows; no persistent cache or save mutation.
+CivilCityCouncil.indexRows=function(rows,fields){
+  const root=new Map();
+  for(const row of rows){let node=root;for(let i=0;i<fields.length;i++){const key=typeof fields[i]==='function'?fields[i](row):row[fields[i]];if(!node.has(key))node.set(key,i===fields.length-1?[]:new Map());node=node.get(key);}node.push(row);}
+  return (...keys)=>{let node=root;for(const key of keys){if(typeof key==='number'&&Number.isNaN(key))return [];node=node?.get(key);}return node||[];};
+};
 CivilCityCouncil.validate=function(s){
   const d=this.data(s);if(!d)return;
   const fail=label=>{throw Error('共同事务账不符：'+label);},int=n=>Number.isSafeInteger(n)&&n>=0,num=n=>Number.isFinite(n)&&n>=0;

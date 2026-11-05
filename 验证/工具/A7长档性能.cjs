@@ -1,0 +1,10 @@
+// Constructed CPU timing on a copy of immutable 409. This is NOT natural elapsed time.
+const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib'),assert=require('node:assert/strict'),{performance}=require('node:perf_hooks');
+const {harness}=require('../../游戏/tests/helpers/metro-fixture.cjs'),root=path.resolve(__dirname,'../..'),dir=path.join(root,'验证/A7/7-全流程/性能');fs.mkdirSync(dir,{recursive:true});
+const file=fs.readdirSync(path.join(root,'验证/存档')).find(n=>n.endsWith('409.json')),raw=fs.readFileSync(path.join(root,'验证/存档',file),'utf8');
+const t=performance.now(),envelope=JSON.parse(raw),text=envelope.encoding?z.gunzipSync(Buffer.from(envelope.data,'base64')).toString():raw,s=JSON.parse(text).state,unpackMs=performance.now()-t;
+const before=JSON.stringify(s),loadAt=performance.now(),h=harness(s),moduleMs=performance.now()-loadAt,validAt=performance.now();h.ctx.CivilPlatform.validate(h.s);const validateMs=performance.now()-validAt;assert.equal(JSON.stringify(h.s),before);
+const encodeAt=performance.now(),exportText=JSON.stringify({format:'postwar-civilization',version:1,state:h.s}),jsonMs=performance.now()-encodeAt,compressAt=performance.now(),packed=z.gzipSync(exportText),gzipMs=performance.now()-compressAt;
+const rounds=[],ticks=[];for(let i=0;i<120;i++){const at=performance.now(),willSettle=h.s.civilization.productionClock+1>=10;h.step(1,{checkEvery:0});const ms=performance.now()-at;(willSettle?rounds:ticks).push(ms);}
+const stats=xs=>{xs.sort((a,b)=>a-b);return {n:xs.length,mean:xs.reduce((a,b)=>a+b,0)/xs.length,p95:xs[Math.floor((xs.length-1)*.95)],max:xs.at(-1)};};
+const result={kind:'constructed Node CPU, copy of old409; no DOM, disk, network or real-device timing claim',file,bytes:Buffer.byteLength(raw),rawBytes:Buffer.byteLength(text),unpackMs,moduleMs,validateMs,export:{jsonMs,gzipMs,bytes:packed.length},settlementMs:stats(rounds),otherTickMs:stats(ticks),platform:process.platform,arch:process.arch,node:process.version};fs.writeFileSync(path.join(dir,'409-Node.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
