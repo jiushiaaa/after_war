@@ -1,0 +1,381 @@
+{
+  "views": [
+    {
+      "width": 1280,
+      "name": "overview",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 123.71875,
+        "width": 420,
+        "height": 550.25,
+        "top": 123.71875,
+        "right": 820,
+        "bottom": 673.96875,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": "domainEntry"
+    },
+    {
+      "width": 1280,
+      "name": "map",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -230.28125,
+        "width": 420,
+        "height": 975.265625,
+        "top": -230.28125,
+        "right": 820,
+        "bottom": 744.984375,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 1280,
+      "name": "terms",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -175.28125,
+        "width": 420,
+        "height": 842.78125,
+        "top": -175.28125,
+        "right": 820,
+        "bottom": 667.5,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 1280,
+      "name": "production",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -255.28125,
+        "width": 420,
+        "height": 922.875,
+        "top": -255.28125,
+        "right": 820,
+        "bottom": 667.59375,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 1280,
+      "name": "transport",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": -36.28125,
+        "width": 420,
+        "height": 704.59375,
+        "top": -36.28125,
+        "right": 820,
+        "bottom": 668.3125,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 1280,
+      "name": "accounts",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 400,
+        "y": 116.71875,
+        "width": 420,
+        "height": 550.25,
+        "top": 116.71875,
+        "right": 820,
+        "bottom": 666.96875,
+        "left": 400
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 1280,
+      "name": "return-home",
+      "regionalHidden": true
+    },
+    {
+      "width": 853,
+      "name": "overview",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 50.109375,
+        "width": 833,
+        "height": 526.859375,
+        "top": 50.109375,
+        "right": 843,
+        "bottom": 576.96875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "map",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -330.890625,
+        "width": 833,
+        "height": 946.25,
+        "top": -330.890625,
+        "right": 843,
+        "bottom": 615.359375,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "terms",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -205.890625,
+        "width": 833,
+        "height": 782.515625,
+        "top": -205.890625,
+        "right": 843,
+        "bottom": 576.625,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "production",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -285.890625,
+        "width": 833,
+        "height": 862.609375,
+        "top": -285.890625,
+        "right": 843,
+        "bottom": 576.71875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "transport",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -57.890625,
+        "width": 833,
+        "height": 634.421875,
+        "top": -57.890625,
+        "right": 843,
+        "bottom": 576.53125,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "accounts",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -197.890625,
+        "width": 833,
+        "height": 773.765625,
+        "top": -197.890625,
+        "right": 843,
+        "bottom": 575.875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 853,
+      "name": "return-home",
+      "regionalHidden": true
+    },
+    {
+      "width": 390,
+      "name": "overview",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": 26.5,
+        "width": 370,
+        "height": 550.25,
+        "top": 26.5,
+        "right": 380,
+        "bottom": 576.75,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "map",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -354.5,
+        "width": 370,
+        "height": 958.65625,
+        "top": -354.5,
+        "right": 380,
+        "bottom": 604.15625,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "terms",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -275.5,
+        "width": 370,
+        "height": 852.6875,
+        "top": -275.5,
+        "right": 380,
+        "bottom": 577.1875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "production",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -355.5,
+        "width": 370,
+        "height": 932.78125,
+        "top": -355.5,
+        "right": 380,
+        "bottom": 577.28125,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "transport",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -174.5,
+        "width": 370,
+        "height": 751.375,
+        "top": -174.5,
+        "right": 380,
+        "bottom": 576.875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "accounts",
+      "selected": "domain",
+      "visible": true,
+      "overflow": false,
+      "rect": {
+        "x": 10,
+        "y": -431.5,
+        "width": 370,
+        "height": 1007.671875,
+        "top": -431.5,
+        "right": 380,
+        "bottom": 576.171875,
+        "left": 10
+      },
+      "at": 113531,
+      "paused": true,
+      "focus": ""
+    },
+    {
+      "width": 390,
+      "name": "return-home",
+      "regionalHidden": true
+    }
+  ],
+  "errors": [],
+  "stateUnchanged": true
+}

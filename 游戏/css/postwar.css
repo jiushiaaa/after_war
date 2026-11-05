@@ -34,3 +34,21 @@
 #event.civil-transit-overview #description > div { padding-bottom:4px; }
 div.headerButton:focus-visible { outline:1px dashed currentColor; outline-offset:3px; }
 div.headerButton.civil-group-start { margin-left:22px; }
+
+/* A4 map: geography/contact schematic, no hidden population or clickable placeholders. */
+#domainEntry { display: inline-block; margin: 8px 0 8px 18px; padding: 5px 0; text-decoration: underline; cursor: pointer; }
+#domainBody { max-width: 680px; }
+#domainBody .city-setting select { min-height: 34px; max-width: 100%; }
+.domain-map { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px 10px; padding: 16px 0; border-top: 1px solid #999; border-bottom: 1px solid #999; }
+.domain-map > div { min-height: 60px; padding: 6px; border-left: 2px solid #ccc; }
+.domain-map strong,.domain-map span { display: block; }
+.domain-map span { font-size: .85em; margin-top: 6px; color: #666; }
+.domain-map-polar { grid-column: 2; grid-row: 1; }
+.domain-map-north { grid-column: 2; grid-row: 2; border-left-color: #222 !important; }
+.domain-map-west { grid-column: 1; grid-row: 2; }
+.domain-map-east { grid-column: 3; grid-row: 2; }
+.domain-map-desert { grid-column: 1; grid-row: 3; }
+.domain-map-plateau { grid-column: 2; grid-row: 3; }
+.domain-map-islands { grid-column: 3; grid-row: 3; }
+.domain-map-rainforest { grid-column: 2; grid-row: 4; }
+@media (max-width: 600px) { #domainEntry { min-height: 44px; margin-left: 8px; } .domain-map { gap: 8px 4px; } .domain-map > div { padding: 4px; } }

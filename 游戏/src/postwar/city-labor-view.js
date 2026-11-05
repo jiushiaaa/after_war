@@ -19,7 +19,7 @@ var CivilCityLaborView={
     const ledger=$('<details>').attr('id','laborLedger').appendTo(box).append($('<summary>').text('工资、食宿与返程账'));$('<p>').addClass('city-net-lines').appendTo(ledger);
   },
   refresh(s){const api=CivilCityLabor,a=CivilCityCouncil,d=api.data(s),v=CivilCityView,n=x=>v.amount(x),cost=x=>Object.entries(x).filter(([,value])=>value>0).map(([key,value])=>(CivilText.labels[key]||key)+' '+value.toLocaleString('zh-CN',{maximumFractionDigits:3})).join('、')||'无';if(!api.available(s)&&!d){$('#cityLaborDesk').hide();return;}this.ensure(s);$('#cityLaborDesk').show();
-    $('#laborIntro').text('保留住所也能到另一城工作。工位接替部分现有生产排班；车辆、临住床位、工资和供养分别记账。需工按库存缺口或课堂人数计算，储备充足暂不发班。原镇和其他片区仍由原有机构办理，本城用工在出发片区。');
+    $('#laborIntro').text('保留住所也能到另一城工作。工位接替部分现有生产排班；车辆、临住床位、工资和供养分别记账。需工按库存缺口或课堂人数计算，储备充足暂不发班。原镇和其他片区仍由原有机构办理，本城用工在出发片区。工位厅的120个位置优先补足本城课堂，已用于课堂的位置不再供劳务班次使用。');
     const ids=a.ids(s),rows=ids.map(id=>{const active=api.shifts(s).find(p=>p.to===id),o=api.office(s,id);return {id,staff:api.idle(s,id),jobs:!o?'未设工位':!api.ready(s,id)?'安装中':o.enabled?(active?.count||0)+' / '+api.demand(s,id):'暂停',beds:CivilCityHomes.freeBeds(s,id)};});
     const tbody=$('#laborCities tbody');for(const r of rows){let tr=$('#laborCity_'+r.id);if(!tr.length){tr=$('<tr>').attr('id','laborCity_'+r.id).appendTo(tbody);$('<th>').attr('scope','row').text(a.name(s,r.id)).appendTo(tr);for(let i=0;i<3;i++)$('<td>').appendTo(tr);}tr.find('td').eq(0).text(n(r.staff));tr.find('td').eq(1).text(r.jobs);tr.find('td').eq(2).text(n(r.beds));}
     for(const key of ['city','source'])for(const id of ids)if(!$('#laborChoice_'+key+' option[value="'+id+'"]').length)$('<option>').val(id).text(a.name(s,id)).appendTo('#laborChoice_'+key);

@@ -1,0 +1,14 @@
+// Constructed full-adapter comparison from native public296; NOT another natural playthrough.
+const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib'),assert=require('node:assert/strict');
+const {harness}=require('../游戏/tests/helpers/metro-fixture.cjs'),dir=path.join(__dirname,'存档'),name=fs.readdirSync(dir).find(f=>f.endsWith('296.json')),e=JSON.parse(fs.readFileSync(path.join(dir,name))),raw=(e.encoding?JSON.parse(z.gunzipSync(Buffer.from(e.data,'base64'))):e).state;
+const report={kind:'constructed full-adapter comparison, only normal policy/build functions; original raw296 unchanged',worlds:[]};
+for(const classroom of [false,true]){const h=harness(raw),{s,ctx}=h,d=ctx.CivilDomain,a=ctx.CivilCityCouncil,L=ctx.CivilCityLabor,H=ctx.CivilCityHomes;
+ assert.ok(H.set(s,'home','mode','tools'));if(classroom){for(let t=0;t<1200&&L.buildReason(s,'home');t+=10)h.step(10,{checkEvery:600});assert.equal(L.buildReason(s,'home'),null);assert.ok(L.build(s,'home'));h.until(()=>L.ready(s,'home'),600);}
+ const failureReasons={},pay=a.pay.bind(a);a.pay=function(state,id,kind,ref,cost,extra){const result=pay(state,id,kind,ref,cost,extra);if(id==='home'&&kind==='homeMaintenance'&&!result){const why=this.payReason(state,id,cost,kind);failureReasons[why]=(failureReasons[why]||0)+1;}return result;};
+ const start=s.civilization.elapsed,row={classroom,start,end:null,minHealth:100,minStable:600,uncoveredRounds:0,maxAdditionalClassroomNeed:0,maxAdditionalClassroomPlaces:0,maintenanceMisses:0,linkMisses:0},before=H.estate(s,'home').records.length,link=d.data(s).ledger.filter(e=>e.kind==='service').length;
+ for(let t=0;t<12000;t+=10){h.step(10,{checkEvery:600});const n=a.local(s,'home'),children=ctx.CivilPopulation.children(n.cohorts);row.minHealth=Math.min(row.minHealth,n.health);row.minStable=Math.min(row.minStable,n.stable);if(!n.economy.educated)row.uncoveredRounds++;row.maxAdditionalClassroomNeed=Math.max(row.maxAdditionalClassroomNeed,Math.ceil(children/20)-Math.ceil(ctx.CivilCity.serviceCapacity(s,'canal')*.02));row.maxAdditionalClassroomPlaces=Math.max(row.maxAdditionalClassroomPlaces,L.schoolPlaces(s,'home'));}
+ row.end=s.civilization.elapsed;row.maintenanceMisses=H.estate(s,'home').records.slice(before).filter(r=>!r.paid).length;row.linkMisses=d.data(s).ledger.filter(e=>e.kind==='service').slice(link).filter(r=>!r.paid).length;row.maintenanceReasons=failureReasons;row.finalPopulation=d.known(s);row.world=ctx.CivilCensus.total(s);h.roundtrip();report.worlds.push(row);
+ if(classroom){assert.equal(row.uncoveredRounds,0);assert.equal(row.minHealth,100);assert.ok(row.maxAdditionalClassroomNeed>0);// This comparison accepts classroom coverage only; maintenance and link misses remain explicit results.
+}
+}
+assert.ok(report.worlds[0].uncoveredRounds>0);console.log(JSON.stringify(report,null,2));

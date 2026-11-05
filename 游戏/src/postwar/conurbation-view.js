@@ -1,7 +1,7 @@
 /* MPL-2.0 — A second city inside the existing ADR location. No nation menus. */
 var CivilConurbationView={
   selected:'home',section:'overview',depot:'yards',mode:'provisions',share:'equal',built:false,lastContract:null,
-  reset(){this.selected='home';this.section='overview';this.depot='yards';this.mode='provisions';this.share='equal';this.built=false;this.lastContract=null;if(typeof CivilCityNetworkView!=='undefined')CivilCityNetworkView.reset();if(typeof CivilCityCouncilView!=='undefined')CivilCityCouncilView.reset();},
+  reset(){if(typeof CivilDomainView!=='undefined')CivilDomainView.reset();this.selected='home';this.section='overview';this.depot='yards';this.mode='provisions';this.share='equal';this.built=false;this.lastContract=null;if(typeof CivilCityNetworkView!=='undefined')CivilCityNetworkView.reset();if(typeof CivilCityCouncilView!=='undefined')CivilCityCouncilView.reset();},
   select(id){this.selected=id;CivilCityView.refresh(State);CivilCityView.module.body.scrollTop(0);},
   b(id,label,host,reason,action){return CivilCityView.button('metroCity_'+id,label,host,reason,action);},
   ensure(){
@@ -28,6 +28,7 @@ var CivilConurbationView={
   },
   refresh(s){
     if(!CivilConurbation.available(s))return false;this.ensure();
+    CivilDomainView.entry(s);if(CivilDomainView.refresh(s))return true;
     const d=CivilConurbation.data(s),v=CivilCityView,a=n=>v.amount(n),cost=x=>v.cost(x);
     $('#metroCitySwitch').toggle(!!d?.node);$('#metroCitySurvey').toggle(!d?.node);
     $('#metroCitySurvey > p').text(d?.survey?'湖岸普查在途 · '+d.survey.remaining+'秒；两名普查员离开旧厂岗位，旅粮已实付。':'旧测绘记录通往湖岸的公路。先了解另一座城市的人口与地方资产，再商议有限合作。');
@@ -35,7 +36,7 @@ var CivilConurbationView={
     for(const [id,name]of Object.entries({home:'炉火城',lake:'湖滨市',link:'城际协作'}))this.b('select_'+id,name,'#metroCitySwitch',null,()=>{this.select(id);return false;}).attr('aria-pressed',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected)).toggleClass('selected',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected));
     if(typeof CivilCityCouncilView!=='undefined'&&CivilCityCouncilView.refresh(s))return true;
     if(typeof CivilCityNetworkView!=='undefined'&&CivilCityNetworkView.refresh(s))return true;
-    const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#metroCitySwitch,#metroCityBody,#cityCouncilBody').toggle(!away);$('#metroCityBody').toggle(away);
+    const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#metroCitySwitch,#metroCityBody,#cityCouncilBody,#domainBody').toggle(!away);$('#metroCityBody').toggle(away);
     if(!away){$('#cityNetworkBody').hide();$('#metroCitySurvey').toggle(!d?.node&&CivilCityView.view==='overview');return false;}
     const n=d.node,p=CivilCity.count(n),e=n.economy,section=['link','legacy'].includes(this.selected)?'transport':this.section;
     $('#metroCityTitle').text(['link','legacy'].includes(this.selected)?(CivilCityNetwork.data(s)?'湖滨协约':'两城协作'): '湖滨市');
@@ -45,7 +46,7 @@ var CivilConurbationView={
     for(const id of ['overview','production','assets','transport'])$('#metroCitySection_'+id).toggle(section===id);
     CivilInterface.summary('#metroCitySummary_overview',{title:'本地服务',cards:[['当地居民',a(p)],['健康',Math.floor(n.health)+' / 100'],['本地空床',a(CivilCity.housing(s,'lake')-p)],['服务稳定',n.stable>=120?'已稳定（'+n.stable+'秒）':n.stable+' / 120秒']],brief:'普查改变已知范围；合作不改变管辖与住所。',notices:v.issues(s,n),details:[['人口变化','普查时 '+a(d.origin.population)+'；其后出生 '+a(n.born)+'，死亡 '+a(n.dead)+'，净迁居 '+a(CivilCityHomes.delta(s,'lake'))],['公共行政',CivilConurbation.officeReady(s)?'本地公署在职，持续付出粮食、木料与记录开支':'公署人员退休，待备齐交接物资'],['职责接续','已实付交接 '+d.office.records.length+' 次；每名任职者都属于现有年龄群体'] ]});
     $('#metroCityText_overview').text('成年劳力 '+a(CivilCity.workforce(n))+'；儿童 '+a(CivilPopulation.children(n.cohorts))+'；变异居民 '+a(CivilPopulation.count(n.cohorts.filter(c=>c.identity==='mutant')))+'。在途驾驶员仍列于本市居民名册，已从当地生产和口粮中扣除。');
-    const jobs={farmer:'农业',medic:'诊疗',teacher:'教学',smith:'制器',gatherer:'木料',salvager:'回收',waterworker:'水务',driver:'本地运输',publiccourier:'公共接力',publicclerk:'共同事务',steward:'生产办事',publicbuilder:'公共施工',homekeeper:'社区维护',settler:'合作岗位',jobbuilder:'接续施工',jobclerk:'就业办事',joblearner:'岗位学员',jobtutor:'岗位教员',wageworker:'轮班劳务',wagebuilder:'劳务工位安装',courier:'城际驾驶',routebuilder:'道路施工',localbuilder:'工坊施工',clerk:'公署'};
+    const jobs={farmer:'农业',medic:'诊疗',teacher:'教学',smith:'制器',gatherer:'木料',salvager:'回收',waterworker:'水务',driver:'本地运输',publiccourier:'公共接力',publicclerk:'共同事务',regionclerk:'地区联络',regioncourier:'地区驾驶',steward:'生产办事',publicbuilder:'公共施工',homekeeper:'社区维护',settler:'合作岗位',jobbuilder:'接续施工',jobclerk:'就业办事',joblearner:'岗位学员',jobtutor:'岗位教员',wageworker:'轮班劳务',wagebuilder:'劳务工位安装',courier:'城际驾驶',routebuilder:'道路施工',localbuilder:'工坊施工',clerk:'公署'};
     $('#metroCitySummary_production').text(Object.entries(n.workers).filter(([,v])=>v>0).map(([j,v])=>(jobs[j]||j)+' '+a(v)).join(' · '));
     $('#metroCityText_production').text(CivilCityContent.resources.map(k=>(CivilText.labels[k]||k)+' '+a(n.stores[k])+'；近轮 '+CivilInterface.signed(e?.flow[k]||0)).join('\n')+'\n实际制器 '+(e?.worked.smith||0)+' 人，最多'+(d.workshop?.completedAt!==null&&d.workshop?160:80)+'个工坊岗位。工具进口中断时恢复自给，保留粮食、诊疗与水务岗位。');
     CivilInterface.summary('#metroCitySummary_assets',{title:'地方资产账',cards:[['家庭住房',a(d.origin.assets.familyBeds)+'床'],['公共水务',d.origin.assets.publicWaterworks+'处'],['本地工坊',(d.workshop?.completedAt!==null&&d.workshop?160:d.origin.assets.workshopSlots)+'岗位']],brief:'住房不归炉火城公仓。地方公仓只承担已议定的公共职责，协约结束后继续归当地。',notices:[],details:[['来源','湖岸居民在失联年代维持的住房、农田和设施；普查前使用年度粗算，普查后按实际岗位与库存运行'],['人口来源','从北陆未普查名册细分 '+a(d.origin.population)+'人；细分时全球总人数不变'],['施工责任',d.route?'两城各自支付路材并承担当地施工人手':'跨城道路尚未共同修建']]});

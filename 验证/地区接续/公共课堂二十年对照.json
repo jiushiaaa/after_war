@@ -1,0 +1,40 @@
+{
+  "kind": "constructed full-adapter comparison, only normal policy/build functions; original raw296 unchanged",
+  "worlds": [
+    {
+      "classroom": false,
+      "start": 55871,
+      "end": 67871,
+      "minHealth": 100,
+      "minStable": 0,
+      "uncoveredRounds": 180,
+      "maxAdditionalClassroomNeed": 3,
+      "maxAdditionalClassroomPlaces": 0,
+      "maintenanceMisses": 54,
+      "linkMisses": 36,
+      "maintenanceReasons": {
+        "药品要先留给当地": 15,
+        "基础供养尚未稳定": 3
+      },
+      "finalPopulation": 6004357,
+      "world": 550324115
+    },
+    {
+      "classroom": true,
+      "start": 55991,
+      "end": 67991,
+      "minHealth": 100,
+      "minStable": 600,
+      "uncoveredRounds": 0,
+      "maxAdditionalClassroomNeed": 19,
+      "maxAdditionalClassroomPlaces": 19,
+      "maintenanceMisses": 22,
+      "linkMisses": 0,
+      "maintenanceReasons": {
+        "药品要先留给当地": 22
+      },
+      "finalPopulation": 6004357,
+      "world": 550324115
+    }
+  ]
+}
