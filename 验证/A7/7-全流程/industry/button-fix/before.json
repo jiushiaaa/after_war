@@ -1,0 +1,29 @@
+{
+  "at": 4756,
+  "field": {
+    "schema": 1,
+    "gun": true,
+    "ammoMade": 0,
+    "ammoSpent": 0,
+    "actions": [
+      {
+        "at": 3005,
+        "op": "gun",
+        "paid": {
+          "scrap": 24,
+          "tools": 4,
+          "knowledge": 4
+        }
+      }
+    ]
+  },
+  "stores": {
+    "wood": 4161.000000000001,
+    "food": 2717.0799999999945,
+    "fur": 208.50000000000009,
+    "scrap": 503.87000000000677,
+    "tools": 181,
+    "medicine": 44.7300000000006,
+    "knowledge": 69.99999999999991
+  }
+}

@@ -15,6 +15,7 @@ function harness(fixture){
     appendTo(parent){parent=typeof parent==='string'?$(parent):parent;this.parent=parent;parent.children.push(this);if(this.attrs.id)elements.set('#'+this.attrs.id,this);return this;}
     text(value){if(value===undefined)return this.value;this.value=value;return this;}
     show(){this.visible=true;return this;}hide(){this.visible=false;return this;}toggle(value){this.visible=!!value;return this;}
+    is(){return !!this.length&&this.visible;}
     css(){return this;}addClass(){return this;}find(){return new Element(0);}contents(){return this;}filter(){return this;}first(){return this;}replaceWith(){return this;}
   }
   const $=selector=>selector instanceof Element?selector:selector.startsWith('<')?new Element():elements.get(selector)||new Element(0);
@@ -26,7 +27,7 @@ function harness(fixture){
     Notifications:{notify(){},printMessage(){}},$SM:{get:(key,zero)=>get(key)??(zero?0:undefined),fireUpdate(){}}});
   const files=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]).filter(f=>f.startsWith('content/')||f.startsWith('src/postwar/'));
   for(const file of files)vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});
-  for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices','CivilInterface','CivilHearth','CivilFinance','CivilHistory'])if(ctx[name])ctx[name].refresh=()=>{};
+  for(const name of ['CivilVillage','CivilSociety','CivilIndustry','CivilRegions','CivilUrban','CivilOrigins','CivilMunicipal','CivilAdvanced','CivilServices','CivilInterface','CivilHearth','CivilFinance','CivilHistory','CivilReadable','CivilModern','CivilEquipment','CivilCivic','CivilArchives'])if(ctx[name])ctx[name].refresh=()=>{};
   ctx.Room.updateBuildButtons=()=>{};ctx.Civilization.roadModule={};ctx.Civilization.updateIncome=()=>{};
   assert.equal(s.civilization.incidents,undefined);ctx.Civilization.initState();ctx.CivilPlatform.validate(s);
   assert.deepEqual(clone(s.civilization.incidents),emptyIncidents(s.civilization.elapsed));

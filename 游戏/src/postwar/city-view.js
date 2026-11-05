@@ -5,7 +5,7 @@ var CivilCityView={
   act(fn){if(fn()){Engine.saveGame();Civilization.updateIncome();Civilization.refresh();}},
   amount(n){return typeof CivilReadable!=='undefined'?CivilReadable.number(n):Number((n||0).toFixed(1)).toLocaleString('zh-CN');},
   cost(cost){return Object.entries(cost).map(([k,v])=>(CivilText.labels[k]||k)+' '+this.amount(v)).join('、');},
-  button(id,text,host,reason,action){const b=Civilization.button(id,text,host,()=>this.act(action));b.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(text));b.attr('title',reason||'');Button.setDisabled(b,!!reason);return b;},
+  button(id,text,host,reason,action){const handler=()=>this.act(action),b=Civilization.button(id,text,host,handler);/* A reused native button must execute the currently displayed task. */b.data('handler',handler);b.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(text));b.attr('title',reason||'');Button.setDisabled(b,!!reason);return b;},
   ensure(){
     if(this.module)return;const module=this.module={onArrival(diff){document.title='城域';Engine.moveStoresView(null,diff);}};
     module.tab=Header.addLocation('城域','city',module);module.panel=$('<div>').attr('id','cityPanel').addClass('location').appendTo('#locationSlider');

@@ -18,9 +18,9 @@ var CivilGuide={
     }
     if(!b.outpost){
       lack(!!c.tech.metal,'研究金属回收');lack(b.cistern>0,'建集水设施');lack(pop>=8,'居民 '+pop+'/8');
-      lack(true,'建补给外站');return {goal:'设立补给外站',need,where:'room'};
+      lack(false,'建补给外站');return {goal:'设立补给外站',need,where:'room'};
     }
-    if(!v.riverKnown){lack(!!c.tech.handtools,'研究标准手工具');lack(!!c.tech.trails,'研究道路维护');lack(true,'旧公路 → 沿河勘察');return {goal:'寻找河谷',need,where:'road'};}
+    if(!v.riverKnown){const fast=typeof CivilSetup!=='undefined'&&CivilSetup.options(s).fast;if(fast&&!c.tech.trails){lack(!!c.tech.water,'研究净水工艺');lack(!!c.tech.records,'研究'+CivilText.research.records.name);}else{lack(!!c.tech.handtools,'研究标准手工具');lack(!!c.tech.trails,'研究道路维护');}lack(false,'旧公路 → 沿河勘察');return {goal:'寻找河谷',need,where:'road'};}
     if(v.town&&typeof CivilCourse!=='undefined'&&CivilCourse.needsChoice(s))return {goal:'议定小镇方针',need:['等待居民议事（事件窗口）'],note:null};
     if(!v.town){
       lack(!!b.road,'建河谷道路');lack(!!v.riverAllied,'援助河谷并商议互助');lack(pop>=20,'居民 '+pop+'/20');

@@ -1,0 +1,74 @@
+{
+  "file": "战后文明-存档.json",
+  "before": {
+    "at": 4765,
+    "field": {
+      "schema": 1,
+      "gun": true,
+      "ammoMade": 0,
+      "ammoSpent": 0,
+      "actions": [
+        {
+          "at": 3005,
+          "op": "gun",
+          "paid": {
+            "scrap": 24,
+            "tools": 4,
+            "knowledge": 4
+          }
+        }
+      ]
+    },
+    "ammo": 0,
+    "stores": {
+      "wood": 4184.500000000001,
+      "food": 2723.0039999999944,
+      "fur": 208.50000000000009,
+      "scrap": 505.8700000000068,
+      "tools": 182,
+      "medicine": 44.850000000000605,
+      "knowledge": 70.39999999999992
+    }
+  },
+  "after": {
+    "at": 4765,
+    "field": {
+      "schema": 1,
+      "gun": true,
+      "ammoMade": 4,
+      "ammoSpent": 0,
+      "actions": [
+        {
+          "at": 3005,
+          "op": "gun",
+          "paid": {
+            "scrap": 24,
+            "tools": 4,
+            "knowledge": 4
+          }
+        },
+        {
+          "at": 4765,
+          "op": "ammo",
+          "paid": {
+            "scrap": 2,
+            "wood": 1,
+            "tools": 0.1
+          }
+        }
+      ]
+    },
+    "ammo": 4,
+    "stores": {
+      "wood": 4183.500000000001,
+      "food": 2723.0039999999944,
+      "fur": 208.50000000000009,
+      "scrap": 503.8700000000068,
+      "tools": 181.9,
+      "medicine": 44.850000000000605,
+      "knowledge": 70.39999999999992,
+      "ammunition": 4
+    }
+  },
+  "errors": []
+}

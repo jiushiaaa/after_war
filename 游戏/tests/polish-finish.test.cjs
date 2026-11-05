@@ -15,6 +15,12 @@ test('A7 extra logistics stops only new departures and remains opt-in; old saves
  const e={action:'start',equipmentVersion:1,at:300},d={world:{}};a.attach(s,e);a.open(d,e);assert.equal(d.world.scenario.autonomy,true);
  delete s.civilization.polishVersion;delete s.civilization.setup;const exact=JSON.stringify(s);a.opening(s);a.validate(s);assert.equal(a.freightReason(s),null);assert.equal(JSON.stringify(s),exact);
 });
+test('A7 fast-start river guidance reflects the actual alternative contact prerequisites',()=>{
+ const {s,ctx}=fresh();ctx.CivilSetup.opening(s);ctx.CivilSetup.confirm(s,{seed:1,fast:true,logistics:false,autonomy:false});
+ Object.assign(s.civilization,{settled:true,station:true,pump:true});Object.assign(s.game.buildings,{workshop:1,outpost:1});
+ const guide=ctx.CivilGuide.steps(s);assert.equal(guide.goal,'寻找河谷');assert.ok(guide.need.includes('研究'+ctx.CivilText.research.records.name));assert.ok(!guide.need.includes('研究道路维护'));
+ s.civilization.tech.water=true;s.civilization.tech.records=true;assert.deepEqual(Array.from(ctx.CivilGuide.steps(s).need),['旧公路 → 沿河勘察']);
+});
 test('A7 archives have eight original chains with three gated nodes; awards never change assets',()=>{
  const {s,ctx}=fresh(),a=ctx.CivilArchives,nodes=a.nodes(s);assert.equal(nodes.length,24);
  for(const chain of Object.keys(a.chains))assert.equal(nodes.filter(n=>n.chain===chain).length,3);
