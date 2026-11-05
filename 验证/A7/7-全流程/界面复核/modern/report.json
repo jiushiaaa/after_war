@@ -1,0 +1,124 @@
+{
+  "kind": "native UI on independent copy of the public supply-recovery export",
+  "views": [
+    {
+      "width": 1280,
+      "docWidth": 1280,
+      "desk": {
+        "x": 400,
+        "y": 179.65625,
+        "width": 420,
+        "height": 145.1875,
+        "top": 179.65625,
+        "right": 820,
+        "bottom": 324.84375,
+        "left": 400
+      },
+      "intro": {
+        "x": 400,
+        "y": 124.78125,
+        "width": 420,
+        "height": 42.875,
+        "top": 124.78125,
+        "right": 820,
+        "bottom": 167.65625,
+        "left": 400
+      },
+      "stores": {
+        "x": 878,
+        "y": 87.78125,
+        "width": 222,
+        "height": 232,
+        "top": 87.78125,
+        "right": 1100,
+        "bottom": 319.78125,
+        "left": 878
+      },
+      "color": "rgb(34, 34, 34)"
+    },
+    {
+      "width": 853,
+      "docWidth": 853,
+      "desk": {
+        "x": 10,
+        "y": 392.265625,
+        "width": 420,
+        "height": 155.75,
+        "top": 392.265625,
+        "right": 430,
+        "bottom": 548.015625,
+        "left": 10
+      },
+      "intro": {
+        "x": 10,
+        "y": 337.390625,
+        "width": 420,
+        "height": 42.875,
+        "top": 337.390625,
+        "right": 430,
+        "bottom": 380.265625,
+        "left": 10
+      },
+      "stores": {
+        "x": 10,
+        "y": 52.390625,
+        "width": 833,
+        "height": 232,
+        "top": 52.390625,
+        "right": 843,
+        "bottom": 284.390625,
+        "left": 10
+      },
+      "color": "rgb(34, 34, 34)"
+    },
+    {
+      "width": 390,
+      "docWidth": 390,
+      "desk": {
+        "x": 10,
+        "y": 422.65625,
+        "width": 370,
+        "height": 155.75,
+        "top": 422.65625,
+        "right": 380,
+        "bottom": 578.40625,
+        "left": 10
+      },
+      "intro": {
+        "x": 10,
+        "y": 367.78125,
+        "width": 370,
+        "height": 42.875,
+        "top": 367.78125,
+        "right": 380,
+        "bottom": 410.65625,
+        "left": 10
+      },
+      "stores": {
+        "x": 10,
+        "y": 82.78125,
+        "width": 370,
+        "height": 232,
+        "top": 82.78125,
+        "right": 380,
+        "bottom": 314.78125,
+        "left": 10
+      },
+      "color": "rgb(34, 34, 34)"
+    }
+  ],
+  "dark": "rgb(221, 221, 221)",
+  "selection": {
+    "before": {
+      "mode": "balanced",
+      "knowledge": 80.780000000001,
+      "actions": 3
+    },
+    "after": {
+      "mode": "balanced",
+      "knowledge": 72.780000000001,
+      "actions": 5
+    }
+  },
+  "errors": []
+}

@@ -2,6 +2,7 @@
 #policyButton { position:absolute; left:150px; top:0; }
 #researchBtns { position:absolute; left:150px; top:50px; width:145px; }
 #researchBtns:before { content:attr(data-legend); position:relative; top:-5px; }
+#civilResearchIntro, #modernDesk { width:420px; max-width:100%; box-sizing:border-box; }
 #researchStatus { font-size:13px; line-height:1.7; width:145px; }
 #socialNote { position:absolute; top:165px; left:160px; width:230px; font-size:14px; line-height:1.8; }
 #journeyStatus { width:410px; margin-bottom:25px; line-height:1.8; }
