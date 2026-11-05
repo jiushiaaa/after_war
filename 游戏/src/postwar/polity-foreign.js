@@ -61,6 +61,7 @@ var CivilPolityForeign={
    n.population=pop;n.staffed=staffed;n.trust=Math.max(20,Math.min(100,60+Math.floor(peer.paid/10)-Math.floor(peer.missed/10)));
    this.contribute(d,id,at);
   }
+  if(typeof CivilEquipment!=='undefined')CivilEquipment.period(d,e,effects);
   if(!w.foreign)return;w.nodes.north.staffed=political;
   if(at-w.foreign.lastRoundAt>=300){const before=Object.fromEntries(Object.entries(w.nodes).map(([id,n])=>[id,n.casualties]));const stocks=this.stocks(d);CivilForeign.round(w,{at,political,rights:d.laws.rights,devolution:d.laws.devolution});this.bookExternal(d,stocks);for(const [id,n]of Object.entries(w.nodes)){const lost=n.casualties-before[id];if(!lost)continue;if(id==='north')effects.north.dead+=lost;else CivilPolity.casualties(d.peers[id].local,lost);}}
  },

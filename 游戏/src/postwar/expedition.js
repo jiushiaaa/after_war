@@ -4,7 +4,7 @@
    the home workforce; supplies leave the shared stores once and return once. */
 var CivilExpedition={
   C:()=>CivilExpeditionContent,
-  prep:{members:1,food:4,water:6,kit:false},
+  prep:{members:1,food:4,water:6,kit:false,armed:false},
   data(s){return s.civilization.expedition||null;},
   unlocked(s){return !!s.game.buildings.workshop;},
   legacyJourney(s){return ['station','pump','salvage'].includes(s.civilization.journey?.id)||['station','pump','salvage'].includes(s.civilization.pending);},
@@ -51,7 +51,7 @@ var CivilExpedition={
   awayEaters(s){return s.civilization?.expedition?.party?.members||0;},
   freeHands(s){return typeof Outside!=='undefined'&&Outside.getNumGatherers?Outside.getNumGatherers():0;},
   departCost(s,p){
-    const kit=p.kit?this.C().repairKit:{},cost={food:p.food,wood:Math.round((p.water*this.waterWood(s)+(kit.wood||0))*100)/100};
+    const kit=p.kit?this.C().repairKit:{},cost={...(p.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))?{ammunition:4}:{}),food:p.food,wood:Math.round((p.water*this.waterWood(s)+(kit.wood||0))*100)/100};
     if(kit.scrap)cost.scrap=kit.scrap;for(const k of Object.keys(cost))if(!cost[k])delete cost[k];return cost;
   },
   departReason(s,p=this.prep){
@@ -63,7 +63,8 @@ var CivilExpedition={
     if(this.legacyJourney(s))return '先处理旧公路上的行程';
     if(!Number.isInteger(p.members)||p.members<1||p.members>C.maxMembers)return '小队人数无效';
     if(this.freeHands(s)<p.members)return '需要 '+p.members+' 名空闲居民（采木工），现有 '+Math.max(0,this.freeHands(s));
-    const pack={food:p.food,water:p.water,...(p.kit?C.repairKit:{})};
+    const pack={food:p.food,water:p.water,...(p.kit?C.repairKit:{}),...(p.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))?{ammunition:4}:{})};
+    if(p.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))&&!s.civilization.fieldEquipment?.gun)return '先修复猎枪';
     if(this.weight(pack)>this.capacity(s,p.members)+1e-9)return '超出背负上限';
     if(p.food<=0||p.water<=0)return '至少带上口粮和饮水';
     if(!CivilRules.canPay(s,this.departCost(s,p)))return '库存不足';
@@ -74,7 +75,8 @@ var CivilExpedition={
     const C=this.C(),cost=this.departCost(s,p);
     if(!CivilRules.pay(s,cost))return false;
     const d=this.ensure(s);
-    d.party={members:p.members,pos:[...C.home],prev:[...C.home],pack:{food:p.food,water:p.water,...(p.kit?{...C.repairKit}:{})},cap:this.capacity(s,p.members),steps:0,departedAt:s.civilization.elapsed,hurt:0,starving:0,encounter:null,smoke:false,paid:cost};
+    d.party={members:p.members,pos:[...C.home],prev:[...C.home],pack:{food:p.food,water:p.water,...(p.kit?{...C.repairKit}:{})},...(p.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))?{noise:0}:{}),cap:this.capacity(s,p.members),steps:0,departedAt:s.civilization.elapsed,hurt:0,starving:0,encounter:null,smoke:false,paid:cost};
+    if(p.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s)))d.party.pack.ammunition=4;
     d.trips++;
     if(typeof CivilSociety!=='undefined')CivilSociety.trimJobs(s);
     return true;
@@ -112,6 +114,7 @@ var CivilExpedition={
     if(short&&p.starving>=3){this.collapse(s);return 'collapse';}
     const [x,y]=p.pos,t=this.terrain(x,y);
     if(this.tile(x,y)==='A'){this.arrive(s);return 'home';}
+    if((typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))&&p.noise>0){p.noise--;if(p.noise===3){p.encounter='beetle';return 'encounter';}}
     if(t.danger&&d.beetles!=='observed'&&!p.smoke){p.encounter='beetle';if(d.beetles==='unknown')d.beetles='seen';return 'encounter';}
     const cache=d.caches.find(k=>!k.taken&&k.x===x&&k.y===y);
     if(cache){
@@ -171,6 +174,7 @@ var CivilExpedition={
   },
   collapse(s){
     const d=this.data(s),p=d.party,C=this.C(),c=s.civilization,paid=CivilRules.pay(s,C.rescue);
+    if((typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s)))s.civilization.fieldEquipment.ammoSpent+=p.pack.ammunition||0;
     if(p.pack.archive&&d.sites.ruin.state==='carried')d.sites.ruin.state='new';
     d.resting={count:p.members,until:c.elapsed+(paid?C.injuryRest:C.injuryRest*2)};
     this.record(s,'rescue','近郊救援',p.members+'人在离家'+p.steps+'步处耗尽补给。'+(paid?'聚落拿出食物 '+C.rescue.food+'、木料 '+C.rescue.wood+' 组织救援，':'聚落拿不出救援物资，他们自己拖着身子回来，')+'背包里的东西都留在了荒地。');
@@ -183,6 +187,7 @@ var CivilExpedition={
     const out={site,options:[]},add=(id,text,reason=null)=>out.options.push({id,text,reason});
     if(site==='beetle'){
       add('back','退回原路绕开');
+      if((typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))){add('shoot','开枪驱散（2发；枪声会招来追随者）',(p.pack.ammunition||0)<2?'携带弹药不足':null);add('silent','静默绕过（多耗两步口粮和水）',(p.pack.food||0)<p.members*C.member.food*2||(p.pack.water||0)<p.members*C.member.water*2?'补给不足':null);}
       add('smoke','点燃枯枝驱散（木料 2）',(p.pack.wood||0)+1e-9<2?'背包里没有木料':null);
       add('observe','伏低观察它们的习性（多耗一轮口粮和水）',(p.pack.food||0)<p.members*C.member.food*5||(p.pack.water||0)<p.members*C.member.water*5?'补给不够在原地停留':null);
       add('rush','硬闯过去');
@@ -218,6 +223,8 @@ var CivilExpedition={
     const opt=info?.options.find(o=>o.id===id);if(!opt||opt.reason)return false;
     const C=this.C(),site=info.site,c=s.civilization;
     if(site==='beetle'){
+      if(id==='shoot'){p.pack.ammunition-=2;c.fieldEquipment.ammoSpent+=2;p.noise=6;p.encounter=null;p.smoke=true;this.record(s,'beetle','近郊枪声','两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。');return '枪声越过了荒地。眼前的虫群退开，远处有什么东西开始移动。';}
+      if(id==='silent'){this.consume(p,2);p.encounter=null;p.smoke=true;p.noise=0;this.record(s,'beetle','静默绕行','小队花两步补给绕开，没有留下枪声。');return '脚步埋进湿土里。小队慢慢绕过洼地。';}
       if(id==='back'){p.pos=[...p.prev];p.encounter=null;return '小队退回了洼地边缘。';}
       if(id==='smoke'){p.pack.wood=Math.round((p.pack.wood-2)*100)/100;p.smoke=true;p.encounter=null;this.record(s,'beetle','烟驱甲虫','湿枝的烟让甲虫缩回了石缝。这次能过去，下次它们还会出来。');return '浓烟压低了洼地。甲虫缩回了碎石下面。';}
       if(id==='observe'){this.consume(p,5);d.beetles='observed';p.encounter=null;this.record(s,'beetle','记下灰壳甲虫的习性','甲虫在气温最低时停止活动。之后小队只在寒冷时段穿过洼地。');return '你们趴在碎石后面看了很久。气温降下来后，甲虫一只只僵住不动了。';}
@@ -282,7 +289,7 @@ var CivilExpedition={
     if(p!==null){
       if(!obj(p)||!Number.isInteger(p.members)||p.members<1||p.members>C.maxMembers||!Array.isArray(p.pos)||!this.terrain(...p.pos)?.pass||!Array.isArray(p.prev)||!obj(p.pack)||!fin(p.cap)||!int(p.steps)||!int(p.hurt)||p.hurt>p.members||!int(p.starving)||![null,'beetle'].includes(p.encounter)||typeof p.smoke!=='boolean')fail();
       for(const [k,n] of Object.entries(p.pack))if(!(k in C.weight)||!fin(n))fail();
-      if(this.weight(p.pack)>p.cap+1e-6)fail();
+      if(this.weight(p.pack)>p.cap+1e-6)fail();if(p.noise!==undefined&&(!(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(state))||!int(p.noise)||p.noise>6))fail();
       if((p.pack.archive||0)>0!==(d.sites.ruin.state==='carried'))fail();
     }
     if(this.unavailable(state)>(state.game.population||0))fail();
@@ -398,7 +405,7 @@ var CivilExpedition={
       back.appendTo(ctl);Button.setDisabled(back,!est||est.steps===null||!!p.encounter||!!Events.activeEvent());
       if(this.choices(s)){const look=Civilization.button('expeditionLook',p.encounter?'处理眼前情况':'查看此处',ctl,()=>this.openChoices());look.appendTo(ctl);Button.setDisabled(look,!!Events.activeEvent());}
     } else {
-      const pr=this.prep,cap=this.capacity(s,pr.members),pack={food:pr.food,water:pr.water,...(pr.kit?C.repairKit:{})},w=this.weight(pack);
+      const pr=this.prep,cap=this.capacity(s,pr.members),pack={food:pr.food,water:pr.water,...(pr.kit?C.repairKit:{}),...(pr.armed&&(typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))?{ammunition:4}:{})},w=this.weight(pack);
       const row=(label,key,stepN,min,max,unit)=>{
         const r=$('<div>').addClass('civil-outfit').appendTo(ctl);$('<span>').addClass('civil-outfit-name').text(label).appendTo(r);
         this.step('−','减少'+label,()=>{pr[key]=Math.max(min,Math.round((pr[key]-stepN)*100)/100);this.refresh(true);}).appendTo(r);
@@ -412,6 +419,7 @@ var CivilExpedition={
       const kit=$('<div>').addClass('civil-outfit').appendTo(ctl);
       this.step(pr.kit?'☑ 带泵站维修件':'☐ 带泵站维修件','切换是否携带泵站维修件',()=>{pr.kit=!pr.kit;this.refresh(true);}).attr('aria-pressed',pr.kit?'true':'false').appendTo(kit);
       $('<span>').addClass('civil-outfit-note').text('木料 '+C.repairKit.wood+'、废料 '+C.repairKit.scrap).appendTo(kit);
+      if((typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s))&&s.civilization.fieldEquipment?.gun)this.step(pr.armed?'☑ 携带猎枪与4发弹药':'☐ 携带猎枪与4发弹药','切换是否携带猎枪与弹药',()=>{pr.armed=!pr.armed;this.refresh(true);}).attr('aria-pressed',String(pr.armed)).appendTo(ctl);
       const reach=pr.members*C.member.food>0?Math.floor(Math.min(pr.food/(pr.members*C.member.food),pr.water/(pr.members*C.member.water))):0;
       const cost=this.departCost(s,pr);
       $('<div>').addClass('civil-pack').toggleClass('civil-warning',w>cap).text('背负 '+Math.round(w*10)/10+' / '+cap+' · 补给可走约 '+reach+' 步（往返各半） · 出发扣除 '+Object.entries(cost).map(([k,n])=>(CivilText.labels[k]||k)+' '+n).join('、')).appendTo(ctl);

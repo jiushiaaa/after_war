@@ -19,6 +19,7 @@
     if(c.polishVersion!==undefined&&(c.polishVersion!==1||c.ruleset!==2))throw Error('未知成品规则版本');
     if(typeof CivilGenerations!=='undefined')CivilGenerations.validate(state);
     if(typeof CivilModern!=='undefined')CivilModern.validate(state);
+    if(typeof CivilEquipment!=='undefined')CivilEquipment.fieldValidate(state);
     if(![1,2,4,8,16,32,64].includes(c.speed) || ![1,2,4,8,16,32,64].includes(c.maxSpeed) || c.speed > c.maxSpeed) throw Error('倍率无效');
     if(c.maxSpeed>=32&&!c.tech?.orbital_survey&&!(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)))throw Error('32倍速需要实际国约机构或轨道测绘');
     if(c.maxSpeed>=64&&!c.space?.unification&&!c.polity?.earth?.unity)throw Error('64倍速需要地球共同法');

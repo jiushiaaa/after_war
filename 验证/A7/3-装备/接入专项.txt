@@ -1,0 +1,36 @@
+✔ pause blocks departure, walking and automatic return without consuming supplies (9.199458ms)
+✔ a party takes real residents and paid supplies out once and returns its load once (2.819458ms)
+✔ the transit station reward is granted once, survives reload, and the backpack limit leaves the rest on site (2.889708ms)
+✔ the pump needs real repair parts carried from home and the old timed path stays closed (2.822667ms)
+✔ running out of supplies ends in a paid rescue, loses the pack and rests the party; nobody is deleted (14.874833ms)
+✔ archives or metal: the weather station choice is exclusive and archives only count once they reach home (2.672833ms)
+✔ invited survivors move in only when beds and food really exist (3.606ms)
+✔ legacy saves with a finished station are mapped as known places without re-granting rewards (2.26225ms)
+✔ a preserved archive opens cold-warning research; dismantling gives metal but no research (12.767792ms)
+✔ the next-step guide reads real conditions and names the town-charter blocker (3.137667ms)
+✔ national institutions are explicit, preserve both old worlds and cannot appear before real regional responsibility (9616.306125ms)
+✔ local cofunding uses paid existing production, keeps original pact cargo and survives population growth (44286.375375ms)
+✔ a constructed empty public reserve is replenished only by existing medic capacity and paid local inputs (120.547792ms)
+✔ a paid constitution consumes local capital, finite real jobs and shipped levies before nationhood (24043.126958ms)
+✔ public shutdown keeps cargo and fees, service resumes without rewriting local history (3528.540042ms)
+✔ public stores, source receipts, unpaid labor and forged charter changes fail strict replay (2707.7515ms)
+✔ 127 preserves old promises; optional network costs actual resources and early game stays locked (5822.877417ms)
+✔ public inputs are paid at home, occupy destination capacity and arrive only after physical travel (14472.097958ms)
+✔ export settlement consumes actual goods, credits real creditor and preserves zero-sum accounts (18998.7685ms)
+✔ permission is third-party consent; two legs pay one toll, reserve hub capacity, expire without changing dispatched goods (9680.53825ms)
+✔ blocked transit holds, physically returns cargo, reverses claim and refunds unpaid toll exactly once (176.874208ms)
+✔ credit review requires real deliveries and sustained solvency, resets on breach and never deletes history (333.546458ms)
+✔ fronts spend real military stores, apply delivered allied support, cease fire and cease blocking after diplomacy (328.124583ms)
+✔ full adapter and forecast replay network history; forged cargo, debt discipline and review completion are rejected (10132.314083ms)
+✔ host refusal and expiring reservations cannot invent cargo or claims (159.406625ms)
+✔ network page and costs are validated and unified members cannot be ordered into war (3339.48275ms)
+✔ independent pre-unification replay reaches funded fronts and a finite ceasefire without synthetic war flags (9587.756792ms)
+✔ hostile states choose doctrine autonomously and the player cannot command their armies (158.95975ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 84356.870416

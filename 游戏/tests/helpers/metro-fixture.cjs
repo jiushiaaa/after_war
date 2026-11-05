@@ -24,6 +24,8 @@ function harness(saved){
     click(key){assert.ok(active?.scenes.start.buttons[key],`native event button ${key}`);ctx.Events.buttonClick({attr:()=>key});},
     chooseRoutine(){if(!active)return;const pending=s.civilization.pending,buttons=active.scenes.start.buttons;if(pending==='metroCharter'||pending==='metroStatus')return;
       if(pending==='succession'){this.click(Object.hasOwn(buttons,'engineer')?'engineer':Object.keys(buttons)[0]);return;}
+      if(pending==='generation_head'){this.click('keep');return;}
+      if(pending==='modern_era'){this.click('continue');return;}
       if(pending==='cold'){this.click('wood');return;}
       // The test operator pays each real warning through its native choice;
       // no random incidents, costs or automatic-maintenance decisions are skipped.

@@ -131,7 +131,7 @@ var CivilLeagues={
     if(o.transit)return CivilTransit.arrive(d,o);
     if(!o.route)return true;
     const risk=CivilForeign.fighting(d,o.from)||CivilForeign.fighting(d,o.to)||['war','embargo'].includes(d.foreign.pairs[CivilForeign.pair(o.from,o.to)].phase);
-    if(!risk||o.route==='detour'||o.route==='escort')return true;
+    if(!risk||o.route==='detour'||o.route==='escort'&&(typeof CivilEquipment==='undefined'||CivilEquipment.escort(d,o.from,at)||CivilEquipment.escort(d,o.to,at)))return true;
     if(o.heldAt===undefined){o.heldAt=at;this.log(d,at,'route',CivilForeign.name(o.from)+'至'+CivilForeign.name(o.to)+'的直达货车因冲突滞留；600秒后仍不通则退运。');}
     if(at-o.heldAt<600)return false;
     CivilRegions.credit(d.nodes[o.from].stores,o.cargo);CivilForeign.account(d.foreign,o.from,-o.value,at);CivilForeign.account(d.foreign,o.to,o.value,at);o.returned=true;o.arrivedAt=at;

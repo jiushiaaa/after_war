@@ -27,6 +27,7 @@ var Civilization = {
     if(typeof CivilCensus!=='undefined')CivilCensus.init(State);
     if(typeof CivilGenerations!=='undefined')CivilGenerations.init(State);
     if(typeof CivilModern!=='undefined')CivilModern.init(State);
+    if(typeof CivilEquipment!=='undefined')CivilEquipment.init(State);
   },
   init() {
     this.resetViewRefresh();
@@ -560,6 +561,7 @@ var Civilization = {
     if(typeof CivilNav!=='undefined')CivilNav.order();
     if(typeof CivilReadable!=='undefined')CivilReadable.refresh(State);
     if(typeof CivilModern!=='undefined')CivilModern.refresh(State);
+    if(typeof CivilEquipment!=='undefined')CivilEquipment.refresh(State);
     $('#stores').attr('data-legend',c.ruleset===2?(CivilCity.available(State)?'原镇公仓':_('stores')):c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {
