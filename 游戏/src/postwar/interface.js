@@ -171,6 +171,14 @@ var CivilInterface={
   },
   // Whole-page refresh already rendered these summaries in their owning modules.
   // Direct category clicks retain the default immediate summary update.
-  refresh(s,{summaries=true}={}){this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);this.village(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
+  inventory(s){
+    const stores=$('#stores');if(!stores.length)return;
+    let fold=$('#civilStoreFold');const compact=typeof Engine.narrow==='function'&&Engine.narrow()&&s.civilization?.village?.town;
+    if(!compact){if(fold.length){this.storesExpanded=fold.prop('open');stores.insertBefore(fold);fold.remove();}return;}
+    if(!fold.length){fold=$('<details>').attr('id','civilStoreFold').prop('open',!!this.storesExpanded).insertBefore(stores);$('<summary>').appendTo(fold);stores.appendTo(fold);fold.on('toggle',()=>{this.storesExpanded=fold.prop('open');});}
+    const fmt=(k)=>CivilReadable.resource(s.stores[k]||0,k,s.civilization.polishVersion===1);
+    fold.children('summary').text((stores.attr('data-legend')||'公仓')+' · 粮 '+fmt('food')+' · 工具 '+fmt('tools')).attr('aria-label','展开或收起本地公仓完整库存；粮食 '+fmt('food')+'，工具 '+fmt('tools'));
+  },
+  refresh(s,{summaries=true}={}){this.inventory(s);this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);this.village(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
   reset(){this.views={};this.researchModule=null;}
 };

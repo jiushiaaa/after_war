@@ -19,6 +19,10 @@
   /* Stores move into the document flow under the active place. */
   div#storesContainer { position: static !important; margin: 14px 0; }
   div#stores, div#village { width: auto; max-width: 100%; box-sizing: border-box; }
+  #civilStoreFold { border-bottom:1px solid #999; padding:4px 0 8px; color:var(--civil-ink,#222); }
+  #civilStoreFold > summary { cursor:pointer; min-height:32px; line-height:1.6; }
+  #civilStoreFold[open] > #stores { margin-top:16px; }
+  body.dark #civilStoreFold { color:#ddd; }
   div#village { margin: 0 0 14px; }
   div#workers { position: static; width: auto; margin-top: 14px; }
   div#buildBtns, div#craftBtns, div#buyBtns { position: static; margin-top: 18px; }

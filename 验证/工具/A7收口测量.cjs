@@ -1,0 +1,40 @@
+// Read-only audit. Actual wall and nominal simulated advancement remain different clocks.
+const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib');
+const root=path.resolve(__dirname,'../A7收口'),walk=d=>fs.existsSync(d)?fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)]):[];
+const lines=f=>fs.readFileSync(f,'utf8').split('\n').filter(Boolean).map(x=>JSON.parse(x)),load=f=>{const r=JSON.parse(fs.readFileSync(f));return(r.encoding?JSON.parse(z.gunzipSync(Buffer.from(r.data,'base64'))):r).state;};
+const reports={kind:'Read-only independent UI lineages; no human attention or first-player claim',routes:{}};
+for(const route of ['public','industry']){
+ const dir=path.join(root,route),files=walk(dir),exports=files.filter(f=>/战后文明-存档.*\.json$/.test(f)).map(file=>({file,s:load(file)})).sort((a,b)=>a.s.civilization.elapsed-b.s.civilization.elapsed);if(!exports.length)continue;
+ const {file,s}=exports.at(-1),c=s.civilization,d=c.polity,f=d?.future,end=d?.earth?.ending?.at||c.elapsed;
+ const inputs=files.filter(p=>p.endsWith('actions.ndjson')).flatMap(lines).sort((a,b)=>a.wall.localeCompare(b.wall)),timeline=lines(path.join(dir,'timeline.ndjson')),start=Date.parse(JSON.parse(fs.readFileSync(path.join(dir,'start.json'))).wall);
+ let high=0,active=0;const intervals=[];for(let i=0;i<timeline.length;i++){const x=timeline[i],prev=timeline[Math.max(0,i-1)],to=Math.max(high,x.at),rate=Math.max(1,prev.effectiveRate||prev.rate);intervals.push({from:high,to,active,rate,wall:Date.parse(x.wall),fromWall:i?Date.parse(prev.wall):start});active+=(to-high)/rate;high=to;}
+ const nominal=at=>{const p=intervals.find(x=>x.to>=at)||intervals.at(-1);return(p.active+Math.max(0,at-p.from)/p.rate)/60;};
+ const wallAt=at=>{const exact=inputs.find(x=>Math.abs((x.at??x.sim)-at)<=2);if(exact)return Date.parse(exact.wall);const p=intervals.find(x=>x.to>=at)||intervals.at(-1);return p.fromWall+(p.wall-p.fromWall)*(p.to===p.from?1:Math.max(0,Math.min(1,(at-p.from)/(p.to-p.from))));};
+ const choices=[],dedup=new Set(),add=(at,type,value,proof,unique=type+':'+value)=>{if(!Number.isFinite(at)||at>end||dedup.has(unique))return;dedup.add(unique);choices.push({at,nominalMinute:nominal(at),wallMinute:(wallAt(at)-start)/60000,type,value,proof});};
+ for(const r of c.decisions?.records||[])if(r.kind==='policy'&&r.from!==r.to)add(r.at,'配给',r.to,'changed policy record');
+ const charter=c.decisions?.records?.filter(r=>r.kind==='founding')||[];if(charter.length)add(charter[0].at,'共同章程',charter.map(r=>r.axis+':'+r.to).join('/'),'four axes count as one');
+ for(const [i,r]of(c.workMandate?.changes||[]).entries())if(r.enabled){const next=c.workMandate.changes[i+1];if((next?.at??end)-r.at>=60)add(r.at,'轮值方针',r.mode,'paid mandate, sustained at least one maintenance interval; repeated directions excluded');}
+ if(c.course){add(c.course.chosenAt,'城镇路线',c.course.id,'course record');if(c.course.issue?.moved>0)add(c.course.issue.at,'社会用工',c.course.issue.option,'actual workers moved');if(c.course.craftsman)add(c.course.craftsman.at,'工匠交接',c.course.craftsman.mode,'actual production successor');}
+ for(const r of c.expedition?.records||[])if(['ruin','beetle'].includes(r.kind))add(r.at,'近郊处置',r.title+' '+r.detail,'expedition outcome');
+ const civic=c.deliberation?.records||[];
+ for(const r of civic){const input=inputs.find(x=>x.kind==='deliberate_choice'&&x.agenda===r.id&&Math.abs(x.at-r.at)<=100);if(r.result!=='passed'||input?.changesRule!==true)continue;const roster=['opening_work','town_work'].includes(r.id);if(roster)continue;add(r.at,'生效议题',r.id+':'+r.value,'passed record + actual pre-choice owner');}
+ const represented=(id,value,at)=>civic.some(r=>r.id===id&&r.value===value&&r.result==='passed'&&Math.abs(r.endedAt-at)<=5);
+ for(const [id,w]of Object.entries(c.city?.institutions?.wards||{}))for(const r of w.changes||[]){const agenda={profile:'city_food',careMethod:'city_care',schoolEnabled:'city_school'}[r.key];if(agenda&&!(id===Object.keys(c.city.institutions.wards)[0]&&represented(agenda,r.value,r.at)))add(r.at,'片区生产与接班',id+':'+r.key+':'+r.value,'institution change and paid original costs');}
+ for(const r of c.conurbation?.policies||[])if(['sign','share'].includes(r.kind)&&!represented(r.kind==='sign'?'city_exchange':'city_burden',r.value,r.at))add(r.at,'两城合作',r.kind+':'+r.value,'real contract or paid share');
+ for(const r of c.cityNetwork?.policies||[])if(r.kind==='priority'&&!represented('cluster_freight',r.value,r.at))add(r.at,'有限车辆顺序',r.value,'actual paid priority');
+ for(const r of c.cityBudget?.decisions||[])if(!represented('cluster_budget',r.mode,r.at))add(r.at,'共同预算',r.mode,'paid budget authority');
+ for(const r of c.cityCouncil?.receipts||[])if(r.kind==='governancePolicy'&&!represented('cluster_production',r.mode,r.at))add(r.at,'共同生产章程',r.mode,'paid governance receipt; same multi-city choice counted once');
+ for(const r of d?.records||[]){const a=r.args;if(r.action==='earth'&&a.op==='offer')add(r.at,'地区责任',a.region+':'+a.mode,'real funded proposal');
+  if(r.action==='future'&&a.op==='echo'&&a.choice!=='depart'&&f.echo?.choice===a.choice)add(r.at,'回响',a.choice,'same expedition outcome');
+  if(r.action==='future'&&a.op==='policy'&&a.key==='method')add(r.at,'先进生产取舍',a.value,'paid production mode');
+  if(r.action==='future'&&a.op==='law'&&f.lawsHistory.some(h=>h.key===a.key&&h.value===a.value&&h.accepted&&h.at>=r.at&&h.at<=r.at+1200)&&!choices.some(x=>x.type==='生效议题'&&Math.abs(x.at-r.at)<600&&x.value.endsWith(':'+a.value)))add(r.at,'身体与劳动法',a.key+':'+a.value,'accepted law history');
+  if(r.action==='future'&&a.op==='adopt'&&(a.body==='synthetic'?f.created:f.converted[a.body])>=a.count)add(r.at,'自愿身体方向',a.body,'paid and completed adoption, repeated batches excluded');
+ }
+ choices.sort((a,b)=>a.at-b.at);const advanceMinutes=nominal(end),wallMinutes=(wallAt(end)-start)/60000;
+ const windows=(minutes,key)=>Array.from({length:Math.ceil(minutes/30)},(_,i)=>({from:i*30,to:Math.min(minutes,(i+1)*30),choices:choices.filter(x=>x[key]>=i*30&&x[key]<(i+1)*30).map(x=>x.type+' '+x.value)}));
+ const nominalWindows=windows(advanceMinutes,'nominalMinute'),wallWindows=windows(wallMinutes,'wallMinute'),jobInputs={};for(const x of inputs){const m=(x.css||x.expr||x.selector||'').match(/workers_row_(\w+)/);if(x.kind==='click'&&m)jobInputs[m[1]]=(jobInputs[m[1]]||0)+1;}
+ const phases=[];let current=null;for(const x of timeline.filter(x=>x.at<=end)){if(x.stage!==current){phases.push({stage:x.stage,at:x.at,wallMinute:(Date.parse(x.wall)-start)/60000,nominalMinute:nominal(x.at)});current=x.stage;}}
+ const report={route,complete:!!d?.earth?.ending,native:path.relative(root,file),end,wallMinutes,advanceMinutes,phases,jobInputs,allInputClicks:inputs.filter(x=>x.kind==='click').length,choices,nominalWindows,wallWindows,nominalBelowTwo:nominalWindows.filter(x=>x.to-x.from>=29.9&&x.choices.length<2),wallBelowTwo:wallWindows.filter(x=>x.to-x.from>=29.9&&x.choices.length<2),largestNominalChoiceGap:choices.slice(1).map((x,i)=>({from:choices[i].at,to:x.at,minutes:x.nominalMinute-choices[i].nominalMinute})).sort((a,b)=>b.minutes-a.minutes)[0],limits:['UI scripts are experienced controllers, not real new players.','Wall includes native checkpointing and UI pauses; nominal excludes them and uses sampled effective rates.','Ordinary building/research, repeating directions, default confirmations, rejected proposals and maintenance are excluded.','Action timestamps near an outcome use recorded inputs or interpolation, not invented attention time.']};
+ reports.routes[route]=report;fs.writeFileSync(path.join(dir,'测量.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({route,complete:report.complete,wallMinutes,advanceMinutes,choices:choices.length,windows:nominalWindows.map(x=>x.choices.length),wallWindows:wallWindows.map(x=>x.choices.length),jobs:jobInputs}));
+}
+fs.writeFileSync(path.join(root,'测量汇总.json'),JSON.stringify(reports,null,2)+'\n');
