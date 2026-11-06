@@ -77,7 +77,7 @@ var CivilCourse={
       if(option==='harvest'){const n=Math.min(2,w.teacher||0,CivilCatalog.jobCapacity(s,'farmer')-(w.farmer||0));if(n<=0)return false;if(typeof CivilPacing!=='undefined')CivilPacing.stop(s);w.teacher-=n;w.farmer=(w.farmer||0)+n;d.issue={kind:'harvest',option,at:c.elapsed,moved:n};c.trust=Math.max(0,c.trust-2);return true;}
       if(option==='school'){d.issue={kind:'harvest',option,at:c.elapsed,moved:0};c.trust=Math.min(100,c.trust+2);return true;}
     } else {
-      if(option==='shift'){const n=Math.min(2,w.smelter||0);if(n<=0)return false;w.smelter-=n;d.issue={kind:'smoke',option,at:c.elapsed,moved:n};c.trust=Math.min(100,c.trust+2);return true;}
+      if(option==='shift'){const n=Math.min(2,w.smelter||0);if(n<=0)return false;if(typeof CivilPacing!=='undefined'&&CivilPacing.industrial(s))CivilPacing.stop(s);w.smelter-=n;d.issue={kind:'smoke',option,at:c.elapsed,moved:n};c.trust=Math.min(100,c.trust+2);return true;}
       if(option==='medicine'){if(!CivilRules.pay(s,{medicine:4}))return false;c.village.health=Math.min(100,c.village.health+6);d.issue={kind:'smoke',option,at:c.elapsed,moved:0};return true;}
       if(option==='keep'){d.issue={kind:'smoke',option,at:c.elapsed,moved:0};c.trust=Math.max(0,c.trust-6);return true;}
     }
@@ -125,7 +125,7 @@ var CivilCourse={
         school:{text:'课照常上',nextScene:'end',onChoose:done('学堂照常开课。农户把收割排得更紧了。',()=>this.resolveIssue(s,'school'))}}};
       return {title:'烟尘与诊所',text:['冶炼炉的烟压在镇子上空。诊所里咳嗽的人多了，医护来议事。','炉子不停，铁就多；停一班，孩子们能少咳几天。'],buttons:{
         shift:{text:'冶炼减一班（两名冶炼工改回空闲）',nextScene:'end',available:()=>(s.game.workers.smelter||0)>0,onChoose:done('冶炼炉少开了一班。',()=>this.resolveIssue(s,'shift'))},
-        medicine:{text:'多拨药品（药品 4）',nextScene:'end',cost:{medicine:4},onChoose:done('诊所多拿到一批药。',()=>this.resolveIssue(s,'medicine'))},
+        medicine:{text:'多拨药品（药品 4）',nextScene:'end',...(s.civilization.pacingVersion===2?{available:()=>CivilRules.canPay(s,{medicine:4})}:{cost:{medicine:4}}),onChoose:done('诊所多拿到一批药。',()=>this.resolveIssue(s,'medicine'))},
         keep:{text:'照常生产',nextScene:'end',onChoose:done('炉子照常运转。不少居民记下了这次议事。',()=>this.resolveIssue(s,'keep'))}}};
     }
     if(id==='course_coop'){

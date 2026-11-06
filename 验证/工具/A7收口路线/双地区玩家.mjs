@@ -1,0 +1,51 @@
+// A7 closure: independent normal UI lineage. Earlier deliberate-crisis evidence remains separate.
+// A7 adaptation of 验证/工具/双地区互济玩家.mjs. Same UI-only controls, continuous fresh lineage.
+import {handlePolish} from '../a7-decisions.mjs';
+// Natural A3 continuation from native city saves, real input only. No state/time/resources injected.
+import fs from 'node:fs';import path from 'node:path';
+const [port='9372',dir='/tmp/postwar-a4-regional-20261105/public']=process.argv.slice(2);fs.mkdirSync(dir,{recursive:true});
+const page=(await(await fetch(`http://127.0.0.1:${port}/json`)).json()).find(p=>p.type==='page'&&p.url.includes(':4180'));
+const ws=new WebSocket(page.webSocketDebuggerUrl),pending=new Map();let seq=0,done=false;
+ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id&&pending.has(m.id)){pending.get(m.id)(m);pending.delete(m.id);}};
+ws.onclose=()=>{if(!done){console.error('Disconnected; retain browser and resume this existing save.');process.exit(2);}};
+await new Promise(r=>ws.onopen=r);
+const send=(method,params={})=>new Promise(r=>{if(method==='Input.dispatchKeyEvent'&&params.type==='rawKeyDown')log('key',{key:params.key});const id=++seq;pending.set(id,r);ws.send(JSON.stringify({id,method,params}));});
+const read=async expression=>{const r=await send('Runtime.evaluate',{expression,returnByValue:true});if(r.result?.exceptionDetails)throw Error(JSON.stringify(r.result.exceptionDetails));return r.result.result.value;};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)),q=css=>`document.querySelector(${JSON.stringify(css)})`;
+const log=(kind,data)=>fs.appendFileSync(path.join(dir,'actions.ndjson'),JSON.stringify({wall:new Date().toISOString(),kind,...data})+'\n');
+async function raw(css){
+ await read(`(()=>{const e=${q(css)};if(e?.checkVisibility())e.scrollIntoView({block:'center',inline:'nearest'});})()`);await sleep(120);
+ const box=await read(`(()=>{const e=${q(css)};if(!e||!e.checkVisibility()||e.classList.contains('disabled')||e.disabled)return null;const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return e.contains(document.elementFromPoint(x,y))?{x,y,text:e.innerText.slice(0,90)}:null;})()`);
+ if(!box){log('unreachable',{css,info:await read(`(()=>{const e=${q(css)};if(!e)return null;const r=e.getBoundingClientRect();return {rect:r.toJSON(),visible:e.checkVisibility(),disabled:e.disabled,hit:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.outerHTML.slice(0,500)};})()`)});return false;}for(const type of ['mouseMoved','mousePressed','mouseReleased'])await send('Input.dispatchMouseEvent',{type,x:box.x,y:box.y,button:'left',clickCount:1});log('click',{css,...box,at:await read('State.civilization.elapsed')});await sleep(250);return true;
+}
+async function click(css){
+ const info=await read(`(()=>{const e=${q(css)};return e?{panel:e.closest('.location')?.id,folds:[...document.querySelectorAll('details:not([open])')].filter(d=>d.contains(e)&&e!==d.querySelector(':scope > summary')).map(d=>d.id)}:null;})()`);if(!info)return false;
+ if(info.panel){const id=info.panel==='civilResearchPanel'?'research':info.panel.replace(/Panel$/,'');if(!await read(`${q('#location_'+id)}?.classList.contains('selected')`))await raw('#location_'+id);for(let k=0;k<30&&await read("$('#locationSlider').is(':animated')");k++)await sleep(100);}
+ for(const id of info.folds){for(let n=0;n<3&&!await read(`${q('#'+id)}.open`);n++){await raw('#'+id+' > summary');await sleep(300);}if(!await read(`${q('#'+id)}.open`))throw Error('Could not unfold '+id);}return raw(css);
+}
+async function select(css,value){
+ for(let n=0;n<6;n++){if(await click(css))break;if(n===5)throw Error('Cannot reach selection '+css);await sleep(300);}
+ for(const type of ['rawKeyDown','keyUp'])await send('Input.dispatchKeyEvent',{type,key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+ const o=await read(`(()=>{const e=${q(css)};return {index:e.selectedIndex,target:[...e.options].findIndex(x=>x.value===${JSON.stringify(value)})};})()`);if(o.target<0)throw Error('option '+value);
+ for(let j=0;j<Math.abs(o.target-o.index);j++)for(const type of ['rawKeyDown','keyUp'])await send('Input.dispatchKeyEvent',{type,key:o.target>o.index?'ArrowDown':'ArrowUp',code:o.target>o.index?'ArrowDown':'ArrowUp',windowsVirtualKeyCode:o.target>o.index?40:38});
+ for(const type of ['rawKeyDown','keyUp'])await send('Input.dispatchKeyEvent',{type,key:'Enter',code:'Enter',windowsVirtualKeyCode:13});await sleep(250);const actual=await read(`${q(css)}.value`);log('select',{css,value,actual});if(actual!==value)throw Error('Native select did not change: '+css);return true;
+}
+
+
+
+const route=process.env.A7_ROUTE==='public'?'public':'industrial',base=route==='public'?301:310;
+const observe=()=>read(`(()=>{const s=State,r=CivilRegional,d=r.data(s);return {at:s.civilization.elapsed,paused:!!CivilClock.paused,event:Events.activeEvent()?.title,pending:s.civilization.pending,buttons:[...document.querySelectorAll('#event .button')].filter(b=>!b.classList.contains('disabled')).map(b=>b.id),known:r.known(s),common:r.governed(s),regional:d,regionReason:r.dispatchReason(s),consent:r.consent(s,19200),cityReason:r.cityReason(s),cities:CivilCityCouncil.ids(s).map(id=>{const n=CivilCityCouncil.local(s,id);return {id,people:CivilCity.count(n),health:n.health,stable:n.stable,stores:n.stores};})};})()`);
+async function pause(value){for(let i=0;i<6;i++){if(await read('!!CivilClock.paused')===value)return;const s=await observe();if(s.event&&s.pending&&!(await handlePolish({read,raw,log,route:process.env.A7_ROUTE==='public'?'public':'industrial'}))){const k=s.pending==='succession'?'engineer':s.pending==='cold'?'wood':s.pending==='roadIncident'?'repair':null;if(!k||!s.buttons.includes(k))throw Error('Unknown decision '+s.pending);await raw('#event #'+k);continue;}await raw('#speedButton');await raw('#event #pause');}throw Error('Pause failed');}
+async function region(){await click('#location_city');for(let k=0;k<30&&await read("$('#locationSlider').is(':animated')");k++)await sleep(100);if(!await click('#domainEntry'))throw Error('Regional entry unavailable');}
+async function exportSave(label){await pause(true);await region();if(!await read("document.querySelector('#regionalDesk').open"))await click('#regionalDesk > summary');const destination=path.resolve(dir,label);fs.mkdirSync(destination,{recursive:true});await send('Browser.setDownloadBehavior',{behavior:'allow',downloadPath:destination});if(!await raw('#saveMenu')||!await raw('#event #download'))throw Error('Export unavailable');await sleep(1500);await raw('#event #close');const state=await observe();fs.writeFileSync(path.join(destination,'observation.json'),JSON.stringify(state,null,2));const shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(destination,'screen.png'),Buffer.from(shot.result.data,'base64'));log('export',{label,at:state.at});}
+
+await send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await pause(true);await region();
+const file=path.join(dir,'controller.json'),control=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)):{stage:'survey',start:(await observe()).at,last:0};const save=()=>fs.writeFileSync(file,JSON.stringify(control));
+if(control.stage!=='survey')await pause(false);const deadline=Date.now()+40*60*1000;
+while(Date.now()<deadline){const s=await observe();if(s.at-control.last>=300){control.last=s.at;log('snapshot',{at:s.at,stage:control.stage,known:s.known,common:s.common,levee:s.regional?.levee,medical:s.regional?.medical,reason:s.regionReason,deliveries:s.regional?.deliveries.length,cities:s.cities.map(c=>({id:c.id,health:c.health,stable:c.stable}))});console.log(JSON.stringify({at:s.at,stage:control.stage,known:s.known,levee:s.regional?.levee,reason:s.regionReason}));}save();if(s.event){if(await handlePolish({read,raw,log,route:process.env.A7_ROUTE==='public'?'public':'industrial'}))continue;const k=s.pending==='succession'?'engineer':s.pending==='cold'?'wood':s.pending==='roadIncident'?'repair':null;if(!k||!s.buttons.includes(k))throw Error('Unknown event '+s.event);log('decision',{at:s.at,pending:s.pending,key:k});await raw('#event #'+k);continue;}
+ if(control.stage==='survey'){if(await read('CivilRegional.startReason(State)')){await pause(false);await sleep(900);continue;}await pause(true);if(!await click('#regional_survey'))throw Error('Survey unavailable');await exportSave(base+'_survey');control.stage='contact';save();await pause(false);
+ }else if(control.stage==='contact'&&s.regional?.node?.economy?.maintained){await pause(true);await select('#regionalShare','19200');const disabled=await read("document.querySelector('#regional_agree').classList.contains('disabled')");log('large_share_review',{at:s.at,requested:19200,disabled,reason:s.consent});await exportSave((base+1)+'_large_share_review');await select('#regionalShare',route==='public'?'2400':'480');if(!await click('#regional_agree')){await pause(false);continue;}await exportSave((base+2)+'_compact_paid');control.stage='voyage';save();await pause(false);
+ }else if(control.stage==='voyage'&&s.regional.trips.some(p=>p.deliveredAt!==null)&&s.regional.deliveries.some(p=>p.deliveredAt===null)){await exportSave((base+3)+'_last_mile_in_transit');control.stage='arrival';save();await pause(false);
+ }else if(control.stage==='arrival'&&s.regional.deliveries.some(p=>p.deliveredAt!==null)){await exportSave('city_received');control.stage='done';save();done=true;break;
+ }else if(control.stage==='done'){done=true;break;}await sleep(950);
+}if(!done)throw Error('Unfinished; keep browser and current controller');console.log('ACCEPTED',JSON.stringify({...control,localMaintenance:control.localMaintenance?.length}));ws.close();
