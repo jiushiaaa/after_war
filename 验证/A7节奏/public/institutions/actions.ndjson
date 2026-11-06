@@ -1,0 +1,48 @@
+{"wall":"2026-11-06T03:40:04.584Z","kind":"snapshot","at":19704,"total":12092,"home":432,"health":100,"hunger":0,"arrived":0}
+{"wall":"2026-11-06T03:40:04.714Z","kind":"click","css":"#speedButton","x":1109.484375,"y":979.5,"text":"已暂停（8×）","at":19704}
+{"wall":"2026-11-06T03:40:05.102Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"继续","at":19704}
+{"wall":"2026-11-06T03:40:05.508Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":19707}
+{"wall":"2026-11-06T03:40:07.833Z","kind":"click","css":"#cityView_production","x":589,"y":205.484375,"text":"生产与预算","at":19725}
+{"wall":"2026-11-06T03:40:08.254Z","kind":"click","css":"#cityFoundInstitution","x":459,"y":468.171875,"text":"筹设城市公署","at":19728}
+{"wall":"2026-11-06T03:40:09.015Z","kind":"deliberate_choice","at":19735,"pending":"civic_issue","title":"城市化，还是保留粮作","agenda":"city_food","choice":"civic_provisioning","route":"public","before":"balanced","changesRule":true}
+{"wall":"2026-11-06T03:40:09.167Z","kind":"click","css":"#event #civic_provisioning","x":535.5,"y":441,"text":"粮作与公共服务","at":19735}
+{"wall":"2026-11-06T03:40:09.570Z","kind":"click","css":"#cityHomeDelegation > summary","x":445.8828125,"y":571.8125,"text":"原镇机构委托","at":19739}
+{"wall":"2026-11-06T03:40:09.973Z","kind":"click","css":"#cityDelegate","x":558,"y":572.640625,"text":"启用原镇委托","at":19742}
+{"wall":"2026-11-06T03:40:10.373Z","kind":"click","css":"#cityWard_yards","x":537,"y":331,"text":"旧厂街区","at":19745}
+{"wall":"2026-11-06T03:40:10.757Z","kind":"click","css":"#cityProductionChoices > summary","x":445.8828125,"y":423.375,"text":"调整片区生产","at":19748}
+{"wall":"2026-11-06T03:40:11.156Z","kind":"click","css":"#cityProfile","x":557.5,"y":424.265625,"text":"本地自给\n粮食与诊疗\n回收与制器","at":19751}
+{"wall":"2026-11-06T03:40:11.552Z","kind":"click","css":"#cityProfile option[value=\"workshop\"]","x":557.5,"y":424.265625,"text":"回收与制器","at":19754}
+{"wall":"2026-11-06T03:40:11.804Z","kind":"select","css":"#cityProfile","value":"workshop","actual":"workshop"}
+{"wall":"2026-11-06T03:40:11.954Z","kind":"click","css":"#cityApplyProfile","x":437,"y":423.421875,"text":"落实分工","at":19757}
+{"wall":"2026-11-06T03:40:12.352Z","kind":"click","css":"#cityWard_canal","x":631,"y":331,"text":"渠口社区","at":19760}
+{"wall":"2026-11-06T03:40:12.747Z","kind":"click","css":"#cityProfile","x":557.5,"y":424.265625,"text":"本地自给\n粮食与诊疗\n回收与制器","at":19763}
+{"wall":"2026-11-06T03:40:13.126Z","kind":"click","css":"#cityProfile option[value=\"provisioning\"]","x":557.5,"y":424.265625,"text":"粮食与诊疗","at":19767}
+{"wall":"2026-11-06T03:40:13.378Z","kind":"select","css":"#cityProfile","value":"provisioning","actual":"provisioning"}
+{"wall":"2026-11-06T03:40:13.548Z","kind":"click","css":"#cityApplyProfile","x":437,"y":423.421875,"text":"落实分工","at":19770}
+{"wall":"2026-11-06T03:40:13.952Z","kind":"click","css":"#cityWard_yards","x":537,"y":331,"text":"旧厂街区","at":19773}
+{"wall":"2026-11-06T03:40:14.344Z","kind":"click","css":"#citySkillDetails > summary","x":452.3828125,"y":423.9375,"text":"专业岗位与培训","at":19776}
+{"wall":"2026-11-06T03:40:14.743Z","kind":"click","css":"#cityTrainingSubject","x":551,"y":423.828125,"text":"技术工种\n临床医护","at":19779}
+{"wall":"2026-11-06T03:40:15.150Z","kind":"click","css":"#cityTrainingSubject option[value=\"craft\"]","x":551,"y":423.828125,"text":"技术工种","at":19782}
+{"wall":"2026-11-06T03:40:15.402Z","kind":"select","css":"#cityTrainingSubject","value":"craft","actual":"craft"}
+{"wall":"2026-11-06T03:40:15.550Z","kind":"click","css":"#cityTrain","x":450,"y":424.15625,"text":"开设一期培训","at":19785}
+{"wall":"2026-11-06T03:40:15.957Z","kind":"click","css":"#cityWard_canal","x":631,"y":331,"text":"渠口社区","at":19789}
+{"wall":"2026-11-06T03:40:16.356Z","kind":"click","css":"#cityDelegateSchool","x":450,"y":424.15625,"text":"委托学堂补员","at":19791}
+{"wall":"2026-11-06T03:40:18.422Z","kind":"deliberate_choice","at":19808,"pending":"civic_issue","title":"谁来接替退休的老师","agenda":"city_school","choice":"civic_true","route":"public","before":false,"changesRule":true}
+{"wall":"2026-11-06T03:40:18.570Z","kind":"click","css":"#event #civic_true","x":535.5,"y":413,"text":"委托提前补员","at":19808}
+{"wall":"2026-11-06T03:40:44.130Z","kind":"snapshot","at":20005,"total":12092,"home":432,"health":100,"hunger":0,"arrived":1,"delegations":5,"training":{"terraces":{"courses":0,"training":13,"method":"basic","profile":"provisioning"},"yards":{"courses":0,"training":22,"method":"basic","profile":"workshop"},"canal":{"courses":0,"training":20,"method":"basic","profile":"provisioning"}}}
+{"wall":"2026-11-06T03:41:23.890Z","kind":"snapshot","at":20310,"total":12092,"home":432,"health":100,"hunger":0,"arrived":2,"delegations":10,"training":{"terraces":{"courses":1,"training":14,"method":"basic","profile":"provisioning"},"yards":{"courses":1,"method":"basic","profile":"workshop"},"canal":{"courses":1,"training":21,"method":"basic","profile":"provisioning"}}}
+{"wall":"2026-11-06T03:42:03.656Z","kind":"snapshot","at":20615,"total":12092,"home":432,"health":100,"hunger":0,"arrived":4,"delegations":15,"training":{"terraces":{"courses":2,"training":14,"method":"basic","profile":"provisioning"},"yards":{"courses":1,"method":"basic","profile":"workshop"},"canal":{"courses":2,"training":21,"method":"basic","profile":"provisioning"}}}
+{"wall":"2026-11-06T03:42:43.426Z","kind":"snapshot","at":20920,"total":12092,"home":432,"health":100,"hunger":0,"arrived":5,"delegations":20,"training":{"terraces":{"courses":3,"training":15,"method":"basic","profile":"provisioning"},"yards":{"courses":1,"method":"basic","profile":"workshop"},"canal":{"courses":3,"training":22,"method":"basic","profile":"provisioning"}}}
+{"wall":"2026-11-06T03:43:23.184Z","kind":"snapshot","at":21225,"total":12092,"home":432,"health":100,"hunger":0,"arrived":7,"delegations":25,"training":{"terraces":{"courses":4,"training":15,"method":"basic","profile":"provisioning"},"yards":{"courses":1,"method":"basic","profile":"workshop"},"canal":{"courses":4,"training":22,"method":"basic","profile":"provisioning"}}}
+{"wall":"2026-11-06T03:43:34.166Z","kind":"click","css":"#cityWard_canal","x":631,"y":331,"text":"渠口社区","at":21309}
+{"wall":"2026-11-06T03:43:34.559Z","kind":"click","css":"#cityCareMethod","x":551,"y":423.359375,"text":"基础配药\n临床制药","at":21312}
+{"wall":"2026-11-06T03:43:34.940Z","kind":"click","css":"#cityCareMethod option[value=\"clinical\"]","x":551,"y":423.359375,"text":"临床制药","at":21315}
+{"wall":"2026-11-06T03:43:35.192Z","kind":"select","css":"#cityCareMethod","value":"clinical","actual":"clinical"}
+{"wall":"2026-11-06T03:43:35.341Z","kind":"click","css":"#cityApplyCare","x":450,"y":423.515625,"text":"落实配药工序","at":21318}
+{"wall":"2026-11-06T03:43:35.734Z","kind":"click","css":"#speedButton","x":1125.484375,"y":979.5,"text":"速度：8×","at":21321}
+{"wall":"2026-11-06T03:43:36.112Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"暂停","at":21324}
+{"wall":"2026-11-06T03:43:36.500Z","kind":"click","css":"#saveMenu","x":1016.96875,"y":979,"text":"存档","at":21324}
+{"wall":"2026-11-06T03:43:36.885Z","kind":"click","css":"#event #download","x":535.5,"y":229,"text":"导出进度","at":21324}
+{"wall":"2026-11-06T03:43:38.464Z","kind":"click","css":"#event #close","x":535.5,"y":385,"text":"关闭","at":21324}
+{"wall":"2026-11-06T03:43:38.859Z","kind":"click","css":"#cityWard_canal","x":631,"y":331,"text":"渠口社区","at":21324}
+{"wall":"2026-11-06T03:43:39.254Z","kind":"click","css":"#cityView_production","x":589,"y":270,"text":"生产与预算","at":21324}

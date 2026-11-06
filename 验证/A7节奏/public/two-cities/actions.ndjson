@@ -1,0 +1,117 @@
+{"wall":"2026-11-06T03:43:39.657Z","kind":"snapshot","at":21324,"stage":"connect","pop":12092,"network":null}
+{"wall":"2026-11-06T03:43:39.796Z","kind":"click","css":"#speedButton","x":1109.484375,"y":879.5,"text":"已暂停（8×）","at":21324}
+{"wall":"2026-11-06T03:43:40.178Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"继续","at":21324}
+{"wall":"2026-11-06T03:43:40.564Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21328}
+{"wall":"2026-11-06T03:43:40.950Z","kind":"click","css":"#cityView_overview","x":427,"y":270,"text":"概况","at":21331}
+{"wall":"2026-11-06T03:43:41.354Z","kind":"click","css":"#metroCity_survey","x":451,"y":424.265625,"text":"沿湖岸普查","at":21334}
+{"wall":"2026-11-06T03:43:47.023Z","kind":"deliberate_choice","at":21377,"pending":"civic_issue","title":"治疗工位的下一步","agenda":"city_care","choice":"civic_clinical","route":"public","before":"basic","changesRule":true}
+{"wall":"2026-11-06T03:43:47.166Z","kind":"click","css":"#event #civic_clinical","x":535.5,"y":385,"text":"临床配药","at":21378}
+{"wall":"2026-11-06T03:44:12.711Z","kind":"snapshot","at":21574,"stage":"connect","pop":12092,"network":{"shipments":0,"arrived":0}}
+{"wall":"2026-11-06T03:44:18.271Z","kind":"click","css":"#event #later","x":535.5,"y":593,"text":"先去准备材料","at":21616}
+{"wall":"2026-11-06T03:44:29.493Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21702}
+{"wall":"2026-11-06T03:44:29.880Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21705}
+{"wall":"2026-11-06T03:44:30.265Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21708}
+{"wall":"2026-11-06T03:44:30.643Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21711}
+{"wall":"2026-11-06T03:44:30.911Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:31.169Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21715}
+{"wall":"2026-11-06T03:44:31.563Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21718}
+{"wall":"2026-11-06T03:44:31.945Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21721}
+{"wall":"2026-11-06T03:44:32.344Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21724}
+{"wall":"2026-11-06T03:44:32.597Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:32.859Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21728}
+{"wall":"2026-11-06T03:44:33.245Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21731}
+{"wall":"2026-11-06T03:44:33.628Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21734}
+{"wall":"2026-11-06T03:44:34.025Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21737}
+{"wall":"2026-11-06T03:44:34.278Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:34.546Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21741}
+{"wall":"2026-11-06T03:44:34.930Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21744}
+{"wall":"2026-11-06T03:44:35.327Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21747}
+{"wall":"2026-11-06T03:44:35.727Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21750}
+{"wall":"2026-11-06T03:44:35.980Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:36.240Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21753}
+{"wall":"2026-11-06T03:44:36.645Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21757}
+{"wall":"2026-11-06T03:44:37.027Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21760}
+{"wall":"2026-11-06T03:44:37.404Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21763}
+{"wall":"2026-11-06T03:44:37.656Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:37.913Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21766}
+{"wall":"2026-11-06T03:44:38.299Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21769}
+{"wall":"2026-11-06T03:44:38.686Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21772}
+{"wall":"2026-11-06T03:44:39.067Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21775}
+{"wall":"2026-11-06T03:44:39.319Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:39.578Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21779}
+{"wall":"2026-11-06T03:44:39.978Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21782}
+{"wall":"2026-11-06T03:44:40.360Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21785}
+{"wall":"2026-11-06T03:44:40.741Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21788}
+{"wall":"2026-11-06T03:44:41.026Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:41.282Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21791}
+{"wall":"2026-11-06T03:44:41.665Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21795}
+{"wall":"2026-11-06T03:44:42.046Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21798}
+{"wall":"2026-11-06T03:44:42.427Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":486.5625,"text":"旧厂街区","at":21800}
+{"wall":"2026-11-06T03:44:42.679Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:42.946Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":21804}
+{"wall":"2026-11-06T03:44:43.333Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":21807}
+{"wall":"2026-11-06T03:44:43.733Z","kind":"click","css":"#metroCityChoice_depot","x":551,"y":486.5625,"text":"梯田片区\n旧厂街区\n渠口社区","at":21810}
+{"wall":"2026-11-06T03:44:44.112Z","kind":"click","css":"#metroCityChoice_depot option[value=\"yards\"]","x":551,"y":463.171875,"text":"旧厂街区","at":21813}
+{"wall":"2026-11-06T03:44:44.364Z","kind":"select","css":"#metroCityChoice_depot","value":"yards","actual":"yards"}
+{"wall":"2026-11-06T03:44:44.514Z","kind":"click","css":"#metroCity_build","x":443,"y":545.609375,"text":"共同修路","at":21816}
+{"wall":"2026-11-06T03:44:44.773Z","kind":"snapshot","at":21818,"stage":"connect","pop":12092,"network":{"population":50133,"health":88,"stable":120,"tools":202.50199999999992,"smith":80,"shipments":0,"arrived":0}}
+{"wall":"2026-11-06T03:45:17.302Z","kind":"snapshot","at":22065,"stage":"connect","pop":12092,"network":{"population":50133,"health":94.25,"stable":370,"tools":175.25200000000012,"smith":80,"shipments":0,"arrived":0}}
+{"wall":"2026-11-06T03:45:17.304Z","kind":"deliberate_choice","at":22065,"pending":"civic_issue","title":"两座城先交换什么","agenda":"city_exchange","choice":"civic_provisions","route":"public","before":null,"changesRule":true}
+{"wall":"2026-11-06T03:45:17.464Z","kind":"click","css":"#event #civic_provisions","x":535.5,"y":441,"text":"粮医互济","at":22066}
+{"wall":"2026-11-06T03:45:17.861Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":22069}
+{"wall":"2026-11-06T03:45:18.246Z","kind":"click","css":"#metroCity_select_link","x":599,"y":110.78125,"text":"城际协作","at":22072}
+{"wall":"2026-11-06T03:45:18.628Z","kind":"click","css":"#metroCityChoice_mode","x":551,"y":423.390625,"text":"粮医互济\n工料协作\n工序补库","at":22075}
+{"wall":"2026-11-06T03:45:19.011Z","kind":"click","css":"#metroCityChoice_mode option[value=\"provisions\"]","x":551,"y":423.390625,"text":"粮医互济","at":22078}
+{"wall":"2026-11-06T03:45:19.263Z","kind":"select","css":"#metroCityChoice_mode","value":"provisions","actual":"provisions"}
+{"wall":"2026-11-06T03:45:19.411Z","kind":"click","css":"#metroCity_sign","x":437,"y":605.890625,"text":"议定协作","at":22081}
+{"wall":"2026-11-06T03:45:19.815Z","kind":"click","css":"#speedButton","x":1125.484375,"y":879.5,"text":"速度：8×","at":22084}
+{"wall":"2026-11-06T03:45:20.197Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"暂停","at":22087}
+{"wall":"2026-11-06T03:45:20.596Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":22087}
+{"wall":"2026-11-06T03:45:20.993Z","kind":"click","css":"#metroCity_select_home","x":435,"y":110.78125,"text":"炉火城","at":22087}
+{"wall":"2026-11-06T03:45:21.381Z","kind":"click","css":"#cityView_production","x":589,"y":423.875,"text":"生产与预算","at":22087}
+{"wall":"2026-11-06T03:45:21.764Z","kind":"click","css":"#cityWard_yards","x":537,"y":407.390625,"text":"旧厂街区","at":22087}
+{"wall":"2026-11-06T03:45:22.177Z","kind":"click","css":"#cityDelegateSchool","x":450,"y":424.15625,"text":"委托学堂补员","at":22087}
+{"wall":"2026-11-06T03:45:22.562Z","kind":"click","css":"#speedButton","x":1109.484375,"y":879.5,"text":"已暂停（8×）","at":22087}
+{"wall":"2026-11-06T03:45:22.940Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"继续","at":22087}
+{"wall":"2026-11-06T03:45:26.959Z","kind":"click","css":"#speedButton","x":1125.484375,"y":879.5,"text":"速度：8×","at":22118}
+{"wall":"2026-11-06T03:45:27.335Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"暂停","at":22121}
+{"wall":"2026-11-06T03:45:27.729Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":22121}
+{"wall":"2026-11-06T03:45:28.122Z","kind":"click","css":"#metroCity_select_lake","x":513,"y":110.78125,"text":"湖滨市","at":22121}
+{"wall":"2026-11-06T03:45:28.511Z","kind":"click","css":"#metroCity_tab_assets","x":615,"y":403.78125,"text":"地方资产","at":22121}
+{"wall":"2026-11-06T03:45:28.919Z","kind":"click","css":"#metroCity_workshopTimber","x":459,"y":639.390625,"text":"木构扩建工坊","at":22121}
+{"wall":"2026-11-06T03:45:29.312Z","kind":"click","css":"#speedButton","x":1109.484375,"y":879.5,"text":"已暂停（8×）","at":22121}
+{"wall":"2026-11-06T03:45:29.689Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"继续","at":22121}
+{"wall":"2026-11-06T03:45:31.752Z","kind":"deliberate_choice","at":22136,"pending":"civic_issue","title":"道路的维修谁多出一份","agenda":"city_burden","choice":"civic_host","route":"public","before":"equal","changesRule":true}
+{"wall":"2026-11-06T03:45:31.898Z","kind":"click","css":"#event #civic_host","x":535.5,"y":441,"text":"本城承担四分之三","at":22137}
+{"wall":"2026-11-06T03:45:55.663Z","kind":"snapshot","at":22317,"stage":"connect","pop":12092,"network":{"population":51110,"health":100,"stable":600,"tools":185.38000000000025,"smith":80,"shipments":3,"arrived":3}}
+{"wall":"2026-11-06T03:46:28.194Z","kind":"snapshot","at":22565,"stage":"connect","pop":12092,"network":{"population":51110,"health":100,"stable":600,"tools":655.2400000000001,"smith":160,"shipments":6,"arrived":5}}
+{"wall":"2026-11-06T03:47:00.767Z","kind":"snapshot","at":22812,"stage":"connect","pop":12013,"network":{"population":52087,"health":100,"stable":600,"tools":649.9479999999983,"smith":160,"shipments":9,"arrived":8}}
+{"wall":"2026-11-06T03:47:33.334Z","kind":"snapshot","at":23059,"stage":"connect","pop":12013,"network":{"population":52087,"health":100,"stable":600,"tools":743.4139999999973,"smith":160,"shipments":11,"arrived":11}}
+{"wall":"2026-11-06T03:48:05.907Z","kind":"snapshot","at":23305,"stage":"connect","pop":12013,"network":{"population":52087,"health":100,"stable":600,"tools":738.9539999999963,"smith":160,"shipments":14,"arrived":14}}
+{"wall":"2026-11-06T03:48:38.470Z","kind":"snapshot","at":23551,"stage":"connect","pop":11932,"network":{"population":53065,"health":100,"stable":600,"tools":705.9379999999959,"smith":160,"shipments":17,"arrived":16}}
+{"wall":"2026-11-06T03:49:11.014Z","kind":"snapshot","at":23797,"stage":"connect","pop":11932,"network":{"population":53065,"health":100,"stable":600,"tools":726.3699999999957,"smith":160,"shipments":19,"arrived":19}}
+{"wall":"2026-11-06T03:49:43.551Z","kind":"snapshot","at":24043,"stage":"connect","pop":11853,"network":{"population":54043,"health":100,"stable":600,"tools":713.2799999999957,"smith":160,"shipments":22,"arrived":21}}
+{"wall":"2026-11-06T03:50:16.112Z","kind":"snapshot","at":24289,"stage":"connect","pop":11853,"network":{"population":54043,"health":100,"stable":600,"tools":739.9179999999963,"smith":160,"shipments":24,"arrived":24}}
+{"wall":"2026-11-06T03:50:48.678Z","kind":"snapshot","at":24536,"stage":"connect","pop":11853,"network":{"population":54043,"health":100,"stable":600,"tools":637.1979999999969,"smith":16,"shipments":26,"arrived":26}}
+{"wall":"2026-11-06T03:51:21.217Z","kind":"snapshot","at":24783,"stage":"connect","pop":11772,"network":{"population":55020,"health":100,"stable":600,"tools":671.1839999999958,"smith":16,"shipments":28,"arrived":28}}
+{"wall":"2026-11-06T03:51:53.776Z","kind":"snapshot","at":25029,"stage":"connect","pop":11772,"network":{"population":55020,"health":100,"stable":600,"tools":733.067999999994,"smith":16,"shipments":30,"arrived":30}}
+{"wall":"2026-11-06T03:52:26.334Z","kind":"snapshot","at":25276,"stage":"connect","pop":11693,"network":{"population":55998,"health":100,"stable":600,"tools":627.2999999999928,"smith":16,"shipments":32,"arrived":32}}
+{"wall":"2026-11-06T03:52:58.884Z","kind":"snapshot","at":25522,"stage":"connect","pop":11693,"network":{"population":55998,"health":100,"stable":600,"tools":709.9499999999916,"smith":16,"shipments":34,"arrived":34}}
+{"wall":"2026-11-06T03:53:31.451Z","kind":"snapshot","at":25768,"stage":"connect","pop":11693,"network":{"population":55998,"health":100,"stable":600,"tools":673.3499999999908,"smith":16,"shipments":36,"arrived":36}}
+{"wall":"2026-11-06T03:54:04.041Z","kind":"snapshot","at":26013,"stage":"connect","pop":11612,"network":{"population":56975,"health":100,"stable":600,"tools":670.6459999999907,"smith":160,"shipments":39,"arrived":38}}
+{"wall":"2026-11-06T03:54:36.640Z","kind":"snapshot","at":26259,"stage":"connect","pop":11612,"network":{"population":56975,"health":100,"stable":600,"tools":670.077999999991,"smith":160,"shipments":41,"arrived":40}}
+{"wall":"2026-11-06T03:54:40.639Z","kind":"click","css":"#speedButton","x":1125.484375,"y":892.5,"text":"速度：8×","at":26289}
+{"wall":"2026-11-06T03:54:41.022Z","kind":"click","css":"#event #pause","x":535.5,"y":425,"text":"暂停","at":26292}
+{"wall":"2026-11-06T04:08:24.825Z","kind":"snapshot","at":30463,"stage":"connect","pop":11554,"network":{"population":63818,"health":100,"stable":600,"tools":685.4569999999947,"smith":16,"shipments":78,"arrived":77}}
+{"wall":"2026-11-06T04:08:24.957Z","kind":"click","css":"#speedButton","x":1109.484375,"y":879.5,"text":"已暂停（8×）","at":30463}
+{"wall":"2026-11-06T04:08:25.339Z","kind":"click","css":"#event #pause","x":535.5,"y":460,"text":"继续","at":30463}
+{"wall":"2026-11-06T04:08:25.732Z","kind":"click","css":"#speedButton","x":1125.484375,"y":879.5,"text":"速度：8×","at":30467}
+{"wall":"2026-11-06T04:08:26.120Z","kind":"click","css":"#event #speed_16","x":535.5,"y":423,"text":"16×","at":30469}
+{"wall":"2026-11-06T04:08:26.507Z","kind":"click","css":"#location_city","x":695.5,"y":34.4453125,"text":"城域","at":30475}
+{"wall":"2026-11-06T04:08:26.886Z","kind":"click","css":"#metroCity_select_link","x":599,"y":228.609375,"text":"城际协作","at":30481}
+{"wall":"2026-11-06T04:08:27.268Z","kind":"click","css":"#speedButton","x":1121.484375,"y":879.5,"text":"速度：16×","at":30487}
+{"wall":"2026-11-06T04:08:27.649Z","kind":"click","css":"#event #pause","x":535.5,"y":460,"text":"暂停","at":30494}
+{"wall":"2026-11-06T04:08:28.035Z","kind":"click","css":"#saveMenu","x":1008.96875,"y":879,"text":"存档","at":30494}
+{"wall":"2026-11-06T04:08:28.423Z","kind":"click","css":"#event #download","x":535.5,"y":229,"text":"导出进度","at":30494}
+{"wall":"2026-11-06T04:08:30.005Z","kind":"click","css":"#event #close","x":535.5,"y":385,"text":"关闭","at":30494}
+{"wall":"2026-11-06T04:08:30.329Z","kind":"export","label":"connected","at":30494}

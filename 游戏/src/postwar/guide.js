@@ -70,7 +70,7 @@ var CivilGuide={
       const incoming=c.city.shipments.filter(p=>p.target===id&&p.phase==='outbound').reduce((n,p)=>n+(p.cargo.tools||0),0);
       if((node.stores.tools||0)+incoming>=Math.max(8,burn*12))continue;
       const empty=(node.stores.tools||0)<1;
-      return step('先稳住'+CivilCityContent.wards[id].name+'的工具供给','粮医分工不生产工具；现存与在途不足约两分钟用量',{city:'home',ward:id,view:empty?'transport':'production',target:empty?'cityAid':'cityProductionChoices'},empty?'可从原镇实付派一车援助，再恢复本地自给；同时检查外运是否挤占工具':'可恢复本地自给，或保留专业分工并保障调运；暂停对外发运仍会完成在途交货');
+      return step('先稳住'+CivilCityContent.wards[id].name+'的工具供给','粮医分工不生产工具；现存与在途不足约两分钟用量',{city:'home',ward:id,view:empty?'transport':'production',target:empty?'cityAid':'cityProductionChoices'},empty?'可从原镇实付派一车援助，再恢复本地自给；同时检查外运是否挤占工具':'可恢复本地自给，或保留专业分工并保障调运；暂停湖滨外运会召回未抵达货物，旅费不退');
     }
     const modern=CivilModern.gate(s,'city');if(modern)return {goal:'接通电与通信',need:[modern],where:'research',target:'modernDesk',note:c.research?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':'公共路线可用地方电网，不要求采矿燃煤'};
     const d=c.conurbation,n=c.cityNetwork;

@@ -1,0 +1,16 @@
+// Separate paused browser copies. Does not advance either natural route or overwrite its export.
+import fs from 'node:fs';import zlib from 'node:zlib';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
+const dir='验证/A7节奏/界面/终点重读',b=await connect(9382,dir),report=[];
+await b.send('Page.reload');await b.sleep(900);
+for(const route of ['public','industry']){
+ for(let i=0;i<10;i++){const keys=await b.read('[...document.querySelectorAll("#event .button:not(.disabled)")].map(e=>e.id)');if(!keys.length)break;const key=['close','later','continue','keep','read','wood'].find(k=>keys.includes(k));assert.ok(key);await b.raw('#event #'+key);}
+ if(!await b.read('CivilClock.paused')){await b.click('#speedButton');await b.raw('#event #pause');}
+ const source='验证/A7节奏/'+route+'/three-cities/正常推进共同维护一周期/战后文明-存档.json',raw=fs.readFileSync(source,'utf8'),parsed=JSON.parse(raw),state=(parsed.encoding?JSON.parse(zlib.gunzipSync(Buffer.from(parsed.data,'base64'))):parsed).state,c=state.civilization;
+ await b.click('#saveMenu');assert.ok(await b.raw('#event #import'));await b.raw('#event textarea');await b.send('Input.insertText',{text:raw});assert.ok(await b.raw('#event #inspect'));await b.sleep(700);assert.ok(await b.raw('#event #replace'));
+ if(!await b.read('CivilClock.paused')){await b.click('#speedButton');await b.raw('#event #pause');}
+ const observed=await b.read(`(()=>{const c=State.civilization;return {at:c.elapsed,seed:c.census.seed,pacing:c.pacingVersion,course:c.course.id,initial:c.census.initial,total:CivilCensus.total(State),born:c.census.born,dead:c.census.dead,workFees:c.workMandate.records.length,handedOff:c.workMandate.handoffAt,explorationRecords:c.expedition.records.length,earlyBox:!!document.querySelector('#civilEarlyWork'),jobsFold:!!document.querySelector('#civilDelegatedJobs #workers'),cityIds:CivilCityCouncil.ids(State),wards:CivilCity.members(State).map(([id,n])=>({id,health:n.health,stable:n.stable}))}})()`);
+ assert.equal(observed.seed,c.census.seed);assert.equal(observed.course,c.course.id);assert.equal(observed.pacing,1);assert.equal(observed.initial,c.census.initial);assert.equal(observed.total,observed.initial+observed.born-observed.dead);assert.equal(observed.workFees,c.workMandate.records.length);assert.equal(observed.handedOff,c.workMandate.handoffAt);assert.equal(observed.explorationRecords,c.expedition.records.length);assert.equal(observed.earlyBox,false);assert.equal(observed.jobsFold,true);assert.equal(observed.cityIds.length,3);
+ const views=[];for(const width of [1280,853,390]){await b.send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:width===390});await b.click('#location_city');await b.click('#metroCity_select_link');await b.click('#cityNet_tab_overview');assert.ok(await b.read('document.documentElement.scrollWidth<=innerWidth'));await b.shot(route+'-'+width);views.push({width,overflow:false});}
+ report.push({route,source,copyOnly:true,observed,views});
+}
+assert.equal(b.events.filter(e=>e.method==='Runtime.exceptionThrown').length,0);fs.writeFileSync(dir+'/report.json',JSON.stringify(report,null,2));b.close();console.log('Both native endpoints imported through UI; no duplicated exploration or early mandate receipts, six responsive views.');

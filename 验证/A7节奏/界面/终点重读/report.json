@@ -1,0 +1,114 @@
+[
+  {
+    "route": "public",
+    "source": "验证/A7节奏/public/three-cities/正常推进共同维护一周期/战后文明-存档.json",
+    "copyOnly": true,
+    "observed": {
+      "at": 39070,
+      "seed": 7417,
+      "pacing": 1,
+      "course": "commons",
+      "initial": 350007417,
+      "total": 453632224,
+      "born": 569838701,
+      "dead": 466213894,
+      "workFees": 308,
+      "handedOff": 19730,
+      "explorationRecords": 13,
+      "earlyBox": false,
+      "jobsFold": true,
+      "cityIds": [
+        "home",
+        "lake",
+        "ridge"
+      ],
+      "wards": [
+        {
+          "id": "terraces",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "yards",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "canal",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    "views": [
+      {
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "width": 853,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  },
+  {
+    "route": "industry",
+    "source": "验证/A7节奏/industry/three-cities/正常推进共同维护一周期/战后文明-存档.json",
+    "copyOnly": true,
+    "observed": {
+      "at": 28518,
+      "seed": 7417,
+      "pacing": 1,
+      "course": "industry",
+      "initial": 350007417,
+      "total": 422197064,
+      "born": 396971948,
+      "dead": 324782301,
+      "workFees": 326,
+      "handedOff": 20470,
+      "explorationRecords": 13,
+      "earlyBox": false,
+      "jobsFold": true,
+      "cityIds": [
+        "home",
+        "lake",
+        "ridge"
+      ],
+      "wards": [
+        {
+          "id": "terraces",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "yards",
+          "health": 100,
+          "stable": 600
+        },
+        {
+          "id": "canal",
+          "health": 100,
+          "stable": 600
+        }
+      ]
+    },
+    "views": [
+      {
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "width": 853,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  }
+]

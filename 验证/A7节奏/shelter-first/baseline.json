@@ -1,0 +1,206 @@
+{
+ "log": [
+  {
+   "k": "地点:room:冰冷的维修间",
+   "wall": 0,
+   "sim": 100
+  },
+  {
+   "k": "按钮:lightButton",
+   "wall": 0,
+   "sim": 100
+  },
+  {
+   "k": "按钮:stokeButton",
+   "wall": 0,
+   "sim": 100
+  },
+  {
+   "k": "地点:room:温暖的维修间",
+   "wall": 0,
+   "sim": 100
+  },
+  {
+   "k": "地点:outside:灰白荒林",
+   "wall": 46,
+   "sim": 146
+  },
+  {
+   "k": "按钮:gatherButton",
+   "wall": 46,
+   "sim": 146
+  },
+  {
+   "k": "按钮:build_trap",
+   "wall": 122,
+   "sim": 222
+  },
+  {
+   "k": "按钮:build_cart",
+   "wall": 122,
+   "sim": 222
+  },
+  {
+   "k": "按钮:civilGuideGo",
+   "wall": 122,
+   "sim": 222
+  },
+  {
+   "k": "按钮:civilGuideDelegate",
+   "wall": 122,
+   "sim": 222
+  },
+  {
+   "k": "按钮:forageButton",
+   "wall": 122,
+   "sim": 222
+  },
+  {
+   "k": "按钮:build_hut",
+   "wall": 202,
+   "sim": 301
+  },
+  {
+   "k": "地点:outside:林边木屋",
+   "wall": 353,
+   "sim": 452
+  },
+  {
+   "k": "建成:hut",
+   "wall": 353,
+   "sim": 452
+  },
+  {
+   "k": "按钮:scrapButton",
+   "wall": 382,
+   "sim": 480
+  },
+  {
+   "k": "首批居民",
+   "wall": 382,
+   "sim": 480
+  },
+  {
+   "k": "按钮:build_lodge",
+   "wall": 413,
+   "sim": 511
+  },
+  {
+   "k": "按钮:build_granary",
+   "wall": 413,
+   "sim": 511
+  },
+  {
+   "k": "建成:cart",
+   "wall": 415,
+   "sim": 513
+  },
+  {
+   "k": "事件:同一口锅",
+   "wall": 443,
+   "sim": 541
+  },
+  {
+   "k": "按钮:policyButton",
+   "wall": 445,
+   "sim": 542
+  },
+  {
+   "k": "建成:lodge",
+   "wall": 477,
+   "sim": 574
+  },
+  {
+   "k": "建成:granary",
+   "wall": 538,
+   "sim": 635
+  },
+  {
+   "k": "按钮:build_workshop",
+   "wall": 658,
+   "sim": 753
+  },
+  {
+   "k": "稳定聚落",
+   "wall": 658,
+   "sim": 753
+  },
+  {
+   "k": "倍率上限:2",
+   "wall": 658,
+   "sim": 753
+  },
+  {
+   "k": "事件:屋里多了几双鞋",
+   "wall": 658,
+   "sim": 753
+  },
+  {
+   "k": "地点:outside:聚落",
+   "wall": 658,
+   "sim": 754
+  }
+ ],
+ "final": {
+  "sim": 763,
+  "speed": 2,
+  "max": 2,
+  "pop": 4,
+  "b": {
+   "hut": 1,
+   "cart": 1,
+   "lodge": 1,
+   "granary": 1,
+   "workshop": 1
+  },
+  "st": {
+   "wood": 51,
+   "food": 95,
+   "scrap": 4,
+   "fur": 21
+  },
+  "w": {
+   "hunter": 4,
+   "salvager": 0
+  },
+  "fire": 4,
+  "builder": 4,
+  "tech": [],
+  "research": null,
+  "journey": null,
+  "pending": null,
+  "ev": false,
+  "evTitle": null,
+  "tabs": [
+   "room:温暖的维修间",
+   "outside:聚落",
+   "road:旧公路",
+   "research:科技"
+  ],
+  "btns": [
+   "lightButton",
+   "stokeButton",
+   "build_trap",
+   "build_cart",
+   "build_lodge",
+   "build_granary",
+   "build_workshop",
+   "build_hut",
+   "civilGuideGo",
+   "civilGuideDelegate",
+   "policyButton",
+   "civilResearchLink",
+   "gatherButton",
+   "forageButton",
+   "scrapButton",
+   "expeditionDepart",
+   "fieldEquipment_make",
+   "research_water",
+   "research_metal"
+  ],
+  "settled": true,
+  "station": false,
+  "pump": false,
+  "town": false
+ }
+}

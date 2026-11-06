@@ -1,0 +1,50 @@
+{
+  "index": 3,
+  "phases": [
+    {
+      "id": "institutions",
+      "before": {
+        "at": 20442,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:39:42.494Z",
+      "end": "2026-11-06T03:41:31.034Z",
+      "code": null
+    },
+    {
+      "id": "institutions",
+      "before": {
+        "at": 21277,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:41:47.300Z",
+      "end": "2026-11-06T03:43:34.225Z",
+      "code": 0
+    },
+    {
+      "id": "two-cities",
+      "before": {
+        "at": 22064,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:43:34.229Z",
+      "end": "2026-11-06T03:47:01.853Z",
+      "code": 0
+    },
+    {
+      "id": "three-cities",
+      "before": {
+        "at": 23988,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:47:01.861Z",
+      "end": "2026-11-06T03:53:00.138Z",
+      "code": 0
+    }
+  ],
+  "complete": true
+}

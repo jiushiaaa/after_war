@@ -1,0 +1,382 @@
+{
+  "route": "industry",
+  "finalNative": "industry/three-cities/正常推进共同维护一周期/战后文明-存档.json",
+  "completeThreeCities": true,
+  "elapsed": 28509,
+  "cityAt": 19283,
+  "advanceMinutes": 106.42395833333333,
+  "wallMinutes": 114.38566666666667,
+  "speeds": [
+    {
+      "at": 0,
+      "rate": 1
+    },
+    {
+      "at": 807,
+      "rate": 2
+    },
+    {
+      "at": 1388,
+      "rate": 4
+    },
+    {
+      "at": 19284,
+      "rate": 8
+    },
+    {
+      "at": 23082,
+      "rate": 16
+    }
+  ],
+  "opening": [
+    {
+      "k": "建成:hut",
+      "wall": 475,
+      "sim": 505
+    },
+    {
+      "k": "首批居民",
+      "wall": 512,
+      "sim": 541
+    },
+    {
+      "k": "稳定聚落",
+      "wall": 778,
+      "sim": 806
+    }
+  ],
+  "civilianJobClicks": {
+    "before": 130,
+    "now": 4,
+    "afterMandate": 0,
+    "note": "Prior village run includes intentional supply-cut verification; these are recorded script inputs, not a controlled human comparison."
+  },
+  "workChanges": [
+    {
+      "at": 901,
+      "mode": "workshop",
+      "enabled": true
+    },
+    {
+      "at": 20470,
+      "mode": "workshop",
+      "enabled": false,
+      "why": "institution"
+    }
+  ],
+  "workFees": 326,
+  "cityHandoff": 20470,
+  "choices": [
+    {
+      "at": 600,
+      "minute": 10,
+      "type": "配给政策",
+      "value": "equal",
+      "proof": "decisions.records"
+    },
+    {
+      "at": 901,
+      "minute": 14.233333333333333,
+      "type": "轮值优先与实付授权",
+      "value": "workshop",
+      "proof": "workMandate.changes + maintenance receipts"
+    },
+    {
+      "at": 2662,
+      "minute": 23.6,
+      "type": "近郊处置",
+      "value": "近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 2669,
+      "minute": 23.629166666666666,
+      "type": "近郊处置",
+      "value": "静默绕行 小队花两步补给绕开，没有留下枪声。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 2705,
+      "minute": 23.779166666666665,
+      "type": "近郊处置",
+      "value": "拆解旧气象站 仪器拆成了废料，纸质档案受潮散落，无法再整理。",
+      "proof": "expedition.records"
+    },
+    {
+      "at": 3551,
+      "minute": 27.304166666666667,
+      "type": "共同章程",
+      "value": "structure:federation；selection:election；charter:constitution；devolution:local",
+      "proof": "four founding axes counted as one bundle"
+    },
+    {
+      "at": 3572,
+      "minute": 27.391666666666666,
+      "type": "城镇发展方向",
+      "value": "industry",
+      "proof": "course.chosenAt"
+    },
+    {
+      "at": 9002,
+      "minute": 50.016666666666666,
+      "type": "工匠交接",
+      "value": "apprentice",
+      "proof": "course.craftsman"
+    },
+    {
+      "at": 16213,
+      "minute": 80.0625,
+      "type": "接纳与公共服务材料取舍",
+      "value": "暂缓新批次，保留在途家庭",
+      "proof": "actual intake click + final native urban.enabled=false"
+    },
+    {
+      "at": 20476,
+      "minute": 95.34166666666667,
+      "type": "已生效议题",
+      "value": "city_food:workshop",
+      "proof": "passed receipt + pre-choice owner value"
+    },
+    {
+      "at": 22816,
+      "minute": 100.21666666666667,
+      "type": "已生效议题",
+      "value": "city_exchange:industry",
+      "proof": "passed receipt + pre-choice owner value"
+    },
+    {
+      "at": 22880,
+      "minute": 100.35,
+      "type": "已生效议题",
+      "value": "city_burden:host",
+      "proof": "passed receipt + pre-choice owner value"
+    },
+    {
+      "at": 24875,
+      "minute": 102.63854166666667,
+      "type": "已生效议题",
+      "value": "cluster_freight:industry",
+      "proof": "passed receipt + pre-choice owner value"
+    },
+    {
+      "at": 27536,
+      "minute": 105.41041666666666,
+      "type": "已生效议题",
+      "value": "cluster_homes:tools",
+      "proof": "passed receipt + pre-choice owner value"
+    },
+    {
+      "at": 27859,
+      "minute": 105.746875,
+      "type": "已生效议题",
+      "value": "cluster_budget:delivery",
+      "proof": "passed receipt + pre-choice owner value"
+    }
+  ],
+  "choiceGaps": [
+    {
+      "from": 9002,
+      "to": 16213,
+      "minutes": 30.045833333333334,
+      "previous": "工匠交接",
+      "next": "接纳与公共服务材料取舍"
+    },
+    {
+      "from": 3572,
+      "to": 9002,
+      "minutes": 22.625,
+      "previous": "城镇发展方向",
+      "next": "工匠交接"
+    },
+    {
+      "from": 16213,
+      "to": 20476,
+      "minutes": 15.279166666666669,
+      "previous": "接纳与公共服务材料取舍",
+      "next": "已生效议题"
+    },
+    {
+      "from": 901,
+      "to": 2662,
+      "minutes": 9.366666666666669,
+      "previous": "轮值优先与实付授权",
+      "next": "近郊处置"
+    },
+    {
+      "from": 20476,
+      "to": 22816,
+      "minutes": 4.875,
+      "previous": "已生效议题",
+      "next": "已生效议题"
+    },
+    {
+      "from": 600,
+      "to": 901,
+      "minutes": 4.2333333333333325,
+      "previous": "配给政策",
+      "next": "轮值优先与实付授权"
+    },
+    {
+      "from": 2705,
+      "to": 3551,
+      "minutes": 3.525000000000002,
+      "previous": "近郊处置",
+      "next": "共同章程"
+    },
+    {
+      "from": 24875,
+      "to": 27536,
+      "minutes": 2.7718749999999943,
+      "previous": "已生效议题",
+      "next": "已生效议题"
+    },
+    {
+      "from": 22880,
+      "to": 24875,
+      "minutes": 2.2885416666666742,
+      "previous": "已生效议题",
+      "next": "已生效议题"
+    },
+    {
+      "from": 27536,
+      "to": 27859,
+      "minutes": 0.33645833333333997,
+      "previous": "已生效议题",
+      "next": "已生效议题"
+    },
+    {
+      "from": 2669,
+      "to": 2705,
+      "minutes": 0.14999999999999858,
+      "previous": "近郊处置",
+      "next": "近郊处置"
+    },
+    {
+      "from": 22816,
+      "to": 22880,
+      "minutes": 0.13333333333332575,
+      "previous": "已生效议题",
+      "next": "已生效议题"
+    },
+    {
+      "from": 3551,
+      "to": 3572,
+      "minutes": 0.08749999999999858,
+      "previous": "共同章程",
+      "next": "城镇发展方向"
+    },
+    {
+      "from": 2662,
+      "to": 2669,
+      "minutes": 0.02916666666666501,
+      "previous": "近郊处置",
+      "next": "近郊处置"
+    }
+  ],
+  "scriptInputCounts": {
+    "clicks": 4767,
+    "workerClicks": {
+      "salvager": 2,
+      "hunter": 2,
+      "miner": 74,
+      "collier": 478,
+      "smelter": 196,
+      "machinist": 46,
+      "transporter": 6,
+      "electrician": 4
+    },
+    "note": "Recorded script inputs, including navigation and a threshold-oscillating industrial controller; not required player actions."
+  },
+  "windows": [
+    {
+      "from": 0,
+      "to": 30,
+      "count": 7
+    },
+    {
+      "from": 30,
+      "to": 60,
+      "count": 1
+    },
+    {
+      "from": 60,
+      "to": 90,
+      "count": 1
+    },
+    {
+      "from": 90,
+      "to": 106.42395833333333,
+      "count": 6
+    }
+  ],
+  "fullWindowsBelowTwo": [
+    {
+      "from": 30,
+      "to": 60,
+      "count": 1
+    },
+    {
+      "from": 60,
+      "to": 90,
+      "count": 1
+    }
+  ],
+  "phases": [
+    {
+      "id": "institutions",
+      "before": {
+        "at": 20442,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:39:42.494Z",
+      "end": "2026-11-06T03:41:31.034Z",
+      "code": null
+    },
+    {
+      "id": "institutions",
+      "before": {
+        "at": 21277,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:41:47.300Z",
+      "end": "2026-11-06T03:43:34.225Z",
+      "code": 0
+    },
+    {
+      "id": "two-cities",
+      "before": {
+        "at": 22064,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:43:34.229Z",
+      "end": "2026-11-06T03:47:01.853Z",
+      "code": 0
+    },
+    {
+      "id": "three-cities",
+      "before": {
+        "at": 23988,
+        "seed": 7417,
+        "polish": 1
+      },
+      "start": "2026-11-06T03:47:01.861Z",
+      "end": "2026-11-06T03:53:00.138Z",
+      "code": 0
+    }
+  ],
+  "lateSamples": {
+    "from": 10234,
+    "to": 28509,
+    "count": 262
+  },
+  "limits": [
+    "Nominal active time integrates selected speed changes over simulation seconds; pauses, UI interaction and development are excluded. It is diagnostic, not a human attention clock.",
+    "Wall time includes debugging, native checkpoint reloads, screenshots and concurrent regression load. Do not claim controlled speed improvement or 12–15-hour calibration.",
+    "Choice count is a conservative lower bound: repeated/default confirmations, routine renewals, construction and research are excluded.",
+    "Continuous observer started during the town stage. Earlier time is reconstructed only from actual recorded speed clicks, not presented as sampled telemetry.",
+    "The final one-period maintenance hold is a stability check and is separately visible in the phase controller."
+  ]
+}

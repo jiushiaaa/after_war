@@ -1,0 +1,7 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
+const [port,route]=process.argv.slice(2),dir='验证/A7节奏/'+route,b=await connect(port,dir);
+await b.send('Page.reload');await b.sleep(1200);assert.equal(await b.read('State.civilization.elapsed'),0);assert.equal(await b.read('State.civilization.setup.confirmed'),false);
+await b.send('Emulation.setDeviceMetricsOverride',{width:1280,height:1000,deviceScaleFactor:1,mobile:false});
+assert.ok(await b.click('#worldSeed'));await b.send('Input.dispatchKeyEvent',{type:'keyDown',key:'a',code:'KeyA',modifiers:4,windowsVirtualKeyCode:65,commands:['selectAll']});await b.send('Input.dispatchKeyEvent',{type:'keyUp',key:'a',code:'KeyA',windowsVirtualKeyCode:65});await b.send('Input.insertText',{text:'7417'});
+assert.ok(await b.click('#event #begin'));const initial=await b.read('({setup:State.civilization.setup,ruleset:State.civilization.ruleset,polish:State.civilization.polishVersion,pacing:State.civilization.pacingVersion,at:State.civilization.elapsed,people:State.game.population,stores:State.stores,total:CivilCensus.total(State)})');assert.equal(initial.setup.seed,7417);assert.equal(initial.people,0);assert.equal(initial.ruleset,2);assert.equal(initial.polish,1);assert.equal(initial.setup.fast,false);
+fs.writeFileSync(dir+'/start.json',JSON.stringify({wall:new Date().toISOString(),port,route,initial,natural:'UI only; standard options and seed shared, independent worlds; no time or resource injection'},null,2));await b.shot('开局');console.log(initial);b.close();

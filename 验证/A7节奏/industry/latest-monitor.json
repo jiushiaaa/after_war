@@ -1,0 +1,79 @@
+{
+  "at": 28509,
+  "rate": 16,
+  "effectiveRate": 16,
+  "paused": true,
+  "event": null,
+  "pending": null,
+  "people": 624,
+  "total": 422197064,
+  "known": 138723,
+  "food": 4266.011999999997,
+  "foodLedgers": {
+    "origin": 4266.011999999997,
+    "wards": {
+      "terraces": 6069.039999998393,
+      "yards": 10422.14000000017,
+      "canal": 13164.799999997558
+    },
+    "secondCity": 108517.79999999923,
+    "thirdCity": 122119.78000000093,
+    "northLocal": null,
+    "eastLocal": null,
+    "national": 0,
+    "advanced": 0
+  },
+  "governed": 12515,
+  "eraRecords": {
+    "early": {
+      "at": 8375,
+      "retired": [
+        "逐次采木",
+        "逐次采食",
+        "逐次回收"
+      ]
+    }
+  },
+  "wood": 382184.22999999963,
+  "medicine": 368.1782499999893,
+  "knowledge": 2951.4659999999576,
+  "health": 100,
+  "tech": [
+    "water",
+    "metal",
+    "agronomy",
+    "handtools",
+    "preservation",
+    "records",
+    "sanitation",
+    "school",
+    "trails",
+    "irrigation",
+    "mining",
+    "furnace",
+    "mechanics",
+    "standards",
+    "logistics",
+    "power",
+    "electricalSafety",
+    "radio",
+    "vaccines",
+    "precisionFit",
+    "traction",
+    "dispatch",
+    "scientificMethod",
+    "survey",
+    "administration",
+    "publicHealth",
+    "urbanworks"
+  ],
+  "leader": 3,
+  "stage": "cluster",
+  "modernRounds": 1607,
+  "city": 19283,
+  "ending": false,
+  "proposals": 8,
+  "futureTech": [],
+  "earthTech": [],
+  "errors": null
+}

@@ -1,0 +1,221 @@
+{
+  "at": 25991,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "tech": {
+    "water": true,
+    "metal": true,
+    "agronomy": true,
+    "handtools": true,
+    "preservation": true,
+    "records": true,
+    "sanitation": true,
+    "school": true,
+    "trails": true,
+    "irrigation": true,
+    "mining": true,
+    "furnace": true,
+    "mechanics": true,
+    "standards": true,
+    "logistics": true,
+    "power": true,
+    "electricalSafety": true,
+    "radio": true,
+    "vaccines": true,
+    "precisionFit": true,
+    "traction": true,
+    "dispatch": true,
+    "scientificMethod": true,
+    "survey": true,
+    "administration": true,
+    "publicHealth": true,
+    "urbanworks": true
+  },
+  "network": {
+    "road": {
+      "startedAt": 24536,
+      "completedAt": 24836,
+      "worked": 300,
+      "remaining": 0,
+      "condition": 40,
+      "paid": {
+        "wood": 300,
+        "tools": 48,
+        "knowledge": 16
+      }
+    },
+    "node": true,
+    "enabled": true,
+    "expansion": {
+      "method": "steel",
+      "paid": {
+        "wood": 240,
+        "tools": 64,
+        "iron": 96
+      },
+      "startedAt": 25624,
+      "completedAt": 25924,
+      "remaining": 0,
+      "worked": 300
+    },
+    "trips": 3,
+    "delivered": 2,
+    "inspection": {
+      "home": 25980,
+      "lake": 25980,
+      "ridge": 25980
+    },
+    "budget": {
+      "home": "expand",
+      "lake": "regular",
+      "ridge": "regular"
+    }
+  },
+  "council": true,
+  "members": [
+    "home",
+    "lake",
+    "ridge"
+  ],
+  "projects": [],
+  "homeActive": false,
+  "continuity": null,
+  "budget": false,
+  "governance": null,
+  "world": 415507038,
+  "initial": 350007417,
+  "born": 360209669,
+  "dead": 294710048,
+  "cities": [
+    {
+      "id": "home",
+      "population": 12284,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 10024.600000000226,
+        "medicine": 931.5000000004613,
+        "wood": 2530.600000000074,
+        "scrap": 2444.1999999997333,
+        "tools": 333.2799999999779,
+        "knowledge": 2999.9,
+        "iron": 111.90000000000046
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 12,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "waterworker": 29,
+        "farmer": 384,
+        "medic": 311,
+        "teacher": 48,
+        "driver": 2,
+        "salvager": 59,
+        "gatherer": 66,
+        "smith": 32,
+        "builder": 0,
+        "smelter": 8
+      },
+      "worked": {
+        "gatherer": 66,
+        "salvager": 0,
+        "waterworker": 29,
+        "farmer": 0,
+        "medic": 311,
+        "teacher": 48,
+        "smelter": 8,
+        "smith": 32
+      }
+    },
+    {
+      "id": "lake",
+      "population": 56221,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 104605.5999999998,
+        "medicine": 4443.510000000029,
+        "wood": 3448.4000000000287,
+        "scrap": 2385.2999999999934,
+        "tools": 397.3599999999966,
+        "knowledge": 2999.9,
+        "iron": 135
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "courier": 6,
+        "trafficclerk": 2,
+        "publicclerk": 2,
+        "waterworker": 352,
+        "farmer": 2891,
+        "medic": 4110,
+        "teacher": 861,
+        "driver": 0,
+        "salvager": 859,
+        "gatherer": 711,
+        "smith": 16,
+        "builder": 0,
+        "smelter": 0
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 859,
+        "waterworker": 352,
+        "farmer": 2891,
+        "medic": 4110,
+        "teacher": 861,
+        "smelter": 0,
+        "smith": 16
+      }
+    },
+    {
+      "id": "ridge",
+      "population": 61364,
+      "health": 100,
+      "stable": 600,
+      "stocks": {
+        "food": 121321.22000000047,
+        "medicine": 4299.209999999945,
+        "wood": 3979.36000000002,
+        "scrap": 5073.89999999993,
+        "tools": 1227.773000000002,
+        "knowledge": 2999.9,
+        "iron": 821
+      },
+      "workers": {
+        "apprentice": 0,
+        "tutor": 0,
+        "clerk": 2,
+        "trafficclerk": 2,
+        "courier": 6,
+        "publicclerk": 2,
+        "waterworker": 384,
+        "farmer": 5187,
+        "medic": 4506,
+        "teacher": 822,
+        "driver": 0,
+        "salvager": 423,
+        "gatherer": 936,
+        "smith": 238,
+        "builder": 0,
+        "smelter": 160
+      },
+      "worked": {
+        "gatherer": 0,
+        "salvager": 423,
+        "waterworker": 384,
+        "farmer": 5187,
+        "medic": 0,
+        "teacher": 822,
+        "smelter": 0,
+        "smith": 238
+      }
+    }
+  ]
+}

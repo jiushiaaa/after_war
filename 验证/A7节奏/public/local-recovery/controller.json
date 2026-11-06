@@ -1,0 +1,761 @@
+{
+  "stage": "done",
+  "done": [
+    "terraces",
+    "canal"
+  ],
+  "before": {
+    "at": 26292,
+    "paused": true,
+    "global": 415504525,
+    "born": 360207834,
+    "dead": 294710726,
+    "guide": {
+      "goal": "让第一批互济实际抵达",
+      "need": [],
+      "where": "city",
+      "visit": {
+        "city": "link",
+        "target": "metroCityActions"
+      },
+      "note": "车辆返程，尚需 28 秒；到货前仍是在途"
+    },
+    "wards": {
+      "terraces": {
+        "population": 3485,
+        "health": 0,
+        "stable": 0,
+        "stores": {
+          "food": 331.35999999798827,
+          "medicine": 0.12000000014413814,
+          "wood": 2512.100000000169,
+          "scrap": 2533.350000000384,
+          "tools": 0,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 22,
+          "farmer": 195,
+          "medic": 119,
+          "teacher": 26,
+          "driver": 2,
+          "salvager": 57,
+          "gatherer": 43,
+          "smith": 0,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": -2,
+          "wood": -3.599999999999909,
+          "scrap": 0,
+          "tools": 0,
+          "medicine": 0,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "provisioning",
+        "changes": [
+          {
+            "at": 19796,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19869,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21439,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          }
+        ]
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 8793.130000000256,
+          "medicine": 187.6500000004201,
+          "wood": 2522.559999999984,
+          "scrap": 2457.1999999998648,
+          "tools": 102.6979999999772,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "courier": 6,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "driver": 2,
+          "salvager": 55,
+          "gatherer": 66,
+          "smith": 32,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 4.510000000000218,
+          "wood": -12.7800000000002,
+          "scrap": -50.29999999999973,
+          "tools": 4.201000000000008,
+          "medicine": 0.44999999999998863,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "workshop",
+        "changes": [
+          {
+            "at": 19757,
+            "key": "profile",
+            "value": "workshop",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 22087,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          }
+        ]
+      },
+      "canal": {
+        "population": 3075,
+        "health": 0,
+        "stable": 0,
+        "stores": {
+          "food": 0.07999999749927156,
+          "medicine": 27.299999999921397,
+          "wood": 2537.7999999997655,
+          "scrap": 2507.100000000449,
+          "tools": 0,
+          "knowledge": 3000,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 20,
+          "farmer": 208,
+          "medic": 105,
+          "teacher": 23,
+          "driver": 2,
+          "salvager": 43,
+          "gatherer": 32,
+          "smith": 0,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 0,
+          "wood": 39.29999999999973,
+          "scrap": 0,
+          "tools": 0,
+          "medicine": 0,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "provisioning",
+        "changes": [
+          {
+            "at": 19770,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19791,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21318,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          }
+        ]
+      }
+    },
+    "shipments": [
+      {
+        "id": 32,
+        "source": "yards",
+        "target": "terraces",
+        "cargo": {
+          "food": 120
+        },
+        "phase": "returning",
+        "remaining": 88,
+        "startedAt": 26140,
+        "deliveredAt": 26260
+      }
+    ],
+    "cluster": null,
+    "suspended": false,
+    "tripCount": 41
+  },
+  "source": "/Users/chuxinlei/Documents/幻光文游/战后文明/验证/A7节奏/public/local-recovery/before/战后文明-存档.json",
+  "ui": [
+    {
+      "width": 1280,
+      "target": "cityAid",
+      "ward": "terraces",
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "target": "cityAid",
+      "ward": "terraces",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "target": "cityAid",
+      "ward": "terraces",
+      "overflow": false
+    }
+  ],
+  "resumed": {
+    "at": 26713,
+    "paused": true,
+    "global": 417166009,
+    "born": 369342760,
+    "dead": 302184168,
+    "guide": {
+      "goal": "让第一批互济实际抵达",
+      "need": [
+        "双方暂未形成足够互补缺口，保留库存等待需求"
+      ],
+      "where": "city",
+      "visit": {
+        "city": "link",
+        "target": "metroCityActions"
+      },
+      "note": "自动按协约备货；若地方工坊缺工具，可实付送修复物资"
+    },
+    "wards": {
+      "terraces": {
+        "population": 3443,
+        "health": 7.25,
+        "stable": 0,
+        "stores": {
+          "food": 1032.399999997994,
+          "medicine": 31.550000000144188,
+          "wood": 2508.140000000168,
+          "scrap": 2510.7000000003873,
+          "tools": 53.571999999999996,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 22,
+          "farmer": 184,
+          "medic": 117,
+          "teacher": 24,
+          "driver": 2,
+          "salvager": 57,
+          "gatherer": 43,
+          "smith": 18,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 21.760000000000105,
+          "wood": -7.440000000000055,
+          "scrap": 14.550000000000182,
+          "tools": 1.4679999999999964,
+          "medicine": 0.6700000000000017,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "balanced",
+        "changes": [
+          {
+            "at": 19796,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19869,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21439,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          },
+          {
+            "at": 26426,
+            "key": "profile",
+            "value": "balanced",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          }
+        ]
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 8390.47000000022,
+          "medicine": 196.15000000041965,
+          "wood": 2511.7999999999774,
+          "scrap": 2489.599999999876,
+          "tools": 279.13999999997714,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "driver": 2,
+          "salvager": 55,
+          "gatherer": 66,
+          "smith": 32,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 3.789999999999054,
+          "wood": -12.7800000000002,
+          "scrap": 21.200000000000273,
+          "tools": 4.201000000000022,
+          "medicine": 0.44999999999998863,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "workshop",
+        "changes": [
+          {
+            "at": 19757,
+            "key": "profile",
+            "value": "workshop",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 22087,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          }
+        ]
+      },
+      "canal": {
+        "population": 3038,
+        "health": 1.25,
+        "stable": 0,
+        "stores": {
+          "food": 311.8799999975008,
+          "medicine": 43.399999999921434,
+          "wood": 2494.2999999997655,
+          "scrap": 2483.1000000004497,
+          "tools": 12.795000000000002,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 19,
+          "farmer": 196,
+          "medic": 104,
+          "teacher": 21,
+          "driver": 2,
+          "salvager": 43,
+          "gatherer": 32,
+          "smith": 17,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 21.16000000000031,
+          "wood": -6.880000000000109,
+          "scrap": -20.59999999999991,
+          "tools": 1.2310000000000016,
+          "medicine": 0.8200000000000074,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "balanced",
+        "changes": [
+          {
+            "at": 19770,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19791,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21318,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          },
+          {
+            "at": 26670,
+            "key": "profile",
+            "value": "balanced",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          }
+        ]
+      }
+    },
+    "shipments": [
+      {
+        "id": 35,
+        "source": "home",
+        "target": "canal",
+        "cargo": {
+          "food": 96,
+          "tools": 12,
+          "medicine": 12
+        },
+        "phase": "returning",
+        "remaining": 73,
+        "startedAt": 26546,
+        "deliveredAt": 26666
+      },
+      {
+        "id": 36,
+        "source": "yards",
+        "target": "canal",
+        "cargo": {
+          "food": 120
+        },
+        "phase": "outbound",
+        "remaining": 27,
+        "startedAt": 26620,
+        "deliveredAt": null
+      }
+    ],
+    "cluster": null,
+    "suspended": false,
+    "tripCount": 41
+  },
+  "after": {
+    "at": 30463,
+    "paused": true,
+    "global": 427275811,
+    "born": 424925123,
+    "dead": 347656729,
+    "guide": {
+      "goal": "两条线路共用有限车辆",
+      "need": [],
+      "where": "city",
+      "visit": {
+        "city": "link",
+        "target": "metroCityActions"
+      },
+      "note": "可设联合调度所，再沿旧铁路普查矿岭"
+    },
+    "wards": {
+      "terraces": {
+        "population": 3454,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 8616.119999997969,
+          "medicine": 273.3300000001433,
+          "wood": 2513.7400000001935,
+          "scrap": 2512.300000000334,
+          "tools": 157.51200000000247,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 22,
+          "farmer": 185,
+          "medic": 118,
+          "teacher": 24,
+          "driver": 2,
+          "salvager": 57,
+          "gatherer": 43,
+          "smith": 18,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 23.31999999999971,
+          "wood": -7.440000000000055,
+          "scrap": 14.449999999999818,
+          "tools": 1.4480000000000075,
+          "medicine": 0.8599999999999568,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "balanced",
+        "changes": [
+          {
+            "at": 19796,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19869,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21439,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          },
+          {
+            "at": 26426,
+            "key": "profile",
+            "value": "balanced",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          }
+        ]
+      },
+      "yards": {
+        "population": 4620,
+        "health": 100,
+        "stable": 600,
+        "stores": {
+          "food": 9236.429999999935,
+          "medicine": 186.90000000041556,
+          "wood": 2539.2999999999224,
+          "scrap": 2503.0999999999785,
+          "tools": 153.3049999999784,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "courier": 6,
+          "waterworker": 29,
+          "farmer": 377,
+          "medic": 311,
+          "teacher": 48,
+          "driver": 2,
+          "salvager": 55,
+          "gatherer": 66,
+          "smith": 32,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 4.269999999998618,
+          "wood": 40.01999999999998,
+          "scrap": 21.200000000000273,
+          "tools": 4.200999999999993,
+          "medicine": 0.44999999999998863,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "workshop",
+        "changes": [
+          {
+            "at": 19757,
+            "key": "profile",
+            "value": "workshop",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 22087,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          }
+        ]
+      },
+      "canal": {
+        "population": 3048,
+        "health": 95,
+        "stable": 600,
+        "stores": {
+          "food": 7584.639999997533,
+          "medicine": 261.99999999992184,
+          "wood": 2496.959999999778,
+          "scrap": 2488.100000000527,
+          "tools": 160.5929999999988,
+          "knowledge": 2999.9,
+          "iron": 0
+        },
+        "workers": {
+          "apprentice": 0,
+          "tutor": 0,
+          "clerk": 2,
+          "waterworker": 20,
+          "farmer": 196,
+          "medic": 104,
+          "teacher": 22,
+          "driver": 2,
+          "salvager": 43,
+          "gatherer": 32,
+          "smith": 17,
+          "builder": 0,
+          "smelter": 0
+        },
+        "flow": {
+          "food": 20.600000000000364,
+          "wood": -7,
+          "scrap": -20.59999999999991,
+          "tools": 1.2299999999999898,
+          "medicine": 0.7199999999999704,
+          "knowledge": 0,
+          "iron": 0
+        },
+        "profile": "balanced",
+        "changes": [
+          {
+            "at": 19770,
+            "key": "profile",
+            "value": "provisioning",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          },
+          {
+            "at": 19791,
+            "key": "schoolEnabled",
+            "value": true,
+            "paid": {}
+          },
+          {
+            "at": 21318,
+            "key": "careMethod",
+            "value": "clinical",
+            "paid": {
+              "knowledge": 6,
+              "tools": 2
+            }
+          },
+          {
+            "at": 26670,
+            "key": "profile",
+            "value": "balanced",
+            "paid": {
+              "knowledge": 4,
+              "tools": 1
+            }
+          }
+        ]
+      }
+    },
+    "shipments": [
+      {
+        "id": 71,
+        "source": "canal",
+        "target": "yards",
+        "cargo": {
+          "tools": 29
+        },
+        "phase": "returning",
+        "remaining": 107,
+        "startedAt": 30330,
+        "deliveredAt": 30450
+      },
+      {
+        "id": 72,
+        "source": "terraces",
+        "target": "yards",
+        "cargo": {
+          "tools": 35
+        },
+        "phase": "outbound",
+        "remaining": 27,
+        "startedAt": 30370,
+        "deliveredAt": null
+      }
+    ],
+    "cluster": 29170,
+    "suspended": false,
+    "tripCount": 78
+  },
+  "errors": []
+}
