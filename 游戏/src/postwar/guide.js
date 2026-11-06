@@ -64,6 +64,14 @@ var CivilGuide={
     const c=s.civilization;if(c.polity?.foundedAt||c.domain)return null;
     const step=(goal,reason,visit,note=null)=>({goal,need:reason?[reason]:[],where:'city',visit,note});
     if(!c.city.institutions)return step('让城市机构接过日常分工',CivilCityInstitutions.reason(s),{city:'home',view:'production',target:'cityInstitution'},'登记前可查看本城与片区实际开支');
+    if(c.pacingVersion===1)for(const [id,node]of CivilCity.members(s)){
+      const x=CivilCityInstitutions.local(s,id);if(x?.profile!=='provisioning')continue;
+      const w=node.workers,burn=(w.farmer||0)*.01+(w.waterworker||0)*.001+(x.careMethod==='clinical'?(w.medic||0)*.01:0);
+      const incoming=c.city.shipments.filter(p=>p.target===id&&p.phase==='outbound').reduce((n,p)=>n+(p.cargo.tools||0),0);
+      if((node.stores.tools||0)+incoming>=Math.max(8,burn*12))continue;
+      const empty=(node.stores.tools||0)<1;
+      return step('先稳住'+CivilCityContent.wards[id].name+'的工具供给','粮医分工不生产工具；现存与在途不足约两分钟用量',{city:'home',ward:id,view:empty?'transport':'production',target:empty?'cityAid':'cityProductionChoices'},empty?'可从原镇实付派一车援助，再恢复本地自给；同时检查外运是否挤占工具':'可恢复本地自给，或保留专业分工并保障调运；暂停对外发运仍会完成在途交货');
+    }
     const modern=CivilModern.gate(s,'city');if(modern)return {goal:'接通电与通信',need:[modern],where:'research',target:'modernDesk',note:c.research?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':'公共路线可用地方电网，不要求采矿燃煤'};
     const d=c.conurbation,n=c.cityNetwork;
     if(!d)return step('联络第二座真实城市',CivilConurbation.surveyReason(s),{city:'home',view:'overview',target:'metroCitySurvey'},'湖滨保留自己的居民、资产与公仓');
@@ -86,7 +94,7 @@ var CivilGuide={
   open(s,task=this.steps(s)){
     if(!task?.where)return;const v=task.visit;
     if(task.where==='urban'&&(task.section||task.target==='urbanPlan'))CivilInterface.select('urban',task.section||'migration');
-    if(v){if(v.city)CivilConurbationView.selected=v.city;if(v.view)CivilCityView.view=v.view;if(v.network)CivilCityNetworkView.section=v.network;CivilCityView.refresh(s);this.refresh(s);}
+    if(v){if(v.city)CivilConurbationView.selected=v.city;if(v.ward)CivilCityView.selected=v.ward;if(v.view)CivilCityView.view=v.view;if(v.network)CivilCityNetworkView.section=v.network;CivilCityView.refresh(s);this.refresh(s);}
     const tab=document.getElementById('location_'+task.where);if(tab&&!tab.classList.contains('selected'))tab.click();
     const target=document.getElementById(v?.target||task.target||'');if(target){for(let p=target;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}
   },
