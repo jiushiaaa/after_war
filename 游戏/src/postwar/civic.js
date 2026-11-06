@@ -10,6 +10,16 @@ var CivilCivic={
    ['reserves','先留供养余量',['care','homes'],'多派人供养，少派人制器；一名成人轮值协调，每60秒实付木料2、食物1。'],
    ['workshop','先补修造材料',['producers','knowledge'],'少留食物余量，多回收和制器；占用同一名协调员、付相同开支。']
   ],CivilPacing.available(s)&&!CivilPacing.data(s)?.changes.length);
+  if(c.pacingVersion===2){
+   add('town_work','town','熔炉旁，还是学徒桌前','第一座熔炉能开工了。工匠想备足下一轮工程材料，老师希望把学徒留在课堂；生产和教学争用同一批成人。','roster','mode',[
+    ['industry','先备投产材料',['producers','trade'],'受托安排五项工业岗位，先补较大的矿煤铁与零件缓冲；余力再教书。仍付原料与轮值费。'],
+    ['learning','先教下一批学徒',['knowledge','care'],'先安排实际教师，工业只补较小的维修缓冲；研究较快，但扩建材料积累较慢。']
+   ],CivilPacing.available(s)&&CivilPacing.industrialReady(s)&&!CivilPacing.data(s)?.changes.some(r=>CivilPacing.industrial(s,r.mode)));
+   add('town_intake','town','空床之外，还要留下什么','车队带回的新家庭需要工具、药品和课堂。空床已经有了，但同一批工具也在等待公共工程。','intake','enabled',[
+    [false,'先缓接纳，补公共服务',['care','knowledge'],'停止新批次出发，保留在途家庭与床位；把工具和药品留给现有居民。以后在迁居页恢复。'],
+    [true,'继续有保障地接纳',['homes','trade'],'继续原有接纳检查与实付旅费；现有人口供养仍优先，工程可能等待材料。']
+   ],!Number.isSafeInteger(c.city?.cityAt)&&c.urban?.registered&&c.urban.enabled&&s.game.population>=200&&(s.stores.tools||0)<100);
+  }
   add('city_food','city','城市化，还是保留粮作','工坊希望集中熟练工，农田与诊疗班组要求留住人手。选择改变首片区实际岗位，不改变居民人数。','institution','profile',[['provisioning','粮作与公共服务',['care','ecology','homes'],'保留农田和医护，减少制器岗位。'],['workshop','集中回收与制器',['producers','trade'],'增加回收制器与物料库存目标，挤占其他可用工位。']],home);
   add('city_care','city','治疗工位的下一步','医护要求临床教具，工艺社希望先留工具。这是持续消耗与产药能力的取舍。','institution','careMethod',[['clinical','临床配药',['care','knowledge'],pace?'用工具与知识换实际临床产药；需按本片区人口备齐受训医护。':'用工具与知识换实际临床产药；需要两名受训医护。'],['basic','维持基础配药',['producers','homes'],'保留教具与工具，维持原配方和产能。']],home);
   add('city_school','city','谁来接替退休的老师','学堂希望按退休预测持续招生，经营者希望把培训支出留在手中。','school','schoolEnabled',[[true,'委托提前补员',['knowledge','care'],'机构按真实缺口招收学员，持续支付教具与口粮。'],[false,'按需手动开班',['producers','trade'],'不自动承担新课程；退休出现空缺时需自己恢复。']],home);
@@ -51,6 +61,7 @@ var CivilCivic={
   if(a.owner==='institution'){const current=CivilCityInstitutions.local(s,home)?.[a.key];if(current===value)return perform?true:null;return go(CivilCityInstitutions.settingReason(s,home,a.key,value),()=>CivilCityInstitutions.set(s,home,a.key,value));}
   if(a.owner==='school'){if(!!CivilCityInstitutions.local(s,home)?.schoolEnabled===value)return perform?true:null;return go(home?null:'先登记城市公署',()=>CivilCityInstitutions.delegateSchool(s,home,value));}
   if(a.owner==='roster'){if(CivilPacing.data(s)?.enabled&&CivilPacing.data(s).mode===value)return perform?true:null;return go(CivilPacing.reason(s,value),()=>CivilPacing.set(s,value));}
+  if(a.owner==='intake'){if(c.urban.enabled===value)return perform?true:null;return go(c.urban.registered?null:'先登记接纳协议',()=>CivilUrban.setEnabled(s,value));}
   if(a.owner==='exchange'){if(c.conurbation?.contract===value)return perform?true:null;return go(CivilConurbation.signReason(s,value),()=>CivilConurbation.sign(s,value));}
   if(a.owner==='exchangeShare'){if(c.conurbation?.share===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCity.node(s,c.conurbation.route.depot).stores},{knowledge:6})?null:'出发仓还需知识6',()=>CivilConurbation.setShare(s,value));}
   if(a.owner==='freight'){if(c.cityNetwork?.priority===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCityNetwork.local(s,'home').stores},{knowledge:4})?null:'出发仓还需知识4',()=>CivilCityNetwork.setPriority(s,value));}

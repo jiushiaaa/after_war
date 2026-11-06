@@ -3,7 +3,7 @@ var Civilization = {
   defaults() {
     return {elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:null,policySeen:{},trust:50,hunger:0,stableFor:0,
       populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,
-      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2,polishVersion:1,pacingVersion:1};
+      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2,polishVersion:1,pacingVersion:2};
   },
   initState() {
     State.civilization = State.civilization || this.defaults();
@@ -657,13 +657,13 @@ Outside.increaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key');
   const cap=CivilCatalog.jobCapacity(State,job);
   const n=Math.min(Outside.getNumGatherers(),Number(event.data),cap-(State.game.workers[job]||0));
-  if(n>0){if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);if(typeof CivilPacing!=='undefined'&&CivilPacing.jobs.includes(job))CivilPacing.stop(State);$SM.add('game.workers.'+job,n);}
+  if(n>0){if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);if(typeof CivilPacing!=='undefined'&&CivilPacing.managed(State).includes(job))CivilPacing.stop(State);$SM.add('game.workers.'+job,n);}
 };
 const adrDecreaseWorker=Outside.decreaseWorker;
 Outside.decreaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key'),floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
   if((State.game.workers[job]||0)>floor&&typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);
-  if((State.game.workers[job]||0)>floor&&typeof CivilPacing!=='undefined'&&CivilPacing.jobs.includes(job))CivilPacing.stop(State);
+  if((State.game.workers[job]||0)>floor&&typeof CivilPacing!=='undefined'&&CivilPacing.managed(State).includes(job))CivilPacing.stop(State);
   if(!floor)return adrDecreaseWorker.call(this,event);
   const n=Math.min(Number(event.data),Math.max(0,(State.game.workers[job]||0)-floor));if(n>0)$SM.add('game.workers.'+job,-n);
 };

@@ -53,7 +53,7 @@ var CivilGuide={
       return {goal:'先研究标准与计量，开放公共设施和扩建住房',need:missing,where:'research',note:c.research?.id==='standards'?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':missing.length?null:'科技页可以开始研究'};
     }
     const reserveTools=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s)&&city&&pop>=400&&u.enabled&&(st.tools||0)<(commons?60:40);
-    if(c.pacingVersion===1&&city){
+    if(CivilPacing.enabled(s)&&city){
       const w=s.game.workers;
       if(c.tech.publicHealth&&(u.economy?.medicine||0)<0&&(w.medic||0)>=CivilCatalog.jobCapacity(s,'medic')&&(b.publicclinic||0)<CivilCatalog.buildingLimit(s,'publicclinic'))return {goal:'为现有人口扩充诊疗',need:checks.filter(([,ok])=>!ok).map(([label])=>label),where:'urban',section:'care',target:'build_publicclinic',note:'公共卫生网络可支持12所公共诊疗站；扩建仍须实付材料，由现有成人任职'};
       if(c.tech.precisionFit&&(st.tools||0)<(commons?60:40)&&(w.smith||0)>=CivilCatalog.jobCapacity(s,'smith')&&(b.toolworks||0)<CivilCatalog.buildingLimit(s,'toolworks'))return {goal:'扩建制器间，或先留工具给交接',need:checks.filter(([,ok])=>!ok).map(([label])=>label),where:'urban',section:'care',target:'build_toolworks',note:'制器岗位已满。可付木160、铁20、零件6增加四个工位；修造轮值会安排真实人手，采集与教学会少一些'};
@@ -64,7 +64,7 @@ var CivilGuide={
     const c=s.civilization;if(c.polity?.foundedAt||c.domain)return null;
     const step=(goal,reason,visit,note=null)=>({goal,need:reason?[reason]:[],where:'city',visit,note});
     if(!c.city.institutions)return step('让城市机构接过日常分工',CivilCityInstitutions.reason(s),{city:'home',view:'production',target:'cityInstitution'},'登记前可查看本城与片区实际开支');
-    if(c.pacingVersion===1)for(const [id,node]of CivilCity.members(s)){
+    if(CivilPacing.enabled(s))for(const [id,node]of CivilCity.members(s)){
       const x=CivilCityInstitutions.local(s,id);if(x?.profile!=='provisioning')continue;
       const w=node.workers,burn=(w.farmer||0)*.01+(w.waterworker||0)*.001+(x.careMethod==='clinical'?(w.medic||0)*.01:0);
       const incoming=c.city.shipments.filter(p=>p.target===id&&p.phase==='outbound').reduce((n,p)=>n+(p.cargo.tools||0),0);
@@ -80,7 +80,7 @@ var CivilGuide={
     if(d.route.phase==='building')return step('两城道路施工中',null,{city:'link'},'尚需 '+d.route.remaining+' 工时；缺供养会停工，可查看地方收支');
     if(!d.contract)return step('议定两城第一份协作',c.deliberation?.proposal?.id==='city_exchange'?'公共议题正在讨论':null,{city:'link',target:'metroCityAgreement'},'粮医或工料使用不同真实货物；也可以暂缓协作');
     if(!d.clusterAt){
-      const blocked=c.pacingVersion===1&&d.trips.filter(p=>p.deliveredAt!==null).length>=3&&CivilCity.members(s).find(([,node])=>node.stable<120);
+      const blocked=CivilPacing.enabled(s)&&d.trips.filter(p=>p.deliveredAt!==null).length>=3&&CivilCity.members(s).find(([,node])=>node.stable<120);
       if(blocked){const [id,node]=blocked;return step('恢复'+CivilCityContent.wards[id].name+'的持续供养','健康 '+Math.floor(node.health)+'/60 · 稳定供养 '+node.stable+'/120秒',{city:'home',ward:id,view:'overview',target:'cityWardSummary'},'跨城货物已经抵达；还需本地供水、口粮、诊疗、教学和行政同时维持。补齐后按正常节奏恢复，无需重复签约');}
       const p=CivilConurbation.active(s),why=p?null:CivilConurbation.dispatchReason(s);return step('让第一批互济实际抵达',why,{city:'link',target:'metroCityActions'},p?'车辆'+(p.status==='outbound'?'去程':'返程')+'，尚需 '+p.remaining+' 秒；到货前仍是在途':'自动按协约备货；若地方工坊缺工具，可实付送修复物资');
     }

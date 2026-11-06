@@ -94,7 +94,7 @@ var CivilCityInstitutions = {
     const x=this.local(s,id),n=CivilCity.data(s).wards[id];if(!x)return null;
     // On new pacing rules, an explicitly delegated public-service profile may train
     // the next clinical team while the safe basic recipe continues to run.
-    const prepareClinical=s.civilization.pacingVersion===1&&x.profile==='provisioning';
+    const prepareClinical=CivilPacing.enabled(s)&&x.profile==='provisioning';
     const needs={care:x.careMethod==='clinical'||prepareClinical?Math.ceil(CivilCity.count(n)*.01/.3)+2:0,craft:n.method==='standard'&&x.profile!=='provisioning'?Math.ceil(Math.max(x.profile==='workshop'?32:0,Math.ceil(CivilCity.count(n)*.001/.25)+4)*1.25):0};
     // Look two calendar years ahead; a retiring cohort is replaced by paid teaching.
     for(const subject of ['care','craft']){

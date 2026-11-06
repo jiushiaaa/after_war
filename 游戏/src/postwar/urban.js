@@ -1,6 +1,7 @@
 /* MPL-2.0 — Source-preserving migration, reserved beds and sustained local urban economy. */
 var CivilUrban = {
   pendingIds:['urban_register','urban_charter','urban_city'],
+  setEnabled(s,value){const u=s.civilization.urban;if(!u||typeof value!=='boolean'||u.enabled===value||!u.registered&&this.sourceId(s)==='dispersed')return false;u.enabled=value;u.dispatchClock=0;return true;},
   init(s){
     if(s.civilization.urban!==undefined)return;
     s.civilization.urban={schema:1,registered:false,enabled:false,source:[],parties:[],nextParty:1,admitted:0,deceased:0,year:Math.floor(s.civilization.elapsed/600),dispatchClock:0,status:'等待地区名册',chartered:false,city:false,townStable:0,cityStable:0,economy:null};
@@ -318,7 +319,7 @@ var CivilUrban = {
       const button=Civilization.button('urbanReturn_'+party.id,'带回赴'+this.targetName(s,party.target)+'的旅队','#urbanPlans',()=>{if(this.returnParty(s,party.id)){Engine.saveGame();this.refresh();}});
       button.addClass('urbanReturn').show().attr('title','沿已经走过的路返回原来源，旅费不退；已到目的地的旅队须等返程道路修通。');
     }
-    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{u.enabled=!u.enabled;u.dispatchClock=0;Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','来源直接到选定目的地的接纳旅程，去返各120秒；'+(s.civilization.tech.passenger_transport?'原小队最多8人，建成迁居装备后可安排24人大队，大队另付装备维护；':'每批最多8人；')+'每人6粮、0.2药、0.2工具；共用本地运输工，所有目的地合计最多2组；两端各留足120秒口粮');}
+    if(u.registered || current!=='dispersed'){const btn=Civilization.button('urbanPlan',u.enabled?'暂停批次接纳':'安排批次接纳','#urbanPlans',()=>{this.setEnabled(s,!u.enabled);Engine.saveGame();this.refresh();});btn.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(u.enabled?'暂停批次接纳':'安排批次接纳'));btn.attr('title','来源直接到选定目的地的接纳旅程，去返各120秒；'+(s.civilization.tech.passenger_transport?'原小队最多8人，建成迁居装备后可安排24人大队，大队另付装备维护；':'每批最多8人；')+'每人6粮、0.2药、0.2工具；共用本地运输工，所有目的地合计最多2组；两端各留足120秒口粮');}
     if(typeof CivilPassenger!=='undefined')CivilPassenger.refresh();
   },
   validate(s){

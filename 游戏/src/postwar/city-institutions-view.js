@@ -54,7 +54,7 @@ var CivilCityInstitutionsView={
     CivilCityView.button('cityTrain','开设一期培训','#cityTrainingActions',reason,()=>CivilCityInstitutions.enroll(State,this.selected,$('#cityTrainingSubject').val())).toggle(!t);
     CivilCityView.button('cityCancelTraining','停止本期培训','#cityTrainingActions',null,()=>CivilCityInstitutions.cancelTraining(State,this.selected)).toggle(!!t);
     const need=CivilCityInstitutions.schoolNeed(s,id);
-    $('#citySchoolStatus').text((x.schoolEnabled?'学堂受托补员。':'可委托学堂按现行工序补员。')+(s.civilization.pacingVersion===1&&x.profile==='provisioning'?'粮食与诊疗分工会先培养足够的临床储备，期间继续基础配药；改工序仍需自己决定。':'只补现行临床制药、标准件岗位。')+'预留两年退休交接；每期仍付全部教具、课程和劳力。至少保留6轮口粮、60工具、60知识才开新班。'+(need?'当前'+CivilCityInstitutions.subjects[need.subject]+'目标 '+need.target+' 人，两年后留任 '+need.retained+' 人。':'现行工序暂不缺员。'));
+    $('#citySchoolStatus').text((x.schoolEnabled?'学堂受托补员。':'可委托学堂按现行工序补员。')+(CivilPacing.enabled(s)&&x.profile==='provisioning'?'粮食与诊疗分工会先培养足够的临床储备，期间继续基础配药；改工序仍需自己决定。':'只补现行临床制药、标准件岗位。')+'预留两年退休交接；每期仍付全部教具、课程和劳力。至少保留6轮口粮、60工具、60知识才开新班。'+(need?'当前'+CivilCityInstitutions.subjects[need.subject]+'目标 '+need.target+' 人，两年后留任 '+need.retained+' 人。':'现行工序暂不缺员。'));
     CivilCityView.button('cityDelegateSchool',x.schoolEnabled?'暂停学堂补员':'委托学堂补员','#citySchoolActions',null,()=>CivilCityInstitutions.delegateSchool(State,this.selected,!CivilCityInstitutions.local(State,this.selected).schoolEnabled));
     this.value('cityProfile',x.profile,changed);this.value('cityCareMethod',x.careMethod,changed);this.value('cityHomeMode',d.home.mode,false);
     $('#cityProfileStatus').text('当前：'+CivilCityInstitutions.profiles[x.profile]+'。粮食与诊疗增加粮食储备、停止本地制器，需外运工具；回收与制器增加工坊岗位、减少农业余量，需补粮。调运断开时可恢复本地自给。分工调整付4知识、1工具。');
