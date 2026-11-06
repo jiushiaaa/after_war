@@ -2,6 +2,7 @@
 CivilPolity.validate=function(s){const d=this.data(s);if(d===undefined)return;const fail=why=>{throw Error('共同国约账不符：'+why);};if(d.schema!==1||s.civilization.ruleset!==2||!Array.isArray(d.records)||!d.records.length)fail('设立');let replay=null,last=0,periods=0;
  for(const [i,e]of d.records.entries()){
   if(e.id!==i+1||!Number.isSafeInteger(e.at)||e.at<last||e.at>s.civilization.elapsed||!e.sources||!e.args)fail('流水时序');last=e.at;if(i===0&&(e.action!=='start'||e.at!==d.at))fail('设立时点');
+  if(e.repairProductionVersion!==undefined&&(e.repairProductionVersion!==1||e.action!=='period'||s.civilization.pacingVersion!==2))fail('维修生产版本');
   if(typeof CivilEquipment!=='undefined'&&(CivilEquipment.enabled(s)?e.equipmentVersion!==1:e.equipmentVersion!==undefined))fail('装备版本');
   if(e.action==='start'&&s.civilization.polishVersion===1){const options=typeof CivilSetup!=='undefined'?CivilSetup.options(s):{};if(!this.same(e.worldOptions,{logistics:!!options.logistics,autonomy:!!options.autonomy}))fail('局势来源');}
   const result=this.reduce(replay,e);replay=result.d;if(!this.same(e.effects,result.effects)||e.outcome!==result.outcome)fail('实付后果回放');
