@@ -1,6 +1,6 @@
 // Read-only world display after native import; only view/preferences change via UI.
 import fs from 'node:fs';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
-const [source='验证/A7收口/public/two-cities/connected/战后文明-存档.json']=process.argv.slice(2),dir='验证/A7收口/界面/城市交接',b=await connect(9382,dir),click=async css=>assert.ok(await b.click(css),css);
+const [source='验证/A7收口/public/two-cities/connected/战后文明-存档.json',dir='验证/A7收口/界面/城市交接']=process.argv.slice(2),b=await connect(9382,dir),click=async css=>assert.ok(await b.click(css),css);
 await b.send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await b.send('Page.reload');await b.sleep(1200);
 if(await b.read('!!Events.activeEvent()'))await click('#event #close');await click('#saveMenu');await click('#event #import');await click('#event textarea');await b.send('Input.insertText',{text:fs.readFileSync(source,'utf8')});await click('#event #inspect');for(let i=0;i<200&&!await b.read('!!document.querySelector("#event #replace")');i++)await b.sleep(100);await click('#event #replace');await b.sleep(400);if(!await b.read('CivilClock.paused')){await click('#speedButton');await click('#event #pause');}
 if(await b.read('Engine.isLightsOff()')){await click('#saveMenu');await click('#event #theme');}

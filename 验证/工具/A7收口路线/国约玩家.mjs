@@ -64,7 +64,8 @@ while(Date.now()<deadline){if(stopRequested){await pause(true);save();log('opera
  }else if(control.stage==='shipping'&&await ready('protocol',{mode:'shipping'})){await task('relations','shipping');await advance('congress');
  }else if(control.stage==='congress'&&await ready('protocol',{mode:'congress'})){await task('relations','congress');await advance('trade');
  }else if(control.stage==='trade'&&s.foreign?.shipments.filter(x=>x.arrivedAt!==null&&!x.returned).length>=6&&s.stable===600){await advance(route==='public'?'join':'steel',route==='public'?'325_public_trade':'337_industrial_trade');
- }else if(control.stage==='join'&&await ready('join',{actor:'west'})){await task('relations','join','west');await advance('cut', '326_public_joined');
+ }else if(control.stage==='join'&&await ready('join',{actor:'west'})){await task('relations','join','west');await advance(process.env.A7_NORMAL?'sustain':'cut', '326_public_joined');
+ }else if(process.env.A7_NORMAL&&['cut','resume','recover'].includes(control.stage)){if(await ready('pause',{enabled:true}))await task('institutions','pause');await advance('sustain');
  }else if(control.stage==='cut'&&s.at-control.after>=1200&&await ready('pause',{enabled:false})){await task('institutions','pause');await advance('resume','327_public_pause');
  }else if(control.stage==='resume'&&s.at-control.after>=1200&&await ready('pause',{enabled:true})){await task('institutions','pause');await advance('recover','328_public_resume');
  }else if(control.stage==='recover'&&s.stable===600&&s.at-control.after>=1200){await advance('sustain','329_public_recovered');
