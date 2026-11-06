@@ -573,12 +573,12 @@ var Civilization = {
     if(typeof CivilPacing!=='undefined')CivilPacing.refresh(State);
     if(typeof CivilCityView!=='undefined')CivilCityView.refresh(State);
     if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
-    if(typeof CivilNav!=='undefined')CivilNav.order();
     if(typeof CivilReadable!=='undefined')CivilReadable.refresh(State);
     if(typeof CivilModern!=='undefined')CivilModern.refresh(State);
     if(typeof CivilEquipment!=='undefined')CivilEquipment.refresh(State);
     if(typeof CivilCivic!=='undefined')CivilCivic.refresh(State);
     if(typeof CivilArchives!=='undefined')CivilArchives.refresh(State);
+    if(typeof CivilNav!=='undefined')CivilNav.order(State);
     $('#stores').attr('data-legend',c.ruleset===2?(CivilCity.available(State)?'原镇公仓':_('stores')):c.urban?.city?'炉火城库存':_('stores'));
   },
   restart(state) {

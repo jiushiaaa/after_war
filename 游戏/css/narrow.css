@@ -26,7 +26,7 @@
   div#village { margin: 0 0 14px; }
   div#workers { position: static; width: auto; margin-top: 14px; }
   div#buildBtns, div#craftBtns, div#buyBtns { position: static; margin-top: 18px; }
-  #civilResearchLink, #roomPanel:not(.civil-room-managed) #hearthNote { position: static !important; width: auto !important; margin: 10px 0; }
+  #roomPanel:not(.civil-room-managed) #hearthNote { position: static !important; width: auto !important; margin: 10px 0; }
   div#wrapper { display: flex; flex-direction: column; }
   div#content { order: 1; }
   div#notifications { order: 2; position: relative; top: 0; left: 0; width: auto; height: 220px; margin-top: 10px; border-top: 1px solid #999; padding-top: 8px; }

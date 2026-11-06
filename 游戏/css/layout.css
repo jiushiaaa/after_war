@@ -27,6 +27,14 @@ div#header .headerButton, div#header .headerButton.civil-group-start {
   float:none; margin:0; padding:3px 0; border:0; line-height:1.6; font-size:17px;
 }
 div#header .headerButton.selected { text-decoration-thickness:2px; text-underline-offset:6px; }
+#civilOriginFacilities { border-top:1px solid var(--civil-rule); margin-top:12px; padding:10px 0 2px; font-size:13px; }
+#civilOriginFacilities > summary { cursor:pointer; }
+#civilOriginFacilities > p { margin:8px 0; line-height:1.7; }
+#civilOriginFacilities .headerButton { float:none; display:inline-block; margin:0; padding:6px 0; border:0; font-size:14px; text-decoration:underline; }
+#civilOriginReturn { display:flex; flex-wrap:wrap; gap:10px 24px; align-items:center; margin-bottom:22px; line-height:1.7; }
+#civilOriginReturn span { color:var(--civil-muted); font-size:14px; }
+#civilRationActions { margin:0 0 20px; }
+#civilRationActions #policyButton { position:static; margin:0; }
 
 div#notifications {
   grid-column:1; grid-row:1; position:sticky; top:calc(var(--test-bar-height,0px) + 24px);

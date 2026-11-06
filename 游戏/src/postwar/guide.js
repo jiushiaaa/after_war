@@ -122,12 +122,41 @@ var CivilGuide={
 var CivilNav={
   groups:[['家园',['room','outside','urban','city']],['探索',['road','regions']],['建设与供给',['industry','municipal']],['科技',['research']],['共同事务',['council']]],
   scope:{room:'炉火与本地建设',outside:'本地居民与岗位',urban:'本地住房、供养与迁居',city:'片区人口、公共服务、生产和运输',road:'近郊地图与远行',regions:'已知地区与路线',industry:'本城原料、加工与能源',municipal:'某个地方的建设',research:'科技与工艺',council:'制度、继任与对外事务'},
-  order(){
+  // A presentation hand-off, not a free gameplay delegation or a new save rule.
+  roomArchived(s){const c=s.civilization||{};return c.ruleset===2?Number.isSafeInteger(c.city?.cityAt):!!c.urban?.city;},
+  markActive(){
+    if(typeof $!=='function'||!$('#civilOriginFacilities #location_room').length)return;
+    if(Engine.activeModule===Room)$('#location_outside').addClass('selected').attr('aria-current','page');
+  },
+  archiveRoom(s){
+    const room=$('#location_room'),village=$('#outsidePanel #village');if(!room.length||!village.length)return;
+    if(!this.roomArchived(s)){
+      if(!room.parent().is('#header'))room.prependTo('#header');
+      $('#civilOriginFacilities,#civilOriginReturn').remove();this.archivedWorld=null;return;
+    }
+    let fold=$('#civilOriginFacilities');
+    if(!fold.length){fold=$('<details>').attr('id','civilOriginFacilities').appendTo(village);$('<summary>').text('起源设施').appendTo(fold);$('<p>').text('旧建筑与炉火的备用操作。').appendTo(fold);}
+    if(!room.parent().is(fold))room.appendTo(fold);
+    // The original button retains its existing cooldown and policy-event handler.
+    if($('#councilPanel').length){let actions=$('#civilRationActions');if(!actions.length)actions=$('<div>').attr('id','civilRationActions').prependTo('#councilPanel');if($('#policyButton').length&&!$('#policyButton').parent().is(actions))$('#policyButton').appendTo(actions);}
+    let back=$('#civilOriginReturn');
+    if(!back.length){back=$('<div>').attr('id','civilOriginReturn').prependTo('#roomPanel');$('<a>').attr('href','#').text('← 返回原镇').appendTo(back).on('click',e=>{e.preventDefault();Engine.travelTo(Outside);$('#civilOriginFacilities').prop('open',true).children('summary')[0]?.focus();});$('<span>').text('起源设施 · 维修间').appendTo(back);}
+    const hearth=typeof CivilHearth!=='undefined'?CivilHearth.status(s):null;
+    const urgent=hearth&&(hearth.retired?!!hearth.warning:hearth.fire===0||hearth.wood<1||hearth.temperature<2);
+    fold.children('summary').text(urgent?'起源设施 · 炉火与供暖待检查':'起源设施').toggleClass('civil-warning',!!urgent);
+    if(this.archivedWorld!==s.civilization&&!Events.activeEvent()){
+      this.archivedWorld=s.civilization;
+      if(Engine.activeModule===Room){const focused=Room.panel[0]?.contains(document.activeElement)||room[0]===document.activeElement;const next=typeof CivilCityView!=='undefined'&&CivilCityView.module||typeof CivilUrban!=='undefined'&&CivilUrban.module||Outside;Engine.travelTo(next);if(focused)next.tab[0]?.focus({preventScroll:true});}
+    }
+    this.markActive();
+  },
+  order(s){
     if(typeof document==='undefined'||typeof document.getElementById!=='function')return;const header=document.getElementById('header');if(!header||!header.querySelectorAll)return;
+    this.archiveRoom(s);
     const tabs=[...header.querySelectorAll('.headerButton')];if(tabs.length<7){tabs.forEach(t=>t.classList.remove('civil-group-start'));return;} // early game keeps the native order
     let prev=null,group=null;
     for(const [name,ids] of this.groups)for(const id of ids){
-      const el=document.getElementById('location_'+id);if(!el)continue;
+      const el=document.getElementById('location_'+id);if(!el||el.parentElement!==header)continue;
       el.classList.toggle('civil-group-start',group!==null&&group!==name&&el!==tabs[0]);
       if(this.scope[id])el.title=name+' · '+this.scope[id];
       group=name;

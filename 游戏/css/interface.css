@@ -35,12 +35,11 @@
 #civilResearchTree { width:410px; }
 .civil-tech-row { margin:9px 0; padding:8px 0; border-bottom:1px solid #ddd; }
 .civil-tech-row p { margin:7px 0; }
-#civilResearchLink { position:absolute; top:50px; left:150px; }
 #civilBuiltBook { width:145px; margin-top:12px; }
 #civilBuiltBook > div { padding-top:12px; }
 .civil-room-managed #buildBtns { position:static; margin-top:25px; }
 .civil-room-actions { display:flex; gap:12px; margin:16px 0; }
-.civil-room-actions #policyButton,.civil-room-actions #civilResearchLink { position:static; margin:0; }
+.civil-room-actions #policyButton { position:static; margin:0; }
 #roomPanel:not(.civil-room-managed) #hearthNote { position:absolute; left:150px; top:110px; width:230px!important; font-size:13px; }
 body.dark .civil-metric { border-color:#444; }
 body.dark .civil-metric>span,body.dark .civil-details dt { color:#aaa; }

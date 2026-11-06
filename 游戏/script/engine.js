@@ -242,6 +242,7 @@
       Engine.placeStores();
       module.onArrival(diff);
       Notifications.printQueue(module);
+      if(typeof CivilNav!=='undefined') CivilNav.markActive();
     },
 
     // Keep the native module hook; inventory positioning is owned by the layout.
@@ -327,7 +328,7 @@
               else if (Engine.activeModule == Path && Outside.tab) {
                 Engine.travelTo(Outside);
               } 
-              else if (Engine.activeModule == Outside && Room.tab) {
+              else if (Engine.activeModule == Outside && Room.tab && !(typeof CivilNav!=='undefined' && CivilNav.roomArchived(State))) {
                 Engine.travelTo(Room);
               }
             }

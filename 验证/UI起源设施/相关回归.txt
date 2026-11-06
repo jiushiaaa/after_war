@@ -1,0 +1,47 @@
+✔ pause blocks departure, walking and automatic return without consuming supplies (10.260792ms)
+✔ a party takes real residents and paid supplies out once and returns its load once (3.632083ms)
+✔ the transit station reward is granted once, survives reload, and the backpack limit leaves the rest on site (4.028459ms)
+✔ the pump needs real repair parts carried from home and the old timed path stays closed (3.084958ms)
+✔ running out of supplies ends in a paid rescue, loses the pack and rests the party; nobody is deleted (15.986208ms)
+✔ archives or metal: the weather station choice is exclusive and archives only count once they reach home (3.15275ms)
+✔ invited survivors move in only when beds and food really exist (4.1605ms)
+✔ legacy saves with a finished station are mapped as known places without re-granting rewards (3.380292ms)
+✔ a preserved archive opens cold-warning research; dismantling gives metal but no research (14.064208ms)
+✔ the next-step guide reads real conditions and names the town-charter blocker (4.215583ms)
+✔ normal automatic watch keeps the original exact five-minute one-wood cadence without changing the save shape (4.097667ms)
+✔ fractional wood cannot fund manual or automatic tending, and the unfunded hearth cools without negative inventory (0.820541ms)
+✔ an extinguished city hearth consumes no wood or electricity and can recover only through the existing paid light action (0.728167ms)
+✔ manual tending still pays one whole wood and defers the shared fire deadline, while reload preserves its remainder (1.212792ms)
+✔ introductory free fire and unattended early cooling retain the original behavior (0.962333ms)
+✔ municipal delegation can file routine hearth notices without changing fuel cadence or hiding an extinguished hearth (1.583916ms)
+✔ town hearth controls fold once, preserve the native buttons and reveal shortages in the closed summary (0.759167ms)
+✔ explicit handover cancels native heat timers and their saved remainders, including already-captured old callbacks (2.043417ms)
+✔ both old native fire buttons pay for one bounded emergency and cannot restart free tending or refund time on reload (1.495541ms)
+✔ the real Room build gate ignores stale warm temperature after handover and paid emergency enables a material-paid repair (0.94875ms)
+✔ summary boards are read-only and keep origin populations distinct from home residents (37.393834ms)
+✔ warnings reflect actual local shortages and migration reservations are not treated as residents (10.408416ms)
+✔ technology route reveals immediate frontiers but not all future branches (12.24575ms)
+✔ mastered technology records retain real costs and prerequisites without changing unlock authority (12.31225ms)
+✔ the unchanged natural crisis shows empty food stores even when the recorded warehouse delta is zero (18.944125ms)
+✔ the real crisis construction wait is explained after actual freight fills the project (1412.708917ms)
+✔ crisis planning uses actual reduced farm productivity without inventing workers, tools or food (22.366334ms)
+✔ A7 new-world setup freezes until confirmed and chooses a conserved, reproducible world seed (33.329791ms)
+✔ A7 extra logistics stops only new departures and remains opt-in; old saves are untouched (12.615375ms)
+✔ A7 fast-start river guidance reflects the actual alternative contact prerequisites (11.965167ms)
+✔ A7 archives have eight original chains with three gated nodes; awards never change assets (11.685125ms)
+✔ A7 archival imports reject unknown or future records; legacy history remains read-only (10.844459ms)
+✔ A7 failed local read prevents automatic saves; valid data never silently becomes a new game (0.755375ms)
+✔ A7 queued local snapshots cannot overwrite a different world after asynchronous encoding (1.131334ms)
+✔ A7 local write errors preserve dirty status and explicit saves surface the error (0.381292ms)
+✔ A7 archives wait for an actual echo decision and preserve a completed sealing ending (10.502208ms)
+✔ A7 numeric units preserve exact source values and do not mix people with mass (41.603084ms)
+✔ A7 census does not expose unknown reserves or count discoveries as births (12.748709ms)
+✔ A7 source rows distinguish genuine births/deaths and show only ten calendar years (11.712ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1570.877875
