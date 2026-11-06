@@ -23,6 +23,7 @@
     if(typeof CivilGenerations!=='undefined')CivilGenerations.validate(state);
     if(typeof CivilModern!=='undefined')CivilModern.validate(state);
     if(typeof CivilEquipment!=='undefined')CivilEquipment.fieldValidate(state);
+    if(typeof CivilPacing!=='undefined')CivilPacing.validate(state);
     if(typeof CivilCivic!=='undefined')CivilCivic.validate(state);
     if(typeof CivilSetup!=='undefined')CivilSetup.validate(state);
     if(typeof CivilArchives!=='undefined')CivilArchives.validate(state);

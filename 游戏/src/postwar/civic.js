@@ -4,8 +4,12 @@ var CivilCivic={
  enabled(s){return CivilGenerations.enabled(s);},data(s){return s.civilization.deliberation;},
  init(s){if(this.enabled(s)&&this.data(s)===undefined)s.civilization.deliberation={schema:1,proposal:null,records:[],seen:{},support:Object.fromEntries(Object.keys(this.groups).map(k=>[k,50])),samples:[],era:0,eraAt:0,pressure:null,pressureHistory:[],lastPressure:-6000};},
  stage(s){const c=s.civilization;return c.polity?.earth?'earth':c.polity?.future?'advanced':c.polity?.foundedAt?'nation':c.cityCouncil?'cluster':Number.isSafeInteger(c.city?.cityAt)?'city':c.village?.town?'town':'early';},
- agenda(s){const c=s.civilization,d=c.polity,f=d?.future,inst=c.city?.institutions,home=inst?Object.keys(inst.wards)[0]:null,defs=[];
+ agenda(s){const c=s.civilization,d=c.polity,f=d?.future,inst=c.city?.institutions,home=inst?Object.keys(inst.wards)[0]:null,defs=[],pace=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s);
   const add=(id,stage,title,text,owner,key,options,ready)=>defs.push({id,stage,title,text,owner,key,options:options.map(([value,label,groups,consequence])=>({value,label,groups,consequence})),ready:!!ready});
+  if(pace)add('opening_work','early','轮到谁记下明天的工作','新来的人不断加入。有人想多留余粮，有人等着修工具；同一双手不能同时去打猎和捡废料。','roster','mode',[
+   ['reserves','先留供养余量',['care','homes'],'多派人供养，少派人制器；一名成人轮值协调，每60秒实付木料2、食物1。'],
+   ['workshop','先补修造材料',['producers','knowledge'],'少留食物余量，多回收和制器；占用同一名协调员、付相同开支。']
+  ],CivilPacing.available(s)&&!CivilPacing.data(s)?.changes.length);
   add('city_food','city','城市化，还是保留粮作','工坊希望集中熟练工，农田与诊疗班组要求留住人手。选择改变首片区实际岗位，不改变居民人数。','institution','profile',[['provisioning','粮作与公共服务',['care','ecology','homes'],'保留农田和医护，减少制器岗位。'],['workshop','集中回收与制器',['producers','trade'],'增加回收制器与物料库存目标，挤占其他可用工位。']],home);
   add('city_care','city','治疗工位的下一步','医护要求临床教具，工艺社希望先留工具。这是持续消耗与产药能力的取舍。','institution','careMethod',[['clinical','临床配药',['care','knowledge'],'用工具与知识换实际临床产药；需要两名受训医护。'],['basic','维持基础配药',['producers','homes'],'保留教具与工具，维持原配方和产能。']],home);
   add('city_school','city','谁来接替退休的老师','学堂希望按退休预测持续招生，经营者希望把培训支出留在手中。','school','schoolEnabled',[[true,'委托提前补员',['knowledge','care'],'机构按真实缺口招收学员，持续支付教具与口粮。'],[false,'按需手动开班',['producers','trade'],'不自动承担新课程；退休出现空缺时需自己恢复。']],home);
@@ -20,6 +24,24 @@ var CivilCivic={
   add('advanced_machine','advanced','合成人能否参与代表','维修所要求明确责任，合成人与同事要求共同政治资格。支持者与反对者不限于一种身体。','body','citizenship',[['equal','平等公民与代表权',['homes','knowledge'],'取得代表资格，真实合成人可承担公共办事岗位；不得事后追夺。'],['residence','先保障居留与财产',['local','producers'],'计入人口与供养，不自动授予代表权；以后可再立法。']],f?.tech.autonomy);
   add('advanced_work','advanced','留给农园，还是制造间','普通居民和改造者都需要日常生活。两条路线都可抵达首航。','body','work',[['ecological','生态与公共供养',['ecology','care'],'更多农园工位，制造间较少；真实材料照付。'],['industrial','先进制造优先',['producers','trade'],'减少农园，扩大制造岗位；健康不足会被公议拒绝。'],['mixed','混合轮换',['homes','knowledge'],'在现有有限工位间折中。']],f?.assets.hall);
   add('earth_public','earth','向外代表一个地球','八区已经相互承担职责。共同对外代表是否由统一联邦法，还是约束各地的共同议约确立？','earth','mode',[['federal','联邦共同法',['knowledge','homes'],'共同公民与对外代表，地方仍保留日常制度和资产。'],['covenant','地球共同议约',['local','trade'],'保留内部政体，以具有约束力的共同法、仲裁与代表统一。']],d?.earth&&!d.earth.unity&&Object.values(d.earth.regions).filter(r=>r.acceptedAt!==null).length===8);
+  if(pace){
+   const local=home&&CivilCityInstitutions.local(s,home);
+   defs.find(a=>a.id==='city_care').ready=!!local&&CivilCityInstitutions.skillLimit(s,home,'care')>=2;
+   defs.find(a=>a.id==='city_school').ready=!!local&&!!CivilCityInstitutions.schoolNeed(s,home);
+   add('city_exchange','city','两座城先交换什么','湖滨有田地和木料，出发仓有工具。药品与铁料各有去处，不能把同一批物资许诺两遍。','exchange','contract',[
+    ['provisions','粮医互济',['care','homes'],'每批约定工具96、药品48换食物1200、废料160，仍须双方留足口粮。'],
+    ['industry','工料协作',['producers','trade'],'每批工具160、铁料24换食物1400、废料80；占用本可修造的铁料。']
+   ],c.conurbation?.route?.phase==='ready'&&!c.conurbation.contract&&!c.conurbation.policies.some(p=>p.kind==='sign'));
+   add('city_burden','city','道路的维修谁多出一份','湖滨还要修自己的工坊。道路照常运行就要消耗木料和工具，帮它多付一些，会挤占本城的工程储备。','exchangeShare','share',[
+    ['host','本城承担四分之三',['care','trade'],'降低湖滨持续维护负担，本城承担更多真实路材与运费；议定需本城知识6。'],
+    ['equal','双方继续各半',['local','homes'],'保留本城工程储备；湖滨也必须持续支付自己的一半，缺料时两城会停运。']
+   ],!!c.conurbation?.contract&&!c.conurbation.policies.some(p=>p.kind==='share'));
+   add('cluster_freight','cluster','只有一组空车','湖滨的粮医和矿岭的工料都在等车。扩大车场也要材料与维护，先议定现有车辆让谁先走。','freight','priority',[
+    ['food','粮医优先',['care','homes'],'两条线均可出发时，先保粮医；另一条最多让行两次，仍需真实订单。'],
+    ['industry','工料优先',['producers','trade'],'优先铁料与工具，粮医可能晚到；另一条最多让行两次。'],
+    ['balanced','轮流调度',['local','ecology'],'保留轮流调度；不增加车辆，也不提前占用另一城物资。']
+   ],!!c.cityNetwork?.enabled&&!c.cityNetwork.policies.some(p=>p.kind==='priority'));
+  }
   return defs;
  },
  support(s){const d=this.data(s),c=s.civilization,base=d?.support||Object.fromEntries(Object.keys(this.groups).map(k=>[k,50])),healthy=(c.village?.health||0)>=80,fed=c.hunger===0;return Object.fromEntries(Object.entries(base).map(([k,n])=>[k,Math.max(0,Math.min(100,n+(k==='care'||k==='homes'?(fed?8:-20)+(healthy?5:-12):k==='local'&&c.society?.axes.devolution==='local'?5:0)))]));},
@@ -27,6 +49,10 @@ var CivilCivic={
  owner(s,a,value,perform=false){const c=s.civilization,home=this.home(s),d=c.polity,f=d?.future,go=(reason,run)=>perform?!reason&&run():reason;
   if(a.owner==='institution'){const current=CivilCityInstitutions.local(s,home)?.[a.key];if(current===value)return perform?true:null;return go(CivilCityInstitutions.settingReason(s,home,a.key,value),()=>CivilCityInstitutions.set(s,home,a.key,value));}
   if(a.owner==='school'){if(!!CivilCityInstitutions.local(s,home)?.schoolEnabled===value)return perform?true:null;return go(home?null:'先登记城市公署',()=>CivilCityInstitutions.delegateSchool(s,home,value));}
+  if(a.owner==='roster')return go(CivilPacing.reason(s,value),()=>CivilPacing.set(s,value));
+  if(a.owner==='exchange'){if(c.conurbation?.contract===value)return perform?true:null;return go(CivilConurbation.signReason(s,value),()=>CivilConurbation.sign(s,value));}
+  if(a.owner==='exchangeShare'){if(c.conurbation?.share===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCity.node(s,c.conurbation.route.depot).stores},{knowledge:6})?null:'出发仓还需知识6',()=>CivilConurbation.setShare(s,value));}
+  if(a.owner==='freight'){if(c.cityNetwork?.priority===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCityNetwork.local(s,'home').stores},{knowledge:4})?null:'出发仓还需知识4',()=>CivilCityNetwork.setPriority(s,value));}
   if(a.owner==='modern'){if(c.modern.grid===value)return perform?true:null;return go(CivilModern.reason(s,'grid',value),()=>CivilModern.act(s,'grid',value));}
   if(a.owner==='budget'){if(CivilCityCouncil.membersAt(s,c.elapsed).every(id=>CivilCityBudget.mode(s,id)===value))return perform?true:null;return go(CivilCityBudget.applyReason(s,'all',value),()=>CivilCityBudget.apply(s,'all',value));}
   if(a.owner==='governance'){if(CivilCityCouncil.membersAt(s,c.elapsed).every(id=>CivilCityGovernance.office(s,id)?.mode===value))return perform?true:null;return go(CivilCityGovernance.reason(s,'all',value),()=>CivilCityGovernance.apply(s,'all',value));}

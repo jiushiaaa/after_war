@@ -3,7 +3,7 @@ var Civilization = {
   defaults() {
     return {elapsed:0,speed:1,maxSpeed:1,tech:{},events:{},policy:null,policySeen:{},trust:50,hunger:0,stableFor:0,
       populationClock:0,productionClock:0,randomClock:240,policyCooldown:0,residentTime:0,
-      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2,polishVersion:1};
+      research:null,journey:null,pending:null,settled:false,station:false,pump:false,trade:false,visited:{},buildingsSeen:{},courseRule:1,ruleset:2,polishVersion:1,pacingVersion:1};
   },
   initState() {
     State.civilization = State.civilization || this.defaults();
@@ -28,6 +28,7 @@ var Civilization = {
     if(typeof CivilGenerations!=='undefined')CivilGenerations.init(State);
     if(typeof CivilModern!=='undefined')CivilModern.init(State);
     if(typeof CivilEquipment!=='undefined')CivilEquipment.init(State);
+    if(typeof CivilPacing!=='undefined')CivilPacing.init(State);
     if(typeof CivilCivic!=='undefined')CivilCivic.init(State);
     if(typeof CivilArchives!=='undefined')CivilArchives.init(State);
   },
@@ -49,8 +50,9 @@ var Civilization = {
   },
   notify(text) { Notifications.notify(null,text); },
   settleEconomy(s) {
-    const before={...s.stores},office=typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.homeTick(s):null;
+    const before={...s.stores},roster=typeof CivilPacing!=='undefined'?CivilPacing.settle(s):null,office=typeof CivilCityInstitutions!=='undefined'?CivilCityInstitutions.homeTick(s):null;
     const result=CivilRules.settle(s), flow=result.flow;
+    if(roster)flow['轮值分工']=Object.fromEntries(Object.entries(roster).map(([k,v])=>[k,-v]));
     if(office)flow['城市公署']=Object.fromEntries(Object.entries(office).map(([k,v])=>[k,-v]));
     if(typeof CivilCourse!=='undefined'){const coop=CivilCourse.settleCoop(s,flow);if(coop)flow['制器合作社']=coop;}
     const beforeVillage={...s.stores}, care=CivilVillage.treatment(s);
@@ -568,8 +570,9 @@ var Civilization = {
     if(typeof CivilSpace!=='undefined')CivilSpace.refresh();
     if(typeof CivilIncidents!=='undefined')CivilIncidents.refresh();
     if(typeof CivilHistory!=='undefined')CivilHistory.refresh(State);
-    if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
+    if(typeof CivilPacing!=='undefined')CivilPacing.refresh(State);
     if(typeof CivilCityView!=='undefined')CivilCityView.refresh(State);
+    if(typeof CivilGuide!=='undefined'&&$SM.get('game.builder.level')>=4)CivilGuide.refresh(State);
     if(typeof CivilNav!=='undefined')CivilNav.order();
     if(typeof CivilReadable!=='undefined')CivilReadable.refresh(State);
     if(typeof CivilModern!=='undefined')CivilModern.refresh(State);
@@ -654,12 +657,13 @@ Outside.increaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key');
   const cap=CivilCatalog.jobCapacity(State,job);
   const n=Math.min(Outside.getNumGatherers(),Number(event.data),cap-(State.game.workers[job]||0));
-  if(n>0){if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);$SM.add('game.workers.'+job,n);}
+  if(n>0){if(typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);if(typeof CivilPacing!=='undefined'&&CivilPacing.jobs.includes(job))CivilPacing.stop(State);$SM.add('game.workers.'+job,n);}
 };
 const adrDecreaseWorker=Outside.decreaseWorker;
 Outside.decreaseWorker=function(event){
   const job=$(this).closest('.workerRow').attr('key'),floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
   if((State.game.workers[job]||0)>floor&&typeof CivilCityInstitutions!=='undefined')CivilCityInstitutions.manual(State);
+  if((State.game.workers[job]||0)>floor&&typeof CivilPacing!=='undefined'&&CivilPacing.jobs.includes(job))CivilPacing.stop(State);
   if(!floor)return adrDecreaseWorker.call(this,event);
   const n=Math.min(Number(event.data),Math.max(0,(State.game.workers[job]||0)-floor));if(n>0)$SM.add('game.workers.'+job,-n);
 };
