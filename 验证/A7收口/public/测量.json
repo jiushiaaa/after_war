@@ -469,5 +469,32 @@
     "Wall includes native checkpointing and UI pauses; nominal excludes them and uses sampled effective rates.",
     "Ordinary building/research, repeating directions, default confirmations, rejected proposals and maintenance are excluded.",
     "Action timestamps near an outcome use recorded inputs or interpolation, not invented attention time."
-  ]
+  ],
+  "rollingNominal": {
+    "worst": {
+      "from": 25.725001000000002,
+      "to": 55.725001000000006,
+      "count": 3
+    },
+    "belowTwo": []
+  },
+  "rollingWall": {
+    "worst": {
+      "from": 85.13141766666666,
+      "to": 115.13141766666666,
+      "count": 1
+    },
+    "belowTwo": [
+      {
+        "from": 85.13141766666666,
+        "to": 115.13141766666666,
+        "count": 1
+      }
+    ]
+  },
+  "largestWallChoiceGap": {
+    "from": 85.13141666666667,
+    "to": 113.75763333333333,
+    "minutes": 28.626216666666664
+  }
 }

@@ -1,0 +1,112 @@
+{
+  "at": 109966,
+  "rate": 64,
+  "effectiveRate": 64,
+  "paused": false,
+  "event": null,
+  "pending": null,
+  "people": 528,
+  "total": 706369977,
+  "known": 706369977,
+  "food": 3344.252,
+  "foodLedgers": {
+    "origin": 3344.252,
+    "wards": {
+      "terraces": 3901.1999999995737,
+      "yards": 15495.899999996027,
+      "canal": 13088.200000000226
+    },
+    "secondCity": 133260.26000003645,
+    "thirdCity": 150811.60000005353,
+    "northLocal": 17505550.455,
+    "eastLocal": 34152792.048,
+    "national": 2679.95217600014,
+    "advanced": 7176.919999999978
+  },
+  "governed": 14502242,
+  "eraRecords": {
+    "early": {
+      "at": 8478,
+      "retired": [
+        "逐次采木",
+        "逐次采食",
+        "逐次回收"
+      ]
+    },
+    "middle": {
+      "at": 34037,
+      "retired": [
+        "逐人安排原镇岗位",
+        "手动逐期补报课堂",
+        "逐车发放片区互济"
+      ]
+    }
+  },
+  "wood": 395783.1549999476,
+  "medicine": 311.07725000023845,
+  "knowledge": 3999.9420000014234,
+  "health": 100,
+  "tech": [
+    "water",
+    "metal",
+    "agronomy",
+    "handtools",
+    "preservation",
+    "records",
+    "sanitation",
+    "school",
+    "trails",
+    "irrigation",
+    "mining",
+    "furnace",
+    "mechanics",
+    "standards",
+    "logistics",
+    "power",
+    "electricalSafety",
+    "radio",
+    "vaccines",
+    "precisionFit",
+    "traction",
+    "dispatch",
+    "scientificMethod",
+    "survey",
+    "administration",
+    "publicHealth",
+    "urbanworks",
+    "semiconductor",
+    "electroalloy",
+    "powerstorage",
+    "systemsafety"
+  ],
+  "leader": 9,
+  "stage": "earth",
+  "modernRounds": 9076,
+  "city": 15323,
+  "nation": 34020,
+  "ending": false,
+  "proposals": 16,
+  "futureTech": [
+    "ecology",
+    "clinical",
+    "interface",
+    "automation",
+    "continuity",
+    "repairnet",
+    "autonomy",
+    "society",
+    "fusion",
+    "echo",
+    "genetics",
+    "adaptation",
+    "restoration"
+  ],
+  "earthTech": [
+    "mapping",
+    "navigation",
+    "fabrication",
+    "closed",
+    "guidance"
+  ],
+  "errors": null
+}

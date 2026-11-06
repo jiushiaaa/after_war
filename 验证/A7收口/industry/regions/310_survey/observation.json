@@ -1,0 +1,87 @@
+{
+  "at": 31813,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "known": 0,
+  "common": 3990973,
+  "regional": {
+    "schema": 1,
+    "at": 31813,
+    "survey": {
+      "remaining": 480,
+      "finishedAt": null
+    },
+    "origin": null,
+    "node": null,
+    "pact": null,
+    "enabled": true,
+    "levee": 80,
+    "buffer": 0,
+    "medical": {
+      "stock": 0,
+      "received": 0,
+      "local": 0,
+      "used": 0
+    },
+    "ledger": [
+      {
+        "id": 1,
+        "at": 31813,
+        "kind": "survey"
+      }
+    ],
+    "trips": [],
+    "deliveries": []
+  },
+  "regionReason": "先议定两区责任",
+  "consent": "先完成东原普查",
+  "cityReason": "尚无已承诺城市药品",
+  "cities": [
+    {
+      "id": "home",
+      "people": 5157,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 9111.28999999877,
+        "medicine": 727.7100000003351,
+        "wood": 2541.3400000002107,
+        "scrap": 1349.3999999997586,
+        "tools": 468.12199999996363,
+        "knowledge": 2950.9,
+        "iron": 270.5000000000066
+      }
+    },
+    {
+      "id": "lake",
+      "people": 61169,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 109365.32000000161,
+        "medicine": 4396.220000000032,
+        "wood": 3153.900000000115,
+        "scrap": 2102.3000000000143,
+        "tools": 300.49000000000433,
+        "knowledge": 2999.9,
+        "iron": 673.9000000000021
+      }
+    },
+    {
+      "id": "ridge",
+      "people": 70113,
+      "health": 100,
+      "stable": 600,
+      "stores": {
+        "food": 121490.11000000188,
+        "medicine": 5153.919999999984,
+        "wood": 4703.860000000002,
+        "scrap": 5232.400000000003,
+        "tools": 1202.8180000000025,
+        "knowledge": 2999.9,
+        "iron": 834.3000000000008
+      }
+    }
+  ]
+}

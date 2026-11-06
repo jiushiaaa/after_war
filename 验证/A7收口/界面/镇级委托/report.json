@@ -1,0 +1,49 @@
+{
+  "kind": "paused native town copy, actual UI/keyboard; not the natural lineage",
+  "source": "验证/A7收口/industry/town-classroom-gate/战后文明-存档.json",
+  "views": [
+    {
+      "width": 1280,
+      "scroll": 1280,
+      "options": [
+        "供养与储备",
+        "修造与回收",
+        "工业投产",
+        "学徒与维修"
+      ],
+      "oldButtons": 0
+    },
+    {
+      "width": 853,
+      "scroll": 853,
+      "options": [
+        "供养与储备",
+        "修造与回收",
+        "工业投产",
+        "学徒与维修"
+      ],
+      "oldButtons": 0
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "options": [
+        "供养与储备",
+        "修造与回收",
+        "工业投产",
+        "学徒与维修"
+      ],
+      "oldButtons": 0
+    }
+  ],
+  "singleSelector": true,
+  "noDuplicatePeriodCharge": true,
+  "rosterRefreshWaitMs": 2,
+  "manualRevocation": true,
+  "accessibility": {
+    "controls": 11,
+    "unnamed": [],
+    "limit": "Chrome AX names; not screen-reader usability"
+  },
+  "errors": []
+}

@@ -49,7 +49,9 @@ const mixedIndustry=[{op:'workforce',args:{},section:'mandate',key:'workforce'},
 const sealPlan=[{op:'echo',args:{choice:'seal'},section:'echo',key:'echo_seal'},hold('f.echo?.stage==="complete"','376_echo_sealed')];
 const supplyPlan=[{op:'policy',args:{key:'budget',value:3200,reserveVersion:2},section:'mandate',key:'budget_3200'},hold('f.supplyVersion===2','379_public_roundtrip_reserves'),{duration:6000,label:'380_public_paid_maintenance'}];
 const chosenPlan=process.env.A5_PHASE==='supply'?supplyPlan:process.env.A5_PHASE==='mixed'?(route==='public'?mixedPublic:mixedIndustry):process.env.A5_PHASE==='seal'?sealPlan:route==='public'?publicPlan:industrialPlan;
-const skipLabels=new Set(['354_public_gene_failure','355_public_gene_recovery','363_industrial_blackout','364_industrial_same_identity','366_industrial_isolation','367_industrial_negotiated_repair','368_industrial_rights_preserved']);
+const skipLabels=new Set(['354_public_gene_failure','355_public_gene_recovery','363_industrial_blackout','364_industrial_same_identity','366_industrial_isolation','367_industrial_negotiated_repair','368_industrial_rights_preserved','378_industrial_actual_fusion']);
+// Normal renewable supply may cover demand. Do not retain a fusion-only wait
+// from the deliberate blackout test after removing its blackout steps.
 const plan=chosenPlan.filter(x=>!x.duration&&!skipLabels.has(x.label)&&!(x.op==='policy'&&['monitor','audit'].includes(x.args.key))&&!(x.op==='policy'&&x.args.key==='power')&&!(x.op==='law'&&x.args.value==='residence')&&!(x.op==='repair')&&!(x.op==='treat')&&x.test!=='f.charge<150'),file=path.join(dir,'controller.json'),control=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)):{index:0,last:0};const save=()=>fs.writeFileSync(file,JSON.stringify(control));
 let stopRequested=false;process.on('SIGTERM',()=>{stopRequested=true;});
 await send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});await pause(false);const deadline=Date.now()+60*60*1000;
