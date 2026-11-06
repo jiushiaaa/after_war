@@ -1,0 +1,12 @@
+// Independent native UI copy: intake is paused via its real control; original households and export stay intact.
+import fs from 'node:fs';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
+const dir='验证/A7节奏/界面/接纳取舍',b=await connect(9382,dir),base='验证/A7节奏/industry/village';
+const source=base+'/'+fs.readdirSync(base).filter(n=>n.startsWith('checkpoint-')).sort().at(-1)+'/战后文明-存档.json';
+await b.send('Page.reload');await b.sleep(900);
+for(let i=0;i<8;i++){const keys=await b.read('[...document.querySelectorAll("#event .button:not(.disabled)")].map(e=>e.id)');if(!keys.length)break;const key=['close','later','continue','keep','read','wood'].find(k=>keys.includes(k));assert.ok(key);await b.raw('#event #'+key);}
+await b.click('#saveMenu');await b.raw('#event #import');await b.raw('#event textarea');await b.send('Input.insertText',{text:fs.readFileSync(source,'utf8')});await b.raw('#event #inspect');await b.sleep(700);assert.ok(await b.raw('#event #replace'));if(!await b.read('CivilClock.paused')){await b.raw('#speedButton');await b.raw('#event #pause');}
+const report={source,kind:'independent display copy, not natural progression',views:[]};
+for(const width of [1280,390]){
+ await b.send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:width===390});await b.click('#location_urban');assert.ok(await b.click('#civilGuideGo'));assert.equal(await b.read('document.activeElement.id'),'urbanPlan');assert.ok(await b.read('document.querySelector("#urbanPlan").checkVisibility()'));assert.ok(await b.read('document.documentElement.scrollWidth<=innerWidth'));report.views.push(width);await b.shot(width+'-intake');
+}
+const before=await b.read('JSON.stringify(State.civilization.urban.parties)'),stores=await b.read('JSON.stringify(State.stores)');assert.equal(await b.read('State.civilization.urban.enabled'),true);assert.ok(await b.click('#urbanPlan'));assert.equal(await b.read('State.civilization.urban.enabled'),false);assert.equal(await b.read('JSON.stringify(State.civilization.urban.parties)'),before);assert.equal(await b.read('JSON.stringify(State.stores)'),stores);report.inTransitPreserved=true;report.noRefund=true;report.errors=b.events.filter(x=>x.method==='Runtime.exceptionThrown');assert.equal(report.errors.length,0);fs.writeFileSync(dir+'/report.json',JSON.stringify(report,null,2));b.close();console.log('Tool-reserve guidance reaches real intake control; pausing leaves paid travellers and stores unchanged.');

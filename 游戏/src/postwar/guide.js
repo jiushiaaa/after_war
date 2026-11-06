@@ -52,7 +52,8 @@ var CivilGuide={
       for(const [key,n]of Object.entries(cost))if((st[key]||0)<n)missing.push((CivilText.labels[key]||key)+' '+Math.floor(st[key]||0)+'/'+n);
       return {goal:'先研究标准与计量，开放公共设施和扩建住房',need:missing,where:'research',note:c.research?.id==='standards'?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':missing.length?null:'科技页可以开始研究'};
     }
-    return {goal:city?(s.civilization.ruleset===2?'完成核心镇服务交接':commons?'成为城市（田地与公共服务）':'成为城市'):'登记镇制',need:checks.filter(([,ok])=>!ok).map(([label])=>label),note:checks.every(([,ok])=>ok)?'保持 '+Math.max(0,(city?300:180)-(city?u.cityStable:u.townStable))+' 秒':null};
+    const reserveTools=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s)&&city&&pop>=400&&u.enabled&&(st.tools||0)<(commons?60:40);
+    return {goal:city?(s.civilization.ruleset===2?'完成核心镇服务交接':commons?'成为城市（田地与公共服务）':'成为城市'):'登记镇制',need:checks.filter(([,ok])=>!ok).map(([label])=>label),...(reserveTools?{where:'urban',target:'urbanPlan'}:{}),note:reserveTools?'新批次也会支出安置工具。可暂缓发车，先留材料给公共服务；在途家庭照常接纳':checks.every(([,ok])=>ok)?'保持 '+Math.max(0,(city?300:180)-(city?u.cityStable:u.townStable))+' 秒':null};
   },
   citySteps(s){
     const c=s.civilization;if(c.polity?.foundedAt||c.domain)return null;
@@ -79,6 +80,7 @@ var CivilGuide={
   },
   open(s,task=this.steps(s)){
     if(!task?.where)return;const v=task.visit;
+    if(task.where==='urban'&&task.target==='urbanPlan')CivilInterface.select('urban','migration');
     if(v){if(v.city)CivilConurbationView.selected=v.city;if(v.view)CivilCityView.view=v.view;if(v.network)CivilCityNetworkView.section=v.network;CivilCityView.refresh(s);this.refresh(s);}
     const tab=document.getElementById('location_'+task.where);if(tab&&!tab.classList.contains('selected'))tab.click();
     const target=document.getElementById(v?.target||task.target||'');if(target){for(let p=target;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}
