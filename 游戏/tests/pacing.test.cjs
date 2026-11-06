@@ -34,3 +34,18 @@ test('town industrial discussion uses the same owner; direct authorization suppr
 test('a new industrial shift dispute revokes the managed furnace roster and keeps the actual reduced shift',()=>{const {s,ctx}=industrial(),P=ctx.CivilPacing;P.set(s,'industry');const old=s.game.workers.smelter;assert.ok(ctx.CivilCourse.resolveIssue(s,'shift'));assert.equal(P.data(s).enabled,false);P.settle(s);assert.equal(s.game.workers.smelter,old-2);assert.equal(s.civilization.course.issue.moved,2);});
 test('new smoke medicine choice charges four exactly once through the event and owner boundaries',()=>{const {s,ctx}=industrial();s.civilization.industry.pollution=25;s.civilization.village.health=80;s.stores.medicine=4;const e=ctx.CivilCourse.event('course_issue',(_msg,fn)=>fn),b=e.buttons.medicine;assert.ok(b.available());if(b.cost)assert.ok(ctx.CivilRules.pay(s,b.cost));assert.ok(b.onChoose());assert.equal(s.stores.medicine,0);assert.equal(s.civilization.village.health,86);assert.equal(s.civilization.course.issue.option,'medicine');assert.equal(ctx.CivilCourse.resolveIssue(s,'medicine'),false);});
 test('a version-two town can invest in a second original-price classroom without waiting for mechanical transmission',()=>{const {s,ctx}=opening(),C=ctx.CivilCatalog;s.civilization.village.town=true;assert.equal(s.civilization.tech.mechanics,undefined);assert.equal(C.buildingLimit(s,'schoolhouse'),2);assert.ok(ctx.CivilVillage.buildings.schoolhouse.gate());assert.deepEqual({...ctx.CivilVillage.buildings.schoolhouse.cost()},{wood:120,tools:12});const capacity=C.jobCapacity(s,'teacher');assert.equal(capacity,2);s.game.buildings.schoolhouse++;assert.equal(C.jobCapacity(s,'teacher'),capacity+2);s.civilization.pacingVersion=1;assert.equal(C.buildingLimit(s,'schoolhouse'),1);assert.equal(ctx.CivilVillage.buildings.schoolhouse.gate(),false);delete s.civilization.pacingVersion;assert.equal(C.buildingLimit(s,'schoolhouse'),1);});
+test('full industrial buffers still fund sustained town hand-off production, then release the temporary shifts',()=>{
+  // Constructed rule test from an immutable natural town. This is not a new natural run.
+  const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib');
+  const file=path.resolve(__dirname,'../../验证/A7节奏/industry/village/city/战后文明-存档.json'),raw=JSON.parse(fs.readFileSync(file)),source=(raw.encoding?JSON.parse(z.gunzipSync(Buffer.from(raw.data,'base64'))):raw).state;
+  const {s,ctx}=require('./helpers/metro-fixture.cjs').harness(source),c=s.civilization,P=ctx.CivilPacing;
+  c.pacingVersion=2;c.urban.city=false;c.urban.cityStable=0;for(const k of ['ore','coal','iron','parts'])s.stores[k]=1000;
+  const people=s.game.population,drivers=s.game.workers.transporter,guards=s.game.workers.guard,paid=P.data(s).records.length;
+  assert.ok(P.set(s,'industry'));let last;
+  for(let n=0;n<40;n++){c.elapsed+=10;last=ctx.Civilization.settleEconomy(s);}
+  assert.equal(c.urban.cityStable,300);assert.ok(c.urban.economy.industrial);assert.ok(c.urban.economy.productionPower>=4);
+  assert.ok(last.flow[ctx.CivilCatalog.jobs.electrician].coal<0);assert.ok(last.flow[ctx.CivilCatalog.jobs.miner].tools<0);
+  assert.equal(s.game.population,people);assert.equal(s.game.workers.transporter,drivers);assert.equal(s.game.workers.guard,guards);assert.ok(P.data(s).records.length>paid);
+  assert.ok(P.set(s,'learning'));assert.equal(s.game.workers.machinist,0,'the alternative preserves teaching instead of starting the production demonstration');
+  c.urban.city=true;assert.ok(P.set(s,'industry'));for(const j of ['miner','collier','smelter','machinist'])assert.equal(s.game.workers[j],0,'handoff does not create permanent unbounded production');
+});

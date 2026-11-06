@@ -6,6 +6,7 @@ var CivilPacing={
   modesFor(s){return Object.fromEntries(Object.entries(this.modes).filter(([id])=>!['industry','learning'].includes(id)||s.civilization.pacingVersion===2));},
   managed(s,mode=this.data(s)?.mode){return this.industrial(s,mode)?[...this.jobs,...this.industrialJobs]:this.jobs;},
   industrialReady(s){return s.civilization.pacingVersion===2&&s.civilization.course?.id==='industry'&&s.civilization.village.town&&!!s.game.buildings.furnace;},
+  handoffProduction(s,mode){return this.industrial(s,mode)&&mode==='industry'&&!s.civilization.urban.city&&CivilUrban.developmentChecks(s,true).every(([label,ready])=>ready||label==='采矿、采煤、冶炼与机械工实际生产'||label==='工业用电 ≥4');},
   available(s){return this.enabled(s)&&s.civilization.settled&&(s.game.population>=8||!!this.data(s)?.changes.length)&&!!s.game.buildings.workshop&&!s.civilization.city?.institutions;},
   init(s){if(this.enabled(s)&&this.data(s)===undefined)s.civilization.workMandate={schema:1,mode:'reserves',enabled:false,until:0,records:[],changes:[],handoffAt:null};},
   crew(s){const d=this.data(s);return this.enabled(s)&&d?.enabled&&d.until>s.civilization.elapsed&&!s.civilization.city?.institutions?1:0;},
@@ -43,7 +44,10 @@ var CivilPacing={
       const target=learning?{ore:60,coal:80,iron:60,parts:40}:{ore:200,coal:240,iron:200,parts:120};
       // Power is a service, not a stockpile; coal and parts are still paid by CivilIndustry.
       put('electrician',4);
-      for(const [job,key]of [['collier','coal'],['miner','ore'],['smelter','iron'],['machinist','parts']])put(job,(st[key]||0)<target[key]?wanted[job]:0);
+      // The town hand-off requires sustained real production. A full buffer must
+      // not shut the qualifying workshops down during their paid demonstration.
+      const proving=this.handoffProduction(s,mode),floor={collier:1,miner:1,smelter:1,machinist:2};
+      for(const [job,key]of [['collier','coal'],['miner','ore'],['smelter','iron'],['machinist','parts']])put(job,Math.max(proving?floor[job]:0,(st[key]||0)<target[key]?wanted[job]:0));
     }
     if((st.knowledge||0)<600&&left>0){const extra=Math.max(0,Math.min(left,cap('teacher')-next.teacher));next.teacher+=extra;left-=extra;}
     for(const j of managed)if(!Object.hasOwn(w,j))delete next[j];
@@ -88,7 +92,7 @@ var CivilPacing={
     $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排优先补废料与工具至120，可使用已扩建的制器工位；工具够用后回到四人。实际仍受劳力、健康与原料限制。');
     if(this.industrialReady(s)){
       const descriptions={reserves:'先留24轮供养，够用后回到基本产粮；废料留60、工具留24。工业岗位自行安排。',workshop:'优先补废料与工具至120；使用已扩建的制器工位，够用后回到四人。工业岗位自行安排。',industry:'先满足生产工位：矿200、煤240、铁200、零件120。余下成人再安排教学。',learning:'先安排教师；工业只留维修缓冲：矿60、煤80、铁60、零件40。生产扩建会更慢。'};
-      $('#civilWorkPreview').text(descriptions[$('#civilWorkDirection').val()]+' 全部仍受实际劳力、健康、原料与岗位上限限制。');
+      $('#civilWorkPreview').text(descriptions[$('#civilWorkDirection').val()]+($('#civilWorkDirection').val()==='industry'?' 原镇交接其余条件齐备时，保留最低试生产班组；原料和用电照付。':'')+' 全部仍受实际劳力、健康、原料与岗位上限限制。');
     }
   }
 };
