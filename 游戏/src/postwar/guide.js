@@ -79,7 +79,11 @@ var CivilGuide={
     if(!d.route)return step('共同修复两城道路',CivilConurbation.buildReason(s,'yards'),{city:'link',target:'metroCityActions'},'两端各派20人、各付路材，不合并仓库');
     if(d.route.phase==='building')return step('两城道路施工中',null,{city:'link'},'尚需 '+d.route.remaining+' 工时；缺供养会停工，可查看地方收支');
     if(!d.contract)return step('议定两城第一份协作',c.deliberation?.proposal?.id==='city_exchange'?'公共议题正在讨论':null,{city:'link',target:'metroCityAgreement'},'粮医或工料使用不同真实货物；也可以暂缓协作');
-    if(!d.clusterAt){const p=CivilConurbation.active(s),why=p?null:CivilConurbation.dispatchReason(s);return step('让第一批互济实际抵达',why,{city:'link',target:'metroCityActions'},p?'车辆'+(p.status==='outbound'?'去程':'返程')+'，尚需 '+p.remaining+' 秒；到货前仍是在途':'自动按协约备货；若地方工坊缺工具，可实付送修复物资');}
+    if(!d.clusterAt){
+      const blocked=c.pacingVersion===1&&d.trips.filter(p=>p.deliveredAt!==null).length>=3&&CivilCity.members(s).find(([,node])=>node.stable<120);
+      if(blocked){const [id,node]=blocked;return step('恢复'+CivilCityContent.wards[id].name+'的持续供养','健康 '+Math.floor(node.health)+'/60 · 稳定供养 '+node.stable+'/120秒',{city:'home',ward:id,view:'overview',target:'cityWardBrief'},'跨城货物已经抵达；还需本地供水、口粮、诊疗、教学和行政同时维持。补齐后按正常节奏恢复，无需重复签约');}
+      const p=CivilConurbation.active(s),why=p?null:CivilConurbation.dispatchReason(s);return step('让第一批互济实际抵达',why,{city:'link',target:'metroCityActions'},p?'车辆'+(p.status==='outbound'?'去程':'返程')+'，尚需 '+p.remaining+' 秒；到货前仍是在途':'自动按协约备货；若地方工坊缺工具，可实付送修复物资');
+    }
     if(!n)return step('两条线路共用有限车辆',CivilCityNetwork.formReason(s),{city:'link',target:'metroCityActions'},'可设联合调度所，再沿旧铁路普查矿岭');
     if(!n.node)return step('联络第三座城市',n.survey?null:CivilCityNetwork.surveyReason(s),{city:'link',network:'overview',target:'cityNetActions_overview'},n.survey?'普查尚需 '+n.survey.remaining+' 秒':'矿岭有不同产业；接入后仍要承担供养和交通维护');
     if(!n.road)return step('接通矿岭道路',CivilCityNetwork.buildReason(s),{city:'link',network:'overview',target:'cityNetActions_overview'});
