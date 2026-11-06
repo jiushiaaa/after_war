@@ -48,3 +48,11 @@ test('cloud persistence writes a complete compressed snapshot and corrupted read
  h.ctx.LumiMakerSdk={ready:async()=>({ready:true}),readSave:async()=>new TextEncoder().encode('{broken'),writeSave:async()=>{throw Error('must not write');}};
  p.loaded=false;await assert.rejects(p.load());assert.equal(p.loaded,false);
 });
+
+test('an unopened landing or unconfirmed seed cannot replace a cloud save',async()=>{
+ const h=game(),p=h.ctx.CivilPlatform;let writes=0;p.loaded=true;p.dirty=true;p.sdk={writeSave:async()=>writes++};p.status=()=>{};
+ h.ctx.CivilLanding.phase='ready';p.changed();await p.flush();assert.equal(writes,0);assert.equal(p.dirty,true);
+ h.ctx.CivilLanding.phase='setup';h.s.civilization.setup={confirmed:false};await p.flush();assert.equal(writes,0);
+ h.ctx.CivilLanding.phase='playing';await p.flush();assert.equal(writes,0,'a premature reveal still cannot save an unconfirmed seed');
+ delete h.s.civilization.setup;await p.flush();assert.equal(writes,1);
+});

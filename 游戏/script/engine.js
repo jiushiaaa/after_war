@@ -79,6 +79,7 @@
     },
 
     init: function(options) {
+      if(typeof CivilLanding!=='undefined')CivilLanding.beforeInit();
       this.options = $.extend(
         this.options,
         options
@@ -93,17 +94,23 @@
       window.State = this.options.state || {};
       Civilization.initState();
       window.CivilClock = new SimulationClock();
+      if(typeof CivilLanding!=='undefined')CivilClock.paused=true;
       CivilClock.restored = State.timers?.civilClock || {};
       $('<div>').attr('id', 'locationSlider').appendTo('#main');
       $.Dispatch('stateUpdate').subscribe(Engine.handleStateUpdates);
-      $SM.init(); Notifications.init(); Events.init(); Room.init();
+      $SM.init(); Notifications.init();
+      // Newest messages are prepended. Write the opening before room conditions,
+      // so reading the initial log from bottom to top follows the story.
+      const openingShown=Civilization.opening();
+      Events.init(); Room.init();
       if(typeof $SM.get('stores.wood') !== 'undefined') Outside.init();
       else if($SM.get('game.builder.level') >= 1) Engine.setTimeout(Room.unlockForest, Room._NEED_WOOD_DELAY);
       $('body').off('keydown').keydown(Engine.keyDown);
       $('body').off('keyup').keyup(Engine.keyUp);
       Engine.travelTo(Room);
-      Civilization.init();
+      Civilization.init(openingShown);
       CivilClock.start();
+      if(typeof CivilLanding!=='undefined')CivilLanding.afterInit();
       $(window).off('resize.civil').on('resize.civil', function(){ clearTimeout(Engine._resizeTimer); Engine._resizeTimer = setTimeout(Engine.realign, 150); });
     },
     resumeAudioContext: function () {
@@ -242,7 +249,7 @@
       Engine.placeStores();
       module.onArrival(diff);
       Notifications.printQueue(module);
-      if(typeof CivilNav!=='undefined') CivilNav.markActive();
+      if(typeof CivilNav!=='undefined') CivilNav.markActive(true);
     },
 
     // Keep the native module hook; inventory positioning is owned by the layout.
@@ -501,16 +508,18 @@ $.Dispatch = function( id ) {
 };
 
 $(function() {
-  async function boot() {
-    try { const state=await CivilPlatform.load(); $('#startupError').remove(); Engine.init({state}); }
-    catch(error) {
+  function failed(error) {
+      CivilLanding.fail();
       $('#startupError').remove();
       const box=$('<div>').attr('id','startupError').appendTo('body');
       $('<p>').text('没有读到完整进度，游戏尚未开始。原存档不会被覆盖。').appendTo(box);
       $('<p>').text(error.message).appendTo(box);
       $('<button>').text('重试读取').on('click',async function(){this.disabled=true;await boot();}).appendTo(box);
       if(!window.LumiMakerSdk&&typeof CivilLocalSaves!=='undefined')CivilLocalSaves.recovery(box,boot);
-    }
+  }
+  async function boot() {
+    try { const state=await CivilPlatform.load(); $('#startupError').remove(); CivilLanding.show(state,failed); }
+    catch(error) { failed(error); }
   }
   boot();
 });

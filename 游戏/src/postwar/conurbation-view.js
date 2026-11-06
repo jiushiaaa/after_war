@@ -26,14 +26,32 @@ var CivilConurbationView={
     for(const [key,name]of Object.entries(options))$('<option>').val(key).text(name).appendTo(select);
     select.val(this[id]).on('change',()=>{this[id]=select.val();CivilCityView.refresh(State);}).on('keydown keyup',e=>e.stopPropagation());
   },
+  locations(s){
+    const d=CivilConurbation.data(s),choices={};
+    if(CivilDomain.available(s))choices.domain=Number.isSafeInteger(s.civilization.polity?.foundedAt)?'地区与国家概况':'地区与共同责任';
+    choices.home='炉火城';if(d?.node)choices.lake='湖滨市';
+    if(CivilCityNetwork.data(s)?.node)choices.ridge='矿岭市';
+    for(const [id,record]of Object.entries(s.civilization.cityCouncil?.locals||{}))if(record.node)choices[id]=CivilCityCouncil.name(s,id);
+    if(d?.node)choices.link='城际协作';
+    if(s.civilization.cityCouncil)choices.council='共同事务';
+    if(this.selected==='legacy')choices.legacy='湖滨协约';
+    let select=$('#civilPlaceSelect');
+    if(!select.length){const label=$('<label>').addClass('civil-place-choice').appendTo('#metroCitySwitch');$('<span>').text('查看范围').appendTo(label);select=$('<select>').attr({id:'civilPlaceSelect','aria-label':'查看城市、城际协作或地区概况'}).appendTo(label).on('change',()=>this.select(select.val())).on('keydown',function(e){
+      e.stopPropagation();const move={ArrowDown:1,ArrowUp:-1,Home:-Infinity,End:Infinity}[e.key];if(move===undefined||e.altKey||e.ctrlKey||e.metaKey)return;
+      e.preventDefault();const next=Math.max(0,Math.min(this.options.length-1,move===-Infinity?0:move===Infinity?this.options.length-1:this.selectedIndex+move));
+      if(next!==this.selectedIndex){this.selectedIndex=next;$(this).trigger('change');}
+    }).on('keyup',e=>e.stopPropagation());}
+    const signature=JSON.stringify(choices);if(select.attr('data-choices')!==signature){select.empty();for(const [id,label]of Object.entries(choices))$('<option>').val(id).text(label).appendTo(select);select.attr('data-choices',signature);}
+    select.val(this.selected);
+    $('#metroCitySwitch').toggle(Object.keys(choices).length>1);
+  },
   refresh(s){
     if(!CivilConurbation.available(s))return false;this.ensure();
-    CivilDomainView.entry(s);if(CivilDomainView.refresh(s))return true;
+    this.locations(s);if(CivilDomainView.refresh(s))return true;
     const d=CivilConurbation.data(s),v=CivilCityView,a=n=>v.amount(n),cost=x=>v.cost(x);
     $('#metroCitySwitch').toggle(!!d?.node);$('#metroCitySurvey').toggle(!d?.node);
     $('#metroCitySurvey > p').text(d?.survey?'湖岸普查在途 · '+d.survey.remaining+'秒；两名普查员离开旧厂岗位，旅粮已实付。':'旧测绘记录通往湖岸的公路。先了解另一座城市的人口与地方资产，再商议有限合作。');
     this.b('survey','沿湖岸普查','#metroCitySurvey > div',CivilConurbation.surveyReason(s),()=>CivilConurbation.survey(State)).toggle(!d);
-    for(const [id,name]of Object.entries({home:'炉火城',lake:'湖滨市',link:'城际协作'}))this.b('select_'+id,name,'#metroCitySwitch',null,()=>{this.select(id);return false;}).attr('aria-pressed',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected)).toggleClass('selected',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected));
     if(typeof CivilCityCouncilView!=='undefined'&&CivilCityCouncilView.refresh(s))return true;
     if(typeof CivilCityNetworkView!=='undefined'&&CivilCityNetworkView.refresh(s))return true;
     const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#civilGuide,#metroCitySwitch,#metroCityBody,#cityCouncilBody,#domainBody').toggle(!away);$('#metroCityBody').toggle(away);

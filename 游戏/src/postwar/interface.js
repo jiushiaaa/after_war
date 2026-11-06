@@ -91,8 +91,6 @@ var CivilInterface={
     $('#urbanBuildBtns').parent().addClass('civil-build-columns').toggle(['housing','care'].includes(active));
     for(const type of Object.keys(CivilUrban.buildings)){const kind=this.kinds[type]||'care';this.filter('#build_'+type,kind,active);this.filter('#urban_count_'+type,kind,active);}
     $('#urbanPlans').toggle(active==='migration');this.serviceGroups('home',active);
-    let jump=$('#civilUrbanJump');if(!jump.length){jump=$('<div>').attr('id','civilUrbanJump').addClass('civil-jump').insertAfter('#civilTabs_urban');Civilization.button('civilUrbanBuild','查看住房','#civilUrbanJump',()=>this.select('urban','housing'));Civilization.button('civilUrbanMigration','安排迁居','#civilUrbanJump',()=>this.select('urban','migration'));}
-    jump.toggle(active==='overview');$('#civilUrbanMigration').toggle(s.civilization.urban.registered||CivilUrban.sourceIds(s).length>1);
   },
   municipal(s,renderSummary=true){
     if(!$('#municipalPanel').length)return;

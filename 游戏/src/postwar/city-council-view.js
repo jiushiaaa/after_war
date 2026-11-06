@@ -6,7 +6,7 @@ var CivilCityCouncilView={
   choice(id,label,options,host){const box=$('<label>').addClass('city-setting').appendTo(host);$('<span>').text(label).appendTo(box);const select=$('<select>').attr({id:'councilChoice_'+id,'aria-label':label,size:Object.keys(options).length}).appendTo(box);for(const [key,name]of Object.entries(options))$('<option>').val(key).text(name).appendTo(select);select.val(this[id]).on('change',()=>{this[id]=select.val();CivilCityView.refresh(State);}).on('keydown keyup',e=>e.stopPropagation());return select;},
   ensure(){if(this.built&&$('#cityCouncilBody').length)return;this.built=true;const body=$('<div>').attr('id','cityCouncilBody').appendTo('#cityBody');
     $('<h3>').attr('id','councilTitle').appendTo(body);$('<div>').attr('id','councilSummary').appendTo(body);$('<p>').attr('id','councilCurrent').addClass('city-net-lines').appendTo(body);
-    $('<div>').attr('id','councilNav').appendTo(body);$('<p>').attr('id','councilNeeds').addClass('city-net-lines').appendTo(body);
+    $('<p>').attr('id','councilNeeds').addClass('city-net-lines').appendTo(body);
     const proposal=$('<details>').attr('id','councilProposal').addClass('civil-details').appendTo(body).append($('<summary>').text('议定下一项共同工程'));
     this.choice('project','工程与受益地',{'housing:home':'炉火城安居','housing:lake':'湖滨市安居','housing:ridge':'矿岭市安居','housing:estuary':'河口市安居','road:cross':'湖滨—矿岭直路','road:river':'湖滨—河口通路'},proposal);
     this.choice('scale','安居规模',{housing:'零散扩容 · 800床',neighborhood:'安居街区 · 3200床',district:'成片社区 · 8000床'},proposal);
@@ -20,16 +20,10 @@ var CivilCityCouncilView={
   title(s,p){return CivilCityCouncil.housingKind(p.kind)?CivilCityCouncil.targetName(s,p.target)+(CivilCityCouncil.scheme(p.kind)?.name||'安居扩容'):CivilCityCouncil.links[p.target].name;},
   stance(code){return {support:'同意',limitedSupport:'有限支持，仍要求安排本城安居',housingFirst:'要求先安排本城安居，拒绝继续大额出料',suspended:'公用事务未授权或未续办'}[code];},
   refresh(s){const api=CivilCityCouncil,d=api.data(s),cv=CivilConurbationView,v=CivilCityView,a=n=>v.amount(n),cost=x=>v.cost(x)||'无';
-    if(!d){$('#cityCouncilBody,#councilLocation').hide();return false;}this.ensure();const estuary=d.locals.estuary?.node;
-    if(estuary||d.locals.bridge?.node){
-      if(!$('#councilLocation').length){const box=$('<details>').attr('id','councilLocation').appendTo('#metroCitySwitch');$('<summary>').appendTo(box);$('<div>').attr({id:'councilLocations',role:'group','aria-label':'选择城市与城际协作'}).appendTo(box);}
-      const current=['council','legacy'].includes(cv.selected)?'link':cv.selected;
-      for(const [id,name]of Object.entries({...Object.fromEntries(api.ids(s).map(id=>[id,api.name(s,id)])),link:'城际协作'}))this.b('go_'+id,name,'#councilLocations',null,()=>{cv.select(id);$('#councilLocation').prop('open',false);$('#councilLocation > summary').trigger('focus');return false;}).attr('aria-pressed',current===id).toggleClass('selected',current===id);
-      $('#metroCitySwitch > .button').hide();$('#councilLocation').show();$('#councilLocation > summary').text('查看：'+(current==='link'?'城际协作':api.name(s,current)));
-    }else $('#councilLocation').hide();
+    if(!d){$('#cityCouncilBody').hide();return false;}this.ensure();const estuary=d.locals.estuary?.node;
     const show=['council','estuary','bridge'].includes(cv.selected);$('#cityCouncilBody').toggle(show);if(!show)return false;
     $('#cityBody').children().not('#civilGuide,#metroCitySwitch,#cityCouncilBody').hide();$('#metroCitySwitch,#cityCouncilBody').show();const local=['estuary','bridge'].includes(cv.selected);
-    $('#councilTitle').text(local?'河口市':'共同事务');this.b('back','返回城际概况','#councilNav',null,()=>{cv.select('link');return false;});
+    $('#councilTitle').text(local?'河口市':'共同事务');
     $('#cityDispatchDesk').toggle(!local);$('#cityBudgetDesk').toggle(!local);$('#cityLaborDesk').toggle(!local);$('#cityHomesDesk').toggle(!local&&!!CivilCityHomes.data(s));$('#cityContinuityDesk').toggle(!local&&(CivilCityContinuity.available(s)||!!CivilCityContinuity.data(s)));for(const id of ['Proposal','Mandates','Growth','Freight'])$('#council'+id).toggle(!local);$('#councilNeeds').toggle(!local);
     CivilCityGovernanceView.local(local);
     if(cv.selected==='bridge')return CivilCityRegistryView.city(s);

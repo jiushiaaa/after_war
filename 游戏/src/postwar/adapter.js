@@ -32,7 +32,11 @@ var Civilization = {
     if(typeof CivilCivic!=='undefined')CivilCivic.init(State);
     if(typeof CivilArchives!=='undefined')CivilArchives.init(State);
   },
-  init() {
+  opening() {
+    if(State.civilization.events.awake)return false;
+    CivilText.opening.forEach(t=>this.notify(t));State.civilization.events.awake=true;return true;
+  },
+  init(openingShown=false) {
     if(typeof CivilSetup!=='undefined')CivilSetup.opening(State);
     this.resetViewRefresh();
     CivilClock.rate = this.effectiveSpeed();
@@ -41,9 +45,8 @@ var Civilization = {
     $('<span>').attr('id','speedMenu').appendTo(menu);
     this.renderSpeed();
     if(typeof CivilSound!=='undefined')CivilSound.init();
-    if(!State.civilization.events.awake) {
-      CivilText.opening.forEach(t=>this.notify(t)); State.civilization.events.awake=true;
-    } else this.notify('你重新翻开了'+CivilNarrative.community(State)+'的记录。');
+    if(!State.civilization.events.awake)this.opening();
+    else if(!openingShown)this.notify('你重新翻开了'+CivilNarrative.community(State)+'的记录。');
     this.refresh();
     if(State.civilization.setup?.confirmed===false)this.showPending();
     Engine.setInterval(()=>this.tick(),1000,false,'civilTick');
@@ -282,7 +285,9 @@ var Civilization = {
   // Pause is a view-side hold of the shared clock, not saved: reloading resumes at the chosen rate.
   setPaused(value) {
     if(typeof CivilClock==='undefined')return false;
-    CivilClock.paused=!!value;this.renderSpeed();
+    if(typeof CivilLanding!=='undefined'&&CivilLanding.phase==='setup'){CivilLanding.resumePaused=!!value;CivilClock.paused=true;}
+    else CivilClock.paused=!!value;
+    this.renderSpeed();
     this.notify(value?'时间暂停了。居民、邻居与在途小队都停在原处，没有额外产出。':'时间继续流动。');return true;
   },
   speedMenu() {
@@ -336,7 +341,9 @@ var Civilization = {
       if(id==='succession' && result!==true){this.refreshSuccessionEvent();return false;}
       if((id.startsWith('constitution_')||id==='game_setup') && result!==true)return false;
       c.pending=null;this.syncDecisionSpeed();this.notify(message);
-      $SM.fireUpdate('stores');Outside.updateVillage();this.updateIncome();this.refresh();Engine.saveGame();
+      $SM.fireUpdate('stores');Outside.updateVillage();this.updateIncome();this.refresh();
+      if(id==='game_setup'&&typeof CivilLanding!=='undefined')CivilLanding.finishSetup();
+      Engine.saveGame();
       return true;
     };
     let title,text,buttons,onLoad;

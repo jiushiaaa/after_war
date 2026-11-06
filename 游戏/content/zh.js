@@ -1,6 +1,6 @@
 /* MPL-2.0 — New adaptation text, distinct from verified novel canon. */
 var CivilText = {
-  opening: ['金属舱盖从里面推开了。你的呼吸结成白雾。', '记忆停在一场撤离。舱外没有电，只有墙角几根干柴。'],
+  opening: ['记忆停在一场撤离。舱外没有电，只有墙角几根干柴。', '金属舱盖从里面推开了。你的呼吸结成白雾。'],
   labels: {
     'A Dark Room':'冰冷的维修间', 'A Firelit Room':'温暖的维修间',
     'A Silent Forest':'灰白荒林', 'A Lonely Hut':'林边木屋', 'A Tiny Village':'荒林聚落',

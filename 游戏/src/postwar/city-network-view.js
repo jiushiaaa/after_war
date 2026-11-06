@@ -18,14 +18,12 @@ var CivilCityNetworkView={
   },
   refresh(s){const api=CivilCityNetwork,d=api.data(s),cv=CivilConurbationView,view=CivilCityView,a=n=>view.amount(n),cost=x=>view.cost(x)||'无';
     if(!d){$('#cityNetworkBody').hide();return false;}this.ensure();
-    cv.b('select_ridge','矿岭市','#metroCitySwitch',null,()=>{cv.select('ridge');return false;}).toggle(!!d.node&&!Object.values(s.civilization.cityCouncil?.locals||{}).some(r=>r.node)).attr('aria-pressed',cv.selected==='ridge').toggleClass('selected',cv.selected==='ridge');
-    $('#metroCity_select_ridge').insertBefore('#metroCity_select_link');
     const show=['link','ridge'].includes(cv.selected);$('#cityNetworkBody').toggle(show);if(!show)return false;
     $('#cityBody').children().not('#civilGuide,#metroCitySwitch,#cityNetworkBody').hide();$('#metroCitySwitch,#cityNetworkBody').show();
     const ridge=cv.selected==='ridge',section=ridge?'ridge':this.section;
     $('#cityNetTitle').text(ridge?'矿岭市':'城际协作');$('#cityNetIntro').text(ridge?'回收矿料与旧铸炉支撑的地方工业。基础供养由本城维持；金属生产还需要持续检修。':d.node?'共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。':'各城独立供养，共同承担运输。已有车组继续服务湖滨，也可以接洽新的城市。');
     $('#cityNetTabs').toggle(!ridge);for(const [id,label]of Object.entries({overview:'概况',transport:'运输',budget:'公共预算'}))this.b('tab_'+id,label,'#cityNetTabs',null,()=>{this.section=id;view.refresh(State);return false;}).attr('aria-pressed',section===id).toggleClass('selected',section===id);
-    if(typeof CivilCityCouncil!=='undefined'){const council=CivilCityCouncil,book=council.data(s);this.b('council','共同事务','#cityNetTabs',null,()=>{cv.select('council');return false;}).toggle(!!book);this.b('formCouncil','筹办公用委托','#cityNetActions_overview',council.formReason(s),()=>council.form(State)).toggle(!book&&council.available(s)).attr('title','三城各付 '+cost(council.stationCost)+'，各20人施工300秒；地方承担持续办公和勤务费用。');}
+    if(typeof CivilCityCouncil!=='undefined'){const council=CivilCityCouncil,book=council.data(s);this.b('formCouncil','筹办公用委托','#cityNetActions_overview',council.formReason(s),()=>council.form(State)).toggle(!book&&council.available(s)).attr('title','三城各付 '+cost(council.stationCost)+'，各20人施工300秒；地方承担持续办公和勤务费用。');}
     for(const id of ['overview','transport','budget','ridge'])$('#cityNetSection_'+id).toggle(section===id);
     $('#cityNetLedger').toggle(!ridge);
     const additional=Object.values(s.civilization.cityCouncil?.locals||{}).filter(r=>r.node),known=2+(d.node?1:0)+additional.length,busy=api.occupied(s),fleet=api.capacity(s),total=CivilCity.population(s)+CivilCity.count(CivilConurbation.data(s).node)+(d.node?CivilCity.count(d.node):0)+additional.reduce((sum,r)=>sum+CivilCity.count(r.node),0);

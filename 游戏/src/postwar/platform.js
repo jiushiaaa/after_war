@@ -141,13 +141,13 @@
       return JSON.stringify({format:id,version:1,savedAt:new Date().toISOString(),state:State});
     },
     changed() {
-      if(!this.loaded || !root.State?.civilization) return;
+      if(!this.loaded || !root.State?.civilization || root.State.civilization.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
       this.dirty=true;
       if(typeof CivilLocalSaves!=='undefined')CivilLocalSaves.changed();
       if(this.sdk && !this.timer && !this.busy) this.timer=setTimeout(()=>{this.timer=null;this.flush();},2500);
     },
     async flush() {
-      if(!this.sdk || !this.loaded || this.busy || !this.dirty) return;
+      if(!this.sdk || !this.loaded || this.busy || !this.dirty || root.State?.civilization?.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
       this.busy=true; this.dirty=false;
       try { await this.sdk.writeSave(await this.encode()); this.error=null; this.status('云端已保存'); }
       catch(error) { this.dirty=true; this.error=error; this.status('云端未保存，打开存档重试'); }

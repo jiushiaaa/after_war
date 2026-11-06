@@ -3,10 +3,6 @@ var CivilDomainView={
   reset(){if(typeof CivilPolityView!=='undefined')CivilPolityView.reset();if(typeof CivilRegionalView!=='undefined')CivilRegionalView.reset();this.built=false;this.mode='trade';this.priority='care';this.good='iron';this.signature=null;},
   built:false,mode:'trade',priority:'care',good:'iron',signature:null,
   b(id,label,host,reason,fn){return CivilCityView.button('domain_'+id,label,host,reason,fn);},
-  entry(s){
-    if(!CivilDomain.available(s)){$('#domainEntry,#domainBody').hide();return;}
-    if(!$('#domainEntry').length)$('<a>').attr({id:'domainEntry',href:'#',role:'button'}).text('地区与共同责任').appendTo('#metroCitySwitch').on('click',e=>{e.preventDefault();CivilConurbationView.select('domain');});$('#domainEntry').show();
-  },
   choice(id,label,items,host){const l=$('<label>').addClass('city-setting').appendTo(host);$('<span>').text(label).appendTo(l);const el=$('<select>').attr({id:'domainChoice_'+id,size:Object.keys(items).length,'aria-label':label}).appendTo(l);for(const [key,name]of Object.entries(items))$('<option>').val(key).text(name).appendTo(el);el.val(this[id]).on('change',()=>{this[id]=el.val();CivilCityView.refresh(State);}).on('keydown keyup',e=>e.stopPropagation());},
   ensure(){if(this.built&&$('#domainBody').length)return;this.built=true;
     const box=$('<div>').attr('id','domainBody').appendTo('#cityBody');$('<h3>').text('越过城市边界').appendTo(box);$('<p>').attr('id','domainIntro').appendTo(box);$('<div>').attr('id','domainSummary').appendTo(box);
@@ -19,7 +15,7 @@ var CivilDomainView={
     for(const [id,label]of [['Transport','船期与货物'],['Accounts','人口、地方资产与账目']])$('<details>').attr('id','domain'+id).addClass('civil-details').appendTo(box).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines')).on('toggle',function(){if(this.open)CivilDomainView.refresh(State);});
   },
   refresh(s){
-    if(CivilConurbationView.selected!=='domain'||!CivilDomain.available(s)){$('#domainBody').hide();return false;}this.ensure();$('#cityBody').children().not('#civilGuide,#metroCitySwitch,#domainBody').hide();$('#metroCitySwitch,#domainBody').show();$('#councilLocation').hide();$('#metroCitySwitch > .button').show();
+    if(CivilConurbationView.selected!=='domain'||!CivilDomain.available(s)){$('#domainBody').hide();return false;}this.ensure();$('#cityBody').children().not('#civilGuide,#metroCitySwitch,#domainBody').hide();$('#metroCitySwitch,#domainBody').show();
     const f=CivilDomain,d=f.data(s),n=d?.node,a=x=>CivilCityView.amount(x),cost=x=>CivilCityView.cost(x),flight=f.active(s);
     $('#domainIntro').text('城市之外仍有自己的农田、工场和居民。普查确认人口，协约分担职责；合作不合并仓库，也不会把居民搬进本城。');
     for(const id of Object.keys(CivilCensus.regions))$('#domainMap_'+id+' span').text(id==='north'?(n?'北岸已普查 · 其余失联':d?'北岸普查在途':'北岸有旧水路记录'):(id==='west'?'矿岭已接触 · 腹地未普查':id==='east'&&s.civilization.cityCouncil?.locals.estuary?'河口已接触 · 腹地未普查':'未建立地区联系'));

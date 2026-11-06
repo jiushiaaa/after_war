@@ -192,6 +192,7 @@
   <script src="src/postwar/civic.js"></script>
   <script src="src/postwar/sound.js"></script>
   <script src="src/postwar/setup.js"></script>
+  <script src="src/postwar/landing.js"></script>
   <script src="src/postwar/archives.js"></script>
   <script src="src/postwar/local-saves.js"></script>
   <script src="src/postwar/adapter.js"></script>
@@ -221,7 +222,10 @@
   <link rel="stylesheet" href="css/layout.css">
 
 </head>
-<body>
+<body class="civil-entry">
+  <main id="civilLanding" aria-label="战后文明">
+    <button id="civilStartButton" type="button" disabled>开始游戏</button>
+  </main>
 	<div id="wrapper">
 		<div id="saveNotify"><script>document.write(_("saved."));</script></div>
 		<div id="content">

@@ -124,9 +124,34 @@ var CivilNav={
   scope:{room:'炉火与本地建设',outside:'本地居民与岗位',urban:'本地住房、供养与迁居',city:'片区人口、公共服务、生产和运输',road:'近郊地图与远行',regions:'已知地区与路线',industry:'本城原料、加工与能源',municipal:'某个地方的建设',research:'科技与工艺',council:'制度、继任与对外事务'},
   // A presentation hand-off, not a free gameplay delegation or a new save rule.
   roomArchived(s){const c=s.civilization||{};return c.ruleset===2?Number.isSafeInteger(c.city?.cityAt):!!c.urban?.city;},
-  markActive(){
-    if(typeof $!=='function'||!$('#civilOriginFacilities #location_room').length)return;
-    if(Engine.activeModule===Room)$('#location_outside').addClass('selected').attr('aria-current','page');
+  secondary(s){
+    if(!this.roomArchived(s))return [];
+    const c=s.civilization,ids=['outside','urban','regions','municipal'];
+    const national=Number.isSafeInteger(c.polity?.foundedAt)||Number.isSafeInteger(c.nation?.foundedAt);
+    if(c.city?.institutions?.home?.enabled||c.cityContinuity)ids.push('industry');
+    const away=!!(c.expedition?.party||c.journey);
+    if((Number.isSafeInteger(c.conurbation?.clusterAt)||national)&&!away)ids.push('road');
+    return ids;
+  },
+  markActive(travel=false){
+    if(typeof $!=='function')return;
+    const room=Engine.activeModule===Room&&$('#civilOriginFacilities #location_room').length;
+    if(room)$('#location_outside').addClass('selected').attr('aria-current','page');
+    const more=$('#civilNavMore'),tab=room?$('#location_outside'):Engine.activeModule?.tab;
+    const secondary=!!tab?.closest('#civilNavMore').length;
+    more.children('summary').toggleClass('selected',secondary).attr('aria-current',secondary?'page':null).text(secondary?'地方事务 · '+tab.text():'地方事务');
+    if(travel&&more.prop('open')){const focused=more[0]?.contains(document.activeElement);more.prop('open',false);if(focused)more.children('summary')[0]?.focus({preventScroll:true});}
+  },
+  arrange(s,header){
+    const ids=new Set(this.secondary(s));let more=$('#civilNavMore');
+    if(ids.size&&!more.length){more=$('<details>').attr('id','civilNavMore').appendTo(header);$('<summary>').text('地方事务').appendTo(more);$('<div>').attr({'id':'civilNavPlaces','role':'group','aria-label':'原镇与周边事务'}).appendTo(more);}
+    for(const id of ['outside','urban','regions','municipal','industry','road']){
+      const tab=$('#location_'+id);if(!tab.length)continue;
+      const destination=ids.has(id)?$('#civilNavPlaces'):$(header);if(!tab.parent().is(destination))tab.appendTo(destination);
+    }
+    $('#location_regions').text(this.roomArchived(s)?'周边聚居地':'地区');
+    const c=s.civilization;if(Number.isSafeInteger(c.city?.cityAt))$('#location_city').text(Number.isSafeInteger(c.polity?.foundedAt)?'地区与国家':Number.isSafeInteger(c.conurbation?.clusterAt)?'城市群':'城域');
+    more.toggle($('#civilNavPlaces > .headerButton').length>0);this.markActive();
   },
   archiveRoom(s){
     const room=$('#location_room'),village=$('#outsidePanel #village');if(!room.length||!village.length)return;
@@ -153,7 +178,8 @@ var CivilNav={
   order(s){
     if(typeof document==='undefined'||typeof document.getElementById!=='function')return;const header=document.getElementById('header');if(!header||!header.querySelectorAll)return;
     this.archiveRoom(s);
-    const tabs=[...header.querySelectorAll('.headerButton')];if(tabs.length<7){tabs.forEach(t=>t.classList.remove('civil-group-start'));return;} // early game keeps the native order
+    this.arrange(s,header);
+    const tabs=[...header.querySelectorAll(':scope > .headerButton')];if(tabs.length<7&&!this.roomArchived(s)){tabs.forEach(t=>t.classList.remove('civil-group-start'));return;} // early game keeps the native order
     let prev=null,group=null;
     for(const [name,ids] of this.groups)for(const id of ids){
       const el=document.getElementById('location_'+id);if(!el||el.parentElement!==header)continue;
@@ -162,5 +188,6 @@ var CivilNav={
       group=name;
       if(prev)prev.after(el);else header.prepend(el);prev=el;
     }
+    const more=document.getElementById('civilNavMore');if(more)header.append(more);
   }
 };

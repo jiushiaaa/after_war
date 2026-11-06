@@ -125,6 +125,14 @@
     }else state={};
     this.loaded=true;return state;
   };
+  // Existing checkpoints are direct previews; a fresh world exercises the real opening screen.
+  if(typeof CivilLanding!=='undefined'){
+    const showLanding=CivilLanding.show;
+    CivilLanding.show=function(state,onError){
+      if(session.entry?.source){Engine.init({state});return;}
+      return showLanding.call(this,state,onError);
+    };
+  }
   Engine.init=function(options){
     const result=savedInit.call(this,options);Civilization.setPaused(true);session.ready=true;shell();
     const e=session.entry;document.getElementById('testTitle').textContent='测试副本 · '+session.catalog.routes[e.route]+' · '+e.title;

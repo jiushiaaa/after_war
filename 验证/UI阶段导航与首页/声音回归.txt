@@ -1,0 +1,13 @@
+✔ A7 sound selects every actual era and both city routes, with local ambience and echo priority (1.099917ms)
+✔ A7 sound settings normalize locally; mobile defaults to no environment and cannot exceed safe gain (0.87125ms)
+✔ A7 no media is created before user unlock; blocked playback is caught (0.449959ms)
+✔ A7 transition waits for new playback, fades for three seconds and invalidates stale loading tracks (0.491792ms)
+✔ A7 ambient bus is forty percent of background and native events duck background by six dB (0.310083ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40.192958
