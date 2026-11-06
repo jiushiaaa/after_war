@@ -38,6 +38,8 @@ await send('Emulation.setDeviceMetricsOverride',{width:1280,height:1000,deviceSc
 let s=await observe();if(!s.city?.cityAt||s.total<10000)throw Error('Import native 207 first');
 const stateFile=path.join(dir,'controller.json'),control=fs.existsSync(stateFile)?JSON.parse(fs.readFileSync(stateFile)): {start:s.at,manual:false,base:JSON.parse(JSON.stringify(s.city.wards)),last:0};
 if(!fs.existsSync(path.join(dir,'start.json')))fs.writeFileSync(path.join(dir,'start.json'),JSON.stringify(s,null,2));
+const clinicId=process.env.A7_ROUTE==='public'?'terraces':'canal';
+const profiles=process.env.A7_ROUTE==='public'?[['yards','workshop'],['canal','balanced']]:[['yards','balanced'],['canal','provisioning']];
 const end=Date.now()+120*60*1000;
 while(Date.now()<end){
  s=await observe();const d=s.city.institutions;
@@ -58,15 +60,15 @@ while(Date.now()<end){
  if(!d){if(!await click('#cityFoundInstitution')){await raw('#location_city');await raw('#cityView_production');}await sleep(500);continue;}
  if(!d.home.enabled){await click('#cityDelegate');continue;}
  let acted=false;
- for(const [id,profile]of [['terraces','balanced'],['yards','workshop'],['canal','provisioning']])if(d.wards[id].profile!==profile){await click('#cityWard_'+id);await select('#cityProfile',profile);await click('#cityApplyProfile');acted=true;break;}
+ for(const [id,profile]of profiles)if(d.wards[id].profile!==profile){await click('#cityWard_'+id);await select('#cityProfile',profile);await click('#cityApplyProfile');acted=true;break;}
  if(acted)continue;
- const yards=d.wards.yards,canal=d.wards.canal;
+ const yards=d.wards.yards,canal=d.wards[clinicId];
  if(!yards.training&&yards.courses.filter(t=>t.result==='completed'&&t.subject==='craft').length<1){await click('#cityWard_yards');await select('#cityTrainingSubject','craft');if(await click('#cityTrain'))continue;}
- if(!canal.schoolEnabled){await click('#cityWard_canal');await click('#cityDelegateSchool');continue;}
- const trained=await read("CivilCityInstitutions.trained(State,'canal','care')>=Math.ceil(CivilCity.count(CivilCity.node(State,'canal'))*.01/.3)");
+ if(!canal.schoolEnabled){await click('#cityWard_'+clinicId);await click('#cityDelegateSchool');continue;}
+ const trained=await read(`CivilCityInstitutions.trained(State,'${clinicId}','care')>=Math.ceil(CivilCity.count(CivilCity.node(State,'${clinicId}'))*.01/.3)`);
  const deliveredFood=Object.entries(s.city.wards).reduce((n,[id,w])=>n+(w.budget.received.food||0)-(control.base[id].budget.received.food||0),0);
- if(trained&&canal.careMethod!=='clinical'){await click('#cityWard_canal');await select('#cityCareMethod','clinical');await click('#cityApplyCare');continue;}
- if(trained&&!canal.schoolEnabled){await click('#cityWard_canal');await click('#cityDelegateSchool');continue;}
+ if(trained&&canal.careMethod!=='clinical'){await click('#cityWard_'+clinicId);await select('#cityCareMethod','clinical');await click('#cityApplyCare');continue;}
+ if(trained&&!canal.schoolEnabled){await click('#cityWard_'+clinicId);await click('#cityDelegateSchool');continue;}
  const yard=s.city.wards.yards;
  if((yard.economy?.food||0)>=0&&yard.health>=95&&yard.stable>=120){control.selfFoodStart??={at:s.at,made:yard.budget.produced.food||0,used:yard.budget.consumed.food||0};}else control.selfFoodStart=null;
  const selfFed=control.selfFoodStart&&s.at-control.selfFoodStart.at>=600&&(yard.budget.produced.food||0)-control.selfFoodStart.made>=(yard.budget.consumed.food||0)-control.selfFoodStart.used-1e-6;
@@ -76,7 +78,7 @@ while(Date.now()<end){
    await send('Browser.setDownloadBehavior',{behavior:'allow',downloadPath:path.resolve(dir,'native')});fs.mkdirSync(path.join(dir,'native'),{recursive:true});
    await raw('#saveMenu');await raw('#event #download');await sleep(1200);await raw('#event #close');
    const final=await observe();fs.writeFileSync(path.join(dir,'result.json'),JSON.stringify({start:control.start,manualRevoked:control.manual,recovery:{crisisAt:control.crisisAt,lowestHealth:control.lowestHealth,reliefSent:control.reliefSent,recoveredAt:control.recoveredAt},received:{foodIntoYards:food,foodAcrossWards:deliveredFood,tools},selfFoodEvidence:selfFed?{...control.selfFoodStart,end:s.at,made:yard.budget.produced.food-control.selfFoodStart.made,used:yard.budget.consumed.food-control.selfFoodStart.used}:null,final},null,2));
-   await click('#cityWard_canal');await raw('#cityView_production');const shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(dir,'governance.png'),Buffer.from(shot.result.data,'base64'));
+   await click('#cityWard_'+clinicId);await raw('#cityView_production');const shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(dir,'governance.png'),Buffer.from(shot.result.data,'base64'));
    console.log('ACCEPTED',JSON.stringify({at:final.at,total:final.total,food,tools}));done=true;break;
  }
  await sleep(1800);

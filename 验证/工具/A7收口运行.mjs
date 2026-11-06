@@ -12,6 +12,7 @@ if(!fs.existsSync(path.join(dir,'start.json'))){
  for(let i=0;i<40;i++){try{if((await fetch(`http://127.0.0.1:${port}/json`)).ok)break;}catch{}await new Promise(r=>setTimeout(r,500));}
  await run('A7收口开局.mjs',[port,route],'start.log');
 }
+if(fs.existsSync(path.join(dir,'monitor.stop')))fs.unlinkSync(path.join(dir,'monitor.stop'));
 const obslog=fs.openSync(path.join(dir,'observer.log'),'a'),observer=spawn(process.execPath,['验证/工具/A7自然观测.mjs',port,route,dir],{stdio:['ignore',obslog,obslog]});fs.closeSync(obslog);
 try{
  if(!fs.existsSync(path.join(dir,'baseline.json')))await run('A7节奏住房优先开局.mjs',[path.join(dir,'baseline.json'),'3600'],'opening.log',{STOP_AT_WORKSHOP:'1'});

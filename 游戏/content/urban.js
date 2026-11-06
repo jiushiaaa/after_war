@@ -11,7 +11,7 @@ CivilCatalog.buildingLimit=function(s,id){
   // A long-lived town must be able to pay for additional care before city-only pharmacy research.
   if(id==='publicclinic'&&[1,2].includes(s.civilization.pacingVersion)&&s.civilization.tech.publicHealth)return 12;
   if(['mine','coalpit','furnace','machineworks','powerhouse'].includes(id))return s.civilization.tech.urbanworks?4:2;
-  if(['clinic','schoolhouse'].includes(id))return s.civilization.tech.mechanics||id==='clinic'&&typeof CivilVillage!=='undefined'&&(CivilVillage.careShortfall(s)||(s.game.buildings.clinic||0)>=2)?2:1;
+  if(['clinic','schoolhouse'].includes(id))return s.civilization.tech.mechanics||id==='schoolhouse'&&s.civilization.pacingVersion===2&&s.civilization.village?.town&&s.civilization.tech.school||id==='clinic'&&typeof CivilVillage!=='undefined'&&(CivilVillage.careShortfall(s)||(s.game.buildings.clinic||0)>=2)?2:1;
   return CivilCatalog.limits[id]||0;
 };
 Object.assign(CivilText.labels,{publicclinic:'公共诊疗站',publicschool:'公共学舍',irrigatedfield:'灌溉田片',toolworks:'制器间',residential:'居住街区',blockhousing:'街坊住宅'});

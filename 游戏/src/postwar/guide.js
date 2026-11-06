@@ -50,6 +50,7 @@ var CivilGuide={
       const prereqs=typeof CivilCourse!=='undefined'?CivilCourse.requires(s,'standards'):CivilText.research.standards.requires;
       const missing=prereqs.filter(k=>!c.tech[k]).map(k=>'研究'+CivilText.research[k].name),cost=typeof CivilCourse!=='undefined'?CivilCourse.researchCost(s,'standards'):CivilText.research.standards.cost;
       for(const [key,n]of Object.entries(cost))if((st[key]||0)<n)missing.push((CivilText.labels[key]||key)+' '+Math.floor(st[key]||0)+'/'+n);
+      if(c.pacingVersion===2&&c.tech.school&&(st.knowledge||0)<cost.knowledge&&(b.schoolhouse||0)<2&&(s.game.workers.teacher||0)>=CivilCatalog.jobCapacity(s,'teacher'))return {goal:'可先扩建学堂，或保留材料给生产',need:missing,where:'room',target:'build_schoolhouse',note:'小镇已可按原价建第二间学堂，多两个实际教师岗位；仍占劳力、耗木料。也可保留现有课堂，继续原研究顺序'};
       return {goal:'先研究标准与计量，开放公共设施和扩建住房',need:missing,where:'research',note:c.research?.id==='standards'?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':missing.length?null:'科技页可以开始研究'};
     }
     const reserveTools=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s)&&city&&pop>=400&&u.enabled&&(st.tools||0)<(commons?60:40);
