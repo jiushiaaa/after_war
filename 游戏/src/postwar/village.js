@@ -15,7 +15,7 @@ var CivilVillage = {
     toolshop:{cost:()=>({wood:80,scrap:30}),max:1,gate:()=>State.civilization.tech.handtools},
     longhouse:{cost:()=>({wood:180+(State.game.buildings.longhouse||0)*60,tools:12}),max:4,gate:()=>State.civilization.tech.handtools && State.game.buildings.farm},
     clinic:{cost:()=>State.game.buildings.clinic && State.civilization.tech.mechanics?{wood:180,iron:12,parts:6,tools:12}:{wood:120,scrap:25,tools:10},max:2,gate:()=>State.civilization.tech.sanitation && (!State.game.buildings.clinic || State.civilization.tech.mechanics || CivilVillage.careShortfall(State))},
-    schoolhouse:{cost:()=>State.game.buildings.schoolhouse && State.civilization.tech.mechanics?{wood:160,iron:10,parts:5,tools:12}:{wood:120,tools:12},max:2,gate:()=>State.civilization.tech.school && (!State.game.buildings.schoolhouse || State.civilization.tech.mechanics)},
+    schoolhouse:{cost:()=>State.game.buildings.schoolhouse && State.civilization.tech.mechanics?{wood:160,iron:10,parts:5,tools:12}:{wood:120,tools:12},max:2,gate:()=>State.civilization.tech.school && (!State.game.buildings.schoolhouse || CivilCatalog.buildingLimit(State,'schoolhouse')>1)},
     road:{cost:()=>({wood:160,scrap:30,tools:10}),max:1,gate:()=>State.civilization.tech.trails && State.civilization.village.riverKnown}
   },
   journeys:{
