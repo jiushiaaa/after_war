@@ -2,7 +2,7 @@
 var CivilPacing={
   modes:{reserves:'供养与储备',workshop:'修造与回收'},cost:{wood:2,food:1},jobs:['farmer','hunter','medic','teacher','salvager','smith'],
   enabled(s){return s.civilization.pacingVersion===1;},data(s){return s.civilization.workMandate;},
-  available(s){return this.enabled(s)&&s.civilization.settled&&s.game.population>=8&&!!s.game.buildings.workshop&&!s.civilization.city?.institutions;},
+  available(s){return this.enabled(s)&&s.civilization.settled&&(s.game.population>=8||!!this.data(s)?.changes.length)&&!!s.game.buildings.workshop&&!s.civilization.city?.institutions;},
   init(s){if(this.enabled(s)&&this.data(s)===undefined)s.civilization.workMandate={schema:1,mode:'reserves',enabled:false,until:0,records:[],changes:[],handoffAt:null};},
   crew(s){const d=this.data(s);return this.enabled(s)&&d?.enabled&&d.until>s.civilization.elapsed&&!s.civilization.city?.institutions?1:0;},
   labor(s){return CivilSociety.workforce(s)+this.crew(s)-Object.entries(s.game.workers).filter(([j])=>!this.jobs.includes(j)).reduce((n,[,count])=>n+count,0);},

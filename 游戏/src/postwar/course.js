@@ -74,7 +74,7 @@ var CivilCourse={
   resolveIssue(s,option){
     const d=this.data(s),c=s.civilization,w=s.game.workers;if(!d||d.issue)return false;
     if(d.id==='commons'){
-      if(option==='harvest'){const n=Math.min(2,w.teacher||0,CivilCatalog.jobCapacity(s,'farmer')-(w.farmer||0));if(n<=0)return false;w.teacher-=n;w.farmer=(w.farmer||0)+n;d.issue={kind:'harvest',option,at:c.elapsed,moved:n};c.trust=Math.max(0,c.trust-2);return true;}
+      if(option==='harvest'){const n=Math.min(2,w.teacher||0,CivilCatalog.jobCapacity(s,'farmer')-(w.farmer||0));if(n<=0)return false;if(typeof CivilPacing!=='undefined')CivilPacing.stop(s);w.teacher-=n;w.farmer=(w.farmer||0)+n;d.issue={kind:'harvest',option,at:c.elapsed,moved:n};c.trust=Math.max(0,c.trust-2);return true;}
       if(option==='school'){d.issue={kind:'harvest',option,at:c.elapsed,moved:0};c.trust=Math.min(100,c.trust+2);return true;}
     } else {
       if(option==='shift'){const n=Math.min(2,w.smelter||0);if(n<=0)return false;w.smelter-=n;d.issue={kind:'smoke',option,at:c.elapsed,moved:n};c.trust=Math.min(100,c.trust+2);return true;}
@@ -107,7 +107,7 @@ var CivilCourse={
     return null;
   },
   event(id,done){
-    const s=State,d=this.data(s);
+    const s=State,d=this.data(s),pacing=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s);
     if(id==='course_choice'){
       if(!this.needsChoice(s))return null;
       const buttons={};
@@ -121,7 +121,7 @@ var CivilCourse={
     if(id==='course_issue'){
       if(!this.issueReady(s))return null;
       if(d.id==='commons')return {title:'收获季的课堂',text:['田里的粮熟得比人手快。农户要求学堂停课两季，让教师和大孩子下地。','教师说停了课，今年的孩子就跟不上。'],buttons:{
-        harvest:{text:'停课帮收（两名教师改去种田）',nextScene:'end',available:()=>(s.game.workers.teacher||0)>0,onChoose:done('两名教师下了田。学堂暂时只剩识字课。',()=>this.resolveIssue(s,'harvest'))},
+        harvest:{text:'停课帮收（两名教师改去种田）',nextScene:'end',available:()=>(s.game.workers.teacher||0)>0&&(!pacing||CivilCatalog.jobCapacity(s,'farmer')>(s.game.workers.farmer||0)),onChoose:done((pacing?'教师':'两名教师')+'下了田。学堂暂时只剩识字课。'+(pacing&&CivilPacing.data(s)?.enabled?'轮值分工交回手动，岗位按这次议定保留。':''),()=>this.resolveIssue(s,'harvest'))},
         school:{text:'课照常上',nextScene:'end',onChoose:done('学堂照常开课。农户把收割排得更紧了。',()=>this.resolveIssue(s,'school'))}}};
       return {title:'烟尘与诊所',text:['冶炼炉的烟压在镇子上空。诊所里咳嗽的人多了，医护来议事。','炉子不停，铁就多；停一班，孩子们能少咳几天。'],buttons:{
         shift:{text:'冶炼减一班（两名冶炼工改回空闲）',nextScene:'end',available:()=>(s.game.workers.smelter||0)>0,onChoose:done('冶炼炉少开了一班。',()=>this.resolveIssue(s,'shift'))},

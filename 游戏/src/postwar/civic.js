@@ -11,7 +11,7 @@ var CivilCivic={
    ['workshop','先补修造材料',['producers','knowledge'],'少留食物余量，多回收和制器；占用同一名协调员、付相同开支。']
   ],CivilPacing.available(s)&&!CivilPacing.data(s)?.changes.length);
   add('city_food','city','城市化，还是保留粮作','工坊希望集中熟练工，农田与诊疗班组要求留住人手。选择改变首片区实际岗位，不改变居民人数。','institution','profile',[['provisioning','粮作与公共服务',['care','ecology','homes'],'保留农田和医护，减少制器岗位。'],['workshop','集中回收与制器',['producers','trade'],'增加回收制器与物料库存目标，挤占其他可用工位。']],home);
-  add('city_care','city','治疗工位的下一步','医护要求临床教具，工艺社希望先留工具。这是持续消耗与产药能力的取舍。','institution','careMethod',[['clinical','临床配药',['care','knowledge'],'用工具与知识换实际临床产药；需要两名受训医护。'],['basic','维持基础配药',['producers','homes'],'保留教具与工具，维持原配方和产能。']],home);
+  add('city_care','city','治疗工位的下一步','医护要求临床教具，工艺社希望先留工具。这是持续消耗与产药能力的取舍。','institution','careMethod',[['clinical','临床配药',['care','knowledge'],pace?'用工具与知识换实际临床产药；需按本片区人口备齐受训医护。':'用工具与知识换实际临床产药；需要两名受训医护。'],['basic','维持基础配药',['producers','homes'],'保留教具与工具，维持原配方和产能。']],home);
   add('city_school','city','谁来接替退休的老师','学堂希望按退休预测持续招生，经营者希望把培训支出留在手中。','school','schoolEnabled',[[true,'委托提前补员',['knowledge','care'],'机构按真实缺口招收学员，持续支付教具与口粮。'],[false,'按需手动开班',['producers','trade'],'不自动承担新课程；退休出现空缺时需自己恢复。']],home);
   add('grid_land','city','风、水与燃料的账','风力少用燃料但有低谷，水轮较稳；生物质占用民用木料。','modern','grid',[['hydro','小水电',['care','homes'],'每期10电与工具维护。'],['wind','风力',['ecology','knowledge'],'每期6或12电，低谷可能挤掉工序。'],['biomass','生物质',['producers','trade'],'每期16电，持续耗木1.2与维护工具。']],c.tech.localgrid&&c.modern?.installedAt!==null&&c.modern?.installedAt!==undefined);
   add('cluster_budget','cluster','先接新订单，还是先教新人','各城同意维护必须先付，余下额度仍不足以同时完成全部任务。','budget','all',[['learning','培训优先',['knowledge','care'],'维护后先留课程预算，可能延后发货。'],['delivery','供料优先',['producers','trade'],'维护后先履行运单，培训需等待空余额度。'],['balanced','逐期轮换',['local','homes'],'按现有轮值规则切换机会，不增加公共额度。']],CivilCityBudget.available(s));
@@ -37,7 +37,7 @@ var CivilCivic={
     ['host','本城承担四分之三',['care','trade'],'降低湖滨持续维护负担，本城承担更多真实路材与运费；议定需本城知识6。'],
     ['equal','双方继续各半',['local','homes'],'保留本城工程储备；湖滨也必须持续支付自己的一半，缺料时两城会停运。']
    ],!!c.conurbation?.contract&&!c.conurbation.policies.some(p=>p.kind==='share'));
-   add('cluster_freight','cluster','只有一组空车','湖滨的粮医和矿岭的工料都在等车。扩大车场也要材料与维护，先议定现有车辆让谁先走。','freight','priority',[
+   add('cluster_freight','cluster','先让哪一批货上车','湖滨的粮医和矿岭的工料共用有限车辆。扩大车场也要材料与维护，先议定现有车辆让谁先走。','freight','priority',[
     ['food','粮医优先',['care','homes'],'两条线均可出发时，先保粮医；另一条最多让行两次，仍需真实订单。'],
     ['industry','工料优先',['producers','trade'],'优先铁料与工具，粮医可能晚到；另一条最多让行两次。'],
     ['balanced','轮流调度',['local','ecology'],'保留轮流调度；不增加车辆，也不提前占用另一城物资。']
