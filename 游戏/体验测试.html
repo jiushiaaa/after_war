@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>战后文明 · 体验测试</title>
+  <link rel="stylesheet" href="testing/hub.css">
+  <script src="testing/hub.js" defer></script>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <div class="masthead"><span>战后文明 / 体验测试</span><a href="/" target="_blank" rel="noopener">打开正式游戏 ↗</a></div>
+      <h1>从一团火，到星空。</h1>
+      <p class="intro">挑一段直接体验。公共与工业两条路线，从求生、城市经营到首航，都有现成的起点。</p>
+      <p class="note">每次进入都会新建独立测试副本，先暂停供你查看。正式存档与原始验收档不受影响。</p>
+      <a id="resume" class="resume" hidden>继续上次测试 →</a>
+    </header>
+    <main>
+      <section class="controls" aria-label="筛选体验节点">
+        <div class="control-top"><div id="routes" class="route-tabs" role="group" aria-label="路线"></div><label class="search">寻找页面或玩法<input id="search" type="search" placeholder="例如：科技、住房、回响" autocomplete="off"></label></div>
+        <div id="stages" class="stages" role="group" aria-label="发展阶段"></div>
+      </section>
+      <p id="status" role="status" aria-live="polite">正在读取体验目录…</p>
+      <div id="catalog"></div>
+      <p id="empty" hidden>没有找到匹配节点。可以清空关键词，或切换到全部阶段。</p>
+      <section id="serverHelp" hidden class="help"><h2>先启动本地游戏服务</h2><p>这个 HTML 需要读取游戏和验收档。在项目的“游戏”目录运行 <code>npm run dev</code>，然后打开 <a href="http://127.0.0.1:4180/test.html">http://127.0.0.1:4180/test.html</a>。</p><p>复制到另一台电脑时，请保留整个仓库中的“游戏”和“验证”目录。</p></section>
+    </main>
+    <footer><details><summary>这些入口怎么用？</summary><ol><li>先选路线或阶段，也可以搜索想看的页面。</li><li>每个节点可选择落地页面，点击“进入体验”会在新标签页打开。</li><li>在顶部点“继续运行”开始游玩；页面跳转不会替你研究、建造或完成事件。</li><li>测试页拥有独立的本地存档与备份，刷新会读取最近自动保存。“重来此节点”创建新的副本，旧测试仍可通过原标签页继续。</li><li>要跨电脑保留测试，请导出文件；目录中的“继续上次测试”仅在这台浏览器有效。</li></ol><p>除全新开局外，节点取自真实 UI 推进的验收存档，保留已有选择与损失。阶段体验适合检查玩法与交互，不等同于从新档完整体验或时长验收。</p></details><span>文字、按钮、地图，仍然是原来的游戏。</span></footer>
+  </div>
+</body>
+</html>

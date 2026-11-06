@@ -2,11 +2,13 @@ import http from 'node:http';
 import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {testRoute} from './testing/server.js';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.png':'image/png','.ico':'image/x-icon'};
 const server=http.createServer(async(req,res)=>{
   try {
     const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+    if(await testRoute(req,res,name,root))return;
     const file=path.resolve(root,'.'+(name==='/'?'/index.html':name));
     if(!file.startsWith(root+path.sep) || name.split('/').some(s=>s.startsWith('.'))) {res.writeHead(403);res.end();return;}
     const data=await readFile(file);res.writeHead(200,{'Content-Type':types[path.extname(file)] || 'application/octet-stream','Cache-Control':'no-store'});res.end(data);

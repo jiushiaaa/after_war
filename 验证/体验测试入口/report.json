@@ -1,0 +1,1130 @@
+{
+  "kind": "native snapshot copies + test-hub UI; NOT a fresh natural campaign",
+  "startedAt": "2026-11-06T09:16:59.297Z",
+  "catalog": [
+    {
+      "id": "new",
+      "at": 0,
+      "paused": true,
+      "db": "postwar-test-v1-new-ui-95b7f5de-56ac-43ea-b244-3807f3c46c58",
+      "unavailable": []
+    },
+    {
+      "id": "exploration",
+      "at": 603,
+      "paused": true,
+      "db": "postwar-test-v1-exploration-ui-5770577d-14ff-4bf3-a610-353c234b91c1",
+      "unavailable": []
+    },
+    {
+      "id": "public-town",
+      "at": 5345,
+      "paused": true,
+      "db": "postwar-test-v1-public-town-ui-b38b3f3c-01cb-45d9-8761-518153d83eff",
+      "unavailable": []
+    },
+    {
+      "id": "public-city",
+      "at": 13380,
+      "paused": true,
+      "db": "postwar-test-v1-public-city-ui-0c2121cd-e210-4beb-8b19-7e11d66a1665",
+      "unavailable": []
+    },
+    {
+      "id": "public-institutions",
+      "at": 15028,
+      "paused": true,
+      "db": "postwar-test-v1-public-institutions-ui-ef30624b-bef8-415b-b904-6fd3c6a97faa",
+      "unavailable": []
+    },
+    {
+      "id": "public-two-cities",
+      "at": 16130,
+      "paused": true,
+      "db": "postwar-test-v1-public-two-cities-ui-bea85ff6-d125-45fc-83a7-0103e39c38b2",
+      "unavailable": []
+    },
+    {
+      "id": "public-three-cities",
+      "at": 18280,
+      "paused": true,
+      "db": "postwar-test-v1-public-three-cities-ui-c1ce6775-834f-4259-8dfb-123ab6b399f5",
+      "unavailable": []
+    },
+    {
+      "id": "public-budget",
+      "at": 20913,
+      "paused": true,
+      "db": "postwar-test-v1-public-budget-ui-97246b49-bb8b-4421-8c14-52f669d51304",
+      "unavailable": []
+    },
+    {
+      "id": "public-regions",
+      "at": 32232,
+      "paused": true,
+      "db": "postwar-test-v1-public-regions-ui-3ec8a5a9-af8d-4ffa-b85d-710dff71da4f",
+      "unavailable": []
+    },
+    {
+      "id": "public-nation",
+      "at": 33202,
+      "paused": true,
+      "db": "postwar-test-v1-public-nation-ui-867f1906-9329-4012-be53-8ba5f44d4830",
+      "unavailable": []
+    },
+    {
+      "id": "public-echo",
+      "at": 52161,
+      "paused": true,
+      "db": "postwar-test-v1-public-echo-ui-7f29dfbf-64cc-469a-957b-e47931532b84",
+      "unavailable": []
+    },
+    {
+      "id": "public-earth",
+      "at": 57049,
+      "paused": true,
+      "db": "postwar-test-v1-public-earth-ui-921082ea-9834-41af-acfe-94a1ac077af7",
+      "unavailable": []
+    },
+    {
+      "id": "public-unified",
+      "at": 63803,
+      "paused": true,
+      "db": "postwar-test-v1-public-unified-ui-a17f2f59-d733-4291-b9ea-4da265de05ea",
+      "unavailable": []
+    },
+    {
+      "id": "public-launch",
+      "at": 67600,
+      "paused": true,
+      "db": "postwar-test-v1-public-launch-ui-88e9af2a-f7db-4d0b-9c6a-d75a584debbd",
+      "unavailable": []
+    },
+    {
+      "id": "public-ending",
+      "at": 68323,
+      "paused": true,
+      "db": "postwar-test-v1-public-ending-ui-bcd68c01-27fe-4268-bf37-bca40067b1bb",
+      "unavailable": []
+    },
+    {
+      "id": "industry-town",
+      "at": 5351,
+      "paused": true,
+      "db": "postwar-test-v1-industry-town-ui-afc69f9f-9fb0-4be5-91c8-dc045731139d",
+      "unavailable": []
+    },
+    {
+      "id": "industry-city",
+      "at": 15333,
+      "paused": true,
+      "db": "postwar-test-v1-industry-city-ui-786b1cb8-0e04-4716-bd3f-2fb2c9a31e2a",
+      "unavailable": []
+    },
+    {
+      "id": "industry-institutions",
+      "at": 16963,
+      "paused": true,
+      "db": "postwar-test-v1-industry-institutions-ui-c2bb8874-9370-42ee-8d02-b7e571a0bbc2",
+      "unavailable": []
+    },
+    {
+      "id": "industry-two-cities",
+      "at": 25657,
+      "paused": true,
+      "db": "postwar-test-v1-industry-two-cities-ui-a253da69-d484-4c1e-a391-22a124bfe035",
+      "unavailable": []
+    },
+    {
+      "id": "industry-three-cities",
+      "at": 27624,
+      "paused": true,
+      "db": "postwar-test-v1-industry-three-cities-ui-47af497a-926b-4aad-87eb-f7a37d2eb313",
+      "unavailable": []
+    },
+    {
+      "id": "industry-budget",
+      "at": 30186,
+      "paused": true,
+      "db": "postwar-test-v1-industry-budget-ui-6a2f6f8a-2b0b-499e-b3e1-b835ccdc5f28",
+      "unavailable": []
+    },
+    {
+      "id": "industry-regions",
+      "at": 33128,
+      "paused": true,
+      "db": "postwar-test-v1-industry-regions-ui-8f1ae48b-18c2-4610-9dcd-0f9fce90d68c",
+      "unavailable": []
+    },
+    {
+      "id": "industry-nation",
+      "at": 34106,
+      "paused": true,
+      "db": "postwar-test-v1-industry-nation-ui-5cb7e2c6-7476-4ccf-9d39-f2e29eea5e22",
+      "unavailable": []
+    },
+    {
+      "id": "industry-echo",
+      "at": 95904,
+      "paused": true,
+      "db": "postwar-test-v1-industry-echo-ui-2e375e65-8144-4625-bc16-3825e5d99caf",
+      "unavailable": []
+    },
+    {
+      "id": "industry-earth",
+      "at": 101346,
+      "paused": true,
+      "db": "postwar-test-v1-industry-earth-ui-52f0f244-7b3b-4d72-8711-24b6bed86594",
+      "unavailable": []
+    },
+    {
+      "id": "industry-unified",
+      "at": 105795,
+      "paused": true,
+      "db": "postwar-test-v1-industry-unified-ui-ca6ee486-4071-493f-94b3-5dc01b1d1196",
+      "unavailable": []
+    },
+    {
+      "id": "industry-launch",
+      "at": 109459,
+      "paused": true,
+      "db": "postwar-test-v1-industry-launch-ui-3675e55f-6956-46a7-8c77-c75fcc0e10bc",
+      "unavailable": []
+    },
+    {
+      "id": "industry-ending",
+      "at": 110189,
+      "paused": true,
+      "db": "postwar-test-v1-industry-ending-ui-f68be528-e6b0-4d41-9459-699ab949551e",
+      "unavailable": []
+    },
+    {
+      "id": "public-trade",
+      "at": 38596,
+      "paused": true,
+      "db": "postwar-test-v1-public-trade-ui-f7193873-2550-4936-88e7-e446572024ed",
+      "unavailable": []
+    },
+    {
+      "id": "industry-war",
+      "at": 52877,
+      "paused": true,
+      "db": "postwar-test-v1-industry-war-ui-cebbd940-736e-443d-bdc4-65381d98b3b8",
+      "unavailable": []
+    },
+    {
+      "id": "industry-peace",
+      "at": 84060,
+      "paused": true,
+      "db": "postwar-test-v1-industry-peace-ui-36b28423-32bd-44e3-8fc6-81e5330362af",
+      "unavailable": []
+    },
+    {
+      "id": "public-ecology",
+      "at": 44966,
+      "paused": true,
+      "db": "postwar-test-v1-public-ecology-ui-8775b785-c7c8-4228-a7f4-935a1c2765d6",
+      "unavailable": []
+    },
+    {
+      "id": "public-genetics",
+      "at": 46815,
+      "paused": true,
+      "db": "postwar-test-v1-public-genetics-ui-904c48fb-0c30-472e-9212-ed86e43bee5a",
+      "unavailable": []
+    },
+    {
+      "id": "industry-mechanical",
+      "at": 92661,
+      "paused": true,
+      "db": "postwar-test-v1-industry-mechanical-ui-c7b051f1-33be-4d26-9e46-9aaaa74599d0",
+      "unavailable": []
+    },
+    {
+      "id": "industry-synthetic",
+      "at": 94574,
+      "paused": true,
+      "db": "postwar-test-v1-industry-synthetic-ui-b1f4d0bd-12a0-48de-85e6-0b39ccf52988",
+      "unavailable": []
+    },
+    {
+      "id": "industry-fuel",
+      "at": 23224,
+      "paused": true,
+      "db": "postwar-test-v1-industry-fuel-ui-1dae910c-3099-41d9-aadb-0128dc21534d",
+      "unavailable": []
+    },
+    {
+      "id": "industry-repair",
+      "at": 72629,
+      "paused": true,
+      "db": "postwar-test-v1-industry-repair-ui-304e7221-d284-455d-8b74-4cfd1a5a17ad",
+      "unavailable": []
+    }
+  ],
+  "layouts": [
+    {
+      "page": "hub",
+      "width": 1280,
+      "overflow": false
+    },
+    {
+      "page": "hub",
+      "width": 853,
+      "overflow": false
+    },
+    {
+      "page": "hub",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "page": "public-city",
+      "width": 1280,
+      "scroll": 1280,
+      "bar": 0
+    },
+    {
+      "page": "public-city",
+      "width": 853,
+      "scroll": 853,
+      "bar": 0
+    },
+    {
+      "page": "public-city",
+      "width": 390,
+      "scroll": 390,
+      "bar": 0
+    },
+    {
+      "page": "industry-echo",
+      "width": 1280,
+      "scroll": 1280,
+      "bar": 0
+    },
+    {
+      "page": "industry-echo",
+      "width": 853,
+      "scroll": 853,
+      "bar": 0
+    },
+    {
+      "page": "industry-echo",
+      "width": 390,
+      "scroll": 390,
+      "bar": 0
+    },
+    {
+      "page": "industry-launch",
+      "width": 1280,
+      "scroll": 1280,
+      "bar": 0
+    },
+    {
+      "page": "industry-launch",
+      "width": 853,
+      "scroll": 853,
+      "bar": 0
+    },
+    {
+      "page": "industry-launch",
+      "width": 390,
+      "scroll": 390,
+      "bar": 0
+    }
+  ],
+  "navigation": [
+    {
+      "id": "exploration",
+      "page": "road"
+    },
+    {
+      "id": "exploration",
+      "page": "room"
+    },
+    {
+      "id": "exploration",
+      "page": "outside"
+    },
+    {
+      "id": "exploration",
+      "page": "research"
+    },
+    {
+      "id": "exploration",
+      "page": "history"
+    },
+    {
+      "id": "public-town",
+      "page": "laws"
+    },
+    {
+      "id": "public-town",
+      "page": "room"
+    },
+    {
+      "id": "public-town",
+      "page": "outside"
+    },
+    {
+      "id": "public-town",
+      "page": "research"
+    },
+    {
+      "id": "public-town",
+      "page": "road"
+    },
+    {
+      "id": "public-town",
+      "page": "history"
+    },
+    {
+      "id": "public-city",
+      "page": "city"
+    },
+    {
+      "id": "public-city",
+      "page": "census"
+    },
+    {
+      "id": "public-city",
+      "page": "production"
+    },
+    {
+      "id": "public-city",
+      "page": "research"
+    },
+    {
+      "id": "public-city",
+      "page": "laws"
+    },
+    {
+      "id": "public-city",
+      "page": "history"
+    },
+    {
+      "id": "public-institutions",
+      "page": "production"
+    },
+    {
+      "id": "public-institutions",
+      "page": "city"
+    },
+    {
+      "id": "public-institutions",
+      "page": "census"
+    },
+    {
+      "id": "public-institutions",
+      "page": "laws"
+    },
+    {
+      "id": "public-institutions",
+      "page": "research"
+    },
+    {
+      "id": "public-institutions",
+      "page": "history"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "network"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "lake"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "city"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "census"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "laws"
+    },
+    {
+      "id": "public-two-cities",
+      "page": "history"
+    },
+    {
+      "id": "public-three-cities",
+      "page": "network"
+    },
+    {
+      "id": "public-three-cities",
+      "page": "lake"
+    },
+    {
+      "id": "public-three-cities",
+      "page": "city"
+    },
+    {
+      "id": "public-three-cities",
+      "page": "laws"
+    },
+    {
+      "id": "public-three-cities",
+      "page": "history"
+    },
+    {
+      "id": "public-budget",
+      "page": "budget"
+    },
+    {
+      "id": "public-budget",
+      "page": "network"
+    },
+    {
+      "id": "public-budget",
+      "page": "city"
+    },
+    {
+      "id": "public-budget",
+      "page": "census"
+    },
+    {
+      "id": "public-budget",
+      "page": "laws"
+    },
+    {
+      "id": "public-budget",
+      "page": "history"
+    },
+    {
+      "id": "public-regions",
+      "page": "domain"
+    },
+    {
+      "id": "public-regions",
+      "page": "city"
+    },
+    {
+      "id": "public-regions",
+      "page": "census"
+    },
+    {
+      "id": "public-regions",
+      "page": "laws"
+    },
+    {
+      "id": "public-regions",
+      "page": "research"
+    },
+    {
+      "id": "public-regions",
+      "page": "history"
+    },
+    {
+      "id": "public-nation",
+      "page": "domain"
+    },
+    {
+      "id": "public-nation",
+      "page": "laws"
+    },
+    {
+      "id": "public-nation",
+      "page": "research"
+    },
+    {
+      "id": "public-nation",
+      "page": "history"
+    },
+    {
+      "id": "public-echo",
+      "page": "echo"
+    },
+    {
+      "id": "public-echo",
+      "page": "future"
+    },
+    {
+      "id": "public-echo",
+      "page": "bodies"
+    },
+    {
+      "id": "public-echo",
+      "page": "archives"
+    },
+    {
+      "id": "public-echo",
+      "page": "history"
+    },
+    {
+      "id": "public-earth",
+      "page": "earth"
+    },
+    {
+      "id": "public-earth",
+      "page": "domain"
+    },
+    {
+      "id": "public-earth",
+      "page": "laws"
+    },
+    {
+      "id": "public-earth",
+      "page": "research"
+    },
+    {
+      "id": "public-earth",
+      "page": "future"
+    },
+    {
+      "id": "public-earth",
+      "page": "history"
+    },
+    {
+      "id": "public-unified",
+      "page": "earth"
+    },
+    {
+      "id": "public-unified",
+      "page": "research"
+    },
+    {
+      "id": "public-unified",
+      "page": "laws"
+    },
+    {
+      "id": "public-unified",
+      "page": "archives"
+    },
+    {
+      "id": "public-unified",
+      "page": "history"
+    },
+    {
+      "id": "public-launch",
+      "page": "space"
+    },
+    {
+      "id": "public-launch",
+      "page": "earth"
+    },
+    {
+      "id": "public-launch",
+      "page": "bodies"
+    },
+    {
+      "id": "public-launch",
+      "page": "laws"
+    },
+    {
+      "id": "public-launch",
+      "page": "history"
+    },
+    {
+      "id": "public-ending",
+      "page": "ending"
+    },
+    {
+      "id": "public-ending",
+      "page": "archives"
+    },
+    {
+      "id": "public-ending",
+      "page": "history"
+    },
+    {
+      "id": "public-ending",
+      "page": "earth"
+    },
+    {
+      "id": "public-ending",
+      "page": "bodies"
+    },
+    {
+      "id": "public-ending",
+      "page": "laws"
+    },
+    {
+      "id": "industry-town",
+      "page": "laws"
+    },
+    {
+      "id": "industry-town",
+      "page": "room"
+    },
+    {
+      "id": "industry-town",
+      "page": "outside"
+    },
+    {
+      "id": "industry-town",
+      "page": "research"
+    },
+    {
+      "id": "industry-town",
+      "page": "road"
+    },
+    {
+      "id": "industry-town",
+      "page": "history"
+    },
+    {
+      "id": "industry-city",
+      "page": "city"
+    },
+    {
+      "id": "industry-city",
+      "page": "census"
+    },
+    {
+      "id": "industry-city",
+      "page": "production"
+    },
+    {
+      "id": "industry-city",
+      "page": "research"
+    },
+    {
+      "id": "industry-city",
+      "page": "laws"
+    },
+    {
+      "id": "industry-city",
+      "page": "history"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "production"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "city"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "census"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "laws"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "research"
+    },
+    {
+      "id": "industry-institutions",
+      "page": "history"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "network"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "lake"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "city"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "census"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "laws"
+    },
+    {
+      "id": "industry-two-cities",
+      "page": "history"
+    },
+    {
+      "id": "industry-three-cities",
+      "page": "network"
+    },
+    {
+      "id": "industry-three-cities",
+      "page": "lake"
+    },
+    {
+      "id": "industry-three-cities",
+      "page": "city"
+    },
+    {
+      "id": "industry-three-cities",
+      "page": "laws"
+    },
+    {
+      "id": "industry-three-cities",
+      "page": "history"
+    },
+    {
+      "id": "industry-budget",
+      "page": "budget"
+    },
+    {
+      "id": "industry-budget",
+      "page": "network"
+    },
+    {
+      "id": "industry-budget",
+      "page": "city"
+    },
+    {
+      "id": "industry-budget",
+      "page": "census"
+    },
+    {
+      "id": "industry-budget",
+      "page": "laws"
+    },
+    {
+      "id": "industry-budget",
+      "page": "history"
+    },
+    {
+      "id": "industry-regions",
+      "page": "domain"
+    },
+    {
+      "id": "industry-regions",
+      "page": "city"
+    },
+    {
+      "id": "industry-regions",
+      "page": "census"
+    },
+    {
+      "id": "industry-regions",
+      "page": "laws"
+    },
+    {
+      "id": "industry-regions",
+      "page": "research"
+    },
+    {
+      "id": "industry-regions",
+      "page": "history"
+    },
+    {
+      "id": "industry-nation",
+      "page": "domain"
+    },
+    {
+      "id": "industry-nation",
+      "page": "laws"
+    },
+    {
+      "id": "industry-nation",
+      "page": "research"
+    },
+    {
+      "id": "industry-nation",
+      "page": "history"
+    },
+    {
+      "id": "industry-echo",
+      "page": "echo"
+    },
+    {
+      "id": "industry-echo",
+      "page": "future"
+    },
+    {
+      "id": "industry-echo",
+      "page": "bodies"
+    },
+    {
+      "id": "industry-echo",
+      "page": "archives"
+    },
+    {
+      "id": "industry-echo",
+      "page": "history"
+    },
+    {
+      "id": "industry-earth",
+      "page": "earth"
+    },
+    {
+      "id": "industry-earth",
+      "page": "domain"
+    },
+    {
+      "id": "industry-earth",
+      "page": "laws"
+    },
+    {
+      "id": "industry-earth",
+      "page": "research"
+    },
+    {
+      "id": "industry-earth",
+      "page": "future"
+    },
+    {
+      "id": "industry-earth",
+      "page": "history"
+    },
+    {
+      "id": "industry-unified",
+      "page": "earth"
+    },
+    {
+      "id": "industry-unified",
+      "page": "research"
+    },
+    {
+      "id": "industry-unified",
+      "page": "laws"
+    },
+    {
+      "id": "industry-unified",
+      "page": "archives"
+    },
+    {
+      "id": "industry-unified",
+      "page": "history"
+    },
+    {
+      "id": "industry-launch",
+      "page": "space"
+    },
+    {
+      "id": "industry-launch",
+      "page": "earth"
+    },
+    {
+      "id": "industry-launch",
+      "page": "bodies"
+    },
+    {
+      "id": "industry-launch",
+      "page": "laws"
+    },
+    {
+      "id": "industry-launch",
+      "page": "history"
+    },
+    {
+      "id": "industry-ending",
+      "page": "ending"
+    },
+    {
+      "id": "industry-ending",
+      "page": "archives"
+    },
+    {
+      "id": "industry-ending",
+      "page": "history"
+    },
+    {
+      "id": "industry-ending",
+      "page": "earth"
+    },
+    {
+      "id": "industry-ending",
+      "page": "bodies"
+    },
+    {
+      "id": "industry-ending",
+      "page": "laws"
+    },
+    {
+      "id": "public-trade",
+      "page": "trade"
+    },
+    {
+      "id": "public-trade",
+      "page": "domain"
+    },
+    {
+      "id": "public-trade",
+      "page": "laws"
+    },
+    {
+      "id": "public-trade",
+      "page": "history"
+    },
+    {
+      "id": "industry-war",
+      "page": "war"
+    },
+    {
+      "id": "industry-war",
+      "page": "equipment"
+    },
+    {
+      "id": "industry-war",
+      "page": "trade"
+    },
+    {
+      "id": "industry-war",
+      "page": "domain"
+    },
+    {
+      "id": "industry-war",
+      "page": "laws"
+    },
+    {
+      "id": "industry-war",
+      "page": "history"
+    },
+    {
+      "id": "industry-peace",
+      "page": "war"
+    },
+    {
+      "id": "industry-peace",
+      "page": "trade"
+    },
+    {
+      "id": "industry-peace",
+      "page": "domain"
+    },
+    {
+      "id": "industry-peace",
+      "page": "laws"
+    },
+    {
+      "id": "industry-peace",
+      "page": "history"
+    },
+    {
+      "id": "public-ecology",
+      "page": "future"
+    },
+    {
+      "id": "public-ecology",
+      "page": "bodies"
+    },
+    {
+      "id": "public-ecology",
+      "page": "research"
+    },
+    {
+      "id": "public-ecology",
+      "page": "laws"
+    },
+    {
+      "id": "public-ecology",
+      "page": "archives"
+    },
+    {
+      "id": "public-genetics",
+      "page": "bodies"
+    },
+    {
+      "id": "public-genetics",
+      "page": "future"
+    },
+    {
+      "id": "public-genetics",
+      "page": "laws"
+    },
+    {
+      "id": "public-genetics",
+      "page": "archives"
+    },
+    {
+      "id": "public-genetics",
+      "page": "history"
+    },
+    {
+      "id": "industry-mechanical",
+      "page": "bodies"
+    },
+    {
+      "id": "industry-mechanical",
+      "page": "future"
+    },
+    {
+      "id": "industry-mechanical",
+      "page": "laws"
+    },
+    {
+      "id": "industry-mechanical",
+      "page": "archives"
+    },
+    {
+      "id": "industry-mechanical",
+      "page": "history"
+    },
+    {
+      "id": "industry-synthetic",
+      "page": "bodies"
+    },
+    {
+      "id": "industry-synthetic",
+      "page": "future"
+    },
+    {
+      "id": "industry-synthetic",
+      "page": "laws"
+    },
+    {
+      "id": "industry-synthetic",
+      "page": "archives"
+    },
+    {
+      "id": "industry-synthetic",
+      "page": "history"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "outside"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "room"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "city"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "lake"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "research"
+    },
+    {
+      "id": "industry-fuel",
+      "page": "history"
+    },
+    {
+      "id": "industry-repair",
+      "page": "war"
+    },
+    {
+      "id": "industry-repair",
+      "page": "trade"
+    },
+    {
+      "id": "industry-repair",
+      "page": "domain"
+    },
+    {
+      "id": "industry-repair",
+      "page": "equipment"
+    },
+    {
+      "id": "industry-repair",
+      "page": "history"
+    }
+  ],
+  "realNewTabLink": true,
+  "normalStorageUnchanged": true,
+  "resume": {
+    "source": 603,
+    "saved": 606,
+    "restored": 606
+  },
+  "resetIsSeparate": true,
+  "invalidLinkBlocks": true,
+  "errors": [],
+  "finishedAt": "2026-11-06T09:21:53.963Z",
+  "passed": true
+}
