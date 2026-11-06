@@ -1,6 +1,6 @@
 // Constructed CPU timing on a copy of immutable 409. This is NOT natural elapsed time.
 const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib'),assert=require('node:assert/strict'),{performance}=require('node:perf_hooks');
-const {harness}=require('../../游戏/tests/helpers/metro-fixture.cjs'),root=path.resolve(__dirname,'../..'),dir=path.join(root,'验证/A7/7-全流程/性能');fs.mkdirSync(dir,{recursive:true});
+const {harness}=require('../../游戏/tests/helpers/metro-fixture.cjs'),root=path.resolve(__dirname,'../..'),dir=path.resolve(root,process.argv[2]||'验证/A7/7-全流程/性能');fs.mkdirSync(dir,{recursive:true});
 const file=fs.readdirSync(path.join(root,'验证/存档')).find(n=>n.endsWith('409.json')),raw=fs.readFileSync(path.join(root,'验证/存档',file),'utf8');
 const t=performance.now(),envelope=JSON.parse(raw),text=envelope.encoding?z.gunzipSync(Buffer.from(envelope.data,'base64')).toString():raw,s=JSON.parse(text).state,unpackMs=performance.now()-t;
 const before=JSON.stringify(s),loadAt=performance.now(),h=harness(s),moduleMs=performance.now()-loadAt,validAt=performance.now();h.ctx.CivilPlatform.validate(h.s);const validateMs=performance.now()-validAt;assert.equal(JSON.stringify(h.s),before);

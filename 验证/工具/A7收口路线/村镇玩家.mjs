@@ -138,10 +138,10 @@ while(Date.now()<end&&!done){
 
   if(s.mandate&&!s.mandate.enabled&&!s.city?.institutions){if(await mandate(route==='commons'?'reserves':'workshop'))continue;}
   // A public route still reacts to its actual bottleneck: food reserves can fund a temporary repair focus.
-  if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='reserves'&&s.guide?.need?.some(n=>n.startsWith('工具 '))&&(s.st.food||0)>s.pop*20){
+  if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='reserves'&&(s.guide?.need?.some(n=>n.startsWith('工具 '))||s.urban.registered&&!s.urban.enabled&&(s.st.tools||0)<100)&&(s.st.food||0)>s.pop*6){
     if(await mandate('workshop')){log('work_priority',{at:s.sim,from:'reserves',to:'workshop',reason:'housing/service tool shortage with a real food reserve',tools:s.st.tools,food:s.st.food});continue;}
   }
-  if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='workshop'&&(s.st.tools||0)>=80){
+  if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='workshop'&&(s.st.tools||0)>=(s.urban.registered&&!s.urban.enabled?120:80)){
     if(await mandate('reserves')){log('work_priority',{at:s.sim,from:'workshop',to:'reserves',reason:'tool buffer recovered',tools:s.st.tools,food:s.st.food});continue;}
   }
   // Standards makes the next public works material-bound; shift the authorized roster once.

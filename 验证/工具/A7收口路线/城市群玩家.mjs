@@ -71,7 +71,7 @@ while(Date.now()<deadline){
      await freeze();await tab('home');await click('#cityView_production');await click('#cityWard_'+d.route.depot);await click('#cityView_transport');if(!await click('#cityAid'))throw Error('Medical buffer aid unavailable');await run();continue;
     }
     const method=route==='industry'?'iron':'timber',reason=await read(`CivilConurbation.workshopReason(State,${JSON.stringify(method)})`);
-    if(reason===null){await freeze();await tab('lake');await click('#metroCity_tab_assets');if(!await click(route==='industry'?'#metroCity_workshopIron':'#metroCity_workshopTimber'))throw Error('Ready workshop not reached through UI');await run();}
+    if(reason===null){await freeze();const current=await read(`CivilConurbation.workshopReason(State,${JSON.stringify(method)})`);if(current===null){await tab('lake');await click('#metroCity_tab_assets');if(!await click(route==='industry'?'#metroCity_workshopIron':'#metroCity_workshopTimber'))throw Error('Ready workshop not reached through UI');}else log('conditions_changed_before_pause',{at:await read('State.civilization.elapsed'),reason:current});await run();}
     else if(await read('CivilConurbation.reliefReason(State)')===null){await tab('link');await click('#metroCity_relief');log('paid_repair_cargo',{at:s.at,reason});continue;}
    }
    if(d.clusterAt!==null&&d.workshop?.completedAt!==null&&d.workshop&&d.office.records.length>0&&d.node.health>=95&&d.node.stable>=120&&d.trips.filter(p=>p.deliveredAt!==null).length>=4){
