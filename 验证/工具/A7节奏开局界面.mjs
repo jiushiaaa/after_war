@@ -1,0 +1,18 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {connect} from './a7-cdp.mjs';
+const dir='验证/A7节奏/界面/开局',b=await connect(9382,dir),report={kind:'UI-only independent native copies; not natural progression',views:[]};
+async function clear(){for(let i=0;i<12;i++){const keys=await b.read('[...document.querySelectorAll("#event .button:not(.disabled)")].map(e=>e.id)');if(!keys.length)return;const key=['close','continue','later','read','keep','wood','medicine','automatic'].find(k=>keys.includes(k));assert.ok(key,keys.join(','));await b.raw('#event #'+key);}}
+async function load(file){await clear();await b.click('#saveMenu');await b.raw('#event #import');await b.raw('#event textarea');await b.send('Input.insertText',{text:fs.readFileSync(file,'utf8')});await b.raw('#event #inspect');for(let i=0;i<100&&!await b.read('!!document.querySelector("#event #replace")');i++)await b.sleep(100);assert.ok(await b.raw('#event #replace'));await clear();if(!await b.read('CivilClock.paused')){await b.raw('#speedButton');await b.raw('#event #pause');}}
+await b.send('Page.reload');await b.sleep(1000);
+await load('验证/A7节奏/public/village/checkpoint-1793931165428/战后文明-存档.json');
+await b.send('Emulation.setDeviceMetricsOverride',{width:1280,height:1000,deviceScaleFactor:1,mobile:false});await b.click('#location_room');
+assert.ok(await b.click('#civilGuideGo'));const before=await b.read('({wood:State.stores.wood,scrap:State.stores.scrap})');assert.ok(await b.click('#build_workshop'));
+assert.ok(await b.read('State.game.buildings.workshop'));assert.equal(await b.read('State.stores.wood'),before.wood-100);assert.equal(await b.read('State.stores.scrap'),before.scrap-12);report.unblockedWorkshop=true;await b.shot('工坊入口不遮挡');
+const base='验证/A7节奏/industry/village',last=fs.readdirSync(base).filter(n=>n.startsWith('checkpoint-')).sort().at(-1);assert.ok(last);report.source=base+'/'+last+'/战后文明-存档.json';await load(report.source);
+for(const width of [1280,853,390]){
+ await b.send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:width===390});await b.click('#location_outside');if(!await b.read('document.querySelector("#civilWorkMandate")?.open'))assert.ok(await b.click('#civilWorkMandate > summary'));
+ const v=await b.read(`(()=>{const e=document.querySelector('#civilWorkMandate'),r=e.getBoundingClientRect(),b=document.querySelector('#civilWork_stop'),q=b.getBoundingClientRect();return {width:innerWidth,scroll:document.documentElement.scrollWidth,rect:r.toJSON(),stopVisible:b.checkVisibility(),hit:b.contains(document.elementFromPoint(q.x+q.width/2,q.y+q.height/2)),text:e.textContent,owned:State.civilization.workMandate.enabled};})()`);
+ assert.ok(v.scroll<=width);assert.ok(v.rect.width<=width);assert.ok(v.stopVisible);report.views.push(v);await b.shot(width+'-work');
+}
+// A real manual adjustment revokes the mandate, without resetting any other jobs.
+const prev=await b.read('JSON.stringify(State.game.workers)');assert.ok(await b.click('#workers_row_farmer .dnBtn'));assert.equal(await b.read('State.civilization.workMandate.enabled'),false);const after=await b.read('JSON.stringify(State.game.workers)');assert.notEqual(prev,after);await b.sleep(1200);assert.equal(await b.read('JSON.stringify(State.game.workers)'),after);report.manualRevokes=true;
+assert.ok(await b.click('#civilWork_workshop'));assert.equal(await b.read('State.civilization.workMandate.enabled'),true);report.resume=true;report.errors=b.events.filter(e=>e.method==='Runtime.exceptionThrown');assert.equal(report.errors.length,0);fs.writeFileSync(dir+'/report.json',JSON.stringify(report,null,2));console.log('Opening construction, three-width mandate, manual revoke and real resume verified');b.close();

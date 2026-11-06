@@ -21,7 +21,7 @@ var CivilCityNetworkView={
     cv.b('select_ridge','矿岭市','#metroCitySwitch',null,()=>{cv.select('ridge');return false;}).toggle(!!d.node&&!Object.values(s.civilization.cityCouncil?.locals||{}).some(r=>r.node)).attr('aria-pressed',cv.selected==='ridge').toggleClass('selected',cv.selected==='ridge');
     $('#metroCity_select_ridge').insertBefore('#metroCity_select_link');
     const show=['link','ridge'].includes(cv.selected);$('#cityNetworkBody').toggle(show);if(!show)return false;
-    $('#cityBody').children().not('#metroCitySwitch,#cityNetworkBody').hide();$('#metroCitySwitch,#cityNetworkBody').show();
+    $('#cityBody').children().not('#civilGuide,#metroCitySwitch,#cityNetworkBody').hide();$('#metroCitySwitch,#cityNetworkBody').show();
     const ridge=cv.selected==='ridge',section=ridge?'ridge':this.section;
     $('#cityNetTitle').text(ridge?'矿岭市':'城际协作');$('#cityNetIntro').text(ridge?'回收矿料与旧铸炉支撑的地方工业。基础供养由本城维持；金属生产还需要持续检修。':d.node?'共同承担运输，居民与仓库仍归各城。湖滨供粮，矿岭供工料，本城提供工具与专业服务。':'各城独立供养，共同承担运输。已有车组继续服务湖滨，也可以接洽新的城市。');
     $('#cityNetTabs').toggle(!ridge);for(const [id,label]of Object.entries({overview:'概况',transport:'运输',budget:'公共预算'}))this.b('tab_'+id,label,'#cityNetTabs',null,()=>{this.section=id;view.refresh(State);return false;}).attr('aria-pressed',section===id).toggleClass('selected',section===id);

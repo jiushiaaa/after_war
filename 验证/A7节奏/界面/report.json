@@ -1,0 +1,70 @@
+{
+  "kind": "native display copy; not natural progression",
+  "views": [
+    {
+      "width": 1280,
+      "doc": 1280,
+      "guide": "下一步：让城市机构接过日常分工 · 登记前可查看本城与片区实际开支查看办理入口交接原镇日常",
+      "rect": {
+        "x": 400,
+        "y": 100.78125,
+        "width": 420,
+        "height": 94.828125,
+        "top": 100.78125,
+        "right": 820,
+        "bottom": 195.609375,
+        "left": 400
+      },
+      "target": true,
+      "focus": "cityInstitution",
+      "bodyRight": 845,
+      "storesLeft": 878
+    },
+    {
+      "width": 853,
+      "doc": 853,
+      "guide": "下一步：让城市机构接过日常分工 · 登记前可查看本城与片区实际开支查看办理入口交接原镇日常",
+      "rect": {
+        "x": 10,
+        "y": 300.390625,
+        "width": 833,
+        "height": 105.390625,
+        "top": 300.390625,
+        "right": 843,
+        "bottom": 405.78125,
+        "left": 10
+      },
+      "target": true,
+      "focus": "cityInstitution",
+      "bodyRight": 843,
+      "storesLeft": 10
+    },
+    {
+      "width": 390,
+      "doc": 390,
+      "guide": "下一步：让城市机构接过日常分工 · 登记前可查看本城与片区实际开支查看办理入口交接原镇日常",
+      "rect": {
+        "x": 10,
+        "y": 330.78125,
+        "width": 370,
+        "height": 128.78125,
+        "top": 330.78125,
+        "right": 380,
+        "bottom": 459.5625,
+        "left": 10
+      },
+      "target": true,
+      "focus": "cityInstitution",
+      "bodyRight": 380,
+      "storesLeft": 10
+    }
+  ],
+  "dark": "rgb(221, 221, 221)",
+  "packing": {
+    "members": 3,
+    "food": 18,
+    "water": 27,
+    "kit": false
+  },
+  "errors": []
+}

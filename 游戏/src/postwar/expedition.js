@@ -383,6 +383,7 @@ var CivilExpedition={
   refresh(force=false){
     // Renders only into a real browser panel; rule harnesses with DOM stubs skip presentation.
     const s=State;if(!this.unlocked(s)||typeof document==='undefined'||typeof document.getElementById!=='function'||!document.getElementById('roadPanel'))return;
+    if(!force&&document.activeElement?.matches('#expeditionControls input'))return;
     if(Civilization.roadModule&&!Civilization.roadModule.keyUp)this.attach(Civilization.roadModule);
     if(Engine.activeModule===Civilization.roadModule)this.resumeChoice(s);
     const box=this.panel(),d=this.view(s),p=d.party,C=this.C();
@@ -410,7 +411,8 @@ var CivilExpedition={
       const row=(label,key,stepN,min,max,unit)=>{
         const r=$('<div>').addClass('civil-outfit').appendTo(ctl);$('<span>').addClass('civil-outfit-name').text(label).appendTo(r);
         this.step('−','减少'+label,()=>{pr[key]=Math.max(min,Math.round((pr[key]-stepN)*100)/100);this.refresh(true);}).appendTo(r);
-        $('<span>').addClass('civil-outfit-val').text(pr[key]).appendTo(r);
+        const input=$('<input>').attr({type:'number',id:'expeditionPrep_'+key,'aria-label':label+'数量',min,max,step:stepN,inputmode:'numeric'}).addClass('civil-outfit-val').val(pr[key]).appendTo(r);
+        input.on('keydown keyup',e=>e.stopPropagation()).on('change',()=>{const n=Number(input.val());if(!Number.isFinite(n)||input.val()===''){input.val(pr[key]);return;}pr[key]=Math.min(max,Math.max(min,Math.round(n/stepN)*stepN));this.refresh(true);});
         this.step('＋','增加'+label,()=>{pr[key]=Math.min(max,Math.round((pr[key]+stepN)*100)/100);this.refresh(true);}).appendTo(r);
         if(unit)$('<span>').addClass('civil-outfit-note').text(unit).appendTo(r);
       };

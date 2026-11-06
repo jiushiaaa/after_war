@@ -681,6 +681,7 @@ Outside.updateWorkersView=function(){
     $('#workers_row_'+job).attr('title',(Number.isFinite(cap)?'岗位上限 '+cap:'')+(floor?'；在外职责至少占 '+floor+' 人':''));
   }
   if(typeof CivilCityInstitutionsView!=='undefined')CivilCityInstitutionsView.home(State);
+  if(typeof CivilPacing!=='undefined')CivilPacing.refresh(State);
 };
 Outside.checkWorker=function(name) {
   const job=CivilCatalog.jobBuildings[name];

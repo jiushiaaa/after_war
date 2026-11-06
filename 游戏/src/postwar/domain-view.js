@@ -19,7 +19,7 @@ var CivilDomainView={
     for(const [id,label]of [['Transport','船期与货物'],['Accounts','人口、地方资产与账目']])$('<details>').attr('id','domain'+id).addClass('civil-details').appendTo(box).append($('<summary>').text(label)).append($('<p>').addClass('city-net-lines')).on('toggle',function(){if(this.open)CivilDomainView.refresh(State);});
   },
   refresh(s){
-    if(CivilConurbationView.selected!=='domain'||!CivilDomain.available(s)){$('#domainBody').hide();return false;}this.ensure();$('#cityBody').children().not('#metroCitySwitch,#domainBody').hide();$('#metroCitySwitch,#domainBody').show();$('#councilLocation').hide();$('#metroCitySwitch > .button').show();
+    if(CivilConurbationView.selected!=='domain'||!CivilDomain.available(s)){$('#domainBody').hide();return false;}this.ensure();$('#cityBody').children().not('#civilGuide,#metroCitySwitch,#domainBody').hide();$('#metroCitySwitch,#domainBody').show();$('#councilLocation').hide();$('#metroCitySwitch > .button').show();
     const f=CivilDomain,d=f.data(s),n=d?.node,a=x=>CivilCityView.amount(x),cost=x=>CivilCityView.cost(x),flight=f.active(s);
     $('#domainIntro').text('城市之外仍有自己的农田、工场和居民。普查确认人口，协约分担职责；合作不合并仓库，也不会把居民搬进本城。');
     for(const id of Object.keys(CivilCensus.regions))$('#domainMap_'+id+' span').text(id==='north'?(n?'北岸已普查 · 其余失联':d?'北岸普查在途':'北岸有旧水路记录'):(id==='west'?'矿岭已接触 · 腹地未普查':id==='east'&&s.civilization.cityCouncil?.locals.estuary?'河口已接触 · 腹地未普查':'未建立地区联系'));

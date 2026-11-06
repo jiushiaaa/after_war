@@ -28,7 +28,7 @@ var CivilCityCouncilView={
       $('#metroCitySwitch > .button').hide();$('#councilLocation').show();$('#councilLocation > summary').text('查看：'+(current==='link'?'城际协作':api.name(s,current)));
     }else $('#councilLocation').hide();
     const show=['council','estuary','bridge'].includes(cv.selected);$('#cityCouncilBody').toggle(show);if(!show)return false;
-    $('#cityBody').children().not('#metroCitySwitch,#cityCouncilBody').hide();$('#metroCitySwitch,#cityCouncilBody').show();const local=['estuary','bridge'].includes(cv.selected);
+    $('#cityBody').children().not('#civilGuide,#metroCitySwitch,#cityCouncilBody').hide();$('#metroCitySwitch,#cityCouncilBody').show();const local=['estuary','bridge'].includes(cv.selected);
     $('#councilTitle').text(local?'河口市':'共同事务');this.b('back','返回城际概况','#councilNav',null,()=>{cv.select('link');return false;});
     $('#cityDispatchDesk').toggle(!local);$('#cityBudgetDesk').toggle(!local);$('#cityLaborDesk').toggle(!local);$('#cityHomesDesk').toggle(!local&&!!CivilCityHomes.data(s));$('#cityContinuityDesk').toggle(!local&&(CivilCityContinuity.available(s)||!!CivilCityContinuity.data(s)));for(const id of ['Proposal','Mandates','Growth','Freight'])$('#council'+id).toggle(!local);$('#councilNeeds').toggle(!local);
     CivilCityGovernanceView.local(local);

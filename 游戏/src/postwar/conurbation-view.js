@@ -36,7 +36,7 @@ var CivilConurbationView={
     for(const [id,name]of Object.entries({home:'炉火城',lake:'湖滨市',link:'城际协作'}))this.b('select_'+id,name,'#metroCitySwitch',null,()=>{this.select(id);return false;}).attr('aria-pressed',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected)).toggleClass('selected',this.selected===id||id==='link'&&['legacy','council'].includes(this.selected));
     if(typeof CivilCityCouncilView!=='undefined'&&CivilCityCouncilView.refresh(s))return true;
     if(typeof CivilCityNetworkView!=='undefined'&&CivilCityNetworkView.refresh(s))return true;
-    const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#metroCitySwitch,#metroCityBody,#cityCouncilBody,#domainBody').toggle(!away);$('#metroCityBody').toggle(away);
+    const away=!!d?.node&&this.selected!=='home';$('#cityBody').children().not('#civilGuide,#metroCitySwitch,#metroCityBody,#cityCouncilBody,#domainBody').toggle(!away);$('#metroCityBody').toggle(away);
     if(!away){$('#cityNetworkBody').hide();$('#metroCitySurvey').toggle(!d?.node&&CivilCityView.view==='overview');return false;}
     const n=d.node,p=CivilCity.count(n),e=n.economy,section=['link','legacy'].includes(this.selected)?'transport':this.section;
     $('#metroCityTitle').text(['link','legacy'].includes(this.selected)?(CivilCityNetwork.data(s)?'湖滨协约':'两城协作'): '湖滨市');

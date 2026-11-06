@@ -26,8 +26,9 @@ var CivilCivic={
   add('earth_public','earth','向外代表一个地球','八区已经相互承担职责。共同对外代表是否由统一联邦法，还是约束各地的共同议约确立？','earth','mode',[['federal','联邦共同法',['knowledge','homes'],'共同公民与对外代表，地方仍保留日常制度和资产。'],['covenant','地球共同议约',['local','trade'],'保留内部政体，以具有约束力的共同法、仲裁与代表统一。']],d?.earth&&!d.earth.unity&&Object.values(d.earth.regions).filter(r=>r.acceptedAt!==null).length===8);
   if(pace){
    const local=home&&CivilCityInstitutions.local(s,home);
-   defs.find(a=>a.id==='city_care').ready=!!local&&CivilCityInstitutions.skillLimit(s,home,'care')>=2;
-   defs.find(a=>a.id==='city_school').ready=!!local&&!!CivilCityInstitutions.schoolNeed(s,home);
+   defs.find(a=>a.id==='city_food').ready=!!local&&local.profile==='balanced';
+   defs.find(a=>a.id==='city_care').ready=!!local&&local.careMethod!=='clinical'&&CivilCityInstitutions.skillLimit(s,home,'care')>=Math.max(2,Math.ceil(CivilCity.count(CivilCity.node(s,home))*.01/.3));
+   defs.find(a=>a.id==='city_school').ready=!!local&&!local.schoolEnabled&&!!CivilCityInstitutions.schoolNeed(s,home);
    add('city_exchange','city','两座城先交换什么','湖滨有田地和木料，出发仓有工具。药品与铁料各有去处，不能把同一批物资许诺两遍。','exchange','contract',[
     ['provisions','粮医互济',['care','homes'],'每批约定工具96、药品48换食物1200、废料160，仍须双方留足口粮。'],
     ['industry','工料协作',['producers','trade'],'每批工具160、铁料24换食物1400、废料80；占用本可修造的铁料。']
@@ -49,7 +50,7 @@ var CivilCivic={
  owner(s,a,value,perform=false){const c=s.civilization,home=this.home(s),d=c.polity,f=d?.future,go=(reason,run)=>perform?!reason&&run():reason;
   if(a.owner==='institution'){const current=CivilCityInstitutions.local(s,home)?.[a.key];if(current===value)return perform?true:null;return go(CivilCityInstitutions.settingReason(s,home,a.key,value),()=>CivilCityInstitutions.set(s,home,a.key,value));}
   if(a.owner==='school'){if(!!CivilCityInstitutions.local(s,home)?.schoolEnabled===value)return perform?true:null;return go(home?null:'先登记城市公署',()=>CivilCityInstitutions.delegateSchool(s,home,value));}
-  if(a.owner==='roster')return go(CivilPacing.reason(s,value),()=>CivilPacing.set(s,value));
+  if(a.owner==='roster'){if(CivilPacing.data(s)?.enabled&&CivilPacing.data(s).mode===value)return perform?true:null;return go(CivilPacing.reason(s,value),()=>CivilPacing.set(s,value));}
   if(a.owner==='exchange'){if(c.conurbation?.contract===value)return perform?true:null;return go(CivilConurbation.signReason(s,value),()=>CivilConurbation.sign(s,value));}
   if(a.owner==='exchangeShare'){if(c.conurbation?.share===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCity.node(s,c.conurbation.route.depot).stores},{knowledge:6})?null:'出发仓还需知识6',()=>CivilConurbation.setShare(s,value));}
   if(a.owner==='freight'){if(c.cityNetwork?.priority===value)return perform?true:null;return go(CivilRules.canPay({stores:CivilCityNetwork.local(s,'home').stores},{knowledge:4})?null:'出发仓还需知识4',()=>CivilCityNetwork.setPriority(s,value));}
