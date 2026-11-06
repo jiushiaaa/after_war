@@ -53,6 +53,11 @@ var CivilGuide={
       return {goal:'先研究标准与计量，开放公共设施和扩建住房',need:missing,where:'research',note:c.research?.id==='standards'?'研究中，剩余 '+Math.ceil(c.research.remaining)+' 秒':missing.length?null:'科技页可以开始研究'};
     }
     const reserveTools=typeof CivilPacing!=='undefined'&&CivilPacing.enabled(s)&&city&&pop>=400&&u.enabled&&(st.tools||0)<(commons?60:40);
+    if(c.pacingVersion===1&&city){
+      const w=s.game.workers;
+      if(c.tech.publicHealth&&(u.economy?.medicine||0)<0&&(w.medic||0)>=CivilCatalog.jobCapacity(s,'medic')&&(b.publicclinic||0)<CivilCatalog.buildingLimit(s,'publicclinic'))return {goal:'为现有人口扩充诊疗',need:checks.filter(([,ok])=>!ok).map(([label])=>label),where:'urban',section:'care',target:'build_publicclinic',note:'公共卫生网络可支持12所公共诊疗站；扩建仍须实付材料，由现有成人任职'};
+      if(c.tech.precisionFit&&(st.tools||0)<(commons?60:40)&&(w.smith||0)>=CivilCatalog.jobCapacity(s,'smith')&&(b.toolworks||0)<CivilCatalog.buildingLimit(s,'toolworks'))return {goal:'扩建制器间，或先留工具给交接',need:checks.filter(([,ok])=>!ok).map(([label])=>label),where:'urban',section:'care',target:'build_toolworks',note:'制器岗位已满。可付木160、铁20、零件6增加四个工位；修造轮值会安排真实人手，采集与教学会少一些'};
+    }
     return {goal:city?(s.civilization.ruleset===2?'完成核心镇服务交接':commons?'成为城市（田地与公共服务）':'成为城市'):'登记镇制',need:checks.filter(([,ok])=>!ok).map(([label])=>label),...(reserveTools?{where:'urban',target:'urbanPlan'}:{}),note:reserveTools?'新批次也会支出安置工具。可暂缓发车，先留材料给公共服务；在途家庭照常接纳':checks.every(([,ok])=>ok)?'保持 '+Math.max(0,(city?300:180)-(city?u.cityStable:u.townStable))+' 秒':null};
   },
   citySteps(s){
@@ -80,7 +85,7 @@ var CivilGuide={
   },
   open(s,task=this.steps(s)){
     if(!task?.where)return;const v=task.visit;
-    if(task.where==='urban'&&task.target==='urbanPlan')CivilInterface.select('urban','migration');
+    if(task.where==='urban'&&(task.section||task.target==='urbanPlan'))CivilInterface.select('urban',task.section||'migration');
     if(v){if(v.city)CivilConurbationView.selected=v.city;if(v.view)CivilCityView.view=v.view;if(v.network)CivilCityNetworkView.section=v.network;CivilCityView.refresh(s);this.refresh(s);}
     const tab=document.getElementById('location_'+task.where);if(tab&&!tab.classList.contains('selected'))tab.click();
     const target=document.getElementById(v?.target||task.target||'');if(target){for(let p=target;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;if(!target.hasAttribute('tabindex'))target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}

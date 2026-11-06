@@ -158,7 +158,7 @@ var CivilInterface={
   researchRows(s){
     const c=s.civilization,frontier=new Set(Object.keys(CivilText.research).filter(id=>c.tech[id]||CivilCatalog.researchAvailable(s,id)));
     const C=typeof CivilCourse!=='undefined'&&c.course?CivilCourse:null,req=id=>C?C.requires(s,id):(CivilText.research[id].requires||[]),disc=(id,r)=>C?C.discover(s,id):(!r.discover||r.discover(s));
-    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||(req(id).length&&req(id).every(key=>frontier.has(key))&&disc(id,r))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:req(id).map(key=>({name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:C?C.researchCost(s,id):r.cost,duration:r.duration,detail:r.done}));
+    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||(req(id).length&&req(id).every(key=>frontier.has(key))&&disc(id,r))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:req(id).map(key=>({name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:C?C.researchCost(s,id):r.cost,duration:r.duration,detail:r.done+(c.pacingVersion===1&&id==='publicHealth'?' 公共诊疗站的可建上限从8所扩至12所；每所仍须实付材料并安排医护。':'')}));
   },
   research(s){
     if(!s.game.buildings.workshop)return;

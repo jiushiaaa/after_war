@@ -8,6 +8,8 @@ CivilCatalog.jobCapacity=function(s,job){
   return preUrbanJobCapacity(s,job)+(add?(s.game.buildings[add[0]]||0)*add[1]:0);
 };
 CivilCatalog.buildingLimit=function(s,id){
+  // A long-lived town must be able to pay for additional care before city-only pharmacy research.
+  if(id==='publicclinic'&&s.civilization.pacingVersion===1&&s.civilization.tech.publicHealth)return 12;
   if(['mine','coalpit','furnace','machineworks','powerhouse'].includes(id))return s.civilization.tech.urbanworks?4:2;
   if(['clinic','schoolhouse'].includes(id))return s.civilization.tech.mechanics||id==='clinic'&&typeof CivilVillage!=='undefined'&&(CivilVillage.careShortfall(s)||(s.game.buildings.clinic||0)>=2)?2:1;
   return CivilCatalog.limits[id]||0;

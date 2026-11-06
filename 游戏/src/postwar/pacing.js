@@ -25,7 +25,7 @@ var CivilPacing={
     put('medic',meds);put('teacher',Math.max(c.tech.school?2:0,Math.ceil(CivilPopulation.children(c.society.cohorts)/20)));
     // A finite buffer keeps the smith's inputs available; surplus workers choose wood or salvage.
     const repairReady=(st.food||0)>=eat*24&&(st.wood||0)>=120&&(st.tools||0)<24;
-    const smith=Math.min(cap('smith'),mode==='workshop'||repairReady?4:2);
+    const smith=Math.min(cap('smith'),mode==='workshop'?((st.tools||0)<120?cap('smith'):4):repairReady?8:2);
     const repairBuffer=mode==='workshop'?st.scrap<120:(st.scrap||0)<60&&(st.wood||0)>=120;
     put('salvager',((next.medic||0)*.1+smith*.6+.5)/((c.tech.metal?.8:.5)*factor)+(repairBuffer?2:0));
     put('smith',smith);
@@ -64,6 +64,6 @@ var CivilPacing={
     const manual=$('#civilEarlyJobs');if(manual.attr('data-enabled')!==String(d.enabled)){manual.attr('data-enabled',String(d.enabled));manual.prop('open',!d.enabled);}
     for(const [mode,label]of Object.entries(this.modes))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.set(State,mode));
     CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.stop(State));
-    $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排少留余粮，优先补废料至120并多派制器。实际结果仍受岗位、健康与原料限制。');
+    $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排优先补废料与工具至120，可使用已扩建的制器工位；工具够用后回到四人。实际仍受劳力、健康与原料限制。');
   }
 };

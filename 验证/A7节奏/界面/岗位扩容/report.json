@@ -1,0 +1,166 @@
+{
+  "source": "验证/A7节奏/industry/village/checkpoint-1793936141000/战后文明-存档.json",
+  "kind": "UI recovery copy; real materials and clock, separate from uninterrupted route",
+  "before": {
+    "at": 18969,
+    "pop": 624,
+    "stores": {
+      "wood": 119177.47000000006,
+      "food": 1161.50000000015,
+      "fur": 232.80000000000013,
+      "scrap": 2569.1299999998782,
+      "tools": 102.25999999998756,
+      "medicine": 59.966750000000914,
+      "knowledge": 1341.1979999999749,
+      "ammunition": 2,
+      "ore": 166.81599999999926,
+      "coal": 956.6200000000063,
+      "iron": 651.3079999999957,
+      "parts": 546.6600000000083
+    },
+    "buildings": {
+      "trap": 5,
+      "cart": 1,
+      "hut": 4,
+      "granary": 1,
+      "lodge": 1,
+      "workshop": 1,
+      "cistern": 1,
+      "outpost": 1,
+      "farm": 4,
+      "toolshop": 1,
+      "longhouse": 4,
+      "clinic": 2,
+      "schoolhouse": 2,
+      "road": 1,
+      "mine": 2,
+      "coalpit": 2,
+      "furnace": 2,
+      "machineworks": 1,
+      "publicclinic": 8,
+      "publicschool": 2,
+      "irrigatedfield": 6,
+      "cartdepot": 1,
+      "powerhouse": 2,
+      "scrubber": 1,
+      "residential": 8,
+      "blockhousing": 4
+    },
+    "workers": {
+      "hunter": 0,
+      "salvager": 8,
+      "farmer": 33,
+      "smith": 4,
+      "medic": 36,
+      "teacher": 10,
+      "miner": 4,
+      "collier": 6,
+      "smelter": 4,
+      "machinist": 2,
+      "transporter": 6,
+      "electrician": 4
+    },
+    "guide": {
+      "goal": "为现有人口扩充诊疗",
+      "need": [
+        "居民治疗有药",
+        "药品净供给不为负"
+      ],
+      "where": "urban",
+      "section": "care",
+      "target": "build_publicclinic",
+      "note": "公共卫生网络可支持12所公共诊疗站；扩建仍须实付材料，由现有成人任职"
+    }
+  },
+  "after": {
+    "at": 18983,
+    "pop": 624,
+    "workers": {
+      "hunter": 0,
+      "salvager": 12,
+      "farmer": 34,
+      "smith": 8,
+      "medic": 40,
+      "teacher": 10,
+      "miner": 4,
+      "collier": 6,
+      "smelter": 4,
+      "machinist": 2,
+      "transporter": 6,
+      "electrician": 4
+    },
+    "buildings": {
+      "trap": 5,
+      "cart": 1,
+      "hut": 4,
+      "granary": 1,
+      "lodge": 1,
+      "workshop": 1,
+      "cistern": 1,
+      "outpost": 1,
+      "farm": 4,
+      "toolshop": 1,
+      "longhouse": 4,
+      "clinic": 2,
+      "schoolhouse": 2,
+      "road": 1,
+      "mine": 2,
+      "coalpit": 2,
+      "furnace": 2,
+      "machineworks": 1,
+      "publicclinic": 9,
+      "publicschool": 2,
+      "irrigatedfield": 6,
+      "cartdepot": 1,
+      "powerhouse": 2,
+      "scrubber": 1,
+      "residential": 8,
+      "blockhousing": 4,
+      "toolworks": 1
+    },
+    "economy": {
+      "at": 18980,
+      "medicine": 0.02153846153846381,
+      "food": 2.543076923077041,
+      "treatment": true,
+      "education": true,
+      "industrial": true,
+      "productionPower": 4,
+      "paidInputs": {
+        "at": 18980,
+        "resources": {
+          "wood": 3.3000000000000003,
+          "food": 8.2,
+          "scrap": 9.200000000000001,
+          "tools": 0.36,
+          "ore": 4.8,
+          "coal": 4.8,
+          "parts": 0.09,
+          "iron": 1
+        }
+      },
+      "treatmentInputs": {
+        "at": 18980,
+        "resources": {
+          "medicine": 6.24
+        }
+      }
+    },
+    "workforce": 382,
+    "stores": {
+      "wood": 119342.07000000007,
+      "food": 1165.7400000001503,
+      "fur": 232.80000000000013,
+      "scrap": 2575.9299999998775,
+      "tools": 105.61999999998751,
+      "medicine": 60.08675000000091,
+      "knowledge": 1345.1179999999745,
+      "ammunition": 2,
+      "ore": 167.29599999999922,
+      "coal": 959.6200000000063,
+      "iron": 614.3479999999956,
+      "parts": 534.5800000000081
+    }
+  },
+  "errors": []
+}
