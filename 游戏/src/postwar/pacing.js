@@ -13,6 +13,7 @@ var CivilPacing={
   reason(s,mode){if(!this.available(s))return '工坊与8位居民形成后可议定轮值；城市公署成立后由机构接续';if(!Object.hasOwn(this.modesFor(s),mode))return '选择轮值方向';if(this.industrial(s,mode)&&!this.industrialReady(s))return '工业城镇建成熔炉后可接管投产与学徒轮值';const d=this.data(s);if(d?.enabled&&d.mode===mode&&this.crew(s))return '已按此方向轮值';if(this.labor(s,mode)<4)return '至少留四名可用成人，才能抽出一人协调';return d?.until>s.civilization.elapsed||CivilRules.canPay(s,this.cost)?null:'轮值需木料2、食物1；补足后可恢复';},
   set(s,mode){this.init(s);if(this.reason(s,mode))return false;const d=this.data(s);d.mode=mode;d.enabled=true;d.changes.push({at:s.civilization.elapsed,mode,enabled:true});this.serve(s);Object.assign(s.game.workers,this.plan(s));CivilSociety.trimJobs(s);return true;},
   stop(s,why='manual'){const d=this.data(s);if(!d?.enabled)return false;d.enabled=false;d.changes.push({at:s.civilization.elapsed,mode:d.mode,enabled:false,why});return true;},
+  commit(mode){const changed=mode===null?this.stop(State):this.set(State,mode);if(changed)Outside.updateWorkersView();return changed;},
   serve(s){const d=this.data(s),at=s.civilization.elapsed;if(d.until>at)return true;if(!CivilRules.pay(s,this.cost)){this.stop(s,'shortage');return false;}d.until=at+60;d.records.push({at,paid:{...this.cost}});return true;},
   plan(s,mode=this.data(s)?.mode){
     const w=s.game.workers,b=s.game.buildings,c=s.civilization,st=s.stores;
@@ -80,11 +81,14 @@ var CivilPacing={
     const manual=$('#civilEarlyJobs');if(manual.attr('data-enabled')!==String(d.enabled)){manual.attr('data-enabled',String(d.enabled));manual.prop('open',!d.enabled);}
     if(this.industrialReady(s)){
       $('#civilWork_reserves,#civilWork_workshop').hide();
-      if(!$('#civilWorkDirection').length){const label=$('<label>').attr('for','civilWorkDirection').text('轮值方针 ').appendTo('#civilWorkChoices');const select=$('<select>').attr('id','civilWorkDirection').appendTo(label);for(const [id,name]of Object.entries(this.modesFor(s)))$('<option>').val(id).text(name).appendTo(select);select.val(d.mode).on('change',()=>this.refresh(State));}
-      const selected=$('#civilWorkDirection').val();CivilCityView.button('civilWork_apply','按此方针委托','#civilWorkChoices',this.reason(s,selected),()=>this.set(State,$('#civilWorkDirection').val()));
-    }else for(const [mode,label]of Object.entries(this.modesFor(s)))if(!['industry','learning'].includes(mode))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.set(State,mode));
-    CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.stop(State));
+      if(!$('#civilWorkDirection').length){const label=$('<label>').attr('for','civilWorkDirection').text('轮值方针 ').appendTo('#civilWorkChoices');const select=$('<select>').attr({id:'civilWorkDirection',size:4}).appendTo(label);for(const [id,name]of Object.entries(this.modesFor(s)))$('<option>').val(id).text(name).appendTo(select);select.val(d.mode).on('change',()=>this.refresh(State)).on('keydown keyup',e=>e.stopPropagation());}
+      const selected=$('#civilWorkDirection').val();CivilCityView.button('civilWork_apply','按此方针委托','#civilWorkChoices',this.reason(s,selected),()=>this.commit($('#civilWorkDirection').val()));
+    }else for(const [mode,label]of Object.entries(this.modesFor(s)))if(!['industry','learning'].includes(mode))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.commit(mode));
+    CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.commit(null));
     $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排优先补废料与工具至120，可使用已扩建的制器工位；工具够用后回到四人。实际仍受劳力、健康与原料限制。');
-    if(this.industrialReady(s))$('#civilWorkPreview').append(document.createTextNode(' 工业投产先补矿200、煤240、铁200、零件120；学徒与维修先安排教师，只补60、80、60、40的维修缓冲。两者一并接管矿工、烧炭、冶炼、机工与电工，直接调岗即可接管；司机与守备始终自行安排。'));
+    if(this.industrialReady(s)){
+      const descriptions={reserves:'先留24轮供养，够用后回到基本产粮；废料留60、工具留24。工业岗位自行安排。',workshop:'优先补废料与工具至120；使用已扩建的制器工位，够用后回到四人。工业岗位自行安排。',industry:'先满足生产工位：矿200、煤240、铁200、零件120。余下成人再安排教学。',learning:'先安排教师；工业只留维修缓冲：矿60、煤80、铁60、零件40。生产扩建会更慢。'};
+      $('#civilWorkPreview').text(descriptions[$('#civilWorkDirection').val()]+' 全部仍受实际劳力、健康、原料与岗位上限限制。');
+    }
   }
 };
