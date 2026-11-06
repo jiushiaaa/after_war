@@ -43,8 +43,25 @@ var CivilPacing={
     for(const r of d.changes){if(!time(r.at)||r.at<last||!Object.hasOwn(this.modes,r.mode)||typeof r.enabled!=='boolean'||(!r.enabled&&!['manual','shortage','workforce','institution'].includes(r.why)))fail();last=r.at;mode=r.mode;enabled=r.enabled;}
     if(mode!==d.mode||enabled!==d.enabled||d.handoffAt!==null&&(!time(d.handoffAt)||!c.city?.institutions||d.enabled))fail();
   },
-  refresh(s){if(typeof document==='undefined'||!document.getElementById?.('workers'))return;const exists=document.getElementById('civilWorkMandate');if(!this.available(s)){if(exists)exists.remove();$('#workers').removeClass('civil-worklisted');return;}let box=$('#civilWorkMandate');if(!box.length){box=$('<details>').attr('id','civilWorkMandate').addClass('civil-details').appendTo('#workers');$('<summary>').text('轮值分工').appendTo(box);$('<p>').attr('id','civilWorkStatus').appendTo(box);$('<p>').text('一名现有成人轮值协调，每60秒木料2、食物1。留三名机动成人；只调六项民用岗位，保留司机、守备和在途人员。手动调整民用岗位会暂停；城市公署成立后交接。').appendTo(box);$('<div>').attr('id','civilWorkChoices').appendTo(box);$('<p>').attr('id','civilWorkPreview').appendTo(box);}$('#workers').addClass('civil-worklisted');
+  refresh(s){
+    if(typeof document==='undefined'||!document.getElementById?.('workers'))return;
+    let root=$('#civilEarlyWork');
+    if(!this.available(s)){
+      if(root.length){const jobs=$('#civilDelegatedJobs').length?$('#civilDelegatedJobs'):$('#workers');jobs.insertBefore(root);$('#socialNote,#civilManualGather').appendTo('#outsidePanel');root.remove();}
+      return;
+    }
+    if(!root.length){
+      root=$('<div>').attr('id','civilEarlyWork').appendTo('#outsidePanel');
+      $('<p>').attr('id','civilWorkBrief').addClass('civil-brief').appendTo(root);
+      const box=$('<details>').attr('id','civilWorkMandate').addClass('civil-details').appendTo(root);$('<summary>').text('议定轮值与优先事项').appendTo(box);
+      $('<p>').attr('id','civilWorkStatus').appendTo(box);$('<p>').text('一名现有成人轮值协调，每60秒木料2、食物1。留三名机动成人；只调六项民用岗位，保留司机、守备和在途人员。手动调整民用岗位会暂停；城市公署成立后交接。').appendTo(box);
+      $('<div>').attr('id','civilWorkChoices').appendTo(box);$('<p>').attr('id','civilWorkPreview').appendTo(box);
+      const manual=$('<details>').attr('id','civilEarlyJobs').addClass('civil-details').appendTo(root);$('<summary>').text('工种与手动调整').appendTo(manual);$('#workers').appendTo(manual);
+    }
+    for(const id of ['socialNote','civilManualGather'])if($('#'+id).length&&$('#'+id).parent()[0]!==root[0])$('#'+id).appendTo(root);
     const d=this.data(s);$('#civilWorkStatus').text(d.enabled?this.modes[d.mode]+' · 协调员1人 · 下次续办 '+Math.max(0,d.until-s.civilization.elapsed)+'秒':'自行分工'+(d.changes.at(-1)?.why==='shortage'?' · 维护缺料已暂停，补足后可恢复':''));
+    $('#civilWorkBrief').text(d.enabled?'已委托：'+this.modes[d.mode]+' · 协调员1人':'自行安排民用岗位');
+    const manual=$('#civilEarlyJobs');if(manual.attr('data-enabled')!==String(d.enabled)){manual.attr('data-enabled',String(d.enabled));manual.prop('open',!d.enabled);}
     for(const [mode,label]of Object.entries(this.modes))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.set(State,mode));
     CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.stop(State));
     $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排少留余粮，优先补废料至120并多派制器。实际结果仍受岗位、健康与原料限制。');
