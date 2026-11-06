@@ -55,6 +55,7 @@ async function select(css,value){
  for(let j=0;j<Math.abs(o.target-o.index);j++)for(const type of ['rawKeyDown','keyUp'])await send('Input.dispatchKeyEvent',{type,key:o.target>o.index?'ArrowDown':'ArrowUp',code:o.target>o.index?'ArrowDown':'ArrowUp',windowsVirtualKeyCode:o.target>o.index?40:38});
  for(const type of ['rawKeyDown','keyUp'])await send('Input.dispatchKeyEvent',{type,key:'Enter',code:'Enter',windowsVirtualKeyCode:13});return await read(`${q(css)}.value`)===value;
 }
+async function mandate(mode){if(await read('!!document.querySelector("#civilWorkDirection")'))return await select('#civilWorkDirection',mode)&&await click('#civilWork_apply');return click('#civilWork_'+mode);}
 const observe=()=>read(`(()=>{const s=State,c=s.civilization;return {ruleset:c.ruleset,city:c.city,managed:CivilPacing.managed(s),mandate:c.workMandate,sim:c.elapsed,pop:s.game.population,b:s.game.buildings,w:s.game.workers,st:s.stores,tech:c.tech,course:c.course,modern:c.modern,field:c.fieldEquipment,fire:s.game.fire.value,research:c.research,journey:c.journey,pending:c.pending,capacity:CivilCatalog.capacity(s),free:Outside.getNumGatherers(),workforce:CivilSociety.workforce(s),caps:Object.fromEntries(Object.keys(CivilCatalog.jobs).map(j=>[j,CivilCatalog.jobCapacity(s,j)])),town:c.village.town,station:c.station,pump:c.pump,health:c.village.health,river:c.village.riverKnown,allied:c.village.riverAllied,exp:c.expedition,urban:c.urban,regions:c.regions,speed:c.speed,max:c.maxSpeed,paused:!!CivilClock.paused,guide:CivilGuide.steps(s),event:Events.activeEvent()?.title,buttons:[...document.querySelectorAll('#event .button')].filter(e=>!e.classList.contains('disabled')).map(e=>({id:e.id,text:e.innerText})),hunger:c.hunger,supplied:c.outpostSupplied};})()`);
 async function exportSave(name){
   const out=path.resolve(dir,name);fs.mkdirSync(out,{recursive:true});
@@ -135,17 +136,17 @@ while(Date.now()<end&&!done){
     if(await select('#modernTask','toggle')&&await click('#modern_commit')){crisis.modernRestoredAt=s.sim;log('electric_medical_backup_restored',{at:s.sim});continue;}
   }
 
-  if(s.mandate&&!s.mandate.enabled&&!s.city?.institutions){if(await click('#civilWork_'+(route==='commons'?'reserves':'workshop')))continue;}
+  if(s.mandate&&!s.mandate.enabled&&!s.city?.institutions){if(await mandate(route==='commons'?'reserves':'workshop'))continue;}
   // A public route still reacts to its actual bottleneck: food reserves can fund a temporary repair focus.
   if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='reserves'&&s.guide?.need?.some(n=>n.startsWith('工具 '))&&(s.st.food||0)>s.pop*20){
-    if(await click('#civilWork_workshop')){log('work_priority',{at:s.sim,from:'reserves',to:'workshop',reason:'housing/service tool shortage with a real food reserve',tools:s.st.tools,food:s.st.food});continue;}
+    if(await mandate('workshop')){log('work_priority',{at:s.sim,from:'reserves',to:'workshop',reason:'housing/service tool shortage with a real food reserve',tools:s.st.tools,food:s.st.food});continue;}
   }
   if(route==='commons'&&s.mandate?.enabled&&s.mandate.mode==='workshop'&&(s.st.tools||0)>=80){
-    if(await click('#civilWork_reserves')){log('work_priority',{at:s.sim,from:'workshop',to:'reserves',reason:'tool buffer recovered',tools:s.st.tools,food:s.st.food});continue;}
+    if(await mandate('reserves')){log('work_priority',{at:s.sim,from:'workshop',to:'reserves',reason:'tool buffer recovered',tools:s.st.tools,food:s.st.food});continue;}
   }
   // Standards makes the next public works material-bound; shift the authorized roster once.
   if(route==='industry'&&s.mandate?.enabled&&s.mandate.mode==='learning'&&s.tech.standards&&((s.st.iron||0)<80||(s.st.parts||0)<30)){
-    if(await click('#civilWork_industry')){log('work_priority',{at:s.sim,from:'learning',to:'industry',reason:'standards unlocked actual public-building demand',iron:s.st.iron,parts:s.st.parts});continue;}
+    if(await mandate('industry')){log('work_priority',{at:s.sim,from:'learning',to:'industry',reason:'standards unlocked actual public-building demand',iron:s.st.iron,parts:s.st.parts});continue;}
   }
   if(s.fire<3)await click('#stokeButton');
   const builds=['lodge','cart','cistern','outpost','toolshop','schoolhouse','road'];

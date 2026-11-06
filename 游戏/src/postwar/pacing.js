@@ -78,7 +78,11 @@ var CivilPacing={
     $('#civilWorkScope').text('一名现有成人轮值协调，每60秒木料2、食物1。留三名机动成人；'+(this.industrial(s)?'当前接管民用与五项工业岗位':'当前只调六项民用岗位')+'，保留司机、守备和在途人员。手动调整受托岗位会暂停；城市公署成立后交接。');
     $('#civilWorkBrief').text(d.enabled?'已委托：'+this.modes[d.mode]+' · 协调员1人':'自行安排民用岗位');
     const manual=$('#civilEarlyJobs');if(manual.attr('data-enabled')!==String(d.enabled)){manual.attr('data-enabled',String(d.enabled));manual.prop('open',!d.enabled);}
-    for(const [mode,label]of Object.entries(this.modesFor(s)))if(!['industry','learning'].includes(mode)||this.industrialReady(s))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.set(State,mode));
+    if(this.industrialReady(s)){
+      $('#civilWork_reserves,#civilWork_workshop').hide();
+      if(!$('#civilWorkDirection').length){const label=$('<label>').attr('for','civilWorkDirection').text('轮值方针 ').appendTo('#civilWorkChoices');const select=$('<select>').attr('id','civilWorkDirection').appendTo(label);for(const [id,name]of Object.entries(this.modesFor(s)))$('<option>').val(id).text(name).appendTo(select);select.val(d.mode).on('change',()=>this.refresh(State));}
+      const selected=$('#civilWorkDirection').val();CivilCityView.button('civilWork_apply','按此方针委托','#civilWorkChoices',this.reason(s,selected),()=>this.set(State,$('#civilWorkDirection').val()));
+    }else for(const [mode,label]of Object.entries(this.modesFor(s)))if(!['industry','learning'].includes(mode))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.set(State,mode));
     CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.stop(State));
     $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排优先补废料与工具至120，可使用已扩建的制器工位；工具够用后回到四人。实际仍受劳力、健康与原料限制。');
     if(this.industrialReady(s))$('#civilWorkPreview').append(document.createTextNode(' 工业投产先补矿200、煤240、铁200、零件120；学徒与维修先安排教师，只补60、80、60、40的维修缓冲。两者一并接管矿工、烧炭、冶炼、机工与电工，直接调岗即可接管；司机与守备始终自行安排。'));

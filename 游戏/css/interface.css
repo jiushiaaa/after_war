@@ -70,6 +70,8 @@ body.dark #cityBody .civil-guide { color:#ddd; }
 #civilEarlyWork #socialNote { margin:12px 0; font-size:13px; }
 #civilEarlyWork #workers { width:150px; }
 #civilWorkMandate { width:260px; max-width:100%; }
+#civilWorkChoices label { display:block; margin:6px 0; }
+#civilWorkDirection { max-width:100%; min-height:34px; font:inherit; color:inherit; background:transparent; border:1px solid #888; }
 input.civil-outfit-val { width:58px; padding:5px 2px; box-sizing:border-box; color:inherit; background:transparent; border:1px solid #888; font:inherit; }
 @media (min-width:940px) {
   #roomPanel:not(.civil-room-managed) #civilGuide { position:absolute; top:200px; left:150px; width:260px; padding:0; }
