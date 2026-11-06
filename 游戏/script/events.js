@@ -1422,7 +1422,7 @@ var Events = {
 			Events.eventPanel().css('width', options.width);
 		}
 		$('<div>').addClass('eventTitle').text(Events.activeEvent().title).appendTo(Events.eventPanel());
-		var body = $('<div>').addClass('civil-event-body').appendTo(Events.eventPanel());
+		var body = $('<div>').addClass('civil-event-body').attr({tabindex:0, role:'region', 'aria-label':(event.title || '') + '内容'}).appendTo(Events.eventPanel());
 		$('<div>').attr('id', 'description').appendTo(body);
 		$('<div>').attr('id', 'buttons').appendTo(body);
 		if(event.civilHistory) {

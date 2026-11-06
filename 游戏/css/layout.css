@@ -162,3 +162,104 @@ body.civil-entry #testToolbar { display:none!important; }
 body.civil-entry #eventblocker { background:var(--civil-paper); }
 
 #startupError { width:min(500px,calc(100vw - 36px)); }
+
+/* Labels set the action width, rather than the original 100px button column. */
+#wrapper .location .button {
+  position:relative!important; top:auto!important; left:auto!important; right:auto; bottom:auto;
+  width:max-content!important; max-width:100%; min-width:0; box-sizing:border-box;
+  padding:7px 14px; line-height:1.5; min-height:36px; overflow-wrap:normal;
+}
+#wrapper .location .button.civil-tab { padding:6px 12px; }
+#wrapper .location .button.civil-inline { padding:2px 10px; min-height:0; }
+.location select, .location input, #event select, #event input, #event textarea { box-sizing:border-box; max-width:100%; min-width:0; }
+.location .city-setting select { min-width:min(170px,100%); }
+.civil-details dl { column-gap:18px; }
+.civil-kv { column-gap:18px; row-gap:6px; }
+.civil-plan-row { grid-template-columns:minmax(0,1fr) max-content; gap:8px 18px; }
+.civil-plan-row > .button { align-self:start; }
+.civil-construction-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 28px; align-items:start; }
+.civil-construction-columns > div { position:static!important; width:auto!important; min-width:0; }
+.civil-construction-columns .storeRow { line-height:1.8; }
+#civilBuiltBook { width:auto; max-width:100%; }
+
+/* Early descriptions and the next-step guide grow with the text. */
+#roomPanel:not(.civil-room-managed).civil-active { display:grid; grid-template-columns:minmax(150px,.8fr) minmax(0,1.2fr); gap:20px 28px; align-content:start; align-items:start; }
+#roomPanel:not(.civil-room-managed) > #lightButton,
+#roomPanel:not(.civil-room-managed) > #stokeButton { grid-column:1; grid-row:1; }
+#roomPanel:not(.civil-room-managed) > #policyButton { position:static; grid-column:2; grid-row:1; }
+#roomPanel:not(.civil-room-managed) > #buildBtns { position:static; grid-column:1; grid-row:2 / span 3; }
+#roomPanel:not(.civil-room-managed) > #hearthNote { position:static; grid-column:2; grid-row:2; width:auto!important; margin:0; }
+#roomPanel:not(.civil-room-managed) > #civilGuide { position:static; grid-column:2; grid-row:3; width:auto; margin:0; }
+#roomPanel > #craftBtns, #roomPanel > #buyBtns { position:static; }
+.civil-room-actions { flex-wrap:wrap; }
+
+#outsidePanel.civil-active { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.65fr); gap:24px; align-items:start; }
+#outsidePanel > #village { position:relative!important; top:auto; right:auto; grid-column:2; grid-row:1; width:100%; min-width:0; margin:0; box-sizing:border-box; }
+#civilVillageWork { grid-column:1; grid-row:1; min-width:0; }
+#civilVillageWork > .button { position:static!important; display:inline-block; margin:0 10px 12px 0; }
+#civilVillageWork #workers { position:static; width:100%; max-width:300px; box-sizing:border-box; margin:12px 0; }
+#civilVillageWork #socialNote { position:static!important; width:100%; margin:16px 0; }
+#civilVillageWork #civilEarlyWork { position:static; width:100%; max-height:none; overflow:visible; padding:0; }
+#civilVillageWork #civilManualGather { position:static!important; width:100%; }
+#civilVillageWork #civilWorkMandate { width:100%; }
+#civilVillageWork .workerRow { min-height:26px; line-height:26px; }
+#civilVillageWork .workerRow .row_key { max-width:calc(100% - 100px); }
+
+/* The scrollable reading area is keyboard reachable; titles stay outside it. */
+#event .civil-event-body { overflow-x:hidden; overflow-y:auto; scrollbar-gutter:stable; overflow-wrap:anywhere; }
+#event .civil-event-body:focus-visible { outline:1px dashed var(--civil-rule); outline-offset:-4px; }
+#event .eventTitle { overflow-wrap:anywhere; }
+#event #exitButtons > .button { line-height:1.5; }
+#event .civil-event-body textarea { width:100%; }
+
+/* City maps share the same monochrome terrain and native, focusable place markers. */
+#cityTerrain { line-height:16px; }
+#cityTerrain > span { height:16px; }
+.city-map-node > span > small { display:block; font-size:11px; line-height:1.5; color:var(--civil-muted); }
+.city-local-map { margin:24px 0; max-width:740px; }
+.city-local-title { margin:0 0 10px; color:var(--civil-muted); }
+.city-local-sketch { position:relative; border:1px solid var(--civil-rule); padding:10px; }
+.city-local-terrain { display:grid; grid-template-columns:repeat(31,minmax(0,1fr)); font:12px/16px Menlo,Consolas,monospace; text-align:center; user-select:none; }
+.city-local-terrain > span { height:16px; color:#ccc; }
+.city-local-nodes { position:absolute; inset:10px; pointer-events:none; }
+.city-local-nodes .city-map-node { min-width:64px; min-height:44px; }
+.city-local-map .city-map-node > span { font-size:13px; }
+.city-local-map .city-map-node b { font-size:18px; }
+.city-local-map .city-map-node b, .city-local-map .city-map-node > span { background:var(--civil-paper); }
+.city-local-map .city-map-node.selected b { background:var(--civil-ink,#222); color:var(--civil-paper); }
+.city-local-terrain .city-ground-water { color:#aaa; }
+.city-local-terrain .city-ground-forest, .city-local-terrain .city-ground-mountain { color:#999; }
+#cityTerrain .city-ground-housing, .city-local-terrain .city-ground-housing { color:#999; }
+#cityTerrain .city-ground-industry, .city-local-terrain .city-ground-industry { color:#666; }
+#cityTerrain .city-ground-service, .city-local-terrain .city-ground-service { color:#888; }
+#cityTerrain .city-ground-field, .city-local-terrain .city-ground-field { color:#999; }
+#cityTerrain .city-ground-building, .city-local-terrain .city-ground-road { color:#555; }
+.city-local-terrain .city-ground-street, .city-local-terrain .city-ground-trail { color:#999; }
+.city-local-legend { font-size:12px!important; color:var(--civil-muted); margin:8px 0 16px; }
+.city-local-detail { border-top:1px solid var(--civil-rule); padding-top:14px; font-size:14px; }
+.city-local-detail dl { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px 20px; margin:14px 0; }
+.city-local-detail dt, .city-local-detail dd { margin:0; }
+.city-local-detail dd { text-align:right; font-variant-numeric:tabular-nums; }
+.city-local-detail p { margin:10px 0 0; }
+body.dark .city-local-terrain > span { color:#555; }
+body.dark #cityTerrain .city-ground-housing, body.dark .city-local-terrain .city-ground-housing,
+body.dark #cityTerrain .city-ground-field, body.dark .city-local-terrain .city-ground-field { color:#999; }
+body.dark #cityTerrain .city-ground-industry, body.dark .city-local-terrain .city-ground-industry,
+body.dark #cityTerrain .city-ground-service, body.dark .city-local-terrain .city-ground-service,
+body.dark #cityTerrain .city-ground-building, body.dark .city-local-terrain .city-ground-road { color:#bbb; }
+body.dark .city-local-terrain .city-ground-water, body.dark .city-local-terrain .city-ground-mountain,
+body.dark .city-local-terrain .city-ground-forest, body.dark .city-local-terrain .city-ground-street,
+body.dark .city-local-terrain .city-ground-trail { color:#888; }
+
+@media(max-width:1199px) {
+  #outsidePanel.civil-active { grid-template-columns:minmax(0,1fr); }
+  #outsidePanel > #village { grid-column:1; grid-row:2; margin:0; }
+}
+@media(max-width:600px) {
+  #roomPanel:not(.civil-room-managed).civil-active { display:flex; flex-direction:column; gap:18px; }
+  #roomPanel:not(.civil-room-managed) > #buildBtns { order:4; width:100%; }
+  #roomPanel:not(.civil-room-managed) > #civilGuide { width:100%; }
+  .civil-construction-columns { grid-template-columns:minmax(0,1fr); gap:18px; }
+  .civil-plan-row { grid-template-columns:minmax(0,1fr); }
+  .civil-plan-row > .button { grid-column:1; grid-row:auto; }
+}

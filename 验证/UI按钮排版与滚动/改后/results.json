@@ -1,0 +1,944 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "width": 1280,
+      "scenario": "exploration",
+      "page": "room",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 5,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "exploration",
+      "page": "outside",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "exploration",
+      "page": "road",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "exploration",
+      "page": "research",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-town",
+      "page": "laws",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 0,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-town",
+      "page": "room",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-town",
+      "page": "outside",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 0,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-city",
+      "page": "city",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 9,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-city",
+      "page": "census",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 9,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-city",
+      "page": "production",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 15,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-city",
+      "page": "industry",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 5,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-city",
+      "page": "urban",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-budget",
+      "page": "lake",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-budget",
+      "page": "network",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-budget",
+      "page": "budget",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-budget",
+      "page": "domain",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-synthetic",
+      "page": "future",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-synthetic",
+      "page": "research",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-echo",
+      "page": "echo",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-war",
+      "page": "trade",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-war",
+      "page": "war",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-war",
+      "page": "equipment",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-unified",
+      "page": "earth",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "public-launch",
+      "page": "space",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-ending",
+      "page": "history",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 15,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 260,
+        "y": 90,
+        "width": 760,
+        "height": 720,
+        "right": 1020,
+        "bottom": 810
+      }
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-ending",
+      "page": "archives",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 260,
+        "y": 90,
+        "width": 760,
+        "height": 720,
+        "right": 1020,
+        "bottom": 810
+      }
+    },
+    {
+      "width": 1280,
+      "scenario": "industry-ending",
+      "page": "ending",
+      "viewport": {
+        "width": 1280,
+        "height": 900,
+        "scroll": 1280
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 260,
+        "y": 90,
+        "width": 760,
+        "height": 720,
+        "right": 1020,
+        "bottom": 810
+      }
+    },
+    {
+      "width": 390,
+      "scenario": "exploration",
+      "page": "room",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 5,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "exploration",
+      "page": "outside",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "exploration",
+      "page": "road",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "exploration",
+      "page": "research",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-town",
+      "page": "laws",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 0,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-town",
+      "page": "room",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-town",
+      "page": "outside",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 0,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-city",
+      "page": "city",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 9,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-city",
+      "page": "census",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 9,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-city",
+      "page": "production",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 15,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-city",
+      "page": "industry",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 5,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-city",
+      "page": "urban",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-budget",
+      "page": "lake",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-budget",
+      "page": "network",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 4,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-budget",
+      "page": "budget",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-budget",
+      "page": "domain",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-synthetic",
+      "page": "future",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-synthetic",
+      "page": "research",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-echo",
+      "page": "echo",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 2,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-war",
+      "page": "trade",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-war",
+      "page": "war",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-war",
+      "page": "equipment",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-unified",
+      "page": "earth",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "public-launch",
+      "page": "space",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": null
+    },
+    {
+      "width": 390,
+      "scenario": "industry-ending",
+      "page": "history",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 15,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 16,
+        "y": 90,
+        "width": 358,
+        "height": 720,
+        "right": 374,
+        "bottom": 810
+      }
+    },
+    {
+      "width": 390,
+      "scenario": "industry-ending",
+      "page": "archives",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 3,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 16,
+        "y": 90,
+        "width": 358,
+        "height": 720,
+        "right": 374,
+        "bottom": 810
+      }
+    },
+    {
+      "width": 390,
+      "scenario": "industry-ending",
+      "page": "ending",
+      "viewport": {
+        "width": 390,
+        "height": 900,
+        "scroll": 390
+      },
+      "buttonCount": 1,
+      "wrapped": [],
+      "overlaps": [],
+      "clipped": [],
+      "escapedCooldowns": [],
+      "modal": {
+        "x": 16,
+        "y": 90,
+        "width": 358,
+        "height": 720,
+        "right": 374,
+        "bottom": 810
+      }
+    }
+  ],
+  "exceptions": []
+}

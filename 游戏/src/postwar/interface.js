@@ -176,6 +176,20 @@ var CivilInterface={
     const fmt=(k)=>CivilReadable.resource(s.stores[k]||0,k,s.civilization.polishVersion===1);
     fold.children('summary').text((stores.attr('data-legend')||'公仓')+' · 粮 '+fmt('food')+' · 工具 '+fmt('tools')).attr('aria-label','展开或收起本地公仓完整库存；粮食 '+fmt('food')+'，工具 '+fmt('tools'));
   },
+  layout(){
+    if(typeof document==='undefined'||!document.getElementById)return;
+    const panel=document.getElementById('outsidePanel');
+    if(panel){
+      let work=document.getElementById('civilVillageWork');
+      if(!work){work=document.createElement('div');work.id='civilVillageWork';panel.prepend(work);}
+      // Keep the original controls and their handlers; only replace fixed coordinates
+      // with a flowing work column. Later delegation keeps its own nested disclosures.
+      for(const child of Array.from(panel.children))if(child!==work&&child.id!=='village')work.appendChild(child);
+    }
+    for(const id of ['industryBuildBtns','urbanBuildBtns','regionBuildBtns','municipalBuild']){
+      document.getElementById(id)?.parentElement?.classList.add('civil-construction-columns');
+    }
+  },
   refresh(s,{summaries=true}={}){this.inventory(s);this.urban(s,summaries);this.municipal(s,summaries);this.industry(s);this.research(s);this.construction(s);this.village(s);if(summaries&&$('#councilRecord').length)this.summary('#councilRecord',this.councilSummary(s));},
   reset(){this.views={};this.researchModule=null;}
 };
