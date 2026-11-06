@@ -1,0 +1,39 @@
+{
+  "source": "验证/A7节奏/public/local-recovery/production-restored/战后文明-存档.json",
+  "copyOnly": true,
+  "views": [
+    {
+      "width": 1280,
+      "focused": "cityWardSummary",
+      "ward": "terraces",
+      "overflow": false
+    },
+    {
+      "width": 853,
+      "focused": "cityWardSummary",
+      "ward": "terraces",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "focused": "cityWardSummary",
+      "ward": "terraces",
+      "overflow": false
+    }
+  ],
+  "guide": {
+    "goal": "恢复梯田片区的持续供养",
+    "need": [
+      "健康 7/60 · 稳定供养 0/120秒"
+    ],
+    "where": "city",
+    "visit": {
+      "city": "home",
+      "ward": "terraces",
+      "view": "overview",
+      "target": "cityWardSummary"
+    },
+    "note": "跨城货物已经抵达；还需本地供水、口粮、诊疗、教学和行政同时维持。补齐后按正常节奏恢复，无需重复签约"
+  },
+  "errors": []
+}
