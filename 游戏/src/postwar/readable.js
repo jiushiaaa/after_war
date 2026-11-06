@@ -6,6 +6,12 @@ var CivilReadable={
     return Number((n/scale).toFixed(scale===1?2:2)).toLocaleString('zh-CN')+(scale===1e8?'亿':scale===1e4?'万':'')+unit;
   },
   quantity(n,unit){return this.number(n,unit);},
+  status(text){
+    // Legacy market receipts may append the same shortage each period. Display
+    // every distinct statement once without rewriting the replayable world.
+    const detail=[...new Set(String(text||'').split(/[；;\n]+/).map(x=>x.trim()).filter(Boolean))].join('；');
+    return {brief:detail.length>100?detail.slice(0,100)+'…':detail,detail};
+  },
   rows(selector,rows){
     const host=$(selector);if(!host.length)return;const signature=JSON.stringify(rows);
     if(host.attr('data-readable')===signature&&host.children('.civil-kv').length)return;
@@ -112,6 +118,14 @@ var CivilReadable={
     this.metricSources('#politySummary',[...pop,['口径','上述名册相加；原城市居民另列，不重复并入地区。'],['履约 / 认可',d.stable+'秒 / '+d.legitimacy+'','按共同份额、地方同意与公共支出实际结算。'],['公共在途',d.cargo.filter(v=>v.arrivedAt===null).length+'班','未抵达的地方分担运单。实到后才入公共仓。']]);
     if($('#polityBook').prop('open'))this.rows('#polityBook > p',this.ledger(d.world.nodes.north.stores,d.public,{},s.civilization.polishVersion===1));
     if(CivilPolityView.section==='institutions')this.rows('#polityDetail',[['本期责任',d.lastService?.paid?'已实付':d.lastService?.reason||'待结算'],['实付 / 延后',d.paid+' / '+d.missed+'期','过去未付不抹去；恢复只承担未来与明确的旧承诺。'],['现行国约',Object.entries(d.laws).map(([k,v])=>CivilPolity.laws[k][v]).join(' · ')],['正在审议',d.proposal?'剩余 '+Math.max(0,d.proposal.at+600-s.civilization.elapsed)+' 秒':'无']]);
+    else if(CivilPolityView.section!=='equipment'&&d.peers[CivilPolityView.actor]){
+      const id=CivilPolityView.actor,peer=d.peers[id],node=d.world.nodes[id],foreign=d.world.foreign,actor=foreign?.actors[id],pair=foreign?.pairs[CivilForeign.pair('north',id)],status=this.status(actor?.decision),conference=foreign?.aftermath?.conferences.at(-1),profile=CivilForeignContent.profiles[id];
+      const rows=[['地区',CivilPolityForeign.peers[id].name+' · '+(node.joinedAt!==null?'已加入国约':'独立政体')],['居民',this.number(CivilDomain.count(peer.local),'人')],['健康 / 设施',peer.local.health+' / '+node.infrastructure],['公共服务',node.stableSeconds+' / 600秒'],['关系 / 压力',pair?CivilForeign.phaseName(pair.phase)+' · '+pair.relation+' / '+pair.pressure:'尚无联席清算']];
+      if(actor)rows.push(['清算账额',this.number(actor.balance)],['当前安排',status.brief||'等待下一期安排',status.detail?'完整状况（重复语句合并）：'+status.detail:null]);
+      rows.push(['实际伤亡',this.number(node.casualties,'人'),'累计真实伤亡；重建不抹去既有损失。']);
+      if(foreign?.aftermath)rows.push(['善后',conference?({pending:'待答复',active:'持续履约',completed:'已恢复',refused:'提议被拒',failed:'监督中断',expired:'协议到期'}[conference.status])+' · '+conference.cycles+' / 6轮':'尚未议约'],['当地'+CivilText.labels[profile.need],this.number(node.stores[profile.need])+' / 至少 '+profile.use*3,'修复、监督与生产继续使用实际库存。']);
+      this.rows('#polityDetail',rows);
+    }
     const issues=[],go=section=>()=>{CivilConurbationView.select('domain');CivilPolityView.section=section;CivilPolityView.refresh(State);this.focus('#polityDesk');};
     if(d.lastService&&!d.lastService.paid)issues.push({text:d.lastService.reason,go:go('institutions')});const f=d.world.foreign;if(f){for(const [id,a]of Object.entries(f.actors))if(a.overdueAt!==null)issues.push({text:(CivilCensus.regions[id]||'共同机构')+'清算逾期',go:go('trade')});if(Object.values(f.pairs).some(p=>p.phase==='war'))issues.push({text:'边境战争影响生产和供给',go:go('conflict')});}this.alerts('#politySummary > .civil-notices',issues);
   },
