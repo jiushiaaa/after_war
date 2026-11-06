@@ -1,0 +1,861 @@
+{
+  "readOnly": {
+    "publicCity": true,
+    "exploration": "03cc0d962ee2d5191bff5dbe3aeea3e1058f849dc5398c454ffedfd3dc257836",
+    "public-town": "8c65527e4944b3637a00a3049386fe431cb71aacaf67a6dd802a280077e29e8f",
+    "industry-town": "df281da2f7d80a81cb4f4fa29c8f48f05414c1c027fe164dd68ab93ecc910e53",
+    "public-city": "298d13f00e453dcac7fd533989011e0cf5a35d402041b113a5daa8da93069186",
+    "public-earth": "396af6c058138523c48233416c7b6d5b19c7611fc7d0f47d3702168611c93814"
+  },
+  "viewports": [
+    {
+      "scenario": "exploration",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 858.4296875,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 368.4296875,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 368.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 368.4296875,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 368.4296875
+      },
+      "nodes": 4,
+      "pageWidth": 1600,
+      "selected": "净水工艺",
+      "unknown": 2,
+      "width": 1600
+    },
+    {
+      "scenario": "exploration",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1378.4296875,
+        "height": 490,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 888.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 888.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 368.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 368.4296875
+      },
+      "nodes": 4,
+      "pageWidth": 1280,
+      "selected": "净水工艺",
+      "unknown": 2,
+      "width": 1280
+    },
+    {
+      "scenario": "exploration",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1566.8203125,
+        "height": 490,
+        "left": 14,
+        "right": 839,
+        "top": 1076.8203125,
+        "width": 825,
+        "x": 14,
+        "y": 1076.8203125
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 978.8203125,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 556.8203125,
+        "width": 825,
+        "x": 14,
+        "y": 556.8203125
+      },
+      "nodes": 4,
+      "pageWidth": 853,
+      "selected": "净水工艺",
+      "unknown": 2,
+      "width": 853
+    },
+    {
+      "scenario": "exploration",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1520.859375,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1070.859375,
+        "width": 362,
+        "x": 14,
+        "y": 1070.859375
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 978.859375,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 646.859375,
+        "width": 362,
+        "x": 14,
+        "y": 646.859375
+      },
+      "nodes": 4,
+      "pageWidth": 390,
+      "selected": "净水工艺",
+      "unknown": 2,
+      "width": 390
+    },
+    {
+      "scenario": "public-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 858.4296875,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 368.4296875,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 368.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 368.4296875,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 368.4296875
+      },
+      "nodes": 20,
+      "pageWidth": 1600,
+      "selected": "地理测绘",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "scenario": "public-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1378.4296875,
+        "height": 490,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 888.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 888.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 368.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 368.4296875
+      },
+      "nodes": 20,
+      "pageWidth": 1280,
+      "selected": "地理测绘",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "scenario": "public-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1445.25,
+        "height": 451.0234375,
+        "left": 14,
+        "right": 839,
+        "top": 994.2265625,
+        "width": 825,
+        "x": 14,
+        "y": 994.2265625
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 896.2265625,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 474.2265625,
+        "width": 825,
+        "x": 14,
+        "y": 474.2265625
+      },
+      "nodes": 20,
+      "pageWidth": 853,
+      "selected": "道路维护",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "scenario": "public-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1487.859375,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1037.859375,
+        "width": 362,
+        "x": 14,
+        "y": 1037.859375
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 945.859375,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 613.859375,
+        "width": 362,
+        "x": 14,
+        "y": 613.859375
+      },
+      "nodes": 20,
+      "pageWidth": 390,
+      "selected": "地理测绘",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "scenario": "industry-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 858.4296875,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 368.4296875,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 368.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 368.4296875,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 368.4296875
+      },
+      "nodes": 19,
+      "pageWidth": 1600,
+      "selected": "机械传动",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "scenario": "industry-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1378.4296875,
+        "height": 490,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 888.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 888.4296875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 790.4296875,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 368.4296875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 368.4296875
+      },
+      "nodes": 19,
+      "pageWidth": 1280,
+      "selected": "机械传动",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "scenario": "industry-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1484.2265625,
+        "height": 490,
+        "left": 14,
+        "right": 839,
+        "top": 994.2265625,
+        "width": 825,
+        "x": 14,
+        "y": 994.2265625
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 896.2265625,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 474.2265625,
+        "width": 825,
+        "x": 14,
+        "y": 474.2265625
+      },
+      "nodes": 19,
+      "pageWidth": 853,
+      "selected": "机械传动",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "scenario": "industry-town",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1487.859375,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1037.859375,
+        "width": 362,
+        "x": 14,
+        "y": 1037.859375
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 945.859375,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 613.859375,
+        "width": 362,
+        "x": 14,
+        "y": 613.859375
+      },
+      "nodes": 19,
+      "pageWidth": 390,
+      "selected": "机械传动",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "scenario": "public-city",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 891.875,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 401.875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 823.875,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 401.875
+      },
+      "nodes": 31,
+      "pageWidth": 1600,
+      "selected": "半导体与控制器",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "scenario": "public-city",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1411.875,
+        "height": 490,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 921.875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 823.875,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 401.875
+      },
+      "nodes": 31,
+      "pageWidth": 1280,
+      "selected": "半导体与控制器",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "scenario": "public-city",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1519.2734375,
+        "height": 490,
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375,
+        "width": 825,
+        "x": 14,
+        "y": 1029.2734375
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 931.2734375,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375,
+        "width": 825,
+        "x": 14,
+        "y": 509.2734375
+      },
+      "nodes": 31,
+      "pageWidth": 853,
+      "selected": "半导体与控制器",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "scenario": "public-city",
+      "archive": false,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1484.3125,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125,
+        "width": 362,
+        "x": 14,
+        "y": 1034.3125
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 942.3125,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 610.3125,
+        "width": 362,
+        "x": 14,
+        "y": 610.3125
+      },
+      "nodes": 31,
+      "pageWidth": 390,
+      "selected": "半导体与控制器",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "scenario": "public-earth",
+      "archive": true,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1112.90625,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 622.90625,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 622.90625
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 1044.90625,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 622.90625,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 622.90625
+      },
+      "nodes": 32,
+      "pageWidth": 1600,
+      "selected": "净水工艺",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "scenario": "public-earth",
+      "archive": true,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1620.1640625,
+        "height": 477.2578125,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 1142.90625,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 1142.90625
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 1044.90625,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 622.90625,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 622.90625
+      },
+      "nodes": 32,
+      "pageWidth": 1280,
+      "selected": "净水工艺",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "scenario": "public-earth",
+      "archive": true,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1641.0625,
+        "height": 477.2578125,
+        "left": 14,
+        "right": 839,
+        "top": 1163.8046875,
+        "width": 825,
+        "x": 14,
+        "y": 1163.8046875
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 1065.8046875,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 643.8046875,
+        "width": 825,
+        "x": 14,
+        "y": 643.8046875
+      },
+      "nodes": 32,
+      "pageWidth": 853,
+      "selected": "净水工艺",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "scenario": "public-earth",
+      "archive": true,
+      "badLabels": [],
+      "detail": {
+        "bottom": 1541.8828125,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1091.8828125,
+        "width": 362,
+        "x": 14,
+        "y": 1091.8828125
+      },
+      "ink": "rgb(34, 34, 34)",
+      "map": {
+        "bottom": 999.8828125,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 667.8828125,
+        "width": 362,
+        "x": 14,
+        "y": 667.8828125
+      },
+      "nodes": 32,
+      "pageWidth": 390,
+      "selected": "净水工艺",
+      "unknown": 3,
+      "width": 390
+    }
+  ],
+  "interactions": {
+    "drag": true,
+    "arrowPan": true,
+    "wheelZoom": true,
+    "zoomButtons": true,
+    "prerequisiteJump": true,
+    "researchPayment": {
+      "id": "semiconductor",
+      "paid": {
+        "parts": 16,
+        "tools": 24,
+        "knowledge": 160
+      },
+      "pausedTimeUnchanged": true,
+      "concurrentResearchDisabled": true
+    },
+    "activeSaveReload": true,
+    "completion": {
+      "paused": true,
+      "research": null,
+      "done": true,
+      "elapsed": 13916
+    },
+    "dark": {
+      "ink": "#ddd",
+      "paper": "#272823"
+    },
+    "detailKeyboard": {
+      "focusable": true,
+      "innerScroll": 77,
+      "outerPageStableAfterFocus": true
+    },
+    "unknownKeyboard": true,
+    "console": [],
+    "monochromeFocus": true,
+    "touch": "Chrome CDP 模拟通过；内置浏览器不支持 Input.dispatchTouchEvent"
+  },
+  "finalResponsive": [
+    {
+      "detailTop": 438.375,
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875
+      },
+      "node": {
+        "left": 546.1953125,
+        "right": 770.1953125
+      },
+      "pageWidth": 1600,
+      "width": 1600
+    },
+    {
+      "detailTop": 921.875,
+      "map": {
+        "left": 245.75,
+        "right": 1034.25
+      },
+      "node": {
+        "left": 528.25,
+        "right": 752.25
+      },
+      "pageWidth": 1280,
+      "width": 1280
+    },
+    {
+      "detailTop": 1270.2578125,
+      "map": {
+        "left": 14,
+        "right": 839
+      },
+      "node": {
+        "left": 314.5,
+        "right": 538.5
+      },
+      "pageWidth": 853,
+      "width": 853
+    },
+    {
+      "detailTop": 1275.296875,
+      "map": {
+        "left": 14,
+        "right": 376
+      },
+      "node": {
+        "left": 83,
+        "right": 307
+      },
+      "pageWidth": 390,
+      "width": 390
+    }
+  ],
+  "settledResponsive": [
+    {
+      "detail": {
+        "bottom": 832.375,
+        "height": 490,
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 342.375,
+        "width": 260,
+        "x": 1032.8046875,
+        "y": 342.375
+      },
+      "map": {
+        "bottom": 764.375,
+        "height": 422,
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 342.375,
+        "width": 701.609375,
+        "x": 307.1953125,
+        "y": 342.375
+      },
+      "node": {
+        "bottom": 585.375,
+        "height": 64,
+        "left": 546.1953125,
+        "right": 770.1953125,
+        "top": 521.375,
+        "width": 224,
+        "x": 546.1953125,
+        "y": 521.375
+      },
+      "scroll": 1600,
+      "width": 1600
+    },
+    {
+      "detail": {
+        "bottom": 1352.375,
+        "height": 490,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 862.375,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 862.375
+      },
+      "map": {
+        "bottom": 764.375,
+        "height": 422,
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 342.375,
+        "width": 788.5,
+        "x": 245.75,
+        "y": 342.375
+      },
+      "node": {
+        "bottom": 603.375,
+        "height": 64,
+        "left": 528.25,
+        "right": 752.25,
+        "top": 539.375,
+        "width": 224,
+        "x": 528.25,
+        "y": 539.375
+      },
+      "scroll": 1280,
+      "width": 1280
+    },
+    {
+      "detail": {
+        "bottom": 1519.2734375,
+        "height": 490,
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375,
+        "width": 825,
+        "x": 14,
+        "y": 1029.2734375
+      },
+      "map": {
+        "bottom": 931.2734375,
+        "height": 422,
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375,
+        "width": 825,
+        "x": 14,
+        "y": 509.2734375
+      },
+      "node": {
+        "bottom": 770.2734375,
+        "height": 64,
+        "left": 314.5,
+        "right": 538.5,
+        "top": 706.2734375,
+        "width": 224,
+        "x": 314.5,
+        "y": 706.2734375
+      },
+      "scroll": 853,
+      "width": 853
+    },
+    {
+      "detail": {
+        "bottom": 1484.3125,
+        "height": 450,
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125,
+        "width": 362,
+        "x": 14,
+        "y": 1034.3125
+      },
+      "map": {
+        "bottom": 942.3125,
+        "height": 332,
+        "left": 14,
+        "right": 376,
+        "top": 610.3125,
+        "width": 362,
+        "x": 14,
+        "y": 610.3125
+      },
+      "node": {
+        "bottom": 808.3125,
+        "height": 64,
+        "left": 83,
+        "right": 307,
+        "top": 744.3125,
+        "width": 224,
+        "x": 83,
+        "y": 744.3125
+      },
+      "scroll": 390,
+      "width": 390
+    }
+  ]
+}
