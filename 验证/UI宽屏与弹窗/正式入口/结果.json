@@ -1,0 +1,63 @@
+{
+  "rows": [
+    {
+      "width": 1280,
+      "dark": false,
+      "colors": [
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)"
+      ],
+      "stores": 1,
+      "parent": "wrapper",
+      "fold": false
+    },
+    {
+      "width": 390,
+      "dark": false,
+      "colors": [
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)",
+        "rgb(34, 34, 34)"
+      ],
+      "stores": 1,
+      "parent": "main",
+      "fold": true
+    },
+    {
+      "width": 1280,
+      "dark": true,
+      "colors": [
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)"
+      ],
+      "stores": 1,
+      "parent": "wrapper",
+      "fold": false
+    },
+    {
+      "width": 390,
+      "dark": true,
+      "colors": [
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)",
+        "rgb(221, 221, 221)"
+      ],
+      "stores": 1,
+      "parent": "main",
+      "fold": true
+    }
+  ],
+  "worldUnchanged": true,
+  "slotMenu": true,
+  "errors": []
+}

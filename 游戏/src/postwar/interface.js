@@ -129,10 +129,9 @@ var CivilInterface={
     if(!s.civilization.village?.town||typeof document==='undefined')return;
     const village=$('#village');if(!village.length)return;
     let book=$('#civilVillageBuildings');
-    const place=()=>{if(Engine.activeModule===Outside&&!Engine.narrow())$('#storesContainer').stop(true).css('top',(village.height()+26+Outside._STORES_OFFSET)+'px');};
-    if(!book.length){book=$('<details>').attr('id','civilVillageBuildings').appendTo(village);$('<summary>').appendTo(book);$('<div>').appendTo(book);book.on('toggle',place);}
+    if(!book.length){book=$('<details>').attr('id','civilVillageBuildings').appendTo(village);$('<summary>').appendTo(book);$('<div>').appendTo(book);}
     const rows=village.find('.storeRow');rows.each(function(){if(!$(this).parent().is(book.children('div')))$(this).appendTo(book.children('div'));});
-    book.children('summary').text('已建设施（'+rows.length+'类）');place();
+    book.children('summary').text('已建设施（'+rows.length+'类）');
   },
   construction(s){
     const root=$('#buildBtns');if(!root.length)return;
@@ -172,6 +171,7 @@ var CivilInterface={
   // Whole-page refresh already rendered these summaries in their owning modules.
   // Direct category clicks retain the default immediate summary update.
   inventory(s){
+    $('#wrapper').toggleClass('civil-has-stores',$('#storesContainer .storeRow').length>0);
     const stores=$('#stores');if(!stores.length)return;
     let fold=$('#civilStoreFold');const compact=typeof Engine.narrow==='function'&&Engine.narrow()&&s.civilization?.village?.town;
     if(!compact){if(fold.length){this.storesExpanded=fold.prop('open');stores.insertBefore(fold);fold.remove();}return;}

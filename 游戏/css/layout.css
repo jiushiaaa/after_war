@@ -1,0 +1,133 @@
+/* MPL-2.0 — Native ADR controls in independent, fluid columns. No gameplay state. */
+html, body { height:auto; min-height:100%; }
+body { --civil-paper:#fff; --civil-gap:clamp(20px,2vw,36px); }
+body a, body a:visited { color:var(--civil-ink,#222); text-underline-offset:.2em; }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline:1px solid currentColor; outline-offset:3px; }
+
+div#wrapper {
+  width:100%; max-width:none; box-sizing:border-box; margin:0;
+  padding:24px clamp(18px,2.2vw,44px) 80px;
+  display:grid; grid-template-columns:clamp(180px,15vw,260px) minmax(0,1fr) clamp(180px,15vw,240px);
+  gap:var(--civil-gap); align-items:start;
+}
+div#content { grid-column:2 / 4; grid-row:1; min-width:0; height:auto; overflow:visible; }
+#wrapper.civil-has-stores > #content { grid-column:2; }
+div#outerSlider, div#outerSlider > div, div#main {
+  position:relative; float:none; width:100%!important; min-width:0; height:auto; overflow:visible;
+}
+div#locationSlider { position:relative; left:0!important; width:100%!important; }
+div.location { float:none; display:none; width:100%!important; min-height:260px; box-sizing:border-box; }
+div.location.civil-active { display:block; }
+div#header {
+  display:flex; flex-wrap:wrap; gap:8px 24px; width:100%; height:auto; min-height:0;
+  padding:0 0 16px; margin-bottom:22px; border-bottom:1px solid var(--civil-rule);
+  position:relative; background:var(--civil-paper); z-index:2;
+}
+div#header .headerButton, div#header .headerButton.civil-group-start {
+  float:none; margin:0; padding:3px 0; border:0; line-height:1.6; font-size:17px;
+}
+div#header .headerButton.selected { text-decoration-thickness:2px; text-underline-offset:6px; }
+
+div#notifications {
+  grid-column:1; grid-row:1; position:sticky; top:calc(var(--test-bar-height,0px) + 24px);
+  left:auto; width:100%; height:min(700px,calc(100dvh - var(--test-bar-height,0px) - 96px));
+  font-size:15px; line-height:1.75; overflow:hidden;
+}
+#notifyGradient { pointer-events:none; }
+div#storesContainer {
+  grid-column:3; grid-row:1; position:sticky!important;
+  top:calc(var(--test-bar-height,0px) + 24px)!important; right:auto!important;
+  width:100%; min-width:0; padding-top:14px; box-sizing:border-box;
+  max-height:calc(100dvh - var(--test-bar-height,0px) - 96px); overflow-y:auto;
+}
+#wrapper:not(.civil-has-stores) > #storesContainer { display:none; }
+div#stores, div#weapons { box-sizing:border-box; width:100%; padding:10px 12px; }
+.storeRow { line-height:1.65; display:flow-root; }
+.storeRow > .row_val { font-variant-numeric:tabular-nums; }
+.menu { background:var(--civil-paper); padding:8px 12px; }
+
+/* Retire the nested 420px/620px viewport instead of stretching text underneath the warehouse. */
+#cityPanel, #cityBody, #civilResearchPanel { width:100%; height:auto; overflow:visible; }
+#cityBody { padding-right:0; }
+#cityBody > div, #cityHistory { max-width:none; }
+#cityViews { position:static; background:transparent; }
+.location .civil-summary, .location .civil-tabs, .location .civil-development,
+.location .civil-plan, .location .civil-project-details, #domainBody,
+#civilResearchIntro, #modernDesk, #civilLawPage, #civicConstitution,
+#civilResearchTree, #civilResearchPanel #researchBtns, #civilResearchPanel #researchStatus,
+#councilRecord, #councilHistory, #urbanRecord, #municipalStatus, #industryStatus {
+  width:100%!important; max-width:100%; box-sizing:border-box;
+}
+.location p, .city-net-lines, .civil-details { overflow-wrap:anywhere; }
+.civil-metrics { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:0 28px; }
+.civil-metric { padding:14px 0; border-color:var(--civil-rule); }
+.civil-metric > span { font-size:13px; color:var(--civil-muted); }
+.civil-metric > strong { margin-top:7px; font-size:19px; }
+#cityPanel p, #cityCensusRows { font-size:14px; }
+#citySketch { max-width:740px; }
+#metroCitySwitch, #cityViews, #cityNetTabs, #metroCityTabs {
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-bottom:20px;
+}
+#metroCitySwitch { padding-bottom:18px; }
+#cityPanel #metroCitySwitch > .button, #cityPanel #cityViews > .button,
+#cityPanel #cityNetTabs > .button, #cityPanel #metroCityTabs > .button { margin:0; }
+#domainEntry { margin:0 4px 0 0; padding:8px 0; }
+#councilLocation { flex-basis:100%; }
+.location .city-setting { display:flex; flex-wrap:wrap; align-items:start; gap:8px 16px; margin:16px 0; }
+.location .city-setting > span { min-width:110px; padding-top:6px; }
+.location .city-setting select { min-width:170px; max-width:100%; }
+#earthTerms, #futureTerms, #polityTerms { margin:20px 0; }
+
+/* At laptop widths the old village board and absolute worker column cannot share a row. */
+@media(min-width:940px) and (max-width:1199px) {
+  #outsidePanel > div { position:static!important; }
+  #outsidePanel > #village { width:100%; box-sizing:border-box; margin:12px 0 24px; }
+  #outsidePanel > #civilEarlyWork { width:100%; max-height:none; overflow:visible; padding:0; }
+  #outsidePanel > #workers, #outsidePanel > #socialNote { margin:18px 0; }
+  #outsidePanel > .button { display:inline-block; margin:6px 10px 6px 0; }
+}
+
+/* One bounded event window; the page underneath cannot become its scroll container. */
+html.civil-modal-open { overflow:hidden!important; overscroll-behavior:none; }
+html.civil-modal-open body { overscroll-behavior:none; }
+#eventblocker { position:fixed; inset:0; z-index:80; background:var(--civil-paper); opacity:.7; }
+#event.eventPanel {
+  position:fixed; top:50%; left:50%!important; right:auto; transform:translate(-50%,-50%);
+  width:520px; max-width:calc(100vw - 32px); max-height:calc(100dvh - 40px); box-sizing:border-box;
+  padding:0; margin:0; border:1px solid currentColor; background:var(--civil-paper); color:var(--civil-ink);
+  box-shadow:3px 3px 0 rgb(0 0 0 / .18); z-index:90; display:flex; flex-direction:column; overflow:hidden;
+}
+#event.eventPanel:before, #event.eventPanel:after, #event .eventTitle:after { display:none; }
+#event .eventTitle { position:static; flex:none; display:block; padding:15px 22px; margin:0; border-bottom:1px solid var(--civil-rule); line-height:1.5; }
+#event .civil-event-body { min-height:0; overflow:auto; overscroll-behavior:contain; padding:20px 22px; flex:1; }
+#event .civil-event-body #description { min-height:0; max-height:none; overflow:visible; padding:0; }
+#event .civil-event-body #description > div { margin:0; padding-bottom:16px; }
+#event .civil-event-body #buttons { padding-top:12px; }
+#event #exitButtons { display:flex; flex-wrap:wrap; gap:10px; }
+#event #exitButtons > .button { float:none; width:auto!important; min-width:120px; max-width:100%; margin:0; padding:7px 12px; box-sizing:border-box; }
+#event.civil-history-event { width:760px!important; height:min(720px,calc(100dvh - 40px)); }
+#event.civil-history-event .eventTitle { padding-right:140px; }
+#event.civil-history-event #exitButtons { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+#event.civil-history-event #exitButtons > .button { width:100%!important; }
+#event .civil-event-close { position:absolute; top:10px; right:14px; z-index:3; background:var(--civil-paper); color:inherit; border:1px solid var(--civil-rule); padding:6px 10px; font:inherit; cursor:pointer; }
+
+@media(max-width:939px) {
+  div#wrapper { display:flex; flex-direction:column; gap:0; padding:12px 14px 80px; }
+  div#content { width:100%; order:1; }
+  div#header { gap:7px 18px; margin-bottom:16px; padding-bottom:12px; }
+  div#header .headerButton { font-size:16px; }
+  div#notifications { order:2; position:relative; top:0; height:220px; margin-top:24px; padding-top:12px; }
+  div#storesContainer, #main > #storesContainer { position:static!important; top:auto!important; width:100%; max-height:none; overflow:visible; padding-top:12px; margin:0 0 18px; }
+  #metroCitySwitch { gap:10px 12px; }
+  #civilResearchPanel { height:auto; overflow:visible; }
+  #event.eventPanel:not(.civil-history-event) { width:calc(100vw - 32px)!important; }
+  #event .civil-event-body { padding:16px; }
+  #event .eventTitle { padding:14px 16px; }
+  #event.civil-history-event { height:min(720px,calc(100dvh - 32px)); }
+}
+@media(max-width:480px) {
+  .civil-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 18px; }
+  #event.civil-history-event #exitButtons { grid-template-columns:1fr; }
+  #event .civil-event-close { font-size:13px; }
+  #event.civil-history-event .eventTitle { padding-right:120px; }
+}

@@ -78,6 +78,7 @@ var Events = {
 		} else {
 			Events.startStory(scene);
 		}
+		$('.civil-event-body', Events.eventPanel()).scrollTop(0);
 	},
 
 	startCombat: function(scene) {
@@ -1384,6 +1385,27 @@ var Events = {
 		Events.startEvent(event);
 	},
 
+	lockPage: function() {
+		if(Events._pageLock) return;
+		Events._pageLock = {x: window.scrollX, y: window.scrollY, nodes: []};
+		document.documentElement.classList.add('civil-modal-open');
+		// The modal is a sibling of the page, so the background cannot take keyboard focus.
+		document.querySelectorAll('#content, #notifications, #storesContainer, .menu, #testToolbar').forEach(function(node) {
+			Events._pageLock.nodes.push([node, node.inert]); node.inert = true;
+		});
+		$('<div id="eventblocker" aria-hidden="true">').appendTo('body');
+	},
+
+	unlockPage: function() {
+		var lock = Events._pageLock;
+		if(!lock) return;
+		Events._pageLock = null;
+		document.documentElement.classList.remove('civil-modal-open');
+		$('#eventblocker').remove();
+		lock.nodes.forEach(function(entry) { entry[0].inert = entry[1]; });
+		window.scrollTo(lock.x, lock.y);
+	},
+
 	startEvent: function(event, options) {
 		if(!event) {
 			return;
@@ -1394,20 +1416,45 @@ var Events = {
 		Engine.tabNavigation = false;
 		Button.saveCooldown = false;
 		Events.eventStack.unshift(event);
+		event._closing = false;
 		event.eventPanel = $('<div>').attr('id', 'event').addClass('eventPanel').css('opacity', '0');
 		if(options != null && options.width != null) {
 			Events.eventPanel().css('width', options.width);
 		}
 		$('<div>').addClass('eventTitle').text(Events.activeEvent().title).appendTo(Events.eventPanel());
-		$('<div>').attr('id', 'description').appendTo(Events.eventPanel());
-		$('<div>').attr('id', 'buttons').appendTo(Events.eventPanel());
+		var body = $('<div>').addClass('civil-event-body').appendTo(Events.eventPanel());
+		$('<div>').attr('id', 'description').appendTo(body);
+		$('<div>').attr('id', 'buttons').appendTo(body);
+		if(event.civilHistory) {
+			event.eventPanel.addClass('civil-history-event');
+			$('<button type="button">').addClass('civil-event-close').text('合上记录 ×').attr('aria-label', '关闭' + event.title)
+				.on('click', function() { if(Events.activeEvent() === event) Events.endEvent(); }).appendTo(event.eventPanel);
+		}
 		Events.loadScene('start');
 		if(!Events._returnFocus && document.activeElement && document.activeElement !== document.body) Events._returnFocus = document.activeElement;
+		Events.lockPage();
 		$('div#wrapper').append(Events.eventPanel());
 		Events.eventPanel().attr({role: 'dialog', 'aria-modal': 'true', 'aria-label': Events.activeEvent().title || ''});
+		event.eventPanel.on('keydown', function(e) {
+			e.stopPropagation();
+			if(e.key === 'Escape' && event.civilHistory) { e.preventDefault(); Events.endEvent(); return; }
+			if(e.key !== 'Tab') return;
+			var controls = Array.from(this.querySelectorAll('button, input, select, textarea, a[href], [tabindex]')).filter(function(node) {
+				return !node.disabled && !node.classList.contains('disabled') && node.tabIndex >= 0 && node.getClientRects().length;
+			});
+			var index = controls.indexOf(document.activeElement), last = controls.length - 1;
+			if(controls.length && (index < 0 || (!e.shiftKey && index === last) || (e.shiftKey && index === 0))) {
+				e.preventDefault(); controls[e.shiftKey ? last : 0].focus();
+			}
+		});
+		event.eventPanel.on('keyup', function(e) { e.stopPropagation(); });
 		Events.eventPanel().animate({opacity: 1}, Events._PANEL_FADE, 'linear');
 		// Move keyboard focus into the decision; reading text does not spend time or steps.
-		setTimeout(function(){ var first = Events.eventPanel() && Events.eventPanel().find('.button:not(.disabled)')[0]; if(first){ first.setAttribute('tabindex','0'); first.focus(); } }, Events._PANEL_FADE + 20);
+		setTimeout(function(){
+			if(Events.activeEvent() !== event || event._closing) return;
+			var first = event.eventPanel.find('.civil-event-close')[0] || event.eventPanel.find('.button:not(.disabled), input, select, textarea')[0];
+			if(first){ first.setAttribute('tabindex','0'); first.focus({preventScroll:true}); }
+		}, Events._PANEL_FADE + 20);
 		var currentSceneInformation = Events.activeEvent().scenes[Events.activeScene];
 		if (currentSceneInformation.blink) {
 			Events.blinkTitle();
@@ -1422,11 +1469,16 @@ var Events = {
 	},
 
 	endEvent: function() {
+		var event = Events.activeEvent();
+		if(!event || event._closing) return;
+		event._closing = true;
 		AudioEngine.stopEventMusic();
-		Events.eventPanel().animate({opacity:0}, Events._PANEL_FADE, 'linear', function() {
-			Events.eventPanel().remove();
-			Events.activeEvent().eventPanel = null;
+		event.eventPanel.animate({opacity:0}, Events._PANEL_FADE, 'linear', function() {
+			if(Events.activeEvent() !== event) return;
+			event.eventPanel.remove();
+			event.eventPanel = null;
 			Events.eventStack.shift();
+			Events.unlockPage();
 			Engine.log(Events.eventStack.length + ' events remaining');
 			Engine.keyLock = false;
 			Engine.tabNavigation = true;
@@ -1438,7 +1490,7 @@ var Events = {
 			var back = Events._returnFocus; Events._returnFocus = null;
 			// Controls re-rendered while the event was open are found again by id.
 			if(back && !document.body.contains(back) && back.id) back = document.getElementById(back.id);
-			if(back && document.body.contains(back) && back.offsetParent !== null) back.focus();
+			if(back && document.body.contains(back) && back.offsetParent !== null) back.focus({preventScroll:true});
 			else $('body').focus();
 		});
 	},

@@ -1,0 +1,1165 @@
+{
+  "kind": "UI copies, not natural play",
+  "rows": [
+    {
+      "scenario": "industry-synthetic",
+      "page": "domain",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 746.65625,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 878.421875,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 405.46875,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 537.46875,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 1031.3125,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 1163.078125,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 405.46875,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 537.46875,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "civilResearchPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": {
+        "before": {
+          "y": 0,
+          "lockY": 0,
+          "event": {
+            "x": 580,
+            "y": 180,
+            "width": 760,
+            "height": 720,
+            "top": 180,
+            "right": 1340,
+            "bottom": 900,
+            "left": 580
+          },
+          "h": 1080,
+          "w": 1920
+        },
+        "after": {
+          "y": 0,
+          "scroll": 0,
+          "close": {
+            "x": 1225.96875,
+            "y": 191,
+            "width": 99.03125,
+            "height": 36,
+            "top": 191,
+            "right": 1325,
+            "bottom": 227,
+            "left": 1225.96875
+          },
+          "event": {
+            "x": 580,
+            "y": 180,
+            "width": 760,
+            "height": 720,
+            "top": 180,
+            "right": 1340,
+            "bottom": 900,
+            "left": 580
+          }
+        },
+        "needsScroll": false
+      }
+    },
+    {
+      "scenario": "public-city",
+      "page": "city",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 1089.78125,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 1221.546875,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 299.90625,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 431.90625,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "public-two-cities",
+      "page": "network",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 593.875,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 725.640625,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 299.90625,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 431.90625,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-town",
+      "page": "room",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 475.375,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 607.140625,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 326.296875,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 458.296875,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roomPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "exploration",
+      "page": "road",
+      "width": 1920,
+      "height": 1080,
+      "geometry": {
+        "width": 1920,
+        "height": 1080,
+        "docWidth": 1920,
+        "main": {
+          "x": 338.234375,
+          "y": 131.765625,
+          "width": 1263.53125,
+          "height": 889.9375,
+          "top": 131.765625,
+          "right": 1601.765625,
+          "bottom": 1021.703125,
+          "left": 338.234375
+        },
+        "stores": {
+          "x": 1637.765625,
+          "y": 132,
+          "width": 240,
+          "height": 141.5625,
+          "top": 132,
+          "right": 1877.765625,
+          "bottom": 273.5625,
+          "left": 1637.765625
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roadPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "domain",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 746.65625,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 878.421875,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 405.46875,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 537.46875,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 1141.703125,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 1273.46875,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 405.46875,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 537.46875,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "civilResearchPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": {
+        "before": {
+          "y": 0,
+          "lockY": 0,
+          "event": {
+            "x": 260,
+            "y": 90,
+            "width": 760,
+            "height": 720,
+            "top": 90,
+            "right": 1020,
+            "bottom": 810,
+            "left": 260
+          },
+          "h": 900,
+          "w": 1280
+        },
+        "after": {
+          "y": 0,
+          "scroll": 0,
+          "close": {
+            "x": 905.96875,
+            "y": 101,
+            "width": 99.03125,
+            "height": 36,
+            "top": 101,
+            "right": 1005,
+            "bottom": 137,
+            "left": 905.96875
+          },
+          "event": {
+            "x": 260,
+            "y": 90,
+            "width": 760,
+            "height": 720,
+            "top": 90,
+            "right": 1020,
+            "bottom": 810,
+            "left": 260
+          }
+        },
+        "needsScroll": false
+      }
+    },
+    {
+      "scenario": "public-city",
+      "page": "city",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 1173.78125,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 1305.546875,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 299.90625,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 431.90625,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "public-two-cities",
+      "page": "network",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 593.875,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 725.640625,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 299.90625,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 431.90625,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-town",
+      "page": "room",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 475.375,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 607.140625,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 326.296875,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 458.296875,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roomPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "exploration",
+      "page": "road",
+      "width": 1280,
+      "height": 900,
+      "geometry": {
+        "width": 1280,
+        "height": 900,
+        "docWidth": 1280,
+        "main": {
+          "x": 245.75,
+          "y": 131.765625,
+          "width": 788.5,
+          "height": 889.9375,
+          "top": 131.765625,
+          "right": 1034.25,
+          "bottom": 1021.703125,
+          "left": 245.75
+        },
+        "stores": {
+          "x": 1059.84375,
+          "y": 132,
+          "width": 192,
+          "height": 141.5625,
+          "top": 132,
+          "right": 1251.84375,
+          "bottom": 273.5625,
+          "left": 1059.84375
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roadPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "domain",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 819.65625,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 993.8125,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 236.34375,
+          "width": 825,
+          "height": 57,
+          "top": 236.34375,
+          "right": 839,
+          "bottom": 293.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 1236.703125,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 1410.859375,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 236.34375,
+          "width": 825,
+          "height": 57,
+          "top": 236.34375,
+          "right": 839,
+          "bottom": 293.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "civilResearchPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": {
+        "before": {
+          "y": 0,
+          "lockY": 0,
+          "event": {
+            "x": 46.5,
+            "y": 90,
+            "width": 760,
+            "height": 720,
+            "top": 90,
+            "right": 806.5,
+            "bottom": 810,
+            "left": 46.5
+          },
+          "h": 900,
+          "w": 853
+        },
+        "after": {
+          "y": 0,
+          "scroll": 0,
+          "close": {
+            "x": 692.46875,
+            "y": 101,
+            "width": 99.03125,
+            "height": 36,
+            "top": 101,
+            "right": 791.5,
+            "bottom": 137,
+            "left": 692.46875
+          },
+          "event": {
+            "x": 46.5,
+            "y": 90,
+            "width": 760,
+            "height": 720,
+            "top": 90,
+            "right": 806.5,
+            "bottom": 810,
+            "left": 46.5
+          }
+        },
+        "needsScroll": false
+      }
+    },
+    {
+      "scenario": "public-city",
+      "page": "city",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 1269.34375,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 1443.5,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 236.34375,
+          "width": 825,
+          "height": 57,
+          "top": 236.34375,
+          "right": 839,
+          "bottom": 293.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "public-two-cities",
+      "page": "network",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 689.4375,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 863.59375,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 236.34375,
+          "width": 825,
+          "height": 57,
+          "top": 236.34375,
+          "right": 839,
+          "bottom": 293.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-town",
+      "page": "room",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 579.34375,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 753.5,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 234.75,
+          "width": 825,
+          "height": 57,
+          "top": 234.75,
+          "right": 839,
+          "bottom": 291.75,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roomPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "exploration",
+      "page": "road",
+      "width": 853,
+      "height": 900,
+      "geometry": {
+        "width": 853,
+        "height": 900,
+        "docWidth": 853,
+        "main": {
+          "x": 14,
+          "y": 174.15625,
+          "width": 825,
+          "height": 1058.46875,
+          "top": 174.15625,
+          "right": 839,
+          "bottom": 1232.625,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 234.75,
+          "width": 825,
+          "height": 139.5625,
+          "top": 234.75,
+          "right": 839,
+          "bottom": 374.3125,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roadPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "domain",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 184.5625,
+          "width": 362,
+          "height": 1062.625,
+          "top": 184.5625,
+          "right": 376,
+          "bottom": 1247.1875,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 285.34375,
+          "width": 362,
+          "height": 57,
+          "top": 285.34375,
+          "right": 376,
+          "bottom": 342.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-synthetic",
+      "page": "bodies",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 184.5625,
+          "width": 362,
+          "height": 1450,
+          "top": 184.5625,
+          "right": 376,
+          "bottom": 1634.5625,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 285.34375,
+          "width": 362,
+          "height": 57,
+          "top": 285.34375,
+          "right": 376,
+          "bottom": 342.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "civilResearchPanel"
+        ],
+        "linkColors": [
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)",
+          "rgb(34, 34, 34)"
+        ],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": {
+        "before": {
+          "y": 0,
+          "lockY": 0,
+          "event": {
+            "x": 16,
+            "y": 62,
+            "width": 358,
+            "height": 720,
+            "top": 62,
+            "right": 374,
+            "bottom": 782,
+            "left": 16
+          },
+          "h": 844,
+          "w": 390
+        },
+        "after": {
+          "y": 0,
+          "scroll": 0,
+          "close": {
+            "x": 274.40625,
+            "y": 73,
+            "width": 84.59375,
+            "height": 32,
+            "top": 73,
+            "right": 359,
+            "bottom": 105,
+            "left": 274.40625
+          },
+          "event": {
+            "x": 16,
+            "y": 62,
+            "width": 358,
+            "height": 720,
+            "top": 62,
+            "right": 374,
+            "bottom": 782,
+            "left": 16
+          }
+        },
+        "needsScroll": false
+      }
+    },
+    {
+      "scenario": "public-city",
+      "page": "city",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 184.5625,
+          "width": 362,
+          "height": 1625.1875,
+          "top": 184.5625,
+          "right": 376,
+          "bottom": 1809.75,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 285.34375,
+          "width": 362,
+          "height": 57,
+          "top": 285.34375,
+          "right": 376,
+          "bottom": 342.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "public-two-cities",
+      "page": "network",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 184.5625,
+          "width": 362,
+          "height": 879.15625,
+          "top": 184.5625,
+          "right": 376,
+          "bottom": 1063.71875,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 285.34375,
+          "width": 362,
+          "height": 57,
+          "top": 285.34375,
+          "right": 376,
+          "bottom": 342.34375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "cityPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": "visible",
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "industry-town",
+      "page": "room",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 203.75,
+          "width": 362,
+          "height": 660.8125,
+          "top": 203.75,
+          "right": 376,
+          "bottom": 864.5625,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 302.9375,
+          "width": 362,
+          "height": 57,
+          "top": 302.9375,
+          "right": 376,
+          "bottom": 359.9375,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roomPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "scenario": "exploration",
+      "page": "road",
+      "width": 390,
+      "height": 844,
+      "geometry": {
+        "width": 390,
+        "height": 844,
+        "docWidth": 390,
+        "main": {
+          "x": 14,
+          "y": 184.5625,
+          "width": 362,
+          "height": 1133.40625,
+          "top": 184.5625,
+          "right": 376,
+          "bottom": 1317.96875,
+          "left": 14
+        },
+        "stores": {
+          "x": 14,
+          "y": 245.15625,
+          "width": 362,
+          "height": 139.5625,
+          "top": 245.15625,
+          "right": 376,
+          "bottom": 384.71875,
+          "left": 14
+        },
+        "storeCount": 1,
+        "visiblePanels": [
+          "roadPanel"
+        ],
+        "linkColors": [],
+        "bodyOverflow": null,
+        "researchOverflow": "visible"
+      },
+      "history": null
+    },
+    {
+      "shortModal": true
+    }
+  ],
+  "errors": []
+}

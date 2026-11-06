@@ -86,6 +86,10 @@
       this._debug = this.options.debug;
       this._log = this.options.log;
 
+      // Inventory lives beside the page; importing must discard the previous view as well.
+      $('#wrapper > #storesContainer').remove();
+      if(Events.unlockPage) Events.unlockPage();
+
       window.State = this.options.state || {};
       Civilization.initState();
       window.CivilClock = new SimulationClock();
@@ -204,8 +208,7 @@
     activeModule: null,
 
     travelTo: function(module) {
-      // The slider owns horizontal navigation. Focusing a control in an
-      // incoming panel must not leave the clipped viewport scrolled as well.
+      // Native tabs now share one flowing column at every screen width.
       $('#main').scrollLeft(0);
       if(Engine.activeModule == module) {
         return;
@@ -214,24 +217,14 @@
       var currentIndex = Engine.activeModule ? $('.location').index(Engine.activeModule.panel) : 1;
       $('div.headerButton').removeClass('selected').attr('aria-current', null);
       module.tab.addClass('selected').attr('aria-current', 'page');
-      // Narrow layout shows only the active place instead of a sliding strip.
+      // Show only the selected place, preserving its existing controls and state.
       $('.location').removeClass('civil-active');
       if(module.panel) module.panel.addClass('civil-active');
 
-      var slider = $('#locationSlider');
-      var stores = $('#storesContainer');
       var panelIndex = $('.location').index(module.panel);
       var diff = Math.abs(panelIndex - currentIndex);
-      // Panel width follows the layout (700px desktop, viewport width in narrow mode).
-      var panelWidth = Engine.panelWidth();
-      slider.animate({left: -(panelIndex * panelWidth) + 'px'}, 300 * diff, function() {
-        $('#main').scrollLeft(0);
-      });
-
-      if($SM.get('stores.wood') !== undefined) {
-        // FIXME Why does this work if there's an animation queue...?
-        stores.animate({right: Engine.narrow() ? '0px' : -(panelIndex * panelWidth) + 'px'}, 300 * diff);
-      }
+      // All locations share one flowing column; inventory never slides across the text.
+      $('#locationSlider').stop(true, true).css({left:0,width:'100%'});
 
       if(Engine.activeModule == Room || Engine.activeModule == Path || Engine.activeModule == Fabricator) {
         // Don't fade out the weapons if we're switching to a module
@@ -251,32 +244,9 @@
       Notifications.printQueue(module);
     },
 
-    /* Move the stores panel beneath top_container (or to top: 0px if top_container
-     * either hasn't been filled in or is null) using transition_diff to sync with
-     * the animation in Engine.travelTo().
-     */
+    // Keep the native module hook; inventory positioning is owned by the layout.
     moveStoresView: function(top_container, transition_diff) {
-      var stores = $('#storesContainer');
-
-      // If we don't have a storesContainer yet, leave.
-      if(typeof(stores) === 'undefined') return;
-
-      if(typeof(transition_diff) === 'undefined') transition_diff = 1;
-
-      if(top_container === null) {
-        stores.animate({top: '0px'}, {queue: false, duration: 300 * transition_diff});
-      }
-      else if(!top_container.length) {
-        stores.animate({top: '0px'}, {queue: false, duration: 300 * transition_diff});
-      }
-      else {
-        stores.animate({
-          top: top_container.height() + 26 + 'px'
-        }, {
-          queue: false,
-          duration: 300 * transition_diff
-        });
-      }
+      Engine.placeStores();
     },
 
     log: function(msg) {
@@ -287,31 +257,26 @@
 
     narrow: function() { return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(max-width: 939px)').matches; },
     panelWidth: function() { var p = $('div.location').first()[0]; return (p && p.getBoundingClientRect && p.getBoundingClientRect().width) || 700; },
-    // Re-align the slider after a resize or orientation change without moving to another place.
-    // In narrow mode the shared stores box sits under the header for every place;
-    // on desktop it returns to the original Room panel position.
+    // Desktop uses an independent inventory column; narrow screens keep the existing disclosure.
     placeStores: function() {
       var stores = $('#storesContainer');if(!stores.length)return;
       if(Engine.narrow()) { if(!stores.parent().is('#main')) stores.insertAfter('#header'); }
-      else if(!stores.parent().is('#roomPanel')) stores.prependTo('#roomPanel');
+      else if(!stores.parent().is('#wrapper')) stores.appendTo('#wrapper');
+      stores.stop(true,true).css({top:'',right:''});
       if(typeof CivilInterface!=='undefined'&&typeof State!=='undefined')CivilInterface.inventory(State);
     },
     realign: function() {
       Engine.placeStores();
       if(!Engine.activeModule || !Engine.activeModule.panel) return;
-      var index = $('.location').index(Engine.activeModule.panel), w = Engine.panelWidth();
-      $('#locationSlider').stop(true, true).css('left', -(index * w) + 'px');
-      $('#storesContainer').stop(true, true).css('right', Engine.narrow() ? '0px' : -(index * w) + 'px');
+      $('#locationSlider').stop(true, true).css({left:0,width:'100%'});
       Engine.updateSlider();
     },
     updateSlider: function() {
-      var slider = $('#locationSlider');
-      slider.width((slider.children().length * Engine.panelWidth()) + 'px');
+      $('#locationSlider').css('width','100%');
     },
 
     updateOuterSlider: function() {
-      var slider = $('#outerSlider');
-      slider.width((slider.children().length * 700) + 'px');
+      $('#outerSlider').css('width','100%');
     },
 
     getIncomeMsg: function(num, delay) {

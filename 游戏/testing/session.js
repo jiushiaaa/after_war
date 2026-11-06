@@ -49,17 +49,11 @@
   function tab(id){const e=document.getElementById('location_'+id);if(e)e.click();}
   function scroll(id){
     clearTimeout(session.scrollTimer);
-    // Let ADR finish its native horizontal slide before focusing a subsection.
+    // Wait for the selected native page to render before locating its subsection.
     session.scrollTimer=setTimeout(()=>{
       const e=document.getElementById(id);if(!e)return;
       for(let p=e;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;
-      if(Engine.narrow())e.scrollIntoView({block:'start'});
-      else{
-        // scrollIntoView also scrolls ADR's overflow:hidden outer frame, hiding its header/stores.
-        // The test workbench and the native city body scroll inside that frame.
-        const body=e.closest('#cityBody,#civilResearchPanel');if(body)body.scrollTop+=e.getBoundingClientRect().top-body.getBoundingClientRect().top;
-        document.getElementById('main').scrollTop=0;window.scrollTo({top:0});
-      }
+      e.scrollIntoView({block:'start'});
     },700);
   }
   function navigate(page){
@@ -80,8 +74,7 @@
     }else if(['earth','space'].includes(page)){CivilEarthView.go(page==='space'?'flight':'regions');scroll('earthDesk');}
     else if(page==='ending')CivilArchives.openScroll(State);
     else{CivilHistory.open(State);if(page==='archives'&&Events.activeEvent()?.scenes.archives_0)Events.loadScene('archives_0');}
-    // A test shortcut lands immediately instead of sliding through every intervening native tab.
-    // Ordinary in-game navigation keeps ADR's original animation.
+    // Reflow the same native page used by the normal entry; no separate test-only viewport.
     Engine.realign();document.getElementById('main').scrollLeft=0;
     session.page=page;document.getElementById('testPage').value=page;remember();
     const url=new URL(location.href);url.searchParams.set('page',page);history.replaceState(null,'',url);
