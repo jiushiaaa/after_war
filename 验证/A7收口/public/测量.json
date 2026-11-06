@@ -1,0 +1,473 @@
+{
+  "route": "public",
+  "complete": true,
+  "completionWallMinutes": 136.9752,
+  "native": "public/earth/12_first_flight_complete/战后文明-存档.json",
+  "end": 68100,
+  "wallMinutes": 136.80275443115235,
+  "advanceMinutes": 107.1765625,
+  "phases": [
+    {
+      "stage": "early",
+      "at": 1,
+      "wallMinute": 0.00285,
+      "nominalMinute": 0.016666666666666666
+    },
+    {
+      "stage": "town",
+      "at": 3572,
+      "wallMinute": 25.7609,
+      "nominalMinute": 25.691666666666666
+    },
+    {
+      "stage": "city",
+      "at": 13380,
+      "wallMinute": 70.52326666666667,
+      "nominalMinute": 66.55833333333334
+    },
+    {
+      "stage": "cluster",
+      "at": 18156,
+      "wallMinute": 82.24583333333334,
+      "nominalMinute": 74.415625
+    },
+    {
+      "stage": "nation",
+      "at": 33202,
+      "wallMinute": 110.14523333333334,
+      "nominalMinute": 90.08854166666667
+    },
+    {
+      "stage": "advanced",
+      "at": 41825,
+      "wallMinute": 116.46538333333334,
+      "nominalMinute": 94.5796875
+    },
+    {
+      "stage": "earth",
+      "at": 57074,
+      "wallMinute": 128.58705,
+      "nominalMinute": 102.521875
+    }
+  ],
+  "jobInputs": {
+    "hunter": 5,
+    "salvager": 2,
+    "transporter": 6
+  },
+  "managedInputsAfterIndustrial": {},
+  "optionalInvestments": [
+    {
+      "at": 5472,
+      "wallMinute": 35.28176666666667,
+      "nominalMinute": 33.608333333333334,
+      "type": "付费增设第二课堂",
+      "proof": "second successful build input + two physical classrooms in native save; old one-classroom route remains possible",
+      "includedInStrictChoices": false
+    }
+  ],
+  "allInputClicks": 5255,
+  "choices": [
+    {
+      "at": 420,
+      "nominalMinute": 7,
+      "wallMinute": 6.974866666666666,
+      "type": "配给",
+      "value": "equal",
+      "proof": "changed policy record"
+    },
+    {
+      "at": 1022,
+      "nominalMinute": 13.558333333333334,
+      "wallMinute": 13.598533333333334,
+      "type": "轮值方针",
+      "value": "reserves",
+      "proof": "paid mandate, sustained at least one maintenance interval; repeated directions excluded"
+    },
+    {
+      "at": 2675,
+      "nominalMinute": 21.954166666666666,
+      "wallMinute": 21.987,
+      "type": "近郊处置",
+      "value": "近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+      "proof": "expedition outcome"
+    },
+    {
+      "at": 2681,
+      "nominalMinute": 21.979166666666668,
+      "wallMinute": 22.012633333333333,
+      "type": "近郊处置",
+      "value": "静默绕行 小队花两步补给绕开，没有留下枪声。",
+      "proof": "expedition outcome"
+    },
+    {
+      "at": 2725,
+      "nominalMinute": 22.1625,
+      "wallMinute": 22.19845,
+      "type": "近郊处置",
+      "value": "旧气象站档案入库 风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。",
+      "proof": "expedition outcome"
+    },
+    {
+      "at": 3562,
+      "nominalMinute": 25.65,
+      "wallMinute": 25.72065,
+      "type": "共同章程",
+      "value": "structure:federation/selection:election/charter:constitution/devolution:local",
+      "proof": "four axes count as one"
+    },
+    {
+      "at": 3580,
+      "nominalMinute": 25.725,
+      "wallMinute": 25.796916666666668,
+      "type": "城镇路线",
+      "value": "commons",
+      "proof": "course record"
+    },
+    {
+      "at": 7105,
+      "nominalMinute": 40.4125,
+      "wallMinute": 42.1332,
+      "type": "轮值方针",
+      "value": "workshop",
+      "proof": "paid mandate, sustained at least one maintenance interval; repeated directions excluded"
+    },
+    {
+      "at": 9002,
+      "nominalMinute": 48.31666666666667,
+      "wallMinute": 50.62895,
+      "type": "工匠交接",
+      "value": "apprentice",
+      "proof": "actual production successor"
+    },
+    {
+      "at": 10048,
+      "nominalMinute": 52.675,
+      "wallMinute": 55.045633333333335,
+      "type": "生效议题",
+      "value": "town_intake:false",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 13411,
+      "nominalMinute": 66.62291666666667,
+      "wallMinute": 70.6334,
+      "type": "生效议题",
+      "value": "city_food:provisioning",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 13439,
+      "nominalMinute": 66.68125,
+      "wallMinute": 70.69413333333334,
+      "type": "片区生产与接班",
+      "value": "yards:profile:workshop",
+      "proof": "institution change and paid original costs"
+    },
+    {
+      "at": 13473,
+      "nominalMinute": 66.75208333333333,
+      "wallMinute": 70.7649,
+      "type": "生效议题",
+      "value": "city_school:true",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 15004,
+      "nominalMinute": 69.94166666666666,
+      "wallMinute": 74.03185,
+      "type": "生效议题",
+      "value": "city_care:clinical",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 15765,
+      "nominalMinute": 71.52708333333334,
+      "wallMinute": 75.7272,
+      "type": "生效议题",
+      "value": "city_exchange:provisions",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 15837,
+      "nominalMinute": 71.67708333333333,
+      "wallMinute": 79.09873333333333,
+      "type": "生效议题",
+      "value": "city_burden:host",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 17040,
+      "nominalMinute": 73.253125,
+      "wallMinute": 80.81626666666666,
+      "type": "生效议题",
+      "value": "cluster_freight:food",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 20266,
+      "nominalMinute": 76.61354166666666,
+      "wallMinute": 84.98473333333334,
+      "type": "生效议题",
+      "value": "cluster_budget:learning",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 20303,
+      "nominalMinute": 76.65208333333334,
+      "wallMinute": 85.13141666666667,
+      "type": "共同生产章程",
+      "value": "repair",
+      "proof": "paid governance receipt; same multi-city choice counted once"
+    },
+    {
+      "at": 38642,
+      "nominalMinute": 92.921875,
+      "wallMinute": 113.75763333333333,
+      "type": "协商接纳",
+      "value": "west",
+      "proof": "paid accession in national ledger; residents stay in their actual region"
+    },
+    {
+      "at": 44296,
+      "nominalMinute": 95.86666666666666,
+      "wallMinute": 118.5656,
+      "type": "生效议题",
+      "value": "advanced_work:ecological",
+      "proof": "passed record + actual pre-choice owner"
+    },
+    {
+      "at": 45612,
+      "nominalMinute": 96.55208333333333,
+      "wallMinute": 119.6785,
+      "type": "先进生产取舍",
+      "value": "clinical",
+      "proof": "paid production mode"
+    },
+    {
+      "at": 46047,
+      "nominalMinute": 96.77864583333333,
+      "wallMinute": 119.9999,
+      "type": "自愿身体方向",
+      "value": "gene",
+      "proof": "paid and completed adoption, repeated batches excluded"
+    },
+    {
+      "at": 51734,
+      "nominalMinute": 99.740625,
+      "wallMinute": 124.10858333333333,
+      "type": "先进生产取舍",
+      "value": "energy",
+      "proof": "paid production mode"
+    },
+    {
+      "at": 52202,
+      "nominalMinute": 99.984375,
+      "wallMinute": 124.5747,
+      "type": "回响",
+      "value": "study",
+      "proof": "same expedition outcome"
+    },
+    {
+      "at": 57876,
+      "nominalMinute": 102.93958333333333,
+      "wallMinute": 129.3182,
+      "type": "地区责任",
+      "value": "north:network",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 60560,
+      "nominalMinute": 104.3375,
+      "wallMinute": 131.30921666666666,
+      "type": "地区责任",
+      "value": "east:wetland",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 60665,
+      "nominalMinute": 104.3921875,
+      "wallMinute": 131.55525,
+      "type": "地区责任",
+      "value": "west:open",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 60865,
+      "nominalMinute": 104.49635416666666,
+      "wallMinute": 131.75141666666667,
+      "type": "地区责任",
+      "value": "desert:reclaim",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 61343,
+      "nominalMinute": 104.7453125,
+      "wallMinute": 132.19086666666666,
+      "type": "地区责任",
+      "value": "rainforest:corridor",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 61831,
+      "nominalMinute": 104.99947916666666,
+      "wallMinute": 132.63576666666665,
+      "type": "地区责任",
+      "value": "islands:beacons",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 62380,
+      "nominalMinute": 105.28541666666666,
+      "wallMinute": 133.1288,
+      "type": "地区责任",
+      "value": "plateau:station",
+      "proof": "real funded proposal"
+    },
+    {
+      "at": 62910,
+      "nominalMinute": 105.56145833333333,
+      "wallMinute": 133.60555,
+      "type": "地区责任",
+      "value": "polar:restore",
+      "proof": "real funded proposal"
+    }
+  ],
+  "nominalWindows": [
+    {
+      "from": 0,
+      "to": 30,
+      "choices": [
+        "配给 equal",
+        "轮值方针 reserves",
+        "近郊处置 近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+        "近郊处置 静默绕行 小队花两步补给绕开，没有留下枪声。",
+        "近郊处置 旧气象站档案入库 风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。",
+        "共同章程 structure:federation/selection:election/charter:constitution/devolution:local",
+        "城镇路线 commons"
+      ]
+    },
+    {
+      "from": 30,
+      "to": 60,
+      "choices": [
+        "轮值方针 workshop",
+        "工匠交接 apprentice",
+        "生效议题 town_intake:false"
+      ]
+    },
+    {
+      "from": 60,
+      "to": 90,
+      "choices": [
+        "生效议题 city_food:provisioning",
+        "片区生产与接班 yards:profile:workshop",
+        "生效议题 city_school:true",
+        "生效议题 city_care:clinical",
+        "生效议题 city_exchange:provisions",
+        "生效议题 city_burden:host",
+        "生效议题 cluster_freight:food",
+        "生效议题 cluster_budget:learning",
+        "共同生产章程 repair"
+      ]
+    },
+    {
+      "from": 90,
+      "to": 107.1765625,
+      "choices": [
+        "协商接纳 west",
+        "生效议题 advanced_work:ecological",
+        "先进生产取舍 clinical",
+        "自愿身体方向 gene",
+        "先进生产取舍 energy",
+        "回响 study",
+        "地区责任 north:network",
+        "地区责任 east:wetland",
+        "地区责任 west:open",
+        "地区责任 desert:reclaim",
+        "地区责任 rainforest:corridor",
+        "地区责任 islands:beacons",
+        "地区责任 plateau:station",
+        "地区责任 polar:restore"
+      ]
+    }
+  ],
+  "wallWindows": [
+    {
+      "from": 0,
+      "to": 30,
+      "choices": [
+        "配给 equal",
+        "轮值方针 reserves",
+        "近郊处置 近郊枪声 两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。",
+        "近郊处置 静默绕行 小队花两步补给绕开，没有留下枪声。",
+        "近郊处置 旧气象站档案入库 风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。",
+        "共同章程 structure:federation/selection:election/charter:constitution/devolution:local",
+        "城镇路线 commons"
+      ]
+    },
+    {
+      "from": 30,
+      "to": 60,
+      "choices": [
+        "轮值方针 workshop",
+        "工匠交接 apprentice",
+        "生效议题 town_intake:false"
+      ]
+    },
+    {
+      "from": 60,
+      "to": 90,
+      "choices": [
+        "生效议题 city_food:provisioning",
+        "片区生产与接班 yards:profile:workshop",
+        "生效议题 city_school:true",
+        "生效议题 city_care:clinical",
+        "生效议题 city_exchange:provisions",
+        "生效议题 city_burden:host",
+        "生效议题 cluster_freight:food",
+        "生效议题 cluster_budget:learning",
+        "共同生产章程 repair"
+      ]
+    },
+    {
+      "from": 90,
+      "to": 120,
+      "choices": [
+        "协商接纳 west",
+        "生效议题 advanced_work:ecological",
+        "先进生产取舍 clinical",
+        "自愿身体方向 gene"
+      ]
+    },
+    {
+      "from": 120,
+      "to": 136.80275443115235,
+      "choices": [
+        "先进生产取舍 energy",
+        "回响 study",
+        "地区责任 north:network",
+        "地区责任 east:wetland",
+        "地区责任 west:open",
+        "地区责任 desert:reclaim",
+        "地区责任 rainforest:corridor",
+        "地区责任 islands:beacons",
+        "地区责任 plateau:station",
+        "地区责任 polar:restore"
+      ]
+    }
+  ],
+  "nominalBelowTwo": [],
+  "wallBelowTwo": [],
+  "largestNominalChoiceGap": {
+    "from": 20303,
+    "to": 38642,
+    "minutes": 16.269791666666663
+  },
+  "limits": [
+    "UI scripts are experienced controllers, not real new players.",
+    "Wall includes native checkpointing and UI pauses; nominal excludes them and uses sampled effective rates.",
+    "Ordinary building/research, repeating directions, default confirmations, rejected proposals and maintenance are excluded.",
+    "Action timestamps near an outcome use recorded inputs or interpolation, not invented attention time."
+  ]
+}

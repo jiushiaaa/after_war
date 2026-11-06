@@ -1,0 +1,157 @@
+{
+  "at": 57049,
+  "speed": 32,
+  "max": 32,
+  "paused": true,
+  "pending": null,
+  "buttons": [],
+  "g": {
+    "tech": {},
+    "work": null,
+    "research": null,
+    "build": null,
+    "survey": null,
+    "ground": null,
+    "unity": null,
+    "ending": null,
+    "paid": 0,
+    "missed": 0,
+    "flights": [],
+    "regions": {
+      "west": {
+        "mode": null,
+        "project": null,
+        "stable": 0,
+        "paid": 0,
+        "missed": 0,
+        "last": null
+      },
+      "desert": {
+        "mode": null,
+        "project": null,
+        "stable": 0,
+        "paid": 0,
+        "missed": 0,
+        "last": null
+      }
+    }
+  },
+  "f": {
+    "health": 96,
+    "condition": 100,
+    "assets": {
+      "housing": 3,
+      "laboratory": 1,
+      "workshop": 2,
+      "solar": 1,
+      "garden": 2,
+      "clinic": 2,
+      "hall": 1
+    },
+    "stock": {
+      "food": 5676.959999999968,
+      "medicine": 32.47999999999982,
+      "wood": 100,
+      "tools": 52.84199999999947,
+      "iron": 268,
+      "knowledge": 300,
+      "parts": 174.69999999999874,
+      "electronics": 96,
+      "culture": 80.31999999999964,
+      "steel": 120,
+      "cell": 104
+    },
+    "counts": {
+      "total": 669,
+      "bio": 669,
+      "machine": 0,
+      "mechanical": 0,
+      "synthetic": 0,
+      "gene": 48,
+      "prosthetic": 0,
+      "organic": 621,
+      "workers": 528,
+      "children": 141,
+      "mutant": 331,
+      "citizens": 669
+    },
+    "away": 0,
+    "last": {
+      "at": 57000,
+      "fed": true,
+      "treated": false,
+      "powered": true,
+      "maintained": true,
+      "monitoring": true,
+      "audited": true,
+      "machineActive": true,
+      "syntheticActive": true,
+      "workers": {
+        "energy": 4,
+        "courier": 4,
+        "care": 33,
+        "maintenance": 12,
+        "clerk": 6,
+        "teacher": 12,
+        "construction": 12,
+        "gardener": 32,
+        "manufacturing": 24
+      },
+      "assignments": {
+        "energy": {
+          "organic": 4
+        },
+        "courier": {
+          "organic": 4
+        },
+        "care": {
+          "organic": 33
+        },
+        "maintenance": {
+          "organic": 12
+        },
+        "clerk": {
+          "organic": 6
+        },
+        "teacher": {
+          "organic": 12
+        },
+        "construction": {
+          "organic": 12
+        },
+        "gardener": {
+          "gene": 32
+        },
+        "manufacturing": {
+          "organic": 24
+        }
+      },
+      "idle": 389,
+      "produced": [
+        "parts",
+        "parts",
+        "parts"
+      ],
+      "energy": {
+        "generated": 140,
+        "used": 147.92000000000002,
+        "stored": 792.0799999999999,
+        "capacity": 800,
+        "heat": 400,
+        "sources": {
+          "renewable": 140,
+          "thermal": 0,
+          "fusion": 0
+        }
+      },
+      "food": 447.8400000000001,
+      "upkeep": {
+        "tools": 3.7380000000000004,
+        "parts": 1.7999999999999998
+      },
+      "dormant": 0,
+      "patients": 0
+    },
+    "proposal": null
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "at": 68175,
+  "rate": 64,
+  "effectiveRate": 64,
+  "paused": false,
+  "event": null,
+  "pending": null,
+  "people": 432,
+  "total": 572699195,
+  "known": 572699195,
+  "food": 2748.36,
+  "foodLedgers": {
+    "origin": 2748.36,
+    "wards": {
+      "terraces": 613.2399999986783,
+      "yards": 15308.27999999661,
+      "canal": 8733.839999999589
+    },
+    "secondCity": 128736.84000001536,
+    "thirdCity": 140031.47000004997,
+    "northLocal": 16422936.132,
+    "eastLocal": 33881196.530999996,
+    "national": 6455.41754899993,
+    "advanced": 14656.519999999993
+  },
+  "governed": 108500555,
+  "eraRecords": {
+    "early": {
+      "at": 6783,
+      "retired": [
+        "逐次采木",
+        "逐次采食",
+        "逐次回收"
+      ]
+    },
+    "middle": {
+      "at": 33137,
+      "retired": [
+        "逐人安排原镇岗位",
+        "手动逐期补报课堂",
+        "逐车发放片区互济"
+      ]
+    },
+    "late": {
+      "at": 68112,
+      "retired": [
+        "逐批准备临床药物",
+        "逐人安排临床替岗",
+        "手动逐班发放共同体补给"
+      ]
+    }
+  },
+  "wood": 180204.56499997264,
+  "medicine": 254.9067500000284,
+  "knowledge": 3999.8700000006143,
+  "health": 100,
+  "tech": [
+    "water",
+    "metal",
+    "agronomy",
+    "handtools",
+    "preservation",
+    "records",
+    "sanitation",
+    "school",
+    "trails",
+    "irrigation",
+    "weather",
+    "standards",
+    "logistics",
+    "localgrid",
+    "electricalSafety",
+    "radio",
+    "vaccines",
+    "precisionFit",
+    "traction",
+    "dispatch",
+    "scientificMethod",
+    "survey",
+    "administration",
+    "publicHealth",
+    "urbanworks",
+    "semiconductor",
+    "electroalloy",
+    "powerstorage",
+    "systemsafety"
+  ],
+  "leader": 6,
+  "stage": "earth",
+  "modernRounds": 5807,
+  "city": 13362,
+  "nation": 33120,
+  "ending": true,
+  "proposals": 17,
+  "futureTech": [
+    "ecology",
+    "clinical",
+    "restoration",
+    "genetics",
+    "adaptation",
+    "automation",
+    "echo"
+  ],
+  "earthTech": [
+    "mapping",
+    "navigation",
+    "fabrication",
+    "closed",
+    "guidance"
+  ],
+  "errors": null
+}

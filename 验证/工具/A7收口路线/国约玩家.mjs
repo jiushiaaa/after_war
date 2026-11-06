@@ -76,13 +76,22 @@ while(Date.now()<deadline){if(stopRequested){await pause(true);save();log('opera
   if(!a&&await ready('protocol',{mode:'aftermath'})){await task('conflict','aftermath','desert');await advance('recoveryPrep','340_industrial_recovery_governance');continue;}
   if(a?.mandates?.north?.mode!=='rebuild'&&await dip('aftermath','mandate',{actor:'north',mode:'rebuild'},'conflict','mandate'))continue;
   if(a&&!a.industries.north&&await dip('aftermath','industry',{actor:'north'},'conflict','industry'))continue;
+  if(a&&s.nodes.north.infrastructure<100&&a.plans.north?.mode!=='restart'&&await dip('aftermath','plan',{actor:'north',mode:'restart'},'conflict','restart'))continue;
+  if(s.foreign.credits?.north&&(s.nodes.north.stores.parts||0)<24&&await dip('network','credit',{actor:'north'},'trade','credit'))continue;
+  if((s.nodes.north.stores.coal||0)<18&&await ready('purchase',{actor:'west',item:'coal',quantity:12})){await task('trade','buy_coal','west');await pause(false);continue;}
   const pact=f.leagues.pacts.find(x=>x.pair==='north-west'&&x.status==='active');
   if(pact&&!pact.notice&&await dip('leagues','notice',{pair:'north-west',actor:'north'},'relations','notice','west'))continue;
   if(f.actors.north.balance<0&&await dip('network','settle',{actor:'north'},'trade','settle'))continue;
   if((f.votes?.north||0)<50&&(f.reputation?.north||0)>0&&!f.reviews?.some(x=>x.completedAt===null)&&await dip('network','review',{actor:'north'},'trade','review'))continue;
+  if(s.nodes.west.infrastructure<100&&s.nodes.west.stores.parts<12&&await ready('relief',{actor:'west',quantity:24})){await task('trade','relief','west');await pause(false);continue;}
   if(s.nodes.desert.stores.parts<40&&await ready('relief',{actor:'desert',quantity:24})){await task('trade','relief','desert');await pause(false);continue;}
-  if(a&&Object.values(f.votes).every(v=>v>=50)&&s.nodes.desert.stores.parts>=8&&await ready('diplomacy',{group:'aftermath',action:'conference',detail:{}})){await advance('conference','341_industrial_credit_repair');continue;}
+  if(a&&Object.values(f.votes).every(v=>v>=50)&&await read('Object.values(CivilPolity.data(State).world.nodes).every(n=>CivilForeign.canSpend(n,CivilAftermathContent.conferenceLocal))')&&s.nodes.desert.stores.parts>=8&&await ready('diplomacy',{group:'aftermath',action:'conference',detail:{}})){await advance('conference','341_industrial_credit_repair');continue;}
  }else if(control.stage==='ally'){
+  // Earlier purchasing can exhaust a real production input and cause autonomous breaches.
+  // Repair the resulting credit through actual exports before repeating an implausible alliance offer.
+  if((s.nodes.north.stores.coal||0)<18&&await ready('purchase',{actor:'west',item:'coal',quantity:12})){await task('trade','buy_coal','west');await pause(false);continue;}
+  if((s.foreign.reputation?.north||0)>20&&!s.foreign.reviews?.some(r=>r.actor==='north'&&r.completedAt===null)&&await ready('diplomacy',{group:'network',action:'review',detail:{actor:'north'}})){log('governance_choice',{at:s.at,reason:'repair actual broken obligations with paid review and real exports before asking for defense'});await task('trade','review');await pause(false);continue;}
+  if(s.foreign.reviews?.some(r=>r.actor==='north'&&r.completedAt===null)){await sleep(900);continue;}
   const key='desert-north',pact=s.foreign.leagues.pacts.find(x=>x.pair===key&&x.status==='active');
   if(s.foreign.defenseAt===undefined&&await ready('diplomacy',{group:'congress',action:'defense',detail:{}})){await task('relations','defense_clause','desert');await pause(false);}
   else if(pact?.type==='defense'){await advance('leave','339_industrial_defense');}
