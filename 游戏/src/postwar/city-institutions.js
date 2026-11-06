@@ -212,6 +212,11 @@ var CivilCityInstitutions = {
     CivilCity.note(s,'policy','home',enabled?'原镇例行岗位交给公署：每60秒检查供养与岗位，并实付办公开支。工程、研究、法律与对外决定仍由共同体决定。':'原镇岗位委托已暂停，保留当前岗位安排。');return true;
   },
   manual(s){if(this.data(s)?.home.enabled)this.delegate(s,false);},
+  industrialHome(s){
+    const m=s.civilization.workMandate;
+    return s.civilization.pacingVersion===2&&s.civilization.course?.id==='industry'&&
+      ['industry','learning'].includes(m?.mode)&&m?.changes.at(-1)?.why==='institution';
+  },
   homePlan(s){
     const mode=this.data(s).home.mode,w=s.game.workers,cap=j=>CivilCatalog.jobCapacity(s,j),factor=Math.max(.15,CivilIndustry.factor(s));
     const children=CivilPopulation.children(s.civilization.society.cohorts),p=s.game.population;
@@ -223,10 +228,19 @@ var CivilCityInstitutions = {
     const farm=desired.farmer*(s.civilization.tech.irrigation&&s.civilization.outpostSupplied!==false?2:1.4)*factor;
     desired.hunter=Math.min(s.game.buildings.lodge?Infinity:0,Math.max(0,Math.ceil((need-farm)/(.8*factor))));
     if(mode==='building')desired.salvager+=4;
-    // All non-civilian jobs, particularly drivers and guards already serving outside, stay assigned.
+    // Only the industrial mandate explicitly handed to the institution transfers
+    // its fuel and repair work. Drivers, guards and all other fixed duties stay put.
+    const order=['farmer','hunter','medic','teacher','salvager','smith'];
+    if(this.industrialHome(s)){
+      const building=mode==='building',target=building?{coal:240,ore:200,iron:200,parts:120}:{coal:80,ore:60,iron:60,parts:40};
+      desired.electrician=Math.min(cap('electrician'),4);order.push('electrician');
+      for(const [job,key,wanted]of [['collier','coal',building?6:3],['miner','ore',building?4:2],['smelter','iron',building?4:2],['machinist','parts',building?2:1]]){
+        desired[job]=(s.stores[key]||0)<target[key]?Math.min(cap(job),wanted):0;order.push(job);
+      }
+    }
     const fixed=Object.fromEntries(Object.entries(w).filter(([j])=>!Object.hasOwn(desired,j)));
     let left=Math.max(0,CivilSociety.workforce(s)-Object.values(fixed).reduce((a,b)=>a+b,0)-2);
-    const next={...fixed};for(const j of ['farmer','hunter','medic','teacher','salvager','smith']){next[j]=Math.min(left,desired[j]);left-=next[j];}
+    const next={...fixed};for(const j of order){next[j]=Math.min(left,desired[j]);left-=next[j];}
     return next;
   },
   homeTick(s){

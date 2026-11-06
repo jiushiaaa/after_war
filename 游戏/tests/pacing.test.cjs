@@ -49,3 +49,24 @@ test('full industrial buffers still fund sustained town hand-off production, the
   assert.ok(P.set(s,'learning'));assert.equal(s.game.workers.machinist,0,'the alternative preserves teaching instead of starting the production demonstration');
   c.urban.city=true;assert.ok(P.set(s,'industry'));for(const j of ['miner','collier','smelter','machinist'])assert.equal(s.game.workers[j],0,'handoff does not create permanent unbounded production');
 });
+
+test('an authorized industrial handoff restores paid fuel and traction, preserves people, and remains revocable',()=>{
+  // Constructed shortage on a read-only natural city copy; UI recovery is recorded separately.
+  const fs=require('node:fs'),path=require('node:path'),z=require('node:zlib');
+  const raw=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../验证/A7节奏/industry/institutions/native/战后文明-存档.json')));
+  const {s,ctx}=require('./helpers/metro-fixture.cjs').harness((raw.encoding?JSON.parse(z.gunzipSync(Buffer.from(raw.data,'base64'))):raw).state),c=s.civilization,I=ctx.CivilCityInstitutions;
+  c.pacingVersion=2;c.workMandate.mode='industry';c.workMandate.enabled=false;c.workMandate.changes.push({at:c.elapsed,mode:'industry',enabled:false,why:'institution'});
+  for(const job of ['miner','collier','smelter','machinist'])s.game.workers[job]=0;
+  s.stores.coal=0;I.data(s).home.enabled=true;
+  const people=s.game.population,cohorts=JSON.stringify(c.society.cohorts),drivers=s.game.workers.transporter,guards=s.game.workers.guard,records=I.data(s).home.records.length;
+  let paidFuel=false,traction=false;
+  for(let i=0;i<72;i++){c.elapsed+=10;const result=ctx.Civilization.settleEconomy(s);paidFuel ||= Object.values(result.flow).some(r=>r.coal<0);traction ||= !!ctx.CivilModern.data(s)?.last?.traction;}
+  assert.ok(paidFuel);assert.ok(traction);assert.ok(s.stores.coal>0);assert.ok(I.data(s).home.records.length>records);
+  assert.equal(s.game.population,people);assert.equal(JSON.stringify(c.society.cohorts),cohorts);assert.equal(s.game.workers.transporter,drivers);assert.equal(s.game.workers.guard,guards);
+  assert.ok(Object.values(s.game.workers).reduce((a,b)=>a+b,0)<=ctx.CivilSociety.workforce(s)-2);
+  Object.assign(s.stores,{coal:300,ore:300,iron:300,parts:300});const before=JSON.stringify(s.stores),next=I.homePlan(s);
+  for(const job of ['miner','collier','smelter','machinist'])assert.equal(next[job],0);assert.equal(next.electrician,4);assert.equal(JSON.stringify(s.stores),before);
+  I.manual(s);s.game.workers.collier=0;s.stores.coal=0;c.elapsed+=60;I.homeTick(s);assert.equal(s.game.workers.collier,0);
+  c.pacingVersion=1;assert.equal(I.industrialHome(s),false);assert.equal(I.homePlan(s).collier,0);
+  c.pacingVersion=2;c.workMandate.changes.at(-1).why='manual';assert.equal(I.industrialHome(s),false,'a manually revoked mandate is not silently transferred');
+});

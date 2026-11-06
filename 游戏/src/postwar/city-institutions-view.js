@@ -62,7 +62,7 @@ var CivilCityInstitutionsView={
     CivilCityView.button('cityApplyCare','落实配药工序','#cityCareActions',CivilCityInstitutions.settingReason(s,id,'careMethod',$('#cityCareMethod').val()),()=>{const ok=CivilCityInstitutions.set(State,this.selected,'careMethod',$('#cityCareMethod').val());if(ok)$('#cityCareMethod').removeAttr('data-dirty');return ok;}).attr('title',(CivilCityInstitutions.settingReason(s,id,'careMethod',$('#cityCareMethod').val())||'校准付6知识、2工具')+'。基础每人产药0.15；临床每人产药0.3，另耗0.01工具、0.02知识，需要临床资格。');
     $('#cityCareStatus').text('工序校准付6知识、2工具。每10秒：基础每人产药0.15；临床每人产药0.3，另耗0.01工具、0.02知识。现有 '+care+' 位临床人员，维持本片区约需 '+Math.ceil(CivilCity.count(n)*.01/.3)+' 位；不足时须依靠储备、实际调药或继续培训。');
     const h=d.home,continuity=CivilCityContinuity.data(s),last=(continuity?.town.records||h.records).at(-1);
-    if(continuity)$('#cityHomeScope').text('原镇由真实办事员及接班课程托管；基础储备足够时轮休，居民照常供养。手动调岗会暂停托管，恢复原有应急生产。详细接任与课程见城际协作中的职责与岗位接续。');
+    $('#cityHomeScope').text((continuity?'原镇由真实办事员及接班课程托管；基础储备足够时轮休，居民照常供养。':'接管农业、狩猎、医护、教师、回收和制器岗位。')+(CivilCityInstitutions.industrialHome(s)?'接续已委托的工业班组，按储备补煤、矿、铁和维修零件，维持实际供电；工程优先会扩大工业储备。':'')+'保留司机、守备和在途职责，至少留两名空闲成人。手动调岗会暂停委托；建造、研究、法律与对外决定仍由你决定。');
     $('#cityHomeStatus').text((h.enabled?'正在委托':'当前手动安排')+'；每60秒实付2粮、0.2工具、0.1知识后检查岗位。'+(last?.status==='shortage'?'最近办公物资不足，保留原安排，补齐后恢复。':'')+'可随时暂停，停止后保留当前岗位。');
     CivilCityView.button('cityApplyHomeMode','保存优先事项','#cityHomeActions',null,()=>{const ok=CivilCityInstitutions.homeMode(State,$('#cityHomeMode').val());$('#cityHomeMode').removeAttr('data-dirty');return ok;});
     CivilCityView.button('cityDelegate',h.enabled?'暂停原镇委托':'启用原镇委托','#cityHomeActions',null,()=>CivilCityInstitutions.delegate(State,!CivilCityInstitutions.data(State).home.enabled));
