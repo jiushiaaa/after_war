@@ -32,11 +32,9 @@ var CivilPreferences = {
   },
   restartMenu(){
     if(Events.activeEvent()||this.restarting)return;
-    Events.startEvent({title:'重新开始？',scenes:{start:{text:[
-      '重新从维修间开始。当前世界会先保留一份本机备份，也可以先导出。',
-      '接下来重新选择世界种子。确认进入新世界后，新进度才会替换当前自动存档；其他本地槽不变。'
-    ],buttons:{export:{text:'先导出当前进度',onChoose:()=>CivilPlatform.download()},
-      begin:{text:'备份并重新开始',onChoose:()=>this.restartWorld()},cancel:{text:'继续这个世界',nextScene:'end'}}}}});
+    Events.startEvent({title:'重开？',scenes:{start:{text:['重开游戏？'],buttons:{
+      begin:{text:'是',onChoose:()=>this.restartWorld()},cancel:{text:'否',nextScene:'end'}
+    }}}});
   },
   async restartWorld(next={},readOnly=false){
     if(this.restarting)return false;

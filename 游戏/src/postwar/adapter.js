@@ -42,7 +42,6 @@ var Civilization = {
     this.resetViewRefresh();
     CivilClock.rate = this.effectiveSpeed();
     const menu=$('<div>').addClass('menu').appendTo('body');
-    $('<span>').addClass('menuBtn').attr({id:'saveMenu',role:'button',tabindex:0}).text('存档').click(()=>CivilPlatform.menu()).appendTo(menu);
     $('<span>').attr('id','speedMenu').appendTo(menu);
     this.renderSpeed();
     if(typeof CivilSound!=='undefined')CivilSound.init();

@@ -42,10 +42,12 @@ test('an initialization error after backup blocks all automatic writes of partia
  assert.equal(await a.restartWorld(),false);assert.equal(calls[0][0],'backup');assert.equal(ctx.CivilPlatform.loaded,false);assert.equal(ctx.CivilLocalSaves.blocked,true);assert.equal(ctx.CivilPlatform.dirty,false);assert.equal(ctx.CivilClock.paused,true);assert.match(notices[0],/备份已保留/);
 });
 test('successful cloud saves are silent; failures remain visible and retryable',async()=>{
- const statuses=[],ctx=vm.createContext({State:{civilization:{setup:{confirmed:true}}},setTimeout:()=>1,clearTimeout(){}});
+ const statuses=[],timers=[],ctx=vm.createContext({State:{civilization:{setup:{confirmed:true}}},CivilClock:{paused:true},setTimeout:(fn,ms)=>{timers.push({fn,ms});return timers.length;},clearTimeout(){}});
  vm.runInContext(fs.readFileSync('src/postwar/platform.js','utf8'),ctx);const a=ctx.CivilPlatform;let release,entered;const writing=new Promise(r=>entered=r);
  a.status=m=>statuses.push(m);a.loaded=true;a.dirty=true;a.encode=async()=>'snapshot';a.sdk={writeSave:()=>new Promise(r=>{release=r;entered();})};
  const pending=a.flush();await writing;const inflight=a.writePromise;assert.ok(inflight);assert.equal(a.busy,true);release();await pending;await inflight;assert.equal(a.busy,false);assert.deepEqual(statuses,[]);
- a.sdk.writeSave=async()=>{throw Error('offline');};a.dirty=true;await a.flush();assert.equal(a.dirty,true);assert.match(statuses[0],/云端未保存/);
- a.sdk.writeSave=async()=>{};await a.flush();assert.equal(a.dirty,false);assert.equal(a.error,null);assert.equal(statuses.length,1);
+ a.sdk.writeSave=async()=>{throw Error('offline');};a.dirty=true;await a.flush();assert.equal(a.dirty,true);assert.match(statuses[0],/自动重试/);
+ assert.equal(timers.length,1);assert.equal(timers[0].ms,10000);
+ let retryStarted;const retry=new Promise(r=>retryStarted=r);a.sdk.writeSave=async()=>{retryStarted();};timers[0].fn();await retry;await a.writePromise;
+ assert.equal(a.dirty,false);assert.equal(a.error,null);assert.equal(a.timer,null);assert.equal(statuses.length,1);assert.equal(ctx.CivilClock.paused,true);
 });

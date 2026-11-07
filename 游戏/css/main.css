@@ -242,6 +242,8 @@ div#notifyGradient {
 
 div.button {
 	position: relative;
+	/* Keep the negative-z cooldown above the page's opaque paper, below the label. */
+	isolation: isolate;
 	text-align: center;
 	border: 1px solid black;
 	width: 100px;
@@ -260,6 +262,10 @@ div.button:hover {
 	text-decoration: underline;
 }
 
+div.button:hover, div.button:focus-within {
+	z-index: 1;
+}
+
 div.button.disabled, div.button.disabled:hover {
 	cursor: default;
 	border-color: #b2b2b2;
@@ -274,6 +280,7 @@ div.button div.cooldown {
 	z-index: -1;
 	height: 100%;
 	background-color: #DDDDDD;
+	pointer-events: none;
 }
 
 /* Up/Down buttons. They're complicated! */

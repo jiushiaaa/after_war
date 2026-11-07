@@ -1,0 +1,164 @@
+{
+  "cooldowns": [
+    {
+      "action": "添火",
+      "first": {
+        "text": "添火",
+        "disabled": true,
+        "left": 9.7,
+        "width": 58.1875,
+        "height": 38,
+        "buttonWidth": 62,
+        "isolation": "isolate",
+        "color": "rgb(221, 221, 221)",
+        "ink": "rgb(178, 178, 178)",
+        "inside": true
+      },
+      "later": {
+        "text": "添火",
+        "disabled": true,
+        "left": 8.2,
+        "width": 49.1875,
+        "height": 38,
+        "buttonWidth": 62,
+        "isolation": "isolate",
+        "color": "rgb(221, 221, 221)",
+        "ink": "rgb(178, 178, 178)",
+        "inside": true
+      }
+    },
+    {
+      "action": "砍柴-暂停",
+      "text": "采木",
+      "disabled": true,
+      "left": 58,
+      "width": 58,
+      "height": 38,
+      "buttonWidth": 62,
+      "isolation": "isolate",
+      "color": "rgb(221, 221, 221)",
+      "ink": "rgb(178, 178, 178)",
+      "inside": true
+    },
+    {
+      "width": 58,
+      "dark": false,
+      "text": "采木",
+      "disabled": true,
+      "left": 58,
+      "height": 38,
+      "buttonWidth": 62,
+      "isolation": "isolate",
+      "color": "rgb(221, 221, 221)",
+      "ink": "rgb(178, 178, 178)",
+      "inside": true
+    },
+    {
+      "width": 58,
+      "dark": true,
+      "text": "采木",
+      "disabled": true,
+      "left": 58,
+      "height": 38,
+      "buttonWidth": 62,
+      "isolation": "isolate",
+      "color": "rgb(69, 70, 64)",
+      "ink": "rgb(170, 170, 170)",
+      "inside": true
+    },
+    {
+      "width": 58,
+      "dark": false,
+      "text": "采木",
+      "disabled": true,
+      "left": 58,
+      "height": 38,
+      "buttonWidth": 62,
+      "isolation": "isolate",
+      "color": "rgb(221, 221, 221)",
+      "ink": "rgb(178, 178, 178)",
+      "inside": true
+    },
+    {
+      "width": 58,
+      "dark": true,
+      "text": "采木",
+      "disabled": true,
+      "left": 58,
+      "height": 38,
+      "buttonWidth": 62,
+      "isolation": "isolate",
+      "color": "rgb(69, 70, 64)",
+      "ink": "rgb(170, 170, 170)",
+      "inside": true
+    }
+  ],
+  "dialogs": [
+    {
+      "width": 520,
+      "dark": false,
+      "title": "重开？",
+      "text": "重开游戏？",
+      "buttons": [
+        "是",
+        "否"
+      ],
+      "pageWidth": 1280,
+      "viewport": 1280
+    },
+    {
+      "width": 520,
+      "dark": true,
+      "title": "重开？",
+      "text": "重开游戏？",
+      "buttons": [
+        "是",
+        "否"
+      ],
+      "pageWidth": 1280,
+      "viewport": 1280
+    },
+    {
+      "width": 358,
+      "dark": false,
+      "title": "重开？",
+      "text": "重开游戏？",
+      "buttons": [
+        "是",
+        "否"
+      ],
+      "pageWidth": 390,
+      "viewport": 390
+    },
+    {
+      "width": 358,
+      "dark": true,
+      "title": "重开？",
+      "text": "重开游戏？",
+      "buttons": [
+        "是",
+        "否"
+      ],
+      "pageWidth": 390,
+      "viewport": 390
+    }
+  ],
+  "autosave": {
+    "saved": true,
+    "seed": 617156098,
+    "wood": 17,
+    "fire": 4,
+    "elapsed": 142,
+    "status": ""
+  },
+  "restartBackup": {
+    "seed": 617156098,
+    "wood": 17
+  },
+  "newWorld": {
+    "seed": 617156099,
+    "restored": true
+  },
+  "exceptions": [],
+  "complete": true
+}

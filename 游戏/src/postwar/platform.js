@@ -151,8 +151,13 @@
       this.busy=true; this.dirty=false;
       this.writePromise=(async()=>{
       try { await this.sdk.writeSave(await this.encode()); this.error=null; }
-      catch(error) { this.dirty=true; this.error=error; this.status('云端未保存，打开存档重试'); }
-      finally { this.busy=false; this.writePromise=null; if(this.dirty && !this.error) this.changed(); }
+      catch(error) { this.dirty=true; this.error=error; this.status('云端暂未保存，将自动重试'); }
+      finally {
+        this.busy=false; this.writePromise=null;
+        if(this.dirty && !this.error) this.changed();
+        // Retry even when the world is paused; a missing manual save menu must not strand progress.
+        else if(this.dirty && !this.timer && !this.transitioning) this.timer=setTimeout(()=>{this.timer=null;this.flush();},10000);
+      }
       })();
       return this.writePromise;
     },
