@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" itemscope itemtype="https://schema.org/CreativeWork">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--  
+		A Dark Room (v1.4)
+		==================
+		
+		A minimalist text adventure by Michael Townsend and all his friends.
+		Inspired by Candy Box (https://candybox2.github.io/candybox)
+		Contribute on GitHub! (https://github.com/doublespeakgames/adarkroom/)
+	-->
+	<title>战后文明</title>
+	<meta itemprop="description" name="description" property="og:description" content="从冰封设施中的一团火，到重建战后文明。">
+	<meta itemprop="image" property="og:image" content="img/adr.png" />
+	<meta itemprop="name" property="og:title" content="战后文明" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="image_src" href="img/adr.png" />
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/jquery.color-2.1.2.min.js"></script>
+	<script src="lib/jquery.event.move.js"></script>
+	<script src="lib/jquery.event.swipe.js"></script>
+	<script src="lib/base64.js"></script>
+	<script src="lib/translate.js"></script>
+	
+  <script>var lang='zh_cn';</script>
+  <script src="lang/zh_cn/strings.js"></script>
+  <link rel="stylesheet" href="lang/zh_cn/main.css">
+  <script src="content/zh.js"></script>
+  <script src="content/development.js"></script>
+  <script src="content/industry.js"></script>
+  <script src="content/regions.js"></script>
+  <script src="content/urban.js"></script>
+  <script src="content/origins.js"></script>
+  <script src="content/municipal.js"></script>
+  <script src="content/advanced.js"></script>
+  <script src="content/services.js"></script>
+  <script src="content/precision.js"></script>
+  <script src="content/railway.js"></script>
+  <script src="content/commerce.js"></script>
+  <script src="content/security.js"></script>
+  <script src="content/accession.js"></script>
+  <script src="content/frontier.js"></script>
+  <script src="content/intercity.js"></script>
+  <script src="content/corridor.js"></script>
+  <script src="content/passenger.js"></script>
+  <script src="content/finance.js"></script>
+  <script src="content/expedition.js"></script>
+  <script src="content/modern.js"></script>
+  <script src="src/postwar/clock.js"></script>
+  <script src="src/postwar/population.js"></script>
+  <script src="src/postwar/generations.js"></script>
+  <script src="src/postwar/society.js"></script>
+  <script src="src/postwar/rules.js"></script>
+  <script src="src/postwar/decisions.js"></script>
+  <script src="src/postwar/save-codec.js"></script>
+  <script src="src/postwar/platform.js"></script>
+	<script src="script/Button.js"></script>
+	<script src="script/audioLibrary.js"></script>
+	<script src="script/audio.js"></script>
+	<script src="script/engine.js"></script>
+	<script src="script/state_manager.js"></script>
+	<script src="script/header.js"></script>
+	<script src="script/notifications.js"></script>
+	<script src="script/events.js"></script>
+	<script src="script/room.js?v=postwar-materials"></script>
+	<script src="script/outside.js"></script>
+	<script src="script/world.js"></script>
+	<script src="script/path.js"></script>
+	<script src="script/ship.js"></script>
+  <script src="script/space.js"></script>
+  <script src="script/fabricator.js"></script>
+	<script src="script/prestige.js"></script>
+	<script src="script/scoring.js"></script>
+  <script src="src/postwar/village.js"></script>
+  <script src="src/postwar/industry.js"></script>
+  <script src="src/postwar/regions.js"></script>
+  <script src="src/postwar/forecast.js"></script>
+  <script src="src/postwar/urban.js"></script>
+  <script src="src/postwar/origins.js"></script>
+  <script src="src/postwar/municipal.js"></script>
+  <script src="src/postwar/advanced.js"></script>
+  <script src="src/postwar/services.js"></script>
+  <script src="src/postwar/precision.js"></script>
+  <script src="src/postwar/heating.js"></script>
+  <script src="src/postwar/wind.js"></script>
+  <script src="src/postwar/passenger.js"></script>
+  <script src="src/postwar/finance.js"></script>
+  <script src="src/postwar/relief.js"></script>
+  <script src="src/postwar/culture.js"></script>
+  <script src="src/postwar/cooperative.js"></script>
+  <script src="src/postwar/ruins.js"></script>
+  <script src="src/postwar/expedition.js"></script>
+  <script src="src/postwar/guide.js"></script>
+  <script src="src/postwar/course.js"></script>
+  <script src="src/postwar/planning.js"></script>
+  <script src="src/postwar/metro.js"></script>
+  <script src="src/postwar/nation.js"></script>
+  <script src="src/postwar/diplomacy.js"></script>
+  <script src="src/postwar/railway.js"></script>
+  <script src="src/postwar/commerce.js"></script>
+  <script src="src/postwar/security.js"></script>
+  <script src="src/postwar/accession.js"></script>
+  <script src="src/postwar/frontier.js"></script>
+  <script src="src/postwar/intercity.js"></script>
+  <script src="src/postwar/corridor.js"></script>
+  <script src="content/partnership.js"></script>
+  <script src="content/worldstage.js"></script>
+  <script src="content/statecraft.js"></script>
+  <script src="content/foreign.js"></script>
+  <script src="content/leagues.js"></script>
+  <script src="content/transit.js"></script>
+  <script src="content/markets.js"></script>
+  <script src="content/congress.js"></script>
+  <script src="content/aftermath.js"></script>
+  <script src="content/settlement.js"></script>
+  <script src="content/space.js"></script>
+  <script src="src/postwar/partnership.js"></script>
+  <script src="src/postwar/worldstage.js"></script>
+  <script src="src/postwar/statecraft.js"></script>
+  <script src="src/postwar/foreign.js"></script>
+  <script src="src/postwar/leagues.js"></script>
+  <script src="src/postwar/transit.js"></script>
+  <script src="src/postwar/markets.js"></script>
+  <script src="src/postwar/congress.js"></script>
+  <script src="src/postwar/aftermath.js"></script>
+  <script src="src/postwar/settlement.js"></script>
+  <script src="src/postwar/space.js"></script>
+  <script src="src/postwar/incidents.js"></script>
+  <script src="src/postwar/region-map.js"></script>
+  <script src="src/postwar/readable.js"></script>
+  <script src="src/postwar/interface.js"></script>
+  <script src="src/postwar/tech-sources.js"></script>
+  <script src="src/postwar/tech-tree.js"></script>
+  <script src="src/postwar/hearth.js"></script>
+  <script src="src/postwar/history.js"></script>
+  <script src="content/city.js"></script>
+  <script src="src/postwar/census.js"></script>
+  <script src="src/postwar/city.js"></script>
+  <script src="src/postwar/city-institutions.js"></script>
+  <script src="src/postwar/conurbation.js"></script>
+  <script src="src/postwar/city-network.js"></script>
+  <script src="src/postwar/city-council.js"></script>
+  <script src="src/postwar/city-council-validation.js"></script>
+  <script src="src/postwar/city-homes.js"></script>
+  <script src="src/postwar/city-homes-validation.js"></script>
+  <script src="src/postwar/city-continuity.js"></script>
+  <script src="src/postwar/city-continuity-validation.js"></script>
+  <script src="src/postwar/city-registry.js"></script>
+  <script src="src/postwar/city-labor.js"></script>
+  <script src="src/postwar/city-labor-skills.js"></script>
+  <script src="src/postwar/city-labor-validation.js"></script>
+  <script src="src/postwar/city-budget.js"></script>
+  <script src="src/postwar/city-budget-validation.js"></script>
+  <script src="src/postwar/city-dispatch.js"></script>
+  <script src="src/postwar/city-dispatch-validation.js"></script>
+  <script src="src/postwar/city-governance.js"></script>
+  <script src="src/postwar/city-governance-validation.js"></script>
+  <script src="src/postwar/domain.js"></script>
+  <script src="src/postwar/domain-validation.js"></script>
+  <script src="src/postwar/regional.js"></script>
+  <script src="src/postwar/regional-validation.js"></script>
+  <script src="src/postwar/regional-view.js"></script>
+  <script src="src/postwar/domain-view.js"></script>
+  <script src="content/future.js"></script>
+  <script src="src/postwar/future-people.js"></script>
+  <script src="src/postwar/future.js"></script>
+  <script src="src/postwar/future-echo.js"></script>
+  <script src="src/postwar/future-view.js"></script>
+  <script src="content/earth.js"></script>
+  <script src="src/postwar/earth-flight.js"></script>
+  <script src="src/postwar/earth.js"></script>
+  <script src="src/postwar/earth-view.js"></script>
+  <script src="src/postwar/polity.js"></script>
+  <script src="src/postwar/polity-foreign.js"></script>
+  <script src="src/postwar/polity-validation.js"></script>
+  <script src="src/postwar/polity-view.js"></script>
+  <script src="src/postwar/city-map.js"></script>
+  <script src="src/postwar/city-view.js"></script>
+  <script src="src/postwar/city-institutions-view.js"></script>
+  <script src="src/postwar/conurbation-view.js"></script>
+  <script src="src/postwar/city-network-view.js"></script>
+  <script src="src/postwar/city-homes-view.js"></script>
+  <script src="src/postwar/city-continuity-view.js"></script>
+  <script src="src/postwar/city-registry-view.js"></script>
+  <script src="src/postwar/city-labor-view.js"></script>
+  <script src="src/postwar/city-budget-view.js"></script>
+  <script src="src/postwar/city-dispatch-view.js"></script>
+  <script src="src/postwar/city-governance-view.js"></script>
+  <script src="src/postwar/city-council-view.js"></script>
+  <script src="src/postwar/equipment.js"></script>
+  <script src="src/postwar/modern.js"></script>
+  <script src="src/postwar/pacing.js"></script>
+  <script src="src/postwar/civic.js"></script>
+  <script src="src/postwar/sound.js"></script>
+  <script src="src/postwar/setup.js"></script>
+  <script src="src/postwar/landing.js"></script>
+  <script src="src/postwar/archives.js"></script>
+  <script src="src/postwar/local-saves.js"></script>
+  <script src="src/postwar/preferences.js"></script>
+  <script src="content/editorial.js"></script>
+  <script src="src/postwar/editorial.js"></script>
+  <script src="src/postwar/adapter.js"></script>
+	<script type='text/javascript'>
+		var oldIE = false;
+	</script>
+	<!--[if lt IE 9]> 
+		<script type="text/javascript">oldIE = true;</script> 
+	<![endif]-->
+	
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="css/room.css" />
+	<link rel="stylesheet" type="text/css" href="css/outside.css" />
+	<link rel="stylesheet" type="text/css" href="css/path.css" />
+	<link rel="stylesheet" type="text/css" href="css/world.css" />
+	<link rel="stylesheet" type="text/css" href="css/ship.css" />
+  <link rel="stylesheet" type="text/css" href="css/space.css" />
+  <link rel="stylesheet" type="text/css" href="css/fabricator.css" />
+	
+	<script src="script/localization.js"></script>
+  <link rel="stylesheet" href="css/postwar.css">
+  <link rel="stylesheet" href="css/interface.css">
+  <link rel="stylesheet" href="css/tech-tree.css">
+  <link rel="stylesheet" href="css/region-map.css">
+  <link rel="stylesheet" href="css/history.css">
+  <link rel="stylesheet" href="css/narrow.css">
+  <link rel="stylesheet" href="css/city.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link id="civilDarkTheme" rel="stylesheet" href="css/dark.css" media="not all">
+
+</head>
+<body class="civil-entry">
+  <main id="civilLanding" aria-label="战后文明">
+    <button id="civilStartButton" type="button" disabled>开始游戏</button>
+  </main>
+	<div id="wrapper">
+		<div id="saveNotify" role="status" aria-live="polite"></div>
+		<div id="content">
+			<div id="outerSlider">
+				<div id="main">
+					<div id="header"></div>
+				</div>
+			</div>
+		</div>
+  </div>
+</body>
+</html>

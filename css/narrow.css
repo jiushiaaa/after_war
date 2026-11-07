@@ -1,0 +1,54 @@
+/* MPL-2.0 — 战后文明: narrow-screen layout for the native ADR page (<940px; desktop needs 920px).
+   Desktop keeps the original fixed 700px columns. In narrow mode the same panels
+   stack vertically: header, current place, stores, then the message log. */
+@media (max-width: 939px) {
+  html, body { overflow-x: hidden; }
+  div#wrapper { width: auto; padding: 8px 10px 72px; }
+  div#content { height: auto; overflow: visible; }
+  div#outerSlider { position: relative; width: auto !important; }
+  div#outerSlider > div, div#main { width: calc(100vw - 20px); height: auto; min-height: 60vh; overflow-x: hidden; overflow-y: visible; }
+  div#locationSlider { position: relative; left: 0 !important; width: auto !important; }
+  div.location { float: none; display: none; width: calc(100vw - 20px); min-height: 40vh; }
+  div.location.civil-active { display: block; }
+  div#village, div#workers, #outsidePanel > div { position: static !important; }
+  #outsidePanel .button { position: static !important; display: inline-block; margin: 6px 8px 6px 0; }
+  div#header { height: auto; padding-bottom: 10px; line-height: 1.9; overflow: hidden; }
+  #main > #storesContainer { position: static !important; top: auto !important; right: auto !important; margin: 4px 0 16px; }
+  div#village { margin-top: 16px; }
+  div.headerButton { font-size: 16px; margin-left: 6px; padding-left: 6px; }
+  /* Stores move into the document flow under the active place. */
+  div#storesContainer { position: static !important; margin: 14px 0; }
+  div#stores, div#village { width: auto; max-width: 100%; box-sizing: border-box; }
+  #civilStoreFold { border-bottom:1px solid #999; padding:4px 0 8px; color:var(--civil-ink,#222); }
+  #civilStoreFold > summary { cursor:pointer; min-height:32px; line-height:1.6; }
+  #civilStoreFold[open] > #stores { margin-top:16px; }
+  body.dark #civilStoreFold { color:#ddd; }
+  div#village { margin: 0 0 14px; }
+  div#workers { position: static; width: auto; margin-top: 14px; }
+  div#buildBtns, div#craftBtns, div#buyBtns { position: static; margin-top: 18px; }
+  #roomPanel:not(.civil-room-managed) #hearthNote { position: static !important; width: auto !important; margin: 10px 0; }
+  div#wrapper { display: flex; flex-direction: column; }
+  div#content { order: 1; }
+  div#notifications { order: 2; position: relative; top: 0; left: 0; width: auto; height: 220px; margin-top: 10px; border-top: 1px solid #999; padding-top: 8px; }
+  div#notifyGradient { display: none; }
+  .eventPanel { left: 8px !important; right: 8px; top: 60px; width: auto !important; max-height: calc(100dvh - 125px); overflow-y: auto; position: fixed; box-sizing: border-box; }
+  .eventPanel:before { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; }
+  .button { min-height: 32px; line-height: 32px; }
+  .civil-step { min-width: 44px; min-height: 40px; line-height: 38px; font-size: 16px; }
+  .civil-expedition { width: 100%; }
+  #expeditionMap { font-size: 12px; letter-spacing: 2px; line-height: 13px; max-width: 100%; overflow-x: auto; }
+  #civilResearchPanel { width:calc(100vw - 20px); }
+  #civilResearchTree, #civilResearchPanel #researchStatus, #civilResearchPanel #researchBtns, .civil-guide { width: auto; }
+  .menu { left: 0; right: 0; bottom: 0; padding: 10px; background: #fff; border-top: 1px solid #999; text-align: right; }
+  body.dark .menu { background: #272823; }
+}
+@media (max-width: 939px) {
+  .workerRow .upBtn, .workerRow .dnBtn, .workerRow .upManyBtn, .workerRow .dnManyBtn { transform: scale(1.6); margin: 0 4px; }
+  .workerRow { min-height: 34px; }
+  div.location, div#outerSlider > div, div#main { width: calc(100vw - 20px); }
+}
+
+@media (max-width: 939px) {
+  .eventPanel .eventTitle { position:sticky; top:0; display:block; background:inherit; margin-bottom:12px; z-index:2; }
+  .eventPanel .eventTitle:after { display:none; }
+}

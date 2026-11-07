@@ -1,0 +1,268 @@
+/* MPL-2.0 — Native ADR controls in independent, fluid columns. No gameplay state. */
+html, body { height:auto; min-height:100%; background-color:#fff; color-scheme:light; }
+html.dark, body.dark { background-color:#272823; color-scheme:dark; }
+body { --civil-paper:#fff; --civil-gap:clamp(20px,2vw,36px); background-color:var(--civil-paper); }
+body a, body a:visited { color:var(--civil-ink,#222); text-underline-offset:.2em; }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline:1px solid currentColor; outline-offset:3px; }
+
+div#wrapper {
+  width:100%; max-width:none; box-sizing:border-box; margin:0;
+  padding:24px clamp(18px,2.2vw,44px) 80px;
+  display:grid; grid-template-columns:clamp(180px,15vw,260px) minmax(0,1fr) clamp(180px,15vw,240px);
+  gap:var(--civil-gap); align-items:start;
+}
+div#content { grid-column:2 / 4; grid-row:1; min-width:0; height:auto; overflow:visible; }
+#wrapper.civil-has-stores > #content { grid-column:2; }
+div#outerSlider, div#outerSlider > div, div#main {
+  position:relative; float:none; width:100%!important; min-width:0; height:auto; overflow:visible;
+}
+div#locationSlider { position:relative; left:0!important; width:100%!important; }
+div.location { float:none; display:none; width:100%!important; min-height:260px; box-sizing:border-box; }
+div.location.civil-active { display:block; }
+div#header {
+  display:flex; flex-wrap:wrap; gap:8px 24px; width:100%; height:auto; min-height:0;
+  padding:0 0 16px; margin-bottom:22px; border-bottom:1px solid var(--civil-rule);
+  position:relative; background:var(--civil-paper); z-index:2;
+}
+div#header .headerButton, div#header .headerButton.civil-group-start {
+  float:none; margin:0; padding:3px 0; border:0; line-height:1.6; font-size:17px;
+}
+div#header .headerButton.selected { text-decoration-thickness:2px; text-underline-offset:6px; }
+#civilOriginFacilities { border-top:1px solid var(--civil-rule); margin-top:12px; padding:10px 0 2px; font-size:13px; }
+#civilOriginFacilities > summary { cursor:pointer; }
+#civilOriginFacilities > p { margin:8px 0; line-height:1.7; }
+#civilOriginFacilities .headerButton { float:none; display:inline-block; margin:0; padding:6px 0; border:0; font-size:14px; text-decoration:underline; }
+#civilOriginReturn { display:flex; flex-wrap:wrap; gap:10px 24px; align-items:center; margin-bottom:22px; line-height:1.7; }
+#civilOriginReturn span { color:var(--civil-muted); font-size:14px; }
+#civilRationActions { margin:0 0 20px; }
+#civilRationActions #policyButton { position:static; margin:0; }
+#civilNavMore { margin:0; padding:3px 0; font-size:17px; line-height:1.6; }
+#civilNavMore > summary { cursor:pointer; }
+#civilNavMore > summary.selected { text-decoration:underline; text-underline-offset:6px; }
+#civilNavMore[open] { flex-basis:100%; }
+#civilNavPlaces { display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:10px; padding:12px 0 0; border-top:1px solid var(--civil-rule); }
+#civilNavMore > summary:focus-visible { outline:1px dashed currentColor; outline-offset:3px; }
+.civil-place-choice { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; }
+.civil-place-choice select { max-width:100%; min-height:34px; padding:4px 8px; color:inherit; background:var(--civil-paper); border:1px solid var(--civil-rule); font:inherit; }
+
+div#notifications {
+  grid-column:1; grid-row:1; position:sticky; top:calc(var(--test-bar-height,0px) + 24px);
+  left:auto; width:100%; height:min(700px,calc(100dvh - var(--test-bar-height,0px) - 96px));
+  font-size:15px; line-height:1.75; overflow:hidden;
+}
+#notifyGradient { pointer-events:none; }
+div#storesContainer {
+  grid-column:3; grid-row:1; position:sticky!important;
+  top:calc(var(--test-bar-height,0px) + 24px)!important; right:auto!important;
+  width:100%; min-width:0; padding-top:14px; box-sizing:border-box;
+  max-height:calc(100dvh - var(--test-bar-height,0px) - 96px); overflow-y:auto;
+}
+#wrapper:not(.civil-has-stores) > #storesContainer { display:none; }
+div#stores, div#weapons { box-sizing:border-box; width:100%; padding:10px 12px; }
+.storeRow { line-height:1.65; display:flow-root; }
+.storeRow > .row_val { font-variant-numeric:tabular-nums; }
+.menu { background:var(--civil-paper); padding:8px 12px; flex-wrap:wrap; max-width:calc(100vw - 24px); box-sizing:border-box; row-gap:8px; }
+.menu > button.menuBtn { border:0; padding:0; background:transparent; color:inherit; font:inherit; cursor:pointer; white-space:nowrap; }
+.menu > button.menuBtn:hover { text-decoration:underline; }
+
+/* Retire the nested 420px/620px viewport instead of stretching text underneath the warehouse. */
+#cityPanel, #cityBody, #civilResearchPanel { width:100%; height:auto; overflow:visible; }
+#cityBody { padding-right:0; }
+#cityBody > div, #cityHistory { max-width:none; }
+#cityViews { position:static; background:transparent; }
+.location .civil-summary, .location .civil-tabs, .location .civil-development,
+.location .civil-plan, .location .civil-project-details, #domainBody,
+#civilResearchIntro, #modernDesk, #civilLawPage, #civicConstitution,
+#civilResearchTree, #civilResearchPanel #researchBtns, #civilResearchPanel #researchStatus,
+#councilRecord, #councilHistory, #urbanRecord, #municipalStatus, #industryStatus {
+  width:100%!important; max-width:100%; box-sizing:border-box;
+}
+.location p, .city-net-lines, .civil-details { overflow-wrap:anywhere; }
+.civil-metrics { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:0 28px; }
+.civil-metric { padding:14px 0; border-color:var(--civil-rule); }
+.civil-metric > span { font-size:13px; color:var(--civil-muted); }
+.civil-metric > strong { margin-top:7px; font-size:19px; }
+#cityPanel p, #cityCensusRows { font-size:14px; }
+#civilResearchPanel #researchBtns > .button {
+  width:auto!important; min-width:120px; max-width:100%; box-sizing:border-box;
+  padding-left:14px; padding-right:14px;
+}
+#citySketch { max-width:740px; }
+#metroCitySwitch, #cityViews, #cityNetTabs, #metroCityTabs {
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-bottom:20px;
+}
+#metroCitySwitch { padding-bottom:18px; }
+#cityPanel #metroCitySwitch > .button, #cityPanel #cityViews > .button,
+#cityPanel #cityNetTabs > .button, #cityPanel #metroCityTabs > .button { margin:0; }
+.location .city-setting { display:flex; flex-wrap:wrap; align-items:start; gap:8px 16px; margin:16px 0; }
+.location .city-setting > span { min-width:110px; padding-top:6px; }
+.location .city-setting select { min-width:170px; max-width:100%; }
+#earthTerms, #futureTerms, #polityTerms { margin:20px 0; }
+
+/* At laptop widths the old village board and absolute worker column cannot share a row. */
+@media(min-width:940px) and (max-width:1199px) {
+  #outsidePanel > div { position:static!important; }
+  #outsidePanel > #village { width:100%; box-sizing:border-box; margin:12px 0 24px; }
+  #outsidePanel > #civilEarlyWork { width:100%; max-height:none; overflow:visible; padding:0; }
+  #outsidePanel > #workers, #outsidePanel > #socialNote { margin:18px 0; }
+  #outsidePanel > .button { display:inline-block; margin:6px 10px 6px 0; }
+}
+
+/* One bounded event window; the page underneath cannot become its scroll container. */
+html.civil-modal-open { overflow:hidden!important; overscroll-behavior:none; }
+html.civil-modal-open body { overscroll-behavior:none; }
+#eventblocker { position:fixed; inset:0; z-index:80; background:var(--civil-paper); opacity:.7; }
+#event.eventPanel {
+  position:fixed; top:50%; left:50%!important; right:auto; transform:translate(-50%,-50%);
+  width:520px; max-width:calc(100vw - 32px); max-height:calc(100dvh - 40px); box-sizing:border-box;
+  padding:0; margin:0; border:1px solid currentColor; background:var(--civil-paper); color:var(--civil-ink);
+  box-shadow:3px 3px 0 rgb(0 0 0 / .18); z-index:90; display:flex; flex-direction:column; overflow:hidden;
+}
+#event.eventPanel:before, #event.eventPanel:after, #event .eventTitle:after { display:none; }
+#event .eventTitle { position:static; flex:none; display:block; padding:15px 22px; margin:0; border-bottom:1px solid var(--civil-rule); line-height:1.5; }
+#event .civil-event-body { min-height:0; overflow:auto; overscroll-behavior:contain; padding:20px 22px; flex:1; }
+#event .civil-event-body #description { min-height:0; max-height:none; overflow:visible; padding:0; }
+#event .civil-event-body #description > div { margin:0; padding-bottom:16px; }
+#event .civil-event-body #buttons { padding-top:12px; }
+#event #exitButtons { display:flex; flex-wrap:wrap; gap:10px; }
+#event #exitButtons > .button { float:none; width:auto!important; min-width:120px; max-width:100%; margin:0; padding:7px 12px; box-sizing:border-box; }
+#event.civil-history-event { width:760px!important; height:min(720px,calc(100dvh - 40px)); }
+#event.civil-history-event .eventTitle { padding-right:140px; }
+#event.civil-history-event #exitButtons { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+#event.civil-history-event #exitButtons > .button { width:100%!important; }
+#event .civil-event-close { position:absolute; top:10px; right:14px; z-index:3; background:var(--civil-paper); color:inherit; border:1px solid var(--civil-rule); padding:6px 10px; font:inherit; cursor:pointer; }
+
+@media(max-width:939px) {
+  div#wrapper { display:flex; flex-direction:column; gap:0; padding:12px 14px 80px; }
+  div#content { width:100%; order:1; }
+  div#header { gap:7px 18px; margin-bottom:16px; padding-bottom:12px; }
+  div#header .headerButton { font-size:16px; }
+  div#notifications { order:2; position:relative; top:0; height:220px; margin-top:24px; padding-top:12px; }
+  div#storesContainer, #main > #storesContainer { position:static!important; top:auto!important; width:100%; max-height:none; overflow:visible; padding-top:12px; margin:0 0 18px; }
+  #metroCitySwitch { gap:10px 12px; }
+  #civilResearchPanel { height:auto; overflow:visible; }
+  #event.eventPanel:not(.civil-history-event) { width:calc(100vw - 32px)!important; }
+  #event .civil-event-body { padding:16px; }
+  #event .eventTitle { padding:14px 16px; }
+  #event.civil-history-event { height:min(720px,calc(100dvh - 32px)); }
+}
+@media(max-width:480px) {
+  .civil-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 18px; }
+  #event.civil-history-event #exitButtons { grid-template-columns:1fr; }
+  #event .civil-event-close { font-size:13px; }
+  #event.civil-history-event .eventTitle { padding-right:120px; }
+}
+
+/* Only the start button is visible until the player opens the native setup dialog. */
+#civilLanding { position:fixed; inset:0; display:grid; place-items:center; background:var(--civil-paper); }
+#civilLanding[hidden] { display:none; }
+#civilStartButton { font:inherit; font-size:18px; line-height:1.6; color:var(--civil-ink,#222); background:transparent; border:1px solid currentColor; padding:10px 28px; cursor:pointer; }
+#civilStartButton:disabled { opacity:.45; cursor:wait; }
+body.civil-entry { margin:0; overflow:hidden; }
+body.civil-entry div#wrapper { display:block; margin:0; padding:0; min-height:0; }
+body.civil-entry #wrapper > :not(#event), body.civil-entry > .menu,
+body.civil-entry #testToolbar { display:none!important; }
+body.civil-entry #eventblocker { background:var(--civil-paper); }
+
+#startupError { width:min(500px,calc(100vw - 36px)); }
+
+/* Labels set the action width, rather than the original 100px button column. */
+#wrapper .location .button {
+  position:relative!important; top:auto!important; left:auto!important; right:auto; bottom:auto;
+  width:max-content!important; max-width:100%; min-width:0; box-sizing:border-box;
+  padding:7px 14px; line-height:1.5; min-height:36px; overflow-wrap:normal;
+}
+#wrapper .location .button.civil-tab { padding:6px 12px; }
+#wrapper .location .button.civil-inline { padding:2px 10px; min-height:0; }
+.location select, .location input, #event select, #event input, #event textarea { box-sizing:border-box; max-width:100%; min-width:0; }
+.location .city-setting select { min-width:min(170px,100%); }
+.civil-details dl { column-gap:18px; }
+.civil-kv { column-gap:18px; row-gap:6px; }
+.civil-plan-row { grid-template-columns:minmax(0,1fr) max-content; gap:8px 18px; }
+.civil-plan-row > .button { align-self:start; }
+.civil-construction-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 28px; align-items:start; }
+.civil-construction-columns > div { position:static!important; width:auto!important; min-width:0; }
+.civil-construction-columns .storeRow { line-height:1.8; }
+#civilBuiltBook { width:auto; max-width:100%; }
+
+/* Early descriptions and the next-step guide grow with the text. */
+#roomPanel:not(.civil-room-managed).civil-active { display:grid; grid-template-columns:minmax(150px,.8fr) minmax(0,1.2fr); gap:20px 28px; align-content:start; align-items:start; }
+#roomPanel:not(.civil-room-managed) > #lightButton,
+#roomPanel:not(.civil-room-managed) > #stokeButton { grid-column:1; grid-row:1; }
+#roomPanel:not(.civil-room-managed) > #policyButton { position:static; grid-column:2; grid-row:1; }
+#roomPanel:not(.civil-room-managed) > #buildBtns { position:static; grid-column:1; grid-row:2 / span 3; }
+#roomPanel:not(.civil-room-managed) > #hearthNote { position:static; grid-column:2; grid-row:2; width:auto!important; margin:0; }
+#roomPanel:not(.civil-room-managed) > #civilGuide { position:static; grid-column:2; grid-row:3; width:auto; margin:0; }
+#roomPanel > #craftBtns, #roomPanel > #buyBtns { position:static; }
+.civil-room-actions { flex-wrap:wrap; }
+
+#outsidePanel.civil-active { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.65fr); gap:24px; align-items:start; }
+#outsidePanel > #village { position:relative!important; top:auto; right:auto; grid-column:2; grid-row:1; width:100%; min-width:0; margin:0; box-sizing:border-box; }
+#civilVillageWork { grid-column:1; grid-row:1; min-width:0; }
+#civilVillageWork > .button { position:static!important; display:inline-block; margin:0 10px 12px 0; }
+#civilVillageWork #workers { position:static; width:100%; max-width:300px; box-sizing:border-box; margin:12px 0; }
+#civilVillageWork #socialNote { position:static!important; width:100%; margin:16px 0; }
+#civilVillageWork #civilEarlyWork { position:static; width:100%; max-height:none; overflow:visible; padding:0; }
+#civilVillageWork #civilManualGather { position:static!important; width:100%; }
+#civilVillageWork #civilWorkMandate { width:100%; }
+#civilVillageWork .workerRow { min-height:26px; line-height:26px; }
+#civilVillageWork .workerRow .row_key { max-width:calc(100% - 100px); }
+
+/* The scrollable reading area is keyboard reachable; titles stay outside it. */
+#event .civil-event-body { overflow-x:hidden; overflow-y:auto; scrollbar-gutter:stable; overflow-wrap:anywhere; }
+#event .civil-event-body:focus-visible { outline:1px dashed var(--civil-rule); outline-offset:-4px; }
+#event .eventTitle { overflow-wrap:anywhere; }
+#event #exitButtons > .button { line-height:1.5; }
+#event .civil-event-body textarea { width:100%; }
+
+/* City maps share the same monochrome terrain and native, focusable place markers. */
+#cityTerrain { line-height:16px; }
+#cityTerrain > span { height:16px; }
+.city-map-node > span > small { display:block; font-size:11px; line-height:1.5; color:var(--civil-muted); }
+.city-local-map { margin:24px 0; max-width:740px; }
+.city-local-title { margin:0 0 10px; color:var(--civil-muted); }
+.city-local-sketch { position:relative; border:1px solid var(--civil-rule); padding:10px; }
+.city-local-terrain { display:grid; grid-template-columns:repeat(31,minmax(0,1fr)); font:12px/16px Menlo,Consolas,monospace; text-align:center; user-select:none; }
+.city-local-terrain > span { height:16px; color:#ccc; }
+.city-local-nodes { position:absolute; inset:10px; pointer-events:none; }
+.city-local-nodes .city-map-node { min-width:64px; min-height:44px; }
+.city-local-map .city-map-node > span { font-size:13px; }
+.city-local-map .city-map-node b { font-size:18px; }
+.city-local-map .city-map-node b, .city-local-map .city-map-node > span { background:var(--civil-paper); }
+.city-local-map .city-map-node.selected b { background:var(--civil-ink,#222); color:var(--civil-paper); }
+.city-local-terrain .city-ground-water { color:#aaa; }
+.city-local-terrain .city-ground-forest, .city-local-terrain .city-ground-mountain { color:#999; }
+#cityTerrain .city-ground-housing, .city-local-terrain .city-ground-housing { color:#999; }
+#cityTerrain .city-ground-industry, .city-local-terrain .city-ground-industry { color:#666; }
+#cityTerrain .city-ground-service, .city-local-terrain .city-ground-service { color:#888; }
+#cityTerrain .city-ground-field, .city-local-terrain .city-ground-field { color:#999; }
+#cityTerrain .city-ground-building, .city-local-terrain .city-ground-road { color:#555; }
+.city-local-terrain .city-ground-street, .city-local-terrain .city-ground-trail { color:#999; }
+.city-local-legend { font-size:12px!important; color:var(--civil-muted); margin:8px 0 16px; }
+.city-local-detail { border-top:1px solid var(--civil-rule); padding-top:14px; font-size:14px; }
+.city-local-detail dl { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px 20px; margin:14px 0; }
+.city-local-detail dt, .city-local-detail dd { margin:0; }
+.city-local-detail dd { text-align:right; font-variant-numeric:tabular-nums; }
+.city-local-detail p { margin:10px 0 0; }
+body.dark .city-local-terrain > span { color:#555; }
+body.dark #cityTerrain .city-ground-housing, body.dark .city-local-terrain .city-ground-housing,
+body.dark #cityTerrain .city-ground-field, body.dark .city-local-terrain .city-ground-field { color:#999; }
+body.dark #cityTerrain .city-ground-industry, body.dark .city-local-terrain .city-ground-industry,
+body.dark #cityTerrain .city-ground-service, body.dark .city-local-terrain .city-ground-service,
+body.dark #cityTerrain .city-ground-building, body.dark .city-local-terrain .city-ground-road { color:#bbb; }
+body.dark .city-local-terrain .city-ground-water, body.dark .city-local-terrain .city-ground-mountain,
+body.dark .city-local-terrain .city-ground-forest, body.dark .city-local-terrain .city-ground-street,
+body.dark .city-local-terrain .city-ground-trail { color:#888; }
+
+@media(max-width:1199px) {
+  #outsidePanel.civil-active { grid-template-columns:minmax(0,1fr); }
+  #outsidePanel > #village { grid-column:1; grid-row:2; margin:0; }
+}
+@media(max-width:600px) {
+  #roomPanel:not(.civil-room-managed).civil-active { display:flex; flex-direction:column; gap:18px; }
+  #roomPanel:not(.civil-room-managed) > #buildBtns { order:4; width:100%; }
+  #roomPanel:not(.civil-room-managed) > #civilGuide { width:100%; }
+  .civil-construction-columns { grid-template-columns:minmax(0,1fr); gap:18px; }
+  .civil-plan-row { grid-template-columns:minmax(0,1fr); }
+  .civil-plan-row > .button { grid-column:1; grid-row:auto; }
+}

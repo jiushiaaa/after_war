@@ -1,0 +1,42 @@
+/* MPL-2.0 — Regional compacts, finite public credit and distinct war doctrines. */
+var CivilStatecraftContent={
+  policies:{
+    mixed:{name:'混合协约',input:1,output:1,interest:.1,upkeep:{}},
+    planned:{name:'公共计划',input:.8,output:1,interest:.08,upkeep:{knowledge:.4}},
+    market:{name:'监管市场',input:1,output:1.25,interest:.15,upkeep:{tools:.08,knowledge:.05}},
+    mutual:{name:'合作互助',input:1,output:1,interest:.05,upkeep:{medicine:.04,knowledge:.15},local:true}
+  },
+  regions:{
+    north:{give:{coal:40},take:{parts:20},loan:{parts:80},choices:[
+      {name:'冬季供热联保',cost:{coal:160,steel:60,parts:30},upkeep:{coal:.2,parts:.02},trust:40},
+      {name:'开放救援粮站',cost:{food:240,medicine:40,tools:30},upkeep:{food:.3,medicine:.02},trust:30}]},
+    east:{give:{medicine:12},take:{knowledge:35},loan:{medicine:50},choices:[
+      {name:'变异居民共同医疗',cost:{medicine:80,chemicals:60,knowledge:160},upkeep:{medicine:.06},trust:40,equal:true},
+      {name:'流域联合治水',cost:{steel:100,parts:50,tools:40},upkeep:{parts:.08},trust:30}]},
+    west:{give:{steel:20},take:{tools:18},loan:{tools:80},choices:[
+      {name:'城邦工业标准互认',cost:{precisionparts:50,electronics:40,knowledge:160},upkeep:{knowledge:.25},trust:40,local:true},
+      {name:'地方工会采购保障',cost:{food:200,tools:70,medicine:40},upkeep:{food:.2,tools:.04},trust:30}]},
+    rainforest:{give:{tools:18},take:{medicine:24},loan:{medicine:50},choices:[
+      {name:'共生生态保护区',cost:{chemicals:100,medicine:60,knowledge:160},upkeep:{chemicals:.1,knowledge:.1},trust:40,equal:true},
+      {name:'雨林低扰动道路',cost:{parts:70,steel:60,tools:50},upkeep:{parts:.07,tools:.02},trust:30}]},
+    desert:{give:{parts:16},take:{food:120},loan:{food:360},choices:[
+      {name:'绿洲水源共同托管',cost:{glass:100,parts:70,chemicals:80},upkeep:{chemicals:.08,parts:.04},trust:40,local:true},
+      {name:'沙漠车队救援公约',cost:{food:260,medicine:60,robots:2},upkeep:{food:.25,medicine:.04},trust:30}]},
+    plateau:{give:{electronics:16},take:{knowledge:50},loan:{knowledge:200},choices:[
+      {name:'开放观测与教育档案',cost:{electronics:60,precisionparts:40,knowledge:240},upkeep:{knowledge:.3},trust:40},
+      {name:'共同修复山地观测站',cost:{steel:100,parts:80,robots:2},upkeep:{parts:.08},trust:30}]},
+    islands:{give:{tools:20},take:{parts:24},loan:{parts:80},choices:[
+      {name:'港城自治与海难救援',cost:{steel:90,medicine:60,food:180},upkeep:{medicine:.04,parts:.05},trust:40,local:true},
+      {name:'统一港务与导航标准',cost:{electronics:60,precisionparts:60,parts:70},upkeep:{electronics:.05,knowledge:.15},trust:30}]},
+    polar:{give:{parts:20},take:{knowledge:60},loan:{knowledge:200},choices:[
+      {name:'避难所平等托管',cost:{lifesupport:4,medicine:60,knowledge:160},upkeep:{medicine:.04,chemicals:.08},trust:40,equal:true},
+      {name:'公开极地遗产档案',cost:{electronics:80,precisionparts:60,knowledge:260},upkeep:{electronics:.04,knowledge:.2},trust:30}]}
+  },
+  doctrines:{
+    evacuation:{name:'先疏散后推进',cost:{knowledge:120,food:420,medicine:100,steel:100,parts:90,robots:6},cargo:{},work:900,casualties:15,infrastructure:70,trust:10,external:5},
+    blockade:{name:'封锁后受降',cost:{knowledge:160,food:360,medicine:60,steel:60,parts:80,robots:2},cargo:{},work:1200,casualties:0,infrastructure:85,trust:5,external:15}
+  },
+  voyage:{food:30,parts:4},collateral:{tools:40},loanTerm:1800
+};
+// Generic names only; actual cargo, costs and work are quoted per region/policy.
+Object.assign(CivilWorldContent.missions,{exchange:{name:'执行地区互市'},credit:{name:'提取重建信贷'},repay:{name:'偿还重建信贷'}});

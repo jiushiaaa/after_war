@@ -1,0 +1,85 @@
+/* Native ADR presentation: compact facts first, existing actions behind progressive categories. */
+.civil-summary { width:410px; max-width:100%; line-height:1.5!important; margin-bottom:16px!important; }
+.civil-summary-title { font-size:18px; margin-bottom:12px; }
+.civil-metrics { display:grid; grid-template-columns:1fr 1fr; gap:0 20px; border-top:1px solid #888; }
+.civil-metric { padding:9px 0; border-bottom:1px solid #ddd; min-width:0; }
+.civil-metric > span { display:block; color:#666; font-size:12px; }
+.civil-metric > strong { display:block; font-size:17px; font-weight:normal; margin-top:2px; }
+.civil-metric.needs-attention > strong { font-weight:bold; text-decoration:underline; }
+.civil-brief,.civil-notices { margin:10px 0; font-size:13px; line-height:1.6; }
+.civil-notices { border-left:2px solid #555; padding-left:8px; }
+.civil-details { font-size:13px; margin:12px 0; line-height:1.7; }
+.civil-details > summary { cursor:pointer; width:fit-content; }
+.civil-details dl { display:grid; grid-template-columns:90px 1fr; gap:6px 10px; margin:12px 0; }
+.civil-details dt { color:#777; }
+.civil-details dd { margin:0; }
+.civil-tabs { display:flex; flex-wrap:wrap; gap:7px; margin:15px 0; width:420px; max-width:100%; }
+.civil-tabs .button.civil-tab { width:auto!important; min-width:38px; margin:0; padding:6px 10px; font-size:13px; }
+.civil-tabs .selected { box-shadow:inset 0 -2px #222; font-weight:bold; }
+.civil-filtered { display:none!important; }
+.civil-jump { display:flex; gap:10px; margin:16px 0; }
+.civil-jump .button { width:105px; margin:0; }
+.civil-build-columns { margin-top:20px; }
+.civil-project-details { width:420px; max-width:100%; }
+.civil-project-details #municipalProject { font-size:13px; margin-top:10px!important; }
+.civil-research-book { width:145px; }
+.civil-research-book details { margin:6px 0; }
+.civil-research-book p { font-size:12px; margin:6px 0; }
+#civilResearchPanel { width:700px; }
+#civilVillageBuildings summary { font-size:13px; cursor:pointer; }
+#civilVillageBuildings > div { max-height:180px; overflow:auto; display:flow-root; padding-top:8px; }
+#civilResearchPanel #researchBtns { position:static; width:410px; margin-top:20px; }
+#civilResearchPanel #researchBtns:before { content:none; }
+#civilResearchPanel #researchStatus { width:410px; margin:12px 0; }
+#civilResearchPanel #researchBtns > .button { display:inline-block; vertical-align:top; margin:0 12px 10px 0; }
+#civilResearchTree { width:410px; }
+.civil-tech-row { margin:9px 0; padding:8px 0; border-bottom:1px solid #ddd; }
+.civil-tech-row p { margin:7px 0; }
+#civilBuiltBook { width:145px; margin-top:12px; }
+#civilBuiltBook > div { padding-top:12px; }
+.civil-room-managed #buildBtns { position:static; margin-top:25px; }
+.civil-room-actions { display:flex; gap:12px; margin:16px 0; }
+.civil-room-actions #policyButton { position:static; margin:0; }
+#roomPanel:not(.civil-room-managed) #hearthNote { position:absolute; left:150px; top:110px; width:230px!important; font-size:13px; }
+body.dark .civil-metric { border-color:#444; }
+body.dark .civil-metric>span,body.dark .civil-details dt { color:#aaa; }
+/* Near-field exploration: native ADR monospace map, controls stay keyboard reachable. */
+.civil-expedition { position:relative; border:1px solid #000; padding:20px 12px 10px; margin:6px 0 18px; width:min(460px,96%); box-sizing:border-box; }
+.civil-expedition::before { content:attr(data-legend); position:absolute; top:-10px; left:10px; background:#fff; padding:0 4px; }
+body.dark .civil-expedition { border-color:#eee; } body.dark .civil-expedition::before { background:#272823; }
+#expeditionMap { font-family:"Courier New",Courier,monospace; white-space:pre; line-height:15px; letter-spacing:4px; font-size:14px; color:#888; border:1px solid #999; display:inline-block; padding:6px 8px; user-select:none; }
+#expeditionMap b { color:#000; } body.dark #expeditionMap b { color:#fff; }
+#expeditionMap .civil-party { color:#000; background:#ddd; } body.dark #expeditionMap .civil-party { background:#555; }
+.civil-step { display:inline-block; border:1px solid #000; padding:2px 8px; margin:3px 4px 3px 0; cursor:pointer; min-width:22px; text-align:center; }
+body.dark .civil-step { border-color:#eee; }
+.civil-step.disabled { color:#999; border-color:#bbb; cursor:default; }
+.civil-step:focus-visible { outline:2px solid #555; }
+.civil-outfit { margin:4px 0; font-size:14px; } .civil-outfit-name { display:inline-block; width:48px; } .civil-outfit-val { display:inline-block; min-width:28px; text-align:center; }
+.civil-outfit-note,.civil-muted { color:#777; font-size:12px; margin-left:6px; }
+.civil-pack { font-size:13px; margin:6px 0; line-height:1.5; } .civil-warning { font-weight:bold; }
+.civil-pad { margin:6px 0; }
+.civil-legend { font-size:12px; color:#666; line-height:1.6; }
+#expeditionControls .button { margin:8px 10px 4px 0; }
+.civil-guide { position:relative; clear:both; padding-top:14px; width:min(620px,95%); color:#444; } body.dark .civil-guide { color:#ccc; }
+#cityBody .civil-guide { width:100%; padding:0 0 12px; border-bottom:1px solid #888; color:var(--civil-ink,#222); }
+body.dark #cityBody .civil-guide { color:#ddd; }
+#civilGuideActions .button, #civilWorkChoices .button { display:inline-block; width:auto!important; margin:4px 8px 4px 0; padding:5px 8px; }
+#civilEarlyWork { position:absolute; left:160px; top:0; width:270px; max-height:600px; overflow-y:auto; padding-right:8px; box-sizing:border-box; }
+#civilEarlyWork #workers, #civilEarlyWork #socialNote, #civilEarlyWork #civilManualGather { position:static!important; top:auto!important; left:auto; max-width:100%; }
+#civilEarlyWork #socialNote { margin:12px 0; font-size:13px; }
+#civilEarlyWork #workers { width:150px; }
+#civilWorkMandate { width:260px; max-width:100%; }
+#civilWorkChoices label { display:block; margin:6px 0; }
+#civilWorkDirection { max-width:100%; min-height:34px; font:inherit; color:inherit; background:transparent; border:1px solid #888; }
+input.civil-outfit-val { width:58px; padding:5px 2px; box-sizing:border-box; color:inherit; background:transparent; border:1px solid #888; font:inherit; }
+@media (min-width:940px) {
+  #roomPanel:not(.civil-room-managed) #civilGuide { position:absolute; top:200px; left:150px; width:260px; padding:0; }
+}
+@media (max-width:939px) {
+  #civilEarlyWork { position:static; width:100%; max-height:none; overflow:visible; padding:0; }
+}
+#researchUnlocks .button.civil-inline { display:inline-block; width:auto!important; padding:0 10px; margin:6px 8px 0 0; }
+.civil-highlight { outline:2px solid #000; outline-offset:2px; } body.dark .civil-highlight { outline-color:#fff; }
+.civil-manual { position:absolute; left:0; top:200px; width:330px; } @media (max-width:939px){ .civil-manual { position:static; margin-top:16px; } }
+.civil-manual .button { position:static !important; display:inline-block; margin:6px 8px 0 0; }
+#outsidePanel { min-height:120px; }

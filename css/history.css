@@ -1,0 +1,6 @@
+/* Uses the existing lower-right menu and native event panel. */
+#historyMenu.history-unavailable { color:#999; cursor:default; }
+#historyMenu:focus-visible { outline:1px dashed currentColor; outline-offset:3px; }
+/* The bounded window and its single scroll region are owned by layout.css. */
+#event.civil-history-event #description > div { overflow-wrap:anywhere; }
+.dark #historyMenu.history-unavailable { color:#777; }

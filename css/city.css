@@ -1,0 +1,90 @@
+/* Native ADR typography and monochrome buttons; no additional application shell. */
+#cityPanel { width:700px; height:620px; box-sizing:border-box; }
+#cityBody { width:445px; height:620px; overflow-y:auto; overflow-x:hidden; padding-right:10px; box-sizing:border-box; scroll-padding-top:64px; scroll-padding-bottom:12px; }
+#cityBody > div, #cityHistory { max-width:420px; }
+#cityPanel .button { display:inline-block; vertical-align:top; width:auto!important; max-width:100%; margin:5px 8px 5px 0; padding:6px 10px; box-sizing:border-box; }
+#cityPanel .button.selected { box-shadow:inset 0 -2px currentColor; }
+#cityViews { position:sticky; top:0; z-index:2; background:#fff; }
+body.dark #cityViews { background:#272823; }
+#cityPanel p, #cityCensusRows { font-size:13px; line-height:1.8; }
+#cityMapTitle { font-size:12px; color:#666; margin:14px 0 8px; }
+#citySketch { position:relative; border:1px solid #aaa; padding:9px; box-sizing:border-box; }
+#cityTerrain { display:grid; grid-template-columns:repeat(31,minmax(0,1fr)); font:12px/13px Menlo,Consolas,monospace; text-align:center; user-select:none; }
+#cityTerrain span { height:13px; color:#ccc; }
+#cityTerrain .city-ground-mountain, #cityTerrain .city-ground-forest { color:#999; }
+#cityTerrain .city-ground-water { color:#aaa; }
+#cityTerrain .city-ground-road { color:#555; }
+#cityTerrain .city-ground-trail { color:#aaa; }
+#cityMapNodes { position:absolute; inset:9px; pointer-events:none; }
+.city-map-node, .city-map-home { position:absolute; transform:translate(-50%,-50%); pointer-events:auto; padding:0; margin:0; border:0; background:none; color:inherit; font:13px Georgia,"Times New Roman",serif; text-align:center; }
+.city-map-node { cursor:pointer; min-width:44px; min-height:44px; }
+.city-map-node b, .city-map-home b { display:block; width:18px; height:18px; margin:auto; line-height:18px; font:14px/18px Menlo,Consolas,monospace; background:#fff; }
+.city-map-node > span, .city-map-home > span { position:absolute; top:100%; left:50%; transform:translateX(-50%); white-space:nowrap; padding:1px 4px; background:#fff; }
+.city-map-node > span { top:calc(50% + 10px); }
+.city-map-node.selected b { color:#fff; background:#222; }
+.city-map-node.unknown { color:#888; }
+.city-map-node:focus-visible { outline:1px solid currentColor; outline-offset:2px; }
+#cityMapLegend { color:#777; font-size:11px!important; line-height:1.6!important; margin:6px 0 10px; }
+body.dark .city-map-node b, body.dark .city-map-home b, body.dark .city-map-node > span, body.dark .city-map-home > span { background:#272823; }
+body.dark .city-map-node.selected b { color:#272823; background:#ddd; }
+body.dark #cityTerrain span { color:#555; }
+body.dark #cityTerrain .city-ground-road { color:#ccc; }
+#cityWorldBook p { white-space:pre-line; }
+#cityBudget dl { grid-template-columns:65px minmax(0,1fr); }
+#cityHistory ol { padding-left:20px; font-size:13px; }
+#cityHistory li { margin:8px 0; }
+.city-setting { display:block; margin:10px 0; font-size:13px; }
+.city-setting > span { display:inline-block; min-width:110px; vertical-align:top; }
+.city-setting select { max-width:100%; background:transparent; color:inherit; border:1px solid #888; padding:6px; font:inherit; }
+.city-setting option { padding:4px 8px; }
+#cityInstitution { border-top:1px solid #aaa; margin-top:16px; padding-top:4px; }
+#cityHomeRecord { white-space:pre-line; }
+#civilDelegatedJobs { position:relative; width:420px; max-width:100%; }
+#civilDelegatedJobs #workers { position:static; margin-top:12px; }
+#civilDelegatedJobs > summary { font-size:13px; line-height:1.8; cursor:pointer; }
+#outsidePanel.civil-delegated #civilManualGather, #outsidePanel.civil-delegated #socialNote { position:relative!important; top:auto!important; left:auto; width:420px; max-width:100%; margin-top:18px; }
+@media(max-width:939px) {
+  #civilDelegatedJobs { position:static; width:100%; }
+  #cityPanel { width:calc(100vw - 20px); height:auto; overflow:visible; }
+  #cityBody { width:100%; height:auto; overflow:visible; padding-right:0; }
+  #cityBody > div, #cityHistory { max-width:100%; }
+  #cityPanel .button { min-height:44px; }
+  #cityTerrain { font-size:11px; }
+}
+#metroCitySwitch { margin-bottom:12px; border-bottom:1px solid #aaa; padding-bottom:6px; }
+#metroCityBody h3 { font-size:16px; font-weight:normal; margin:14px 0 8px; }
+#metroCityText_production, #metroCityText_assets, #metroCityLedger p { white-space:pre-line; }
+#metroCitySummary_production { font-size:13px; line-height:1.9; }
+#metroCityHistory ol { padding-left:20px; font-size:13px; line-height:1.8; }
+
+/* Three-city duties reuse the ADR column and disclosure controls. */
+#cityNetworkBody h3, #cityCouncilBody h3 { font-size:16px; font-weight:normal; margin:14px 0 8px; }
+.city-net-lines { white-space:pre-line; line-height:1.8; overflow-wrap:anywhere; }
+.city-labor-table { width:100%; border-collapse:collapse; font-size:13px; margin:12px 0; }
+.city-labor-table caption { text-align:left; font-size:12px; margin-bottom:8px; }
+.city-labor-table th,.city-labor-table td { padding:7px 5px; border-bottom:1px solid #bbb; text-align:right; }
+.city-labor-table th:first-child { text-align:left; }
+@media(max-width:480px) { .city-labor-table { font-size:12px; } .city-labor-table th,.city-labor-table td { padding:7px 2px; } }
+#cityNetTabs { margin-bottom:12px; }
+#cityNetLedger, #cityNetRidgeBook { margin-top:16px; }
+#cityCouncilBody > details { margin-top:14px; }
+#councilLocation { margin:4px 0; }
+#councilLocation > summary { font-size:13px; line-height:36px; cursor:pointer; }
+@media(max-width:939px) {
+  #councilLocation > summary { min-height:44px; }
+}
+
+/* A compact, optional municipal docket; keeps ADR typography and borders. */
+.city-budget-table { table-layout:fixed; }
+.city-budget-table th:first-child { width:76px; }
+.city-budget-table th:nth-child(2) { width:86px; }
+.city-budget-table th:nth-child(3) { width:54px; }
+.city-budget-table small { display:block; font-weight:normal; color:#666; white-space:nowrap; }
+.city-budget-table th:last-child,.city-budget-table td:last-child { text-align:left; padding-left:8px; overflow-wrap:anywhere; }
+
+/* The shared-city docket keeps advanced controls inside three duty groups. */
+#governanceDocket { margin:12px 0; border-top:1px solid #aaa; }
+#governanceDocket p { margin:8px 0; }
+#governanceDocket a { text-decoration:underline; color:inherit; }
+#governanceOperations > summary, #governanceProjects > summary, #governanceAccounts > summary { line-height:2.5; }
+@media(max-width:560px){ #governanceDocket a { display:inline-block; min-height:44px; line-height:44px; } }

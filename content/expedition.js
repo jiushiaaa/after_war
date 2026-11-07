@@ -1,0 +1,74 @@
+/* MPL-2.0 — 战后文明: hand-made near field around the first settlement (exploration schema 1).
+   Original adaptation content; places and text are not claimed as novel canon. */
+var CivilExpeditionContent={
+  size:25,
+  home:[12,12],
+  // 25 x 25, row = y, column = x. ASCII keeps the native ADR monospace grid aligned.
+  rows:[
+    ';;;;;;;;;;;,,,,.........;',
+    ';;;;;;;;;;,,,,,.........;',
+    ';;;;;;;;;;,,,,....;;....;',
+    ';;;;;;;;;,,,,.....;;;...;',
+    ';;;;;;;;;,,,,...,######T.',
+    ';;;;;R;;;;,,,,..,#......;',
+    ';;;;;;;;;;,,,,..,#....;;;',
+    ';;;;;;;;;;,,,,..,#....;;;',
+    ';;;;;;;;;;,,,,,.,#.....;;',
+    ',;;;;;;;;,,,,,,.,#......;',
+    ',,;;;;;;,,,,,,,..#.......',
+    ',,,,,,,,,,,,,,,..#.......',
+    ',,,,,,,,,,,,A####........',
+    '^^^^^^^^^%%^=^...........',
+    ',,,,,,%%%%%^=^...........',
+    ',,,,,,%%%%%^=^.....;;;...',
+    ',,,,,,%%%%%^=^....;;;;...',
+    ',,,,,,%%%%%^=^....;;;;...',
+    ',,,,,,~~~~~~=S.....;;....',
+    ',,,,P,~~~~~~=............',
+    ',,,,,,~~~~~~=............',
+    ',,,,,,~~~~~~=............',
+    ',,,,,,~~~~~~=............',
+    ',,,,==========...........',
+    ',,,,,,,,,,,,,,...........'
+  ],
+  terrain:{
+    '.':{name:'灰原',seconds:3,pass:true},
+    ',':{name:'枯草甸',seconds:3,pass:true},
+    ';':{name:'枯林',seconds:4,pass:true},
+    '#':{name:'旧公路',seconds:2,pass:true},
+    '=':{name:'排水渠堤',seconds:3,pass:true},
+    '%':{name:'甲虫洼地',seconds:3,pass:true,danger:true},
+    '^':{name:'坍塌高架',pass:false},
+    '~':{name:'积水洼',pass:false},
+    'A':{name:'家园',seconds:2,pass:true},
+    'T':{name:'旧交通站',seconds:2,pass:true},
+    'P':{name:'锈住的泵站',seconds:3,pass:true},
+    'R':{name:'旧气象站',seconds:4,pass:true},
+    'S':{name:'地下储藏室',seconds:3,pass:true}
+  },
+  sites:{T:'station',P:'pump',R:'ruin',S:'cellar'},
+  siteNames:{station:'旧交通站',pump:'锈住的泵站',ruin:'旧气象站',cellar:'地下储藏室',cache:'散落物资'},
+  // Seed-dependent small caches; required sites never move.
+  cacheSpots:[[20,9],[2,9],[22,20],[15,23],[8,2],[19,15]],
+  caches:[{scrap:5},{food:4}],
+  lightRadius:2,
+  member:{food:.1,water:.15},
+  weight:{food:.5,water:.5,wood:1,scrap:1,tools:1,medicine:.5,fur:.5,archive:4},
+  capacity:{member:12,cart:6},
+  maxMembers:3,
+  carry:['food','water','wood','scrap','tools','medicine'],
+  repairKit:{wood:8,scrap:10},
+  rescue:{food:10,wood:10},
+  injuryRest:180,
+  text:{
+    intro:'旧公路外全是没人踩过的荒野。备足口粮和饮水，小队会把这片近郊一格一格摸清楚。',
+    depart:n=>n+'名居民背起行囊出了门。他们在外期间，聚落里少了这几双手，也省下这几张嘴的口粮。',
+    home:'小队回到了聚落。带回的物资已清点入库。',
+    hungry:'小队的水袋或干粮袋已经见底。再硬撑着往前走，会有人倒在半路。',
+    collapse:'小队在荒野里断了补给，只能停在原地，点起求救的狼烟。',
+    beetle:'灰壳甲虫在洼地里拱动碎石。背甲泛着旧车漆似的油光，听见人声，便齐刷刷支起前足。'
+  }
+};
+// A preserved archive opens a real craft: early cold warnings replace emergency repairs.
+CivilText.research.weather={name:'寒潮预报',requires:[],discover:s=>s.civilization.expedition?.sites?.ruin?.state==='preserved',cost:{wood:20,scrap:8},duration:150,
+  done:'风速纸带与聚落的日常观测对上了号。下次寒风刮来前，当值的人会提前加固粮棚挡板。'};

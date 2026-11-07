@@ -1,0 +1,28 @@
+/* MPL-2.0 — Earth chapter, on real census accounts and optional advanced bodies. */
+var CivilEarthContent={
+ regions:{
+  north:{name:'北陆全域议会',issue:'冬季通行与分散供暖',gate:null,profile:{food:1.8,wood:.9,scrap:1.5,tools:.25,iron:.3},options:{network:{name:'联接分散热网',cargo:{parts:24,tools:40,electronics:8},local:{wood:800,tools:120},upkeep:{wood:24,tools:2},product:'parts'},reserve:{name:'共同燃料储备',cargo:{parts:12,tools:60},local:{wood:1600,knowledge:80},upkeep:{wood:60,tools:1},product:'wood'}}},
+  east:{name:'东陆水系议会',issue:'洪泛治理与变异居民资格',gate:null,profile:{food:2.2,wood:.7,scrap:1.5,tools:.25,iron:.2},options:{wetland:{name:'湿地缓冲与共同诊疗',cargo:{medicine:80,parts:20,tools:32},local:{wood:600,knowledge:160},upkeep:{medicine:8,knowledge:4},product:'medicine'},levee:{name:'分洪堤与水工培训',cargo:{parts:40,tools:48},local:{wood:1200,tools:200},upkeep:{wood:32,tools:4},product:'tools'}}},
+  west:{name:'西陆城邦议会',issue:'工艺互认、现有债权与地方仓库',gate:null,options:{open:{name:'公开标准与共同检验',cargo:{electronics:16,parts:24,knowledge:100},local:{tools:120,knowledge:200},upkeep:{knowledge:8,tools:2},product:'steel'},licensed:{name:'地方工艺许可与责任追溯',cargo:{parts:40,tools:40},local:{wood:500,knowledge:100},upkeep:{wood:24,knowledge:4},product:'parts'}}},
+  desert:{name:'绿洲水源议会',issue:'水源、通行权与既有清算债务',gate:null,options:{wells:{name:'联井维护与公共通行',cargo:{parts:24,tools:48,medicine:40},local:{wood:600,tools:160},upkeep:{tools:4,wood:24},product:'tools'},reclaim:{name:'循环净水与绿洲教育',cargo:{electronics:20,parts:32,medicine:48},local:{knowledge:200,wood:400},upkeep:{medicine:6,knowledge:6},product:'medicine'}}},
+  rainforest:{name:'雨带共生议会',issue:'生态走廊与变异群体同等资格',gate:'mapping',profile:{food:2,wood:1.1,scrap:1.2,tools:.25,iron:.2},options:{corridor:{name:'生态走廊与当地巡护',cargo:{medicine:80,parts:16,tools:48},local:{wood:800,knowledge:160},upkeep:{medicine:8,tools:2},product:'medicine'},canopy:{name:'架空通路与林地保全',cargo:{parts:48,tools:64},local:{wood:1600,tools:160},upkeep:{wood:36,tools:4},product:'wood'}}},
+  islands:{name:'群岛港城议会',issue:'海上救援、港口自治与公共航道',gate:'navigation',profile:{food:2,wood:.6,scrap:1.6,tools:.3,iron:.25},options:{harbor:{name:'港城互保与救援网',cargo:{parts:48,electronics:16,medicine:32},local:{wood:1200,tools:160},upkeep:{wood:40,knowledge:4},product:'parts'},beacons:{name:'航标标准与分散船坞',cargo:{parts:32,electronics:32,tools:40},local:{wood:800,knowledge:240},upkeep:{tools:4,knowledge:8},product:'electronics'}}},
+  plateau:{name:'高原观测联会',issue:'观测资料与封存技术的公共责任',gate:'mapping',profile:{food:1.6,wood:.6,scrap:1.8,tools:.3,iron:.4},options:{archive:{name:'开放资料与独立复核',cargo:{electronics:32,knowledge:160,parts:24},local:{tools:160,knowledge:240},upkeep:{knowledge:10,tools:2},product:'electronics'},station:{name:'共同修复观测站',cargo:{parts:56,tools:48,electronics:16},local:{wood:1200,tools:200},upkeep:{wood:36,tools:4},product:'steel'}}},
+  polar:{name:'极地遗产托管议会',issue:'避难所供养与不可占有的轨道遗产',gate:'navigation',profile:{food:1.6,wood:.5,scrap:1.8,tools:.3,iron:.35},options:{preserve:{name:'原址保全与轮值供养',cargo:{medicine:100,parts:32,tools:48},local:{wood:1000,knowledge:240},upkeep:{medicine:8,wood:32},product:'parts'},restore:{name:'修复观测与共同保管',cargo:{electronics:32,parts:56,tools:48},local:{tools:240,knowledge:240},upkeep:{knowledge:8,tools:4},product:'electronics'}}}
+ },
+ tech:{
+  mapping:{name:'全地球测绘与名册互认',requires:[],duration:360,cost:{knowledge:180,parts:24,electronics:16},text:'联络各区现存居民与独立账册，未探明区域如实留白；人口绝不因探索奖励而凭空虚增。'},
+  navigation:{name:'陆海联运与救援航道',requires:['mapping'],duration:480,cost:{knowledge:240,parts:48,electronics:24,steel:24},text:'开通通往群岛与极地的救援航道。调配编制内两组公用车船，交付与返航均据实占用在途运力。'},
+  fabrication:{name:'精密航天制造',requires:['mapping'],duration:480,cost:{knowledge:240,steel:64,parts:48,electronics:24},text:'制造近地舱体、热防护板与推进组件；不以改造任何人的生理躯体为前提。'},
+  closed:{name:'乘员闭环保障',requires:['fabrication'],duration:480,cost:{knowledge:220,culture:40,medicine:60,parts:40},text:'不同生理与机械形态分别核算口粮、电耗与维保定额；唯有登舱实装的给养与备件可供在轨消耗。'},
+  guidance:{name:'轨道测控与自主保护',requires:['navigation','fabrication'],duration:480,cost:{knowledge:260,electronics:48,parts:40},text:'无人遥测与载人试航均由地面实有人手轮班监控；自动化测控设备不登记为法律人格。'}
+ },
+ facilities:{works:{name:'共同航天装配场',requires:['fabrication'],duration:360,cost:{steel:64,parts:48,electronics:24,tools:40}},control:{name:'地面测控与闭环试验场',requires:['closed','guidance'],duration:420,cost:{steel:64,parts:48,electronics:48,medicine:40}}},
+ recipes:{spaceparts:{input:{steel:8,parts:8,electronics:4},output:{spaceparts:4},power:24},lifesupport:{input:{culture:4,parts:4,medicine:2},output:{lifesupport:4},power:16},shielding:{input:{steel:4,iron:8,tools:2},output:{shielding:4},power:16},propellant:{input:{wood:8,parts:2},output:{propellant:6},power:12}},
+ products:{parts:{input:{iron:8,wood:4,tools:2},output:{parts:4}},steel:{input:{iron:12,wood:8,tools:2},output:{steel:8}},electronics:{input:{iron:6,tools:4,knowledge:12},output:{electronics:4}},medicine:{input:{food:16,scrap:8},output:{medicine:12}},tools:{input:{wood:8,scrap:16},output:{tools:12}},wood:{input:{food:8,tools:2},output:{wood:32}}},
+ charters:{federal:{name:'地球联邦共同法',cost:{knowledge:600,tools:80,parts:40},fee:{knowledge:12,tools:4},text:'确立全域共同公民资格与统一对外代表权，各区保留日常律令与自留财产；联合机构受限于成文条约的法定授权。'},covenant:{name:'地球共同议约',cost:{knowledge:480,tools:60,parts:32},fee:{knowledge:20,tools:2},text:'各大区以具约束力的共同法典、联合仲裁与对外全权代表实现地表统一；内部管辖政体与地方仓储账册继续各自独立。'}},
+ crews:{organic:'普通居民乘员',gene:'基因改造乘员',mechanical:'完整机械乘员',synthetic:'合成人乘员',mixed:'混合身体乘员',uncrewed:'无常驻乘员先遣'},
+ labels:{spaceparts:'航天组件',lifesupport:'保障组件',shielding:'热防护组件',propellant:'推进剂'},
+ startCost:{knowledge:240,parts:40,tools:48,electronics:16},surveyCost:{food:96,parts:8,tools:12,knowledge:40},fare:{food:24,tools:2},travel:180
+};
+Object.assign(CivilFutureContent.labels,CivilEarthContent.labels);

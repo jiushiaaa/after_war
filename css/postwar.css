@@ -1,0 +1,104 @@
+/* Only additions needed by the ADR extension; original layout remains authoritative. */
+#policyButton { position:absolute; left:150px; top:0; }
+#researchBtns { position:absolute; left:150px; top:50px; width:145px; }
+#researchBtns:before { content:attr(data-legend); position:relative; top:-5px; }
+#civilResearchIntro, #modernDesk { width:420px; max-width:100%; box-sizing:border-box; }
+#civilLawPage, #civicConstitution { width:420px; max-width:100%; box-sizing:border-box; }
+#researchStatus { font-size:13px; line-height:1.7; width:145px; }
+#socialNote { position:absolute; top:165px; left:160px; width:230px; font-size:14px; line-height:1.8; }
+#journeyStatus { width:410px; margin-bottom:25px; line-height:1.8; }
+#speedMenu span { margin-left:12px; }
+#speedMenu .selected { text-decoration:underline; color:#111; }
+#event .button { width:145px !important; }
+#event #description { line-height:1.75; }
+#event textarea { width:100%; box-sizing:border-box; min-height:130px; }
+#event.civil-culture-event { width:520px; max-width:calc(100vw - 48px); }
+#event.civil-culture-event #description { max-height:42vh; overflow-y:auto; padding-right:8px; }
+#startupError { margin:60px auto; width:500px; line-height:1.8; }
+.button:focus-visible,.menuBtn:focus-visible { outline:1px dashed #555; outline-offset:3px; }
+
+#riverStatus { width:410px; margin-top:25px; line-height:1.8; font-size:14px; }
+#socialNote { bottom:auto; }
+
+#councilRecord,#councilHistory { width:410px; margin-bottom:25px; line-height:1.8; }
+#councilHistory { margin-top:25px; font-size:13px; }
+.civil-development { width:420px; max-width:100%; margin:16px 0; }
+.civil-development-row { margin:12px 0; padding-bottom:8px; border-bottom:1px solid #ddd; }
+.civil-development-row strong { font-weight:normal; }
+.civil-development-row p { margin:4px 0 0; color:#666; font-size:13px; line-height:1.6; }
+.civil-plan { width:420px; max-width:100%; margin:18px 0; line-height:1.65; }
+.civil-plan-orders { max-height:300px; overflow-y:auto; padding-right:8px; }
+.civil-plan-row { display:grid; grid-template-columns:minmax(0,1fr) 100px; gap:2px 10px; margin:10px 0; padding-bottom:10px; border-bottom:1px solid #ddd; }
+.civil-plan-row p { color:#666; font-size:13px; margin:4px 0; }
+.civil-plan-row .button { grid-column:2; grid-row:1 / 3; align-self:center; box-sizing:border-box; width:100px; margin:0; }
+
+/* Keep the eight-region summary compact inside the native event window. */
+#event.civil-transit-overview #description > div { padding-bottom:4px; }
+div.headerButton:focus-visible { outline:1px dashed currentColor; outline-offset:3px; }
+div.headerButton.civil-group-start { margin-left:22px; }
+
+/* A4 map: geography/contact schematic, no hidden population or clickable placeholders. */
+#domainBody { max-width: 680px; }
+#domainBody .city-setting select { min-height: 34px; max-width: 100%; }
+.domain-map { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px 10px; padding: 16px 0; border-top: 1px solid #999; border-bottom: 1px solid #999; }
+.domain-map > div { min-height: 60px; padding: 6px; border-left: 2px solid #ccc; }
+.domain-map strong,.domain-map span { display: block; }
+.domain-map span { font-size: .85em; margin-top: 6px; color: #666; }
+.domain-map-polar { grid-column: 2; grid-row: 1; }
+.domain-map-north { grid-column: 2; grid-row: 2; border-left-color: #222 !important; }
+.domain-map-west { grid-column: 1; grid-row: 2; }
+.domain-map-east { grid-column: 3; grid-row: 2; }
+.domain-map-desert { grid-column: 1; grid-row: 3; }
+.domain-map-plateau { grid-column: 2; grid-row: 3; }
+.domain-map-islands { grid-column: 3; grid-row: 3; }
+.domain-map-rainforest { grid-column: 2; grid-row: 4; }
+@media (max-width: 600px) { .domain-map { gap: 8px 4px; } .domain-map > div { padding: 4px; } }
+/* A7: quiet ADR typography, visible primary text and inspectable numeric books. */
+@media(min-width:940px) {
+  div#header { width:420px; display:flow-root; height:auto; min-height:50px; padding-bottom:10px; }
+  div.headerButton { line-height:1.7; }
+}
+body { --civil-ink:#222; --civil-muted:#666; --civil-rule:#b8b8b8; color:var(--civil-ink); }
+.location .city-net-lines, .location .civil-brief, .location .civil-summary,
+.location .civil-details, .location .civil-details p, .location .city-setting,
+#earthNext, #futureNext, #domainIntro, #domainNext, #polityNext,
+#earthTerms, #futureTerms, #polityTerms { color:var(--civil-ink); line-height:1.65; }
+.civil-secondary { color:var(--civil-muted); font-size:.9em; }
+.civil-kv { display:grid; grid-template-columns:minmax(6em,1fr) minmax(0,1.65fr); gap:0; margin:.65em 0; }
+.location .civil-kv > dt, .location .civil-kv > dd { color:var(--civil-ink); margin:0; padding:.5em 0; border-bottom:1px dotted var(--civil-rule); min-width:0; overflow-wrap:anywhere; }
+.civil-kv > dd { text-align:right; font-variant-numeric:tabular-nums; }
+.civil-source { margin:0; }
+.civil-source > summary { cursor:pointer; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:.2em; }
+.civil-source > p { font-size:.9em; text-align:left; font-weight:normal; margin:.6em 0; }
+.civil-alerts { padding-left:1.4em; margin:.65em 0; }
+.civil-alerts li { margin:.4em 0; font-weight:bold; }
+.civil-alerts a { color:var(--civil-ink); text-decoration:underline; text-underline-offset:.2em; }
+.civil-table-scroll { overflow-x:auto; max-width:100%; }
+.civil-table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; margin:.8em 0; }
+.civil-table caption { text-align:left; padding:.5em 0; }
+.civil-table th, .civil-table td { text-align:right; padding:.45em .4em; border-bottom:1px dotted var(--civil-rule); white-space:nowrap; }
+.civil-table th:first-child { text-align:left; }
+.civil-metric > strong { text-align:right; font-variant-numeric:tabular-nums; }
+@media(max-width:600px) {
+  .civil-kv { grid-template-columns:minmax(5em,.8fr) minmax(0,1.4fr); }
+  .civil-metrics { grid-template-columns:1fr; }
+  .civil-table { font-size:.85em; }
+}
+
+/* Device-only sound preferences, kept compact beside save and speed. */
+.civil-sound { display:inline-block; position:relative; text-align:left; margin-left:12px; }
+.civil-sound > summary { cursor:pointer; list-style:none; }
+.civil-sound-options { position:absolute; right:0; bottom:28px; width:240px; max-width:80vw; border:1px solid #777; background:#fff; color:#222; padding:14px; box-sizing:border-box; z-index:30; }
+.civil-sound-options label { display:flex; align-items:center; gap:8px; min-height:32px; }
+.civil-sound-options input[type=range] { width:150px; }
+.civil-sound-options p { font-size:12px; line-height:1.5; margin:8px 0 0; }
+html.dark .civil-sound-options, body.dark .civil-sound-options { color:#ddd; background:#171717; }
+/* Footer items share one row; a popover must never expand the mobile layout viewport. */
+.menu { display:flex; justify-content:flex-end; align-items:center; gap:16px; }
+.menu span { float:none; margin-left:0; }
+.civil-sound { margin-left:0; }
+.civil-sound-options { position:fixed; right:10px; bottom:50px; max-width:calc(100vw - 20px); }
+
+#newWorldSettings label { display:flex; align-items:center; gap:8px; min-height:36px; }
+#newWorldSettings input[type=number] { max-width:170px; }
+#newWorldSettings .civil-secondary { font-size:13px; line-height:1.6; margin:0 0 10px; }
