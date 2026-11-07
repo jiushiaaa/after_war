@@ -92,7 +92,7 @@ test('nation survives a real succession and legal devolution reform changes only
   h.until(()=>s.civilization.society.generation>generation,6000);
   assert.equal(s.civilization.nation.foundedAt,at);assert.deepEqual(clone(s.game.buildings),assets);assert.deepEqual(clone(s.civilization.nation.records.slice(0,records.length)),records);
   const knowledge=s.stores.knowledge;assert.equal(h.ctx.CivilSociety.beginReform(s,'devolution'),true);near(s.stores.knowledge,knowledge-60);
-  h.ctx.Civilization.showPending();h.step(10,{choose:false});assert.match(n.status(s),/先完成现有继任、改制或互助公示/);
+  h.ctx.Civilization.showPending();h.step(10,{choose:false});assert.match(n.status(s),/先完成眼下的换届交接、变法或互助公示/);
   h.click('local');assert.equal(s.civilization.society.axes.devolution,'local');
   h.step(20);assert.equal(s.civilization.nation.records.at(-1).mode,'local');h.roundtrip();
 });
@@ -122,8 +122,8 @@ test('charter choices disclose paid national consequences only after the metropo
   assert.equal(early.ctx.CivilSociety.event('constitution_charter',done).text.some(t=>t.includes('国家职责')),false);
   const h=city(),event=h.ctx.CivilSociety.event('constitution_charter',done);
   assert.equal(event.text.filter(t=>t.includes('国家职责')).length,2);
-  assert.ok(event.text.some(t=>t.includes('连续筹备900秒')&&t.includes('正常协调 +2')));
-  assert.ok(event.text.some(t=>t.includes('连续筹备600秒')&&t.includes('正常协调 +4')));
+  assert.ok(event.text.some(t=>t.includes('连续筹备900秒')&&t.includes('正常运转时协调 +2')));
+  assert.ok(event.text.some(t=>t.includes('连续筹备600秒')&&t.includes('正常运转时协调 +4')));
 });
 
 test('customary founding needs 900 paid seconds, preserves its founding law and has a smaller coordination bonus',()=>{

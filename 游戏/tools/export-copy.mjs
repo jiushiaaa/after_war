@@ -39,6 +39,8 @@ function chapter(f){
 }
 const fields={cost:'所需物资',input:'投入',output:'产出',reward:'结果',requires:'前置',duration:'耗时（秒）',time:'耗时（秒）',jobs:'岗位',limit:'上限',capacity:'容量',power:'电量',health:'健康',damage:'伤害',delay:'间隔',chance:'概率',wood:'木料',food:'食物',scrap:'废料',fur:'毛皮',knowledge:'知识',medicine:'药品',tools:'工具',parts:'机械零件',electronics:'电子元件',iron:'铁锭',ore:'铁矿石',coal:'煤',steel:'钢材',water:'水',culture:'培养物',body:'身体载体',cell:'燃料组件',housing:'住房',population:'人口',workers:'人员',adults:'成年人',children:'儿童',elders:'老年人',distance:'距离',travel:'行程',beds:'床位',charge:'储能',cooldown:'冷却',x:'横坐标',y:'纵坐标',radius:'范围',count:'数量',amount:'数量',initial:'初始值',min:'下限',max:'上限',salary:'工资',wage:'工资',maintenance:'维护',budget:'预算',tax:'税收',debt:'债务',credit:'信用',trust:'信任',need:'需求',rate:'速率',interval:'间隔',target:'目标'};
 const files=new Map(),records=[],numbers=[],numericRows=[],covered=new Map(),chinese=[],fallbacks=[],idCounts=new Map(),adaptedLabels=new Set();
+const receiptSources=new Set();
+titles.editorial='历史回执与显示文案';
 const entryHTML=read('游戏/index.html');
 const loaded=new Set([...entryHTML.matchAll(/<script[^>]+src=["']([^"']+)/g)].map(m=>'游戏/'+m[1].split('?')[0]));
 function register(f,source,kind){if(!files.has(f))files.set(f,{file:f,sha256:hash(source),bytes:Buffer.byteLength(source),kind,loaded:loaded.has(f)||f==='游戏/index.html'});}
@@ -78,11 +80,28 @@ function parseJS(f,source,offset=0,whole=source){
   if(ks.includes('buttons')&&ks.at(-1)==='text')tag='选项';
   let context='';for(const obj of meta.get(n).anc.filter(a=>a.type==='ObjectExpression')){const p=obj.properties.find(p=>p.type==='Property'&&['name','title'].includes(name(p.key))&&p.value.type==='Literal'&&typeof p.value.value==='string'&&han(p.value.value));if(p)context=p.value.value;}
   if(error)tag='系统提示·异常与校验';
-  const note=isKey?'此文字兼作账目或查找键；可提改名建议，导入时须审核所有引用。':kind==='template'?'花括号由游戏填入；分支和列表另有条目，勿改占位符。':undefined;
+  let note=isKey?'此文字兼作账目或查找键；可提改名建议，导入时须审核所有引用。':kind==='template'?'花括号由游戏填入；分支和列表另有条目，勿改占位符。':undefined;
+  if(receiptSources.has(text)&&f!=='游戏/content/editorial.js'){tag='历史回执原文·只读';note='旧账本仍使用此原文校验；显示时使用对应润色文案。请修改“历史回执·显示文案”，不要改此回执。';}
   return {kind,tag,text:polishText(text),context,spans:spans.map(location),variables,anchor:anchor(n),astPath:meta.get(n).route,chapter:error||isKey?9:chapter(f),note};
  }
  for(const n of nodes){if(n.type==='Literal'&&typeof n.value==='string'&&han(n.value))chinese.push({file:f,...location(n),value:n.value});if(n.type==='TemplateElement'&&han(n.value.cooked||''))chinese.push({file:f,...location(n),value:n.value.cooked});}
  const handled=new Set();
+ // Historical receipts have immutable matching keys and separately editable display
+ // segments. Export whole sentences, not isolated pieces around runtime values.
+ if(f==='游戏/content/editorial.js')for(const obj of nodes.filter(n=>n.type==='ObjectExpression')){
+  const props=new Map(obj.properties.filter(p=>p.type==='Property').map(p=>[name(p.key),p.value]));
+  if(!props.has('source')||!props.has('text'))continue;
+  const source=props.get('source'),display=props.get('text');
+  if(source.type!=='ArrayExpression'||display.type!=='ArrayExpression'||source.elements.length!==display.elements.length)throw Error('显示回执分段不符');
+  for(const field of ['source','text']){
+   const node=props.get(field),parts=node.elements;
+   if(parts.some(p=>p?.type!=='Literal'||typeof p.value!=='string'))throw Error('显示回执须为静态分段');
+   const slots=parts.slice(1).map((_,i)=>'{变量'+(i+1)+'}'),text=parts.map((p,i)=>p.value+(slots[i]||'')).join('');
+   if(field==='source')receiptSources.add(text);
+   add(f,whole,location(node),{...info(node,'display-template',text,parts),tag:field==='source'?'历史回执原文·只读':'历史回执·显示文案',anchor:'CivilEditorialText.'+props.get('id').value+'.'+field,chapter:field==='source'?9:6,displaySlots:slots,displayParts:parts.map(p=>p.value),note:field==='source'?'旧存档回放匹配原文，不得修改。玩家看到的是对应显示文案。':'仅改变显示；变量依原账本顺序填入，数量、顺序与事实须保持。'});
+   parts.forEach(p=>handled.add(p));
+  }
+ }
  // Flatten only genuine string concatenations. Branches, calls and arithmetic stay as variables.
  for(const n of nodes){
   const p=meta.get(n).parent;if(!(n.type==='BinaryExpression'&&n.operator==='+'||n.type==='TemplateLiteral'))continue;

@@ -14,7 +14,7 @@ var CivilRelief={
     const o=this.active(s,id),r=s.civilization.regions,route=r.routes[id];
     if(!r.active||o?.status!=='queued'||!this.eligible(s,id)||!route.enabled||route.condition!=='open'||CivilRegions.routeBusy(s,id)||!CivilRegions.staffedRoutes(s).has(id)||!['trade',undefined].includes(route.lastPurpose)||typeof CivilIncidents!=='undefined'&&CivilIncidents.holds(s,id))return false;
     if(Object.values(o.cargo).reduce((a,b)=>a+b,0)>route.capacity)return false;
-    const cost=CivilRegions.dispatchCost(s,id,o.cargo);if(!CivilFinance.reserveCheck(s,'home',cost)){route.status='救济等待主城物资与居民储备';return false;}
+    const cost=CivilRegions.dispatchCost(s,id,o.cargo);if(!CivilFinance.reserveCheck(s,'home',cost)){route.status='救济正候主城物资与口粮储备';return false;}
     CivilRegions.debit(s.stores,cost);const t=s.civilization.elapsed;
     const p={id:r.nextShipment++,route:id,source:'home',target:id,cargo:{...o.cargo},capacity:route.capacity,remaining:route.travel,phase:'outbound',status:'moving',purpose:'relief',reliefOrderId:o.id,legStartedAt:t,legDuration:route.travel};
     Object.assign(o,{status:'outbound',shipmentId:p.id,dispatchedAt:t,dispatchCapacity:route.capacity,travel:route.travel,preservationAtDispatch:!!s.civilization.tech.preservation,paid:{...cost}});r.shipments.push(p);route.lastPurpose='relief';route.status='救济物资在途';return true;
@@ -39,14 +39,14 @@ var CivilRelief={
     if(!this.original(s,p)||p.status!=='moving'||p.remaining!==0||s.civilization.elapsed-p.legStartedAt<p.legDuration)return false;
     const o=this.order(s,p),r=s.civilization.regions,route=r.routes[p.route],t=s.civilization.elapsed;if(route.condition!=='open')return false;
     if(o.status==='outbound'){
-      if(!this.eligible(s,o.target)){p.status='held';route.status='救济等待接收许可，可原车退回';return false;}
+      if(!this.eligible(s,o.target)){p.status='held';route.status='救济正候接收许可，可随原车退回';return false;}
       CivilRegions.credit(r.nodes[o.target].stores,o.cargo);o.status='empty';o.deliveredAt=t;route.lastSupplyAt=t;
-      Object.assign(p,{phase:'empty',source:o.target,target:'home',cargo:{},remaining:o.travel,legStartedAt:t,legDuration:o.travel});route.status='救济已交付，原车空返';return true;
+      Object.assign(p,{phase:'empty',source:o.target,target:'home',cargo:{},remaining:o.travel,legStartedAt:t,legDuration:o.travel});route.status='救济已交割，原车空返';return true;
     }
     if(o.status==='returning'){CivilRegions.credit(s.stores,o.cargo);o.status='cancelled';o.refundAt=t;}else if(o.status==='empty')o.status='complete';else return false;
     o.returnedAt=t;r.shipments=r.shipments.filter(x=>x!==p);route.dispatchIn=10;route.status=route.enabled?'等待下一趟':'已暂停';if(!route.enabled)route.assigned=0;return true;
   },
-  status(s,id){const o=this.active(s,id);return o?({queued:'救济已排队，等待原车与物资',outbound:'救济物资在途',empty:'救济已入地方仓，原车空返',returning:'未交付救济原车返仓'})[o.status]:'当前没有救济申请';},
+  status(s,id){const o=this.active(s,id);return o?({queued:'救济已排入队列，正候原车与物资',outbound:'救济物资在途',empty:'救济已入地方仓，原车空返',returning:'未交割救济随原车返仓'})[o.status]:'当前并无救济申请';},
   validate(s){
     const d=this.data(s),r=s.civilization.regions,t=s.civilization.elapsed,ships=r?.shipments||[],fail=()=>{throw Error('救济运单或货物记录无效');},int=x=>Number.isSafeInteger(x)&&x>=0&&x<=t,obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
     if(d===undefined){if(ships.some(p=>p.purpose==='relief'||p.reliefOrderId!==undefined)||Object.values(r?.routes||{}).some(p=>p.lastPurpose==='relief'))fail();return;}

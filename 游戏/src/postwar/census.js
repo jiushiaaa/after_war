@@ -37,7 +37,7 @@ var CivilCensus={
     const earth=id.startsWith('earth_')&&s.civilization.polity?.earth?.regions[id.slice(6)]?.source==='reserve'?id.slice(6):null;
     const source=earth?'reserve_'+earth:peer?'reserve_'+peer:{lake:'reserve_north',ridge:'reserve_west',estuary:'reserve_east',bridge:'reserve_north',northDistrict:'reserve_north',eastDistrict:'reserve_east'}[id],to=peer||earth?id:id==='northDistrict'?'district_north':id==='eastDistrict'?'district_east':'city_'+id,d=this.data(s);
     if(!source||!this.enabled(s)||Object.hasOwn(d.accounts,to)||!Number.isSafeInteger(count)||count<1||d.accounts[source]<count)return false;
-    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:(earth?CivilEarthContent.regions[earth].name:peer?CivilPolityForeign.peers[peer].name:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市',bridge:'桥原市',northDistrict:'北岸地区',eastDistrict:'东原地区'}[id]))+'普查细分，居民仍在当地'});return true;
+    d.accounts[source]-=count;d.accounts[to]=count;d.entries.push({at:s.civilization.elapsed,kind:'partition',from:source,to,count,reason:(earth?CivilEarthContent.regions[earth].name:peer?CivilPolityForeign.peers[peer].name:({lake:'湖滨市',ridge:'矿岭市',estuary:'河口市',bridge:'桥原市',northDistrict:'北岸地区',eastDistrict:'东原地区'}[id]))+'底账普查细分，居民仍居当地'});return true;
   },
   move(s,from,to,n,reason='迁居'){return this.record(s,'move',from,to,n,reason);},
   birth(s,to,n){return this.record(s,'birth',null,to,n,'出生');},

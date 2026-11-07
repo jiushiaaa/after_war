@@ -16,8 +16,8 @@ var CivilAccession={
   },
   obligation(s){return this.data(s)?.joinedAt!==null&&this.data(s)?1:0;},
   reason(s){
-    if(!this.available(s))return '先完成一趟双方共同护送并返城';
-    if(!CivilNation.operational(s)||!CivilDiplomacy.operational(s)||!CivilFinance.political(s))return '先恢复国家、居留公约和现有政治交接';
+    if(!this.available(s))return '请先跑完一趟双方共同护送并平安归城';
+    if(!CivilNation.operational(s)||!CivilDiplomacy.operational(s)||!CivilFinance.political(s))return '请先恢复国家共同法、居留公约与现任行政运转';
     const id=CivilCommerce.sourceId(s),n=this.source(s);return CivilOrigins.supplyReason(s,id,n.cohorts);
   },
   propose(s){
@@ -62,30 +62,30 @@ var CivilAccession={
     if(!this.operational(s))return null;const d=this.data(s),mode=this.mode(s),duties=CivilAccessionContent.duties[mode];
     return {schema:1,sourceId:d.sourceId,joinedAt:d.joinedAt,receiptAt:this.receipt(s).at,mode,charter:this.charter(s),grant:{...duties.grant},contribution:{...duties.contribution}};
   },
-  tradeReason(s){const d=this.data(s);return d?.joinedAt!==null&&d&&!this.operational(s)?'先恢复加盟共同记录、两名当地人员和连续履约；在途商队仍照常完成':null;},
+  tradeReason(s){const d=this.data(s);return d?.joinedAt!==null&&d&&!this.operational(s)?'请先恢复加盟共同记录、两名当地记录员及连续履约；已在途的商队仍照常跑完':null;},
   status(s){
-    const d=this.data(s);if(!d)return this.reason(s)||'可就共同法、地方权利与实物财政分别议约';
-    const name=CivilDiplomacy.name(d.sourceId);if(!d.approvals.source)return name+'等待当地另行批准与付款';
-    const base=name+(d.joinedAt===null?' · 加盟筹备':' · 已登记共同法，现有居民'+this.population(s)+'人仍由当地供养')+'；';
-    if(!d.enabled)return base+'共同行政暂缓，人员已释放，新公共收支与新商队暂停';
-    const r=d.records.at(-1);if(r&&!r.paid)return base+'记录人员或双方经费不足，本轮两边均未付款';
-    return base+'记录人员'+this.staff(s)+'/2，连续履约'+d.stableSeconds+'/'+this.duration(s)+'秒；'+(this.reason(s)|| (d.joinedAt!==null?(this.ready(s)?'新商队同时承担约定内公共收支':'恢复连续履约后再发新商队'):CivilCommerce.active(s)?'登记须等待原商队归来':'达标后可正式登记'));
+    const d=this.data(s);if(!d)return this.reason(s)||'可就共同法、地方自治权与实物财政分别立约';
+    const name=CivilDiplomacy.name(d.sourceId);if(!d.approvals.source)return name+'正等候当地代表另行表决并从本地仓库支取用度';
+    const base=name+(d.joinedAt===null?' · 加盟筹备':' · 已登记入共同法，在册'+this.population(s)+'位居民仍由当地自行供养')+'；';
+    if(!d.enabled)return base+'共同行政已暂缓，记录员重回普通劳力池，新增公共收支与新发商队一并暂停';
+    const r=d.records.at(-1);if(r&&!r.paid)return base+'记录员缺额或两地经费不足，本轮双方均未扣款';
+    return base+'在岗记录员'+this.staff(s)+'/2，连续履约'+d.stableSeconds+'/'+this.duration(s)+'秒；'+(this.reason(s)|| (d.joinedAt!==null?(this.ready(s)?'新发商队将一并捎带约定内的公共补助与地方贡献':'待恢复连续履约后再发新商队'):CivilCommerce.active(s)?'正式登记须等在途的原商车归城':'筹备达标后即可正式登记'));
   },
   event(id,done){
-    if(id!=='accessionCharter')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'当前供养、人员或共同记录已经变化，未执行。')();
-    if(!d)buttons.propose={text:'本城实付议约',nextScene:'end',onChoose:()=>finish(this.propose(s),'本城已支付议事费用。来源仍须另行批准并从自己的仓库付款。')};
-    else if(!d.approvals.source)buttons.approve={text:'来源实付批准',nextScene:'end',onChoose:()=>finish(this.approve(s),'来源已付款，实际居民开始承担共同记录。人口与仓库继续留在原地。')};
+    if(id!=='accessionCharter')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'眼下供养、在岗人手或共同记录已有变动，本次未执行。')();
+    if(!d)buttons.propose={text:'本城实付议约',nextScene:'end',onChoose:()=>finish(this.propose(s),'本城已付清议事用度。仍须等来源地另行批准，并从其自家仓库支取份额。')};
+    else if(!d.approvals.source)buttons.approve={text:'来源实付批准',nextScene:'end',onChoose:()=>finish(this.approve(s),'来源地已支取用度，并抽调当地居民接手共同记录。当地户籍与仓库照旧留在原处。')};
     else {
-      if(d.joinedAt===null&&this.ready(s)&&!CivilCommerce.active(s))buttons.join={text:'登记共同法加盟',nextScene:'end',onChoose:()=>finish(this.join(s),'当地现有居民进入共同法，继续由原住房、生产与仓库供养。新商队开始承担约定内公共补助与地方贡献。')};
-      buttons.toggle={text:d.enabled?'暂缓共同行政预算':'恢复共同行政预算',nextScene:'end',onChoose:()=>finish(this.toggle(s,!d.enabled),'预算安排已变更，现有人口、加盟历史和已发出的实物承诺保留。恢复后重新核对连续履约。')};
+      if(d.joinedAt===null&&this.ready(s)&&!CivilCommerce.active(s))buttons.join={text:'登记共同法加盟',nextScene:'end',onChoose:()=>finish(this.join(s),'当地在册居民正式纳入共同法，日常仍靠原有的房舍、田亩与仓库自给自足。此后发出的商队将顺道捎带约定内的公共补助与地方贡献。')};
+      buttons.toggle={text:d.enabled?'暂缓共同行政预算':'恢复共同行政预算',nextScene:'end',onChoose:()=>finish(this.toggle(s,!d.enabled),'预算安排已变更，在册人口、加盟历史与已发出的随车物资承诺照旧保留。恢复预算后将重新核算连续履约时间。')};
     }
-    buttons.close={text:'合上加盟议约',nextScene:'end',onChoose:done('共同法、当地名册与在途实物继续分别记账。')};
+    buttons.close={text:'合上加盟议约',nextScene:'end',onChoose:done('共同法总册、当地户籍与在途货单继续分立记账。')};
     const f=this.fee(this.mode(s),this.charter(s)),duties=CivilAccessionContent.duties[this.mode(s)],fmt=x=>CivilHistory.costText(x);
     const text=[this.status(s)+'。'];
-    if(!d||!d.approvals.source)text.push('议约：本城知识150、木40、工具8；来源另付知识100、木40、工具8。当地两名现有成人记账，连续'+this.duration(s)+'秒后登记。');
-    text.push('每10秒本城 '+fmt(f.home)+'；来源 '+fmt(f.source)+'。缺款双方都不扣。'+(this.mode(s)==='local'?'地方分担行政，协调+2。':'中央多承担行政，协调+1。')+'加盟占1份协调。');
-    text.push('每趟另送 '+fmt(duties.grant)+'，另回 '+fmt(duties.contribution)+'；到货入仓，失败原货返回。'+(this.mode(s)==='local'?'若改中央：补助药2/工具1、贡献粮24。':'若改地方：补助药4/工具2、贡献粮12。'));
-    text.push('履约后迁居不受批次总额限制；仍按原留守、旅费、车辆、供养和床位核对。');
+    if(!d||!d.approvals.source)text.push('立约需支取：本城知识150、木40、工具8；来源地另出知识100、木40、工具8。由当地抽调两名成年人专职记账，连续履约满'+this.duration(s)+'秒后方可正式登记。');
+    text.push('每10秒日常开支：本城 '+fmt(f.home)+'；来源地 '+fmt(f.source)+'。任一方不足则当轮两头皆不划扣。'+(this.mode(s)==='local'?'实行地方自治：由地方分担更多记录事务，协调上限+2。':'实行中央统筹：由本城多担行政开支，协调上限+1。')+'加盟需占用1份协调容量。');
+    text.push('每趟商车另捎去公共补助 '+fmt(duties.grant)+'，返程带回地方贡献 '+fmt(duties.contribution)+'；货抵原仓方才入账，若中途折返则原货退回。'+(this.mode(s)==='local'?'若改行中央统筹：每趟补助药2/工具1、回交贡献粮24。':'若改行地方自治：每趟补助药4/工具2、回交贡献粮12。'));
+    text.push('正常履约期间，当地外迁不再受批次协议总额度限制；但每次发车仍须核验留守底线、旅费、车组、目的地供养与空床。');
     return {title:'聚居圈的共同法加盟',text,buttons};
   },
   refresh(){

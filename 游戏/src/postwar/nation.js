@@ -16,11 +16,11 @@ var CivilNation={
   costs(s){const n=this.data(s),fee=this.fee(this.mode(s),this.charter(s));return n&&fee&&n.members.every(id=>n.approvals[id])?Object.fromEntries(n.members.map(id=>[id,{...(id==='home'?fee.home:fee.local)}])):{};},
   political(s){return CivilFinance.political(s)&&!s.civilization.finance.revision;},
   reason(s){
-    if(!this.available(s))return '先登记城市群共同职责';
-    if(!this.political(s))return '先完成现有继任、改制或互助公示';
-    if(!['federation','empire'].includes(s.civilization.society.axes.structure))return '先在共同体边界议决中选择联邦或帝国结构';
-    if(!Object.hasOwn(this.charters,this.charter(s)))return '先议定权力约束，明确共同法的依据';
-    if(this.data(s)&&!this.same(s.civilization.metro.members,this.data(s).members))return '恢复签约三城的共同互助成员';
+    if(!this.available(s))return '请先登记城市群共同职责';
+    if(!this.political(s))return '请先完成眼下的换届交接、变法或互助公示';
+    if(!['federation','empire'].includes(s.civilization.society.axes.structure))return '请先在“共同体的边界”议决中改选联邦或帝国架构';
+    if(!Object.hasOwn(this.charters,this.charter(s)))return '请先议定“权力的界限”，立下共同法的根基';
+    if(this.data(s)&&!this.same(s.civilization.metro.members,this.data(s).members))return '请先恢复签约三城的共同互助成员身份';
     return CivilMetro.check(s).reason;
   },
   propose(s){
@@ -59,26 +59,26 @@ var CivilNation={
   capacityBonus(s){return this.operational(s)?this.charters[this.charter(s)][this.mode(s)]:0;},
   population(s){const n=this.data(s);return n?n.members.reduce((sum,id)=>sum+CivilFinance.population(s,id),0)+(typeof CivilAccession!=='undefined'?CivilAccession.population(s):0)+(typeof CivilFrontier!=='undefined'?CivilFrontier.population(s):0)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0)+(typeof CivilWorld!=='undefined'?CivilWorld.population(s):0):0;},
   status(s){
-    const n=this.data(s);if(!n)return this.reason(s)||'三城可以提出共同法与国家宪章';
-    const waiting=n.members.filter(id=>!n.approvals[id]);if(waiting.length)return '等待'+waiting.map(id=>CivilMetro.name(id)).join('、')+'付费议约';
-    const r=n.records.at(-1);if(r?.missing.length)return r.missing.map(id=>CivilMetro.name(id)).join('、')+'国家经费不足；未扣除其他城市的本轮费用';
-    if(n.foundedAt===null)return '筹备连续供养与共同记录 '+n.stableSeconds+' / '+this.charters[this.charter(s)].duration+'秒。'+(this.reason(s)||'条件正在维持');
+    const n=this.data(s);if(!n)return this.reason(s)||'三城已具备提出国家共同法与宪章的条件';
+    const waiting=n.members.filter(id=>!n.approvals[id]);if(waiting.length)return '正等候'+waiting.map(id=>CivilMetro.name(id)).join('、')+'支取用度完成议约';
+    const r=n.records.at(-1);if(r?.missing.length)return r.missing.map(id=>CivilMetro.name(id)).join('、')+'国家经费不足；本轮未划扣其余城市的经费';
+    if(n.foundedAt===null)return '连续维持供养与共同记录 '+n.stableSeconds+' / '+this.charters[this.charter(s)].duration+'秒。'+(this.reason(s)||'各项条件平稳维系中');
     const standing='国家合法性 '+Number(n.legitimacy.toFixed(2))+' / 100；';
-    if(this.operational(s))return standing+'共同法正常运作，国家协调容量 +'+this.capacityBonus(s)+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'；共同法登记'+this.population(s)+'人，含当地自养的加盟居民'+(CivilAccession.population(s)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0))+'人':'');
-    if(r?.service&&s.civilization.elapsed-r.at<=10&&n.legitimacy<40)return standing+'经费与供养已恢复；认可达到40后恢复国家协调。正常轮次持续恢复认可';
-    return standing+'共同法暂缓执行；'+(this.reason(s)||'等待下一轮实际供养与共同记录核验')+'。恢复后逐轮重建认可';
+    if(this.operational(s))return standing+'共同法正常运转，国家协调容量 +'+this.capacityBonus(s)+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'；共同法在册共'+this.population(s)+'人（含由当地自养的加盟居民'+(CivilAccession.population(s)+(typeof CivilPartnership!=='undefined'?CivilPartnership.population(s):0))+'人）':'');
+    if(r?.service&&s.civilization.elapsed-r.at<=10&&n.legitimacy<40)return standing+'经费与供养已恢复；待认可度回升至40后即可恢复国家协调加成。正常履约轮次将逐轮回升认可度';
+    return standing+'共同法暂缓执行；'+(this.reason(s)||'等候下一轮供养与共同记录核验')+'。待条件恢复后将逐轮重塑认可度';
   },
   event(id,done){
     if(id!=='nationCharter')return null;const s=State,n=this.data(s),mode=this.mode(s),profile=this.charters[this.charter(s)],fee=this.fee(mode,this.charter(s)),fmt=cost=>CivilHistory.costText(cost),buttons={};
-    const finish=(ok,text)=>done(ok?text:'条件已经变化，本次未执行。请核对三城记录和费用。')();
-    if(!n)buttons.propose={text:'提出国家'+(this.charter(s)==='custom'?'盟约':'宪章')+'（本城实付）',nextScene:'end',onChoose:()=>finish(this.propose(s),'本城已支付建档与议事费用。另两城仍须各自同意并支付费用。')};
+    const finish=(ok,text)=>done(ok?text:'条件已有变动，本次未执行。请核对三城账册与经费存量。')();
+    if(!n)buttons.propose={text:'提出国家'+(this.charter(s)==='custom'?'盟约':'宪章')+'（本城实付）',nextScene:'end',onChoose:()=>finish(this.propose(s),'本城已付清建档与议事用度。其余两城仍须各自表决同意并从当地公仓支取费用。')};
     else if(n.foundedAt===null){
-      for(const member of n.members.filter(x=>!n.approvals[x]))buttons['approve_'+member]={text:CivilMetro.name(member)+'议约并支付',nextScene:'end',onChoose:()=>finish(this.approve(s,member),CivilMetro.name(member)+'同意共同法，已从当地仓支付建档费用。')};
-      if(this.canFound(s))buttons.found={text:'批准国家'+(this.charter(s)==='custom'?'盟约':'宪章'),nextScene:'end',onChoose:()=>finish(this.found(s),'三城批准国家共同法。共同通行、公共记录与跨城争端进入共同法；各城继续管理自己的供养与资产。国家经费仍需逐轮支付。')};
+      for(const member of n.members.filter(x=>!n.approvals[x]))buttons['approve_'+member]={text:CivilMetro.name(member)+'议约并支付',nextScene:'end',onChoose:()=>finish(this.approve(s,member),CivilMetro.name(member)+'赞成国家共同法，已从当地公仓付清建档费用。')};
+      if(this.canFound(s))buttons.found={text:'批准国家'+(this.charter(s)==='custom'?'盟约':'宪章'),nextScene:'end',onChoose:()=>finish(this.found(s),'三城正式批准国家共同法。跨城通行、公共账册与城际争端裁决自此纳入国法；各城照旧自管本地供养与家底。国家日常经费仍须按轮支取。')};
     }
-    buttons.close={text:'合上国家议约',nextScene:'end',onChoose:done('国家议约与各城账册留在议事屋。')};
+    buttons.close={text:'合上国家议约',nextScene:'end',onChoose:done('国家议约与各城账册留存议事屋案头。')};
     const axes=s.civilization.society.axes,system=Object.entries(axes).map(([axis,value])=>CivilSociety.axes[axis].choices[value].name).join(' · ');
-    return {title:n?.foundedAt!==null&&n?'国家共同法':'三城的国家'+(this.charter(s)==='custom'?'盟约':'宪章'),text:[this.status(s)+'。','采用当前制度：'+system+'。可先在议事屋四轴入口付费改议；以后的合法改革也会改变持续职责费用。','成立准备：本城 '+fmt(this.approvalCost('home'))+'；另两城各 '+fmt(this.approvalCost('local'))+'。这是实际议事与建档支出，不会生成另一份中央库存。','每10秒国家公共记录费用：本城 '+fmt(fee.home)+'；另两城各 '+fmt(fee.local)+'。三城都能付款才执行当轮支出。',mode==='central'?'中央统筹跨城通行、争端登记与共同调度，正常治理增加'+profile.central+'份协调容量；地方保管资产，承担本地粮药、水务、教学与生产。':'地方自治保留本地公共预算和供养决策，并分担共同议事费用；中央只负责共同通行、争端登记与约定内协调，正常治理增加'+profile.local+'份协调容量。',profile.name+'：连续筹备'+profile.duration+'秒；正常认可每轮+'+profile.gain+'，失效-'+profile.loss+'。惯例减少知识记录，增加实物联络与调停开支；成文宪章提高持续记录和协调能力。','共同法须持续供养和履约。欠费、断供或未完成的制度交接使治理暂缓，认可逐轮下降；恢复后逐轮回升。成立历史、各城资产和既有约定不会因换届清空。'],buttons};
+    return {title:n?.foundedAt!==null&&n?'国家共同法':'三城的国家'+(this.charter(s)==='custom'?'盟约':'宪章'),text:[this.status(s)+'。','沿用现行制度：'+system+'。可先在议事屋四轴制度处支取知识动议改制；日后的每一次合法变法，亦会联动调整国家的日常职责开支。','立国筹备：本城需出 '+fmt(this.approvalCost('home'))+'；其余两城各出 '+fmt(this.approvalCost('local'))+'。此项为建档与会务实支，不会凭空生出一座中央仓库。','每10秒国家公共记录开支：本城 '+fmt(fee.home)+'；其余两城各 '+fmt(fee.local)+'。须三城公仓皆够支取，当轮方才划扣。',mode==='central'?'中央统筹跨城通行、争端裁决与共同调度，正常运转时增加'+profile.central+'份协调容量；各城自管公仓家底，自担本地粮药、水务、学堂与工坊运转。':'地方自治保留各城公共预算与供养自主权，并分担共同议事开支；中央仅掌管跨城通行、争端裁决与约定内的协调，正常运转时增加'+profile.local+'份协调容量。',profile.name+'：需连续筹备'+profile.duration+'秒；正常运转每轮认可+'+profile.gain+'，停摆-'+profile.loss+'。依惯例治理可省下纸面记录，但会增加实物联络与调停耗材；成文宪章则需更多持续记录，以换取更高的协调上限。','共同法仰仗各城持续供养与履约。一旦欠费、断供或换届交接卡壳，国家治理便会暂缓，认可度逐轮跌落；待补齐缺口后方会逐轮回升。立国历史、各城家底与已签条约不会因换届而抹去。'],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;

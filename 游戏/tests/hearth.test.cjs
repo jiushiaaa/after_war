@@ -66,8 +66,8 @@ test('town hearth controls fold once, preserve the native buttons and reveal sho
   const h=harness(),nodes=dom(h.ctx),light=nodes.get('#lightButton'),stoke=nodes.get('#stokeButton'),before=JSON.stringify(h.s);stoke.originalAction=h.ctx.Room.stokeFire;
   h.ctx.CivilHearth.refresh(h.s);assert.equal(nodes.has('#hearthManagement'),false);assert.match(nodes.get('#hearthNote').value,/工匠已接手/);assert.equal(JSON.stringify(h.s),before);
   h.s.civilization.village.town=true;h.ctx.CivilHearth.refresh(h.s);const details=nodes.get('#hearthManagement');assert.equal(details.attrs.open,undefined);assert.equal(light.parent,nodes.get('#hearthControls'));assert.equal(stoke.parent,nodes.get('#hearthControls'));assert.equal(stoke.originalAction,h.ctx.Room.stokeFire);
-  h.s.stores.wood=.5;h.ctx.CivilHearth.refresh(h.s);assert.match(nodes.get('#hearthSummary').value,/守火缺木/);assert.equal(details.attrs.open,undefined);assert.equal(nodes.get('#hearthSummary').style.fontWeight,'bold');
-  details.attr('open','open');h.s.civilization.urban.city=true;h.s.game.fire.value=0;h.ctx.CivilHearth.refresh(h.s);assert.equal(details.attrs.open,'open');assert.match(nodes.get('#hearthSummary').value,/旧维修间炉火.*炉火已熄/);assert.match(nodes.get('#hearthNote').value,/发电机供应工区和公用设施/);assert.equal(nodes.get('#hearthControls').children.filter(x=>x===stoke).length,1);
+  h.s.stores.wood=.5;h.ctx.CivilHearth.refresh(h.s);assert.match(nodes.get('#hearthSummary').value,/守火缺柴/);assert.equal(details.attrs.open,undefined);assert.equal(nodes.get('#hearthSummary').style.fontWeight,'bold');
+  details.attr('open','open');h.s.civilization.urban.city=true;h.s.game.fire.value=0;h.ctx.CivilHearth.refresh(h.s);assert.equal(details.attrs.open,'open');assert.match(nodes.get('#hearthSummary').value,/旧维修间炉火.*炉火已熄/);assert.match(nodes.get('#hearthNote').value,/发电机优先供应工区与公用设施/);assert.equal(nodes.get('#hearthControls').children.filter(x=>x===stoke).length,1);
 });
 
 // Isolated native-room transition fixture: construction and paid electrical

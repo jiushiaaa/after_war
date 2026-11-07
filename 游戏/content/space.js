@@ -12,18 +12,18 @@ Object.assign(CivilText.labels,{spaceparts:'航天组件',lifesupport:'生命保
 Object.assign(CivilServiceContent.jobs,{aerospaceworker:'航天装配工',biosystemworker:'生命保障技师',missionworker:'航天测控人员'});
 Object.assign(CivilCatalog.jobs,CivilServiceContent.jobs);
 Object.assign(CivilServiceContent.facilities,{
-  globalfleet:{name:'远洋与全地形勤务船队',homeOnly:true,paidWork:true,requires:['ocean_navigation'],cost:{steel:300,parts:160,precisionparts:80,electronics:60,robots:8},duration:900,max:1,jobs:{},hint:'国家勤务站的六名人员使用该船队前往剩余五区；每次出发仍实付旅费。'},
-  spaceworks:{name:'航天制造车间',homeOnly:true,paidWork:true,requires:['space_manufacturing'],cost:{steel:240,precisionparts:120,electronics:100,robots:8},duration:900,max:2,jobs:{aerospaceworker:2},hint:'每名装配工每10秒耗6电、钢1、精密件0.5、电子件0.3，制0.1航天组件。'},
-  bioworks:{name:'生命保障车间',homeOnly:true,paidWork:true,requires:['closed_ecology'],cost:{steel:160,glass:100,chemicals:100,precisionparts:60,electronics:60},duration:900,max:2,jobs:{biosystemworker:2},hint:'每名技师每10秒耗4电、化学品0.5、药品0.2、玻璃0.3、精密件0.2，制0.1生命保障组件。'},
-  spaceport:{name:'航天发射与测控场',homeOnly:true,paidWork:true,requires:['space_manufacturing'],cost:{steel:400,parts:200,precisionparts:120,electronics:160,robots:12},duration:1200,max:1,jobs:{missionworker:4},hint:'四名现有居民负责测控。试验与发射准备需另留12电；停止部分装配可以让出电力。'}
+  globalfleet:{name:'远洋与全地形勤务船队',homeOnly:true,paidWork:true,requires:['ocean_navigation'],cost:{steel:300,parts:160,precisionparts:80,electronics:60,robots:8},duration:900,max:1,jobs:{},hint:'国家勤务站的六名专员搭乘该船队开赴其余五大区；每次开拔均据实核扣在途旅费。'},
+  spaceworks:{name:'航天制造车间',homeOnly:true,paidWork:true,requires:['space_manufacturing'],cost:{steel:240,precisionparts:120,electronics:100,robots:8},duration:900,max:2,jobs:{aerospaceworker:2},hint:'每名装配工每10秒消耗电6、钢1、精密件0.5、电子件0.3，产出0.1航天组件。'},
+  bioworks:{name:'生命保障车间',homeOnly:true,paidWork:true,requires:['closed_ecology'],cost:{steel:160,glass:100,chemicals:100,precisionparts:60,electronics:60},duration:900,max:2,jobs:{biosystemworker:2},hint:'每名技师每10秒消耗电4、化学品0.5、药品0.2、玻璃0.3、精密件0.2，产出0.1生命保障组件。'},
+  spaceport:{name:'航天发射与测控场',homeOnly:true,paidWork:true,requires:['space_manufacturing'],cost:{steel:400,parts:200,precisionparts:120,electronics:160,robots:12},duration:1200,max:1,jobs:{missionworker:4},hint:'四名在籍居民专职负责测控。系统试验与发射前置须额外预留地面电12；停用部分装配车间可释放电力配额。'}
 });
 Object.assign(CivilPrecisionContent.recipes,{
   aerospaceworker:{facility:'spaceworks',tech:'space_manufacturing',power:6,cost:{steel:1,precisionparts:.5,electronics:.3},output:{spaceparts:.1}},
   biosystemworker:{facility:'bioworks',tech:'closed_ecology',power:4,cost:{chemicals:.5,medicine:.2,glass:.3,precisionparts:.2},output:{lifesupport:.1}}
 });
 Object.assign(CivilText.research,{
-  ocean_navigation:{name:'远洋与全地形运输',requires:['orbital_survey','national_logistics'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:900,steel:180,parts:100,electronics:80},duration:900,done:'航道与陆海接驳标准完成。街区加工可建勤务船队，开启大洋与远域通路。'},
-  ecological_recovery:{name:'大区生态修复',requires:['orbital_survey','chemistry','water'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:900,chemicals:160,medicine:80,electronics:60},duration:900,done:'耐污净水与变异生态调查形成公共标准。赤道雨带和内陆荒漠的联络条件已具备，仍需船队、人员和实际援助。'},
-  space_manufacturing:{name:'航天制造',requires:['orbital_survey','automation'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:1400,steel:200,precisionparts:160,electronics:120,robots:8},duration:1200,done:'航天制造标准完成。街区加工可建航天车间与发射测控场；实际组件必须生产，南部高原开放技术联络。'},
-  closed_ecology:{name:'闭环生命保障',requires:['ecological_recovery','space_manufacturing'],discover:s=>!!s.civilization.tech.space_manufacturing,cost:{knowledge:1200,chemicals:180,medicine:100,glass:100,electronics:80},duration:1200,done:'气水循环与生物培养工艺完成。可建生命保障车间、联络极地托管区，并在议事屋进行实物试验。'}
+  ocean_navigation:{name:'远洋与全地形运输',requires:['orbital_survey','national_logistics'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:900,steel:180,parts:100,electronics:80},duration:900,done:'全天候航道与陆海接驳规程制定完毕。街区工坊获准修造远洋勤务船队，打通深海与荒陆交通要道。'},
+  ecological_recovery:{name:'大区生态修复',requires:['orbital_survey','chemistry','water'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:900,chemicals:160,medicine:80,electronics:60},duration:900,done:'耐污染净水技术与变异生态测绘形成全域规范。联络赤道雨带与内陆戈壁的前置条件已然齐备，后续仍需船队、人手与实物援助支持。'},
+  space_manufacturing:{name:'航天制造',requires:['orbital_survey','automation'],discover:s=>!!s.civilization.tech.orbital_survey,cost:{knowledge:1400,steel:200,precisionparts:160,electronics:120,robots:8},duration:1200,done:'近地轨道制造工艺规程编撰完成。街区获准扩建航天车间与发射测控阵列；必须实际生产组件，南部高原同步开放技术交互。'},
+  closed_ecology:{name:'闭环生命保障',requires:['ecological_recovery','space_manufacturing'],discover:s=>!!s.civilization.tech.space_manufacturing,cost:{knowledge:1200,chemicals:180,medicine:100,glass:100,electronics:80},duration:1200,done:'密闭气水循环与受控生态培育工艺结项。可动工修筑生命保障车间、联络极地遗产托管区，并在议事屋展开实体密闭试验。'}
 });

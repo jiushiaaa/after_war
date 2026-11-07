@@ -40,15 +40,15 @@ var CivilCityInstitutions = {
     CivilRules.pay(s,this.charter.home);
     const d=CivilCity.data(s);d.institutions={schema:1,at,paid:JSON.parse(JSON.stringify(this.charter)),wards,home:{enabled:false,mode:'reserves',lastAt:null,records:[],changes:[]}};
     for(const [id] of CivilCity.members(s))this.register(s,id);
-    CivilCity.note(s,'policy','home','城市公署登记了现任教员与公共职责。培训占用真实居民和教具；原镇调度须另行授权，可随时停止。');
+    CivilCity.note(s,'policy','home','城市公署将现任教员与公共权责登记在案。开班培训需抽调在册居民并耗用教具；原镇日常排班需另行授权，且可随时叫停。');
     return true;
   },
   registrationReason(s,id){
     const n=CivilCity.data(s)?.wards[id];
     if(!this.data(s))return '先筹设城市公署';
     if(this.local(s,id))return '本片区已登记';
-    if(!n||n.joinedAt===null)return '先接入公共服务网络';
-    if(n.stable<120)return '先使本片区公共服务稳定';
+    if(!n||n.joinedAt===null)return '先并入公共服务网络';
+    if(n.stable<120)return '先稳住本片区的公共服务';
     return CivilRules.canPay({stores:n.stores},this.charter.local)?null:'当地公仓尚缺木80、工具12、知识30';
   },
   register(s,id){
@@ -65,11 +65,11 @@ var CivilCityInstitutions = {
   trainingReason(s,id,subject){
     const x=this.local(s,id),n=CivilCity.data(s)?.wards[id];
     if(!x||!Object.hasOwn(this.subjects,subject))return '先登记城市公署';
-    if(x.training)return '当前培训尚未结束';
-    if(this.trained(s,id,subject)<2&&(n.workers.teacher||0)<2)return '需要两名专业教员或学堂教师';
-    if(CivilPopulation.count(this.candidates(s,id,24))<24)return '尚缺24名未登记专业资格的青年成人';
+    if(x.training)return '当前培训班尚未结业';
+    if(this.trained(s,id,subject)<2&&(n.workers.teacher||0)<2)return '需有两名专业教员或学堂教师授课';
+    if(CivilPopulation.count(this.candidates(s,id,24))<24)return '尚缺24名未取得专业资格的青年劳力';
     if(!n.economy?.ate||!n.economy?.educated||n.economy.water<CivilCity.count(n))return '先恢复口粮、儿童课堂与供水';
-    if((n.economy?.idle||0)<26)return '须为24名学员和2名教员留出劳力';
+    if((n.economy?.idle||0)<26)return '须腾出24名学员与2名教员的脱产人手';
     return CivilRules.canPay({stores:n.stores},this.enrollment)?null:'当地公仓尚缺12工具、30知识';
   },
   enroll(s,id,subject){
@@ -78,13 +78,13 @@ var CivilCityInstitutions = {
     CivilCity.pay(n,this.enrollment);
     const required=this.trained(s,id,subject)>=2?30:60;
     x.training={id:x.nextCourse++,subject,startedAt:s.civilization.elapsed,cohorts,rounds:0,required,paid:{...this.enrollment,food:0},lastAt:null};
-    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'开设'+this.subjects[subject]+'培训：24名学员与2名教员离开常规岗位，完成'+required+'次实付课程后取得资格。');return true;
+    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'开办'+this.subjects[subject]+'培训班：24名学员与2名教员暂离常设岗位，修满'+required+'次课程后即可取得专业资格。');return true;
   },
   cancelTraining(s,id){
     const x=this.local(s,id);if(!x?.training)return false;
     x.courses.push({...x.training,endedAt:s.civilization.elapsed,result:'cancelled'});x.training=null;
     if(x.schoolEnabled)this.delegateSchool(s,id,false);
-    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'停止本期培训与自动补员；居民返回可用劳力，已使用的教具不退还。');return true;
+    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'叫停了本期培训与自动补员；脱产人员重回可用劳力池，已耗用的教具不予退回。');return true;
   },
   delegateSchool(s,id,enabled){
     const x=this.local(s,id);if(!x||typeof enabled!=='boolean'||!!x.schoolEnabled===enabled)return false;
@@ -121,15 +121,15 @@ var CivilCityInstitutions = {
   settingReason(s,id,key,value){
     const x=this.local(s,id),n=CivilCity.data(s)?.wards[id];if(!x)return '本片区尚未登记机构';
     if(key==='profile'&&!Object.hasOwn(this.profiles,value)||key==='careMethod'&&!['basic','clinical'].includes(value)||!['profile','careMethod'].includes(key))return '无此生产安排';
-    if(x[key]===value)return '当前已经采用';
-    if(key==='careMethod'&&value==='clinical'&&(!s.civilization.tech.sanitation||this.trained(s,id,'care')<2))return '先完成公共卫生并培养两名临床人员';
-    return CivilRules.canPay({stores:n.stores},this.settingCost(key))?null:'当地缺少调岗物资；先恢复调运或从原镇援助';
+    if(x[key]===value)return '当前已采用此安排';
+    if(key==='careMethod'&&value==='clinical'&&(!s.civilization.tech.sanitation||this.trained(s,id,'care')<2))return '先完成公共卫生研究并培养至少两名临床人员';
+    return CivilRules.canPay({stores:n.stores},this.settingCost(key))?null:'当地缺少调岗物资；请先恢复调运或从原镇派车援助';
   },
   set(s,id,key,value){
     if(this.settingReason(s,id,key,value))return false;
     const x=this.local(s,id),n=CivilCity.data(s).wards[id],paid=this.settingCost(key);CivilCity.pay(n,paid);
     x.changes.push({at:s.civilization.elapsed,key,value,paid});x[key]=value;
-    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'改为'+(key==='profile'?this.profiles[value]:value==='clinical'?'临床制药':'基础配药')+'，调岗与校准物资已实付。');return true;
+    CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'切换为'+(key==='profile'?this.profiles[value]:value==='clinical'?'临床制药':'基础配药')+'，调岗与工序校准耗材已付清。');return true;
   },
   plan(s,id,slots,want){
     const x=this.local(s,id);if(!x)return {apprentice:0,tutor:0,clerk:0};
@@ -199,7 +199,7 @@ var CivilCityInstitutions = {
       const cohorts=this.aged(t.cohorts,t.startedAt,s.civilization.elapsed);
       x.certificates.push({subject:t.subject,at:s.civilization.elapsed,source:t.id,cohorts});
       x.courses.push({...t,endedAt:s.civilization.elapsed,result:'completed'});x.training=null;
-      CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'的'+CivilPopulation.count(cohorts)+'名居民完成'+this.subjects[t.subject]+'培训。他们没有增加人口，可以承担相应专业岗位。');
+      CivilCity.note(s,'policy',id,CivilCityContent.wards[id].name+'的'+CivilPopulation.count(cohorts)+'名居民从'+this.subjects[t.subject]+'培训班结业。他们仍是原来的街坊，只是从此能挑起对应的专业担子了。');
     }
   },
   homeMode(s,mode){
@@ -209,7 +209,7 @@ var CivilCityInstitutions = {
   delegate(s,enabled){
     const h=this.data(s)?.home;if(!h||typeof enabled!=='boolean'||h.enabled===enabled)return false;
     h.enabled=enabled;if(typeof CivilCityContinuity!=='undefined'&&CivilCityContinuity.data(s))CivilSociety.trimJobs(s);h.changes.push({at:s.civilization.elapsed,kind:'enabled',value:enabled});
-    CivilCity.note(s,'policy','home',enabled?'原镇例行岗位交给公署：每60秒检查供养与岗位，并实付办公开支。工程、研究、法律与对外决定仍由共同体决定。':'原镇岗位委托已暂停，保留当前岗位安排。');return true;
+    CivilCity.note(s,'policy','home',enabled?'原镇例行排班已交由公署代管：每60秒核验一次供养与工位，并支取办公耗材。大宗工程、科技立项、法度兴革与对外决断仍由你拍板。':'原镇排班委托已暂停，维持眼下的岗位分配。');return true;
   },
   manual(s){if(this.data(s)?.home.enabled)this.delegate(s,false);},
   industrialHome(s){

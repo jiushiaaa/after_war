@@ -6,7 +6,7 @@ const raw=JSON.parse(zlib.gunzipSync(Buffer.from(envelope.data,'base64'))).state
 function create(){const h=harness(raw);h.ic=h.ctx.CivilIntercity;
   // Synthetic prebuilt archive extension, with its actual construction debit.
   // Natural acceptance separately builds this through the original Room UI.
-  assert.equal(h.ic.sign(h.s),false);assert.match(h.ic.reason(h.s),/档案室/);
+  assert.equal(h.ic.sign(h.s),false);assert.match(h.ic.reason(h.s),/行政档案馆/);
   assert.equal(h.ctx.CivilRules.pay(h.s,h.r.buildings.archive.cost()),true);h.s.game.buildings.archive++;
   h.step(10);return h;
 }
@@ -33,7 +33,7 @@ test('legacy state remains unchanged; three treasuries sign atomically and consu
 test('one shared caravan carries real city goods through save/reload and releases only after physical return',()=>{
   let h=audit(create()),o=start(h);const asset=h.ctx.CivilCommerce.asset(h.s).id;
   assert.equal(o.assetId,asset);assert.equal(h.ctx.CivilCommerce.reservedTransport(h.s),2);
-  assert.match(h.ctx.CivilFrontier.reason(h.s,'scout'),/原车/);
+  assert.match(h.ctx.CivilFrontier.reason(h.s,'scout'),/原商车/);
   assert.equal(h.ic.cancel(h.s),true);h=audit(h.roundtrip());h.ic=h.ctx.CivilIntercity;o=h.ic.active(h.s);
   h.until(()=>o.phase==='pickup',100);const rail=h.s.civilization.regions.nodes.rail,river=h.s.civilization.regions.nodes.river,parts=rail.stores.parts;
   h.step(1);assert.equal(o.phase,'market');near(rail.stores.parts,parts-24);assert.deepEqual(clone(o.cargo),{parts:24});

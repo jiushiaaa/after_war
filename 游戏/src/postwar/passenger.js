@@ -59,29 +59,29 @@ var CivilPassenger={
     const u=CivilUrban,c=s.civilization,x=c.urban;
     const fail=reason=>({reason}),meta=c.passenger;
     if(!meta||c.elapsed<meta.legacyReadyAt||meta.lastDepartureAt!==null&&c.elapsed-meta.lastDepartureAt<120)return fail('等待下一批次启程');
-    if(!s.game.buildings.cartdepot||!c.tech.logistics)return fail('接纳需要车队场与运输组织');
-    if(x.parties.length>=2||this.availableWorkers(s)<2)return fail('等待完整运输班组与返程车队');
-    if(!u.canAcceptTarget(s,target))return fail('目的地尚未同意接纳安排');
-    if(typeof CivilIncidents!=='undefined'&&CivilIncidents.holds(s,target))return fail(u.targetName(s,target)+'暂停新迁居出发，等道路检修');
+    if(!s.game.buildings.cartdepot||!c.tech.logistics)return fail('批次接纳需先建成车队场并掌握运输组织');
+    if(x.parties.length>=2||this.availableWorkers(s)<2)return fail('等待配齐运输班组与返程车队');
+    if(!u.canAcceptTarget(s,target))return fail('目的地尚未准许接纳安排');
+    if(typeof CivilIncidents!=='undefined'&&CivilIncidents.holds(s,target))return fail(u.targetName(s,target)+'暂停新迁居队出发，等待道路检修');
     if(!u.roadOpen(s,target))return fail(u.targetName(s,target)+'的接纳道路中断或待维护');
-    const beds=u.availableBeds(s,target);if(!beds)return fail(u.targetName(s,target)+'等待空余床位');
+    const beds=u.availableBeds(s,target);if(!beds)return fail(u.targetName(s,target)+'等待腾出空余床位');
     const asset=this.availableAsset(s),large=preference==='auto'&&!!c.tech.passenger_transport&&!!asset&&this.availableWorkers(s)>=4;
-    let reason='来源暂不能安排这批迁居',largeReason=!asset?'扩容装备正忙或尚未建成':this.availableWorkers(s)<4?'尚缺四名空闲运输工':'目的地或来源仅能接纳小家庭';
+    let reason='来源地暂无法安排本批迁居',largeReason=!asset?'迁居车组装备在途或尚未建成':this.availableWorkers(s)<4?'尚缺四名空闲的运输工':'目的地或来源地眼下仅能接纳小队规模';
     const profiles=large?['road24','road8']:['road8'];
     for(const profile of profiles){
       const d=CivilPassengerContent.profiles[profile];
       for(let wanted=Math.min(d.capacity,beds);wanted>=(profile==='road24'?9:1);wanted--){
         const q=u.quote(s,source,wanted,'convoy',d.capacity);
-        if(!q){reason=source==='dispersed'?'登记的居民已全部安置':CivilOrigins.quoteReason(s,source,wanted,{mode:'convoy',capacity:d.capacity})||reason;continue;}
+        if(!q){reason=source==='dispersed'?'名册上的登记居民已全部安置妥当':CivilOrigins.quoteReason(s,source,wanted,{mode:'convoy',capacity:d.capacity})||reason;continue;}
         if(q.count>wanted||q.count<(profile==='road24'?9:1))continue;
         const cost=this.cost(profile,q.count),all=[...u.waiting(s,target),...q.cohorts],home=target==='home'?all:u.waiting(s);
-        if(!CivilRules.canPay(s,cost)){reason=profile==='road24'?'大队旅费或装备维护尚未备足':'待备旅费：每人6粮、0.2药品、0.2工具';continue;}
-        if((s.stores.food||0)-cost.food+1e-8<u.foodReserve(s,home)){reason='本地支付旅费后须留下120秒居民口粮';continue;}
-        if(target!=='home'&&(c.regions.nodes[target].stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,target,all)){reason=u.targetName(s,target)+'须自行留下安置后120秒口粮';continue;}
+        if(!CivilRules.canPay(s,cost)){reason=profile==='road24'?'大队旅费或车组维护耗材尚未备齐':'待备旅费：每人6粮、0.2药品、0.2工具';continue;}
+        if((s.stores.food||0)-cost.food+1e-8<u.foodReserve(s,home)){reason='本地付清旅费后，须留足120秒的居民口粮';continue;}
+        if(target!=='home'&&(c.regions.nodes[target].stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,target,all)){reason=u.targetName(s,target)+'须自行留足新户落脚后120秒的口粮';continue;}
         const paid=typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(s)):CivilForecast.copy(s);
         for(const [key,n]of Object.entries(cost))if(n)paid.stores[key]=Math.max(0,(paid.stores[key]||0)-n);
         // Travelling adults cannot produce materials or staff home before they arrive.
-        const existing=u.serviceCheck(paid,[]);if(existing){reason='支付旅费后本地'+existing;continue;}
+        const existing=u.serviceCheck(paid,[]);if(existing){reason='付清旅费后本地'+existing;continue;}
         const services=target==='home'?u.serviceCheck(paid,all):CivilMunicipal.serviceCheck(s,target,all);if(services){reason=services;continue;}
         const transport={schema:1,profile,capacity:d.capacity,crew:d.crew,assetId:profile==='road24'?asset.id:null,departedAt:c.elapsed,initial:q.count,paid:cost};
         return {sourceQuote:q,transport,cost,fallback:profile==='road8'&&preference==='auto'&&this.assets(s).length?largeReason:null};
@@ -111,9 +111,9 @@ var CivilPassenger={
     const text='规模：'+(p.preference==='auto'?'大队优先':'维持小队');
     const button=Civilization.button('passengerPreference',text,'#urbanPlans',()=>{p.preference=p.preference==='auto'?'small':'auto';Engine.saveGame();this.refresh();});
     button.show().contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(text));
-    button.attr('title','大队9—24人占用4名运输工和一套迁居装备；原小队1—8人占用2名运输工。每人旅费6粮、0.2药品、0.2工具；大队另付木2、零件0.2、工具0.5。不足条件时尝试小队；在途安排保持不变。');
+    button.attr('title','迁居大队（9—24人）需抽调4名运输工并占用一套迁居车组装备；常规小队（1—8人）需2名运输工。每人耗旅费6粮、0.2药品、0.2工具；发运大队每趟另耗木2、零件0.2、工具0.5维护车组。若大队条件不齐，将自动尝试发运小队；已在途的旅队保持原安排不变。');
     let row=$('#passengerStatus');if(!row.length)row=$('<div>').attr('id','passengerStatus').css({width:'410px',lineHeight:'1.8',marginTop:'12px'}).appendTo('#urbanPlans');
     const busy=new Set(s.civilization.urban.parties.map(x=>x.transport?.assetId).filter(Boolean));
-    row.show().text('迁居装备 '+assets.length+' 套，出动 '+busy.size+' 套；旅队承诺运输工 '+CivilUrban.reservedTransport(s)+' 人。'+s.civilization.urban.parties.map(x=>{const d=this.profile(s,x);return '第'+x.id+'队 '+CivilUrban.count(x.cohorts)+' 人，'+d.crew+'名运输工'+(this.staffedParties(s).has(x.id)?'值守':'待补齐')+'，'+(x.state==='returning'?'空车返程':x.state==='returning_people'?'带人返乡':x.state==='held'?'候行':'前往'+CivilUrban.targetName(s,x.target))+'。';}).join(''));
+    row.show().text('迁居装备 '+assets.length+' 套，在途出动 '+busy.size+' 套；随队占用运输工 '+CivilUrban.reservedTransport(s)+' 人。'+s.civilization.urban.parties.map(x=>{const d=this.profile(s,x);return '第'+x.id+'队 '+CivilUrban.count(x.cohorts)+' 人，配'+d.crew+'名运输工'+(this.staffedParties(s).has(x.id)?'值守':'待补齐')+'，'+(x.state==='returning'?'空车返程':x.state==='returning_people'?'带人返乡':x.state==='held'?'候行':'前往'+CivilUrban.targetName(s,x.target))+'。';}).join(''));
   }
 };

@@ -16,9 +16,9 @@ var CivilCulture={
     const n=CivilMunicipal.node(s,id),m=CivilMunicipal.data(s,id),e=m?.economy;
     if(!CivilMunicipal.canAccept(s,id))return '地方议约暂停';
     if(!m.buildings.meetinghall)return '先建公共会堂';
-    if(n.health<60||!e||s.civilization.elapsed-e.at>10||!e.education||!e.treatment)return '先维持地方健康、治疗与儿童教学';
-    if((n.workers.communityworker||0)!==14)return '生产与公共服务之外还需14位成年人';
-    if((n.stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,id))return '先留下120秒居民口粮';
+    if(n.health<60||!e||s.civilization.elapsed-e.at>10||!e.education||!e.treatment)return '先稳住地方健康、治疗与儿童教学';
+    if((n.workers.communityworker||0)!==14)return '生产与公共服务之外，还需腾出14位成年人';
+    if((n.stores.food||0)+1e-8<CivilMunicipal.foodReserve(s,id))return '先留足120秒居民口粮';
     return null;
   },
   agree(s,id,mode){
@@ -54,7 +54,7 @@ var CivilCulture={
         const n=CivilMunicipal.node(s,id);r.status='complete';r.endedAt=s.civilization.elapsed;
         if(r.kind==='archive'){n.stores.knowledge=(n.stores.knowledge||0)+6;r.benefit.knowledge=6;}
         else {r.benefit.unrest=Math.min(2,n.unrest);n.unrest-=r.benefit.unrest;}
-        if(this.data(s,id).activities.filter(a=>a.kind===r.kind&&a.status==='complete').length===1)CivilMunicipal.note(CivilRegionContent[id].name+'第一次完成'+this.kinds[r.kind]+'。会堂、材料与现有居民的时间都记入了地方记录。');
+        if(this.data(s,id).activities.filter(a=>a.kind===r.kind&&a.status==='complete').length===1)CivilMunicipal.note(CivilRegionContent[id].name+'办妥了第一场'+this.kinds[r.kind]+'。会堂、耗材与街坊们凑出来的时间，都记进了地方账册。');
         CivilMunicipal.planWorkers(s,id);
       }
     }
@@ -62,7 +62,7 @@ var CivilCulture={
   status(s,id){
     const d=this.data(s,id);if(!d)return '公共空间尚未议约';
     const r=this.active(s,id),completed=d.activities.filter(a=>a.status==='complete');
-    return this.modes[this.agreement(s,id).mode]+' · 已完成'+completed.length+'次。'+(r?this.kinds[r.kind]+'还需'+r.remaining+'工秒；'+(this.reason(s,id)||'2位组织者与12位参与者在场'):!this.enabled(s,id)?'后续活动已停办。':s.civilization.elapsed<this.due(s,id)?'下次筹备还有'+Math.ceil(this.due(s,id)-s.civilization.elapsed)+'秒。':this.reason(s,id)||'等候地方备齐4木料、6食物和口粮储备。');
+    return this.modes[this.agreement(s,id).mode]+' · 已办'+completed.length+'场。'+(r?this.kinds[r.kind]+'还需'+r.remaining+'工秒；'+(this.reason(s,id)||'2位组织者与12位参与者在场'):!this.enabled(s,id)?'后续集会已停办。':s.civilization.elapsed<this.due(s,id)?'距下次筹备还有'+Math.ceil(this.due(s,id)-s.civilization.elapsed)+'秒。':this.reason(s,id)||'正等候当地备齐4木料、6食物及足额口粮储备。');
   },
   event(eventId){
     const match=/^culture_(river|rail|highland|ford)$/.exec(eventId);if(!match)return null;
@@ -75,10 +75,10 @@ var CivilCulture={
     if(this.active(s,id))buttons.cancel={text:'取消本次活动',nextScene:'end',onChoose:run(()=>this.cancel(s,id))};
     buttons.close={text:'暂不改变',nextScene:'end',onChoose:()=>{if(s.civilization.pending!==eventId)return false;s.civilization.pending=null;return true;}};
     return {title:CivilRegionContent[id].name+'的公共空间',text:[
-      '档案互助社希望记录迁徙与重建经历；守灯会希望用自己的礼仪悼念逝者。两方都来自现有居民，信仰与人类、变异居民身份无关，这里不推定信徒人数。',
-      '共享轮用：口述交流与守灯纪念交替开放，遵守同等预约规则。档案专用：公共会堂只办口述交流，不限制私下信仰；守灯会的公共空间请求未获满足，议约时地方不满增加至多4。',
-      '每次议约由地方实付10知识，之后从市政的社群分类建公共会堂。每次活动先实付地方4木料、6食物；2位组织者与12位成年参与者须在生产、施工、诊疗和教学之外腾出180工秒。结束后至少600秒才再筹备，不追补停办期间的活动。',
-      '口述交流完成后存入6地方知识；守灯纪念通过兑现空间约定使地方不满减少至多2，不提供医疗、科技或全局增产。停办只停止新活动，当前活动继续；取消本次不退已用筹备材料。',this.status(s,id)
+      '档案互助社想借地方整理流亡与重建的口述史；守灯会则想按自己的仪轨点起长灯，超度亡人。两拨人都是镇上的街坊，信什么与是不是变异者毫无干系，公署也不去查算谁信什么。',
+      '共享轮用：口述交流与守灯纪念轮流借用会堂，按同一套规矩排期。档案专用：公共会堂只办口述交流，私底下的祭祀概不干涉；但守灯会借不到场地，定约时当地不满最多会添上4点。',
+      '每次议约由当地支取10知识，随后可在“市政→社群”下动工兴建公共会堂。每办一场活动，需先由当地出4木料、6食物；并须在生产、施工、看诊与授课之外，腾出2位组织者与12位成年街坊，凑满180工秒。散场后至少隔600秒才会筹备下一场，停办期间落下的场次不补。',
+      '办完一场口述交流，当地可攒下6点知识；办完一场守灯纪念，则因兑现了场地承诺，当地不满最多可消减2点，但不会带来治病、研究或增产的奇效。停办仅停掉往后的排期，眼下正办的这一场照常散场；若中途取消本场，已花掉的筹备木料与吃食概不退回。',this.status(s,id)
     ],buttons};
   },
   refresh(s,id){

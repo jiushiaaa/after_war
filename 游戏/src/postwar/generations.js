@@ -17,7 +17,7 @@ var CivilGenerations={
         if(x.axes.selection==='election'&&x.year-l.termStarted>=d.term){
           const renewed=d.terms<2&&l.age<65&&x.legitimate>=45&&x.service;
           d.elections.push({year:x.year,generation:x.generation,renewed,term:d.term});
-          if(renewed){l.termStarted=x.year;d.terms++;this.record(s,'election','居民按十年约定完成选举。现任连任，原职责与任职起年保留。');}
+          if(renewed){l.termStarted=x.year;d.terms++;this.record(s,'election','居民按十年之约完成推举。现任代表连任，原有职责与起任年份照旧保留。');}
           else x.succession='election';
         }
       }
@@ -25,7 +25,7 @@ var CivilGenerations={
     // A constitutional crisis is actionable once per forty years, not at every birthday.
     if(x.succession){
       const crisis=x.governed&&x.legitimate<25&&x.year-d.lastCrisis>=40;
-      if(crisis){d.lastCrisis=x.year;d.dialogs++;this.record(s,'crisis','交接时公共认可不足，居民要求亲自确认继任方案。');}
+      if(crisis){d.lastCrisis=x.year;d.dialogs++;this.record(s,'crisis','交接之际公共认可不足，居民要求亲自过目并确认继任方案。');}
       else if(c.pending!=='succession'){
         const options=CivilSociety.successionOptions(s),key=Object.hasOwn(options,d.platform)?d.platform:Object.keys(options)[0];
         CivilSociety.succeed(s,key);
@@ -43,7 +43,7 @@ var CivilGenerations={
     const d=this.data(s);if(d.people[id])return;
     const year=s.civilization.society.year;
     d.people[id]={title,born:year-age,met:year,institution,synthetic,retired:null,died:null};
-    this.record(s,'person',title+'第一次进入共同记录，时年'+age+'岁。'+institution+'会接续这份职责。');
+    this.record(s,'person',title+'的名字第一次写进共同记录，时年'+age+'岁。往后，这份担子将由'+institution+'接续。');
   },
   observe(s){
     if(!this.enabled(s))return;this.init(s);const c=s.civilization,x=c.society,d=this.data(s),year=x.year;
@@ -57,9 +57,9 @@ var CivilGenerations={
     for(const [id,p]of Object.entries(d.people)){
       const age=year-p.born;
       if(p.retired===null&&(p.synthetic?year-p.met>=25:age>=65)){
-        p.retired=year;this.record(s,'retirement',p.title+'退出日常值守，'+p.institution+'接过了记录。');
+        p.retired=year;this.record(s,'retirement',p.title+'卸下了日常值守，'+p.institution+'接过了案头的记录。');
       }
-      if(!p.synthetic&&p.died===null&&age>=85){p.died=year;this.record(s,'death',p.title+'在这一年离世。'+p.institution+'保留着那份最早的工作记录。');}
+      if(!p.synthetic&&p.died===null&&age>=85){p.died=year;this.record(s,'death',p.title+'在这一年走完了人生。'+p.institution+'里还妥善收着那份最早的工作记录。');}
 
     }
     for(const [key,at]of [['nation',c.polity?.foundedAt],['earth',c.polity?.earth?.unity?.at]]){
@@ -70,13 +70,13 @@ var CivilGenerations={
   event(id,done){
     if(id!=='generation_head'||!this.enabled(State)||!this.data(State).pending)return null;
     const d=this.data(State),kind=d.pending;
-    return {title:kind==='nation'?'共同职责有了名字':'向外代表同一个地球',text:[kind==='nation'?'地区的签名第一次出现在同一份国约上。':'八区把共同法的副本送到了这间屋子。','公共机构继续工作。谁来承担这一次对外代表的职责？','现任可继续；选择新代表会保留真实交接与短期磨合。'],buttons:Object.fromEntries([['keep','由现任继续承担'],['engineer','交给工程代表'],['scholar','交给教师代表']].map(([key,text])=>[key,{text,nextScene:'end',onChoose:done('代表职责已记入发展史。',()=>this.head(State,kind,key))}]))};
+    return {title:kind==='nation'?'共同职责有了名字':'向外代表同一个地球',text:[kind==='nation'?'各区的签名，第一次落在了同一份国约上。':'八大区把共同法的副本送进了这间屋子。','公共机构照常运转。这一回，由谁出面担起对外代表的职责？','现任代表可继续履职；若推举新代表，需经历交接与短期磨合。'],buttons:Object.fromEntries([['keep','由现任继续承担'],['engineer','交给工程代表'],['scholar','交给教师代表']].map(([key,text])=>[key,{text,nextScene:'end',onChoose:done('代表职责已载入发展史。',()=>this.head(State,kind,key))}]))};
   },
   head(s,kind,key){
     const d=this.data(s),x=s.civilization.society;if(!this.enabled(s)||d.pending!==kind||!['keep','engineer','scholar'].includes(key))return false;
     if(key!=='keep'){x.succession=x.leader.alive?'retirement':'death';if(!CivilSociety.succeed(s,key))return false;}
     d.heads[kind]={at:s.civilization.elapsed,generation:x.generation,choice:key};d.pending=null;d.dialogs++;
-    this.record(s,'representation',(kind==='nation'?'建国':'统一')+'代表：第'+x.generation+'任'+x.leader.title+'。公共机构和原制度继续履行职责。');return true;
+    this.record(s,'representation',(kind==='nation'?'建国':'统一')+'代表：第'+x.generation+'任'+x.leader.title+'。各公共机构与现行制度照常运转。');return true;
   },
   validate(s){
     const c=s.civilization,d=c.generations;if(!this.enabled(s)){if(d!==undefined)throw Error('代际版本不符');return;}

@@ -26,7 +26,7 @@ test('two partners sign separately, use actual workers, and debit only their own
 
 test('one original caravan cannot concurrently enter foreign trade, frontier missions or city freight',()=>{
   const h=departing(),{s,p}=h,o=p.active(s);assert.equal(o.assetId,h.ctx.CivilCommerce.asset(s).id);
-  assert.equal(h.ctx.CivilCommerce.reservedTransport(s),2);assert.match(h.ctx.CivilIntercity.dispatchReason(s),/没有待发委托/);
+  assert.equal(h.ctx.CivilCommerce.reservedTransport(s),2);assert.match(h.ctx.CivilIntercity.dispatchReason(s),/暂无待发委托/);
   assert.match(h.ctx.CivilFrontier.reason(s,'scout'),/原商车/);
   assert.equal(h.ctx.CivilIntercity.schedule(s),true);assert.match(h.ctx.CivilIntercity.dispatchReason(s),/地区商约/);
   assert.equal(h.ctx.CivilIntercity.dispatch(s),false);h.ctx.CivilIntercity.cancel(s);

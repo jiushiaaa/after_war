@@ -26,16 +26,16 @@ CivilCatalog.jobCapacity=function(s,job){
   return Object.hasOwn(CivilAdvancedContent.jobs,job)?add:beforeAdvancedJobs(s,job)+add;
 };
 Object.assign(CivilText.buildings,{
-  mineralquarry:['工匠在旧矿图旁标出了石英砂、黏土和盐类矿层。可以修一处采集场。','采集工带回矿物料，化工与玻璃工序有了新的原料。'],
-  chemicalworks:['矿物料已经分选。旧铁罐和耐热炉衬可以先搭起一套小型化工设备。','化工间开了火。电力充足时生产更快，断电后仍可加煤慢慢试制。'],
-  steelworks:['铁锭、炉料与净化剂写进了新的工序表。炼钢炉的支架仍可用旧铁和零件搭建。','炉中钢液开始冷却。炼钢工继续需要铁锭、煤、化学品和维护工具。'],
-  glassworks:['化工间分离出的矿物料可以交给玻璃工。透明器皿和窗片有了试制办法。','玻璃窑点起炉火。加煤可以维持慢速熔炼，通电则能提高产量。'],
-  utilitypower:['更多工坊争用同一条配电线。可以另建一座公用电站。','公用电站开始值守。每名工人燃煤并维护机组，供给十份即时电力。'],
-  mineexpansion:['新的炉子需要更多矿料。旧矿井还可以加固支护和运料通道。','矿井支护完工，新增八个采矿岗位。'],
-  coalexpansion:['通风和提升设备可以让煤区容纳更多工人。','煤区通风扩建完成，新增八个采煤岗位。'],
-  filterplant:['化工工人画出了吸收与过滤的管路。处理烟尘也需要电力和维护。','净化设施接上工区。每轮使用电、化学品、木料和零件，收集炉烟中的残留物。']
+  mineralquarry:['工匠在旧矿图边缘圈出了石英砂、黏土与盐类矿层。可以在那儿建一处采集场。','采集工背回了分选好的矿物料，化工与烧制玻璃都有了着落。'],
+  chemicalworks:['矿物料筛分完毕。用旧铁罐和耐火砖，能先拼起一套粗浅的化工反应釜。','化工间点起了炉火。通电时出料更快；若是断了电，也能添煤慢熬。'],
+  steelworks:['生铁、炉料与脱氧剂的配比写进了新工序表。用熟铁和旧零件就能先支起炼钢炉架。','滚烫的钢水在模子里慢慢凝成暗红。炼钢工手头仍不能断了铁锭、乌煤、化学品与维护工具。'],
+  glassworks:['化工间提纯出的石英与纯碱送到了玻璃工手上。烧制透明器皿和窗玻璃有了准谱。','玻璃窑烘热了砂料。添煤可维持慢速熔融，接通电力则能大幅增产。'],
+  utilitypower:['新开的工坊都在抢同一根电缆里的电。得另起一座公用电站了。','公用电站有人值守了。每名电工添煤看护机组，可向电网稳定输送十份即时电力。'],
+  mineexpansion:['新炉子胃口大，矿石渐渐跟不上了。旧矿井还得加固坑木、拓宽运料巷道。','矿井支护扩建完工，井下新增八个采矿工位。'],
+  coalexpansion:['加装鼓风机与提升绞车后，煤窑深处就能容下更多矿工。','煤区通风扩建完工，井下新增八个采煤工位。'],
+  filterplant:['化工工画出了喷淋吸收与过滤管路。要想滤净炉烟，同样得耗电、耗备件。','工区净化设施并入烟道。每轮耗用电力、化学品、木料与零件，将浓烟里的毒尘洗落下来。']
 });
 Object.assign(CivilText.research,{
-  chemistry:{name:'基础化工',requires:['furnace','sanitation'],discover:s=>!!s.civilization.urban?.city&&!!s.game.buildings.furnace,cost:{knowledge:90,iron:30,coal:30,parts:12},duration:480,done:'分选、反应与净化写成了可以重复的工序。矿物料和煤火能制成第一批基础化学品。'},
-  steel:{name:'炼钢',requires:['furnace','chemistry'],discover:s=>!!s.civilization.advanced?.made.chemicals,cost:{knowledge:110,iron:50,chemicals:12,tools:16},duration:480,done:'试样的韧性通过了检验。炼钢工可以继续改进炉温与配料。'}
+  chemistry:{name:'基础化工',requires:['furnace','sanitation'],discover:s=>!!s.civilization.urban?.city&&!!s.game.buildings.furnace,cost:{knowledge:90,iron:30,coal:30,parts:12},duration:480,done:'筛分、酸洗与提纯定下了可复现的规程。粗鄙的矿砂在煤火中化作了第一批基础化学品。'},
+  steel:{name:'炼钢',requires:['furnace','chemistry'],discover:s=>!!s.civilization.advanced?.made.chemicals,cost:{knowledge:110,iron:50,chemicals:12,tools:16},duration:480,done:'试炼钢条在重锤下未见崩裂。炼钢工可以继续摸索炉温与配料了。'}
 });

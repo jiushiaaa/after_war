@@ -40,22 +40,22 @@ var CivilHeating={
     const total=CivilServices.population(s,id)+(Array.isArray(extra)?CivilPopulation.count(extra):extra);
     if(this.capacity(s,id)<total)return '实际供暖尚未覆盖现有与待接纳居民';
     const copy=forecastCopy||this.forecast(s,id,extra).copy;
-    if(!copy||this.capacity(copy,id)<total)return '下一轮供暖需要补足人员、煤、零件或电力';
+    if(!copy||this.capacity(copy,id)<total)return '下一轮供暖需补足值守人手、燃煤、零件或电力';
     return null;
   },
   handoverReason(s,id='home'){
-    const d=this.data(s,id);if(!d)return '先建设供热站并安排试运行';
-    if(this.handed(s,id))return '日常供暖已经交接';
+    const d=this.data(s,id);if(!d)return '先建成供热站并完成试运行';
+    if(this.handed(s,id))return '日常供暖已完成交接';
     const population=CivilServices.population(s,id),reserved=CivilUrban.reservedBeds(s,id),total=population+reserved;
-    if(population<1||this.capacity(s,id)<total)return '试运行的实际供热须覆盖居民与在途预留';
+    if(population<1||this.capacity(s,id)<total)return '试运行的供热能力须覆盖全体居民与在途预留人数';
     if(id==='home'){
       const gatherers=CivilSociety.workforce(s)-Object.values(s.game.workers).reduce((n,v)=>n+v,0);
-      if(gatherers<2)return '至少保留2位真实采木工，接替工匠原有燃料收集';
+      if(gatherers<2)return '至少需留2名采木工在岗，以接替老工匠原本的拾柴活计';
     }
     const f=this.forecast(s,id,CivilUrban.waiting(s,id),true);
-    if(!f.copy||this.capacity(f.copy,id)<total)return '下一轮供热尚不能持续，请补足班组、煤、零件或电力';
+    if(!f.copy||this.capacity(f.copy,id)<total)return '下一轮供热尚难以为继，请补足班组、燃煤、零件或电力';
     const e=this.data(s,id).economy,stores=CivilServices.stores(s,id);
-    if((stores.coal||0)+1e-8<e.cost.coal*3||(stores.parts||0)+1e-8<e.cost.parts*3)return '交接前至少留下三轮供热煤与零件';
+    if((stores.coal||0)+1e-8<e.cost.coal*3||(stores.parts||0)+1e-8<e.cost.parts*3)return '正式交接前，库里至少得留足三轮供热所需的燃煤与零件';
     return null;
   },
   handover(s,id='home'){
@@ -73,7 +73,7 @@ var CivilHeating={
   status(s,id='home'){
     const d=this.data(s,id);if(!d)return '';
     const capacity=this.capacity(s,id),population=CivilServices.population(s,id),e=d.economy;
-    return (this.handed(s,id)?'日常供暖':'供暖试运行')+'：'+capacity+' / '+population+' 人份；'+(d.manual?'手动轮值':'电动循环')+(e?'，近轮实付煤 '+Number(e.cost.coal.toFixed(2))+'、零件 '+Number(e.cost.parts.toFixed(2))+'，用电 '+e.used:'，等待人员与下一轮运行')+'。'+(this.handed(s,id)&&capacity<population?'覆盖不足，新的批次接纳暂停。':'');
+    return (this.handed(s,id)?'日常供暖':'供暖试运行')+'：'+capacity+' / '+population+' 人份；'+(d.manual?'手动轮值':'电动循环')+(e?'，近轮耗煤 '+Number(e.cost.coal.toFixed(2))+'、零件 '+Number(e.cost.parts.toFixed(2))+'，用电 '+e.used:'，等待人手到岗与下一轮运转')+'。'+(this.handed(s,id)&&capacity<population?'供暖覆盖不足，新的批次接纳已暂停。':'');
   },
   refresh(){
     if(typeof $!=='function')return;const s=State;
@@ -84,13 +84,13 @@ var CivilHeating={
       const selected=()=>prefix==='home'?'home':CivilMunicipal.selected;
       const manual=Civilization.button(key+'_manual',d.manual?'恢复电动供暖':'安排手动供暖',parent,()=>{const target=selected();this.setManual(State,target,!this.manual(State,target));if(target!=='home')CivilMunicipal.planWorkers(State,target);Civilization.refresh();Engine.saveGame();});
       manual.show().contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(d.manual?'恢复电动供暖':'安排手动供暖'));
-      manual.attr('title','每站每10秒：电动2人、1电、煤0.8、零件0.02供600人；手动4人、煤1.2、零件0.02供300人。请安排真实供热工。');
+      manual.attr('title','每座供热站每10秒：电动班配2人，耗1电、煤0.8、零件0.02，供暖600人；手动班配4人，耗煤1.2、零件0.02，供暖300人。请分派供热工上岗。');
       const button=Civilization.button(key+'_handover','交接日常供暖',parent,()=>{
         const target=selected(),reason=this.handoverReason(State,target);
         if(reason){Civilization.notify(reason);return;}
-        if(this.handover(State,target)){if(target==='home'&&typeof CivilHearth!=='undefined')CivilHearth.stopLegacy();Civilization.notify((target==='home'?'炉火城':CivilRegionContent[target].name)+'把日常供暖交给供热站。'+(target==='home'?'旧炉不再自动添柴，工匠固定产木退出，由实际居民接管。':''));Civilization.refresh();Civilization.updateIncome();Engine.saveGame();}
+        if(this.handover(State,target)){if(target==='home'&&typeof CivilHearth!=='undefined')CivilHearth.stopLegacy();Civilization.notify((target==='home'?'炉火城':CivilRegionContent[target].name)+'将日常供暖正式移交给供热站。'+(target==='home'?'维修间的旧炉不再自动添柴，老工匠的固定拾柴也一并退出，往后由在岗居民接手。':''));Civilization.refresh();Civilization.updateIncome();Engine.saveGame();}
       });button.toggle(!this.handed(s,id));Button.setDisabled(button,!!this.handoverReason(s,id));
-      button.attr('title','需实际供热覆盖居民与预留旅客，下一轮仍可运行，并留三轮煤与零件。'+(id==='home'?'确认后停止旧炉自动添柴与工匠每10秒2木料收入；至少保留2位实际采木工。':''));
+      button.attr('title','需供热能力覆盖全体居民与在途预留旅客，下一轮仍可持续运转，且库里留足三轮燃煤与零件。'+(id==='home'?'确认交接后，将停掉旧炉自动添柴与老工匠每10秒2木料的固定进项；请至少留2名采木工在岗。':''));
     }
   },
   validate(s){

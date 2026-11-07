@@ -41,7 +41,7 @@ var CivilPlanning={
   caption(button,text){button.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(text));},
   refresh(s,id){
     let box=$('#civilPlan');const d=this.data(s,id);if(!d){box.hide();return;}
-    if(!box.length){box=$('<details>').attr('id','civilPlan').addClass('civil-details civil-plan').appendTo('#municipalPanel');$('<summary>').appendTo(box);$('<p>').addClass('civil-plan-status').appendTo(box);$('<p>').text('最多安排6项，按顺序营建，建材随货车发运支付。暂停不影响当前工程；未开始的项目可移除。').appendTo(box);$('<div>').addClass('civil-plan-controls').appendTo(box);$('<div>').addClass('civil-plan-orders').appendTo(box);}
+    if(!box.length){box=$('<details>').attr('id','civilPlan').addClass('civil-details civil-plan').appendTo('#municipalPanel');$('<summary>').appendTo(box);$('<p>').addClass('civil-plan-status').appendTo(box);$('<p>').text('营建排期上限为6项，依序流水施工，工程建材随货车发运时据实支付。暂停指令不波及当前在建工程；未动工之预设项可随时撤除。').appendTo(box);$('<div>').addClass('civil-plan-controls').appendTo(box);$('<div>').addClass('civil-plan-orders').appendTo(box);}
     const list=this.queued(s,id);box.show();box.children('summary').text('后续建设（'+list.length+' / '+this.limit+'）'+(d.enabled?'':' · 已暂停'));box.children('.civil-plan-status').text(this.reason(s,id));
     const control=Civilization.button('civilPlanToggle','暂停后续建设',box.children('.civil-plan-controls'),()=>{const id=CivilMunicipal.selected,d=this.data(State,id);if(d&&this.setEnabled(State,id,!d.enabled)){Engine.saveGame();Civilization.refresh();}});this.caption(control,d.enabled?'暂停后续建设':'恢复后续建设');
     const root=box.children('.civil-plan-orders'),signature=JSON.stringify([id,list.map(r=>r.id)]);if(root.attr('data-orders')===signature)return;root.attr('data-orders',signature).empty();

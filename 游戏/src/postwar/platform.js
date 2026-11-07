@@ -181,7 +181,7 @@
     },
     menu() {
       if(Events.activeEvent()) return;
-      const cloud = this.sdk ? (this.error?'云端保存失败。当前进度仍在，请导出备份或重试。':'已连接云存档。进度自动保存。') : (CivilLocalSaves.blocked?'本地自动保存已停止，原槽与备份保留。请先导出或选择其他槽。':CivilLocalSaves.active?'本机每30秒自动保存到槽'+CivilLocalSaves.active+'，并保留最近两份备份；跨电脑请导出。':'当前只读查看进度，自动保存已关闭；请选择一个本地槽保存。');
+      const cloud = this.sdk ? (this.error?'云端同步失败。当前本地运行进度完好，请导出明码备份或稍后重试。':'已成功建立云端同步信道。运行进度将按周期自动归档。') : (CivilLocalSaves.blocked?'本地自动归档进程已终止，原槽位与既有备份完好留存。请先行导出数据或改选其他槽位。':CivilLocalSaves.active?'本机每30秒自动保存到槽'+CivilLocalSaves.active+'，并保留最近两份备份；跨电脑请导出。':'当前处于只读调阅模式，自动归档已挂起；请指定一个实体槽位保存进度。');
       Events.startEvent({title:'存档', scenes:{start:{text:[cloud],buttons:{
         download:{text:'导出进度',onChoose:()=>this.download()},
         import:{text:'导入进度',nextScene:{1:'import'}},
@@ -189,10 +189,10 @@
         theme:{text:'切换明暗',nextScene:'end',onChoose:()=>Engine.turnLightsOff()},
         ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
         close:{text:'关闭',nextScene:'end'}
-      }},import:{text:['选择原始存档文件，或粘贴完整内容后检查。检查通过后，再确认是否替换当前进度。'],textarea:'',buttons:{
+      }},import:{text:['载入本地备份文件，或直接粘贴明码字符进行结构复核。全字段校验无误后，再行确认是否覆盖当前游玩进度。'],textarea:'',buttons:{
         file:{text:'选择存档文件',onChoose:()=>this.chooseImportFile()},
         inspect:{text:'检查存档',onChoose:text=>this.inspectImport(text)},cancel:{text:'取消',nextScene:'end'}
-      }},confirm:{text:['用这份存档替换当前进度？替换前可以先导出当前进度。'],buttons:{
+      }},confirm:{text:['确认以此份归档数据覆写当前运行进度？覆写前建议先行导出当前进度妥善留底。'],buttons:{
         backup:{text:'导出当前进度',onChoose:()=>this.download()},
         replace:{text:'替换当前进度',onChoose:()=>{const next=this.pending;this.pending=null;setTimeout(()=>Civilization.restart(next),0);}},
         cancel:{text:'取消',nextScene:'end'}

@@ -88,7 +88,7 @@ test('legal central and customary reforms reset readiness while existing public 
   assert.equal(society.beginReform(s,'charter'),true);h.ctx.Civilization.showPending();h.click('custom');h.step(10);assert.equal(a.data(s).stableSeconds,0);
   h.until(()=>a.operational(s),2400);assert.equal(a.data(s).stableSeconds,900);assert.deepEqual(clone(a.data(s).records.at(-1).costs),{home:{knowledge:.15,wood:.4,tools:.04},source:{knowledge:.025,wood:.2}});h.roundtrip();
   const source=trade.source(s),id=a.data(s).sourceId;
-  assert.match(h.ctx.CivilOrigins.sustainabilityReason(s,id,source.cohorts),/岁居民须至少留守/);assert.equal(h.ctx.CivilOrigins.supplyReason(s,id,source.cohorts),null);
+  assert.match(h.ctx.CivilOrigins.sustainabilityReason(s,id,source.cohorts),/岁的居民至少须留守/);assert.equal(h.ctx.CivilOrigins.supplyReason(s,id,source.cohorts),null);
   assert.equal(h.ctx.CivilOrigins.quoteParty(s,id,24,{mode:'convoy',capacity:24}),null);assert.equal(a.operational(s),true);
 });
 

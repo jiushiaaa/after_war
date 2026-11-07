@@ -6,13 +6,13 @@ const preRegionsJobCapacity=CivilCatalog.jobCapacity;
 CivilCatalog.jobCapacity=function(s,job){return job==='transporter'?(s.game.buildings.cartdepot||0)*6:preRegionsJobCapacity(s,job);};
 Object.assign(CivilText.labels,{transporter:'运输工',cartdepot:'车队场',archive:'行政档案馆'});
 Object.assign(CivilText.buildings,{
-  cartdepot:['车轴与货箱有了统一的规格。运到远方的物资需要有人照管。','车队场备好了人力货车。每座可安排六名运输工；一条往返需要两人。'],
-  archive:['几地的承诺需要保存在同一本公共账册里。','档案馆开始收存契约。每十秒消耗0.04知识，正常运转时增加两地协调能力。']
+  cartdepot:['车轴与货箱定下了统一尺寸。发往远方的物资得有专人随车押运。','车队场里停放着结实的板车。每座车场可容六名运输工；跑一条往返商路需抽调两人。'],
+  archive:['几处聚居地签下的字据，得收进同一间库房里妥善归档。','行政档案馆开始收录契约。每10秒耗0.04知识，正常运转时可提供两份地区协调容量。']
 });
 Object.assign(CivilText.research,{
-  survey:{name:'地理测绘',requires:['records','handtools'],discover:s=>!!s.civilization.industry?.mineKnown && !!s.civilization.industry?.announcedPower,cost:{knowledge:40,tools:10,parts:4},duration:240,done:'矿带、河道与旧铁路线连成了地图。远方的灯火有了可以抵达的路径。'},
-  logistics:{name:'运输组织',requires:['trails','preservation','records'],discover:s=>!!s.civilization.village?.riverAllied && !!s.civilization.tech.mechanics,cost:{knowledge:50,tools:12,parts:8},duration:300,done:'货物按源仓、在途与收货仓分别记账。建好车队场并安排两名运输工，河谷车队就会按新办法运行。'},
-  administration:{name:'公共行政',requires:['records','standards'],discover:s=>typeof CivilRegions!=='undefined' && CivilRegions.discoveredCount(s)>=2,cost:{knowledge:80,parts:12},duration:360,done:'地方代表可以提出共同项目和公民资格。已经签下的承诺会由下一任继续履行。'}
+  survey:{name:'地理测绘',requires:['records','handtools'],discover:s=>!!s.civilization.industry?.mineKnown && !!s.civilization.industry?.announcedPower,cost:{knowledge:40,tools:10,parts:4},duration:240,done:'零散的矿带、河曲与旧铁路基终于拼成了一张全图。远处的灯火，有了能够寻访的路标。'},
+  logistics:{name:'运输组织',requires:['trails','preservation','records'],discover:s=>!!s.civilization.village?.riverAllied && !!s.civilization.tech.mechanics,cost:{knowledge:50,tools:12,parts:8},duration:300,done:'来往物资按发运仓、在途与抵站仓分立三本账。建好车队场并派上两名运输工，河谷车队就会按新章程跑单了。'},
+  administration:{name:'公共行政',requires:['records','standards'],discover:s=>typeof CivilRegions!=='undefined' && CivilRegions.discoveredCount(s)>=2,cost:{knowledge:80,parts:12},duration:360,done:'地方代表可正式提交公共工程议案与公民资格章程。前人签下的白纸黑字，将由后来接任的人继续兑现。'}
 });
 var CivilRegionContent={
   river:{name:'河谷',population:12,mutants:3,travel:60,stores:{food:80,tools:0,medicine:0,scrap:20,wood:30},workers:{farmer:4,salvager:2,gatherer:1},service:{medic:2,teacher:1},out:{tools:1,medicine:.5},back:{food:12},project:{name:'河谷公共水务',cost:{wood:80,tools:12,iron:8,medicine:2},duration:240}},

@@ -117,7 +117,7 @@ test('repeated observation and previews are pure at the same boundary; reload re
 test('a stale native registration button rechecks changed supplies without a false success or reward',()=>{
   const h=ready();h.step(600);assert.equal(h.s.civilization.pending,'metroCharter');h.s.stores.medicine=0;const assets=JSON.stringify([h.s.stores,h.s.game,h.s.civilization.finance]);
   h.click('register');assert.equal(h.s.civilization.metro.formedAt,null);assert.equal(JSON.stringify([h.s.stores,h.s.game,h.s.civilization.finance]),assets);
-  assert.ok(h.messages.some(x=>x.includes('供养或议事条件已有变化')));
+  assert.ok(h.messages.some(x=>x.includes('供养或议事条件有所波动')));
 });
 
 test('actual births, retirement and a later election preserve the registered cities, common contracts and stored history',t=>{

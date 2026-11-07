@@ -36,8 +36,8 @@ var CivilRuins={
     if(['preserve','recycle'].includes(r.kind)){
       d.completedAt=r.endedAt;d.reward=this.reward(r.kind);const st=CivilMunicipal.node(s,'river').stores;
       for(const [k,v]of Object.entries(d.reward.stores))st[k]=(st[k]||0)+v;
-      CivilMunicipal.note(r.kind==='preserve'?'河谷的旧维护库已经清点：一台损坏维护机封存，档案与可用备件进入地方仓。设备仍不能工作。':'河谷的旧维护库已经拆解清点，可用钢材与零件进入地方仓。该处设备不会再次刷新。');
-    }else CivilMunicipal.note(r.kind==='survey'?'河谷勘探员发现通道内的变异甲虫巢群。旧维护库需要一项明确的现场处置。':'河谷旧维护库的通道已经安全开放，可以决定保全或拆解设备。');
+      CivilMunicipal.note(r.kind==='preserve'?'河谷旧维护库现场已清理完毕：一台传动轴断裂的维护机器人打上铅封存入地库，残存档案与可用零部件如实归入地方仓储。该设备暂不具备开机效能。':'河谷旧维护库已彻底破拆清点完毕，回收之型钢与零部件尽数划拨地方公库。此处废墟已被清空，不再产出任何次生建材。');
+    }else CivilMunicipal.note(r.kind==='survey'?'勘探队员在检修通道深处发现盘踞的变异甲虫巢群。针对旧维护库的通路状况，亟须定夺切实可行的现场处置预案。':'旧维护库的隔离通道已安全疏通，决策层须决定是对核心设备与档案予以就地保全，还是彻底拆解破产取材。');
     CivilMunicipal.planWorkers(s,'river');
   },
   status(s){
@@ -53,10 +53,10 @@ var CivilRuins={
     for(const kind of this.choices(s))buttons[kind]={text:this.phases[kind].name,nextScene:'end',onChoose:action(()=>this.start(s,kind))};
     if(this.active(s))buttons.schedule={text:this.enabled(s)?'暂缓勘探':'恢复勘探',nextScene:'end',onChoose:action(()=>this.setEnabled(s,!this.enabled(s)))};
     buttons.close={text:'关闭',nextScene:'end',onChoose:()=>{if(s.civilization.pending===id)s.civilization.pending=null;}};
-    const d=this.data(s),texts=['这是河谷城外可当日往返的旧维护库。4位现有成年人轮班作业，仍归本地名册与日常供养；现场口粮是额外补给。优先保证生产、营建、教学与诊疗，缺人或缺粮时停工；暂缓不退已用材料。'];
-    if(!d)texts.push('外围勘察：地方木20、食物20、工具8、药品4，180工秒。先查明环境再决定深入，不预先赠送宝物或人口。');
-    else if(d.stages.length===1&&!this.active(s))texts.push('变异甲虫依赖温暖的旧管沟筑巢，队伍靠近时，它们便聚拢护巢。诱导迁移：木20、食物16，240工秒；沿气味设置通向荒沟的诱导线。加固隔离：铁12、工具6，180工秒；封闭巢区、支撑另一条通道。两种方法都保留现场记录。');
-    else if(d.stages.length===2&&!this.active(s))texts.push('库内只有一批封存物资和一台关节损坏的维护机。保全：耗零件8、工具4、300工秒，整理得知识40、玻璃12、零件12，封存损坏维护机1台；它尚不能使用。拆解：耗工具6、180工秒，得钢20、零件30，不保留维护机。两项互斥且只结算一次，不直接解锁量产科技。');
+    const d=this.data(s),texts=['此系河谷城外当日可徒步往返之旧时代战备维护库。指派4名在册成年劳力轮值排班，其归属仍系于本地户籍与日常口粮配额；现场干粮按外勤特批核拨。此项作业绝不得挤占常规生产、市政营建、学堂教学与医疗诊治，凡遇缺员或粮荒即行停摆；暂缓勘探不予退还已耗损物料。'];
+    if(!d)texts.push('外围勘察规程：耗用地方木料20、食物20、工具8、药品4，累计作业180工秒。先行测绘周边地质与辐射环境方可纵深掘进，绝无不劳而获之横财或凭空虚增人口。');
+    else if(d.stages.length===1&&!this.active(s))texts.push('变异硬壳甲虫依附地热管沟残温结巢盘踞，生人逼近即躁动结阵护卵。诱导迁移方案：耗用木料20、食物16，耗时240工秒，循气味信息素布设引向废弃荒沟的诱导轨迹。加固隔离方案：耗用铁料12、工具6，耗时180工秒，浇筑铁骨封闭巢穴裂隙，另行支撑掘进副通道。两项抉择均详录现场档案备查。');
+    else if(d.stages.length===2&&!this.active(s))texts.push('库房内仅存少量密封储备及一台伺服关节彻底卡死的旧型维护机。保全方案：耗费零件8、工具4，耗时300工秒，清理起获知识40、玻璃12、机械零件12，封存损坏维护机1台；该机体暂不可用。拆解方案：耗费工具6，耗时180工秒，割裂破拆得钢材20、零件30，机体结构不予保留。两项决议互斥且终身只得结项一次，绝不凭此直接获得量产科技。');
     if(d?.completedAt!==null&&d?.reward)texts.push('本次已入河谷仓库：'+Object.entries(d.reward.stores).map(([k,v])=>({knowledge:'知识',glass:'玻璃',parts:'机械零件',steel:'钢材'}[k]+' '+v)).join('、')+'。这里只查看已完成记录，不再次领取。');
     texts.push(this.status(s));return {title:'河谷旧维护库',text:texts,buttons};
   },

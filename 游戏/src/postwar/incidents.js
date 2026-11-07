@@ -31,7 +31,7 @@ var CivilIncidents={
     if(current){
       if(current.phase==='watch'&&at>=current.dueAt||current.phase==='holding'&&!this.busy(s,current.route)){
         this.route(s,current.route).condition='closed';this.route(s,current.route).status='道路封闭，等待修复';current.phase='closed';current.closedAt=at;
-        this.note(this.name(current.route)+'的道路已经封闭。原有货物与旅队仍按原路记录，备齐木20、工具4后可以修复。');
+        this.note(this.name(current.route)+'的道路已封闭。已在途的货物与旅队仍按原路线结算，备齐木20、工具4后即可修复。');
       }
       return;
     }
@@ -42,9 +42,9 @@ var CivilIncidents={
     const record={id:d.nextId++,type:'road_warning',route,createdAt:at,cause:{completedTrips:owner.completedTrips,lastDeliveredAt:owner.lastDeliveredAt},phase:'warning',choice:null,chosenAt:null,dueAt:null,closedAt:null,resolvedAt:null,outcome:null,payment:null,offered:false};
     d.records.push(record);d.activeId=record.id;d.nextRollAt=at+1800;
     if(d.autoRoads&&CivilRegions.repairRoad(s,route,{incidentId:record.id,mode:'auto'})){
-      this.note(this.name(route)+'巡路人员按常设安排付出木20、工具4，提前加固了松动路基。');return;
+      this.note(this.name(route)+'巡路员按常设安排支取木20、工具4，提前加固了松动的路基。');return;
     }
-    this.note(this.name(route)+'巡路人员发现松动的路基。前往地区查看预警；封路倒计时要在作出选择后才开始。');
+    this.note(this.name(route)+'巡路员发现路基松动。请前往“地区”页面查看预警；封路倒计时在你拍板后才会开始。');
   },
   canRepair(s,id,incidentId){
     const r=this.active(s);return !!r&&r.route===id&&(incidentId===undefined||r.id===incidentId)&&['warning','watch','holding','closed'].includes(r.phase);
@@ -75,21 +75,21 @@ var CivilIncidents={
   },
   event(id,done){
     if(id!=='roadIncident')return null;const s=State,d=this.data(s),r=this.active(s);if(!d)return null;
-    const buttons={},finish=(ok,text)=>{if(r)this.acknowledge(s,r.id);return done(ok?text:'道路或材料条件已经变化，本次没有扣款。备好材料后可从地区的道路预警入口继续处理。')();};
+    const buttons={},finish=(ok,text)=>{if(r)this.acknowledge(s,r.id);return done(ok?text:'路况或材料存量已有变动，本次未扣料。备齐材料后，可在“地区”页面的道路预警入口继续处理。')();};
     if(r){
       const key=r.id;
-      buttons.repair={text:'加固修复（木20工具4）',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'repair'),'修路材料已实付，道路恢复正常安排。')};
-      if(!d.autoRoads)buttons.automatic={text:'修复并授权各路自动维护',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'automatic'),'本次修复已付款。今后各路每次预警仍须实付木20、工具4，缺料会再次提出预警。')};
+      buttons.repair={text:'加固修复（木20工具4）',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'repair'),'修路材料已付清，道路恢复通行。')};
+      if(!d.autoRoads)buttons.automatic={text:'修复并授权各路自动维护',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'automatic'),'本次修复已付清。往后各条道路每次触发预警，仍需足额扣除木20、工具4；若库存不足，会再次请你定夺。')};
       if(r.phase==='warning'){
-        buttons.hold={text:'停新发车，旧车归来后封路',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'hold'),'这条道路暂停新的货运和迁居出发。旧车与旅队照原路归来，再封路等待材料。')};
-        buttons.watch={text:'继续运输（180秒后封路）',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'watch'),'暂时维持运输。180秒内仍可付费加固；逾期会真实封路。')};
-        buttons.later={text:'先去准备材料',nextScene:'end',onChoose:()=>{this.acknowledge(s,key);return done('预警留在地区，尚未开始封路倒计时。备齐材料后回来决定。')();}};
-      }else buttons.close={text:'先去准备材料',nextScene:'end',onChoose:done('道路记录留在地区，备齐材料可随时回来修复。')};
-    }else buttons.close={text:'合上道路记录',nextScene:'end',onChoose:done('巡路记录已经收好。')};
-    if(d.autoRoads)buttons.stopAuto={text:'取消今后的自动维护',nextScene:'end',onChoose:()=>{d.autoRoads=false;if(r)this.acknowledge(s,r.id);return done('此后道路预警重新交由居民决定，既有事件仍按原选择继续。')();}};
-    const advice=!r?'巡路工作继续。常设维护只在发现隐患时支出材料；缺料时会再次请你决定。':r.phase==='warning'?'停发会让旧车与迁居队先归来，再封路待修；继续运输则从选择时起计算180秒。':r.choice==='hold'?'旧车归来后等待修复。道路修好时，原有运输计划继续发车。':'封路时在途车队暂停前进。可以在地区安排撤回，或付费修复后继续运输。';
-    const budget=r&&typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(r.route)?['共同约定仍须履约，延期交货会留下本期欠供。']:[];
-    return {title:r?'旧路的预警':'道路维护记录',text:[this.status(s)+'。','每次加固或修复需要木料20、工具4。',advice,...budget,'各路常设维护：'+(d.autoRoads?'已授权，每次都须足额付款。':'尚未授权。')],buttons};
+        buttons.hold={text:'停新发车，旧车归来后封路',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'hold'),'此路暂停发运新的货车与迁居队。等在途车辆与旅队全部归来后，即行封路，待料整修。')};
+        buttons.watch={text:'继续运输（180秒后封路）',nextScene:'end',onChoose:()=>finish(this.choose(s,key,'watch'),'暂且维持通行。180秒内仍可拨料加固；逾期未修将正式封路。')};
+        buttons.later={text:'先去准备材料',nextScene:'end',onChoose:()=>{this.acknowledge(s,key);return done('预警留存“地区”页面，暂不启动封路倒计时。备齐材料后再来拍板。')();}};
+      }else buttons.close={text:'先去准备材料',nextScene:'end',onChoose:done('道路记录留存“地区”页面，备齐材料后可随时回来抢修。')};
+    }else buttons.close={text:'合上道路记录',nextScene:'end',onChoose:done('巡路记录已合上。')};
+    if(d.autoRoads)buttons.stopAuto={text:'取消今后的自动维护',nextScene:'end',onChoose:()=>{d.autoRoads=false;if(r)this.acknowledge(s,r.id);return done('往后的道路预警重新交回居民定夺，当前已在处理的路段仍按原决定执行。')();}};
+    const advice=!r?'巡路照常进行。常设维护仅在发现路基隐患时支取材料；若库存不足，仍会报请你定夺。':r.phase==='warning'?'选择停发，会等在途货车与迁居队全部归来后再封路待修；选择继续通行，则从拍板那刻起倒计180秒。':r.choice==='hold'?'在途车辆归来后即行封路。等路面修通，原有的运输安排会自动恢复发车。':'封路期间，在途车队就地停靠。可在“地区”页面安排原路撤回，或拨料修通道路后继续前行。';
+    const budget=r&&typeof CivilFinance!=='undefined'&&CivilFinance.agreement(s)?.members.includes(r.route)?['签下的共同约定仍须兑现，延期交货会记作本期欠供。']:[];
+    return {title:r?'旧路的预警':'道路维护记录',text:[this.status(s)+'。','每次加固或抢修需消耗木料20、工具4。',advice,...budget,'各路常设维护：'+(d.autoRoads?'已授权，每次抢修均须足额支取材料。':'尚未授权。')],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#regionsPanel').length)return;const s=State,d=this.data(s);

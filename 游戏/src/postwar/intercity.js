@@ -15,11 +15,11 @@ var CivilIntercity={
     return Object.entries(cargo).every(([k,n])=>(stores[k]||0)+1e-8>=n+Math.max(reserve[k]||0,(inputs[k]||0)*12));
   },
   reason(s){
-    if(!this.available(s))return '先完成三城建国、铁轨转运站和两趟实际外贸';
-    if(!CivilNation.operational(s)||!CivilFinance.political(s))return '先恢复共同法与现任行政';
-    if(!['rail','river'].every(id=>['associated','integrated'].includes(s.civilization.regions.nodes[id].relation)))return '等待两地恢复共同约定';
-    if(!this.data(s)&&CivilRegions.load(s)+1>CivilSociety.capacity(s)+(s.civilization.regions.archiveOnline||0)*2)return '先扩建并供养地区档案室，为换届期间保留一份基础协调容量';
-    if(CivilRegions.load(s)+(this.data(s)?0:1)>CivilRegions.capacity(s))return '等待一份空余协调责任';
+    if(!this.available(s))return '请先完成三城建国、建成铁轨转运站并跑完两趟对外贸易';
+    if(!CivilNation.operational(s)||!CivilFinance.political(s))return '请先恢复国家共同法与现任行政运转';
+    if(!['rail','river'].every(id=>['associated','integrated'].includes(s.civilization.regions.nodes[id].relation)))return '等待铁轨镇与河谷恢复共同约定';
+    if(!this.data(s)&&CivilRegions.load(s)+1>CivilSociety.capacity(s)+(s.civilization.regions.archiveOnline||0)*2)return '请先扩建并维系行政档案馆，为换届磨合期留出一份基础协调余量';
+    if(CivilRegions.load(s)+(this.data(s)?0:1)>CivilRegions.capacity(s))return '等待腾出一份空闲的协调容量';
     return null;
   },
   sign(s){
@@ -30,17 +30,17 @@ var CivilIntercity={
   schedule(s){const d=this.data(s);if(!d||this.plan(s)||this.reason(s))return false;d.plans.push({id:d.plans.length+1,at:s.civilization.elapsed,limit:CivilIntercityContent.limit,cancelledAt:null});return true;},
   cancel(s){const p=this.plan(s);if(!p)return false;p.cancelledAt=s.civilization.elapsed;return true;},
   roadReason(s,departing=false){
-    for(const id of ['rail','river']){if(s.civilization.regions.routes[id].condition!=='open')return '城际道路封闭，原货物等待修复';if(departing&&CivilIncidents.holds(s,id))return '道路正等待检修，暂停新发车';}return null;
+    for(const id of ['rail','river']){if(s.civilization.regions.routes[id].condition!=='open')return '城际道路已封闭，在途货物滞留待修';if(departing&&CivilIncidents.holds(s,id))return '道路正候空车归来后检修，暂停发运新车';}return null;
   },
   dispatchReason(s){
     const reason=this.reason(s);if(reason)return reason;
-    if(!this.plan(s))return '没有待发委托，可安排最多三趟';
-    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||CivilFrontier.active(s))return '先等原商车返城，并撤销尚未出发的外贸委托';
-    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在地区商约途中，等待返城';
-    if(!this.staffed(s))return '等待两名空闲运输工';
+    if(!this.plan(s))return '暂无待发委托，最多可排入三趟';
+    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||CivilFrontier.active(s))return '请先等原商车归城，并撤销尚未发车的外贸委托';
+    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在跑地区商约，请候其归城';
+    if(!this.staffed(s))return '等待两名空闲的运输工';
     const road=this.roadReason(s,true);if(road)return road;
-    if(!CivilFinance.reserveCheck(s,'home',CivilIntercityContent.travelCost))return '本城须备齐旅费并保留居民供养';
-    if(!this.canCargo(s,'rail',CivilIntercityContent.cargo)||!this.canCargo(s,'river',CivilIntercityContent.returnCargo))return '两地须先备齐交换货物与自身储备';return null;
+    if(!CivilFinance.reserveCheck(s,'home',CivilIntercityContent.travelCost))return '本城须备齐沿途旅费，并留足居民保底口粮';
+    if(!this.canCargo(s,'rail',CivilIntercityContent.cargo)||!this.canCargo(s,'river',CivilIntercityContent.returnCargo))return '铁轨镇与河谷均须先备齐交换货品并留足自家保底储备';return null;
   },
   dispatch(s){
     if(this.dispatchReason(s))return false;const d=this.data(s),at=s.civilization.elapsed;
@@ -53,7 +53,7 @@ var CivilIntercity={
   },
   duration(o,phase=o.phase){return phase==='outbound'?90:phase==='market'||phase==='source'?150:phase==='refund'?o.withdrawal.after:phase==='home'?(o.withdrawal?.from==='outbound'?o.withdrawal.after:90):0;},
   progress(o){return ({outbound:o.outboundSeconds,market:o.marketSeconds,source:o.inboundSeconds,refund:o.inboundSeconds,home:o.homeSeconds})[o.phase]||0;},
-  finish(s,o){o.phase='returned';o.returnedAt=s.civilization.elapsed;Civilization.notify('城际原车已经返城，司机重新可用；地方货物按实际交付与退货记录保留。');},
+  finish(s,o){o.phase='returned';o.returnedAt=s.civilization.elapsed;Civilization.notify('城际联运商车已空返归城，随车司机重新待命；两地货品已按实际交割或退货记录入账。');},
   tick(s){
     const d=this.data(s),at=s.civilization.elapsed;if(!d||d.lastTickAt!==null&&d.lastTickAt>=at)return;d.lastTickAt=at;
     let o=this.active(s);if(!o){this.dispatch(s);return;}if(o.lastTickAt>=at)return;o.lastTickAt=at;
@@ -74,21 +74,21 @@ var CivilIntercity={
     }else if(o.phase==='home'){if(++o.homeSeconds===this.duration(o))this.finish(s,o);}
   },
   status(s){
-    const o=this.active(s);if(!this.data(s))return this.reason(s)||'铁轨镇以零件换河谷粮食，三方可实付议约';
-    if(!o)return this.dispatchReason(s)||'原商车与两地仓库已备齐，等待出发';
-    return (this.roadReason(s)||(!this.staffed(s)?'等待两名司机':({outbound:'空车赴铁轨',pickup:'铁轨等待装24零件',market:'24零件赴河谷',exchange:'河谷等待交换120粮',source:'120粮回铁轨',refund:'原零件退回铁轨',home:'空车回本城'})[o.phase]+(this.duration(o)?' · '+this.progress(o)+' / '+this.duration(o)+'秒':'')))+'；车载 '+CivilHistory.costText(o.cargo);
+    const o=this.active(s);if(!this.data(s))return this.reason(s)||'铁轨镇拿零件换河谷粮食，三方可支取知识立约';
+    if(!o)return this.dispatchReason(s)||'原商车与两地货品均已备妥，候命发车';
+    return (this.roadReason(s)||(!this.staffed(s)?'等待两名司机':({outbound:'空车赴铁轨',pickup:'在铁轨镇候装24零件',market:'载24零件赴河谷',exchange:'在河谷候换120粮',source:'载120粮回铁轨',refund:'原零件退回铁轨',home:'空车回本城'})[o.phase]+(this.duration(o)?' · '+this.progress(o)+' / '+this.duration(o)+'秒':'')))+'；随车装载 '+CivilHistory.costText(o.cargo);
   },
   event(id,done){
-    if(id!=='intercityFreight')return null;const s=State,d=this.data(s),o=this.active(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已变化，未执行；原物资与运单保留。')();
-    if(!d)buttons.sign={text:'三方实付联运议约',nextScene:'end',onChoose:()=>finish(this.sign(s),'本城与两地知识已分别支付，联运占一份协调责任。')};
-    else if(this.plan(s))buttons.cancel={text:'撤销后续联运',nextScene:'end',onChoose:()=>finish(this.cancel(s),'未出发委托已撤销，当前原车仍按原单完成。')};
-    else buttons.schedule={text:'委托最多三趟联运',nextScene:'end',onChoose:()=>finish(this.schedule(s),'最多三趟委托已登记，每次发车才支付旅费。')};
-    if(o&&o.exchangedAt===null&&!o.withdrawal)buttons.withdraw={text:'未成交原货退回',nextScene:'end',onChoose:()=>finish(this.withdraw(s),'按实际已走距离退回；零件回铁轨仓后才退款，旅费不退。')};
-    buttons.close={text:'合上联运账册',nextScene:'end',onChoose:done('地方库存与在途货物继续分别记账。')};
+    if(id!=='intercityFreight')return null;const s=State,d=this.data(s),o=this.active(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已有变动，本次未执行；库内物资与既有运单照旧保留。')();
+    if(!d)buttons.sign={text:'三方实付联运议约',nextScene:'end',onChoose:()=>finish(this.sign(s),'本城与两地已各自支取立约知识，城际联运占用一份协调容量。')};
+    else if(this.plan(s))buttons.cancel={text:'撤销后续联运',nextScene:'end',onChoose:()=>finish(this.cancel(s),'尚未发车的联运委托已撤销，已在途的商车仍按原单跑完。')};
+    else buttons.schedule={text:'委托最多三趟联运',nextScene:'end',onChoose:()=>finish(this.schedule(s),'已排入最多三趟联运委托，每趟实际发车时才支取旅费。')};
+    if(o&&o.exchangedAt===null&&!o.withdrawal)buttons.withdraw={text:'未成交原货退回',nextScene:'end',onChoose:()=>finish(this.withdraw(s),'商车按已走路程折返；零件运抵铁轨镇后方退回原仓，已耗旅费不退。')};
+    buttons.close={text:'合上联运账册',nextScene:'end',onChoose:done('两地公仓与在途货单继续各自记账。')};
     const text=[this.status(s)];
-    if(!d)text.push('议约：本城知识60、铁轨镇30、河谷30，占1协调责任。需正常共同法和真实城市、转运站；基础行政与实际供养的地区档案室须承担全部责任，保留换届恢复余地。');
-    text.push('铁轨镇24零件换河谷120粮；原商车与现有两名司机全程占用，与外贸和渡口行动互斥。每趟本城付粮8、木2、工具0.2、零件0.1。','空车到铁轨90秒，零件到河谷150秒，粮回铁轨150秒，空车回城90秒；道路等待另计，商车不使用列车速度。');
-    if(d)text.push('铁轨现有零件 '+Number((s.civilization.regions.nodes.rail.stores.parts||0).toFixed(2))+'；河谷粮 '+Number((s.civilization.regions.nodes.river.stores.food||0).toFixed(2))+'。两地保留120秒供养及相关维护储备；缺货等待，未成交可原货退回，已成交继续交付。已返城 '+d.orders.filter(x=>x.returnedAt!==null).length+' 趟。');
+    if(!d)text.push('立约需支取：本城知识60、铁轨镇30、河谷30，并占用1份协调容量。前提是国家共同法正常运转，且已建成地方城市与铁轨转运站；同时，由基础行政与正常供养的行政档案馆撑起的协调上限须留有余量，以免换届磨合时超额停摆。');
+    text.push('铁轨镇出24零件，换取河谷120粮食；全程占用本城原商车与两名司机，与对外贸易及渡口行动无法同时发车。每跑一趟由本城支取旅费：粮8、木2、工具0.2、零件0.1。','空车赴铁轨镇90秒，装零件赴河谷150秒，载粮回铁轨镇150秒，最后空车归城90秒；遇封路候修耗时另计，公路商车不享受铁路列车班次的速度。');
+    if(d)text.push('铁轨镇现存零件 '+Number((s.civilization.regions.nodes.rail.stores.parts||0).toFixed(2))+'；河谷现存粮食 '+Number((s.civilization.regions.nodes.river.stores.food||0).toFixed(2))+'。两地均须先留足120秒供养及日常维护底线；缺货时商车就地候装，未交割前可召回退货，一旦交割则继续送抵铁轨镇。累计已跑完归城 '+d.orders.filter(x=>x.returnedAt!==null).length+' 趟。');
     return {title:'铁轨—河谷城际联运',text,buttons};
   },
   refresh(){

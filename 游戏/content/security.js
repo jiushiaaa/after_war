@@ -7,5 +7,5 @@ var CivilSecurityContent={
     joint:{name:'共同护送',homeGuard:2,sourceGuard:2,extraTime:0,delay:30,homeCost:{food:6,tools:.2,medicine:.5},sourceCost:{food:6,tools:.2}}
   }
 };
-CivilServiceContent.facilities.guardpost={name:'守备训练场',homeOnly:true,discover:s=>!!s.civilization.security,requires:['logistics','steel'],paidWork:true,cost:{wood:120,steel:80,tools:30,parts:20},duration:360,max:1,jobs:{guard:4},hint:'增加四个守备岗位，不增加居民。至少两名守备，实际付费训练300秒，才能承担商路护送。'};
+CivilServiceContent.facilities.guardpost={name:'守备训练场',homeOnly:true,discover:s=>!!s.civilization.security,requires:['logistics','steel'],paidWork:true,cost:{wood:120,steel:80,tools:30,parts:20},duration:360,max:1,jobs:{guard:4},hint:'添置四个守备工位，不会凭空多出居民。须至少派两名守备在岗、付清耗材实训满300秒，方能挑起护送商队的担子。'};
 CivilServiceContent.jobs.guard='守备';CivilCatalog.jobs.guard='守备';CivilText.labels.guard='守备';CivilText.labels.guardpost='守备训练场';

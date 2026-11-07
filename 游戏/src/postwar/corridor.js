@@ -3,7 +3,7 @@ var CivilCorridor={
   pendingIds:['nationalCorridor'],
   data(s){return s.civilization.corridor;},
   available(s){return Number.isSafeInteger(s.civilization.accession?.joinedAt)&&!!CivilRailway.asset(s)&&(s.civilization.intercity?.orders.filter(o=>o.deliveredAt!==null&&o.returnedAt!==null).length||0)>=2;},
-  reason(s){return !this.available(s)?'先完成共同法加盟、铁轨支线和两趟三城联运':!CivilAccession.operational(s)||!CivilFinance.political(s)?'先恢复国家、加盟的持续履约和现任行政':null;},
+  reason(s){return !this.available(s)?'请先完成共同法加盟、修通铁轨支线并跑完两趟三城联运':!CivilAccession.operational(s)||!CivilFinance.political(s)?'请先恢复国家、加盟聚居圈的持续履约与现任行政运转':null;},
   start(s){
     const cost=CivilCorridorContent.signature,id=CivilCommerce.sourceId(s);if(this.data(s)||this.reason(s)||!CivilDiplomacy.reserve(s,'home',cost.home)||!CivilDiplomacy.reserve(s,id,cost.source))return false;
     CivilServices.pay(s.stores,cost.home);CivilServices.pay(CivilCommerce.source(s).stores,cost.source);
@@ -20,7 +20,7 @@ var CivilCorridor={
     for(const [k,n]of Object.entries(o.works.cargo)){o.cargo[k]-=n;if(!o.cargo[k])delete o.cargo[k];d.buffer[k]=(d.buffer[k]||0)+n;}
     d.receipts.push({orderId:o.id,at:s.civilization.elapsed,cargo:{...o.works.cargo}});
     if(Object.entries(d.required).every(([k,n])=>d.buffer[k]===n)){d.startedAt=s.civilization.elapsed;d.lastWorkedAt=d.startedAt;CivilOrigins.assign(s,d.sourceId);}
-    Civilization.notify('原商车将 '+CivilHistory.costText(o.works.cargo)+' 交入加盟道路工程保管账；普通贸易仍独立结算。');return true;
+    Civilization.notify('随行商车已将 '+CivilHistory.costText(o.works.cargo)+' 卸入加盟道路工程保管账；随车贸易货单照常独立交割。');return true;
   },
   staff(s,id=CivilCommerce.sourceId(s)){
     const d=this.data(s);if(!d||d.sourceId!==id||d.startedAt===null)return 0;
@@ -32,7 +32,7 @@ var CivilCorridor={
   tick(s){
     const d=this.data(s),at=s.civilization.elapsed;if(!d||d.startedAt===null||d.completedAt!==null||d.lastWorkedAt>=at)return;d.lastWorkedAt=at;
     if(this.staff(s)!==2)return;const last=d.work.at(-1);if(last&&last.to===at-1)last.to=at;else d.work.push({from:at,to:at});d.worked++;
-    if(d.worked===CivilCorridorContent.work){d.completedAt=at;d.consumed={...d.buffer};d.buffer={};CivilOrigins.assign(s,d.sourceId);Civilization.notify('加盟道路驿站完成实际施工；须有人值守并持续支付两边维护，新发商队才采用修复后的路程。');}
+    if(d.worked===CivilCorridorContent.work){d.completedAt=at;d.consumed={...d.buffer};d.buffer={};CivilOrigins.assign(s,d.sourceId);Civilization.notify('加盟道路驿站已竣工；须有当地人手值守且两地按期支取维护耗材，新发出的商队方能走缩短后的新路。');}
   },
   settle(s){
     const d=this.data(s),at=s.civilization.elapsed;if(!d||d.completedAt===null||d.lastSettledAt!==null&&at-d.lastSettledAt<10)return {};
@@ -44,18 +44,18 @@ var CivilCorridor={
     const d=this.data(s),r=d?.maintenance.at(-1);return d?.completedAt!==null&&d&&r?.paid&&this.staff(s)===1&&s.civilization.elapsed-r.at>=0&&s.civilization.elapsed-r.at<=10?{completedAt:d.completedAt,maintainedAt:r.at,baseDuration:Math.ceil(CivilCommerce.route(s).duration*.75)}:null;
   },
   status(s){
-    const d=this.data(s);if(!d)return this.reason(s)||'双方可实付筹办道路驿站，原商车分批运材';
-    if(d.startedAt===null)return '工程材料实到 '+CivilHistory.costText(d.buffer)+'；尚需 '+CivilHistory.costText(Object.fromEntries(Object.entries(d.required).map(([k,n])=>[k,n-(d.buffer[k]||0)])))+'。随正常商队每趟最多带32单位，不另派车。';
-    if(d.completedAt===null)return '当地建设者 '+this.staff(s)+'/2；实际施工 '+d.worked+'/'+CivilCorridorContent.work+'秒，缺员或供养不足则暂停。';
-    const p=this.profile(s);return '当地道路值守 '+this.staff(s)+'/1；'+(p?'两地维护已付，新发商队基础单程 '+p.baseDuration+'秒。':'维护尚未齐备，新发商队暂走原路 '+CivilCommerce.route(s).duration+'秒。')+'在途原单不改时间。';
+    const d=this.data(s);if(!d)return this.reason(s)||'两地可拨料筹办道路驿站，后续建材随正常商车分批捎带';
+    if(d.startedAt===null)return '工程建材已抵 '+CivilHistory.costText(d.buffer)+'；尚差 '+CivilHistory.costText(Object.fromEntries(Object.entries(d.required).map(([k,n])=>[k,n-(d.buffer[k]||0)])))+'。每次随正常商队最多捎带32单位，不单独派车。';
+    if(d.completedAt===null)return '当地施工者 '+this.staff(s)+'/2；施工进度 '+d.worked+'/'+CivilCorridorContent.work+'秒，若人手缺额或供养不济将暂停动工。';
+    const p=this.profile(s);return '当地驿站值守 '+this.staff(s)+'/1；'+(p?'两地维护已付清，新发商队基础单程缩至 '+p.baseDuration+'秒。':'维护尚未付齐，新发商队暂走原路（基础单程 '+CivilCommerce.route(s).duration+'秒）。')+'已在途的旧商单不改耗时。';
   },
   event(id,done){
-    if(id!=='nationalCorridor')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已变化，本次未执行；原材料与运单保留。')();
-    if(!d)buttons.start={text:'双方实付筹办道路',nextScene:'end',onChoose:()=>finish(this.start(s),'本城与当地分别实付筹办，后续材料由原商车分批运送。')};
-    else if(d.startedAt===null&&!CivilCommerce.plan(s))buttons.schedule={text:'委托最多六趟运材贸易',nextScene:'end',onChoose:()=>finish(CivilCommerce.schedule(s),'沿用原六趟商队委托；每次出发才扣货物、建材和旅费。')};
-    else if(d.startedAt===null&&CivilCommerce.plan(s))buttons.cancel={text:'撤销未发运材商队',nextScene:'end',onChoose:()=>finish(CivilCommerce.cancel(s),'未启程委托已撤销；当前原单继续，实到材料留在工程保管账。')};
-    buttons.close={text:'合上道路工程账',nextScene:'end',onChoose:done('原运单与两地仓库分别记账。')};
-    return {title:CivilDiplomacy.name(CivilCommerce.sourceId(s))+'道路驿站',text:[this.status(s),'筹办：本城知识100；当地知识80、木60、工具6、粮120。另运木96、钢48、零件24、工具24，原商车每趟随带32，共6趟。','材料到齐，当地2名空闲成人施工600秒，保留供养与教学。建材实到入保管账，不因普通贸易失败退回。','完工后当地1人值守。每10秒本城零件0.02、当地木0.2和工具0.02，双方可付才扣；新车基础单程3/4，原护送费用与额外时间照旧。','共用原车、司机与护送人员。在途原时长不变；维护不足的新车走原路。'],buttons};
+    if(id!=='nationalCorridor')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已有变动，本次未执行；库内材料与既有运单照旧保留。')();
+    if(!d)buttons.start={text:'双方实付筹办道路',nextScene:'end',onChoose:()=>finish(this.start(s),'本城与当地已分别付清筹办用度，后续工程建材将随商车分批捎去。')};
+    else if(d.startedAt===null&&!CivilCommerce.plan(s))buttons.schedule={text:'委托最多六趟运材贸易',nextScene:'end',onChoose:()=>finish(CivilCommerce.schedule(s),'沿用原有的六趟商队委托；每趟实际发车时才划扣贸易货品、捎带建材与沿途旅费。')};
+    else if(d.startedAt===null&&CivilCommerce.plan(s))buttons.cancel={text:'撤销未发运材商队',nextScene:'end',onChoose:()=>finish(CivilCommerce.cancel(s),'尚未发车的委托已撤销；已在途的商单照常跑完，已运抵的建材留存工程保管账。')};
+    buttons.close={text:'合上道路工程账',nextScene:'end',onChoose:done('在途运单与两地公仓继续各自记账。')};
+    return {title:CivilDiplomacy.name(CivilCommerce.sourceId(s))+'道路驿站',text:[this.status(s),'立项筹办：本城出知识100；当地出知识80、木60、工具6、粮120。另需运去木96、钢48、零件24、工具24，由原商车每趟顺道捎带32单位，分6趟运齐。','建材运齐后，由当地腾出2名空闲劳力施工600秒，期间须优先保住当地供养与学堂。运抵的建材直接入工程保管账，即便随行贸易未成交亦不退回。','落成后需当地1人值守。每10秒本城出零件0.02、当地出木0.2与工具0.02，两头皆够用方才划扣；维护正常时新发商车基础单程缩至3/4，护送开支与驱兽耗时照旧。','与日常外贸共用同一辆商车、司机及护送班组。已在途的旧运单耗时不变；若维护断供，新发商车将退回原路耗时。'],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;if(!this.available(State)){$('#corridorButton,#corridorSummary').hide();return;}

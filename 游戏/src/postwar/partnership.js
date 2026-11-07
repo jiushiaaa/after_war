@@ -22,12 +22,12 @@ var CivilPartnership={
     return Math.max(0,Math.min(2,CivilPopulation.workforce(n.cohorts)-needed-other));
   },
   reason(s,id){
-    if(!this.available(s))return '先完成第四座地方城市与原商队装备';
-    if(!this.candidates(s).includes(id))return '先完成该聚居圈联络；原加盟伙伴仍沿原公约处理';
-    if(!CivilNation.operational(s)||!CivilFinance.political(s))return '先恢复国家共同法与现任行政';
+    if(!this.available(s))return '请先建成第四座地方城市并造好对外商队装备';
+    if(!this.candidates(s).includes(id))return '请先与该聚居圈搭上话；原加盟伙伴仍按原公约操办';
+    if(!CivilNation.operational(s)||!CivilFinance.political(s))return '请先恢复国家共同法与现任行政运转';
     const extra=this.partners(s)[id]?0:1;
-    if(CivilRegions.load(s)+extra>CivilSociety.capacity(s)+(s.civilization.regions.archiveOnline||0)*2)return '先为新伙伴留出一份换届期间仍可维持的基础协调容量';
-    if(CivilRegions.load(s)+extra>CivilRegions.capacity(s))return '等待一份空余协调责任';
+    if(CivilRegions.load(s)+extra>CivilSociety.capacity(s)+(s.civilization.regions.archiveOnline||0)*2)return '请先为新伙伴留出一份在换届磨合期仍可维系的基础协调容量';
+    if(CivilRegions.load(s)+extra>CivilRegions.capacity(s))return '等待腾出一份空闲的协调容量';
     return CivilOrigins.supplyReason(s,id,this.source(s,id).cohorts);
   },
   sourceReserve(s,id,cost){
@@ -73,12 +73,12 @@ var CivilPartnership={
   cancel(s){const p=this.plan(s);if(!p)return false;p.cancelledAt=s.civilization.elapsed;return true;},
   duration(id){return CivilCommerceContent.routes[id].duration+120;},
   paid(){const out={...CivilPartnershipContent.cargo};for(const [k,v]of Object.entries(CivilPartnershipContent.travelCost))out[k]=(out[k]||0)+v;return out;},
-  roadReason(s,id,departing=false){const corridor=CivilCommerceContent.routes[id]?.corridor,r=s.civilization.regions.routes[corridor];return !r||r.condition!=='open'?'原联络走廊封闭，货物等待修复':departing&&CivilIncidents.holds(s,corridor)?'原走廊等待检修，暂停新发车':null;},
+  roadReason(s,id,departing=false){const corridor=CivilCommerceContent.routes[id]?.corridor,r=s.civilization.regions.routes[corridor];return !r||r.condition!=='open'?'原联络走廊已封闭，在途货物滞留待修':departing&&CivilIncidents.holds(s,corridor)?'原走廊正候空车归来检修，暂停发运新车':null;},
   dispatchReason(s){
-    const p=this.plan(s);if(!p)return '没有未发委托';if(!this.operational(s,p.sourceId))return '先恢复该伙伴的实付记录与国家治理';
-    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||CivilIntercity.active(s)||CivilIntercity.plan(s)||CivilFrontier.active(s))return '先等原商车返城并撤销其他未发委托';
-    if(!this.staffed(s))return '等待两名空闲运输工';
-    return this.roadReason(s,p.sourceId,true)||(!CivilFinance.reserveCheck(s,'home',this.paid())?'本城工具、旅费或供养储备不足':!this.sourceReserve(s,p.sourceId,CivilPartnershipContent.returns[p.sourceId])?'对方须先保留供养并备齐实物商品':null);
+    const p=this.plan(s);if(!p)return '暂无未发车的委托';if(!this.operational(s,p.sourceId))return '请先恢复该伙伴的公共记录与国家治理';
+    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||CivilIntercity.active(s)||CivilIntercity.plan(s)||CivilFrontier.active(s))return '请先等原商车归城，并撤销其余未发车的委托';
+    if(!this.staffed(s))return '等待两名空闲的运输工';
+    return this.roadReason(s,p.sourceId,true)||(!CivilFinance.reserveCheck(s,'home',this.paid())?'本城工具、沿途旅费或保底供养不足':!this.sourceReserve(s,p.sourceId,CivilPartnershipContent.returns[p.sourceId])?'对方须先留足自家供养，再备齐交换现货':null);
   },
   dispatch(s){
     if(this.dispatchReason(s))return false;const d=this.data(s),p=this.plan(s),at=s.civilization.elapsed;CivilServices.pay(s.stores,this.paid());
@@ -90,29 +90,29 @@ var CivilPartnership={
     if(o.arrivedAt===null){if(++o.outboundSeconds===this.duration(o.sourceId)){
       const goods=CivilPartnershipContent.returns[o.sourceId],n=this.source(s,o.sourceId);o.arrivedAt=at;o.exchange=this.sourceReserve(s,o.sourceId,goods);
       if(o.exchange){CivilServices.pay(n.stores,goods);CivilRegions.credit(n.stores,o.cargo);o.cargo={...goods};}
-      Civilization.notify(CivilDiplomacy.name(o.sourceId)+(o.exchange?'实物成交，原商车携货返程。':'保留自身供养，本趟未成交，原工具返程。'));
-    }}else if(++o.inboundSeconds===this.duration(o.sourceId)){CivilRegions.credit(s.stores,o.cargo);o.cargo={};o.returnedAt=at;Civilization.notify('地区商约原车返城，实际货物入库，两名司机重新可用。');}
+      Civilization.notify(CivilDiplomacy.name(o.sourceId)+(o.exchange?'现货交割完毕，原商车装货返程。':'对方须先保住自家口粮，本趟未能成交，原工具随车拉回。'));
+    }}else if(++o.inboundSeconds===this.duration(o.sourceId)){CivilRegions.credit(s.stores,o.cargo);o.cargo={};o.returnedAt=at;Civilization.notify('跑地区商约的原商车已归城，换回的货物卸入原仓，两名随车司机重新待命。');}
   },
   status(s,id){
-    const p=this.partners(s)[id];if(!p)return this.reason(s,id)||'双方可实付签订商约';
-    return (p.joinedAt===null?'独立商约':'共同法成员，现有'+this.source(s,id).population+'人仍在当地生活')+'；实际成交返城'+this.completed(s,id)+'趟；连续履约'+p.stableSeconds+'/600秒；'+(this.operational(s,id)?'公共记录正常':this.reason(s,id)||'等待两名地方记录员、双方经费与下一轮核验');
+    const p=this.partners(s)[id];if(!p)return this.reason(s,id)||'双方可支取用度签定商约';
+    return (p.joinedAt===null?'独立商约':'共同法成员，在册'+this.source(s,id).population+'人照旧在当地安居度日')+'；累计成交归城'+this.completed(s,id)+'趟；连续履约'+p.stableSeconds+'/600秒；'+(this.operational(s,id)?'公共记录运转正常':this.reason(s,id)||'正候当地两名记录员到岗、备齐两地经费并完成下一轮核验');
   },
   event(id,done){
-    if(id!=='regionalPartners')return null;const s=State,buttons={},text=['各方独立供养与库存。原商车共用，最多委托三趟；新商路采用已知走廊的远路，单程另120秒，不借用第一伙伴的护送或道路优惠。'],finish=(ok,msg)=>done(ok?msg:'条件已变化，未执行；原约定与货物保留。')();
+    if(id!=='regionalPartners')return null;const s=State,buttons={},text=['各方独立供养、自管仓库。商队与日常外贸共用同一辆原商车，每次最多排入三趟；新商路需绕行已知走廊外围的远路，单程多走120秒，不享受第一伙伴的护送或驿站缩时。'],finish=(ok,msg)=>done(ok?msg:'条件已有变动，本次未执行；既有约定与库内货物照旧保留。')();
     for(const source of this.candidates(s)){
       const p=this.partners(s)[source],name=CivilDiplomacy.name(source);
-      text.push(name+'：'+this.status(s,source)+'。工具12换 '+CivilHistory.costText(CivilPartnershipContent.returns[source])+'，单程'+this.duration(source)+'秒。');
-      if(!p)buttons['sign_'+source]={text:name+'实付商约',nextScene:'end',onChoose:()=>finish(this.sign(s,source),'双方支付登记费用，地方两名记录员从现有成年人安排，新增一份协调责任。')};
+      text.push(name+'：'+this.status(s,source)+'。每趟拿工具12换回 '+CivilHistory.costText(CivilPartnershipContent.returns[source])+'，单程耗时'+this.duration(source)+'秒。');
+      if(!p)buttons['sign_'+source]={text:name+'实付立约',nextScene:'end',onChoose:()=>finish(this.sign(s,source),'两地已付清立约用度，由当地从在册成年人中抽调两名记录员当值，占用一份协调容量。')};
       else {
-        if(!this.plan(s))buttons['trade_'+source]={text:'委托'+name+'三趟',nextScene:'end',onChoose:()=>finish(this.schedule(s,source),'三趟有限委托已登记；每次实际启程才付货物和旅费。')};
-        if(p.joinedAt===null&&p.stableSeconds>=600&&this.completed(s,source)>=3)buttons['join_'+source]={text:name+'共同法接纳',nextScene:'end',onChoose:()=>finish(this.join(s,source),'双方实付共同法登记。当地原居民纳入共同法，不迁移、不复制人口，不合并库存；持续职责仍需支付。')};
+        if(!this.plan(s))buttons['trade_'+source]={text:'排入'+name+'三趟商队',nextScene:'end',onChoose:()=>finish(this.schedule(s,source),'已排入三趟商队委托；每趟实际发车时才划扣贸易工具与沿途旅费。')};
+        if(p.joinedAt===null&&p.stableSeconds>=600&&this.completed(s,source)>=3)buttons['join_'+source]={text:name+'加入共同法',nextScene:'end',onChoose:()=>finish(this.join(s,source),'双方付清用度，正式完成共同法登记。当地百姓自此纳入共同法，但不搬家、不虚增人口，两地公仓亦不合并；日常记录开支仍须按轮支取。')};
       }
     }
-    const o=this.active(s),plan=this.plan(s);if(plan)buttons.cancel={text:'撤销未发地区商队',nextScene:'end',onChoose:()=>finish(this.cancel(s),'未出发委托已撤销，在途原车继续返程。')};
-    if(o)text.push('在途：'+CivilDiplomacy.name(o.sourceId)+'，'+(o.arrivedAt===null?'去程 '+o.outboundSeconds:'返程 '+o.inboundSeconds)+'/'+this.duration(o.sourceId)+'秒；车载 '+CivilHistory.costText(o.cargo)+'。'+(this.roadReason(s,o.sourceId)||(!this.staffed(s)?'等待两名司机':'')));
+    const o=this.active(s),plan=this.plan(s);if(plan)buttons.cancel={text:'撤销未发地区商队',nextScene:'end',onChoose:()=>finish(this.cancel(s),'尚未发车的委托已撤销，已在途的原商车照常返程。')};
+    if(o)text.push('在途：'+CivilDiplomacy.name(o.sourceId)+'，'+(o.arrivedAt===null?'去程 '+o.outboundSeconds:'返程 '+o.inboundSeconds)+'/'+this.duration(o.sourceId)+'秒；随车装载 '+CivilHistory.costText(o.cargo)+'。'+(this.roadReason(s,o.sourceId)||(!this.staffed(s)?'等待两名司机':'')));
     else if(plan)text.push('发车：'+this.dispatchReason(s));
-    text.push('每份商约：本城知识80、木10；对方知识40、木10。每趟另耗粮12、木3、工具0.2、零件0.1；到达交换、返城入库，未成交退原货，旅费不退。','每10秒双方公共记录费用按现行中央/地方与成文/惯例职责计算：本城 '+CivilHistory.costText(this.fee(s).home)+'；对方 '+CivilHistory.costText(this.fee(s).source)+'。两名地方记录员与双方费用齐备才扣款；欠费或政务中断暂停新发车与履约，原有成员身份保留。','共同法接纳需三趟真实成交返城、连续600秒有效记录，再付本城知识150/工具8，对方知识100/工具8。各地居民继续在当地生活，迁居仍需原协议、旅费与住房。');
-    buttons.close={text:'合上地区商约',nextScene:'end',onChoose:done('各伙伴的仓库、名册和约定分别保管。')};return {title:'地区商约与共同法',text,buttons};
+    text.push('每签一份商约：本城出知识80、木10；对方出知识40、木10。每跑一趟另耗旅费粮12、木3、工具0.2、零件0.1；抵站交割、归城入库，若未成交则原货拉回，已耗旅费不退。','每10秒双方的公共记录开支按现行“中央/地方”与“成文/惯例”制度核算：本城 '+CivilHistory.costText(this.fee(s).home)+'；对方 '+CivilHistory.costText(this.fee(s).source)+'。须当地两名记录员在岗且两头用度齐备方才划扣；一旦欠费或国家行政中断，即暂停发运新车并停计履约，但既有的成员名分照旧保留。','接纳其入共同法，需先跑满三趟成交归城的商队、连续600秒有效记录，再由本城出知识150/工具8、对方出知识100/工具8。入法后百姓照旧在原处生活，若要迁居仍须按原协议核验旅费与空床。');
+    buttons.close={text:'合上地区商约',nextScene:'end',onChoose:done('各伙伴的公仓、户籍与条约继续各自掌管。')};return {title:'地区商约与共同法',text,buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;if(!this.available(State)){$('#partnershipButton').hide();return;}

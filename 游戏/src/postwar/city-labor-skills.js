@@ -22,9 +22,9 @@ Object.assign(CivilCityLabor,{
   },
   taskReason(s,o){
     if(o.version!==2)return null;
-    if(!Object.hasOwn(this.skilledTrades,o.task))return '尚无这项合格班组工序';
-    if(!this.x().active(s,o.from)||!this.h().active(s,o.from))return '来源接续工坊与社区须持续续办，才能调派合格班组';
-    if(this.count(this.skilledCandidates(s,o.from,o.count))<o.count)return '须有足额在册资格，并留至少半数合格人员及两名教员在原城';
+    if(!Object.hasOwn(this.skilledTrades,o.task))return '尚无此项合格班组工序';
+    if(!this.x().active(s,o.from)||!this.h().active(s,o.from))return '来源城的接续工坊与安居社区须正常续办，方可外派合格班组';
+    if(this.count(this.skilledCandidates(s,o.from,o.count))<o.count)return '来源城须有足额的在册资格人员，且外派后仍须留至少半数合格人员与两名教员看家';
     return null;
   },
   commitment(s,o){

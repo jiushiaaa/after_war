@@ -6,12 +6,12 @@ var CivilPacing={
   modesFor(s){return Object.fromEntries(Object.entries(this.modes).filter(([id])=>!['industry','learning'].includes(id)||s.civilization.pacingVersion===2));},
   managed(s,mode=this.data(s)?.mode){return this.industrial(s,mode)?[...this.jobs,...this.industrialJobs]:this.jobs;},
   industrialReady(s){return s.civilization.pacingVersion===2&&s.civilization.course?.id==='industry'&&s.civilization.village.town&&!!s.game.buildings.furnace;},
-  handoffProduction(s,mode){return this.industrial(s,mode)&&mode==='industry'&&!s.civilization.urban.city&&CivilUrban.developmentChecks(s,true).every(([label,ready])=>ready||label==='采矿、采煤、冶炼与机械工实际生产'||label==='工业用电 ≥4');},
+  handoffProduction(s,mode){return this.industrial(s,mode)&&mode==='industry'&&!s.civilization.urban.city&&CivilUrban.developmentChecks(s,true).every(([label,ready])=>ready||label==='采矿、采煤、冶炼与机械工在岗生产'||label==='工业用电 ≥4');},
   available(s){return this.enabled(s)&&s.civilization.settled&&(s.game.population>=8||!!this.data(s)?.changes.length)&&!!s.game.buildings.workshop&&!s.civilization.city?.institutions;},
   init(s){if(this.enabled(s)&&this.data(s)===undefined)s.civilization.workMandate={schema:1,mode:'reserves',enabled:false,until:0,records:[],changes:[],handoffAt:null};},
   crew(s){const d=this.data(s);return this.enabled(s)&&d?.enabled&&d.until>s.civilization.elapsed&&!s.civilization.city?.institutions?1:0;},
   labor(s,mode=this.data(s)?.mode){return CivilSociety.workforce(s)+this.crew(s)-Object.entries(s.game.workers).filter(([j])=>!this.managed(s,mode).includes(j)).reduce((n,[,count])=>n+count,0);},
-  reason(s,mode){if(!this.available(s))return '工坊与8位居民形成后可议定轮值；城市公署成立后由机构接续';if(!Object.hasOwn(this.modesFor(s),mode))return '选择轮值方向';if(this.industrial(s,mode)&&!this.industrialReady(s))return '工业城镇建成熔炉后可接管投产与学徒轮值';const d=this.data(s);if(d?.enabled&&d.mode===mode&&this.crew(s))return '已按此方向轮值';if(this.labor(s,mode)<4)return '至少留四名可用成人，才能抽出一人协调';return d?.until>s.civilization.elapsed||CivilRules.canPay(s,this.cost)?null:'轮值需木料2、食物1；补足后可恢复';},
+  reason(s,mode){if(!this.available(s))return '建成工坊且满8位居民后可议定轮值；城市公署成立后由机构接管';if(!Object.hasOwn(this.modesFor(s),mode))return '选择轮值方向';if(this.industrial(s,mode)&&!this.industrialReady(s))return '工业城镇建成冶炼炉后，可接管工业投产与学徒轮值';const d=this.data(s);if(d?.enabled&&d.mode===mode&&this.crew(s))return '已按此方向轮值';if(this.labor(s,mode)<4)return '至少需留四名可用劳力，才抽得出一人专职协调';return d?.until>s.civilization.elapsed||CivilRules.canPay(s,this.cost)?null:'轮值协调需木料2、食物1；补足后即可恢复';},
   set(s,mode){this.init(s);if(this.reason(s,mode))return false;const d=this.data(s);d.mode=mode;d.enabled=true;d.changes.push({at:s.civilization.elapsed,mode,enabled:true});this.serve(s);Object.assign(s.game.workers,this.plan(s));CivilSociety.trimJobs(s);return true;},
   stop(s,why='manual'){const d=this.data(s);if(!d?.enabled)return false;d.enabled=false;d.changes.push({at:s.civilization.elapsed,mode:d.mode,enabled:false,why});return true;},
   commit(mode){const changed=mode===null?this.stop(State):this.set(State,mode);if(changed)Outside.updateWorkersView();return changed;},
@@ -80,7 +80,7 @@ var CivilPacing={
     }
     for(const id of ['socialNote','civilManualGather'])if($('#'+id).length&&$('#'+id).parent()[0]!==root[0])$('#'+id).appendTo(root);
     const d=this.data(s);$('#civilWorkStatus').text(d.enabled?this.modes[d.mode]+' · 协调员1人 · 下次续办 '+Math.max(0,d.until-s.civilization.elapsed)+'秒':'自行分工'+(d.changes.at(-1)?.why==='shortage'?' · 维护缺料已暂停，补足后可恢复':''));
-    $('#civilWorkScope').text('一名现有成人轮值协调，每60秒木料2、食物1。留三名机动成人；'+(this.industrial(s)?'当前接管民用与五项工业岗位':'当前只调六项民用岗位')+'，保留司机、守备和在途人员。手动调整受托岗位会暂停；城市公署成立后交接。');
+    $('#civilWorkScope').text('抽调一名成年居民轮值协调，每60秒耗木料2、食物1。常留三名机动人手；'+(this.industrial(s)?'当前接管民用与五项工业岗位':'当前只调配六项民用岗位')+'，不动用司机、守备与在途人员。若手动调整受托岗位，轮值将自动暂停；城市公署成立后移交公署。');
     $('#civilWorkBrief').text(d.enabled?'已委托：'+this.modes[d.mode]+' · 协调员1人':'自行安排民用岗位');
     const manual=$('#civilEarlyJobs');if(manual.attr('data-enabled')!==String(d.enabled)){manual.attr('data-enabled',String(d.enabled));manual.prop('open',!d.enabled);}
     if(this.industrialReady(s)){
@@ -89,10 +89,10 @@ var CivilPacing={
       const selected=$('#civilWorkDirection').val();CivilCityView.button('civilWork_apply','按此方针委托','#civilWorkChoices',this.reason(s,selected),()=>this.commit($('#civilWorkDirection').val()));
     }else for(const [mode,label]of Object.entries(this.modesFor(s)))if(!['industry','learning'].includes(mode))CivilCityView.button('civilWork_'+mode,label,'#civilWorkChoices',this.reason(s,mode),()=>this.commit(mode));
     CivilCityView.button('civilWork_stop','自行分工','#civilWorkChoices',d.enabled?null:'当前自行分工',()=>this.commit(null));
-    $('#civilWorkPreview').text('储备安排先留24轮供养，足够后转回基本产粮；木料足120时补废料至60、工具至24。修造安排优先补废料与工具至120，可使用已扩建的制器工位；工具够用后回到四人。实际仍受劳力、健康与原料限制。');
+    $('#civilWorkPreview').text('“供养与储备”会先攒够24轮口粮，达标后退回基础农耕；木料满120时将废料补至60、工具补至24。“修造与回收”则优先把废料与工具补至120，并启用扩建的制器工位，工具够用后撤回四人常备。实际产出仍受人手、健康与原料制约。');
     if(this.industrialReady(s)){
-      const descriptions={reserves:'先留24轮供养，够用后回到基本产粮；废料留60、工具留24。工业岗位自行安排。',workshop:'优先补废料与工具至120；使用已扩建的制器工位，够用后回到四人。工业岗位自行安排。',industry:'先满足生产工位：矿200、煤240、铁200、零件120。余下成人再安排教学。',learning:'先安排教师；工业只留维修缓冲：矿60、煤80、铁60、零件40。生产扩建会更慢。'};
-      $('#civilWorkPreview').text(descriptions[$('#civilWorkDirection').val()]+($('#civilWorkDirection').val()==='industry'?' 原镇交接其余条件齐备时，保留最低试生产班组；原料和用电照付。':'')+' 全部仍受实际劳力、健康、原料与岗位上限限制。');
+      const descriptions={reserves:'先攒足24轮口粮，够用后退回基础农耕；废料留60、工具留24。工业岗位需自行安排。',workshop:'优先把废料与工具补至120；启用扩建的制器工位，够用后撤回四人常备。工业岗位需自行安排。',industry:'优先排满工业工位，将库存补至：矿200、煤240、铁200、零件120。富余劳力再排入课堂。',learning:'优先排满学堂教师；工业仅留日常维修底线：矿60、煤80、铁60、零件40。扩建备料会相应放缓。'};
+      $('#civilWorkPreview').text(descriptions[$('#civilWorkDirection').val()]+($('#civilWorkDirection').val()==='industry'?' 原镇交接的其余条件齐备时，会保留最低限度的试生产班组；原料与电力照常消耗。':'')+' 所有排班均受实有人手、健康、原料与工位上限约束。');
     }
   }
 };

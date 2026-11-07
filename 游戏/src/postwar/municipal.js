@@ -173,14 +173,14 @@ var CivilMunicipal={
   },
   serviceCheck(s,id,cohorts=[]){
     if(!this.canAccept(s,id))return '地方尚未同意共同接纳';const n=this.node(s,id),m=this.data(s,id);
-    if(n.health<60)return '先恢复地方健康';
-    if(!(m.buildings.clinic && m.buildings.school && m.buildings.farmland))return '先建设地方田片、诊疗站和学舍';
-    if((n.stores.food||0)+1e-8<this.foodReserve(s,id,cohorts))return '地方须留下120秒居民口粮';
+    if(n.health<60)return '先恢复地方居民健康';
+    if(!(m.buildings.clinic && m.buildings.school && m.buildings.farmland))return '先在当地建成田片、诊疗站与学舍';
+    if((n.stores.food||0)+1e-8<this.foodReserve(s,id,cohorts))return '地方须留足120秒居民口粮';
     const f=this.forecast(s,id,cohorts);
     if(typeof CivilHeating!=='undefined'){const heat=CivilHeating.growthReason(s,id,cohorts,f.copy);if(heat)return heat;}
-    if(!f.education)return '地方教师或教材不能覆盖新增儿童';
-    if(!f.treatment || f.medicine<-1e-8)return '地方药品生产不足以持续治疗';
-    if(f.food<-1e-8)return '地方农田与工具还不能持续供养';
+    if(!f.education)return '地方在岗教师或教材不足以覆盖新增儿童';
+    if(!f.treatment || f.medicine<-1e-8)return '地方产药能力不足以支撑持续治疗';
+    if(f.food<-1e-8)return '地方农田与工具尚不足以维持供养';
     if(s.civilization.regions.adminService===false)return '地方公共行政暂未维持';return null;
   },
   admit(s,id,cohorts){const n=this.node(s,id);if(!this.has(s,id)||!n)return 0;const count=CivilPopulation.count(cohorts);n.cohorts.push(...cohorts.map(c=>({...c})));n.population+=count;this.planWorkers(s,id);return count;},
@@ -192,25 +192,25 @@ var CivilMunicipal={
     const rows=[],add=(id,label,ready,value,hint)=>rows.push({id,label,ready:!!ready,value,hint}),number=x=>Number((Number(x)||0).toFixed(2));
     add('agreement','地方议约',this.canAccept(s,id),this.canAccept(s,id)?'共同营建有效':'尚未同意共同营建','先取得地方同意');
     if(!n||!m)return rows;
-    add('population','实住居民',n.population>=(city?400:80),n.population+' / '+(city?400:80),'扩建住房并维持供养后接纳家庭；在途不计入');
-    add('housing','住房容量',n.population<=this.capacity(s,id),n.population+' / '+this.capacity(s,id),'住房分类查看可扩建住区');
-    add('health','居民健康',n.health>=(city?70:60),number(n.health)+' / '+(city?70:60),'先恢复口粮、诊疗与药品');
-    add('receipt','近期供养记录',!!e&&s.civilization.elapsed-e.at<=10,e?'距今 '+number(s.civilization.elapsed-e.at)+' 秒':'尚未生产结算','等待下一轮真实生产结算');
-    add('facilities','基础公共设施',m.buildings.farmland&&m.buildings.clinic&&m.buildings.school,['farmland','clinic','school'].map(k=>CivilMunicipalContent.facilities[k].name+' '+(m.buildings[k]||0)).join('、'),'供养分类补齐田片、诊疗站和学舍');
-    add('education','儿童教学',e?.education,e?.education?'已覆盖':'未覆盖','需实际教师、学舍和木料教材');
-    add('treatment','持续治疗',e?.treatment,e?.treatment?'已覆盖':'未覆盖','需实际医护、当轮产药与药品支出');
-    add('food','粮食净供给',!!e&&e.food>=-1e-8,e?number(e.food)+' / 10秒':'无近期记录','补田片、农工与工具，并承担现有贸易义务');
-    add('medicine','药品净供给',!!e&&e.medicine>=-1e-8,e?number(e.medicine)+' / 10秒':'无近期记录','补诊疗产能、食物和废料；药剂另需供电与化学品');
-    add('administration','公共行政',r.adminService!==false,r.adminService===false?'物资不足':'正常','维持公共行政的实际物资支出');
-    add('heating','已交接供暖',typeof CivilHeating==='undefined'||CivilHeating.covered(s,id),typeof CivilHeating!=='undefined'&&CivilHeating.handed(s,id)?CivilHeating.capacity(s,id)+' / '+n.population+' 人份':'尚未交接集中供暖','供养分类检查供热站、燃料、值守和供电');
-    add('route','通路与交付',CivilRegions.serviceReady(s,id),CivilRegions.serviceReady(s,id)?'近期实际交付有效':'通路或交付不足','保持通路启用、班组与实际货物到达；建设运材也可证明服务');
+    add('population','实住居民',n.population>=(city?400:80),n.population+' / '+(city?400:80),'扩建住房并稳住供养后方可接纳家庭；在途人员不计入内');
+    add('housing','住房容量',n.population<=this.capacity(s,id),n.population+' / '+this.capacity(s,id),'在“住房”分类下查看可扩建的住区');
+    add('health','居民健康',n.health>=(city?70:60),number(n.health)+' / '+(city?70:60),'先恢复口粮、诊疗与药品供应');
+    add('receipt','近期供养记录',!!e&&s.civilization.elapsed-e.at<=10,e?'距今 '+number(s.civilization.elapsed-e.at)+' 秒':'尚未结算生产','等待下一轮生产结算');
+    add('facilities','基础公共设施',m.buildings.farmland&&m.buildings.clinic&&m.buildings.school,['farmland','clinic','school'].map(k=>CivilMunicipalContent.facilities[k].name+' '+(m.buildings[k]||0)).join('、'),'在“供养”分类下补齐田片、诊疗站与学舍');
+    add('education','儿童教学',e?.education,e?.education?'已覆盖':'未覆盖','需有教师在岗、建成学舍并备有木料教材');
+    add('treatment','持续治疗',e?.treatment,e?.treatment?'已覆盖':'未覆盖','需有医护在岗，且当轮产药与药品支用不断');
+    add('food','粮食净供给',!!e&&e.food>=-1e-8,e?number(e.food)+' / 10秒':'无近期记录','补足田片、农夫与工具，并兑现已签的贸易份额');
+    add('medicine','药品净供给',!!e&&e.medicine>=-1e-8,e?number(e.medicine)+' / 10秒':'无近期记录','补足诊疗产能、食物与废料；制备药剂另需供电与化学品');
+    add('administration','公共行政',r.adminService!==false,r.adminService===false?'物资不足':'正常','维持公共行政的日常物资开支');
+    add('heating','已交接供暖',typeof CivilHeating==='undefined'||CivilHeating.covered(s,id),typeof CivilHeating!=='undefined'&&CivilHeating.handed(s,id)?CivilHeating.capacity(s,id)+' / '+n.population+' 人份':'尚未交接集中供暖','在“供养”分类下检查供热站、燃料、值守人手与供电');
+    add('route','通路与交付',CivilRegions.serviceReady(s,id),CivilRegions.serviceReady(s,id)?'近期到货正常':'通路受阻或近期交付不足','保持通路畅通、班组在岗且近期有货抵仓；运送工程建材同样计入有效往来');
     if(city){
-      add('town','正式镇制',m.town,m.town?'已登记':'尚未登记','先完成镇制的持续供养与登记');
-      add('industry','地方工业链',e?.industry,e?.industry?'当轮实际运行':'尚未完整运行','需地方采矿、产煤、冶炼与机械生产同时实际运行');
-      add('power','机械生产用电',(e?.productivePower||0)>=4,number(e?.productivePower)+' / 4','至少2位新增机械工实际用电；地方随实住人口与维护需求配工，先保障供养与扩居');
-      add('pollution','地方烟尘',m.pollution<40,number(m.pollution)+' / 小于40','能源分类建设烟尘处理并保持材料和供电');
-      add('reserve_food','居民口粮储备',(n.stores.food||0)+1e-8>=this.foodReserve(s,id),number(n.stores.food)+' / '+number(this.foodReserve(s,id)),'至少留下120秒实际居民口粮');
-      for(const [key,amount]of Object.entries({tools:40,iron:40,parts:20}))add('reserve_'+key,(CivilText.labels[key]||key)+'储备',n.stores[key]>=amount,number(n.stores[key])+' / '+amount,'当地仓库实际存量；在途、主城库存均不计入');
+      add('town','正式镇制',m.town,m.town?'已登记':'尚未登记','先维持镇制所需的日常供养并完成登记');
+      add('industry','地方工业链',e?.industry,e?.industry?'当轮运转正常':'尚未完整运转','需当地采矿、采煤、冶炼与机械工序当轮同时运转');
+      add('power','机械生产用电',(e?.productivePower||0)>=4,number(e?.productivePower)+' / 4','至少2位新增机械工通电作业；当地按实住人口与维护需求排班，优先保障供养与扩建住房');
+      add('pollution','地方烟尘',m.pollution<40,number(m.pollution)+' / 小于40','在“能源”分类下兴建烟尘处理设施，并保持耗材与供电不断');
+      add('reserve_food','居民口粮储备',(n.stores.food||0)+1e-8>=this.foodReserve(s,id),number(n.stores.food)+' / '+number(this.foodReserve(s,id)),'至少留足当地居民120秒的口粮');
+      for(const [key,amount]of Object.entries({tools:40,iron:40,parts:20}))add('reserve_'+key,(CivilText.labels[key]||key)+'储备',n.stores[key]>=amount,number(n.stores[key])+' / '+amount,'当地仓库实存数量；在途货物与主城库存均不计入');
     }
     return rows;
   },
@@ -268,7 +268,7 @@ var CivilMunicipal={
       const n=this.node(s,id),p=m.project;this.planWorkers(s,id);
       if(p?.status==='building' && this.canAccept(s,id) && n.health>=30 && n.workers.builder>=2){
         p.remaining=Math.max(0,p.remaining-1);
-        if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;m.completed.push({id:p.id,type:p.type,completedAt:s.civilization.elapsed});this.planWorkers(s,id);this.note(CivilRegionContent[id].name+'的'+CivilMunicipalContent.facilities[p.type].name+'已经建成。当地居民开始接管新的设施。');}
+        if(!p.remaining){p.status='complete';m.buildings[p.type]=(m.buildings[p.type]||0)+1;m.completed.push({id:p.id,type:p.type,completedAt:s.civilization.elapsed});this.planWorkers(s,id);this.note(CivilRegionContent[id].name+'的'+CivilMunicipalContent.facilities[p.type].name+'已落成。当地居民接手了新设施。');}
       }
     }
     return {storesChanged:false,populationChanged:false};
@@ -286,10 +286,10 @@ var CivilMunicipal={
     const title=CivilRegionContent[id].name;
     if(kind==='Consent'){
       if(!this.eligible(s,id)||m)return null;
-      return {title:title+'的城市工程议约',text:['地方代表带来了新的营建计划。田地、诊疗与课堂需要扩建，居民也想为更多家庭留出住处。','整理图纸与公共约定需要20知识。先登记约定，再从炉火城运来建材，由当地居民施工。','大家决定先修农田、诊疗站和学舍，再筹办新的住宅与工坊。'],buttons:{agree:{text:'登记市政议约（20知识）',nextScene:'end',onChoose:()=>{const ok=this.activate(s,id);return done(ok?title+'同意了营建计划，代表开始核对第一批建材。':'议约尚未完成，代表留下图纸等待商议。')();}},later:{text:'暂缓议约',nextScene:'end',onChoose:done('代表收好图纸，约定日后再议。')}}};
+      return {title:title+'的城市工程议约',text:['地方代表呈上了新的营建图样。田亩、诊所与学堂亟待扩建，街坊们也想给新来的家庭腾出屋舍。','核定图纸与公共条约需耗20知识。先立下字据，再由炉火城发车运去建材，交由当地人手动工。','众人商定，先修农田、诊所与学舍，站稳脚跟后再张罗新住宅与工坊。'],buttons:{agree:{text:'登记市政议约（20知识）',nextScene:'end',onChoose:()=>{const ok=this.activate(s,id);return done(ok?title+'签下了营建计划，当地代表开始清点第一批待运建材。':'议约条件尚未凑齐，代表留下图纸，候日后再议。')();}},later:{text:'暂缓议约',nextScene:'end',onChoose:done('代表卷起图纸收好，约定了日后再谈。')}}};
     }
     if(!m)return null;const city=kind==='City',field=city?'city':'town',threshold=city?300:180;
-    return {title:title+(city?'的城市职责':'的镇制'),text:[city?'四百位居民住进了这片家园。田地供应口粮，诊疗与课堂照看家庭，矿井和工坊在自己的电站下运转。':'八十位居民的日常渐渐安定。口粮送进仓库，诊疗站有人值守，课堂里响起了孩子们的声音。','代表们翻开公共记录，准备把新的职责留给这一代与下一代居民。'],buttons:{record:{text:city?'登记地方城市':'登记地方镇制',nextScene:'end',onChoose:()=>{const ready=!m[field]&&m[city?'cityStable':'townStable']>=threshold&&this.developmentReady(s,id,city);return done(ready?title+'的'+(city?'城市职责':'镇制')+'已经登记。':'供养条件已有变化，恢复稳定后再登记。',()=>{if(ready)m[field]=true;})();}}}};
+    return {title:title+(city?'的城市职责':'的镇制'),text:[city?'四百口人在这片土地上安了家。田垄出粮，诊所与学堂看顾老小，矿井与工坊在自家的电网下轰鸣运转。':'八十口人的日子渐渐踏实下来。新粮入仓，诊所有医护坐堂，学堂里传出了朗朗书声。','代表们摊开公共记录，准备把这份责任写进传给后人的账册里。'],buttons:{record:{text:city?'登记地方城市':'登记地方镇制',nextScene:'end',onChoose:()=>{const ready=!m[field]&&m[city?'cityStable':'townStable']>=threshold&&this.developmentReady(s,id,city);return done(ready?title+'的'+(city?'城市职责':'镇制')+'已正式登记在册。':'眼下供养条件有所波动，待恢复平稳后再行登记。',()=>{if(ready)m[field]=true;})();}}}};
   },
   note(message){if(typeof Civilization!=='undefined'&&Civilization.notify)Civilization.notify(message);},
   reset(){this.module=null;this.selected=null;},
@@ -309,13 +309,13 @@ var CivilMunicipal={
     for(const id of ids){const button=Civilization.button('municipalSelect_'+id,CivilRegionContent[id].name,'#municipalSelect',()=>{this.selected=id;this.refresh();});Button.setDisabled(button,this.selected===id);}
     const id=this.selected,n=this.node(s,id),m=this.data(s,id),fmt=obj=>Object.entries(obj).filter(([,v])=>v>0).map(([key,v])=>_(key)+' '+Number(v.toFixed(2))).join('、');
     const consent=Civilization.button('municipalConsent','商议城市工程','#municipalBuild',()=>{if(!Events.activeEvent()&&!c.pending){c.pending='municipalConsent_'+this.selected;Civilization.showPending();}},{knowledge:20});consent.toggle(!m);Button.setDisabled(consent,!!m||!CivilRules.canPay(s,{knowledge:20}));
-    if(typeof CivilInterface!=='undefined')CivilInterface.renderMunicipal(s,id);else $('#municipalStatus').text(CivilRegionContent[id].name+' · '+n.population+' / '+this.capacity(s,id)+'居民 · 健康'+Math.floor(n.health)+'。'+(m?(m.city?'地方城市。':m.town?'正式镇制。':'地方共同体。')+'烟尘'+Math.floor(m.pollution)+'，生产用电'+(m.economy?.productivePower||0)+' / '+Number(m.power.generation.toFixed(2))+'。'+(m.economy?'每10秒供养余量：粮'+Number(m.economy.food.toFixed(2))+'、药'+Number(m.economy.medicine.toFixed(2))+'。':''):'代表正在等待营建计划。'));
+    if(typeof CivilInterface!=='undefined')CivilInterface.renderMunicipal(s,id);else $('#municipalStatus').text(CivilRegionContent[id].name+' · '+n.population+' / '+this.capacity(s,id)+'居民 · 健康'+Math.floor(n.health)+'。'+(m?(m.city?'地方城市。':m.town?'正式镇制。':'地方共同体。')+'烟尘'+Math.floor(m.pollution)+'，生产用电'+(m.economy?.productivePower||0)+' / '+Number(m.power.generation.toFixed(2))+'。'+(m.economy?'每10秒供养余量：粮'+Number(m.economy.food.toFixed(2))+'、药'+Number(m.economy.medicine.toFixed(2))+'。':''):'当地代表正等候商定营建计划。'));
     for(const [type,d]of Object.entries(CivilMunicipalContent.facilities)){
       const bid='municipalBuild_'+type;let button=$('#'+bid);const show=!!m&&this.facilityGate(s,id,type);
       if(show){
         button=Civilization.button(bid,'建'+d.name,'#municipalBuild',()=>{const ok=typeof CivilPlanning!=='undefined'?CivilPlanning.request(s,this.selected,'municipal',type):this.startProject(s,this.selected,type);if(ok){Engine.saveGame();if(Civilization.refresh)Civilization.refresh();else this.refresh();}});
         const queue=typeof CivilPlanning!=='undefined'&&CivilPlanning.queueMode(s,id);if(typeof CivilPlanning!=='undefined')CivilPlanning.caption(button,(queue?'排入：':'建')+d.name);
-        button.attr('title',fmt(d.cost)+'；建材运到后，由当地2名施工者施工'+d.duration+'秒'+(queue?'。加入有限后续计划，按顺序启动，不预扣材料。':''));Button.setDisabled(button,queue?!CivilPlanning.canQueue(s,id,'municipal',type):!this.projectAvailable(s,id));
+        button.attr('title',fmt(d.cost)+'；建材运抵后，由当地2名施工者动工'+d.duration+'秒'+(queue?'。排入后续营建队列，按序启动，排队期间不预先扣料。':''));Button.setDisabled(button,queue?!CivilPlanning.canQueue(s,id,'municipal',type):!this.projectAvailable(s,id));
       }
       button.toggle(show);
       let row=$('#municipalCount_'+type);if(!row.length){row=$('<div>').attr('id','municipalCount_'+type).addClass('storeRow').appendTo('#municipalStructures');$('<div>').addClass('row_key').text(d.name).appendTo(row);$('<div>').addClass('row_val').appendTo(row);$('<div>').addClass('clear').appendTo(row);}
@@ -324,9 +324,9 @@ var CivilMunicipal={
     if(m&&typeof CivilInterface==='undefined')$('#municipalStatus').append($('<div>').text('地方储备：食物 '+Math.floor(n.stores.food||0)+'、药品 '+Number((n.stores.medicine||0).toFixed(1))+'、工具 '+Number((n.stores.tools||0).toFixed(1))+'。'));
     if(typeof CivilInterface==='undefined'&&m&&typeof CivilAdvancedContent!=='undefined'&&Object.keys(CivilAdvancedContent.facilities).some(k=>m.buildings[k]))$('#municipalStatus').append($('<div>').text('工业储备：'+['coal','iron','parts','minerals','chemicals','steel','glass'].map(k=>_(k)+' '+Number((n.stores[k]||0).toFixed(2))).join('、')+'。'));
     const p=m?.project;
-    $('#municipalProject').text(p?'当前工程：'+CivilMunicipalContent.facilities[p.type].name+'；'+({supplying:'材料分批在途，已到：'+(fmt(p.buffer)||'尚无')+'。所需：'+fmt(p.required),building:'当地施工 '+Math.ceil(p.remaining)+' 秒；施工者 '+(n.workers.builder||0)+' / 2',complete:'已经完工，可筹办下一项'}[p.status])+'。'+(m&&!m.town?'镇制稳定 '+m.townStable+' / 180秒。':m&&!m.city?'城市稳定 '+m.cityStable+' / 300秒。':''):'先建公共服务，再扩住房。工程和贸易交替使用原有货车。');
-    if(typeof CivilRegions.upgradeActive==='function'&&CivilRegions.upgradeActive(s,id))$('#municipalProject').append($('<div>').text('当地正在筹备或施工货车改装，完成后再开下一项市政工程。'));
-    else if(typeof CivilServices!=='undefined'&&CivilServices.active(s,id))$('#municipalProject').append($('<div>').text('当地正在进行下方公用工程，完成后再开下一项市政工程。'));
+    $('#municipalProject').text(p?'当前工程：'+CivilMunicipalContent.facilities[p.type].name+'；'+({supplying:'建材分批运送中，已抵：'+(fmt(p.buffer)||'尚无')+'。共需：'+fmt(p.required),building:'当地施工 '+Math.ceil(p.remaining)+' 秒；施工者 '+(n.workers.builder||0)+' / 2',complete:'已竣工，可筹办下一项'}[p.status])+'。'+(m&&!m.town?'镇制稳定 '+m.townStable+' / 180秒。':m&&!m.city?'城市稳定 '+m.cityStable+' / 300秒。':''):'请先补齐公共服务，再扩建房舍。工程运材与日常贸易交替使用同一辆货车。');
+    if(typeof CivilRegions.upgradeActive==='function'&&CivilRegions.upgradeActive(s,id))$('#municipalProject').append($('<div>').text('当地正筹备或施工货车改装，待完工后再开下一项市政工程。'));
+    else if(typeof CivilServices!=='undefined'&&CivilServices.active(s,id))$('#municipalProject').append($('<div>').text('当地正在施工下方的公用工程，待完工后再开下一项市政工程。'));
     if(typeof CivilCulture!=='undefined')CivilCulture.refresh(s,id);
     if(typeof CivilCooperative!=='undefined')CivilCooperative.refresh(s,id);
     if(typeof CivilRuins!=='undefined')CivilRuins.refresh(s,id);

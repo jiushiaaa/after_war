@@ -11,7 +11,7 @@ var CivilWorld={
   init(s){if(!this.data(s))s.civilization.worldstage={schema:1,startedAt:s.civilization.elapsed,nodes:{},missions:[],ledger:[],lastTickAt:null,lastSettledAt:null};return this.data(s);},
   seed(id,at){const p=CivilWorldContent.regions[id];return {contactedAt:at,population:p.population,trust:p.trust,infrastructure:100,control:'independent',joinedAt:null,stableSeconds:0,stores:{...CivilWorldContent.treasury},casualties:0,occupationMissed:0};},
   visible(s,id){return !CivilWorldContent.regions[id]?.gate||!!s.civilization.tech.orbital_survey;},
-  accessReason(s,id){const p=CivilWorldContent.regions[id];if(!p?.gate)return null;if(!s.civilization.tech.orbital_survey)return '先完成近地轨道测绘';if(!s.civilization.tech[p.gate])return '先研究'+CivilText.research[p.gate].name;if(!this.transport(s))return '先在街区加工建成远洋与全地形勤务船队';return null;},
+  accessReason(s,id){const p=CivilWorldContent.regions[id];if(!p?.gate)return null;if(!s.civilization.tech.orbital_survey)return '请先完成近地轨道测绘';if(!s.civilization.tech[p.gate])return '请先研究'+CivilText.research[p.gate].name;if(!this.transport(s))return '请先在街区加工分类建成远洋与全地形勤务船队';return null;},
   transport(s){return CivilServices.data(s,'home')?.completed.find(p=>p.type==='globalfleet');},
   pledged(id,rights,devolution){const p=CivilWorldContent.regions[id];return (!(id==='east'||p?.rights==='equal')||rights==='equal')&&(!(id==='west'||p?.autonomy)||devolution==='local');},
   duration(s,id){return Math.ceil(CivilWorldContent.regions[id].duration*(s.civilization.tech.orbital_survey ? .8 : 1));},
@@ -21,19 +21,19 @@ var CivilWorld={
   reason(s,id,kind,doctrine){
     const quote=CivilStatecraft.special(kind)?CivilStatecraft.quote(s,id,kind):{region:id,kind,...(doctrine?{doctrine}:{})},cfg=this.missionConfig(quote),n=this.data(s)?.nodes[id];
     if(doctrine&&(kind!=='campaign'||!Object.hasOwn(CivilStatecraftContent.doctrines,doctrine)))return '未知战役方案';
-    if(!this.available(s)||!Object.hasOwn(CivilWorldContent.regions,id)||!Object.hasOwn(CivilWorldContent.missions,kind))return '先接纳现有三处聚居圈，再开展国家级联络';
+    if(!this.available(s)||!Object.hasOwn(CivilWorldContent.regions,id)||!Object.hasOwn(CivilWorldContent.missions,kind))return '请先接纳现有三处聚居圈，再开展国家级联络';
     if(this.accessReason(s,id))return this.accessReason(s,id);
-    if(!this.asset(s)||!s.civilization.tech.national_logistics)return '先研究远程运输并建成国家远域勤务站';
-    if(this.active(s))return '已有一支国家行动队在途，须待返航';
-    if(this.staff(s)<6)return '在炉火城页安排六名远域勤务人员；不会赠送居民';
-    if(!this.political(s))return '先恢复国家认可与现任行政';
-    if(kind==='contact'&&n||kind!=='contact'&&!n)return kind==='contact'?'已有国家联络':'先建立国家联络';
+    if(!this.asset(s)||!s.civilization.tech.national_logistics)return '请先研究国家远程运输组织并建成国家远域勤务站';
+    if(this.active(s))return '已有一支国家行动队在途，须等其返航';
+    if(this.staff(s)<6)return '请在炉火城页分派六名远域勤务人员；建站本身不额外添丁';
+    if(!this.political(s))return '请先恢复国家认可度与当任行政';
+    if(kind==='contact'&&n||kind!=='contact'&&!n)return kind==='contact'?'已建立国家联络':'请先建立国家联络';
     if(!CivilStatecraft.special(kind)&&!(kind==='rebuild'&&this.data(s)?.foreign&&n?.infrastructure<100)&&n?.joinedAt!==null&&n)return '已登记共同法，继续按公共预算履约';
-    if(kind==='campaign'&&(!s.civilization.tech.automation||n.control==='occupied'||this.data(s).missions.some(m=>m.region===id&&m.kind==='campaign'&&m.completedAt!==null)))return '战役需机器人自动控制；本地区战役结束后须走重建与议约';
-    if(kind==='negotiate'&&n.control==='occupied')return '先重建战后设施，恢复地方议约';
-    if(kind==='rebuild'&&n.infrastructure===100)return '只有战后占领地区需要重建';
+    if(kind==='campaign'&&(!s.civilization.tech.automation||n.control==='occupied'||this.data(s).missions.some(m=>m.region===id&&m.kind==='campaign'&&m.completedAt!==null)))return '发起战役需掌握机器人自动控制；战事收尾后仍须走完重建与地方议约';
+    if(kind==='negotiate'&&n.control==='occupied')return '请先修复战后受损设施，再恢复地方议约';
+    if(kind==='rebuild'&&n.infrastructure===100)return '唯有战后军事占领区方需执行此项重建';
     if(CivilStatecraft.special(kind)){const reason=CivilStatecraft.reason(s,id,kind);if(reason)return reason;}
-    if(!CivilFinance.reserveCheck(s,'home',cfg.cost))return '本城须留足供养，再备齐本次行动实物';
+    if(!CivilFinance.reserveCheck(s,'home',cfg.cost))return '本城须先留足日常供养，再备齐此行所需物资';
     return null;
   },
   start(s,id,kind,doctrine){
@@ -45,15 +45,15 @@ var CivilWorld={
   },
   recall(s){const m=this.active(s);if(!m||m.completedAt!==null||m.cancelledAt!==null)return false;m.cancelledAt=s.civilization.elapsed;m.returnDistance=Math.min(m.progress,m.duration);m.returnProgress=0;return true;},
   joinReason(s,id){
-    const n=this.data(s)?.nodes[id];if(!n||n.joinedAt!==null)return '尚未联络或已接纳';
-    if(this.active(s))return '先等国家行动队返航，核对完整回执';
-    if(!this.political(s))return '先恢复国家认可与现任行政';
-    if(n.control==='occupied'||n.infrastructure<100||n.trust<60||n.stableSeconds<600)return '须恢复设施、信任达到60，并连续600秒实付公共服务';
-    if(!this.commitment(s,id))return '本地区要求平等公民资格或地方自治，请在地区与议事屋核对';
-    if(id==='east'&&s.civilization.regions.rights!=='equal')return '东陆要求变异人与其他居民享有共同公民资格';
-    if(id==='west'&&s.civilization.society.axes.devolution!=='local')return '西陆城邦要求在现有制度中实行地方自治';
+    const n=this.data(s)?.nodes[id];if(!n||n.joinedAt!==null)return '尚未建立联络或已接纳';
+    if(this.active(s))return '请先等国家行动队返航，核对完整回执';
+    if(!this.political(s))return '请先恢复国家认可度与当任行政';
+    if(n.control==='occupied'||n.infrastructure<100||n.trust<60||n.stableSeconds<600)return '须修妥设施、信任达60，并一连600秒付清公共服务用度';
+    if(!this.commitment(s,id))return '本地区要求实行平等公民资格或地方自治，请前往地区与议事屋核对';
+    if(id==='east'&&s.civilization.regions.rights!=='equal')return '东陆要求变异居民与常人享有同等公民资格';
+    if(id==='west'&&s.civilization.society.axes.devolution!=='local')return '西陆城邦要求在现行制度中保留地方自治';
     const fee=CivilWorldContent.membership;
-    return !CivilFinance.reserveCheck(s,'home',fee.home)||!CivilRegions.canPay(n.stores,fee.local)?'双方须分别备足议约费用':null;
+    return !CivilFinance.reserveCheck(s,'home',fee.home)||!CivilRegions.canPay(n.stores,fee.local)?'双方须各自备足议约用度':null;
   },
   join(s,id){if(this.joinReason(s,id))return false;const d=this.data(s),cost=CivilWorldContent.membership;CivilServices.pay(s.stores,cost.home);this.record(d,{kind:'join',region:id,at:s.civilization.elapsed,rights:s.civilization.regions.rights,devolution:s.civilization.society.axes.devolution,costs:JSON.parse(JSON.stringify(cost))});return true;},
   // One deterministic reducer owns each regional public treasury. It is also
@@ -109,7 +109,7 @@ var CivilWorld={
     const foreignEvents=d.foreign?.events.length||0;
     const accords=CivilStatecraft.budget(s,political);for(const[k,v]of Object.entries(accords.flow))home[k]=(home[k]||0)+v;
     this.record(d,{kind:'budget',at,political,...(Object.keys(accords.payments).length?{accordPayments:accords.payments}:{}),rights:s.civilization.regions.rights,devolution:s.civilization.society.axes.devolution,fees,occupationPaid});d.lastSettledAt=at;
-    if(s===State)for(const[id,n]of Object.entries(d.nodes)){if(n.credit?.defaultedAt===at)Civilization.notify(CivilWorldContent.regions[id].name+'：重建信贷到期违约，抵押已没收；请在地区协约记录安排还款。');if(n.accord?.missed===60)Civilization.notify(CivilWorldContent.regions[id].name+'：协约承诺或经费中断60秒，信任下降10，请核对制度与供养。');}
+    if(s===State)for(const[id,n]of Object.entries(d.nodes)){if(n.credit?.defaultedAt===at)Civilization.notify(CivilWorldContent.regions[id].name+'：重建信贷已逾期违约，抵押工具被没收；请前往地区协约记录安排还款。');if(n.accord?.missed===60)Civilization.notify(CivilWorldContent.regions[id].name+'：协约承诺或经费已连断60秒，信任扣减10点，请核对现行制度与供养。');}
     if(s===State&&d.foreign)for(const e of d.foreign.events.slice(foreignEvents).filter(e=>['relation','battle','truce','proposal','credit','alliance','breach','workout','route','passage','recovery','front','market','congress','aftermath','settlement'].includes(e.kind)))Civilization.notify(CivilCongress.describe(e.text));
     return home;
   },
@@ -120,54 +120,54 @@ var CivilWorld={
     if(m.cancelledAt!==null){if(m.returnProgress<m.returnDistance)m.returnProgress++;if(m.returnProgress===m.returnDistance){CivilRegions.credit(s.stores,m.cargo);m.cargo={};m.returnedAt=at;CivilStatecraft.returned(s,m);}return;}
     m.progress++;
     const cfg=this.missionConfig(m),delivery=m.duration+cfg.work;
-    if(m.progress===delivery){m.completedAt=at;this.record(d,{kind:'mission',at,mission:m.id});m.cargo={};Civilization.notify(CivilWorldContent.regions[m.region].name+'：'+cfg.name+'完成。'+(m.kind==='campaign'?(cfg.casualties??60)+'名当地战斗人员死亡；设施余'+(cfg.infrastructure??40)+'%，仍须重建与地方议约。':'结果已写入地区公共账册，人员开始返航。'));}
-    if(m.progress===delivery+m.duration){m.returnedAt=at;CivilStatecraft.returned(s,m);Civilization.notify('国家行动队返城，六名勤务人员重新可用。');}
+    if(m.progress===delivery){m.completedAt=at;this.record(d,{kind:'mission',at,mission:m.id});m.cargo={};Civilization.notify(CivilWorldContent.regions[m.region].name+'：'+cfg.name+'已办妥。'+(m.kind==='campaign'?(cfg.casualties??60)+'名当地战斗人员阵亡；设施完好度仅余'+(cfg.infrastructure??40)+'%，后续仍须重建并重新议约。':'交涉结果已载入地区公共账册，随行人员开始返航。'));}
+    if(m.progress===delivery+m.duration){m.returnedAt=at;CivilStatecraft.returned(s,m);Civilization.notify('国家行动队已返城，六名远域勤务人员可重新听候调遣。');}
   },
   progressText(s){
     const m=this.active(s);if(!m)return '行动队已就绪';
-    const cfg=this.missionConfig(m),phase=m.cancelledAt!==null?'撤回':m.progress<m.duration?'去程':m.progress<m.duration+cfg.work?'现场工作':'返航';
+    const cfg=this.missionConfig(m),phase=m.cancelledAt!==null?'撤回':m.progress<m.duration?'去程':m.progress<m.duration+cfg.work?'现场处置':'返航';
     const left=m.cancelledAt!==null?m.returnDistance-m.returnProgress:m.duration*2+cfg.work-m.progress;
-    return CivilWorldContent.regions[m.region].name+' · '+phase+'，距返城'+left+'秒'+(this.staff(s)<6?'；缺少勤务人员，已暂停':'');
+    return CivilWorldContent.regions[m.region].name+' · '+phase+'，距返城尚余'+left+'秒'+(this.staff(s)<6?'；勤务人手不足，已暂停':'');
   },
   summary(s){
     const members=this.members(s),count=Object.keys(CivilWorldContent.regions).filter(id=>this.visible(s,id)).length;
     const nodes=Object.entries(this.data(s)?.nodes||{}),issue=nodes.find(([,n])=>n.accord?.missed||n.credit?.status==='default');
-    if(issue)return CivilWorldContent.regions[issue[0]].name+' · '+(issue[1].credit?.status==='default'?'信贷违约，须安排还款':'协约履约中断，核对承诺与经费');
+    if(issue)return CivilWorldContent.regions[issue[0]].name+' · '+(issue[1].credit?.status==='default'?'信贷已违约，须安排还款':'协约履约中断，请核对承诺与经费');
     const loan=nodes.filter(([,n])=>n.credit?.status==='open').sort((a,b)=>a[1].credit.dueAt-b[1].credit.dueAt)[0];
-    if(loan)return CivilWorldContent.regions[loan[0]].name+' · 信贷到期余'+Math.max(0,loan[1].credit.dueAt-s.civilization.elapsed)+'秒；'+this.progressText(s);
+    if(loan)return CivilWorldContent.regions[loan[0]].name+' · 信贷距到期尚余'+Math.max(0,loan[1].credit.dueAt-s.civilization.elapsed)+'秒；'+this.progressText(s);
     if(this.active(s))return '共同法 '+members.length+' / '+count+'区 · '+this.progressText(s);
-    if(!this.political(s))return '共同法 '+members.length+' / '+count+'区 · 先处理换届或恢复国家行政';
+    if(!this.political(s))return '共同法 '+members.length+' / '+count+'区 · 请先办妥换届交接或恢复国家行政';
     const ready=Object.keys(CivilWorldContent.regions).filter(id=>!this.joinReason(s,id));
     if(ready.length)return '可签署共同法：'+ready.map(id=>CivilWorldContent.regions[id].name).join('、');
-    if(members.length===8)return '八区已接纳 · 在“地球共同法与航天”核对全球议约';
-    return '共同法 '+members.length+' / '+count+'区 · '+(s.civilization.tech.orbital_survey&&!this.transport(s)?'科技研究远洋运输，在街区加工建勤务船队':'打开远域记录选择尚未接纳地区');
+    if(members.length===8)return '八区均已接纳 · 请在“地球共同法与航天”中核对全球议约';
+    return '共同法 '+members.length+' / '+count+'区 · '+(s.civilization.tech.orbital_survey&&!this.transport(s)?'请在科技页研究远洋运输，并在街区加工分类建成勤务船队':'打开远域记录，选择尚未接纳的地区');
   },
   status(s,id){const p=CivilWorldContent.regions[id],n=this.data(s)?.nodes[id];return p.name+' · '+p.cities+'座城市'+(n?' · '+n.population+'人；'+({independent:'独立政体',occupied:'军事占领，尚未整合',member:'共同法成员'}[n.control])+'；信任'+n.trust+'，设施'+n.infrastructure+'%，公共服务'+n.stableSeconds+'/600秒':' · 尚未正式联络');},
   event(id,done){
-    if(!this.pendingIds.includes(id))return null;const s=State,d=this.data(s),buttons={},text=[],finish=(ok,msg)=>done(ok?msg:'条件已变化：请核对人员、治理及实际材料；未执行。')();
+    if(!this.pendingIds.includes(id))return null;const s=State,d=this.data(s),buttons={},text=[],finish=(ok,msg)=>done(ok?msg:'条件已有变动：请核对在岗人手、治理状态及实存材料；本次未执行。')();
     if(id==='worldCouncil'){
-      text.push('国家远域：这些是原聚落圈之外的城市网络。地方居民与公共财政单独记账；不会迁入炉火城，也不会把地方库存合并到本城。','先从北陆、东陆、西陆建立共同法。三地接纳后在科技研究轨道测绘，逐步展开全球八区；各方保留城市名册与公共预算。');
+      text.push('国家远域：此处为原聚落圈以外的远方城市网。各区户籍与公共财政独立建账；居民不会迁入炉火城，地方仓存亦不并入本城。','先同北陆、东陆、西陆确立共同法。接纳三地后即可研究近地轨道测绘，进而联络全球八区；各区仍各自保留城市名册与公共预算。');
       for(const [key,p]of Object.entries(CivilWorldContent.regions)){if(!this.visible(s,key))continue;text.push(this.status(s,key));buttons[key]={text:p.name,nextScene:'end',onChoose:()=>{s.civilization.pending='world_'+key;}};}
-      if(!this.asset(s))text.push('科技入口：国家计算与档案系统 → 国家远程运输组织；街区加工中建勤务站，再在炉火城页安排六名勤务人员。机器人与轨道测绘随外交进展开放。');
-      const m=this.active(s);if(m){text.push('当前行动：'+CivilWorldContent.regions[m.region].name+' · '+this.missionConfig(m).name+'；'+(m.cancelledAt!==null?'撤回 '+m.returnProgress+'/'+m.returnDistance:m.progress+'/'+(m.duration*2+this.missionConfig(m).work))+'秒；实际勤务'+this.staff(s)+'/6。');if(m.completedAt===null&&m.cancelledAt===null)buttons.recall={text:'撤回当前行动队',nextScene:'end',onChoose:()=>finish(this.recall(s),'开始沿已经走过的距离返航；仅未交付援助物资可返库，旅费与动员费用不退。')};}
+      if(!this.asset(s))text.push('推进次序：先研究“国家计算与档案系统”与“国家远程运输组织”，随后在街区加工分类兴建勤务站，并在炉火城页配齐六名勤务人员。机器人自动控制与轨道测绘将随外交进程解锁。');
+      const m=this.active(s);if(m){text.push('当前行动：'+CivilWorldContent.regions[m.region].name+' · '+this.missionConfig(m).name+'；'+(m.cancelledAt!==null?'撤回 '+m.returnProgress+'/'+m.returnDistance:m.progress+'/'+(m.duration*2+this.missionConfig(m).work))+'秒；在岗勤务'+this.staff(s)+'/6。');if(m.completedAt===null&&m.cancelledAt===null)buttons.recall={text:'撤回当前行动队',nextScene:'end',onChoose:()=>finish(this.recall(s),'行动队将按已走出的路程折返；仅尚未交割的援助物资可退回原仓，已耗旅费与动员用度概不退还。')};}
     }else{
-      const key=id.slice(6),n=d?.nodes[key],p=CivilWorldContent.regions[key];text.push(this.status(s,key),p.issue,'这里保留各城市的公开名册与共同预算。当地居民继续在自己的城市生活，跨区公共拨款也不会自动进入本城仓库。');
+      const key=id.slice(6),n=d?.nodes[key],p=CivilWorldContent.regions[key];text.push(this.status(s,key),p.issue,'此处留存着远方各城的户籍名册与公共预算。当地百姓照旧在各自城中生息，跨区公共拨款亦不会直接划入本城仓库。');
       if(this.active(s))text.push(this.progressText(s)+'。');
       if(this.accessReason(s,key))text.push(this.accessReason(s,key)+'。');
-      if(n)text.push('地方公共储备：'+CivilHistory.costText(n.stores)+'。每10秒按设施完整度收取公共拨款，并支付粮4、药0.1、工具0.03、零件0.02、知识0.1。累计战斗死亡'+n.casualties+'人。');
+      if(n)text.push('地方公共储备：'+CivilHistory.costText(n.stores)+'。每10秒按设施完好度收进公共拨款，并支取粮4、药0.1、工具0.03、零件0.02、知识0.1。累计阵亡战斗人员'+n.casualties+'人。');
       for(const [kind,cfg]of Object.entries(CivilWorldContent.missions))if(kind==='contact'?!n:n&&(n.joinedAt===null||kind==='rebuild'&&d.foreign&&n.infrastructure<100)&&(kind==='rebuild'?n.infrastructure<100:kind==='campaign'?n.control!=='occupied'&&!d.missions.some(m=>m.region===key&&m.kind==='campaign'&&m.completedAt!==null)&&s.civilization.tech.automation:kind==='negotiate'&&n.control!=='occupied')){
-        text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；单程'+this.duration(s,key)+'秒，现场'+cfg.work+'秒。'+(kind==='campaign'?'将造成60名当地战斗人员死亡、设施降至40%、其他已知政体信任下降10。四台机器人在动员中消耗，没有战利品。占领每10秒另耗粮2、药0.1、工具0.05；连续欠供60秒撤军，损害保留。':this.reason(s,key,kind)||'当前可派出。'));
-        buttons[kind]={text:cfg.name,available:()=>!this.reason(s,key,kind),nextScene:'end',onChoose:()=>finish(this.start(s,key,kind),'国家行动队已实际扣款启程；结果须抵达并完成工作后生效。')};
+        text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；单程'+this.duration(s,key)+'秒，现场处置'+cfg.work+'秒。'+(kind==='campaign'?'此举将导致当地60名战斗人员阵亡、设施完好度跌至40%，并使其他已知政体对我们的信任降低10点。四台通用机器人将在战事中损耗，且无任何战利品可掠。军事占领期间每10秒需另耗粮2、药0.1、工具0.05；若连续断供满60秒将被迫撤军，已造成的创伤与恶感无法抹去。':this.reason(s,key,kind)||'当前可派出。'));
+        buttons[kind]={text:cfg.name,available:()=>!this.reason(s,key,kind),nextScene:'end',onChoose:()=>finish(this.start(s,key,kind),'国家行动队已付清用度启程；须待抵埠并办完差事后方见成效。')};
       }
       if(n&&s.civilization.tech.computing)buttons.accord={text:'地区协约、互市与信贷',nextScene:'end',onChoose:()=>{s.civilization.pending='accord_'+key;}};
       if(n&&n.joinedAt===null&&s.civilization.tech.automation&&!d.missions.some(m=>m.region===key&&m.kind==='campaign'&&m.completedAt!==null))for(const[doctrine,cfg]of Object.entries(CivilStatecraftContent.doctrines)){
-        text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；现场'+cfg.work+'秒，死亡'+cfg.casualties+'人，设施余'+cfg.infrastructure+'%，其他政体信任下降'+cfg.external+'。仍需重建、持续占领费用与议约。');
-        buttons[doctrine]={text:cfg.name,available:()=>!this.reason(s,key,'campaign',doctrine),nextScene:'end',onChoose:()=>finish(this.start(s,key,'campaign',doctrine),'行动队按所选方案出发；战役结束后仍须重建和议约。')};
+        text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；现场处置'+cfg.work+'秒，阵亡'+cfg.casualties+'人，设施仅余'+cfg.infrastructure+'%，其他政体信任降低'+cfg.external+'。战后仍须承担重建、占领维持与重新议约。');
+        buttons[doctrine]={text:cfg.name,available:()=>!this.reason(s,key,'campaign',doctrine),nextScene:'end',onChoose:()=>finish(this.start(s,key,'campaign',doctrine),'行动队已按选定方案出征；战事收尾后仍须走完重建与议约。')};
       }
-      if(n&&n.joinedAt===null){text.push('共同法接纳：'+(this.joinReason(s,key)||'双方可以签署')+'。本城 '+CivilHistory.costText(CivilWorldContent.membership.home)+'；地方 '+CivilHistory.costText(CivilWorldContent.membership.local)+'。以后每10秒分别承担公共经费。');buttons.join={text:'签署地区共同法',available:()=>!this.joinReason(s,key),nextScene:'end',onChoose:()=>finish(this.join(s,key),'两地实付共同法议约。城市网络保留当地居民、资产和公共账册。')};}
-      if(n?.control==='occupied')buttons.withdraw={text:'撤销军事占领',nextScene:'end',onChoose:()=>finish(this.withdraw(s,key),'驻防支出停止，地方恢复独立；死伤、设施损害与关系后果保留。')};
+      if(n&&n.joinedAt===null){text.push('共同法接纳：'+(this.joinReason(s,key)||'双方均可签署')+'。本城出 '+CivilHistory.costText(CivilWorldContent.membership.home)+'；地方出 '+CivilHistory.costText(CivilWorldContent.membership.local)+'。此后每10秒由双方各自承担公共经费。');buttons.join={text:'签署地区共同法',available:()=>!this.joinReason(s,key),nextScene:'end',onChoose:()=>finish(this.join(s,key),'两地已付清用度签下共同法。远域城市网继续保留当地居民、自有资产与公共账册。')};}
+      if(n?.control==='occupied')buttons.withdraw={text:'解除军事占领',nextScene:'end',onChoose:()=>finish(this.withdraw(s,key),'驻防开支即刻停止，当地恢复独立政体；既往阵亡、设施损毁与外交恶感仍留存于册。')};
     }
-    buttons.close={text:'合上国家远域记录',nextScene:'end',onChoose:done('国家行动及地方公共账册继续按实际条件运行。')};return {title:id==='worldCouncil'?'国家远域与外交':CivilWorldContent.regions[id.slice(6)].name,text,buttons};
+    buttons.close={text:'合上国家远域记录',nextScene:'end',onChoose:done('国家远域行动与地方公共账册继续按实际条件运转。')};return {title:id==='worldCouncil'?'国家远域与外交':CivilWorldContent.regions[id.slice(6)].name,text,buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;

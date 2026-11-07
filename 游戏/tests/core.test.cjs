@@ -26,7 +26,7 @@ function successionHarness(){
 test('an open election refreshes exactly when its leader dies and preserves the new death history on a real event click',()=>{
  const h=successionHarness(),{s,ctx}=h,x=s.civilization.society;x.axes.selection='election';x.leader.age=84;x.leader.alive=true;x.succession='election';s.civilization.pending='succession';s.civilization.elapsed=x.year*600+599;
  ctx.Civilization.showPending();assert.match(h.active.scenes.start.text[0],/六年任期/);h.step(1);
- assert.equal(x.leader.alive,false);assert.match(h.active.scenes.start.text[0],/已经离世/);assert.equal(h.redraws,1);h.step(3);assert.equal(h.redraws,1);
+ assert.equal(x.leader.alive,false);assert.match(h.active.scenes.start.text[0],/领袖离世/);assert.equal(h.redraws,1);h.step(3);assert.equal(h.redraws,1);
  h.click('engineer');assert.equal(h.closed,1);assert.equal(s.civilization.pending,null);assert.equal(x.history.at(-1).reason,'death');assert.equal(x.leader.title,'工程代表');assert.equal(h.nativeClicks,0);ctx.CivilPlatform.validate(s);
 });
 test('a stale regency button neither closes the event nor reports success after the heir becomes adult',()=>{

@@ -52,6 +52,13 @@ for(const r of mapping.records){
  assert(main.includes(needle),'Changed body in full manuscript '+r.id);
  assert(batches.get(r.id).includes(needle),'Changed body in batch '+r.id);
  const placeholders=new Set();
+ if(r.kind==='display-template'){
+  assert.equal(r.file,'游戏/content/editorial.js');
+  assert.deepEqual(JSON.parse(r.original),r.displayParts,'Display segments differ from source '+r.id);
+  assert.equal(r.displaySlots.length,r.displayParts.length-1);
+  assert.equal(r.text,r.displayParts.map((p,i)=>p+(r.displaySlots[i]||'')).join(''));
+  r.displaySlots.forEach((slot,i)=>{assert.equal(slot,'{变量'+(i+1)+'}');placeholders.add(slot);});
+ }
  for(const v of r.variables||[]){
   assert.equal(source.slice(v.start,v.end),v.expression,'Variable source mismatch '+r.id);
   assert(!placeholders.has(v.placeholder),'Duplicate placeholder '+r.id);placeholders.add(v.placeholder);

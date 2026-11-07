@@ -31,7 +31,7 @@ test('all original terms remain visible and a death-related handover does not in
   const {s,history}=harness(),x=s.civilization.society;x.leader.alive=false;
   const view=history.snapshot(s),terms=view.entries.filter(e=>e.category==='tenures');
   for(const record of x.history){const term=terms.find(e=>e.generation===record.generation);assert.equal(term.from,record.from);assert.equal(term.to,record.to);assert.equal(term.at,null);assert.ok(history.line(term).includes(record.from+'—'+record.to+' 年'));if(record.reason==='death'){assert.match(term.detail,/离世而完成交接/);assert.doesNotMatch(term.detail,/于.*年.*离世/);}}
-  const current=terms.find(e=>e.current);assert.equal(current.from,x.leader.started);assert.equal(current.to,null);assert.match(current.detail,/未记离世年份/);assert.match(history.event(s).scenes.start.text.join('\n'),/政策与制度改革尚无完整记录/);
+  const current=terms.find(e=>e.current);assert.equal(current.from,x.leader.started);assert.equal(current.to,null);assert.match(current.detail,/未详录卒年/);assert.match(history.event(s).scenes.start.text.join('\n'),/政策与制度改革尚无完整记录/);
 });
 test('technology and city flags remain undated and source introduction is never reused as an agreement date',()=>{
   const {s,history}=harness(),c=s.civilization;c.urban.city=true;c.urban.chartered=true;

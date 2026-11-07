@@ -181,7 +181,7 @@ test('real native agreement callbacks recheck both independent warehouses before
       const choose=show(),available=stock[key];stock[key]=0;
       const before=JSON.stringify([s.stores,s.civilization.origins.nodes]);choose();ctx.Events.endEvent(); // Native nextScene:'end' closes this inert display.
       assert.equal(JSON.stringify([s.stores,s.civilization.origins.nodes]),before,'a stale button cannot partly charge either warehouse');
-      assert.equal(s.civilization.pending,null);assert.match(h.notes.at(-1),/本次未扣款/);assert.equal(n.status,'contacted');stock[key]=available;
+      assert.equal(s.civilization.pending,null);assert.match(h.notes.at(-1),/本次未扣料/);assert.equal(n.status,'contacted');stock[key]=available;
     }
     const otherBefore=JSON.stringify(other.map(x=>s.civilization.origins.nodes[x])),knowledge=s.stores.knowledge,wood=n.stores.wood,sourceKnowledge=n.stores.knowledge;
     show()();ctx.Events.endEvent();near(knowledge-s.stores.knowledge,20);near(wood-n.stores.wood,10);near(sourceKnowledge-n.stores.knowledge,10);

@@ -4,40 +4,40 @@ var CivilArchives={
  init(s){if(this.enabled(s)&&!s.civilization.archives)s.civilization.archives={schema:1,records:{},stages:{},achievements:{}};},
  chains:{facilities:'谁留下这些设施',belonging:'谁属于共同体',inheritance:'谁接过这把火',mutation:'变异与生态',machines:'机群',echo:'回响',mars:'火星',flight:'首航'},
  nodes(s){const c=s.civilization,f=c.polity?.future,g=c.polity?.earth,exp=c.expedition,p=c.generations?.people||{},out=[];const add=(id,chain,title,lines,ready)=>out.push({id,chain,title,lines,ready:!!ready});
-  add('facility_station','facilities','没有注销的班次',['候车厅的货运表停在最后一班。维修编号却比停航日期晚。','战后仍有人回来过，换过阀门，又把自己的名字擦掉。'],c.station);
-  add('facility_pump','facilities','旁路上的手印',['断电的控制柜旁，有人另接了一条能手动打开的管道。','她没能留下完整机器，只留下后来人还修得动的部分。'],c.pump);
-  add('facility_grid','facilities','把图纸交出去',['新电网验收时，档案员要求把接线图放在每一处服务所。','不是只有某一个人知道怎样让灯亮。'],c.modern?.modernRounds>=6||c.tech.power);
-  add('belonging_ration','belonging','第一份口粮约定',['名册最初只有几个名字，空行比名字多。','有人问：下一位走进门的人，是否也在这份约定里？'],c.policy);
-  add('belonging_mutant','belonging','没有单独一页',['一位变异居民把旧表格翻了过去。','他希望记录自己的职业、家人和住处，不只记录身体上的差异。'],p.mutant||c.society?.governed&&c.society.cohorts.some(x=>x.identity==='mutant'));
-  add('belonging_citizen','belonging','一份能够离开的约定',['共同法留下迁徙、财产和申诉条款。','归属不只意味着被保护，也意味着能够拒绝某一项安排。'],c.polity?.foundedAt&&c.polity.laws.rights==='equal');
-  add('inheritance_workshop','inheritance','工匠的桌面',['工匠把磨短的铅笔插在门框里。','她说，材料会用完，教会另一个人却不会。'],s.game.builder?.level>=4);
-  add('inheritance_retired','inheritance','后来者的字迹',['旧笔迹旁添了另一种笔迹。','有人接过值班表，有人接过最难修的那一把锁。工坊没有因为一个人离开而熄灯。'],p.craft?.retired!==null&&p.craft?.retired!==undefined||c.course?.craftsman);
-  add('inheritance_office','inheritance','不必认得每一个人',['公共记录里出现了你未曾见过的签名。','他们按公开的约定领料、维护和交接。共同体终于不必等待一个人回来。'],c.city?.institutions?.home.enabled||c.polity?.foundedAt);
-  add('mutation_tracks','mutation','灰壳的路径',['甲虫沿着暖土爬行。你们留下路线、伤口和天气的记录。','活下来的东西并不都理解人类画的边界。'],exp?.beetles==='observed'||exp?.records.some(r=>r.kind==='beetle'));
-  add('mutation_city','mutation','城外仍有土地',['城市规划者第一次把农园和野地分开画。','农人提醒他，水、孢子和迁徙的动物不会读那条线。'],Number.isSafeInteger(c.city?.cityAt));
-  add('mutation_ecology','mutation','给生长留下空位',['恢复区里有一片土不收获，也不改造。','有人说这是浪费；农园记录却显示，花粉、净水与耐心也在参与生产。'],f?.tech.restoration||g?.regions.rainforest?.acceptedAt!==null&&g?.regions.rainforest?.acceptedAt!==undefined);
-  add('machine_switch','machines','仍在值守的开关',['继电器外壳上刻着人工断开的位置。','旧维护员似乎预料过：机器会继续运行，而命令它的人不一定还在。'],c.station&&c.tech.metal);
-  add('machine_automation','machines','指令的主人',['自动班组能搬运、焊接，也能重复一条已经不合时宜的命令。','监督者在交班时写下责任人，而不是写“系统已经决定”。'],f?.tech.automation);
-  add('machine_person','machines','设备清单之外',[f?.created?'登记员把新自治人格从设备清单移入居民名册。':'议事厅保留了普通机器的设备编号，也留下判断自治人格的程序。','谁能作证，谁能申诉，谁承担错误——这些问题不能交给一个开关。'],f?.assets.hall&&f?.tech.automation);
-  add('echo_boundary','echo','战场的残余带宽',['接收器只在旧战场近旁拾到碎片，离开后很快失真。','它来自战时神经联接项目的残余，没有物资，没有预言，也没有全知的观察者。'],f?.tech.echo);
-  add('echo_choice','echo','没有完整的命令',[CivilFutureContent.echoes[f?.echo?.choice]?.text||'三份记录相互矛盾。','记录员在空白处写下：不知道，也必须被保存。'],f?.echo?.choice);
-  add('echo_followup','echo','接收者的后来',[f?.echo?.choice==='exploit'?'有人仍需要随访。获得的知识没有抵销那段伤害。':f?.echo?.choice==='seal'?'封存的入口仍由普通巡护维护。安静不等于从未有人来过。':'研究者拒绝把相互矛盾的残片拼成一份确定命令。','档案停在地面，不为共同体打开一条超自然的捷径。'],f?.echo?.visits>=3||f?.echo?.choice==='seal'&&f.echo.stage==='complete');
-  add('mars_schedule','mars','表格上的另一颗星',['货运表上的目的地仍写着火星。','在战争之前，那也曾经是回家和远行的方向。'],c.station);
-  add('mars_gap','mars','撤离之前的天气',[exp?.sites.ruin.state==='preserved'?'纸带写着：轨道补给中断，全员撤离。':'收集到的地面记录反复提到轨道补给中断。','关于谁先失约，不同保管者留下了不同记述。没有一张纸足以替所有死者作证。'],exp?.sites.ruin.state==='preserved'||g?.tech.mapping);
-  add('mars_orbit','mars','向外发送的第一句话',['新测控站校准了指向星空的天线。','这次发出的首先是呼号和航道信息，没有宣战书。远处是否有人接收，仍未得到证实。'],g&&CivilEarthFlight.done(g,'probe'));
-  add('flight_drawings','flight','从地面开始的飞行',['工程师把居住、供电和返航画在同一张纸上。','能够离开地球，不等于可以把地上的责任留给空白。'],g?.unity);
-  add('flight_closed','flight','关上舱门之前',['闭环试验的值班表上有食物、滤材、药物和维修件。','每一项都来自地面真实的劳动；每一次暂停都留下原因。'],g?.ground?.completedAt);
-  add('flight_window','flight','舷窗另一侧',[g?.ending?.crew.total?'舷窗里映着实际乘员的身影。地面为他们保留着返航后的床位。':'先遣器没有常驻乘员。它传回地球的曲线，等待后来真正登船的人。','这次航行的结束，是地球篇留下的一扇门。'],g?.ending);
+  add('facility_station','facilities','没有注销的班次',['候车厅的货运表停在最后一班。维修编号的日期，却比停航日期还晚。','战后曾有人摸黑回来过，换了阀门，又拿砂纸把签单上的名字擦得干干净净。'],c.station);
+  add('facility_pump','facilities','旁路上的手印',['断电的防爆柜旁，有人焊了一条能纯手动摇开的旁路管道。','她没能保住整台机器，只给后来人留下了靠扳手就能对付的部分。'],c.pump);
+  add('facility_grid','facilities','把图纸交出去',['全域电网合闸那夜，档案员坚持把油印接线图分发到每一处配电站。','不该只有某一个人，知道该怎样让灯亮起来。'],c.modern?.modernRounds>=6||c.tech.power);
+  add('belonging_ration','belonging','第一份口粮约定',['泛黄的软皮本上最初只有几个名字。空行比名字多，浸着盐碱和水渍。','有人把干粮掰开，问了一句：下一个推门进屋的人，算不算在这张契约里？'],c.policy);
+  add('belonging_mutant','belonging','没有单独一页',['一名指骨生着硬角质的居民，默不作声地把旧表格翻到了背面。','他在空白处写下自己的工种、家人与门牌，而不是生理筛查栏里的异样数据。'],p.mutant||c.society?.governed&&c.society.cohorts.some(x=>x.identity==='mutant'));
+  add('belonging_citizen','belonging','一份能够离开的约定',['共同法典最终写下了迁徙自决、私留财产与仲裁申诉的明文。','真正的归属不只是领受庇护，更是保有在某项安排前说“不”的权利。'],c.polity?.foundedAt&&c.polity.laws.rights==='equal');
+  add('inheritance_workshop','inheritance','工匠的桌面',['工匠把磨得只剩两指长的铅笔头，随手掖进了机修间的门框缝。','她说：铁料和机油总有耗尽的一天，但教会另一个人用扳手，这门手艺就不会断。'],s.game.builder?.level>=4);
+  add('inheritance_retired','inheritance','后来者的字迹',['褪色的碳素墨水旁，添了一行歪扭却用力的新字迹。','有人接过了熬夜的值班表，有人接过了锈死难开的闸阀。工坊并未因某一个人的离开而熄灯。'],p.craft?.retired!==null&&p.craft?.retired!==undefined||c.course?.craftsman);
+  add('inheritance_office','inheritance','不必认得每一个人',['领料台的公簿上，陆续出现了你从未见过的生疏签名。','人们依循贴在墙上的明约领料、检修、交班。这个共同体，终于不必再苦苦等待某个英雄归来。'],c.city?.institutions?.home.enabled||c.polity?.foundedAt);
+  add('mutation_tracks','mutation','灰壳的路径',['铁灰色的硬壳甲虫沿着余热未散的焦土爬行。巡护员在防水本上记下裂缝走向、腐蚀灼伤与气压读数。','熬过漫长寒冬的活物，从不理会人类在图纸上标划的所谓管辖边界。'],exp?.beetles==='observed'||exp?.records.some(r=>r.kind==='beetle'));
+  add('mutation_city','mutation','城外仍有土地',['城市规划员握着三角板，生平第一次将规整的农园与荒莽的野地划出清晰界限。','老农伸手按住了图纸，提醒道：地表径流、随风散播的孢子和夜行的兽群，读不懂这根铅笔线。'],Number.isSafeInteger(c.city?.cityAt));
+  add('mutation_ecology','mutation','给生长留下空位',['土壤复原区中央特意留出一整片旷地：不播种，不平整，亦不施加任何化学干预。','曾有人斥其为荒谬的闲置；但化验记录证明，野生的蜂群、苔原渗滤水与漫长的时间，本就是这片土地的劳作者。'],f?.tech.restoration||g?.regions.rainforest?.acceptedAt!==null&&g?.regions.rainforest?.acceptedAt!==undefined);
+  add('machine_switch','machines','仍在值守的开关',['锈蚀严重的重载继电器壳上，用尖锐物深深刻下了手动切断电闸的应急扳道位置。','昔日的检修员早已预料到：回路会自行嗡鸣运转下去，但下达指令的人类，却未必能活到明天。'],c.station&&c.tech.metal);
+  add('machine_automation','machines','指令的主人',['自动机械臂能精准搬运、冷光焊接，也能毫无知觉地反复执行一道跨越半个世纪的荒诞死循环命令。','安全审查员在换班日志的签章栏工整署上自己的工号，坚决划掉了印刷体上的“系统默认指令”。'],f?.tech.automation);
+  add('machine_person','machines','设备清单之外',[f?.created?'户籍官合上笨重的固定资产台账，将拥有自决意识的机械躯体，正式抄录进定居居民名册。':'全域议事厅既为生产性机械保留了固定的资产编号，也设立了一套审慎研判硅基自治人格的严格法条。','谁能作证，谁能申诉，谁承担错误——这些沉重的伦理命题，绝不能简单推给一个继电器开关。'],f?.assets.hall&&f?.tech.automation);
+  add('echo_boundary','echo','战场的残余带宽',['接收器只在旧战场近旁捕获到短促的杂波；离开后，信号很快失真。','那不过是战时神经共鸣链路被高温熔结后的随机脉冲回音。那里既无战略物资，亦无神谕式的启示，更无全知全能的冷眼旁观者。'],f?.tech.echo);
+  add('echo_choice','echo','没有完整的命令',[CivilFutureContent.echoes[f?.echo?.choice]?.text||'三份残存记录里，同一次撤离留下了相互矛盾的指令。','档案员在发脆的纸带边缘用铅笔加注：未解之悬案，亦当原样存真，永不覆写。'],f?.echo?.choice);
+  add('echo_followup','echo','接收者的后来',[f?.echo?.choice==='exploit'?'有人仍需接受随访。那些艰难取得的技术资料，从未抵销接收信号时承受的伤害。':f?.echo?.choice==='seal'?'打上铅封的地下掩体大门，仍由普通地表巡护队员按日扫雪除锈。坑道内的死寂，从不代表那段惨剧未曾降临。':'历史调查组顶住压力，拒绝将相互撕裂的战事残片，人工脑补缝合成一份逻辑自洽的“确定命令”。','档案的边界止步于地表真实的泥泞与焦土，绝不为复兴中的共同体虚构任何通向救赎的超自然捷径。'],f?.echo?.visits>=3||f?.echo?.choice==='seal'&&f.echo.stage==='complete');
+  add('mars_schedule','mars','表格上的另一颗星',['货场生锈的调度白板上，褪色的终点站仍写着“火星”。','在烈火焚尽电离层之前，那曾是一代代拓荒者离家远征、亦或载誉返乡的航线星图。'],c.station);
+  add('mars_gap','mars','撤离之前的天气',[exp?.sites.ruin.state==='preserved'?'打孔纸带上的最后一串电传明码写着：轨道补给中断，全员撤离。':'各地防空洞起获的残存日志中，字里行间充斥着对天幕轨道补给彻底断绝的窒息记录。','究竟是谁先违约，不同阵营的密档留下了截然相反的记述。在这片废墟之上，没有任何一纸泛黄的文件，配得上替所有枉死者做最后的定罪证词。'],exp?.sites.ruin.state==='preserved'||g?.tech.mapping);
+  add('mars_orbit','mars','向外发送的第一句话',['新测控站的天线缓缓转动，对准了幽暗的星空。','电波划破电离层，首先播发的唯有地表和平呼号与近地安全航道坐标，未带半句审判或复仇宣战。幽暗的星海深处是否仍有幸存的人耳在倾听，至今未得到证实。'],g&&CivilEarthFlight.done(g,'probe'));
+  add('flight_drawings','flight','从地面开始的飞行',['总工程师摊开粗糙的再生网格纸，将低地居住聚落的供水管线、地热电网与近地轨道器的逃逸返航曲线，一笔一画勾勒在了同一张蓝图上。','脱离地表引力，并不意味着能将废墟上的责任一笔抹去。'],g?.unity);
+  add('flight_closed','flight','关上舱门之前',['密闭舱测试的值班日志上，详细列着水粮、空气滤芯、应急注射剂与备用零件。','每一克补给皆出自地面工坊的实有人力；每一次气密中断，都详实记下了归责人与原因。'],g?.ground?.completedAt);
+  add('flight_window','flight','舷窗另一侧',[g?.ending?.crew.total?'三层耐压舷窗内映出乘员的面孔。地底聚落始终为他们保留着返航后的床位与名籍。':'无人先遣器没有心跳。它向地表回传的遥测曲线，静默等待着未来真正登船的人。','这一趟近地轨道的收束，不过是在这颗结痂的星球表面，轻轻推开了一扇未锁的门。'],g?.ending);
   return out;
  },
  stages(s){const c=s.civilization;return [
-  ['village','屋里多了几双鞋',['夜里有了轮流守火的人。','门边的鞋没有一双相同。','明天的口粮需要安排，空下来的床还会等到谁。'],c.settled],
-  ['town','从名字到地址',['路边开始出现固定的门牌。','消息可以送到一个地方，不必先找到某一个人。','课堂、诊所和共同的道路，要求比一顿晚饭更长的承诺。'],c.village?.town],
-  ['city','窗外不再只有森林',['第一批街区名册装订成册。','田地与工坊各有班次，水和药不能只够原镇的人。','你开始决定谁先得到新的能力，也决定谁暂时承担等待。'],Number.isSafeInteger(c.city?.cityAt)],
-  ['cluster','另一座城的清晨',['列车带来的货物有另一种包装。','有人寄来维修账单，也有人寄来一份新的邀请。','共同预算第一次需要解释：为什么由这里支付，却让那里先使用。'],c.conurbation?.clusterAt],
+  ['village','屋里多了几双鞋',['漫长冻夜里，壁炉旁终于有了轮班添柴的守火人。','门边泥泞的鞋履没有一双合脚，鞋底磨得斑驳，却属于活下来的人。','明早的口粮需要重新称量，墙角空着的木板床，不知道深夜还会迎来哪位过客。'],c.settled],
+  ['town','从名字到地址',['泥泞的路口钉上了第一块用废铁皮敲出的固定门牌。','口信与运单可以精准投递到一处处所，不再全凭在人群中碰运气呼喊某个人的名字。','夜校的识字班、避难所诊室与平整的泥碎路，所要求的契约远比凑合吃一顿晚饭更为长久。'],c.village?.town],
+  ['city','窗外不再只有森林',['第一批街区户籍纸页，用粗麻绳端正装订成了薄册。','排干沼气的农田与铸件工坊各有交接班次；净化水与消炎药的配额，再也不能只顾着原住民的份子。','你开始决定谁先得到新的能力，也决定谁暂时承担等待。'],Number.isSafeInteger(c.city?.cityAt)],
+  ['cluster','另一座城的清晨',['列车卸下货箱，箱体上印着异地陌生的铅封印记。','有人随车捎来了带机油印的抢修账单，也有人附上一封言辞审慎的联盟联席议案。','全域公共财政簿上首次出现尖锐的质询：为何开支由本城据实核扣，而物资却调拨给百里外的外邦率先取用。'],c.conurbation?.clusterAt],
   ['nation','远处有人回答',CivilModernContent.eras.middle.lines,c.polity?.foundedAt],
-  ['advanced','同一张生活账单',['有人换了新的关节，有人选择保留原来的身体。','农园和制造间仍在同一座城里。','新的能力没有替任何人决定生活，却使每一份权利更需要写清楚。'],c.polity?.future],
-  ['earth','海另一边的天气',['八区的呼号逐渐进入同一张值班表。','每个地方都保留着自己的苦难和习惯。','共同法要学会跨过海洋，也要学会停在别人的门口。'],c.polity?.earth],
+  ['advanced','同一张生活账单',['有人换上新的关节，有人选择保留原来的身体。','水培农园与精密车床在同一个街区共存，各安其分。','技术的更迭从未有权代任何人决定怎样活着，却逼迫文明必须把彼此的权利边界一笔一画写得更加分明。'],c.polity?.future],
+  ['earth','海另一边的天气',['各大区的无线电呼号，按时刻表逐一编入了同一份全球值守通信名录。','每一个聚落依然深深刻印着各自历经浩劫的伤疤、方言与顽固习惯。','共同法典学会了架设横跨大洋的航线，也学会了在敲开他人家门前，恪守克制地停下脚步。'],c.polity?.earth],
   ['flight','火光映在舷窗上',CivilModernContent.eras.late.lines,c.polity?.earth?.ending]
  ].map(([id,title,lines,ready])=>({id,title,lines,ready:!!ready}));},
  milestones(s){const c=s.civilization;return [
@@ -50,7 +50,7 @@ var CivilArchives={
  },
  nextEvent(s){if(!this.enabled(s))return null;const d=s.civilization.archives;return d&&this.stages(s).some(a=>a.ready&&!['nation','flight'].includes(a.id)&&d.stages[a.id]===undefined)?'story_stage':null;},
  event(id,done){if(id!=='story_stage'||!this.nextEvent(State))return null;const s=State,d=s.civilization.archives,a=this.stages(s).find(a=>a.ready&&!['nation','flight'].includes(a.id)&&d.stages[a.id]===undefined);return {title:a.title,text:a.lines,buttons:{continue:{text:'把这一页留在记录里',nextScene:'end',onChoose:done(a.title+'。',()=>{d.stages[a.id]=s.civilization.elapsed;})}}};},
- history(s){const d=s.civilization.archives,out=[];for(const a of this.nodes(s))if(d?.records[a.id]!==undefined||!d&&a.ready)out.push({key:'archive_'+a.id,category:'archives',title:this.chains[a.chain]+' · '+a.title,detail:a.lines.join('\n'),at:d?.records[a.id]??null});for(const a of this.milestones(s))if(d?.achievements[a.id]!==undefined||!d&&a.ready)out.push({key:'achievement_'+a.id,category:'achievements',title:a.title,detail:'只记已经实际达成的里程碑，不发放资源或奖励。',at:d?.achievements[a.id]??null});for(const a of this.stages(s))if(d?.stages[a.id]!==undefined)out.push({key:'opening_'+a.id,category:'archives',title:a.title,detail:a.lines.join('\n'),at:d.stages[a.id]});return out;},
+ history(s){const d=s.civilization.archives,out=[];for(const a of this.nodes(s))if(d?.records[a.id]!==undefined||!d&&a.ready)out.push({key:'archive_'+a.id,category:'archives',title:this.chains[a.chain]+' · '+a.title,detail:a.lines.join('\n'),at:d?.records[a.id]??null});for(const a of this.milestones(s))if(d?.achievements[a.id]!==undefined||!d&&a.ready)out.push({key:'achievement_'+a.id,category:'achievements',title:a.title,detail:'唯有切实履约达成的历史事件方得载入编年，不设虚拟通胀或探索奖励。',at:d?.achievements[a.id]??null});for(const a of this.stages(s))if(d?.stages[a.id]!==undefined)out.push({key:'opening_'+a.id,category:'archives',title:a.title,detail:a.lines.join('\n'),at:d.stages[a.id]});return out;},
  chronicle(s){const c=s.civilization,entries=CivilHistory.snapshot(s).entries.filter(x=>['cities','projects','technology','governance','tenures','people','archives','nation','expedition'].includes(x.category));return entries.map(e=>({...e,at:e.at??(e.from!==undefined?e.from*600:null)})).sort((a,b)=>(a.at??Infinity)-(b.at??Infinity));},
  openScroll(s=State){if(!s.civilization.polity?.earth?.ending||Events.activeEvent())return false;const text=this.chronicle(s),groups=[['火与最初的名字',0],['电与共同生活',s.civilization.modern?.eras.early?.at??s.civilization.city?.cityAt??0],['地区与国家',s.civilization.polity.foundedAt],['先进社会与地球',s.civilization.polity.future.at]],lines=[];for(let i=0;i<groups.length;i++){const [title,start]=groups[i],end=groups[i+1]?.[1]??Infinity;lines.push('—— '+title+' ——',...text.filter(e=>e.at!==null&&e.at>=start&&e.at<end).map(e=>'重建'+Math.floor(e.at/600)+'年 · '+e.title+'\n'+e.detail));}const undated=text.filter(e=>e.at===null);if(undated.length)lines.push('—— 旧记录未记年份 ——',...undated.map(e=>e.title+'\n'+e.detail));Events.startEvent({title:'文明回顾',civilHistory:true,scenes:{start:{text:lines,buttons:{close:{text:'合上长卷',nextScene:'end'}}}}},{width:600});Events.eventPanel().addClass('civil-history-event civil-chronicle');return true;},
  refresh(s){if(!$('#earthHistory').length||!s.civilization.polity?.earth?.ending)return;if(!$('#civilChronicle').length)CivilCityView.button('civilChronicle','翻开文明回顾长卷','#earthWorkbench',null,()=>this.openScroll(State)).insertAfter('#earthHistory');},

@@ -16,10 +16,10 @@ var CivilDiplomacy={
     return [...new Set([...Object.keys(cost),...Object.keys(reserve)])].every(k=>(n.stores[k]||0)+1e-8>=(cost[k]||0)+(reserve[k]||0));
   },
   reason(s,id){
-    if(!this.available(s))return '先完成国家宪章';
-    if(!CivilNation.operational(s))return '先恢复国家共同法与认可';
-    if(!CivilFinance.political(s))return '先处理现有继任或制度议决';
-    const n=this.source(s,id);if(n?.status!=='agreed')return '先完成与该聚居圈的联络及基础迁居协议';
+    if(!this.available(s))return '请先确立国家宪章';
+    if(!CivilNation.operational(s))return '请先恢复国家共同法与合法性认可';
+    if(!CivilFinance.political(s))return '请先办妥眼下的换届交接或制度议决';
+    const n=this.source(s,id);if(n?.status!=='agreed')return '请先与该聚居圈搭上话并签妥基础迁居协议';
     return CivilOrigins.supplyReason(s,id,n.cohorts);
   },
   sign(s,id){
@@ -57,23 +57,23 @@ var CivilDiplomacy={
     return r.service;
   },
   status(s){
-    const d=this.data(s);if(!d)return '可以与已登记来源商议居留公约，双方继续独立供养和管理居民';
-    const base=this.name(d.sourceId)+' · 追加居留额度 '+d.granted+' / 480；';
+    const d=this.data(s);if(!d)return '可与已登记的来源地商议居留公约，双方照旧各自供养、自管户籍';
+    const base=this.name(d.sourceId)+' · 已核准追加居留额度 '+d.granted+' / 480；';
     if(d.revision)return base+'修订公示尚余 '+Math.max(0,d.revision.effectiveAt-s.civilization.elapsed)+' 秒';
-    if(!d.active)return base+'公约已暂停，未使用的追加额度冻结，已出发旅客照常行进';
-    const r=d.records.at(-1);if(r&&!r.paid)return base+'双方公共记录费用或供养储备不足；本轮两边均未扣费';
-    const reason=this.reason(s,d.sourceId);if(reason)return base+reason+'；已有额度与迁居历史保留';
-    return base+(d.granted>=480?'本公约额度已核准完毕，使用未用额度仍须维持履约':'连续有效记录 '+d.stableSeconds+' / 600秒，下一批核准24人')+'。实际迁居仍需目的地住房、供养、客运和旅费';
+    if(!d.active)return base+'居留公约已暂停，尚未动用的追加额度暂行冻结，已在途的旅客照常行进';
+    const r=d.records.at(-1);if(r&&!r.paid)return base+'双方公共记录用度或保底供养不足；本轮两地均未划扣费用';
+    const reason=this.reason(s,d.sourceId);if(reason)return base+reason+'；已核准额度与既往迁居记录照旧保留';
+    return base+(d.granted>=480?'本公约追加额度已全部核准完毕，动用剩余额度仍须维持正常履约':'连续有效履约 '+d.stableSeconds+' / 600秒，期满核准下一批24人额度')+'。实际发车迎人仍须核验目的地空床、供养、客运车组与沿途旅费';
   },
   event(id,done){
-    if(id!=='residencePact')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'当前条件已变化，公约未执行；请核对共同法、来源供养和双方费用。')();
-    if(!d)for(const source of this.candidates(s))buttons['sign_'+source]={text:'与'+this.name(source)+'议约',nextScene:'end',onChoose:()=>finish(this.sign(s,source),'双方实付建档费用，居留公约开始核对持续履约。人口和库存仍各自保管。')};
-    else if(!d.revision){const action=d.active?'pause':'resume';buttons[action]={text:d.active?'暂停公约与追加居留':'恢复公约履约',nextScene:'end',onChoose:()=>finish(this.revise(s,action),'公约修订已登记；公示后生效，已出发旅客继续按原安排前行。')};}
-    buttons.close={text:'合上居留公约',nextScene:'end',onChoose:done('双方保留自己的居民名册和公共账册。')};
+    if(id!=='residencePact')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'眼下条件已有变动，公约未能签定；请核对共同法状态、来源地供养与两地用度。')();
+    if(!d)for(const source of this.candidates(s))buttons['sign_'+source]={text:'与'+this.name(source)+'议约',nextScene:'end',onChoose:()=>finish(this.sign(s,source),'双方各自付清建档用度，居留公约开始逐轮核验持续履约。两地户籍与仓库照旧各自掌管。')};
+    else if(!d.revision){const action=d.active?'pause':'resume';buttons[action]={text:d.active?'暂停公约与追加居留':'恢复公约履约',nextScene:'end',onChoose:()=>finish(this.revise(s,action),'公约修订已登记在案；公示期满后生效，已在途的旅客仍按原安排前行。')};}
+    buttons.close={text:'合上居留公约',nextScene:'end',onChoose:done('双方继续各自保管户籍名册与公共账册。')};
     return {title:'独立聚居圈的居留公约',text:[this.status(s)+'。',
-      '议约各自实付：本城知识120、木20、工具4；对方知识60、木20、工具4。每10秒本城知识0.08、木0.1，对方知识0.04、木0.1；任一方不足则本轮两边均不扣费。',
-      '每连续600秒有效履约核准24人的追加居留资格，累计最多480。资格不生成居民，留守年龄结构、旅费、车辆和床位仍按原规则核对。',
-      '暂停后停止费用与核准，未用追加资格冻结；恢复不重发已用资格。'+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'该聚居圈已另按加盟公约登记共同法；新迁居须核对加盟履约和原有留守、车辆及床位。':'来源保持独立，不算国家领土或人口。')],buttons};
+      '立约需各自支取：本城知识120、木20、工具4；对方知识60、木20、工具4。此后每10秒本城出知识0.08、木0.1，对方出知识0.04、木0.1；若任一方存量不济，当轮两头皆不划扣。',
+      '每连续有效履约满600秒，即核准24人的追加居留名额，累计上限为480人。纸面名额不会凭空变出活人，每次迎人仍须照章核验来源地留守年龄结构、沿途旅费、客运车组与目的地空床。',
+      '暂停公约将停下日常扣费与新名额核准，未动用的追加名额暂行冻结；恢复履约后不会重复发放已用掉的名额。'+(typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'该聚居圈已另依加盟公约纳入共同法；新发迁居队须一并核验加盟履约状态及原有的留守底线、车组与空床。':'来源地仍保持独立自治，不计入本国疆域或直辖人口。')],buttons};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;

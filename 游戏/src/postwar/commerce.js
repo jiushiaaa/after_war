@@ -22,11 +22,11 @@ var CivilCommerce={
   works(s){return typeof CivilCorridor!=='undefined'?CivilCorridor.next(s):null;},
   duration(s,o){return o?.security?.duration||o?.corridor?.baseDuration||this.route(s).duration;},
   agreementReason(s){
-    if(!this.available(s))return '先成立国家并签订独立来源居留公约';
-    if(!CivilDiplomacy.operational(s))return '先恢复国家与居留公约的实际履约';
-    if(!CivilFinance.political(s))return '先完成现有继任与改制';
-    if(!this.source(s)||this.source(s).status!=='agreed')return '先完成对方基础协议';
-    if(CivilRegions.load(s)+(this.data(s)?0:1)>CivilRegions.capacity(s))return '等待一份空余协调责任';
+    if(!this.available(s))return '请先立国，并与独立来源地签妥居留公约';
+    if(!CivilDiplomacy.operational(s))return '请先恢复国家共同法与居留公约的正常履约';
+    if(!CivilFinance.political(s))return '请先完成眼下的换届交接与变法';
+    if(!this.source(s)||this.source(s).status!=='agreed')return '请先与对方签妥基础协议';
+    if(CivilRegions.load(s)+(this.data(s)?0:1)>CivilRegions.capacity(s))return '等待腾出一份空闲的协调容量';
     return typeof CivilAccession!=='undefined'?CivilAccession.tradeReason(s):null;
   },
   sign(s){
@@ -42,24 +42,24 @@ var CivilCommerce={
   cancel(s){const p=this.plan(s);if(!p)return false;p.cancelledAt=s.civilization.elapsed;return true;},
   roadReason(s,departing=false){
     const id=this.route(s)?.corridor,r=s.civilization.regions?.routes[id];
-    if(!r||r.condition!=='open')return '联络走廊封闭，等待原道路修复';
-    if(departing&&CivilIncidents.holds(s,id))return '联络走廊正在等待车队归来检修，暂停新发车';
+    if(!r||r.condition!=='open')return '联络走廊已封闭，候原道路修通';
+    if(departing&&CivilIncidents.holds(s,id))return '联络走廊正候在途车队归来检修，暂停发运新车';
     return null;
   },
   dispatchReason(s){
     const reason=this.agreementReason(s);if(reason)return reason;
-    if(!this.asset(s))return '先实付建造对外商队装备，并安排两名营建工施工';
-    if(!this.plan(s))return '尚无剩余委托，可安排最多六趟';
-    if(this.active(s))return '等待本趟商队返程';
-    if(typeof CivilFrontier!=='undefined'&&CivilFrontier.active(s))return '原商车正在渡口往返，等待原车返城';
-    if(typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '原商车正在城际联运，等待原车返城';
-    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在地区商约途中，等待返城';
+    if(!this.asset(s))return '请先拨料建造对外商队装备，并分派两名营建工动工';
+    if(!this.plan(s))return '尚无待发委托，每次最多可排入六趟';
+    if(this.active(s))return '等待本趟商队返程归城';
+    if(typeof CivilFrontier!=='undefined'&&CivilFrontier.active(s))return '原商车正在跑旧渡口，请候其归城';
+    if(typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '原商车正在跑城际联运，请候其归城';
+    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在跑地区商约，请候其归城';
     const profile=this.profile(s),security=typeof CivilSecurity!=='undefined'?CivilSecurity.departureReason(s,profile):null;if(security)return security;
-    if(!this.staffed(s))return '等待两名空闲运输工；地区与客运班组优先';
+    if(!this.staffed(s))return '等待两名空闲运输工（优先保障地区常设路线与迁居客运）';
     const road=this.roadReason(s,true);if(road)return road;
-    if(!CivilFinance.reserveCheck(s,'home',this.paid(profile,this.publicProfile(s),this.works(s))))return '本城须备足工具、旅费与居民供养储备';
+    if(!CivilFinance.reserveCheck(s,'home',this.paid(profile,this.publicProfile(s),this.works(s))))return '本城须备足贸易工具、沿途旅费及居民保底口粮';
     const sourceCost=this.cargo(this.publicProfile(s),true);for(const [k,v]of Object.entries(profile?.sourcePaid||{}))sourceCost[k]=(sourceCost[k]||0)+v;
-    if(!CivilDiplomacy.reserve(s,this.sourceId(s),sourceCost))return '对方须先备足交换食物、护送费用和自身120秒供养';
+    if(!CivilDiplomacy.reserve(s,this.sourceId(s),sourceCost))return '对方须先备足交换粮食、护送用度，并留够自家120秒的口粮';
     return null;
   },
   dispatch(s){
@@ -82,39 +82,39 @@ var CivilCommerce={
           const stores=this.source(s).stores;CivilServices.pay(stores,returning);
           for(const [k,v]of Object.entries(o.cargo))stores[k]=(stores[k]||0)+v;
           o.cargo=returning;
-          Civilization.notify(CivilDiplomacy.name(d.sourceId)+(o.publicDuties?'收到贸易工具与约定补助，付出交换食物和地方贡献'+returning.food+'。':'收到工具12，付出食物120。')+'食物仍随商队返程，尚未进入本城仓库。');
-        }else Civilization.notify(CivilDiplomacy.name(d.sourceId)+'当前供养储备不足，未成交。原工具与随车补助返回，旅费已经消耗。');
+          Civilization.notify(CivilDiplomacy.name(d.sourceId)+(o.publicDuties?'收下贸易工具与随车补助，交出交换食物与地方贡献'+returning.food+'。':'收下工具12，交出食物120。')+'食物正随商队返程，抵城后方才入库。');
+        }else Civilization.notify(CivilDiplomacy.name(d.sourceId)+'眼下存粮吃紧，本趟未能成交。贸易工具与随车补助原车拉回，已耗用的沿途旅费不退。');
       }
     }else {
       o.inboundSeconds++;
-      if(o.inboundSeconds===duration){for(const [k,v]of Object.entries(o.cargo))s.stores[k]=(s.stores[k]||0)+v;o.cargo={};o.returnedAt=at;if(o.security?.sourceGuard)CivilOrigins.assign(s,d.sourceId);Civilization.notify(o.exchange?'商队返城，食物'+this.cargo(o.publicDuties||null,true).food+'已进入本城原仓。':'商队返城，未成交的原工具与随车补助已归还。');}
+      if(o.inboundSeconds===duration){for(const [k,v]of Object.entries(o.cargo))s.stores[k]=(s.stores[k]||0)+v;o.cargo={};o.returnedAt=at;if(o.security?.sourceGuard)CivilOrigins.assign(s,d.sourceId);Civilization.notify(o.exchange?'商队归城，换回的食物'+this.cargo(o.publicDuties||null,true).food+'已卸入本城原仓。':'商队归城，未成交的工具与随车补助已退回原仓。');}
     }
   },
   status(s){
-    const d=this.data(s),o=this.active(s),p=this.plan(s);if(!d)return this.agreementReason(s)||'双方可实付登记贸易，居民与仓库仍各自独立';
-    const base=CivilDiplomacy.name(d.sourceId)+' · 已返城'+d.orders.filter(x=>x.returnedAt!==null).length+'趟；';
+    const d=this.data(s),o=this.active(s),p=this.plan(s);if(!d)return this.agreementReason(s)||'双方可支取知识登记贸易，各自户籍与仓库照旧独立';
+    const base=CivilDiplomacy.name(d.sourceId)+' · 累计归城'+d.orders.filter(x=>x.returnedAt!==null).length+'趟；';
     if(o){const duration=this.duration(s,o),delay=(o.security?.delay||0)-(o.security?.encounterSeconds||0),encounter=delay>0&&o.outboundSeconds===Math.floor(duration/2)&&o.arrivedAt===null;
-      return base+(this.roadReason(s)||(!this.staffed(s)?'等待完整运输与护送班组':encounter?'护送队正在驱离兽群，还需'+delay+'秒':o.arrivedAt===null?'工具运出途中，尚余'+(duration-o.outboundSeconds+delay)+'秒':(o.exchange?'食物':'未成交工具')+'返程，尚余'+(duration-o.inboundSeconds)+'秒'))+'；'+(o.publicDuties?'随车 '+CivilHistory.costText(o.cargo)+'；':'')+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程':'不再追加出发');}
+      return base+(this.roadReason(s)||(!this.staffed(s)?'等待配齐运输与护送班组':encounter?'护送队正在驱离沿途兽群，还需'+delay+'秒':o.arrivedAt===null?'工具运往对方途中，尚余'+(duration-o.outboundSeconds+delay)+'秒':(o.exchange?'食物':'未成交工具')+'返程中，尚余'+(duration-o.inboundSeconds)+'秒'))+'；'+(o.publicDuties?'随车装载 '+CivilHistory.costText(o.cargo)+'；':'')+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未发车':'不再追加发车');}
     const project=CivilServices.data(s,'home')?.project;
-    if(!this.asset(s)&&project?.type==='foreigncaravan'&&project.status!=='complete')return base+'商队装备实际施工剩余'+project.remaining+'秒，请在炉火城页安排两名营建工';
-    return base+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未启程；':'')+(this.dispatchReason(s)||'班组与物资就绪，等待启程');
+    if(!this.asset(s)&&project?.type==='foreigncaravan'&&project.status!=='complete')return base+'商队装备尚余'+project.remaining+'秒施工，请前往炉火城页分派两名营建工';
+    return base+(p?'本批尚余'+(p.limit-d.orders.filter(x=>x.planId===p.id).length)+'趟未发车；':'')+(this.dispatchReason(s)||'班组与货品就绪，候命启程');
   },
   event(id,done){
-    if(id!=='foreignCommerce')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已经变化，未执行；请核对双方供养、工程和共同法。')();
-    if(!d)buttons.sign={text:'双方实付登记贸易',nextScene:'end',onChoose:()=>finish(this.sign(s),'贸易约定已登记，占用一份协调责任。双方人口与仓库保持独立。')};
-    else if(!this.asset(s)){if(CivilServices.projectAvailable(s,'home')&&CivilServices.facilityGate(s,'home','foreigncaravan'))buttons.build={text:'实付筹办商队装备',nextScene:'end',onChoose:()=>finish(CivilServices.startProject(s,'home','foreigncaravan'),'商队材料已支付，请在炉火城页安排两名营建工。完工后才能出发。')};}
-    else if(this.plan(s))buttons.cancel={text:'撤销尚未出发的委托',nextScene:'end',onChoose:()=>finish(this.cancel(s),'剩余委托已撤销。已出发的商队照常完成往返，旅费不退。')};
-    else buttons.schedule={text:'委托最多六趟实物贸易',nextScene:'end',onChoose:()=>finish(this.schedule(s),'已登记六趟委托，每次实际发车才支付货物与旅费；条件不足时等待。')};
-    buttons.close={text:'合上贸易账册',nextScene:'end',onChoose:done('双方的原仓库与在途回执继续记账。')};
+    if(id!=='foreignCommerce')return null;const s=State,d=this.data(s),buttons={},finish=(ok,text)=>done(ok?text:'条件已有变动，本次未执行；请核对双方供养、在建工程与共同法运转状态。')();
+    if(!d)buttons.sign={text:'双方实付登记贸易',nextScene:'end',onChoose:()=>finish(this.sign(s),'贸易约定已登记在册，占用一份协调容量。双方户籍与仓库保持独立。')};
+    else if(!this.asset(s)){if(CivilServices.projectAvailable(s,'home')&&CivilServices.facilityGate(s,'home','foreigncaravan'))buttons.build={text:'实付筹办商队装备',nextScene:'end',onChoose:()=>finish(CivilServices.startProject(s,'home','foreigncaravan'),'造车建材已支取，请前往炉火城页分派两名营建工动工。装备落成后方能发车。')};}
+    else if(this.plan(s))buttons.cancel={text:'撤销尚未出发的委托',nextScene:'end',onChoose:()=>finish(this.cancel(s),'未发车的剩余委托已撤销。已在途的商队照常跑完往返，已耗旅费不退。')};
+    else buttons.schedule={text:'委托最多六趟实物贸易',nextScene:'end',onChoose:()=>finish(this.schedule(s),'已排入六趟商队委托，每趟实际发车时才支取货品与旅费；条件不足时就地候命。')};
+    buttons.close={text:'合上贸易账册',nextScene:'end',onChoose:done('两地原仓与在途货单继续各自记账。')};
     const active=this.active(s),publicDuties=active?active.publicDuties:this.publicProfile(s),profile=active?.security||this.profile(s),text=[this.status(s)+'。'];
-    if(!d)text.push('登记实付：本城知识60、对方30；双方保留原仓库与居民。');
-    if(!this.asset(s))text.push('商队装备实耗木80、钢60、零件20、工具10；两名营建工施工360秒。');
-    text.push('每趟工具12交换食物120，另耗食物6、木2、工具0.1、零件0.1。两名现有空闲运输工，'+(this.route(s)?'原路基础单程'+this.route(s).duration+'秒。':'')+'到达才交换，返城才入库；对方储备不足，原货返回，旅费不退。');
-    if(profile)text.push(CivilSecurityContent.modes[profile.mode].name+'：单程'+profile.duration+'秒，另耗 '+CivilHistory.costText(CivilSecurityContent.modes[profile.mode].homeCost)+(profile.delay?'，去程另停'+profile.delay+'秒驱离。':'。'));
-    if(active?.works)text.push('本趟另付工程建材 '+CivilHistory.costText(active.works.cargo)+'，实际到达后进入道路工程保管账。');
-    if(active?.corridor)text.push('本趟采用出发时道路维护凭据，基础单程'+active.corridor.baseDuration+'秒；后续维护变化不修改本单。');
-    if(publicDuties)text.push((active?'本趟按出发约定另送 ':'加盟另送 ')+CivilHistory.costText(publicDuties.grant)+'；来源另交 '+CivilHistory.costText(publicDuties.contribution)+'，随原车实际到货。');
-    text[text.length-1]+=' 封路或缺员暂停；每批最多六趟，可撤销未发委托。在途承诺保留，治理中断暂停新发车。';
+    if(!d)text.push('立约需支取：本城知识60、对方30；两地照旧自管仓库与户籍。');
+    if(!this.asset(s))text.push('打造商队装备需耗木80、钢60、零件20、工具10；由两名营建工动工360秒。');
+    text.push('每趟以工具12换回食物120，沿途另耗食物6、木2、工具0.1、零件0.1。需抽调两名空闲运输工，'+(this.route(s)?'原路基础单程'+this.route(s).duration+'秒。':'')+'抵站交割，归城入库；若对方存粮不足以交割，原货随车拉回，已耗旅费不退。');
+    if(profile)text.push(CivilSecurityContent.modes[profile.mode].name+'：单程'+profile.duration+'秒，另耗 '+CivilHistory.costText(CivilSecurityContent.modes[profile.mode].homeCost)+(profile.delay?'，去程需在途中停留'+profile.delay+'秒驱离兽群。':'。'));
+    if(active?.works)text.push('本趟顺道捎带工程建材 '+CivilHistory.costText(active.works.cargo)+'，运抵后直接划入道路工程保管账。');
+    if(active?.corridor)text.push('本趟凭发车时的驿站维护记录通行，基础单程'+active.corridor.baseDuration+'秒；发车后驿站维护若有变动，不更改本趟耗时。');
+    if(publicDuties)text.push((active?'本趟按发车约定另捎去 ':'加盟另捎去 ')+CivilHistory.costText(publicDuties.grant)+'；来源地另回交贡献 '+CivilHistory.costText(publicDuties.contribution)+'，随原车运抵后入仓。');
+    text[text.length-1]+=' 遇封路或人手缺额则暂停发车；每批最多排入六趟，未发车的委托可随时撤销。已在途的货单照常跑完，若国家治理中断则暂停发运新车。';
     return {title:typeof CivilAccession!=='undefined'&&CivilAccession.population(s)?'加盟聚居圈贸易与公共收支':'独立聚居圈实物贸易',text,buttons};
   },
   refresh(){

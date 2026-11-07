@@ -2,7 +2,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const {fresh}=require('./helpers/census-fixture.cjs');
 test('A7 numeric units preserve exact source values and do not mix people with mass',()=>{
  const h=fresh(),r=h.ctx.CivilReadable;assert.equal(r.number(123456,'人'),'12.35万人');assert.equal(r.number(1051728506,'人'),'10.52亿人');assert.equal(r.quantity(12500,'吨'),'1.25万吨');assert.equal(r.number(0,'人'),'0人');assert.equal(r.resource(12500000,'iron',true),'1.25万吨');assert.equal(r.resource(12500000,'iron',false),'1,250万');
- const stock={food:123456.789},book={received:{food:125000},consumed:{food:1543.211}},before=JSON.stringify([stock,book]);const rows=r.ledger(stock,book);assert.match(rows[0][2],/123,456.789/);assert.match(rows[0][2],/未折算为重量/);assert.equal(JSON.stringify([stock,book]),before);
+ const stock={food:123456.789},book={received:{food:125000},consumed:{food:1543.211}},before=JSON.stringify([stock,book]);const rows=r.ledger(stock,book);assert.match(rows[0][2],/123,456.789/);assert.match(rows[0][2],/未折算物理质量/);assert.equal(JSON.stringify([stock,book]),before);
 });
 test('A7 census does not expose unknown reserves or count discoveries as births',()=>{
  const h=fresh(),{s,c,ctx}=h;const r=ctx.CivilReadable,original=JSON.stringify(s);let p=r.population(s);assert.equal(p.total,0);assert.equal(p.global,false);assert.equal(p.rows.some(x=>x.id.startsWith('reserve_')),false);assert.equal(JSON.stringify(s),original);

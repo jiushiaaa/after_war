@@ -39,31 +39,31 @@ var CivilCityLabor={
     return this.x().pick(this.x().subtract(n.cohorts,used),count,50);
   },
   idle(s,id){const n=this.c().local(s,id);return Math.max(0,CivilCity.workforce(n)-Object.values(n.workers).reduce((a,b)=>a+b,0));},
-  buildReason(s,id){if(!this.available(s))return '先完成接续工坊与三城公用站';if(!this.c().membersAt(s,s.civilization.elapsed).includes(id)||!this.trades[id])return '当地尚未登记公用站';if(this.office(s,id))return '当地劳务工位已有登记';if(!this.c().activeOffice(s,id))return '先续办当地公用站';return this.c().payReason(s,id,this.cost,'laborBuild');},
+  buildReason(s,id){if(!this.available(s))return '先建成接续工坊与三城公用站';if(!this.c().membersAt(s,s.civilization.elapsed).includes(id)||!this.trades[id])return '当地尚未登记公用站';if(this.office(s,id))return '当地劳务工位已有登记';if(!this.c().activeOffice(s,id))return '先续办当地公用站';return this.c().payReason(s,id,this.cost,'laborBuild');},
   build(s,id){if(this.buildReason(s,id))return false;const at=s.civilization.elapsed;
     if(!this.data(s))s.civilization.cityLabor={schema:1,at,offices:{},contracts:[],shifts:[],households:{}};
-    this.c().pay(s,id,'laborBuild',id,this.cost);this.data(s).offices[id]={at,paid:{...this.cost},worked:0,remaining:120,completedAt:null,enabled:true,changes:[]};this.c().replan(s);this.c().note(s,this.c().name(s,id)+'实付开设120个'+this.trades[id].name+'劳务工位，20名居民安装120秒；工资仍须逐班封存。');return true;
+    this.c().pay(s,id,'laborBuild',id,this.cost);this.data(s).offices[id]={at,paid:{...this.cost},worked:0,remaining:120,completedAt:null,enabled:true,changes:[]};this.c().replan(s);this.c().note(s,this.c().name(s,id)+'拨料增设120个'+this.trades[id].name+'劳务工位，由20名当地居民安装120秒；开班后粮酬仍须逐班预先封存。');return true;
   },
   set(s,id,value){const o=this.office(s,id);if(!this.ready(s,id)||typeof value!=='boolean'||o.enabled===value||!CivilCity.pay(this.c().local(s,id),{knowledge:2}))return false;
-    const r=this.c().record(s,id,'laborPolicy',id,{knowledge:2},{value});o.enabled=value;o.changes.push(r.id);this.c().replan(s);this.c().note(s,this.c().name(s,id)+(value?'恢复劳务委托，按既定来源和真实空缺续班。':'暂停劳务委托，已挣工资保留，驻班人员结束本轮后返乡。'));return true;
+    const r=this.c().record(s,id,'laborPolicy',id,{knowledge:2},{value});o.enabled=value;o.changes.push(r.id);this.c().replan(s);this.c().note(s,this.c().name(s,id)+(value?'恢复劳务委托，按选定来源地与实际缺口接续排班。':'暂停劳务委托，已挣得的粮酬照算，驻班人员做满本轮后返乡。'));return true;
   },
   contract(s,id){return this.data(s)?.contracts.find(o=>o.to===id&&o.endedAt===null);},
-  orderReason(s,from,to,count,task='supply'){if(!['supply','food','tools'].includes(task))return '尚无这项班组工序';if(!this.ready(s,to))return '先在雇用城市建成劳务工位';if(this.contract(s,to))return '先结束当地旧委托，再改变来源或人数';if(![24,60,120].includes(count))return '每班24、60或120人';return this.departureReason(s,{from,to,count,...(task==='supply'?{}:{version:2,task})},true);},
-  order(s,from,to,count,task='supply'){if(this.orderReason(s,from,to,count,task))return false;const d=this.data(s),o={id:d.contracts.length+1,at:s.civilization.elapsed,from,to,count,lastAt:null,endedAt:null,paid:from===to?{}:this.lodgingCost(count),lastLodgingAt:from===to?null:s.civilization.elapsed,services:[],...(task==='supply'?{}:{version:2,task,recognition:{...this.recognitionCost}})};if(o.version===2)this.c().pay(s,to,'laborRecognition',o.id,o.recognition);if(from!==to)this.c().pay(s,to,'laborLodging',o.id,o.paid);d.contracts.push(o);this.c().note(s,this.c().name(s,to)+'按班预付粮酬，向'+this.c().name(s,from)+'委托'+count+'个'+this.trade(s,to,o).name+'岗位。'+(from===to?'居民留在本地工作。':'居民保留原址，通勤期间暂离原城排班，临住与诊疗由雇用城市承担。'));return true;},
-  cancel(s,id){const o=this.contract(s,id);if(!o)return false;o.endedAt=s.civilization.elapsed;this.c().note(s,this.c().name(s,id)+'结束后续劳务委托；已出发班次按原约结清，不扣回已挣工资。');return true;},
+  orderReason(s,from,to,count,task='supply'){if(!['supply','food','tools'].includes(task))return '尚无此项班组工序';if(!this.ready(s,to))return '先在雇用城市建成劳务工位';if(this.contract(s,to))return '先结清当地旧委托，再更改来源地或班次人数';if(![24,60,120].includes(count))return '每班限24、60或120人';return this.departureReason(s,{from,to,count,...(task==='supply'?{}:{version:2,task})},true);},
+  order(s,from,to,count,task='supply'){if(this.orderReason(s,from,to,count,task))return false;const d=this.data(s),o={id:d.contracts.length+1,at:s.civilization.elapsed,from,to,count,lastAt:null,endedAt:null,paid:from===to?{}:this.lodgingCost(count),lastLodgingAt:from===to?null:s.civilization.elapsed,services:[],...(task==='supply'?{}:{version:2,task,recognition:{...this.recognitionCost}})};if(o.version===2)this.c().pay(s,to,'laborRecognition',o.id,o.recognition);if(from!==to)this.c().pay(s,to,'laborLodging',o.id,o.paid);d.contracts.push(o);this.c().note(s,this.c().name(s,to)+'按班预存粮酬，向'+this.c().name(s,from)+'招揽'+count+'个'+this.trade(s,to,o).name+'工位。'+(from===to?'居民留在本城上工。':'居民原籍房舍保留，通勤驻班期间暂离原城工位，临时食宿与看诊由雇用城市担待。'));return true;},
+  cancel(s,id){const o=this.contract(s,id);if(!o)return false;o.endedAt=s.civilization.elapsed;this.c().note(s,this.c().name(s,id)+'终止了后续劳务委托；已在途或驻班的班次按原约结清，已挣得的粮酬分文不扣。');return true;},
   quote(s,o){const distance=o.from===o.to?0:this.c().path(s,o.from,o.to)?.distance;
     return {distance,escrow:{food:o.count*this.wage*30},pack:{food:distance?Math.ceil((o.count+4)*.012*(2*distance+this.duration)):0},fee:distance?{...this.fee}:{}};
   },
   departureReason(s,o,preview=false,probe=false){
-    const {from,to,count}=o,a=this.c();if(!this.active(s,to))return '雇用城市劳务委托或公用站未续办';if(!a.membersAt(s,s.civilization.elapsed).includes(from)||!a.activeOffice(s,from))return '来源城公用事务尚未续办';
-    if(count>this.slots(s,to))return '当地须留'+this.schoolPlaces(s,to)+'个工位作补充课堂，当前可用工位'+this.slots(s,to);
-    if(this.shifts(s).some(p=>p.to===to))return '当地上一班尚未结清';if(!preview&&!this.demand(s,to,o))return '当地储备已足，保留委托，暂不发班';if(!preview&&o.lastAt!==null&&s.civilization.elapsed-o.lastAt<600)return '先观察本期产销和家庭收入，下期再开班';
-    const n=a.local(s,from),target=a.local(s,to),q=this.quote(s,o);if(q.distance===undefined)return '两城尚无公共通路';if(q.distance>720)return '路程超过当前轮班车辆的保障半径';
+    const {from,to,count}=o,a=this.c();if(!this.active(s,to))return '雇用城市的劳务委托或公用站尚未续办';if(!a.membersAt(s,s.civilization.elapsed).includes(from)||!a.activeOffice(s,from))return '来源城公用事务尚未续办';
+    if(count>this.slots(s,to))return '当地须拨出'+this.schoolPlaces(s,to)+'个工位充作补充课堂，眼下可用劳务工位仅剩'+this.slots(s,to);
+    if(this.shifts(s).some(p=>p.to===to))return '当地上一班劳务尚未结清';if(!preview&&!this.demand(s,to,o))return '当地库存已足，保留委托，暂不发班';if(!preview&&o.lastAt!==null&&s.civilization.elapsed-o.lastAt<600)return '先观察本期产销与家庭余粮，下期再行开班';
+    const n=a.local(s,from),target=a.local(s,to),q=this.quote(s,o);if(q.distance===undefined)return '两城之间尚无公共通路';if(q.distance>720)return '路途超出当前轮班车辆的通行半径';
     const taskReason=this.taskReason(s,o);if(taskReason)return taskReason;
-    if(this.count(this.candidates(s,from,count,o))<count||this.idle(s,from)<(o.version===2?0:count)+(from===to?0:4))return '来源须留足原有职责，再安排本班成年居民与驾驶员';
-    if(from!==to){if(this.h().freeBeds(s,to)+(o.id&&o.endedAt===null?o.count:0)<count)return '雇用城市临住空床不足，含已承诺入住与返乡预留';if(this.busy(s,from)||this.h().busy(s,from)||a.activeLegs(s).some(l=>l.from===from))return '来源勤务车尚未返回，通勤、迁居和供料共用车辆';if(this.h().wantsVehicle(s,from))return '先履行已经签订的迁居约';}
-    if(!this.lodgingReady(s,o))return '临住房维护未续办，先恢复当地公共预算';
-    if(target.health<60||target.stable<120||n.health<60||n.stable<120)return '双方先恢复基本供养';
+    if(this.count(this.candidates(s,from,count,o))<count||this.idle(s,from)<(o.version===2?0:count)+(from===to?0:4))return '来源城须先顾好本地常设岗位，再匀出本班劳力与随车司机';
+    if(from!==to){if(this.h().freeBeds(s,to)+(o.id&&o.endedAt===null?o.count:0)<count)return '雇用城市临住空床不足（含已承诺入住与返乡预留床位）';if(this.busy(s,from)||this.h().busy(s,from)||a.activeLegs(s).some(l=>l.from===from))return '来源城勤务车尚未归场，通勤、迁居与公共供料共用同一组车';if(this.h().wantsVehicle(s,from))return '请先兑现已签下的家庭迁居约';}
+    if(!this.lodgingReady(s,o))return '临住房舍维护未续办，请先恢复当地公共预算';
+    if(target.health<60||target.stable<120||n.health<60||n.stable<120)return '两城均须先稳住基础供养';
     const sourceCost={...q.pack};a.sum(sourceCost,q.fee);if(from===to){a.sum(sourceCost,q.escrow);if(preview&&o.version===2)a.sum(sourceCost,this.recognitionCost);}
     const employerCost={...q.escrow};if(preview&&from!==to){a.sum(employerCost,this.lodgingCost(count));if(o.version===2)a.sum(employerCost,this.recognitionCost);}
     return a.payReason(s,from,sourceCost,probe?'probe':'laborEscrow')||(from===to?null:a.payReason(s,to,employerCost,probe?'probe':'laborEscrow'))||(!preview&&!probe&&typeof CivilCityBudget!=='undefined'?CivilCityBudget.departureReason(s,o):null);
@@ -89,9 +89,9 @@ var CivilCityLabor={
   produce(s,id,run,wet){const city=this.city(s,id),n=CivilCity.node(s,id);if(!this.trades[city])return {taught:0,cared:0};let taught=0,cared=0;
     for(const p of this.shifts(s).filter(p=>p.to===city&&p.phase==='working')){
       const trade=this.trade(s,id,this.data(s).contracts[p.order-1]),at=s.civilization.elapsed;if(p.rounds.at(-1)?.at===at)continue;
-      let reason=p.count>this.slots(s,city)?'工位改作补充课堂，本班先行结清':!this.active(s,city)?'当地暂停或未续办':!this.lodgingReady(s,this.data(s).contracts[p.order-1])?'临住维护未续办':!wet?'供水中断':null;
+      let reason=p.count>this.slots(s,city)?'工位已改拨给补充课堂，本班劳务提前结清':!this.active(s,city)?'当地已暂停或未续办':!this.lodgingReady(s,this.data(s).contracts[p.order-1])?'临住维护未续办':!wet?'供水中断':null;
       const target=CivilCity.targets(n,s,id),workers=trade.job==='teacher'?p.count:Math.min(p.count,Math.max(...Object.entries(trade.output).map(([k,v])=>Math.ceil(Math.max(0,target[k]-(n.stores[k]||0))/v))));
-      if(!workers)reason=reason||'当地储备已足，结束本班';
+      if(!workers)reason=reason||'当地库存已满，提前结班';
       const inputs=Object.fromEntries(Object.entries(trade.input).map(([k,v])=>[k,v*workers])),meal=p.from===p.to?0:p.count*.12,cost={...inputs};cost.food=(cost.food||0)+meal;
       if(!reason)reason=this.c().payReason(s,city,cost,'laborInput');
       if(reason){p.reason=reason;this.leave(s,p);continue;}
@@ -103,7 +103,7 @@ var CivilCityLabor={
       for(const [k,v]of Object.entries(output)){n.stores[k]=(n.stores[k]||0)+v;n.budget.produced[k]=(n.budget.produced[k]||0)+v;}
       const wage=workers*this.wage;p.earned+=wage;p.hospitality+=meal;p.rounds.push({at,workers,paid:inputs,output,wage,meal});
       if(trade.job==='teacher')taught+=workers;if(trade.job==='medic')cared+=workers;
-      if(p.rounds.length===30){p.reason='完成本班';this.leave(s,p);}
+      if(p.rounds.length===30){p.reason='做满本班';this.leave(s,p);}
     }return {taught,cared};
   },
   leave(s,p){if(p.leftAt!==null)return;p.leftAt=s.civilization.elapsed;p.refunded=Math.max(0,p.escrow-p.earned);CivilConurbation.receive(this.c().local(s,p.to),{food:p.refunded});
@@ -111,7 +111,7 @@ var CivilCityLabor={
   },
   finish(s,p){if(p.finishedAt!==null)return;p.finishedAt=s.civilization.elapsed;p.phase='complete';p.remaining=0;p.received=p.food+p.hospitality;CivilConurbation.receive(this.c().local(s,p.from),{food:p.received});p.food=0;
     const d=this.data(s),h=d.households[p.from]||(d.households[p.from]={food:0,received:0,consumed:0,rounds:0,lastAt:null});h.food+=p.earned;h.received+=p.earned;
-    this.c().note(s,this.c().name(s,p.from)+'的'+p.count+'名居民'+(p.from===p.to?'结清本班':'乘原车返乡')+'，带回粮酬'+Math.round(p.earned*100)/100+'。'+p.rounds.length+'轮实际工作；未挣预付已退回雇用公仓，旅粮余款与实付驻班口粮返还来源公仓。');this.c().replan(s);
+    this.c().note(s,this.c().name(s,p.from)+'的'+p.count+'名居民'+(p.from===p.to?'结清本班':'乘原车返乡')+'，携粮酬'+Math.round(p.earned*100)/100+'归家。本班共做满'+p.rounds.length+'轮；未动用的预存粮酬已退回雇用城公仓，结余旅粮与冲抵的驻班口粮一并归还来源城公仓。');this.c().replan(s);
   },
   feed(s,id,need){const h=this.data(s)?.households[this.city(s,id)];if(!h||!h.food)return 0;const used=Math.min(need,h.food);h.food-=used;h.consumed+=used;h.rounds++;h.lastAt=s.civilization.elapsed;return used;},
   transfers(s,id){const sent={},received={};for(const p of this.data(s)?.shifts||[]){if(p.from===id&&p.from!==p.to)sent.food=(sent.food||0)+p.pack.food;if(p.to===id){sent.food=(sent.food||0)+p.escrow+p.hospitality;if(p.leftAt!==null)received.food=(received.food||0)+p.refunded;}if(p.from===id&&p.finishedAt!==null)received.food=(received.food||0)+p.received;}return {sent,received};},
@@ -120,7 +120,7 @@ var CivilCityLabor={
     if(at%60===0)for(const o of d.contracts)if(o.from!==o.to&&(o.endedAt===null||this.shifts(s).some(p=>p.order===o.id&&p.leftAt===null))){const paid=a.activeOffice(s,o.to)&&a.pay(s,o.to,'laborLodgingService',o.id+':'+at,this.lodgingFee(o.count));o.services.push({at,paid:!!paid});if(paid)o.lastLodgingAt=at;}
     for(const p of this.shifts(s)){
       if(p.from!==p.to&&at>p.at){const meal=(p.count+4)*.012;if(p.food+1e-7<meal)throw Error('通勤封存口粮不足');p.food=Math.max(0,p.food-meal);p.consumed+=meal;}
-      if(p.phase==='working'){if(!this.active(s,p.to)||at-p.arrivedAt>=this.duration){p.reason=p.reason||(!this.active(s,p.to)?'当地暂停或未续办':'班期结束');this.leave(s,p);}continue;}
+      if(p.phase==='working'){if(!this.active(s,p.to)||at-p.arrivedAt>=this.duration){p.reason=p.reason||(!this.active(s,p.to)?'当地已暂停或未续办':'班期届满');this.leave(s,p);}continue;}
       // A departure or early-return transition at this second consumes no
       // travel second until the following tick.
       if(at===(p.leftAt??p.at))continue;

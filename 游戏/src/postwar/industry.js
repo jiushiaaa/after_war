@@ -14,8 +14,8 @@ var CivilIndustry = {
   journeys:{geology:{cost:{food:20,tools:6,knowledge:10},duration:240,allowed:s=>!!s.civilization.village?.town && !!s.civilization.tech.records && !!s.civilization.tech.handtools && !s.civilization.industry.mineKnown}},
   event(id,done) {
     if(id!=='geology')return null;
-    return {title:'山坡下的矿带',text:['旧采石场的断面露出红褐色矿层。另一条沟谷里，煤层还没有被水淹没。','队伍在图上标出入口和风向。开采需要支护与通风，不能把拾荒时的办法照搬到井下。'],buttons:{
-      survey:{text:'记录矿带与通风口',nextScene:'end',onChoose:done('矿带已记入地图。工坊开始整理支护与通风方案。',()=>{State.civilization.industry.mineKnown=true;})}
+    return {title:'山坡下的矿带',text:['旧采石场的断壁裸露着红褐色的铁矿层。翻过山梁的另一道沟谷里，露头煤层还没被地下水浸透。','勘察队在图纸上标出硐口与风向。下井不是在地面扒废铁，没有坑木支护和风道，人下去就是活埋。'],buttons:{
+      survey:{text:'记录矿带与通风口',nextScene:'end',onChoose:done('矿带坐标已收入地图。工坊开始拟定井下支护与通风方案。',()=>{State.civilization.industry.mineKnown=true;})}
     }};
   },
   factor(s) {
@@ -72,7 +72,7 @@ var CivilIndustry = {
     const poweredRuns=run('machinist',powered,{iron:.5,scrap:.2,tools:.01},{parts:.5*factor});
     i.productionPower=poweredRuns*2;i.used+=i.productionPower;
     const manualRuns=run('machinist',machines-poweredRuns,{iron:.5,scrap:.2,tools:.01},{parts:.3*factor});
-    if(machines>powered && machines>0 && !i.blocked.machinist)i.blocked.machinist='电力不足，部分岗位改用手动工序';
+    if(machines>powered && machines>0 && !i.blocked.machinist)i.blocked.machinist='电力不足，部分岗位退回手工工序';
     if(typeof CivilPrecision!=='undefined'){const precision=CivilPrecision.run(s,'home',{factor,run,powerAvailable:remainingPower-i.productionPower});i.used+=precision.used;i.demand+=precision.demand;}
     i.pollution=Math.max(0,Math.min(100,oldPollution+smelting*.05+generators*.03+prepared.pollution+materials.pollution-(scrubbed?.4:.02)));
     if(i.pollution>=40 && s.civilization.village)s.civilization.village.health=Math.max(0,s.civilization.village.health-.05*(1+i.pollution/50));
@@ -80,7 +80,7 @@ var CivilIndustry = {
   },
   tick(s) {
     const i=s.civilization.industry;
-    if(i.online && !i.announcedPower){i.announcedPower=true;Civilization.notify('工区第一次持续供电。电工守着发电机，机械作坊的传动轴转了起来。');}
+    if(i.online && !i.announcedPower){i.announcedPower=true;Civilization.notify('工区第一次通上了稳定的电流。电工守在轰鸣的机组旁，机械作坊的天轴轰隆隆转了起来。');}
   },
   validate(s) {
     const i=s.civilization.industry;
@@ -119,7 +119,7 @@ var CivilIndustry = {
       const r=this.journeys.geology;
       const btn=Civilization.button('geologyButton','勘察矿带','#roadPanel',()=>Civilization.depart('geology'),r.cost);
       Button.setDisabled(btn,!!s.civilization.journey || !!s.civilization.pending || !CivilRules.canPay(s,r.cost));
-      btn.attr('title','240 秒；记录矿点后才能研究开采');
+      btn.attr('title','240 秒；探明矿点后才能研究开采');
     }
     $('#geologyButton').toggle(!i.mineKnown);
     if(!s.civilization.tech.mining)return;
@@ -140,9 +140,9 @@ var CivilIndustry = {
       row.toggle(n>0).find('.row_val').text(n);
     }
     if(Engine.activeModule===Outside && $('#village').length)$('#storesContainer').css('top',($('#village').height()+26+Outside._STORES_OFFSET)+'px');
-    let text='矿带已记录。原料、燃料和加工岗位必须相互配合。';
-    if(s.game.buildings.furnace)text+=' 烟尘 '+Math.floor(i.pollution)+(i.pollution>=40?'，正在影响居民健康。':'。');
-    if(s.game.buildings.powerhouse||s.game.buildings.utilitypower)text+=' 电力 '+Number(i.used.toFixed(2))+' / '+Number(i.generation.toFixed(2))+'，需求 '+Number(i.demand.toFixed(2))+'；每轮即时使用。';
+    let text='矿带已标入地图。采掘、燃料与加工环节环环相扣，缺一不可。';
+    if(s.game.buildings.furnace)text+=' 烟尘 '+Math.floor(i.pollution)+(i.pollution>=40?'，正侵蚀着居民的健康。':'。');
+    if(s.game.buildings.powerhouse||s.game.buildings.utilitypower)text+=' 电力 '+Number(i.used.toFixed(2))+' / '+Number(i.generation.toFixed(2))+'，负荷需求 '+Number(i.demand.toFixed(2))+'；当轮即发即用。';
     $('#industryStatus').text(text);
     for(const [job,reason]of Object.entries(i.blocked))$('#workers_row_'+job).attr('title',reason+'；岗位上限 '+CivilCatalog.jobCapacity(s,job));
   }

@@ -34,34 +34,34 @@ var CivilCity={
   note(s,kind,id,text){const d=this.data(s);d.history.push({at:s.civilization.elapsed,kind,id,text});if(typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined')Civilization.notify(text);},
   sum(into,values){for(const [k,v]of Object.entries(values))into[k]=(into[k]||0)+v;},
   pay(n,cost){if(!CivilRules.canPay({stores:n.stores},cost))return false;CivilRules.pay({stores:n.stores},cost);this.sum(n.budget.consumed,cost);return true;},
-  contactReason(s,id){const d=this.data(s),n=d?.wards[id];return !this.available(s)?'先议定小镇方针并完成地理测绘':!n?'未知片区':n.contactedAt!==null?'已经普查':d.contact?'已有普查队在途':this.freeCrew(s)<2?'原镇须有两名空闲成年普查员':!CivilRules.canPay(s,CivilCityContent.contactCost)?'先备足普查旅费':null;},
+  contactReason(s,id){const d=this.data(s),n=d?.wards[id];return !this.available(s)?'先议定小镇方针并完成地理测绘':!n?'未知片区':n.contactedAt!==null?'已经普查':d.contact?'已有普查队在途':this.freeCrew(s)<2?'原镇须腾出两名空闲的成年普查员':!CivilRules.canPay(s,CivilCityContent.contactCost)?'先备足普查旅费':null;},
   contact(s,id){if(this.contactReason(s,id))return false;CivilRules.pay(s,CivilCityContent.contactCost);this.data(s).contact={id,startedAt:s.civilization.elapsed,remaining:CivilCityContent.contactDuration,paid:{...CivilCityContent.contactCost}};return true;},
   projectReason(s,id,type){
     const n=this.data(s)?.wards[id],cfg=CivilCityContent.projects[type];
-    if(!n||!cfg||n.contactedAt===null)return '先普查当地居民与设施';
-    if(n.project)return '已有工程施工';if(n.buildings[type]>=cfg.max)return '已达到当前扩建上限';
-    if(!s.civilization.tech.administration)return '先完成公共行政';
-    if(!CivilRules.canPay(s,cfg.cost))return '原镇公仓尚缺建材';
+    if(!n||!cfg||n.contactedAt===null)return '先普查当地人口与设施底数';
+    if(n.project)return '已有工程正在施工';if(n.buildings[type]>=cfg.max)return '已达当前扩建上限';
+    if(!s.civilization.tech.administration)return '先完成公共行政研究';
+    if(!CivilRules.canPay(s,cfg.cost))return '原镇公仓尚缺工程建材';
     return null;
   },
   startProject(s,id,type){
     if(this.projectReason(s,id,type))return false;
     const n=this.data(s).wards[id],cfg=CivilCityContent.projects[type];CivilRules.pay(s,cfg.cost);
     n.project={id:n.nextProject++,type,phase:'transport',remaining:CivilCityContent.travel,startedAt:s.civilization.elapsed,paid:{...cfg.cost},worked:0};
-    this.note(s,'project',id,CivilCityContent.wards[id].name+'的'+cfg.name+'材料已出仓，先运输后施工。');return true;
+    this.note(s,'project',id,CivilCityContent.wards[id].name+'的'+cfg.name+'建材已从公仓发出，待运抵现场后动工。');return true;
   },
   joinReason(s,id){
     const n=this.data(s)?.wards[id];if(!n||n.contactedAt===null)return '先完成普查';if(n.joinedAt!==null)return '已纳入本城公共服务';
     if(!s.civilization.urban?.chartered)return '先登记原镇公共职责';
-    if(!n.buildings.road||!n.buildings.water)return '先连接道路并修复公共水务';
-    if(n.stable<120)return '当地粮食、诊疗、课堂与用水须稳定 120 秒';
-    if(!CivilRules.canPay(s,CivilCityContent.charterCost)||!CivilRules.canPay({stores:n.stores},{food:40,tools:10}))return '双方分别备足登记与维护物资';
+    if(!n.buildings.road||!n.buildings.water)return '先接通道路并修复公共水务';
+    if(n.stable<120)return '当地口粮、诊疗、课堂与供水须连续稳定 120 秒';
+    if(!CivilRules.canPay(s,CivilCityContent.charterCost)||!CivilRules.canPay({stores:n.stores},{food:40,tools:10}))return '两地须分别备足登记与日常维护物资';
     return null;
   },
   join(s,id){
     if(this.joinReason(s,id))return false;const n=this.data(s).wards[id];
     CivilRules.pay(s,CivilCityContent.charterCost);this.pay(n,{food:40,tools:10});n.joinedAt=s.civilization.elapsed;
-    this.note(s,'join',id,CivilCityContent.wards[id].name+'纳入本城公共服务。'+this.count(n)+'位居民继续住在原处，地方仓库与职责一并列入普查。');return true;
+    this.note(s,'join',id,CivilCityContent.wards[id].name+'已并入本城公共服务网。'+this.count(n)+'位居民照旧在原处生活，地方公仓与日常权责一并载入城域总册。');return true;
   },
   set(s,id,key,value){
     const n=this.data(s)?.wards[id];if(!n||n.contactedAt===null)return false;
@@ -152,8 +152,8 @@ var CivilCity={
   aidReason(s,id){
     const d=this.data(s),n=d?.wards[id];if(!n||n.contactedAt===null)return '先完成普查';
     if(d.shipments.some(p=>p.source==='home'))return '原镇援助车尚未返程';
-    if(this.freeCrew(s)<2)return '原镇须有两名空闲成年运输员';
-    return !CivilRules.canPay(s,{...CivilCityContent.aid,food:CivilCityContent.aid.food+6,wood:1})?'先备齐援助和旅费':null;
+    if(this.freeCrew(s)<2)return '原镇须腾出两名空闲的成年运输员';
+    return !CivilRules.canPay(s,{...CivilCityContent.aid,food:CivilCityContent.aid.food+6,wood:1})?'先备齐援助物资与路费':null;
   },
   aid(s,id){if(this.aidReason(s,id))return false;const cargo={...CivilCityContent.aid};CivilRules.pay(s,{...cargo,food:cargo.food+6,wood:1});this.ship(s,'home',id,cargo);return true;},
   ship(s,source,target,cargo){const d=this.data(s);d.shipments.push({id:d.nextShipment++,source,target,cargo:{...cargo},phase:'outbound',remaining:CivilCityContent.travel,startedAt:s.civilization.elapsed,deliveredAt:null});},
@@ -176,12 +176,12 @@ var CivilCity={
   },
   tick(s){
     if(!this.enabled(s))return;const d=this.data(s),t=s.civilization.elapsed;
-    if(d.contact){d.contact.remaining=Math.max(0,d.contact.remaining-1);if(!d.contact.remaining){const id=d.contact.id;d.wards[id].contactedAt=t;d.contact=null;this.note(s,'contact',id,'普查队找到了'+CivilCityContent.wards[id].name+'：'+this.count(d.wards[id])+'位居民一直在此生活，普查没有新增人口。');}}
+    if(d.contact){d.contact.remaining=Math.max(0,d.contact.remaining-1);if(!d.contact.remaining){const id=d.contact.id;d.wards[id].contactedAt=t;d.contact=null;this.note(s,'contact',id,'普查队摸清了'+CivilCityContent.wards[id].name+'的底数：'+this.count(d.wards[id])+'口人一直在此安家度日；普查只是核实名册，并未凭空添丁。');}}
     for(const [id,n]of Object.entries(d.wards)){
       this.annual(s,id);if(t%10===0)this.settleWard(s,id);
       const p=n.project;if(p){
         if(p.phase==='transport'){if(n.economy?.ate&&n.workers.driver>=2)p.remaining=Math.max(0,p.remaining-1);if(!p.remaining){p.phase='building';p.remaining=CivilCityContent.projects[p.type].duration;}}
-        else if(n.economy?.ate&&n.workers.builder>=20){const work=Math.min(p.remaining,Math.floor(n.workers.builder/20));p.remaining-=work;p.worked+=work;if(!p.remaining){n.buildings[p.type]++;n.completed.push({...p,completedAt:t});n.project=null;this.note(s,'complete',id,CivilCityContent.wards[id].name+'的'+CivilCityContent.projects[p.type].name+'建成。');}}
+        else if(n.economy?.ate&&n.workers.builder>=20){const work=Math.min(p.remaining,Math.floor(n.workers.builder/20));p.remaining-=work;p.worked+=work;if(!p.remaining){n.buildings[p.type]++;n.completed.push({...p,completedAt:t});n.project=null;this.note(s,'complete',id,CivilCityContent.wards[id].name+'的'+CivilCityContent.projects[p.type].name+'已落成。');}}
       }
     }
     for(const p of [...d.shipments]){
@@ -191,7 +191,7 @@ var CivilCity={
     }
     if(t%10===0)this.dispatch(s);
     if(d.cityAt===null&&s.civilization.urban?.city&&this.population(s)>=10000&&this.members(s).length>=2&&this.members(s).every(([,n])=>n.stable>=120)){
-      d.cityAt=t;this.note(s,'city','home','原镇与已连接片区共同登记为万人城市。居民仍住在各自街区，公共服务、生产和运输按片区治理。');
+      d.cityAt=t;this.note(s,'city','home','原镇与已联通的片区正式共同登记为万人城市。街坊们照旧住在各自片区，公共服务、生产与货运按片区统筹调度。');
     }
   },
   validate(s){

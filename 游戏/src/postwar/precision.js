@@ -16,7 +16,7 @@ var CivilPrecision={
       const output=Object.fromEntries(Object.entries(r.output).map(([key,n])=>[key,n*factor]));
       const paid=powered?run(job,powered,r.cost,output):0;
       used+=paid*r.power;power-=paid*r.power;
-      if(id==='home'&&powered<workers&&!s.civilization.industry.blocked[job])s.civilization.industry.blocked[job]='电力不足，精密工序已停工';
+      if(id==='home'&&powered<workers&&!s.civilization.industry.blocked[job])s.civilization.industry.blocked[job]='电力不足，精密工序已停机';
     }
     return {used,demand};
   },

@@ -55,15 +55,15 @@ var CivilCooperative={
     d.trades.push({id:d.trades.length+1,at:s.civilization.elapsed,kind,...(standing===undefined?{}:{standing})});CivilMunicipal.planWorkers(s,id);return true;
   },
   status(s,id){
-    const d=this.data(s,id);if(!d)return '地方制器间仍由公共仓经营';
+    const d=this.data(s,id);if(!d)return '地方制器间仍归公仓经营';
     const fmt=n=>Number(n.toFixed(2)),st=d.stores;
-    return '合作社所有：1处地方制器间。社仓 木'+fmt(st.wood)+'、废料'+fmt(st.scrap)+'、食物'+fmt(st.food)+'、工具'+fmt(st.tools)+'。'+(!this.enabled(s,id)?'生产已暂停，资产与社仓保留。':!this.productionReady(s,id)?'原料或实物报酬不足，等待交换。':'实际合作制器工 '+(CivilMunicipal.node(s,id).workers.coopsmith||0)+' / 4。')+(d.last?'近轮产工具'+fmt(d.last.tools)+'，实付工作餐'+fmt(d.last.meal)+'；同额抵扣公共口粮，不重复吃两份。':'');
+    return '合作社名下：1处地方制器间。社仓实存：木'+fmt(st.wood)+'、废料'+fmt(st.scrap)+'、食物'+fmt(st.food)+'、工具'+fmt(st.tools)+'。'+(!this.enabled(s,id)?'合作生产已暂停，名下工坊与社仓存货原样保留。':!this.productionReady(s,id)?'社仓原料或工作餐口粮不足，正等候交易补货。':'在岗合作制器工 '+(CivilMunicipal.node(s,id).workers.coopsmith||0)+' / 4。')+(d.last?'近轮打出工具'+fmt(d.last.tools)+'，社仓发下工作餐'+fmt(d.last.meal)+'；等额冲抵公共口粮，不吃双份。':'');
   },
   summary(s,id){
     const d=this.data(s,id);if(!d)return null;const fmt=n=>Number(n.toFixed(2));
     return {title:'制器合作社 · 独立社仓',cards:[['木料',fmt(d.stores.wood)],['废料',fmt(d.stores.scrap)],['食物',fmt(d.stores.food)],['工具',fmt(d.stores.tools)],['实际在岗',(CivilMunicipal.node(s,id).workers.coopsmith||0)+' / 4'],['近轮工具',fmt(d.last?.tools||0)]],
-      brief:this.contracted(s,id)?'持续合同已开启 · 每30秒核对；停工时停止自动交易':null,notices:!this.enabled(s,id)?['生产已暂停；社仓与所有权保留']:!this.productionReady(s,id)?['原料或工作餐不足，等待交换']:[],
-      details:[['所有权','合作社拥有1处已建制器间，产出归社仓'],['工作餐','近轮实付食物 '+fmt(d.last?.meal||0)+'，抵扣同额公共口粮'],['生产用料','每人每10秒：木0.2、废料0.6、食物0.1；产工具0.25，受当地生产状况影响'],['公库采购','支付食物6，收取工具2；保留120秒公共口粮'],['社仓进料','支付食物6，收取木4、废料12'],['已成交',d.trades.length+' 批']]};
+      brief:this.contracted(s,id)?'持续合同已开启 · 每30秒核对一次；停工期间停止自动交易':null,notices:!this.enabled(s,id)?['生产已暂停；社仓与工坊所有权保留']:!this.productionReady(s,id)?['原料或工作餐不足，等待交易补货']:[],
+      details:[['所有权','合作社持有1处已建制器间，打出工具归入社仓'],['工作餐','近轮实发食物 '+fmt(d.last?.meal||0)+'，等额冲抵公共口粮'],['生产用料','每人每10秒：耗木0.2、废料0.6、食物0.1；产工具0.25，受当地生产效率影响'],['公库采购','公库付食物6，换回工具2；须先留足120秒公共口粮'],['社仓进料','社仓付食物6，向公库换取木4、废料12'],['已成交',d.trades.length+' 批']]};
   },
   event(eventId){
     const match=/^cooperative_(river|rail|highland|ford)$/.exec(eventId);if(!match)return null;
@@ -75,14 +75,14 @@ var CivilCooperative={
     buttons.close={text:d?'关闭':'保留公共经营',nextScene:'end',onChoose:()=>{if(s.civilization.pending===eventId)s.civilization.pending=null;}};
     return {title:CivilRegionContent[id].name+'的制器合作社',text:d?[
       this.status(s,id),
-      '公库采购：6食物换2工具，先保留120秒公共口粮。社仓进料：6食物换木4、废料12。双方须有实物，每次成交一批。',
-      '持续合同每30秒核对：社粮不足12时购入一批工具；原料不足4人开工时供给一批原料。双方仍须实际付款，并保留公共口粮和60秒现有生产用木、废料。不追补错过的批次。',
-      '暂停合同仅停止自动交易；暂停生产也停止自动交易，社仓与所有权保留。'
+      '公库采购：以6食物换社仓2工具，公库须先留足120秒居民口粮。社仓进料：以6食物向公库换木4、废料12。一手交粮一手交货，每次成交一批。',
+      '持续合同每30秒核对一次：社仓存粮不足12时，公库自动购入一批工具；社仓原料不够4人开工时，自动购入一批原料。交易均须现货交割，且公库会优先保住公共口粮及60秒现有生产所需的木料与废料。因缺货跳过的批次不予补发。',
+      '暂停合同仅停止自动买卖；暂停生产亦会一并停下自动买卖，社仓存货与工坊产权照旧保留。'
     ]:[
-      '制器工提出共同拥有一处已建制器间，由在岗劳动者参与经营。其余设施、公共医护与基本配给继续由地方负责；保留公共经营也可继续发展。',
-      '设立时地方实付20知识办理契约，并将一处制器间及木20、废料60、食物24转给合作社。这是公开的创办投入；不新增建筑或人口，也不直接退款收回资产。',
-      '原公共制器岗位减少4个，同一批现有劳力可在合作作坊工作。每位每10秒从社仓消耗木0.2、废料0.6，产工具0.25乘当地生产系数；另实付0.1食物工作餐，抵扣该轮同额公共口粮。原料、工具和报酬均属于独立社仓，不能同时再给公库产一份。',
-      '公库购入：付6食物，取得社仓2工具，先保护120秒公共口粮。社仓购入原料：付6食物，向本地公库取得木4、废料12。双方都须有实物；每次只成交一批，无凭空补货、税款或借贷。',
+      '制器工们提议合股接下一间现成的制器间，由当值匠人自主经营。镇上其余设施、诊所与基础配给仍归公中统管；若维持公营，日子也能照常往下过。',
+      '立契时当地需支取20知识，并将一间已建制器间连同木20、废料60、食物24一并划入合作社名下。这笔创办家底一经划拨，便不再退还或无偿收回，也不会凭空多出厂房与人手。',
+      '转制后，公营制器工位减4个，改由这批匠人进驻合作作坊。每人每10秒从社仓支取木0.2、废料0.6，产出0.25乘当地效率的工具；社仓另发0.1食物作工作餐，等额冲抵当轮公共口粮。原料、产出与口粮俱走社仓独账，同一双手不会给公库再打一份工。',
+      '公库购入：公库付6食物，换回社仓2工具，前提是公库须留足120秒口粮。社仓进料：社仓付6食物，向本地公库换取木4、废料12。两头皆须现货交割，每次成交一批，不赊账、不抽税，也不凭空贴补。',
       this.status(s,id)
     ],buttons};
   },

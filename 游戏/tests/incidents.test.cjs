@@ -81,7 +81,7 @@ test('an old event id and its captured native button cannot charge or resolve a 
   const old=warning(),id=incident(old).active(old.s).id,callback=old.active.scenes.start.buttons.repair.onChoose;choose(old,'repair');until(old,()=>incident(old).data(old.s).records.length===2);
   const current=incident(old).active(old.s),before=JSON.stringify([old.s.stores,incident(old).data(old.s)]);assert.notEqual(current.id,id);
   assert.equal(incident(old).choose(old.s,id,'repair'),false);assert.equal(old.r.repairRoad(old.s,current.route,{incidentId:id}),false);callback();
-  assert.equal(JSON.stringify([old.s.stores,incident(old).data(old.s)]),before);assert.equal(current.phase,'warning');assert.ok(old.messages.some(m=>m.includes('本次没有扣款')));old.ctx.CivilPlatform.validate(old.s);
+  assert.equal(JSON.stringify([old.s.stores,incident(old).data(old.s)]),before);assert.equal(current.phase,'warning');assert.ok(old.messages.some(m=>m.includes('本次未扣料')));old.ctx.CivilPlatform.validate(old.s);
 });
 
 test('hold gates new freight and passengers while actual previously paid travellers and cargo finish and return',()=>{

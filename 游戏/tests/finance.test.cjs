@@ -104,8 +104,8 @@ test('the one persistent council button updates its title and reads the current 
 
 test('overdue return shortages remain visible across periods and even while new orders are paused',()=>{
   const h=idle(),p=launch(h);h.f.stores(h.s,'river').wood=0;arrival(h,p);h.step(650);
-  const before=JSON.stringify(h.s),q=h.f.waitingReturn(h.s,'river');assert.equal(q.shipmentId,p.id);assert.ok(q.waited>=650);assert.equal(q.missing[0].resource,'wood');near(q.missing[0].missing,12);assert.match(h.f.routeStatus(h.s,'river'),/木料缺12/);assert.equal(JSON.stringify(h.s),before);
-  h.f.agreement(h.s).paused=true;assert.match(h.f.routeStatus(h.s,'river'),/返程已等/);
+  const before=JSON.stringify(h.s),q=h.f.waitingReturn(h.s,'river');assert.equal(q.shipmentId,p.id);assert.ok(q.waited>=650);assert.equal(q.missing[0].resource,'wood');near(q.missing[0].missing,12);assert.match(h.f.routeStatus(h.s,'river'),/木料短缺12/);assert.equal(JSON.stringify(h.s),before);
+  h.f.agreement(h.s).paused=true;assert.match(h.f.routeStatus(h.s,'river'),/返程已候装/);
   h.s.civilization.regions.shipments=[];assert.equal(h.f.waitingReturn(h.s,'river'),null);
 });
 test('ledger return action releases the original cart only after travel and never fabricates a contribution or refund',()=>{

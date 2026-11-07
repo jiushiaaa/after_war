@@ -34,7 +34,7 @@ var CivilSpace={
     if(paid){CivilServices.pay(s.stores,cfg.upkeep);i.used+=CivilSpaceContent.power;}
     m.receipts.push({at,paid,crew,power:paid?CivilSpaceContent.power:0,ready,worldLedgerLength:CivilWorld.data(s).ledger.length});
     m.progress=paid?m.progress+10:0;
-    if(m.progress===cfg.duration){m.completedAt=at;if(s===State)Civilization.notify(m.kind==='departure'?'地球篇完成：八区共同法仍在运作。无人先遣船越过大气层，向星空发出第一封新的问候。':cfg.name+'完成，实物与连续运行记录已归档。');}
+    if(m.progress===cfg.duration){m.completedAt=at;if(s===State)Civilization.notify(m.kind==='departure'?'地球篇告成：八区共同法典运转如常。无人先遣器刺破铅灰大气层，向沉寂的深空播发出第一声新生的问候。':cfg.name+'圆满完成，实体组件与连续运行日志均已封存归档。');}
     return paid?Object.fromEntries(Object.entries(cfg.upkeep).map(([k,v])=>[k,-v])):{};
   },
   demandCapacity(s){return this.asset(s)?CivilSpaceContent.power:0;},
@@ -42,24 +42,24 @@ var CivilSpace={
     if(id!=='spaceCouncil')return null;const s=State,d=this.data(s),m=this.active(s),text=[],buttons={};
     if(this.complete(s,'departure'))return {
       title:'地球篇 · 向星空出发',
-      text:['八区共同法已经建立。无人先遣船越过大气层，向星空发出第一封新的问候。',
-        '从最初的一把柴火，到城市、国家与重新联结的地球，你延续的不是一个人的寿命，而是一代代接过职责的共同体。',
-        '闭环生命保障、无人轨道验证与先遣发射均已完成。此处是地球篇的终点；载人远征与星际旅途留待后续。',
-        '仍可留在地球继续建设。发展史保留统一议约、各项试验和首航记录，地方居民与公共财政继续运作。'],
-      buttons:{close:{text:'继续建设地球',nextScene:'end',onChoose:done('先遣船已经出发。地球上的生活与建设仍在继续。')}}
+      text:['八区共同法典已然确立。无人先遣器越过电离层，向漫天星海发出了第一封新生的问候。',
+        '从寒冷维修间里的第一把柴火，到城邦、国度乃至重新联结的地球——你所延续的从来不是某一个人的寿命，而是一代代薪火相传、接过重担的共同体。',
+        '地面闭环生态保障、无人轨道遥测与先遣发射均已圆满达成。此处即是地球篇的终章；载人深空远征与星际开拓，留待后世续写。',
+        '你仍可留在地表继续经营家园。发展史长卷已完整收录统一盟约、历次试验与首航档案，各地居民与公共财政将继续如常运转。'],
+      buttons:{close:{text:'继续建设地球',nextScene:'end',onChoose:done('先遣器已然升空远去。地面上的烟火日常与营建脚步，仍在日复一日地继续。')}}
     };
-    text.push('地球与星空：'+CivilWorld.members(s).length+' / 8区接纳。'+(d?.unification?'地球共同法已登记；发射仍须当期履约。':this.unityReason(s)||'八区具备登记地球共同法的条件。'));
-    if(!d?.unification){text.push('地球共同法议约：'+CivilHistory.costText(CivilSpaceContent.charterCost));buttons.charter={text:'登记地球共同法',available:()=>!this.unityReason(s)&&CivilFinance.reserveCheck(s,'home',CivilSpaceContent.charterCost),nextScene:'end',onChoose:doneAction(()=>this.ratify(s),'八区共同法生效。统一是持续履约的共同事业，地方名册与财政继续保留。')};}
-    text.push('科技 → 航天制造 / 闭环生命保障；街区 → 加工建设车间与测控场；炉火城页安排装配工、技师与四名测控人员。组件来自实际生产。试验另需12电，必要时暂停机器人或装配岗位让出电力。');
-    if(m)text.push(CivilSpaceContent.phases[m.kind].name+'：连续运行 '+m.progress+' / '+CivilSpaceContent.phases[m.kind].duration+'秒。缺人、断电、欠供或行政中断会重置连续计时，已经消耗的组件不退。');
+    text.push('地球与星空：'+CivilWorld.members(s).length+' / 8区接纳。'+(d?.unification?'地球共同法已立案入册；点火发射仍须核验当期连续履约状态。':this.unityReason(s)||'八区已具备正式签署地球共同法典的全部前置条件。'));
+    if(!d?.unification){text.push('地球共同法议约：'+CivilHistory.costText(CivilSpaceContent.charterCost));buttons.charter={text:'登记地球共同法',available:()=>!this.unityReason(s)&&CivilFinance.reserveCheck(s,'home',CivilSpaceContent.charterCost),nextScene:'end',onChoose:doneAction(()=>this.ratify(s),'八区共同法正式生效。地表统一并非一劳永逸的终局，而是赖以持续履约的共同事业；各地户籍名簿与地方财政继续各自保留。')};}
+    text.push('科技页研究「航天制造」与「闭环生命保障」；街区加工页营建制造车间与发射测控场；炉火城页面调派装配工、生保技师及四名专职测控员。所有航天组件皆须产线实造。试验与发射另需预留地面电12，必要时可暂歇自动机群或部分产线以腾出电力负荷。');
+    if(m)text.push(CivilSpaceContent.phases[m.kind].name+'：已连续运转 '+m.progress+' / '+CivilSpaceContent.phases[m.kind].duration+'秒。凡遇缺员、断电、断供或行政停摆，连续计时即行归零重置，已损耗组件概不退赔。');
     for(const [kind,cfg]of Object.entries(CivilSpaceContent.phases)){
       if(kind==='orbital'&&!this.complete(s,'habitat')||kind==='departure'&&!this.complete(s,'orbital'))continue;
       if(this.complete(s,kind)){text.push(cfg.name+'：已完成');continue;}
       text.push(cfg.name+'：'+CivilHistory.costText(cfg.cost)+'；每10秒另耗'+CivilHistory.costText(cfg.upkeep)+'，12电。'+(this.reason(s,kind)||'可开始'));
-      buttons[kind]={text:cfg.name,available:()=>!this.reason(s,kind),nextScene:'end',onChoose:doneAction(()=>this.start(s,kind),'组件实付，测控团队开始工作。')};
+      buttons[kind]={text:cfg.name,available:()=>!this.reason(s,kind),nextScene:'end',onChoose:doneAction(()=>this.start(s,kind),'实体组件已核扣入舱，地面测控班组进入全天候值守。')};
     }
-    buttons.close={text:'合上航天记录',nextScene:'end',onChoose:done('航天记录已保存。')};return {title:this.complete(s,'departure')?'地球篇 · 向星空出发':'地球共同法与航天',text,buttons};
-    function doneAction(action,msg){return ()=>done(action()?msg:'条件已经变化，本次未执行。')();}
+    buttons.close={text:'合上航天记录',nextScene:'end',onChoose:done('近地航天日志已封存归档。')};return {title:this.complete(s,'departure')?'地球篇 · 向星空出发':'地球共同法与航天',text,buttons};
+    function doneAction(action,msg){return ()=>done(action()?msg:'前置条件已发生变动，本次指令未予执行。')();}
   },
   summary(s){
     const m=this.active(s);

@@ -58,9 +58,9 @@ var CivilVillage = {
   },
   tick(s) {
     const v=s.civilization.village,b=s.game.buildings,c=s.civilization;
-    if(c.tech.mechanics && !c.events.serviceExpansion){c.events.serviceExpansion=true;Civilization.notify('新制的器具能供另一座诊所和学堂使用。扩建需要铁锭与机械零件，也要安排更多医护和教师。');}
+    if(c.tech.mechanics && !c.events.serviceExpansion){c.events.serviceExpansion=true;Civilization.notify('新打的器具够再开一间诊所和学堂了。扩建得备好铁锭与机械零件，也得腾出更多医护和先生。');}
     const ready=s.game.population>=20 && b.clinic && b.schoolhouse && v.health>=60 && v.convoys>=3 && v.riverAllied && c.outpostSupplied===true && v.routeStatus==='往返正常' && c.hunger===0 && (s.stores.food||0)>=40 && (s.stores.tools||0)>=10;
-    if(!v.town){v.townStable=ready?v.townStable+1:0;if(v.townStable>=120){v.town=true;Civilization.notify('课堂传来读书声，车队带回河谷的粮食。这里已经是一座小镇。居民开始讨论，谁来代表越来越多的人。');Outside.setTitle();}}
+    if(!v.town){v.townStable=ready?v.townStable+1:0;if(v.townStable>=120){v.town=true;Civilization.notify('学堂里传出念书声，车队拉回了河谷的新粮。这里已有小镇的模样。人多了，大家开始商量该由谁来拿主意。');Outside.setTitle();}}
   },
   deliverAid(v) {
     if(v.aidDelivered)return;
@@ -68,13 +68,13 @@ var CivilVillage = {
   },
   event(id,done) {
     const v=State.civilization.village;
-    if(id==='river')return {title:'河谷的灯',text:['旧公路尽头，有人用塑料棚挡住河风。这里住着十二个人，其中几人的皮肤有成片的角质。','领路人说，这些变化没有夺走他们的语言和记忆。他们种粮，缺少工具和药品，也不愿把自己的家交给一个陌生领袖。'],buttons:{
-      meet:{text:'交换姓名与需要',nextScene:'end',onChoose:done('你们记下了河谷的需要。先送去工具与口粮，再谈共同修路。',()=>{v.riverKnown=true;})},
-      leave:{text:'暂时保持距离',nextScene:'end',onChoose:done('队伍记下位置后退回了公路。以后仍可带着物资拜访。',()=>{v.riverKnown=true;})}
+    if(id==='river')return {title:'河谷的灯',text:['旧公路尽头，有人扯起塑料棚挡住河风。棚下住着十二个人，有几人的皮肤结着成片的硬角质。','领路人说，这副皮囊没夺走他们的舌头和记性。他们开荒种粮，缺工具也缺药，但绝不肯把身家性命交给一个外来的头领。'],buttons:{
+      meet:{text:'交换姓名与需要',nextScene:'end',onChoose:done('你们记下了河谷的缺口。先送去工具和口粮，再谈合修道路的事。',()=>{v.riverKnown=true;})},
+      leave:{text:'暂时保持距离',nextScene:'end',onChoose:done('小队记下坐标，退回了旧公路。等攒够了物资，随时可以再来。',()=>{v.riverKnown=true;})}
     }};
-    if(id==='riverAid')return {title:'同一条路',text:['工具分到了河谷农户手里，食物填补了修路期间的缺口。','河谷同意互助运输，但保留自己的住房、田地和议事。车队每 60 秒带去 1 工具、0.5 药品，换回 12 食物；另耗木料与旅粮。','这是一份互助协定。彼此熟悉之后，才有资格讨论更深的联合。'],buttons:{
-      agree:{text:'签下互助协定',nextScene:'end',onChoose:done('河谷成为第一个互助聚居地。道路和物资齐备后，车队将定期往返。',()=>{this.deliverAid(v);v.riverAllied=true;})},
-      defer:{text:'暂缓协定',nextScene:'end',onChoose:done('物资已经送到。河谷会等你准备好，再谈运输协定。',()=>{this.deliverAid(v);})}
+    if(id==='riverAid')return {title:'同一条路',text:['工具分到了河谷农户手上，送去的口粮也填上了修路期间的亏空。','河谷答应互通有无，但屋舍、田亩和议事仍归他们自己管。车队每 60 秒送去 1 工具、0.5 药品，换回 12 食物；途中另耗木料与旅粮。','这只是一纸互助协定。等往来熟络了，才有资格谈更深的联合。'],buttons:{
+      agree:{text:'签下互助协定',nextScene:'end',onChoose:done('河谷成了第一个互助聚居地。只要道路通畅、物资齐备，车队便会按时往返。',()=>{this.deliverAid(v);v.riverAllied=true;})},
+      defer:{text:'暂缓协定',nextScene:'end',onChoose:done('东西已经送到。河谷会等你腾出手来，再谈通车的事。',()=>{this.deliverAid(v);})}
     }};
     return null;
   },
@@ -91,7 +91,7 @@ var CivilVillage = {
     }
     if(v.riverKnown && !c.regions?.active){
       let note=$('#riverStatus');if(!note.length)note=$('<div>').attr('id','riverStatus').appendTo('#roadPanel');
-      note.text(v.riverAllied?'河谷 · 12 位居民 · 粮食 '+Math.floor(v.riverFood)+' · 已收工具 '+v.riverTools+' / 药品 '+v.riverMedicine+' · 往返 '+v.convoys+' 次。'+v.routeStatus:'河谷有十二位居民，正在等待工具和修路援助。');
+      note.text(v.riverAllied?'河谷 · 12 位居民 · 粮食 '+Math.floor(v.riverFood)+' · 已收工具 '+v.riverTools+' / 药品 '+v.riverMedicine+' · 往返 '+v.convoys+' 次。'+v.routeStatus:'河谷住着十二位居民，正等着工具与修路援助。');
     }
     if(c.regions?.active)$('#riverStatus,#riverButton,#riverPact').hide();
     if(State.game.population>=12 || b.clinic)$('#socialNote').append(document.createTextNode(' · 健康 '+Math.floor(v.health)+(v.health<30?'（工作减慢）':'')));

@@ -122,7 +122,7 @@ var CivilFinance={
       CivilRegions.credit(s.stores,p.cargo);receipt.deliveredAt=this.now(s);o.returnedAt=this.now(s);o.closedAt=this.now(s);o.status='complete';
       const period=this.data(s).periods.find(x=>x.agreementId===o.agreementId&&x.index===o.periodIndex);
       if(period?.closedAt===this.now(s))period.missed=this.missed(s,period,period.closedAt);
-      if(first&&typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined'&&Civilization.notify)Civilization.notify(CivilRegionContent[o.node].name+'收到药品与工具，木材也随原车运回了炉火城。第一笔互助往返记入公共账册。');return true;
+      if(first&&typeof State!=='undefined'&&s===State&&typeof Civilization!=='undefined'&&Civilization.notify)Civilization.notify(CivilRegionContent[o.node].name+'收下了送去的医药与工具，回赠的木材也随原车拉回了炉火城。这第一趟互助往来已记入公共账册。');return true;
     }
     return false;
   },
@@ -174,33 +174,33 @@ var CivilFinance={
     if(id==='financeOffer'||!a){
       const ids=this.candidates(s),buttons={};for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){
         const pair=[ids[i],ids[j]],q=this.quoteAgreement(s,pair);if(!q)continue;
-        buttons['agree_'+pair.join('_')]={text:'与'+pair.map(x=>CivilRegionContent[x].name).join('、')+'议约',nextScene:'end',onChoose:()=>{const ok=this.approve(s,pair);f.offered=true;return end(ok?'三地在公共账册上签下了诊疗与道路互助约定。':'三方条件或议约知识不足，账册仍待签署。');}};
+        buttons['agree_'+pair.join('_')]={text:'与'+pair.map(x=>CivilRegionContent[x].name).join('、')+'议约',nextScene:'end',onChoose:()=>{const ok=this.approve(s,pair);f.offered=true;return end(ok?'三地代表在公共账册上郑重签下了诊疗与道路互助约定。':'三方条件尚未凑齐或立约知识不足，账册暂留案头候签。');}};
       }
-      buttons.later={text:'暂缓商议',nextScene:'end',onChoose:()=>{f.offered=true;return end('代表留下互助草案，等待下一次议事。');}};
+      buttons.later={text:'暂缓商议',nextScene:'end',onChoose:()=>{f.offered=true;return end('代表们放下互助草案，约定了下次再议。');}};
       const balances=['炉火城：'+Math.floor(s.stores.knowledge||0)+'/30知识',...ids.map(node=>CivilRegionContent[node].name+'：'+Math.floor(this.stores(s,node).knowledge||0)+'/10知识')].join('；');
-      return {title:'三仓互助议约',text:['炉火城与两地各自保管仓库，共同照看诊疗与道路。','首次议约：炉火城30知识，两地各10知识。每600秒向每地送药品12、工具2；地方以木材12随原车回赠。',balances+'。','炉火城发车前须留下120秒口粮、治疗药品和维护工具。地方备足返赠木材后，同一辆车沿原路线返回，仍由原运输工照管。'],buttons};
+      return {title:'三仓互助议约',text:['炉火城与两处邻里各管各仓，合力照看沿途的诊所与道路。','首次立约：炉火城出30知识，两处邻里各出10知识。此后每600秒向每地送去药品12、工具2；当地则将回赠的木材12装上原车捎回。',balances+'。','炉火城发车前须留足本城120秒的口粮、医药与维护工具。待当地备齐回赠木材后，同一辆货车由原班运输工押运，顺原路返回。'],buttons};
     }
     const p=this.period(s),lines=a.members.slice(1).map(node=>CivilRegionContent[node].name+'：'+this.routeStatus(s,node));
-    const mode=s.civilization.society.axes.devolution,fee=mode==='central'?'炉火城每10秒知识0.04':'三地各每10秒知识0.02';
-    const buttons={close:{text:'合上账册',nextScene:'end',onChoose:done('代表们收好了互助账册。')}};
+    const mode=s.civilization.society.axes.devolution,fee=mode==='central'?'炉火城每10秒耗知识0.04':'三地各每10秒耗知识0.02';
+    const buttons={close:{text:'合上账册',nextScene:'end',onChoose:done('代表们合上了互助账册。')}};
     for(const node of a.members.slice(1)){
       const waiting=this.waitingReturn(s,node);if(!waiting)continue;
-      lines.push(CivilRegionContent[node].name+'可先空车返程，已送达物资不追回，本期不算履约；该路线会停发，车回后可在地区重新启用。木材长期不足时，可在市政原料分类补地方林场。');
+      lines.push(CivilRegionContent[node].name+'的滞留货车可先空车返程；已送抵的医药工具不予追回，本期不计作完整履约；该路线将暂停发车，待车归城后可在“地区”页重新启用。若当地长期缺木，可在“市政→原料”下为其增建地方林场。');
       buttons['return_'+node]={text:CivilRegionContent[node].name+'空车返程',nextScene:'end',onChoose:()=>{
         if(this.waitingReturn(s,node)?.shipmentId!==waiting.shipmentId||!CivilRegions.returnShipment(s,waiting.shipmentId))return false;
-        return end(CivilRegionContent[node].name+'的空车沿原路返回，路线已停发；已送达的药品工具留在当地，未完成的往返如实记账。');
+        return end(CivilRegionContent[node].name+'的滞留货车已空车折返，该路线暂行停发；已送抵的医药工具留给当地，未跑完的这趟往返如实记入账册。');
       }};
     }
-    if(!f.revision&&this.political(s))for(const action of [a.paused?'resume':'pause','exit'])buttons[action]={text:{resume:'恢复互助',pause:'暂停新车次',exit:'退出试行约定'}[action],nextScene:'end',onChoose:()=>end(this.revision(s,action)?(f.revision?'修订已公示，60秒后生效。':'互助约定已更新，在途车队继续按原账行驶。'):'当前尚不能修订约定。')};
-    return {title:'诊疗与道路互助',text:[a.members.map(x=>x==='home'?'炉火城':CivilRegionContent[x].name).join('、')+'；'+fee+'。',...lines,...this.ledgerLines(s),f.revision?'修订公示尚余'+Math.max(0,f.revision.effectiveAt-this.now(s))+'秒。':a.paused?'新车次已暂停，旧车队仍在往返。':'已批准的车次按本地储备安排。'],buttons};
+    if(!f.revision&&this.political(s))for(const action of [a.paused?'resume':'pause','exit'])buttons[action]={text:{resume:'恢复互助',pause:'暂停新车次',exit:'退出试行约定'}[action],nextScene:'end',onChoose:()=>end(this.revision(s,action)?(f.revision?'修订条款已张榜公示，60秒后正式生效。':'互助约定已更新，已在途的车队照旧按原单跑完。'):'眼下尚无法修订互助约定。')};
+    return {title:'诊疗与道路互助',text:[a.members.map(x=>x==='home'?'炉火城':CivilRegionContent[x].name).join('、')+'；'+fee+'。',...lines,...this.ledgerLines(s),f.revision?'修订公示尚余'+Math.max(0,f.revision.effectiveAt-this.now(s))+'秒。':a.paused?'新车次已暂停发运，已在途的车队照常跑完往返。':'已准许的车次将视本地库存余量按期发车。'],buttons};
   },
   ledgerLines(s){
-    const a=this.agreement(s),p=this.period(s);if(!a||!p)return ['账册正在整理。'];
+    const a=this.agreement(s),p=this.period(s);if(!a||!p)return ['正在归整账册。'];
     const name=id=>id==='home'?'炉火城':CivilRegionContent[id].name;
-    const lines=['第'+(p.index+1)+'期 · 还剩'+Math.max(0,p.endsAt-this.now(s))+'秒（每期600秒）。',
-      '本期已付记录费用：'+a.members.map(id=>name(id)+' '+Number((p.paidAdmin[id]||0).toFixed(2))).join('、')+'知识。'];
+    const lines=['第'+(p.index+1)+'期 · 尚余'+Math.max(0,p.endsAt-this.now(s))+'秒（每期600秒）。',
+      '本期已支记录用度：'+a.members.map(id=>name(id)+' '+Number((p.paidAdmin[id]||0).toFixed(2))).join('、')+'知识。'];
     const closed=this.data(s).periods.filter(x=>x.agreementId===a.id&&x.closedAt!==null).sort((x,y)=>y.index-x.index)[0];
-    if(closed)lines.push('上一期：'+(closed.missed.length?'尚欠完整往返 '+closed.missed.map(name).join('、')+'；迟到交付仍记在原期。':'两地约定均已按期往返。'));
+    if(closed)lines.push('上一期：'+(closed.missed.length?'尚欠完整往返：'+closed.missed.map(name).join('、')+'；延期交割的货单仍归入原期账目。':'两地互助车次均已按期跑完往返。'));
     return lines;
   },
   waitingReturn(s,id){
@@ -212,25 +212,25 @@ var CivilFinance={
   },
   waitingText(s,id){
     const q=this.waitingReturn(s,id);if(!q)return null;
-    const fmt=n=>Number(n.toFixed(2)),needs=q.missing.map(x=>(CivilText.labels[x.resource]||x.resource)+'缺'+fmt(x.missing)+'（现有'+fmt(x.stored)+'，需'+fmt(x.required)+'）').join('、');
-    return '返程已等'+q.waited+'秒；'+(needs||'物资已备齐，等待通路与运输班组')+(q.constructionWaiting?'；占用工程运材车辆':'');
+    const fmt=n=>Number(n.toFixed(2)),needs=q.missing.map(x=>(CivilText.labels[x.resource]||x.resource)+'短缺'+fmt(x.missing)+'（现存'+fmt(x.stored)+'，需'+fmt(x.required)+'）').join('、');
+    return '返程已候装'+q.waited+'秒；'+(needs||'回赠木材已备齐，正候修通道路与配齐运输班组')+(q.constructionWaiting?'；正占用工程运材货车':'');
   },
   routeStatus(s,id){
-    const a=this.agreement(s);if(!a||!a.members.includes(id))return '未参加互助';
+    const a=this.agreement(s);if(!a||!a.members.includes(id))return '未加入互助';
     const waiting=this.waitingText(s,id);if(waiting)return waiting;
     const returning=s.civilization.regions.shipments.find(p=>p.route===id&&p.purpose==='common'&&p.phase==='empty');
-    if(returning)return '原车空返'+(returning.status==='held'?'受阻，等待通路恢复':'在途，剩余'+returning.remaining+'秒');
+    if(returning)return '原车空返'+(returning.status==='held'?'受阻，正候道路修通':'在途，尚余'+returning.remaining+'秒');
     const index=this.periodIndex(s,a),o=this.data(s).orders.find(o=>o.agreementId===a.id&&o.periodIndex===index&&o.node===id);
-    if(o)return ({outbound:'药品与工具在途',loading:'已收到，等待返程木材',inbound:'木材返程在途',backReturned:'木材已退回，空车待归',complete:'本周期已履约',cancelled:'本周期车次已退回'})[o.status];
-    if(a.paused)return '新车次暂停';
-    if(!this.coordinationReady(s))return '共同记录知识待补';
+    if(o)return ({outbound:'药品与工具在途',loading:'已收货，候装返程木材',inbound:'返程木材在途',backReturned:'木材已退回原处，空车待归',complete:'本周期已履约',cancelled:'本周期车次已空返退回'})[o.status];
+    if(a.paused)return '新车次已暂停';
+    if(!this.coordinationReady(s))return '共同记录知识待补足';
     const r=s.civilization.regions,route=r.routes[id];
     if(!route?.enabled)return '路线已停发';
     if(route.condition!=='open')return '道路中断，等待修复';
-    if(r.shipments.some(p=>p.route===id))return '等待现有货车归来';
-    if(!CivilRegions.staffedRoutes(s).has(id))return '运输班组不足';
-    if(!this.reserveCheck(s,'home',CivilRegions.dispatchCost(s,id,CivilFinanceContent.out)))return '等待炉火城备足物资与120秒储备';
-    return '等待原路线安排车次';
+    if(r.shipments.some(p=>p.route===id))return '等待在途货车归来';
+    if(!CivilRegions.staffedRoutes(s).has(id))return '运输班组人手不足';
+    if(!this.reserveCheck(s,'home',CivilRegions.dispatchCost(s,id,CivilFinanceContent.out)))return '等待炉火城备齐互助物资与120秒保底储备';
+    return '等待原路线排入车次';
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;
@@ -239,7 +239,7 @@ var CivilFinance={
     const button=Civilization.button('financeButton',a?'查看共同约定':'商议三仓互助','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending=this.agreement(State)?'financeLedger':'financeOffer';Civilization.showPending();});
     button.contents().filter(function(){return this.nodeType===3;}).first().replaceWith(document.createTextNode(a?'查看共同约定':'商议三仓互助'));
     let line=$('#financeSummary');if(!line.length)line=$('<div>').attr('id','financeSummary').css({lineHeight:'1.8',marginTop:'12px',width:'420px',maxWidth:'100%'}).appendTo('#councilPanel');
-    line.show().text(a?a.members.slice(1).map(id=>CivilRegionContent[id].name+'：'+this.routeStatus(s,id)).join('。'):f.agreements.length?'旧互助账册仍保留，代表可以商议新的约定。':'代表提出用原车队互送诊疗和道路物资。');$('#financeButton').show();
+    line.show().text(a?a.members.slice(1).map(id=>CivilRegionContent[id].name+'：'+this.routeStatus(s,id)).join('。'):f.agreements.length?'过往的互助账册仍留存案头，代表们可随时重议新约。':'代表们提议利用现有车队，定期互送医药、工具与修路木材。');$('#financeButton').show();
   },
   reset(){},
   validate(s){

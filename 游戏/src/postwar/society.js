@@ -2,10 +2,10 @@
 var CivilSociety = {
   YEAR:600,
   axes:{
-    structure:{title:'共同体的边界',text:'河谷仍按互助协定自治。先决定未来共同体如何组织；名称本身不会吞并邻居。',choices:{city:{name:'城邦',detail:'行政费用低，协调上限2个节点。'},league:{name:'城邦联盟',detail:'协调4个节点，保持地方议事，公共记录开支较高。'},federation:{name:'联邦',detail:'协调6个节点，年度信任增加，公共记录开支更高。'},empire:{name:'帝国',detail:'协调8个节点，集中动员使产出增加5%，年度信任下降。'}}},
-    selection:{title:'谁来接过职责',text:'冰封者也会衰老。下一任的权力从哪里来？',choices:{election:{name:'定期选举',detail:'每6年由居民在两套施政方案间选择，交接有短期磨合。'},appointment:{name:'议事会任命',detail:'任期持续到退休或去世，由议事会任命继任者。'},hereditary:{name:'世袭继承',detail:'指定继承家系，成年成员依约接任；未成年时由委员会摄政，未经培养则磨合更久。'}}},
-    charter:{title:'权力的界限',text:'制度会约束今后的改革，包括当前领袖。',choices:{custom:{name:'依惯例治理',detail:'每10秒少用公共记录；改革花30知识，年度信任下降1。'},constitution:{name:'成文宪章',detail:'每10秒额外消耗0.04知识，年度信任增加2；改革花60知识并需公议。'}}},
-    devolution:{title:'地方能决定什么',text:'修路与口粮已经越过一间屋子的范围。明确中央和地方的责任。',choices:{central:{name:'中央统筹',detail:'正常运转时产出增加8%，年度信任下降1，行政每10秒多耗0.1食物。'},local:{name:'地方自治',detail:'协调上限增加2，年度信任增加1；每10秒多耗0.04知识。'}}}
+    structure:{title:'共同体的边界',text:'河谷仍按互助协定自治。先定下共同体往后的组织架构；单凭一个名号，并不会吞并周边的邻居。',choices:{city:{name:'城邦',detail:'行政开支低，协调上限为2个节点。'},league:{name:'城邦联盟',detail:'协调4个节点，保留地方议事权，公共记录开支较高。'},federation:{name:'联邦',detail:'协调6个节点，年度信任稳步增加，公共记录开支更高。'},empire:{name:'帝国',detail:'协调8个节点，集中动员使产出增加5%，年度信任有所下降。'}}},
+    selection:{title:'谁来接过职责',text:'从休眠舱出来的人也会老去。下一任手里的权力，该从哪里来？',choices:{election:{name:'定期选举',detail:'每6年由居民在两套施政方案间表决，换届后有短期磨合。'},appointment:{name:'议事会任命',detail:'任期直至退休或离世，由议事会任命继任者。'},hereditary:{name:'世袭继承',detail:'指定继承家系，成年成员依约接任；未成年时由委员会摄政，若未经提前培养则磨合期更久。'}}},
+    charter:{title:'权力的界限',text:'立下的规矩会约束往后的每一次变法，包括眼下掌权的你自己。',choices:{custom:{name:'依惯例治理',detail:'每10秒节省公共记录开支；变法耗30知识，年度信任下降1。'},constitution:{name:'成文宪章',detail:'每10秒额外耗0.04知识，年度信任增加2；变法耗60知识且须经公议。'}}},
+    devolution:{title:'地方能决定什么',text:'修路与分粮的事，早就超出一间屋子的地界了。得划清中央与地方各自的担子。',choices:{central:{name:'中央统筹',detail:'正常运转时产出增加8%，年度信任下降1，行政每10秒多耗0.1食物。'},local:{name:'地方自治',detail:'协调上限增加2，年度信任增加1；每10秒多耗0.04知识。'}}}
   },
   init(s){
     if(s.civilization.society){
@@ -91,14 +91,14 @@ var CivilSociety = {
     if(lost)this.note(CivilNarrative.death(s,lost));
     this.newBirths(s,yearStartPopulation);
     this.trimJobs(s);this.initHeir(s);
-    if(x.heir.alive){x.heir.age++;if(x.heir.age>=85){x.heir.alive=false;x.training=null;this.note('登记的家系代表已经离世。家系的交接规则仍在，下一次交接须由居民确认新的代表。');}}
+    if(x.heir.alive){x.heir.age++;if(x.heir.age>=85){x.heir.alive=false;x.training=null;this.note('在册的家系继承人已离世。世袭规矩还在，但下一回交接得由居民重新确认家系推举的代表。');}}
     if(typeof CivilGenerations!=='undefined'&&CivilGenerations.enabled(s))CivilGenerations.annual(s,random);
     else {
     const regency=x.leader.title==='摄政委员会';
     if(regency && x.axes.selection==='hereditary' && x.heir.age>=18 && !x.succession)x.succession='regency';
     if(x.leader.alive && !regency){x.leader.age++;
-      if(x.leader.age>=65 && !x.warned){x.warned=true;this.note('领袖已经年迈。共同体需要做好交接准备。');}
-      if(x.leader.age>=85 || (x.leader.age>=70 && random()<Math.min(.5,(x.leader.age-69)*.025)*(c.village.health>=70?.6:1))){x.leader.alive=false;x.succession='death';this.note('领袖在这一年走到了生命尽头。'+(c.urban?.city?'公共制度、城市与共同体还要继续。':'炉火、田地与共同体还要继续。'));}
+      if(x.leader.age>=65 && !x.warned){x.warned=true;this.note('掌权的人老了。共同体得早做交接的打算。');}
+      if(x.leader.age>=85 || (x.leader.age>=70 && random()<Math.min(.5,(x.leader.age-69)*.025)*(c.village.health>=70?.6:1))){x.leader.alive=false;x.succession='death';this.note('这一年，领袖走到了生命的尽头。'+(c.urban?.city?'制度、城市与共同体，都还得往前走。':'炉火、田亩与活下来的人，都还得往前走。'));}
       else if(x.governed && x.axes.selection==='election' && x.year-x.leader.termStarted>=6 && !x.succession)x.succession='election';
     }
     }
@@ -107,7 +107,7 @@ var CivilSociety = {
   tick(s){
     const x=s.civilization.society;if(!x)return;this.sync(s);this.initBirths(s);
     x.transition=Math.max(0,x.transition-1);x.reformCooldown=Math.max(0,x.reformCooldown-1);
-    if(x.training){x.training.remaining=Math.max(0,x.training.remaining-1);if(!x.training.remaining){x.heir.trained=true;x.training=null;this.note('继任培养完成。账册、道路与公共服务已经有人熟悉。');}}
+    if(x.training){x.training.remaining=Math.max(0,x.training.remaining-1);if(!x.training.remaining){x.heir.trained=true;x.training=null;this.note('继任者已带出来了。账册、道路与各处公用事务，都有人摸熟了门道。');}}
     if(Math.floor(s.civilization.elapsed/this.YEAR)>x.year)this.annual(s);
   },
   note(text){if(typeof Civilization!=='undefined')Civilization.notify(text);},
@@ -121,7 +121,7 @@ var CivilSociety = {
     if(changing){x.transition=Math.max(x.transition,x.axes.charter==='constitution'?300:180);
       if(axis==='selection' && x.leader.title==='摄政委员会' && value!=='hereditary')x.succession='retirement';
     }
-    if(x.governed){x.reformCooldown=600;if(!x.founded){x.founded=true;x.leader.termStarted=x.year;this.note('四项约定写入了公共记录。今后的领袖也要在这些规则下接过职责。');}}
+    if(x.governed){x.reformCooldown=600;if(!x.founded){x.founded=true;x.leader.termStarted=x.year;this.note('四项根本约定写进了公共记录。往后接棒的人，也得在这些规矩下行事。');}}
     if(typeof CivilDecisions!=='undefined')CivilDecisions.append(s,changing?'reform':'founding',axis,from,value,changing?paid:0,changing?CivilDecisions.proposalId(s):null);
     return true;
   },
@@ -153,14 +153,14 @@ var CivilSociety = {
     x.transition=kind!=='family'&&this.heirAlive(s)&&x.heir.trained?30:hereditary?180:60;x.generation++;x.succession=null;x.warned=false;
     if(kind!=='regent'){x.heir={age:12,trained:false,alive:true};x.training=null;}
     if(typeof CivilGenerations!=='undefined')CivilGenerations.succeeded(s,kind);
-    this.note('第'+x.generation+'任接过了公共记录。技术、条约、库存与居民都继续留在共同体中。');return true;
+    this.note('第'+x.generation+'任代表接过了公共记录。技术、条约、库存与居民，都仍留在共同体中。');return true;
   },
   event(id,done){
     const s=State,x=s.civilization.society;
     if(typeof CivilGenerations!=='undefined'){const e=CivilGenerations.event(id,done);if(e)return e;}
     if(id==='succession'){
       const hereditary=x.axes.selection==='hereditary',expired=hereditary&&!this.heirAlive(s),options=this.successionOptions(s);
-      return {title:x.succession==='death'?'炉火仍在':'职责的交接',text:[x.succession==='death'?'领袖已经离世。共同体的历史不会在这里结束。':x.succession==='election'?(typeof CivilGenerations!=='undefined'&&CivilGenerations.enabled(s)?'约定任期已到。居民讨论下一任的施政方案。':'六年任期已到。居民讨论下一任的施政方案。'):x.succession==='regency'?(expired?'登记的家系代表已经离世，摄政委员会等待新的交接确认。':'继承家系的代表已经成年，摄政职责可以结束。'):'领袖决定把职责交给下一任。',expired?'原候选已经离世。家系推举了一位40岁的成年代表，等候共同体确认。新任需要180秒熟悉职责，产出暂减一成。':hereditary?'按继承规则安排交接。成年继承人接任；未成年时由委员会摄政。':'工程代表让劳动产出增加5%；教师代表让研究加快15%。交接后有60秒磨合，产出暂减一成。'],buttons:Object.fromEntries(Object.entries(options).map(([k,text])=>[k,{text,nextScene:'end',onChoose:done('交接记入了共同体的历史。',()=>this.succeed(s,k))}]))};
+      return {title:x.succession==='death'?'炉火仍在':'职责的交接',text:[x.succession==='death'?'领袖离世了。但共同体的日子不会停在这里。':x.succession==='election'?(typeof CivilGenerations!=='undefined'&&CivilGenerations.enabled(s)?'约定的任期到了。居民聚在一起，商议下一任的施政方略。':'六年任期届满。居民聚在一起，商议下一任的施政方略。'):x.succession==='regency'?(expired?'在册的家系候选人已离世，摄政委员会正等候确认新的交接人选。':'继承家系的子嗣已经成年，摄政委员会可以交还职责了。'):'领袖决定卸下担子，把职责交给下一任。',expired?'原定候选人已离世。家系另推了一位40岁的成年代表，候共同体确认。新任接手需180秒摸熟事务，期间产出暂减一成。':hereditary?'按世袭规矩办理交接。成年继承人直接接任；若尚未成年，则由委员会暂行摄政。':'工程代表可使劳动产出增加5%；教师代表可使研究加快15%。交接后需60秒磨合，期间产出暂减一成。'],buttons:Object.fromEntries(Object.entries(options).map(([k,text])=>[k,{text,nextScene:'end',onChoose:done('这次交接已载入共同体的历史。',()=>this.succeed(s,k))}]))};
     }
     if(!id.startsWith('constitution_'))return null;
     const axis=id.slice(13),def=this.axes[axis];if(!def)return null;
@@ -168,15 +168,15 @@ var CivilSociety = {
     const signature=()=>JSON.stringify([x.axes[axis]||null,x.reforming,x.reformPaid,s.civilization.decisions?.nextId||0]);
     const offered=signature(),current=()=>s.civilization.pending===id&&signature()===offered;
     const buttons=Object.fromEntries(Object.entries(def.choices).filter(([k])=>!reform || k!==x.axes[axis]).map(([k,v])=>[k,{text:v.name,nextScene:'end',onChoose:done('采用'+v.name+'。',()=>current()&&this.chooseAxis(s,axis,k))}]));
-    if(reform)buttons.keep={text:'保留现制',nextScene:'end',onChoose:done('保留现制，退回预留的知识。',()=>current()&&this.cancelReform(s))};
-    const national=axis==='charter'&&typeof CivilNation!=='undefined'&&CivilNation.available(s)?Object.entries(CivilNation.charters).map(([key,p])=>p.name+'的国家职责：'+(key==='custom'?'知识支出较少，木料与工具支出较多':'知识支出较多，木料与工具支出较少')+'；正常协调 +'+p[x.axes.devolution]+'，认可每轮+'+p.gain+' / 失效-'+p.loss+'。连续筹备'+p.duration+'秒。'):[];
-    return {title:def.title,text:[def.text,...(reform?['已预留 '+x.reformPaid+' 知识。改制后按新宪章磨合180或300秒，产出减少一成；600秒后可再改议。保留现制会退回预留。']:[]),...Object.values(def.choices).map(v=>v.name+'：'+(v.name==='定期选举'&&typeof CivilGenerations!=='undefined'&&CivilGenerations.enabled(s)?'十年一届，认可与服务稳定时可连任一届。日常选举委托办理，危机时再公议。':v.detail)),...national],buttons};
+    if(reform)buttons.keep={text:'保留现制',nextScene:'end',onChoose:done('维持现行制度，退回预留的知识。',()=>current()&&this.cancelReform(s))};
+    const national=axis==='charter'&&typeof CivilNation!=='undefined'&&CivilNation.available(s)?Object.entries(CivilNation.charters).map(([key,p])=>p.name+'的国家职责：'+(key==='custom'?'知识开支较少，木料与工具开支较多':'知识开支较多，木料与工具开支较少')+'；正常运转时协调 +'+p[x.axes.devolution]+'，认可每轮+'+p.gain+' / 停摆-'+p.loss+'。需连续筹备'+p.duration+'秒。'):[];
+    return {title:def.title,text:[def.text,...(reform?['已预留 '+x.reformPaid+' 知识。改制后需按新宪章磨合180或300秒，期间产出减一成；600秒后方可再次动议。若保留现制，预留知识将全额退回。']:[]),...Object.values(def.choices).map(v=>v.name+'：'+(v.name==='定期选举'&&typeof CivilGenerations!=='undefined'&&CivilGenerations.enabled(s)?'十年一届，认可度与公共服务稳定时可连任一届。平时换届由机构依规操办，遇危机时再行公议。':v.detail)),...national],buttons};
   },
   refresh(){
     const s=State,x=s.civilization.society;if(!x || !s.civilization.village.town)return;
     if(!this.module){const m=this.module={onArrival(diff){document.title='议事屋';Engine.moveStoresView(null,diff);}};m.tab=Header.addLocation('议事屋','council',m);m.panel=$('<div>').attr('id','councilPanel').addClass('location').appendTo('#locationSlider');$('<div>').attr('id','councilRecord').appendTo(m.panel);Engine.updateSlider();}
     const children=CivilPopulation.children(x.cohorts),elders=x.cohorts.filter(v=>v.age>=65).reduce((n,v)=>n+v.count,0);
-    if(typeof CivilInterface!=='undefined')CivilInterface.summary('#councilRecord',CivilInterface.councilSummary(s));else $('#councilRecord').text('重建 '+x.year+' 年 · 第'+x.generation+'任 '+x.leader.title+' · '+x.leader.age+'岁'+(x.leader.alive?'':'（待交接）')+'。可工作 '+this.workforce(s)+'，儿童 '+children+'，退休 '+elders+'。'+Object.entries(x.axes).map(([k,v])=>this.axes[k].choices[v].name).join(' · ')+(x.governed?'。认可 '+Math.floor(x.legitimate)+'，协调上限 '+this.capacity(s)+' 节点。'+(x.service?'公共行政正常。':'行政物资不足，产出减慢。'):'')+(x.training?' 继任培养还需 '+Math.ceil(x.training.remaining)+' 秒。':'') );
+    if(typeof CivilInterface!=='undefined')CivilInterface.summary('#councilRecord',CivilInterface.councilSummary(s));else $('#councilRecord').text('重建 '+x.year+' 年 · 第'+x.generation+'任 '+x.leader.title+' · '+x.leader.age+'岁'+(x.leader.alive?'':'（待交接）')+'。可工作 '+this.workforce(s)+'，儿童 '+children+'，退休 '+elders+'。'+Object.entries(x.axes).map(([k,v])=>this.axes[k].choices[v].name).join(' · ')+(x.governed?'。认可 '+Math.floor(x.legitimate)+'，协调上限 '+this.capacity(s)+' 节点。'+(x.service?'公共行政运转正常。':'行政物资短缺，产出放缓。'):'')+(x.training?' 继任培养还需 '+Math.ceil(x.training.remaining)+' 秒。':'') );
     if(x.governed){
       const retire=Civilization.button('retireButton','安排退休','#councilPanel',()=>{if(!Events.activeEvent() && !x.succession && x.year>x.leader.started){x.succession='retirement';Engine.saveGame();}});Button.setDisabled(retire,!!x.succession || x.year<=x.leader.started);
       const train=Civilization.button('trainHeir','培养继任者','#councilPanel',()=>{if(this.heirAlive(s) && !x.training && !x.heir.trained && Civilization.spend({knowledge:30,food:15})){x.training={remaining:300};Engine.saveGame();}},{knowledge:30,food:15});Button.setDisabled(train,!this.heirAlive(s) || !!x.training || x.heir.trained || !CivilRules.canPay(s,{knowledge:30,food:15}));

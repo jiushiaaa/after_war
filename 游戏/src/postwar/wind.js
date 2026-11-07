@@ -14,8 +14,8 @@ var CivilWind={
   },
   describe(s,id='home'){
     const m=CivilServices.data(s,id),w=m?.wind,weather=this.weather(s.civilization.elapsed,id),fmt=n=>Number(n.toFixed(2));
-    if(!m?.buildings.windstation)return '风力机组建成后需安排值守；风弱时保留备用电源';
-    return '当地'+weather.name+'，风轮出力 '+weather.rate*100+'%；'+(w?'近轮风电 '+fmt(w.generation)+' / 额定'+this.capacity(s,id)+'，'+w.workers+'名值守实耗零件'+fmt(w.parts):'等待首轮试运行')+'。电力只供本地当轮使用；静风停机，保留备用电源';
+    if(!m?.buildings.windstation)return '风力机组建成后需派人值守；风弱时须有备用电源顶上';
+    return '当地'+weather.name+'，风轮出力 '+weather.rate*100+'%；'+(w?'近轮风电 '+fmt(w.generation)+' / 额定'+this.capacity(s,id)+'，'+w.workers+'名值守耗用零件'+fmt(w.parts):'等待首轮试运行')+'。电力仅供本地当轮使用；静风时停机，须靠备用电源维持';
   },
   validate(s){
     for(const [id,m]of Object.entries(s.civilization.services?.nodes||{})){

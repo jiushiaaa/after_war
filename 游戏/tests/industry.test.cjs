@@ -33,7 +33,7 @@ test('industrial shortages stop whole worker batches atomically and recover with
 });
 test('manual mechanical production can bootstrap a generator and recover from total blackout',()=>{
  const {s,i}=harness();s.game.workers={machinist:2};s.game.buildings.machineworks=1;s.stores={iron:10,scrap:10,tools:10,parts:0,coal:0};
- i.settle(s);assert.equal(s.stores.parts,.6);assert.equal(s.civilization.industry.generation,0);assert.equal(s.civilization.industry.used,0);assert.match(s.civilization.industry.blocked.machinist,/手动/);
+ i.settle(s);assert.equal(s.stores.parts,.6);assert.equal(s.civilization.industry.generation,0);assert.equal(s.civilization.industry.used,0);assert.match(s.civilization.industry.blocked.machinist,/手工工序/);
  s.game.buildings.powerhouse=1;s.game.workers.electrician=1;s.stores.coal=1;
  i.settle(s);assert.equal(s.civilization.industry.generation,4);assert.equal(s.civilization.industry.used,4);assert.equal(s.civilization.industry.productionPower,4);assert.ok(Math.abs(s.stores.parts-1.58)<1e-8);
 });

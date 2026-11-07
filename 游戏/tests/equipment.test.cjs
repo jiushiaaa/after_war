@@ -6,7 +6,7 @@ test('the reused field button repairs the gun, then pays for ammo under its new 
  ctx.document={createTextNode:text=>({textContent:text})};
  ctx.Civilization.button=(id,text,host,handler)=>{if(!button){created++;button={handler,label:text,data(key,value){this[key]=value;return this;},contents(){return this;},filter(){return this;},first(){return this;},replaceWith(node){this.label=node.textContent;return this;},attr(){return this;}};}return button;};
  ctx.Button={setDisabled:(b,disabled)=>{b.disabled=disabled;}};ctx.Civilization.refresh=()=>E.refresh(s);
- E.refresh(s);assert.match(button.label,/修复/);button.handler();assert.equal(s.civilization.fieldEquipment.gun,true);assert.match(button.label,/准备4发/);
+ E.refresh(s);assert.match(button.label,/修复/);button.handler();assert.equal(s.civilization.fieldEquipment.gun,true);assert.match(button.label,/复装4发/);
  const scrap=s.stores.scrap;button.handler();assert.equal(s.stores.ammunition,4);assert.equal(s.stores.scrap,scrap-2);assert.equal(created,1,'native control and keyboard focus are preserved');
  button.handler();button.handler();assert.equal(s.stores.ammunition,12);assert.equal(button.disabled,true);E.fieldValidate(s);
 });

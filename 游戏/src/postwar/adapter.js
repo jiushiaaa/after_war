@@ -37,6 +37,7 @@ var Civilization = {
     CivilText.opening.forEach(t=>this.notify(t));State.civilization.events.awake=true;return true;
   },
   init(openingShown=false) {
+    if(typeof CivilEditorial!=='undefined')CivilEditorial.install();
     if(typeof CivilSetup!=='undefined')CivilSetup.opening(State);
     this.resetViewRefresh();
     CivilClock.rate = this.effectiveSpeed();
@@ -96,20 +97,20 @@ var Civilization = {
     if(State.game.population) c.residentTime++;
     if($SM.get('game.builder.level')===3) {
       $SM.set('game.builder.level',4);
-      this.notify('工匠把工具铺在炉边。她能修东西，也愿意帮你收集燃料。');
+      this.notify('工匠在炉边摊开工具。她懂修补，也愿意帮忙拾柴。');
       Room.updateBuildButtons();
     }
     if(c.productionClock>=10) {
       c.productionClock-=10;
       const before=c.hunger, wasSupplied=c.outpostSupplied; this.settleEconomy(State);
-      if(c.outpostSupplied===false && wasSupplied!==false) this.notify('补给外站缺少维护物资。联系暂时中断；备足食物和木料后会恢复。');
-      if(c.outpostSupplied===true && wasSupplied===false) this.notify('补给再次送到了外站。管线巡视恢复了。');
-      if(c.hunger>=30 && before<30) this.notify('口粮不够了。居民空着肚子工作，动作慢了下来。');
-      if(before>0 && c.hunger===0) this.notify('每个人又分到了食物。工作渐渐恢复正常。');
+      if(c.outpostSupplied===false && wasSupplied!==false) this.notify('补给外站断了维护物资，联络暂且中断；备足食物与木料后即可恢复。');
+      if(c.outpostSupplied===true && wasSupplied===false) this.notify('补给重新送抵外站。管线巡检恢复了。');
+      if(c.hunger>=30 && before<30) this.notify('口粮见底了。人们饿着肚子干活，手脚慢了下来。');
+      if(before>0 && c.hunger===0) this.notify('手里又有了分到的吃食。各处的活计渐渐回到正轨。');
       if(c.hunger>=180 && State.game.population>0) {
         if(typeof CivilCensus!=='undefined')CivilCensus.move(State,'home','wanderers',1,'缺粮离开');
         Outside.killVillagers(1); c.hunger=90;
-        this.notify('一位居民带走了自己的包裹。这里已经连续太久没有足够的食物。');
+        this.notify('一位居民背起行囊走了。这里已经断粮太久。');
       }
       $SM.fireUpdate('stores'); this.updateIncome();
     }
@@ -119,8 +120,8 @@ var Civilization = {
       c.stableFor=CivilRules.stable(State)?c.stableFor+1:0;
       if(c.stableFor>=60) {
         c.settled=true;this.unlockSpeed(false);
-        this.notify('粮棚有余粮，炉边有干柴。人们开始把这里叫作聚落。工匠提议收拾一间工坊。');
-        this.notify('分工稳定了。现在可以按自己的节奏切换 1× 或 2×。');
+        this.notify('粮棚有余粮，炉边有干柴。人们开始把这里叫作聚落。工匠提议腾出一间工坊。');
+        this.notify('各司其职，运转平稳。现在可以按你的节奏切换 1× 或 2× 速度。');
         this.renderSpeed();
       }
     }
@@ -151,7 +152,7 @@ var Civilization = {
     if(typeof CivilMunicipal!=='undefined')CivilMunicipal.tick(State);
     if(typeof CivilCulture!=='undefined')CivilCulture.tick(State);
     if(typeof CivilRuins!=='undefined')CivilRuins.tick(State);
-    if(typeof CivilExpedition!=='undefined'){const r=CivilExpedition.tick(State);if(r==='joined')this.notify('储藏室的老测量员带着两个徒弟搬进了聚落。他记得旧城的道路编号。');if(r==='rested')this.notify('受伤的队员养好了伤，重新回到岗位。');}
+    if(typeof CivilExpedition!=='undefined'){const r=CivilExpedition.tick(State);if(r==='joined')this.notify('地下储藏室的老测量员带着两个徒弟搬来了聚落。他脑子里还记着旧城的道路编号。');if(r==='rested')this.notify('伤员养好了伤，重新回到岗位。');}
     if(typeof CivilServices!=='undefined')CivilServices.tick(State);
     if(typeof CivilPlanning!=='undefined')CivilPlanning.tick(State);
     if(typeof CivilUrban!=='undefined')CivilUrban.tick(State);
@@ -220,8 +221,8 @@ var Civilization = {
     const n=Math.min(p===0||typeof CivilSetup!=='undefined'&&CivilSetup.options(State).fast&&!c.village.town?2:1,beds,typeof CivilCensus!=='undefined'&&c.ruleset===2?CivilCensus.data(State).accounts.wanderers:Infinity);if(!n)return;
     if(typeof CivilCensus!=='undefined'&&!CivilCensus.move(State,'wanderers','home',n,'流浪居民迁入'))return;
     $SM.add('game.population',n); if(typeof CivilSociety!=='undefined')CivilSociety.sync(State); c.populationClock=0;
-    this.notify(p===0&&n===2?'两位拾荒者循着炊烟而来。他们带着空行囊，愿意留下做工。':'一位流浪者走进聚落，问这里是否还有床位。');
-    if(p===0) this.notify('添了人口，也添了吃饭的嘴。居民每 10 秒领取口粮；猎棚能让人专门寻找食物。');
+    this.notify(p===0&&n===2?'两个拾荒者循着炊烟找来。他们行囊空空，愿意留下出力。':'一个流浪者走进聚落，打听还有没有空床位。');
+    if(p===0) this.notify('添了人手，也添了吃饭的嘴。居民每 10 秒领一次口粮；搭起猎棚才能派人专职打猎。');
   },
   updateIncome() {
     const forecast=(typeof CivilForecast==='undefined'?JSON.parse(JSON.stringify(State)):CivilForecast.copy(State));
@@ -262,11 +263,11 @@ var Civilization = {
     if(limit<=c.maxSpeed)return false;
     c.maxSpeed=limit;
     if(announce){
-      if(limit===4)this.notify('补给线有了固定的轮值。4× 已永久开放。');
-      if(limit===8)this.notify('城市与迁居车队各有了轮值安排。8× 已永久开放。');
-      if(limit===32)this.notify(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)?'共同机构已接续日常责任，32× 已永久开放。':'轨道测绘完成，32× 已永久开放。');
-      if(limit===64)this.notify('地球共同法生效，64× 已永久开放。');
-      if(limit===16)this.notify('两座城市已经登记了各自的公共职责。16× 已永久开放。');
+      if(limit===4)this.notify('补给线排好了固定轮值。4× 速度已永久开放。');
+      if(limit===8)this.notify('城内与迁居车队都已排妥轮值。8× 速度已永久开放。');
+      if(limit===32)this.notify(c.ruleset===2&&Number.isSafeInteger(c.polity?.foundedAt)?'共同机构已接手日常事务，32× 速度已永久开放。':'轨道测绘完成，32× 速度已永久开放。');
+      if(limit===64)this.notify('地球共同法正式生效，64× 速度已永久开放。');
+      if(limit===16)this.notify('两座城市均已登记公共职责。16× 速度已永久开放。');
       this.renderSpeed();
     }
     return true;
@@ -288,7 +289,7 @@ var Civilization = {
     if(typeof CivilLanding!=='undefined'&&CivilLanding.phase==='setup'){CivilLanding.resumePaused=!!value;CivilClock.paused=true;}
     else CivilClock.paused=!!value;
     this.renderSpeed();
-    this.notify(value?'时间暂停了。居民、邻居与在途小队都停在原处，没有额外产出。':'时间继续流动。');return true;
+    this.notify(value?'时间暂停。居民、邻里与在途小队都停在原处，期间不会有额外产出。':'时间重新流动。');return true;
   },
   speedMenu() {
     if(Events.activeEvent()||State.civilization.pending)return false;
@@ -298,7 +299,7 @@ var Civilization = {
     for(const rate of [1,2,4,8,16,32,64])if(rate<=c.maxSpeed)buttons['speed_'+rate]={text:rate+'×'+(c.speed===rate?'（当前）':''),nextScene:'end',onChoose:()=>this.setSpeed(rate)};
     buttons.pause={text:CivilClock.paused?'继续':'暂停',nextScene:'end',onChoose:()=>this.setPaused(!CivilClock.paused)};
     buttons.close={text:'保持当前速度',nextScene:'end'};
-    Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、旅程、居民年龄与冷却都按同一速度前进。','暂停会冻结整个世界，不提供免费的生产或撤退；刷新页面后自动继续。'],buttons}}});return true;
+    Events.startEvent({title:'时间流速',scenes:{start:{text:['当前速度 '+c.speed+'×。生产、施工、行程、居民年龄与冷却均按同一倍率推进。','暂停将冻结整个世界，不会带来免费产出或无损撤退；刷新页面后自动恢复运行。'],buttons}}});return true;
   },
   renderSpeed() {
     const c=State.civilization,box=$('#speedMenu').empty();
@@ -322,9 +323,9 @@ var Civilization = {
       }
     };
     const event={title:'同一口锅',scenes:{start:{text:[
-      '拾荒者停在粮棚边。每个人都在工作，食物该怎样分？',
-      '均分：正常口粮与产出。压缩：少用四分之一食物，产出减少一成。加厚：多用四分之一食物，产出增加一成。',
-      '紧缩会伤害信任。改议后需要 120 秒才能再次调整。'
+      '拾荒者停在粮棚外。干活的人都在看，锅里的吃食该怎么分？',
+      '均分：口粮与产出维持常态。压缩：口粮省下四分之一，产出降一成。加厚：口粮多添四分之一，产出增一成。',
+      '缩减口粮会折损信任。每次改议后需隔 120 秒才能再次调整。'
     ],buttons}}};Events.startEvent(event);
   },
   refreshSuccessionEvent() {
@@ -348,23 +349,23 @@ var Civilization = {
     };
     let title,text,buttons,onLoad;
     if(id==='station') {
-      title='旧交通站';text=['候车厅的墙上挂着地球与火星之间的货运表。最后一班没有注销。','你认得表格上的航运标准。火星上的人曾经也是这里的乘客。维修图背面标着一座泵站。'];
-      buttons={recover:{text:'带回资料与零件',nextScene:'end',onChoose:done('带回了泵站路线和 24 份废料。纸上的目的地仍叫火星。',()=>{
+      title='旧交通站';text=['候车厅墙上还挂着地火航线的货运表。最后一班船期没有注销。','你认得表格上的旧航运编码。当年去火星的人，也是从这里登船的。翻过来的维修图背面，标着一座泵站。'];
+      buttons={recover:{text:'带回资料与零件',nextScene:'end',onChoose:done('带回了泵站路线图与 24 份废料。发黄的纸页上，终点栏仍印着“火星”。',()=>{
         if(!c.station) $SM.add('stores.scrap',24);c.station=true;c.visited.station=true;
       })}};
     } else if(id==='pump') {
-      title='锈住的泵站';text=['水从裂开的管道漏进地下。控制柜已经停电，机械旁路还在。','维修队照着工坊的试制记录接好过滤管。必须留下补给与维护，水才不会再次断掉。'];
-      buttons={repair:{text:'接通机械旁路',nextScene:'end',onChoose:done('泵轮重新转动。聚落可以沿着旧管线建立补给外站。',()=>{c.pump=true;c.visited.pump=true;})}};
+      title='锈住的泵站';text=['水从冻裂的管子里漏进地底。配电柜早死了，但机械旁路还能扳动。','维修队照着工坊的试制记录接通了滤水管。得留下补给、常派人盯着，水才不会再断。'];
+      buttons={repair:{text:'接通机械旁路',nextScene:'end',onChoose:done('叶轮重新转动起来。聚落可以顺着旧管线设立补给外站了。',()=>{c.pump=true;c.visited.pump=true;})}};
     } else if(id==='salvage') {
-      title='空站台';text=['拆下还能用的固定件。轨道尽头只有风。'];buttons={take:{text:'收好零件',nextScene:'end',onChoose:done('带回了 8 份废料。',()=>{$SM.add('stores.scrap',8);})}};
+      title='空站台';text=['撬下还算完好的金属扣件。铁轨尽头只有风声。'];buttons={take:{text:'收好零件',nextScene:'end',onChoose:done('带回了 8 份废料。',()=>{$SM.add('stores.scrap',8);})}};
     } else if(id==='merchant') {
-      title='河谷来的商队';text=['商队代表看见泵站图，问能否沿你们的路通行。','他们愿意用废料交换粮食。允许通行能换来长期贸易；目前还没有保卫整条商路的能力。'];
-      buttons={allow:{text:'允许互助通行',nextScene:'end',onChoose:done('河谷商队记下了聚落的位置。粮食与零件可以在路口交换。',()=>{c.trade=true;c.events.merchant=true;c.trust=Math.min(100,c.trust+3);})},
-        decline:{text:'暂不开放',nextScene:'end',onChoose:done('商队在旧公路留下了标记。等准备好，可以再联系他们。',()=>{c.events.merchant=true;})}};
+      title='河谷来的商队';text=['商队领头看见了泵站图纸，问能不能借你们修好的路走货。','他们愿拿废料换粮食。放行能换来长久的买卖，只是眼下你们还没有护住整条商路的实力。'];
+      buttons={allow:{text:'允许互助通行',nextScene:'end',onChoose:done('河谷商队记下了聚落的方位。往后可以在岔路口拿粮食换零件。',()=>{c.trade=true;c.events.merchant=true;c.trust=Math.min(100,c.trust+3);})},
+        decline:{text:'暂不开放',nextScene:'end',onChoose:done('商队在旧公路边留了路标。等准备妥当，随时可以再联络他们。',()=>{c.events.merchant=true;})}};
     } else if(id==='cold') {
-      title=c.urban?.city?'本城公共仓储检修':'夜里的冷风';text=[c.urban?.city?'本城公共仓储的挡风板需要检修，本轮常设维修未能完成。可以拨出木料更换，或暂停一轮生产安排人工加固。':'粮棚外的挡风板松了。工匠说，补上它要花一些木料；也可以先停下工作，一起加固。'];
-      buttons={wood:{text:c.urban?.city?'拨料检修':'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done(c.urban?.city?'本城维修人员更换了仓储挡风板。':'新木板挡住了寒风。')},
-        hands:{text:c.urban?.city?'调配人工加固':'一起加固',nextScene:'end',onChoose:done(c.urban?.city?'本城临时调配人员加固仓储，一轮生产随之推迟。':'大家停下手里的活，用绳索把挡板重新绑好。',()=>{c.productionClock=0;})}};
+      title=c.urban?.city?'本城公共仓储检修':'夜里的冷风';text=[c.urban?.city?'本城公共仓储的挡风板亟待检修，本轮常设维护未能排上。可拨出木料直接更换，或腾出一轮生产人手先行加固。':'粮棚外的挡风板松了。工匠说，换新板子得费些木料；要是不舍得，就得先停下手里的活，大伙一起拿绳子捆牢。'];
+      buttons={wood:{text:c.urban?.city?'拨料检修':'换上新木板',cost:{wood:10},nextScene:'end',onChoose:done(c.urban?.city?'本城维修班换上了新的仓储挡风板。':'新木板钉死了，寒风被挡在外面。')},
+        hands:{text:c.urban?.city?'调配人工加固':'一起加固',nextScene:'end',onChoose:done(c.urban?.city?'城里临时抽调人手加固仓储，本轮生产顺延。':'众人放下手头的活计，用麻绳把松动的挡板重新勒紧。',()=>{c.productionClock=0;})}};
     } else {
       const event=(typeof CivilArchives!=='undefined'?CivilArchives.event(id,done):null) || (typeof CivilSetup!=='undefined'?CivilSetup.event(id,done):null) || (typeof CivilCivic!=='undefined'?CivilCivic.event(id,done):null) || (typeof CivilModern!=='undefined'?CivilModern.event(id,done):null) || CivilVillage.event(id,done) || (typeof CivilIndustry!=='undefined'?CivilIndustry.event(id,done):null) || (typeof CivilSociety!=='undefined'?CivilSociety.event(id,done):null) || (typeof CivilRegions!=='undefined'?CivilRegions.event(id,done):null) || (typeof CivilUrban!=='undefined'?CivilUrban.event(id,done):null) || (typeof CivilOrigins!=='undefined'?CivilOrigins.event(id,done):null) || (typeof CivilMunicipal!=='undefined'?CivilMunicipal.event(id,done):null) || (typeof CivilFinance!=='undefined'?CivilFinance.event(id,done):null) || (typeof CivilMetro!=='undefined'?CivilMetro.event(id,done):null) || (typeof CivilNation!=='undefined'?CivilNation.event(id,done):null) || (typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.event(id,done):null) || (typeof CivilRailway!=='undefined'?CivilRailway.event(id,done):null) || (typeof CivilCommerce!=='undefined'?CivilCommerce.event(id,done):null) || (typeof CivilSecurity!=='undefined'?CivilSecurity.event(id,done):null) || (typeof CivilAccession!=='undefined'?CivilAccession.event(id,done):null) || (typeof CivilFrontier!=='undefined'?CivilFrontier.event(id,done):null) || (typeof CivilIntercity!=='undefined'?CivilIntercity.event(id,done):null) || (typeof CivilCorridor!=='undefined'?CivilCorridor.event(id,done):null) || (typeof CivilPartnership!=='undefined'?CivilPartnership.event(id,done):null) || (typeof CivilWorld!=='undefined'?CivilWorld.event(id,done):null) || (typeof CivilStatecraft!=='undefined'?CivilStatecraft.event(id,done):null) || (typeof CivilForeign!=='undefined'?CivilForeign.event(id,done):null) || (typeof CivilLeagues!=='undefined'?CivilLeagues.event(id,done):null) || (typeof CivilTransit!=='undefined'?CivilTransit.event(id,done):null) || (typeof CivilMarkets!=='undefined'?CivilMarkets.event(id,done):null) || (typeof CivilCongress!=='undefined'?CivilCongress.event(id,done):null) || (typeof CivilSettlement!=='undefined'?CivilSettlement.event(id,done):null) || (typeof CivilAftermath!=='undefined'?CivilAftermath.event(id,done):null) || (typeof CivilSpace!=='undefined'?CivilSpace.event(id,done):null) || (typeof CivilIncidents!=='undefined'?CivilIncidents.event(id,done):null) || (typeof CivilCulture!=='undefined'?CivilCulture.event(id):null) || (typeof CivilCooperative!=='undefined'?CivilCooperative.event(id):null) || (typeof CivilRuins!=='undefined'?CivilRuins.event(id):null) || (typeof CivilCourse!=='undefined'?CivilCourse.event(id,done):null);
       if(!event){c.pending=null;return;}
@@ -393,7 +394,7 @@ var Civilization = {
       if(c.urban?.chartered && (State.game.workers.smith||0)>0 && this.spend({wood:10,tools:.5})) {
         this.notify(CivilNarrative.maintenance(State));
       } else if(c.tech.weather && !c.urban?.chartered && this.spend({wood:4})) {
-        this.notify('寒潮预报提前半天发出。轮值的人用 4 份木料绑紧了粮棚挡板，工作没有停下。');
+        this.notify('寒潮预警提前半天到了。当值的人花 4 份木料加固了粮棚挡板，手头的活计没受耽误。');
       } else {c.pending='cold';this.showPending();}
     }
     else this.notify(CivilNarrative.wildlife(State));
@@ -412,7 +413,7 @@ var Civilization = {
     const cost=extra?extra.cost:id==='pump'?{food:8,wood:20,scrap:12}:{food:id==='salvage'?4:8};
     if(c.journey || c.pending || Events.activeEvent() || (id==='pump' && (!c.station || !c.tech.water || c.pump)) || !State.game.buildings.workshop || !this.spend(cost)) return;
     c.journey={id,remaining:extra?extra.duration:id==='pump'?180:120};
-    this.notify(extra?(extra.departure || (id==='geology'?'勘察队带上工具和旧地图，走向山坡下的矿带。':'队伍带上物资，沿旧地图的标记出发。')):id==='pump'?'维修队带上管件，沿着旧管线出发。':'你带上口粮，沿旧公路走向交通站。');
+    this.notify(extra?(extra.departure || (id==='geology'?'勘察队背上工具和旧图纸，往山坡下的矿带去了。':'队伍备好干粮物资，顺着旧地图上的标记动身。')):id==='pump'?'维修队扛起管件，顺着半埋的旧管线出发了。':'你揣上口粮，顺着旧公路往废弃交通站走去。');
     this.refresh();Engine.saveGame();
   },
   // Read-only: buildings whose existing gate names this tech and is now open.
@@ -468,10 +469,10 @@ var Civilization = {
     const c=State.civilization,b=State.game.buildings;
     if($('#outsidePanel').length) {
       if($SM.get('game.builder.level')>=4) this.button('forageButton','采集食物','#outsidePanel',()=>{
-        $SM.add('stores.food',6);this.notify('翻过枯叶，找到一些还能食用的根茎。');
+        $SM.add('stores.food',6);this.notify('扒开冻硬的枯叶，挖出几截还能下咽的块根。');
       },null,60);
       if(State.game.population>=2) this.button('scrapButton','搜集废料','#outsidePanel',()=>{
-        $SM.add('stores.scrap',4);this.notify('从坍塌的护栏下找出几件可用零件。');
+        $SM.add('stores.scrap',4);this.notify('在塌掉的公路护栏下，扒拉出几件没锈透的零件。');
       },null,90);
       // Town stage: hand gathering is folded away as an emergency path (never removed).
       if(c.village?.town&&typeof document!=='undefined'&&typeof document.getElementById==='function'&&document.getElementById('outsidePanel')){
@@ -536,12 +537,12 @@ var Civilization = {
         pump.attr('title',c.pump?'泵站已经恢复':!c.tech.water?'需要先掌握净水工艺':'携带维修材料出发');
       }
       const arrivalIds=['station','salvage','pump','river','riverAid','geology',...Object.keys(typeof CivilRegions!=='undefined'?CivilRegions.journeys:{})];
-      $('#journeyStatus').toggle(!!c.journey||!!(c.pending&&arrivalIds.includes(c.pending))||legacyWalk).text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'已经抵达，队伍等待你处理眼前的事。'):c.pending && arrivalIds.includes(c.pending)?'已经抵达，等待处理发现。':c.pump?'泵站已恢复。补给与维护将决定它能运转多久。':'旧公路穿过荒林，通向废弃的交通站。');
+      $('#journeyStatus').toggle(!!c.journey||!!(c.pending&&arrivalIds.includes(c.pending))||legacyWalk).text(c.journey?(c.journey.remaining>0?'途中 · '+Math.ceil(c.journey.remaining)+' 秒':'小队已抵达，正等你拿主意。'):c.pending && arrivalIds.includes(c.pending)?'已抵达现场，等待处置。':c.pump?'泵站恢复了运转。至于能撑多久，得看后续的补给与维护。':'旧公路劈开荒林，直通那座废弃的交通站。');
       if(c.events.merchant && !c.trade) this.button('contactButton','联系商队','#roadPanel',()=>{if(!Events.activeEvent()){c.pending='merchant';this.showPending();}});
       $('#contactButton').toggle(!c.trade);
       if(c.trade) {
         const trade=this.button('tradeButton','以粮换废料','#roadPanel',()=>{
-          if(this.spend({food:10})){$SM.add('stores.scrap',8);this.notify('商队收下 10 份食物，交给你 8 份废料。');}
+          if(this.spend({food:10})){$SM.add('stores.scrap',8);this.notify('商队点数收下 10 份食物，卸给你 8 份废料。');}
         },{food:10},60);
         Button.setDisabled(trade,!CivilRules.canPay(State,{food:10}));
       }
@@ -646,7 +647,7 @@ Room.build=function(button) {
   if(!buildDefs[id]?.gate())return;
   if(CivilCatalog.buildingLimit)Room.Craftables[id].maximum=CivilCatalog.buildingLimit(State,id);
   adrBuild(button);
-  if(id==='granary' && (State.game.buildings[id] || 0)>before) Civilization.notify('工匠估算，四位居民、六十份木料、二十份食物，足以让大家安稳一阵。等储备稳住，再筹备工坊。');
+  if(id==='granary' && (State.game.buildings[id] || 0)>before) Civilization.notify('工匠盘算过，凑齐四个人、六十份木料、二十份食物，大伙就能先稳住脚跟。等手头宽裕了，再张罗工坊的事。');
   Civilization.unlockSpeed(true);
   Outside.updateVillage(); Outside.updateWorkersView(); Civilization.refresh(); Civilization.updateIncome();
 };
@@ -686,7 +687,7 @@ Outside.updateWorkersView=function(){
     $('#workers_row_'+job+' .upBtn,#workers_row_'+job+' .upManyBtn').toggleClass('disabled',n>=cap || Outside.getNumGatherers()<=0);
     const floor=typeof CivilFrontier==='undefined'?0:job==='guard'?CivilFrontier.guardFloor(State):job==='transporter'&&CivilFrontier.active(State)?CivilRegions.reservedTransport(State)+CivilUrban.reservedTransport(State)+2:0;
     if(floor)$('#workers_row_'+job+' .dnBtn,#workers_row_'+job+' .dnManyBtn').toggleClass('disabled',n<=floor);
-    $('#workers_row_'+job).attr('title',(Number.isFinite(cap)?'岗位上限 '+cap:'')+(floor?'；在外职责至少占 '+floor+' 人':''));
+    $('#workers_row_'+job).attr('title',(Number.isFinite(cap)?'岗位上限 '+cap:'')+(floor?'；在外差遣至少占 '+floor+' 人':''));
   }
   if(typeof CivilCityInstitutionsView!=='undefined')CivilCityInstitutionsView.home(State);
   if(typeof CivilPacing!=='undefined')CivilPacing.refresh(State);
@@ -700,7 +701,7 @@ Outside.schedulePopIncrease=function() {}; // Migration belongs to the persisten
 Outside.updateVillageIncome=function() {Civilization.updateIncome();};
 Outside.checkTraps=function() {
   const n=State.game.buildings.trap || 0;$SM.addM('stores',{food:n*2,fur:n});
-  Civilization.notify('陷阱带回 '+n*2+' 份食物和 '+n+' 张毛皮。');
+  Civilization.notify('陷阱里收到了 '+n*2+' 份食物和 '+n+' 张毛皮。');
 };
 $SM.collectIncome=function() {}; // Atomic food + production settlement replaces independent ADR jobs.
 Events.init=function() { Events.eventStack=[];$.Dispatch('stateUpdate').subscribe(Events.handleStateUpdates); };

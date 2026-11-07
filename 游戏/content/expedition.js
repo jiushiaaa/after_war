@@ -61,14 +61,14 @@ var CivilExpeditionContent={
   rescue:{food:10,wood:10},
   injuryRest:180,
   text:{
-    intro:'旧公路以外是没有人走过的荒地。准备好口粮和饮水，小队会一格一格把这片近郊记下来。',
-    depart:n=>n+'名居民背上行囊出发了。他们不在家时，聚落少了这几双手，也少了这几张吃饭的嘴。',
-    home:'小队回到聚落。背回的东西已经入库。',
-    hungry:'小队的口粮或饮水已经见底。再这样走下去，有人会倒下。',
-    collapse:'小队在荒地里耗尽了补给，停在原地发出了烟火信号。',
-    beetle:'灰壳甲虫在洼地里翻动碎石。它们的壳像旧车漆一样泛着油光，在有人靠近时一齐抬起前足。'
+    intro:'旧公路外全是没人踩过的荒野。备足口粮和饮水，小队会把这片近郊一格一格摸清楚。',
+    depart:n=>n+'名居民背起行囊出了门。他们在外期间，聚落里少了这几双手，也省下这几张嘴的口粮。',
+    home:'小队回到了聚落。带回的物资已清点入库。',
+    hungry:'小队的水袋或干粮袋已经见底。再硬撑着往前走，会有人倒在半路。',
+    collapse:'小队在荒野里断了补给，只能停在原地，点起求救的狼烟。',
+    beetle:'灰壳甲虫在洼地里拱动碎石。背甲泛着旧车漆似的油光，听见人声，便齐刷刷支起前足。'
   }
 };
 // A preserved archive opens a real craft: early cold warnings replace emergency repairs.
 CivilText.research.weather={name:'寒潮预报',requires:[],discover:s=>s.civilization.expedition?.sites?.ruin?.state==='preserved',cost:{wood:20,scrap:8},duration:150,
-  done:'风速纸带和本地记录对上了。寒风来之前，轮值的人会提前绑好粮棚的挡板。'};
+  done:'风速纸带与聚落的日常观测对上了号。下次寒风刮来前，当值的人会提前加固粮棚挡板。'};

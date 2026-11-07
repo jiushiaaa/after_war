@@ -16,10 +16,10 @@ var CivilServiceContent={
 Object.assign(CivilCatalog.jobs,CivilServiceContent.jobs);
 Object.assign(CivilText.labels,CivilServiceContent.jobs,Object.fromEntries(Object.entries(CivilServiceContent.facilities).map(([id,d])=>[id,d.name])));
 Object.assign(CivilText.research,{
-  medicine:{name:'药物制备',requires:['sanitation','chemistry'],discover:s=>!!s.civilization.urban?.city && (s.stores.chemicals||0)>0,cost:{chemicals:12,glass:8,knowledge:80},duration:360,done:'药剂的配方、洁净容器与检验步骤写进了手册。制备所需要化学品、食物和持续供电。'},
-  municipal_engineering:{name:'公用工程',requires:['urbanworks','steel','chemistry'],discover:s=>!!s.civilization.urban?.city && (s.stores.steel||0)>0 && (s.stores.glass||0)>0,cost:{steel:20,glass:12,parts:12,knowledge:100},duration:420,done:'水泵、管网和住区结构有了统一图纸。工程仍要运来材料，由当地居民逐段建成。'},
-  wind_power:{name:'风力机组工程',requires:['municipal_engineering','mechanics','power','survey'],discover:s=>!!s.civilization.urban?.city,cost:{steel:40,parts:30,knowledge:200},duration:360,done:'风轮、传动与配电图纸已经试制。街区或地方能源分类可建风力机组；须实际值守和零件维护，风弱时仍需备用电源。'},
-  district_heating:{name:'集中供暖',requires:['municipal_engineering','power'],discover:s=>!!s.civilization.urban?.city,cost:{steel:12,parts:8,knowledge:80},duration:300,done:'锅炉、循环泵与热管的图纸已经备齐。供热站建成后还须安排值守、备足燃煤，并试运行后交接供暖。'}
+  medicine:{name:'药物制备',requires:['sanitation','chemistry'],discover:s=>!!s.civilization.urban?.city && (s.stores.chemicals||0)>0,cost:{chemicals:12,glass:8,knowledge:80},duration:360,done:'药剂配比、无菌器皿与抽检步骤已整理成册。制备所运转离不开基础化学品、粮食与持续供电。'},
+  municipal_engineering:{name:'公用工程',requires:['urbanworks','steel','chemistry'],discover:s=>!!s.civilization.urban?.city && (s.stores.steel||0)>0 && (s.stores.glass||0)>0,cost:{steel:20,glass:12,parts:12,knowledge:100},duration:420,done:'水泵、管网与多层住区的承重图样已定型。建材仍需实打实运抵现场，由当地人手逐段筑起。'},
+  wind_power:{name:'风力机组工程',requires:['municipal_engineering','mechanics','power','survey'],discover:s=>!!s.civilization.urban?.city,cost:{steel:40,parts:30,knowledge:200},duration:360,done:'风叶、传动箱与并网图纸试制妥当。可在街区或地方的“能源”分类下兴建风力机组；日常需有人值守并耗用零件维护，风弱时仍得靠备用电源顶上。'},
+  district_heating:{name:'集中供暖',requires:['municipal_engineering','power'],discover:s=>!!s.civilization.urban?.city,cost:{steel:12,parts:8,knowledge:80},duration:300,done:'锅炉、循环泵与保温管网的图纸已备齐。供热站落成后，还须派人值守、备足燃煤，待试运行稳妥后方可正式接管全城供暖。'}
 });
 const preServiceCapacity=CivilCatalog.capacity,preServiceJobCapacity=CivilCatalog.jobCapacity;
 CivilCatalog.capacity=function(s){return preServiceCapacity(s)+(typeof CivilServices!=='undefined'?CivilServices.capacityBonus(s,'home'):0);};

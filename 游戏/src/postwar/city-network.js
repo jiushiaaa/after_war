@@ -14,13 +14,13 @@ var CivilCityNetwork={
   local(s,id){return CivilCity.node(s,id==='home'?this.data(s).depot:id);},
   name(id){return {home:'本城出发仓',lake:'湖滨市',ridge:'矿岭市'}[id];},
   note(s,text){const d=this.data(s);d.history.push({at:s.civilization.elapsed,text});if(typeof State!=='undefined'&&State===s)Civilization.notify(text);},
-  formReason(s){const d=CivilConurbation.data(s);if(!d?.clusterAt)return '先让两城协作实际运行';if(this.data(s))return '联合调度所已设立';return CivilConurbation.safe(s,d.route.depot,this.charterCost)||CivilConurbation.safe(s,'lake',this.charterCost);},
+  formReason(s){const d=CivilConurbation.data(s);if(!d?.clusterAt)return '先让两城协作真正转起来';if(this.data(s))return '联合调度所已设立';return CivilConurbation.safe(s,d.route.depot,this.charterCost)||CivilConurbation.safe(s,'lake',this.charterCost);},
   form(s){if(this.formReason(s))return false;const lake=CivilConurbation.data(s),at=s.civilization.elapsed;
     for(const id of [lake.route.depot,'lake'])CivilCity.pay(CivilCity.node(s,id),this.charterCost);
     s.civilization.cityNetwork={schema:1,at,legacyTrips:lake.trips.length,legacyRepairs:lake.payments.length,depot:lake.route.depot,paid:this.copy(this.charterCost),survey:null,origin:null,node:null,road:null,expansion:null,
       priority:'balanced',enabled:false,policies:[],nextOrder:1,entries:[],trips:[],repairs:[],inspections:{home:null,lake:null,ridge:null},
       budget:{home:'regular',lake:'regular',ridge:'regular'},waiting:{lake:null,ridge:null},departures:[],history:[]};
-    this.replan(s);this.note(s,'两城共同设立调度所。已有本城车组纳入共同调度；地方仓库不合并，运行预算从各自公仓实付。');return true;
+    this.replan(s);this.note(s,'两城合设联合调度所。本城原有的车组并入统一调度；两地公仓仍各管各账，运行开支由各自公仓按实支取。');return true;
   },
   origin(s,at){
     const census=CivilCensus.data(s),initial=48000+census.seed%6001,ratio=initial/CivilCensus.initial(census.seed).counts.reserve_west;
@@ -39,10 +39,10 @@ var CivilCityNetwork={
     return {at,initial,population,born,dead,housing,initialStores,stores,produced,consumed,assets:{familyBeds:housing,publicWaterworks:1,foundrySlots:160},model:'west-share-annual-subsistence-v1'};
   },
   surveyReason(s){const d=this.data(s);if(!d)return '先设联合调度所';if(d.survey||d.node)return '矿岭普查已有记录';return CivilConurbation.safe(s,d.depot,this.surveyCost,2);},
-  survey(s){if(this.surveyReason(s))return false;const d=this.data(s);CivilCity.pay(this.local(s,'home'),this.surveyCost);d.survey={startedAt:s.civilization.elapsed,remaining:420,paid:this.copy(this.surveyCost)};this.replan(s);this.note(s,'两名普查员沿西部旧铁路寻找矿岭市。旅粮一次实付，两人暂离本城岗位。');return true;},
+  survey(s){if(this.surveyReason(s))return false;const d=this.data(s);CivilCity.pay(this.local(s,'home'),this.surveyCost);d.survey={startedAt:s.civilization.elapsed,remaining:420,paid:this.copy(this.surveyCost)};this.replan(s);this.note(s,'两名普查员顺着西边的旧铁路线寻访矿岭市。启程时一次付清旅粮，两人暂离本城工位。');return true;},
   discover(s){const d=this.data(s),o=this.origin(s,s.civilization.elapsed);if(!CivilCensus.partition(s,o.population,'ridge'))throw Error('矿岭人口细分失败');d.origin=o;d.survey.finishedAt=o.at;d.survey.remaining=0;
     d.node={cohorts:CivilCity.cohortSeed(o.population),stores:{...o.stores},year:Math.floor(o.at/600),births:{scaled:true,credit:0,mutantCredit:0},health:85,hunger:0,workers:{},contactedAt:o.at,joinedAt:null,priority:'balanced',method:'manual',waterEnabled:true,freightEnabled:true,buildings:{road:0,water:1,housing:0},project:null,stable:0,economy:null,budget:{produced:{},consumed:{},received:{},sent:{}},born:0,dead:0};
-    this.replan(s);this.note(s,'矿岭市普查登记 '+o.population+' 人，从西陆失联名册细分。当地保有住房、铸炉和公仓；全球人口没有增加。');
+    this.replan(s);this.note(s,'矿岭市普查在册 '+o.population+' 人，系从西陆失联底账中核实细分。当地自有房舍、铸炉与公仓；此次普查并未凭空增加全球人口。');
   },
   active(s){return this.data(s)?.trips.find(p=>p.status!=='complete');},
   capacity(s,at=s.civilization.elapsed){const e=this.data(s)?.expansion;return e?.completedAt!==null&&e&&e.completedAt<=at?2:1;},
@@ -62,9 +62,9 @@ var CivilCityNetwork={
   receipt(s,city,kind,ref,paid){const d=this.data(s);d.entries.push({order:d.nextOrder++,at:s.civilization.elapsed,city,kind,ref,paid:this.copy(paid)});},
   spend(s,id,kind,ref,cost){if(this.canSpend(s,id,cost))return false;CivilCity.pay(this.local(s,id),cost);this.receipt(s,id,kind,ref,cost);return true;},
   setBudget(s,id,value){const d=this.data(s);if(!d||!['home','lake','ridge'].includes(id)||!this.local(s,id)||!this.budgets[value]||d.budget[id]===value)return false;
-    const paid={knowledge:4};if(!CivilCity.pay(this.local(s,id),paid))return false;d.budget[id]=value;this.receipt(s,id,'policy',value,paid);this.replan(s);this.note(s,this.name(id)+'将后续运行额度改为“'+this.budgets[value].name+'”。本期已支出不返还；基础口粮、诊疗与课堂仍由地方维持。');return true;
+    const paid={knowledge:4};if(!CivilCity.pay(this.local(s,id),paid))return false;d.budget[id]=value;this.receipt(s,id,'policy',value,paid);this.replan(s);this.note(s,this.name(id)+'将后续运行额度调整为“'+this.budgets[value].name+'”。本期已花掉的物资不退；基础口粮、看诊与学堂仍由当地维持。');return true;
   },
-  setPriority(s,value){const d=this.data(s);if(!d||!this.priorities[value]||d.priority===value)return false;const paid={knowledge:4};if(!CivilCity.pay(this.local(s,'home'),paid))return false;d.priority=value;d.policies.push({order:d.nextOrder++,at:s.civilization.elapsed,kind:'priority',value,paid});this.note(s,'共同车辆改为'+this.priorities[value]+'；另一条具备条件的线路最多让行两次。');return true;},
+  setPriority(s,value){const d=this.data(s);if(!d||!this.priorities[value]||d.priority===value)return false;const paid={knowledge:4};if(!CivilCity.pay(this.local(s,'home'),paid))return false;d.priority=value;d.policies.push({order:d.nextOrder++,at:s.civilization.elapsed,kind:'priority',value,paid});this.note(s,'共同车辆调度改设为“'+this.priorities[value]+'”；另一条合乎发车条件的线路最多连续让行两次。');return true;},
   plan(s,id,slots,want,reserved){const d=this.data(s);if(!d)return;
     if(id===d.depot||id==='lake'||id==='ridge')reserved.trafficclerk=2;
     const crew=this.crew(s,id);if(crew)reserved.courier=(reserved.courier||0)+crew;
@@ -80,11 +80,11 @@ var CivilCityNetwork={
   },
   targets(s){const n=this.data(s).node;return {food:CivilPopulation.foodPopulation(n.cohorts)*.12*18,medicine:CivilCity.count(n)*.01*8,wood:4000,scrap:5000,tools:1200,knowledge:3000,iron:800};},
   buildReason(s){const d=this.data(s);if(!d?.node)return '先完成矿岭普查';if(d.road)return '矿岭道路已有工程记录';return CivilConurbation.safe(s,d.depot,this.roadCost)||CivilConurbation.safe(s,'ridge',this.roadCost);},
-  build(s){if(this.buildReason(s))return false;const d=this.data(s);for(const id of ['home','ridge'])CivilCity.pay(this.local(s,id),this.roadCost);d.road={startedAt:s.civilization.elapsed,completedAt:null,worked:0,remaining:300,condition:100,paid:this.copy(this.roadCost)};this.replan(s);this.note(s,'本城与矿岭各自支付路材、派20名建设者修复旧铁路沿线道路。');return true;},
-  expansionReason(s,method){const d=this.data(s);if(!d?.road?.completedAt)return '先完成第三城道路';if(d.expansion)return '已有车场扩建记录';if(!this.expansionCosts[method])return '未知车场方案';if(method==='steel'&&(!s.civilization.tech.mechanics||!s.civilization.tech.standards))return '钢架车场需要机械传动和标准计量';return CivilConurbation.safe(s,d.depot,this.expansionCosts[method]);},
-  expand(s,method){if(this.expansionReason(s,method))return false;const d=this.data(s),paid=this.copy(this.expansionCosts[method]);CivilCity.pay(this.local(s,'home'),paid);d.expansion={method,paid,startedAt:s.civilization.elapsed,completedAt:null,remaining:300,worked:0};this.replan(s);this.note(s,'本城实付扩建'+(method==='steel'?'钢架':'木构')+'车场，20名建设者施工。建成后增加一组车，持续检修负担也会增加。');return true;},
+  build(s){if(this.buildReason(s))return false;const d=this.data(s);for(const id of ['home','ridge'])CivilCity.pay(this.local(s,id),this.roadCost);d.road={startedAt:s.civilization.elapsed,completedAt:null,worked:0,remaining:300,condition:100,paid:this.copy(this.roadCost)};this.replan(s);this.note(s,'本城与矿岭各自拨出路材、各派20名施工者，分段整修旧铁路沿线的公路。');return true;},
+  expansionReason(s,method){const d=this.data(s);if(!d?.road?.completedAt)return '先修通第三城道路';if(d.expansion)return '已有车场扩建记录';if(!this.expansionCosts[method])return '未知车场方案';if(method==='steel'&&(!s.civilization.tech.mechanics||!s.civilization.tech.standards))return '钢架车场需先掌握机械传动与标准计量';return CivilConurbation.safe(s,d.depot,this.expansionCosts[method]);},
+  expand(s,method){if(this.expansionReason(s,method))return false;const d=this.data(s),paid=this.copy(this.expansionCosts[method]);CivilCity.pay(this.local(s,'home'),paid);d.expansion={method,paid,startedAt:s.civilization.elapsed,completedAt:null,remaining:300,worked:0};this.replan(s);this.note(s,'本城拨料扩建'+(method==='steel'?'钢架':'木构')+'车场，由20名施工者动工。落成后可添一组共同车辆，日常检修担子也会相应加重。');return true;},
   setEnabled(s,value){const d=this.data(s);if(!d?.road?.completedAt||typeof value!=='boolean'||value===d.enabled)return false;const paid=value?{knowledge:12}:{};if(value&&(!CivilRules.canPay({stores:this.local(s,'home').stores},paid)||!CivilRules.canPay({stores:d.node.stores},paid)))return false;
-    for(const id of ['home','ridge'])CivilCity.pay(this.local(s,id),paid);d.enabled=value;d.policies.push({order:d.nextOrder++,at:s.civilization.elapsed,kind:'enabled',value,paid});this.note(s,value?'矿岭工料互市已获双方授权。新订单依实际缺口、共同车辆和地方预算发运。':'矿岭暂停新订单；已付款在途货物继续交割，车辆按原路返回。');return true;},
+    for(const id of ['home','ridge'])CivilCity.pay(this.local(s,id),paid);d.enabled=value;d.policies.push({order:d.nextOrder++,at:s.civilization.elapsed,kind:'enabled',value,paid});this.note(s,value?'矿岭工料互市已获两城准许。新运单将视双方实际缺口、空闲车组与当地运行预算按期发运。':'矿岭线暂停签发新运单；已付清运费的在途货物照常交割，车组卸货后原路返回。');return true;},
   fees(){return {food:6*.12*this.travel*2/10,wood:12,tools:2,knowledge:1};},
   order(s){const d=this.data(s);if(!d?.node)return {out:{},back:{}};const home=this.local(s,'home'),ridge=d.node,fee=this.fees(),target=this.targets(s),ht={...CivilCity.targets(home,s,d.depot),iron:300,tools:640};
     const offers=(from,to,desired,limits)=>{const floor={food:CivilPopulation.foodPopulation(from.cohorts)*.12*6,medicine:CivilCity.count(from)*.01*4,tools:32,iron:24};return Object.fromEntries(Object.entries(limits).map(([k,v])=>[k,Math.max(0,Math.floor(Math.min(v,(desired[k]||0)-(to.stores[k]||0),(from.stores[k]||0)-(floor[k]||0)-(fee[k]||0))))]).filter(([,v])=>v));};
@@ -102,16 +102,16 @@ var CivilCityNetwork={
     }
     return best;
   },
-  guardLegacy(s,ignoreFleet=false,relief=false){const d=this.data(s),old=CivilConurbation.data(s);if(!d)return null;if(old.route.depot!==d.depot)return '共同出发仓与旧道路不符';
+  guardLegacy(s,ignoreFleet=false,relief=false){const d=this.data(s),old=CivilConurbation.data(s);if(!d)return null;if(old.route.depot!==d.depot)return '共同出发仓与旧道路记录不符';
     for(const id of ['home','lake']){if(!this.inspected(s,id))return this.name(id)+'：交通检修待续费';const cost=relief?CivilConurbation.reliefFees(s)[id]:CivilConurbation.plus(CivilConurbation.split(CivilConurbation.running,old.share,id),{food:6*.12*CivilConurbation.travelTime(s)*2/10}),reason=this.canSpend(s,id,cost);if(reason)return reason;}
     return !ignoreFleet&&this.occupied(s)>=this.capacity(s)?'共同车组正被其他线路占用':null;
   },
   legacyTrip(s,p){if(!this.data(s))return;for(const id of ['home','lake'])this.receipt(s,id,'lakeTrip',p.id,p.fees[id]);this.departure(s,'lake',p.id);},
   legacyRepair(s,ref,home,lake){if(!this.data(s))return;this.receipt(s,'home','lakeRepair',ref,home);this.receipt(s,'lake','lakeRepair',ref,lake);},
-  dispatchReason(s,ignoreFleet=false){if(typeof CivilSetup!=='undefined'&&CivilSetup.freightReason(s))return CivilSetup.freightReason(s);const d=this.data(s);if(!d?.road?.completedAt)return '先完成双方道路';if(!d.enabled)return '工料互市尚未授权';if(this.active(s))return '矿岭原车仍在途';if(d.road.condition<20)return '矿岭道路待付检修';
-    const order=this.order(s);if(CivilConurbation.value(order.out)<80||CivilConurbation.value(order.out)!==CivilConurbation.value(order.back))return '尚未形成等值的实际补库需求';
+  dispatchReason(s,ignoreFleet=false){if(typeof CivilSetup!=='undefined'&&CivilSetup.freightReason(s))return CivilSetup.freightReason(s);const d=this.data(s);if(!d?.road?.completedAt)return '先完成两城道路施工';if(!d.enabled)return '工料互市尚未授权';if(this.active(s))return '矿岭线原车仍在途';if(d.road.condition<20)return '矿岭道路待付检修材料';
+    const order=this.order(s);if(CivilConurbation.value(order.out)<80||CivilConurbation.value(order.out)!==CivilConurbation.value(order.back))return '两城尚未形成等值的互补缺口';
     for(const [id,cargo]of [['home',order.out],['ridge',order.back]]){if(!this.inspected(s,id))return this.name(id)+'：交通检修待续费';const reason=this.canSpend(s,id,this.fees())||CivilConurbation.safe(s,id==='home'?d.depot:id,CivilConurbation.plus(cargo,this.fees()),6);if(reason)return reason;}
-    return !ignoreFleet&&this.occupied(s)>=this.capacity(s)?'共同车组正被湖滨线路占用':null;
+    return !ignoreFleet&&this.occupied(s)>=this.capacity(s)?'共同车组正被湖滨线占用':null;
   },
   departure(s,route,ref){const d=this.data(s);d.departures.push({at:s.civilization.elapsed,route,ref});d.waiting[route]=null;},
   dispatch(s){if(this.dispatchReason(s))return false;const d=this.data(s),order=this.order(s),p={id:d.trips.length+1,startedAt:s.civilization.elapsed,deliveredAt:null,finishedAt:null,status:'outbound',remaining:this.travel,out:order.out,back:order.back,fees:this.fees()};
@@ -135,7 +135,7 @@ var CivilCityNetwork={
   tick(s){const d=this.data(s);if(!d)return;const t=s.civilization.elapsed;
     if(d.survey&&!d.survey.finishedAt&&--d.survey.remaining===0)this.discover(s);
     if(d.node){CivilCity.annual(s,'ridge');if(t%10===0)CivilCity.settleWard(s,'ridge');}
-    for(const [key,ids,job]of [['road',['home','ridge'],'networkbuilder'],['expansion',['home'],'fleetbuilder']]){const p=d[key];if(p&&p.completedAt===null&&ids.every(id=>this.local(s,id)?.economy?.ate&&this.local(s,id).workers[job]===20)){p.worked++;p.remaining--;if(!p.remaining){p.completedAt=t;this.replan(s);this.note(s,key==='road'?'矿岭道路修通，双方可以授权工料互市。':'第二组共同车辆投入使用。可同时服务两条线路，检修和运行开支随之增加。');}}}
+    for(const [key,ids,job]of [['road',['home','ridge'],'networkbuilder'],['expansion',['home'],'fleetbuilder']]){const p=d[key];if(p&&p.completedAt===null&&ids.every(id=>this.local(s,id)?.economy?.ate&&this.local(s,id).workers[job]===20)){p.worked++;p.remaining--;if(!p.remaining){p.completedAt=t;this.replan(s);this.note(s,key==='road'?'通往矿岭市的道路已修通，两城可以授权开启工料互市了。':'第二组共同车辆投入运转。现可同时跑两条线路，日常检修与运行耗材也随之增加。');}}}
     const p=this.active(s);if(p&&--p.remaining===0){if(p.status==='outbound'){CivilConurbation.receive(d.node,p.out);CivilConurbation.receive(this.local(s,'home'),p.back);p.deliveredAt=t;p.status='returning';p.remaining=this.travel;}else{p.status='complete';p.finishedAt=t;this.replan(s);}}
     if(t%60===0)for(const id of ['home','lake',...(d.node?['ridge']:[])]){const n=this.local(s,id);if(n.workers.trafficclerk===2&&this.spend(s,id,'inspection',t,this.inspectionCost(s,id)))d.inspections[id]=t;}
     if(t%10===0){this.replan(s);this.schedule(s);}

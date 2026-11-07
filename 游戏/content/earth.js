@@ -11,16 +11,16 @@ var CivilEarthContent={
   polar:{name:'极地遗产托管议会',issue:'避难所供养与不可占有的轨道遗产',gate:'navigation',profile:{food:1.6,wood:.5,scrap:1.8,tools:.3,iron:.35},options:{preserve:{name:'原址保全与轮值供养',cargo:{medicine:100,parts:32,tools:48},local:{wood:1000,knowledge:240},upkeep:{medicine:8,wood:32},product:'parts'},restore:{name:'修复观测与共同保管',cargo:{electronics:32,parts:56,tools:48},local:{tools:240,knowledge:240},upkeep:{knowledge:8,tools:4},product:'electronics'}}}
  },
  tech:{
-  mapping:{name:'全地球测绘与名册互认',requires:[],duration:360,cost:{knowledge:180,parts:24,electronics:16},text:'联系各区真实居民与地方账，保留未知范围；不靠发现奖励增加人口。'},
-  navigation:{name:'陆海联运与救援航道',requires:['mapping'],duration:480,cost:{knowledge:240,parts:48,electronics:24,steel:24},text:'开通群岛、极地，有限两组公用车辆/船组，交付与返航占用运力。'},
-  fabrication:{name:'精密航天制造',requires:['mapping'],duration:480,cost:{knowledge:240,steel:64,parts:48,electronics:24},text:'制造航天、热防护与推进组件；无需改变任何人的身体。'},
-  closed:{name:'乘员闭环保障',requires:['fabrication'],duration:480,cost:{knowledge:220,culture:40,medicine:60,parts:40},text:'不同身体使用不同口粮、电力与维修篮子；只有实际装载的物资可用于任务。'},
-  guidance:{name:'轨道测控与自主保护',requires:['navigation','fabrication'],duration:480,cost:{knowledge:260,electronics:48,parts:40},text:'无人验证与有居民试航均由真实测控班组支撑；设备不是人格。'}
+  mapping:{name:'全地球测绘与名册互认',requires:[],duration:360,cost:{knowledge:180,parts:24,electronics:16},text:'联络各区现存居民与独立账册，未探明区域如实留白；人口绝不因探索奖励而凭空虚增。'},
+  navigation:{name:'陆海联运与救援航道',requires:['mapping'],duration:480,cost:{knowledge:240,parts:48,electronics:24,steel:24},text:'开通通往群岛与极地的救援航道。调配编制内两组公用车船，交付与返航均据实占用在途运力。'},
+  fabrication:{name:'精密航天制造',requires:['mapping'],duration:480,cost:{knowledge:240,steel:64,parts:48,electronics:24},text:'制造近地舱体、热防护板与推进组件；不以改造任何人的生理躯体为前提。'},
+  closed:{name:'乘员闭环保障',requires:['fabrication'],duration:480,cost:{knowledge:220,culture:40,medicine:60,parts:40},text:'不同生理与机械形态分别核算口粮、电耗与维保定额；唯有登舱实装的给养与备件可供在轨消耗。'},
+  guidance:{name:'轨道测控与自主保护',requires:['navigation','fabrication'],duration:480,cost:{knowledge:260,electronics:48,parts:40},text:'无人遥测与载人试航均由地面实有人手轮班监控；自动化测控设备不登记为法律人格。'}
  },
  facilities:{works:{name:'共同航天装配场',requires:['fabrication'],duration:360,cost:{steel:64,parts:48,electronics:24,tools:40}},control:{name:'地面测控与闭环试验场',requires:['closed','guidance'],duration:420,cost:{steel:64,parts:48,electronics:48,medicine:40}}},
  recipes:{spaceparts:{input:{steel:8,parts:8,electronics:4},output:{spaceparts:4},power:24},lifesupport:{input:{culture:4,parts:4,medicine:2},output:{lifesupport:4},power:16},shielding:{input:{steel:4,iron:8,tools:2},output:{shielding:4},power:16},propellant:{input:{wood:8,parts:2},output:{propellant:6},power:12}},
  products:{parts:{input:{iron:8,wood:4,tools:2},output:{parts:4}},steel:{input:{iron:12,wood:8,tools:2},output:{steel:8}},electronics:{input:{iron:6,tools:4,knowledge:12},output:{electronics:4}},medicine:{input:{food:16,scrap:8},output:{medicine:12}},tools:{input:{wood:8,scrap:16},output:{tools:12}},wood:{input:{food:8,tools:2},output:{wood:32}}},
- charters:{federal:{name:'地球联邦共同法',cost:{knowledge:600,tools:80,parts:40},fee:{knowledge:12,tools:4},text:'共同公民资格与对外代表，地方保留日常制度与资产；共同机构受成文授权约束。'},covenant:{name:'地球共同议约',cost:{knowledge:480,tools:60,parts:32},fee:{knowledge:20,tools:2},text:'各区通过具有约束力的共同法、仲裁与对外代表统一地球，内部政体与地方仓库继续独立。'}},
+ charters:{federal:{name:'地球联邦共同法',cost:{knowledge:600,tools:80,parts:40},fee:{knowledge:12,tools:4},text:'确立全域共同公民资格与统一对外代表权，各区保留日常律令与自留财产；联合机构受限于成文条约的法定授权。'},covenant:{name:'地球共同议约',cost:{knowledge:480,tools:60,parts:32},fee:{knowledge:20,tools:2},text:'各大区以具约束力的共同法典、联合仲裁与对外全权代表实现地表统一；内部管辖政体与地方仓储账册继续各自独立。'}},
  crews:{organic:'普通居民乘员',gene:'基因改造乘员',mechanical:'完整机械乘员',synthetic:'合成人乘员',mixed:'混合身体乘员',uncrewed:'无常驻乘员先遣'},
  labels:{spaceparts:'航天组件',lifesupport:'保障组件',shielding:'热防护组件',propellant:'推进剂'},
  startCost:{knowledge:240,parts:40,tools:48,electronics:16},surveyCost:{food:96,parts:8,tools:12,knowledge:40},fare:{food:24,tools:2},travel:180

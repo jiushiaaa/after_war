@@ -29,7 +29,7 @@ var CivilReadable={
     return [...new Set([...Object.keys(stock),...Object.keys(initial)])].map(id=>{
       const label=(typeof CivilFutureContent!=='undefined'?CivilFutureContent.labels[id]:null)||CivilText.labels[id]||id;
       const val=n=>(Number(n)||0).toLocaleString('zh-CN',{maximumFractionDigits:6});
-      return [label,this.resource(stock[id],id,mass),(mass&&this.masses.includes(id)?'本局质量单位：每份为1千克，1000千克为1吨；配方、运力按原始份数结算。':'原始账目单位，未折算为重量。')+['期初 '+val(initial[id]),'收货 '+val(book.received?.[id]),'生产 '+val(book.produced?.[id]),'外部净变化 '+val(book.external?.[id]),'消耗 −'+val(book.consumed?.[id]),'发货 −'+val(book.sent?.[id]),'当前 '+val(stock[id])].join('；')+'。在途货物未入库。'];
+      return [label,this.resource(stock[id],id,mass),(mass&&this.masses.includes(id)?'本局质量计量口径：每1标准份折合1千克，1000千克折算为1公吨；工艺配方与载具运能按原始记账份数结算。':'原始编制账面记账单位，未折算物理质量。')+['期初 '+val(initial[id]),'收货 '+val(book.received?.[id]),'生产 '+val(book.produced?.[id]),'外部净变化 '+val(book.external?.[id]),'消耗 −'+val(book.consumed?.[id]),'发货 −'+val(book.sent?.[id]),'当前 '+val(stock[id])].join('；')+'。在途货物未入库。'];
     });
   },
   population(s){
@@ -79,14 +79,14 @@ var CivilReadable={
       ['已承担共同责任',Object.entries(g.regions).filter(([,r])=>r.acceptedAt!==null).map(([id])=>CivilCensus.regions[id]).join('、')||'尚无'],
       ['连续履约',g.stable+'秒','以连续实付期计算；历史已付 '+g.paid+'期，延后 '+g.missed+'期。'],
       ['实际运单',g.ships.filter(v=>v.at!==null&&v.returnedAt===null).map(v=>'第'+v.id+'班 · '+CivilCensus.regions[v.region]).join('、')||'无在途船组']]);
-    $('#earthSummary > .civil-brief').text(g.unity?'共同法覆盖 '+this.number(CivilCensus.total(s),'人')+'；出生、死亡与新人格登记可查。':'先确认现有地区名册，再承担共同责任。');
+    $('#earthSummary > .civil-brief').text(g.unity?'共同法覆盖 '+this.number(CivilCensus.total(s),'人')+'；出生、死亡与新人格登记可查。':'须先行核准当地区域户籍名簿，方得正式签署并承担全域共同责任。');
     const alerts=[];if(g.last&&!g.last.paid)alerts.push({text:g.last.reason,go:()=>CivilEarthView.go('mandates')});for(const [id,r]of Object.entries(g.regions))if(r.last&&!r.last.paid)alerts.push({text:CivilCensus.regions[id]+'：'+r.last.reason,go:()=>CivilEarthView.go('regions',id)});if(g.ground&&!g.ground.completedAt)alerts.push({text:'闭环试验 '+g.ground.progress+'/300 秒，检查供料与测控',go:()=>CivilEarthView.go('flight')});this.alerts('#earthSummary > .civil-notices',alerts);
     if($('#earthAccounts').prop('open')){
-      this.rows('#earthAccounts > div',Object.entries(CivilEarthContent.regions).flatMap(([id,cfg])=>{const r=g.regions[id];if(!r)return [[CivilCensus.regions[id],'未普查']];const n=CivilEarth.local(d,id);return [[CivilCensus.regions[id],this.number(CivilDomain.count(n),'人'),(r.source==='reserve'?'来自该区开局底账的普查细分':'沿用原有地方名册')+'；出生 '+this.number(n.born)+'，死亡 '+this.number(n.dead)+'。'],['共同责任',r.mode?cfg.options[r.mode].name:'尚未议定'],['健康 / 维护',n.health+' / '+n.condition],['已付 / 延后',r.paid+' / '+r.missed+'期','每期按实际地方材料与公共维护结算，历史延付保留。']];}));
+      this.rows('#earthAccounts > div',Object.entries(CivilEarthContent.regions).flatMap(([id,cfg])=>{const r=g.regions[id];if(!r)return [[CivilCensus.regions[id],'未普查']];const n=CivilEarth.local(d,id);return [[CivilCensus.regions[id],this.number(CivilDomain.count(n),'人'),(r.source==='reserve'?'来自该区开局底账的普查细分':'沿用原有地方名册')+'；出生 '+this.number(n.born)+'，死亡 '+this.number(n.dead)+'。'],['共同责任',r.mode?cfg.options[r.mode].name:'尚未议定'],['健康 / 维护',n.health+' / '+n.condition],['已付 / 延后',r.paid+' / '+r.missed+'期','每期依实体地方建材与联合公共维保账册结算，历史延付欠款逐笔留痕。']];}));
       if(!$('#a7EarthCensus').length)$('<div>').attr('id','a7EarthCensus').appendTo('#earthAccounts > div');this.census(s,'#a7EarthCensus');
     }
     if($('#earthCargo').prop('open'))this.rows('#earthCargo > div',[
-      ['当前船组',CivilEarth.activeShip(g)+' / 2组','只统计尚未返程的实付船组。工程排队不算新船。'],['航天实耗电',this.number(g.work?.power||0),'来自当前真实航天岗位与测控需求。'],
+      ['当前船组',CivilEarth.activeShip(g)+' / 2组','仅核算尚未返港解脱之实出勤务船组。工程排期预设不计为在途船只。'],['航天实耗电',this.number(g.work?.power||0),'源自当前实体航天装配工位与测控阵列的瞬时负荷需求。'],
       ...this.ledger(d.world.nodes.north.stores,d.public,{},s.civilization.polishVersion===1),...g.ships.slice(-8).map(v=>[CivilCensus.regions[v.region]+'第'+v.id+'班',v.returnedAt?'已返回':v.arrivedAt?'返程':v.at===null?'待装船':'在途',CivilFuture.costText(v.goods)+'。实付运单，未到货不加入目标仓。'])]);
   },
   future(s){
@@ -94,7 +94,7 @@ var CivilReadable={
     const counts=CivilFuturePeople.counts(f);
     this.metricSources('#futureSummary',[
       ['居民主体',this.number(counts.total,'人'),'迁居 '+f.migrated+' + 出生 '+f.born+' + 新人格 '+f.created+' − 寿终 '+f.dead+' − 在途 '+CivilFuturePeople.away(f)+'；身体转换不产生新人。'],
-      ['身体',counts.bio+' 生物 / '+counts.mechanical+' 完整机械 / '+counts.synthetic+' 合成','生物含基因与义体居民，身份与公民资格另列。'],
+      ['身体',counts.bio+' 生物 / '+counts.mechanical+' 完整机械 / '+counts.synthetic+' 合成','生物身体包括普通、基因改造与辅助义体居民；身份与公民资格另行统计。'],
       ['储能',this.number(f.charge),'产生 '+f.energy.generated+' − 实耗 '+f.energy.used+' − 溢出 '+f.energy.spill],
       ['住房',f.assets.housing*240+'床','每处住房240床；现住 '+counts.total+'，在途预留 '+CivilFuturePeople.away(f)+'。'],
       ['连续服务',Math.floor(f.stable/60)+'期','已结算 '+f.rounds+'期；连续时间仅在口粮、诊疗、电力和公共维护均实付时累计，中断后重算。']]);
@@ -132,7 +132,7 @@ var CivilReadable={
   domain(s){const d=s.civilization.domain,n=d?.node;if(!n)return;
     this.metricSources('#domainSummary',[
       ['当地居民',this.number(CivilDomain.count(n),'人'),'普查 '+d.origin.population+' + 出生 '+n.born+' − 死亡 '+n.dead+' − 迁居 '+(s.civilization.polity?.future?.migrated||0)+'。原城市另有名册。'],
-      ['共同责任',this.number(CivilDomain.governed(s),'人'),d.mode==='shared'?'依据共同服务协约涵盖当地居民；签约不生成或迁移人口。':'互市/未签约不纳入共同服务。'],
+      ['共同责任',this.number(CivilDomain.governed(s),'人'),d.mode==='shared'?'依据联合公共服务成文条约涵盖当地合法居民；缔约绝不凭空创设或迁移自然人口。':'未缔约之互市据点与境外区域，暂不纳编联合公共服务网络。'],
       ['健康与维护',n.health+' / '+n.condition,'最近实际供养：'+(n.economy?.fed?'粮已付':'粮待恢复')+'，'+(n.economy?.treated?'诊疗已付':'诊疗待恢复')+'，'+(n.economy?.maintained?'维护已付':'维护待恢复')+'。']]);
     if($('#domainAccounts').prop('open'))this.rows('#domainAccounts > p',[
       ['北岸现住人口',this.number(CivilDomain.count(n),'人'),'普查 '+d.origin.population+' + 出生 '+n.born+' − 死亡 '+n.dead+' − 迁往共同体 '+(s.civilization.polity?.future?.migrated||0)+'；不含原城市重复人口。'],

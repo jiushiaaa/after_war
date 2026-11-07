@@ -8,7 +8,7 @@ function propose(h,axis){assert.ok(h.soc.beginReform(h.s,axis));h.ctx.Civilizati
 test('old natural saves and read-only history remain unchanged; old choices have no invented dates',()=>{
  const h=create();assert.deepEqual(clone(h.s),original);h.roundtrip();const before=JSON.stringify(h.s),view=h.ctx.CivilHistory.snapshot(h.s);
  assert.equal(h.s.civilization.decisions,undefined);assert.equal(view.entries.filter(e=>e.category==='governance').length,4);
- for(const e of view.entries.filter(e=>['policy','governance'].includes(e.category))){assert.equal(e.at,null);assert.match(e.detail,/原档未记/);}
+ for(const e of view.entries.filter(e=>['policy','governance'].includes(e.category))){assert.equal(e.at,null);assert.match(e.detail,/原始底档未载明/);}
  assert.equal(JSON.stringify(h.s),before);
 });
 test('native ration decisions record only actual changes and reject reused callbacks from old windows',()=>{
@@ -47,7 +47,7 @@ test('a legacy in-progress reservation can complete without inventing a proposal
  const h=create();propose(h,'charter');const legacy=clone(h.s);delete legacy.civilization.decisions; // Explicit old-save compatibility case.
  const restored=harness(legacy),before=restored.s.stores.knowledge;restored.ctx.Civilization.showPending();restored.click('custom');
  const d=restored.s.civilization.decisions;assert.equal(d.baseline.reform.knowledge,60);assert.equal(d.records.length,1);assert.equal(d.records[0].proposalId,0);near(restored.s.stores.knowledge,before);restored.roundtrip();
- const record=restored.ctx.CivilHistory.snapshot(restored.s).entries.find(e=>e.key==='decision_1');assert.match(record.detail,/原动议时间未知/);
+ const record=restored.ctx.CivilHistory.snapshot(restored.s).entries.find(e=>e.key==='decision_1');assert.match(record.detail,/原始动议发起时点已不可考/);
 });
 test('insufficient resources, invalid axes, current-value choices and busy requests leave no successful decision receipts',()=>{
  const h=create();h.s.stores.knowledge=0;const before=JSON.stringify(h.s);assert.equal(h.soc.beginReform(h.s,'structure'),false);assert.equal(h.soc.beginReform(h.s,'bogus'),false);assert.equal(JSON.stringify(h.s),before);assert.equal(h.s.civilization.decisions,undefined);

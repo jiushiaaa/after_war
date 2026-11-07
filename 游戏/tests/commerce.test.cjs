@@ -76,7 +76,7 @@ test('lost workers and closed roads pause actual movement without deleting cargo
 
 test('one instruction sends at most six trips and a paused pact stops new departures without swallowing existing cargo',()=>{
   const h=departing(),{s,trade}=h,o=trade.active(s);assert.equal(h.ctx.CivilDiplomacy.revise(s,'pause'),true);
-  h.until(()=>o.returnedAt!==null,1200);h.step(100);assert.equal(trade.data(s).orders.length,1);assert.ok(trade.plan(s));assert.match(trade.status(s),/已返城1趟.*尚余5趟未启程/);
+  h.until(()=>o.returnedAt!==null,1200);h.step(100);assert.equal(trade.data(s).orders.length,1);assert.ok(trade.plan(s));assert.match(trade.status(s),/累计归城1趟.*尚余5趟未发车/);
   assert.equal(h.ctx.CivilDiplomacy.revise(s,'resume'),true);
   h.until(()=>trade.data(s).orders.length===6&&trade.data(s).orders.at(-1).returnedAt!==null,6000);
   assert.equal(trade.plan(s),null);h.step(50);assert.equal(trade.data(s).orders.length,6);h.roundtrip();

@@ -46,7 +46,7 @@ var CivilAdvanced={
       const thermal=run(recipe.job,workers-powered,recipe.thermal,{[recipe.resource]:recipe.slow*factor});
       if((powered+thermal)>0&&factor>0)s.civilization.advanced.made[recipe.resource]=true;
       pollution+=(powered+thermal)*recipe.smoke;
-      if(id==='home'&&workers>powered&&!s.civilization.industry.blocked[recipe.job])s.civilization.industry.blocked[recipe.job]='电力不足，部分工序改用煤热';
+      if(id==='home'&&workers>powered&&!s.civilization.industry.blocked[recipe.job])s.civilization.industry.blocked[recipe.job]='电力不足，部分工序退回煤火慢熬';
     }
     return {used,demand:this.demand(s,id),pollution};
   },

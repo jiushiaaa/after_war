@@ -34,10 +34,10 @@ var CivilMetro={
     if(!previous||!this.coordinated(s,previous,previous.endsAt-1,true))return '上一完整互助周期仍待连续记录';
     for(const id of a.members.slice(1)){
       const o=f.orders.find(o=>o.id===previous.routeOrders[id]);
-      if(!o||o.status!=='complete'||o.returnedAt>previous.endsAt||!f.receipts.some(r=>r.orderId===o.id&&r.leg==='out'&&r.deliveredAt===o.deliveredAt)||!f.receipts.some(r=>r.orderId===o.id&&r.leg==='back'&&r.deliveredAt===o.returnedAt))return this.name(id)+'上一周期尚未按期履约';
+      if(!o||o.status!=='complete'||o.returnedAt>previous.endsAt||!f.receipts.some(r=>r.orderId===o.id&&r.leg==='out'&&r.deliveredAt===o.deliveredAt)||!f.receipts.some(r=>r.orderId===o.id&&r.leg==='back'&&r.deliveredAt===o.returnedAt))return this.name(id)+'在上一周期未能按期履约';
     }
-    if(previous.missed.length)return '上一周期仍有未履约事项';
-    if(f.lastSettledAt!==at||!this.coordinated(s,current,at))return '本周期共同记录曾中断，等待下一完整周期';
+    if(previous.missed.length)return '上一周期仍有未兑现的事项';
+    if(f.lastSettledAt!==at||!this.coordinated(s,current,at))return '本周期共同记录曾中断，须等下一完整周期重算';
     return null;
   },
   birthReserve(s,id){
@@ -73,38 +73,38 @@ var CivilMetro={
     const c=s.civilization,m=this.data(s),a=this.agreement(s),members=a?[...a.members]:[...(m?.formedMembers||[])],issues=[],reserves={},at=this.economy(s,'home')?.at;
     const result=()=>({ok:issues.length===0,reason:issues[0]?.message||null,reasons:issues.map(x=>x.message),issues,members,total:members.reduce((n,id)=>n+this.population(s,id),0),at:at??null,agreementId:a?.id??null,reserves});
     const fail=(code,message,nodeId)=>issues.push({code,message,...(nodeId?{nodeId}:{})});
-    if(!m||!a||a.paused||a.exitedAt!==null){fail('agreement','先维持三地共同互助约定');return result();}
+    if(!m||!a||a.paused||a.exitedAt!==null){fail('agreement','请先维持三地共同互助约定');return result();}
     if(members.length!==3||members[0]!=='home'||members.slice(1).some(id=>!CivilMunicipal.has(s,id))){fail('members','三地成员尚未登记齐全');return result();}
-    if(!this.sameMembers(m.members,members)||m.agreementId!==a.id){fail('observations','新的互助成员正在等待生产记录');return result();}
+    if(!this.sameMembers(m.members,members)||m.agreementId!==a.id){fail('observations','新加入的互助成员正等候首轮生产结算');return result();}
     for(const id of members){const home=id==='home',node=home?null:c.regions.nodes[id],registered=home?c.urban.city:c.municipal.nodes[id].city;
       if(!registered)fail('city',this.name(id)+'尚未登记城市职责',id);
-      if(this.population(s,id)<400)fail('population',this.name(id)+'尚未达到400位定居居民',id);
-      const cap=home?CivilCatalog.capacity(s):CivilMunicipal.capacity(s,id);if(this.population(s,id)+CivilUrban.reservedBeds(s,id)>cap)fail('housing',this.name(id)+'的住房已预留不足',id);
-      if(!home&&(!['associated','integrated'].includes(node.relation)||!(node.rights==='equal'||node.rights==='resident'&&c.elapsed-node.rightsSince>=600)))fail('rights',this.name(id)+'的共同资格仍待落实',id);
+      if(this.population(s,id)<400)fail('population',this.name(id)+'实住人口尚未满400人',id);
+      const cap=home?CivilCatalog.capacity(s):CivilMunicipal.capacity(s,id);if(this.population(s,id)+CivilUrban.reservedBeds(s,id)>cap)fail('housing',this.name(id)+'的房舍床位（含在途预留）不足',id);
+      if(!home&&(!['associated','integrated'].includes(node.relation)||!(node.rights==='equal'||node.rights==='resident'&&c.elapsed-node.rightsSince>=600)))fail('rights',this.name(id)+'的共同公民资格尚待落实',id);
     }
-    if(members.reduce((n,id)=>n+this.population(s,id),0)<3000)fail('total','三城实际定居人口尚未达到3000');
+    if(members.reduce((n,id)=>n+this.population(s,id),0)<3000)fail('total','三城实住总人口尚未满3000人');
     if(issues.length)return result();
-    if(!Number.isSafeInteger(at)||at>c.elapsed||c.elapsed-at>=10||members.some(id=>this.economy(s,id)?.at!==at)){fail('boundary','三城等待同一轮生产核验');return result();}
-    if(m.samples.length!==3||m.samples.at(-1).at!==at||m.samples.some((x,i)=>i&&x.at-m.samples[i-1].at!==10)){fail('samples','正在收集连续三轮维护记录');return result();}
-    for(const id of members)if(!this.same(m.samples.at(-1).nodes[id]?.census,this.census(s,id)))fail('census',this.name(id)+'的居民名册已变化，等待下一轮供养核验',id);
+    if(!Number.isSafeInteger(at)||at>c.elapsed||c.elapsed-at>=10||members.some(id=>this.economy(s,id)?.at!==at)){fail('boundary','三城正等候同一轮生产核验');return result();}
+    if(m.samples.length!==3||m.samples.at(-1).at!==at||m.samples.some((x,i)=>i&&x.at-m.samples[i-1].at!==10)){fail('samples','正在累计连续三轮的维护记录');return result();}
+    for(const id of members)if(!this.same(m.samples.at(-1).nodes[id]?.census,this.census(s,id)))fail('census',this.name(id)+'的户籍名册已有变动，等候下一轮供养核验',id);
     if(issues.length)return result();
     const finance=this.financeCheck(s,at);if(finance)fail('budget',finance);
-    if(!c.society.service||!c.regions.adminService)fail('administration','公共行政本轮费用未付齐，先恢复本城粮食与知识供养');
+    if(!c.society.service||!c.regions.adminService)fail('administration','公共行政本轮用度未付齐，请先恢复本城口粮与知识供应');
     if(CivilRegions.load(s)>CivilRegions.capacity(s))fail('administration',CivilRegions.coordinationStatus?CivilRegions.coordinationStatus(s):'三地协调容量不足');
     const committedCrew=CivilRegions.reservedTransport(s)+CivilUrban.reservedTransport(s),actualCrew=Math.min(s.game.workers.transporter||0,CivilCatalog.jobCapacity(s,'transporter'));
-    if(committedCrew>actualCrew)fail('crew','货运与客运的共同运输岗位尚有缺额');
-    for(const id of members.slice(1))if(!CivilRegions.serviceReady(s,id)||id==='river'&&(!s.game.buildings.road||c.outpostSupplied!==true))fail('route',this.name(id)+'路线等待班组、通路或近期实到',id);
+    if(committedCrew>actualCrew)fail('crew','货运与客运所需的运输工仍有缺额');
+    for(const id of members.slice(1))if(!CivilRegions.serviceReady(s,id)||id==='river'&&(!s.game.buildings.road||c.outpostSupplied!==true))fail('route',this.name(id)+'路线正等候配齐班组、修通道路或近期货物抵仓',id);
     for(const id of members){
       const home=id==='home',e=this.economy(s,id),service=c.services?.nodes[id],power=home?c.industry:c.municipal.nodes[id].power,pop=this.population(s,id);
-      if(!e.paidInputs||e.paidInputs.at!==at||!e.treatmentInputs||e.treatmentInputs.at!==at||!Number.isFinite(e.treatmentInputs.resources.medicine)||e.treatmentInputs.resources.medicine+1e-8<pop*.01||!home&&(e.mealInputs?.at!==at||!Number.isFinite(e.mealInputs.resources.food)||e.mealInputs.resources.food+1e-8<this.census(s,id).foodPopulation*.12)){fail('treatment',this.name(id)+'本轮口粮或治疗付款尚不足',id);continue;}
-      if(!(home?CivilUrban.developmentReady(s,true):CivilMunicipal.developmentReady(s,id,true))){fail('supply',this.name(id)+'本轮粮药、教学或工业供养尚未稳定',id);continue;}
-      if(!service||service.economy?.at!==at||service.irrigation?.at!==at||service.irrigation.waterCapacity+1e-8<pop){fail('water',this.name(id)+'本轮实际供水尚未覆盖居民',id);continue;}
+      if(!e.paidInputs||e.paidInputs.at!==at||!e.treatmentInputs||e.treatmentInputs.at!==at||!Number.isFinite(e.treatmentInputs.resources.medicine)||e.treatmentInputs.resources.medicine+1e-8<pop*.01||!home&&(e.mealInputs?.at!==at||!Number.isFinite(e.mealInputs.resources.food)||e.mealInputs.resources.food+1e-8<this.census(s,id).foodPopulation*.12)){fail('treatment',this.name(id)+'本轮口粮或看诊用药尚未付足',id);continue;}
+      if(!(home?CivilUrban.developmentReady(s,true):CivilMunicipal.developmentReady(s,id,true))){fail('supply',this.name(id)+'本轮粮药、学堂或工业运转尚未稳定',id);continue;}
+      if(!service||service.economy?.at!==at||service.irrigation?.at!==at||service.irrigation.waterCapacity+1e-8<pop){fail('water',this.name(id)+'本轮实际供水尚未覆盖全城居民',id);continue;}
       const production=home?e.productionPower:e.productivePower;
-      if(!power||!Number.isFinite(power.generation)||!Number.isFinite(power.used)||power.used<0||power.used>power.generation+1e-8||!Number.isFinite(production)||production<4||power.used+1e-8<production||service.economy.used>power.used+1e-8){fail('power',this.name(id)+'本地供电或实际机械用电不足',id);continue;}
+      if(!power||!Number.isFinite(power.generation)||!Number.isFinite(power.used)||power.used<0||power.used>power.generation+1e-8||!Number.isFinite(production)||production<4||power.used+1e-8<production||service.economy.used>power.used+1e-8){fail('power',this.name(id)+'本地供电或机械车间实际用电不足',id);continue;}
       const f=home?CivilUrban.forecast(s):CivilMunicipal.forecast(s,id);
-      if(!f.paidInputs?.resources||!this.forecastReady(s,id,f)){fail('forecast',this.name(id)+'下一轮粮药、水务或工业投入不足',id);continue;}
+      if(!f.paidInputs?.resources||!this.forecastReady(s,id,f)){fail('forecast',this.name(id)+'下一轮所需的粮药、水务或工业原料不足',id);continue;}
       const need=reserves[id]=this.reserve(s,id,f),store=this.stores(s,id);
-      for(const [key,amount]of Object.entries(need))if((store[key]||0)+1e-8<amount){fail('reserve',this.name(id)+'须留下300秒'+_(key)+'与已承诺支出',id);break;}
+      for(const [key,amount]of Object.entries(need))if((store[key]||0)+1e-8<amount){fail('reserve',this.name(id)+'须留足300秒的'+_(key)+'及已承诺开支',id);break;}
     }
     return result();
   },
@@ -135,14 +135,14 @@ var CivilMetro={
   nextEvent(s){return !this.data(s)?.offered&&this.canRegister(s)?'metroCharter':null;},
   event(id,done){
     if(!this.pendingIds.includes(id))return null;const s=State,m=this.data(s);if(!m)return null;const state=this.check(s);
-    if(id==='metroCharter')return {title:'三城的共同职责',text:['三城的诊疗、课堂、田地与工坊，已连续维持了共同约定。道路上的物资按仓交付，代表们带来了各自的公共记录。','他们准备把城市群的共同职责写入这一代与下一代都能查阅的账册。'],buttons:{register:{text:'登记城市群共同职责',nextScene:'end',onChoose:()=>{const ok=this.register(s);m.offered=true;return done(ok?'三城登记了城市群的共同职责。居民、仓库与地方议事仍由原有记录继续管理。':'供养或议事条件已有变化，下一轮核验后再商议。')();}},later:{text:'继续核对账册',nextScene:'end',onChoose:()=>{m.offered=true;return done('代表们继续核对三城的供养与运输记录。')();}}}};
-    return {title:'三城公共记录',text:[state.members.length?state.members.map(id=>this.name(id)+' '+this.population(s,id)+'人').join('；')+'。':'先建立三地互助约定。','定居人口 '+state.total+' / 3000；连续稳定 '+m.stableSeconds+' / 600秒。',m.formedAt!==null?'共同职责已登记，三城仍须继续维持日常供养。':state.ok?'当前供养正常，代表继续观察。':state.reason||'等待下一轮核验。'],buttons:{close:{text:'合上记录',nextScene:'end',onChoose:done('公共记录留在议事屋，供下一次核对。')}}};
+    if(id==='metroCharter')return {title:'三城的共同职责',text:['三座城市的诊所、学堂、田垄与工坊，已连续履行共同约定。公路上的车队按约入仓交割，三地代表捧着各自的公共账册聚到了一处。','他们准备将城市群的共同权责郑重立约，留在一本让这一代与下一代人都能随时翻检的总册里。'],buttons:{register:{text:'登记城市群共同职责',nextScene:'end',onChoose:()=>{const ok=this.register(s);m.offered=true;return done(ok?'三城正式登记了城市群的共同职责。各地户籍、公仓与地方议事仍按原有章程各司其职。':'眼下供养或议事条件有所波动，待下一轮核验平稳后再议。')();}},later:{text:'继续核对账册',nextScene:'end',onChoose:()=>{m.offered=true;return done('代表们继续逐条核对着三城的供养与货运回执。')();}}}};
+    return {title:'三城公共记录',text:[state.members.length?state.members.map(id=>this.name(id)+' '+this.population(s,id)+'人').join('；')+'。':'请先签下三地互助约定。','实住总人口 '+state.total+' / 3000；连续稳定 '+m.stableSeconds+' / 600秒。',m.formedAt!==null?'城市群共同职责已登记在册，三城仍须各自守好日常供养底线。':state.ok?'当前各地供养平稳，代表们继续留心观察。':state.reason||'等候下一轮生产核验。'],buttons:{close:{text:'合上记录',nextScene:'end',onChoose:done('公共记录留存议事屋案头，备下次翻检。')}}};
   },
   refresh(){
     if(typeof $==='undefined'||!$('#councilPanel').length)return;const s=State,m=this.data(s),a=this.agreement(s),visible=!!m&&(m.formedAt!==null||a&&a.members.slice(1).some(id=>s.civilization.municipal?.nodes[id]?.city));
     if(!visible){$('#metroButton').hide();$('#metroSummary').hide();return;}
     const status=this.check(s),button=Civilization.button('metroButton','核对三城职责','#councilPanel',()=>{if(Events.activeEvent()||State.civilization.pending)return;State.civilization.pending=this.canRegister(State)?'metroCharter':'metroStatus';Civilization.showPending();});button.show();
-    let summary=$('#metroSummary');if(!summary.length)summary=$('<div>').attr('id','metroSummary').css({lineHeight:'1.8',width:'420px',maxWidth:'100%',marginTop:'12px'}).appendTo('#councilPanel');summary.show().text('三城定居 '+status.total+' / 3000，连续稳定 '+m.stableSeconds+' / 600秒。'+(status.ok?'各地供养正在维持。':status.reason||'等待下一轮核验。'));
+    let summary=$('#metroSummary');if(!summary.length)summary=$('<div>').attr('id','metroSummary').css({lineHeight:'1.8',width:'420px',maxWidth:'100%',marginTop:'12px'}).appendTo('#councilPanel');summary.show().text('三城实住 '+status.total+' / 3000，连续稳定 '+m.stableSeconds+' / 600秒。'+(status.ok?'三地日常供养正平稳维系。':status.reason||'等候下一轮生产核验。'));
   },
   reset(){this.pendingFinal=new WeakMap();},
   validate(s){

@@ -5,8 +5,8 @@
 var CivilCourse={
   pendingIds:['course_choice','course_issue','course_craftsman','course_coop'],
   choices:{
-    commons:{name:'田地与公共服务优先',short:'田地与公共服务',detail:'先扩灌溉、诊疗与课堂，用木料、工具和人手修合作联排。不挖矿、不建燃煤电站也能成城，金属主要来自回收和邻居。农夫产粮 +15%。'},
-    industry:{name:'回收、工业与贸易优先',short:'回收与工业',detail:'先勘矿、冶铁、造机器和发电，用铁与零件建公共设施和住宅。产出多、进度快，但烟尘伤健康。回收工产出 +25%。'}
+    commons:{name:'田地与公共服务优先',short:'田地与公共服务',detail:'先扩建灌渠、诊所与学堂，用木料、工具和人手筑起合作联排。不开矿、不建燃煤电站也能立城，金属主要靠废墟拆解与邻里互通。农夫产粮 +15%。'},
+    industry:{name:'回收、工业与贸易优先',short:'回收与工业',detail:'先探矿、冶铁、造机器并架设电网，用铁料与零件兴建公用设施和住宅。产出高、步子快，但炉烟伤肺。回收工产出 +25%。'}
   },
   // Research that each course reaches differently. Industry keeps the original table.
   research:{
@@ -111,34 +111,34 @@ var CivilCourse={
     if(id==='course_choice'){
       if(!this.needsChoice(s))return null;
       const buttons={};
-      for(const [key,ch] of Object.entries(this.choices))buttons['course_'+key]={text:ch.name,nextScene:'end',onChoose:done('小镇决定：'+ch.name+'。',()=>this.choose(s,key))};
+      for(const [key,ch] of Object.entries(this.choices))buttons['course_'+key]={text:ch.name,nextScene:'end',onChoose:done('小镇定下方略：'+ch.name+'。',()=>this.choose(s,key))};
       return {title:'小镇往哪里去',text:[
-        '农户想要更多灌渠和诊所，回收工想去山坡下找矿，工匠说两头都缺人手。',
+        '农户盼着多修灌渠和诊所，回收工想往山坡下探矿，工匠摊开手说两头都缺人。',
         '田地与公共服务：'+this.choices.commons.detail,
         '回收与工业：'+this.choices.industry.detail,
-        '这个方针决定本轮城镇发展的研究顺序和主要投资，暂不提供改向。'],buttons};
+        '这项方针将决定本阶段城镇的研究次序与重心，定下后暂无法改向。'],buttons};
     }
     if(id==='course_issue'){
       if(!this.issueReady(s))return null;
-      if(d.id==='commons')return {title:'收获季的课堂',text:['田里的粮熟得比人手快。农户要求学堂停课两季，让教师和大孩子下地。','教师说停了课，今年的孩子就跟不上。'],buttons:{
-        harvest:{text:'停课帮收（两名教师改去种田）',nextScene:'end',available:()=>(s.game.workers.teacher||0)>0&&(!pacing||CivilCatalog.jobCapacity(s,'farmer')>(s.game.workers.farmer||0)),onChoose:done((pacing?'教师':'两名教师')+'下了田。学堂暂时只剩识字课。'+(pacing&&CivilPacing.data(s)?.enabled?'轮值分工交回手动，岗位按这次议定保留。':''),()=>this.resolveIssue(s,'harvest'))},
-        school:{text:'课照常上',nextScene:'end',onChoose:done('学堂照常开课。农户把收割排得更紧了。',()=>this.resolveIssue(s,'school'))}}};
-      return {title:'烟尘与诊所',text:['冶炼炉的烟压在镇子上空。诊所里咳嗽的人多了，医护来议事。','炉子不停，铁就多；停一班，孩子们能少咳几天。'],buttons:{
-        shift:{text:'冶炼减一班（两名冶炼工改回空闲）',nextScene:'end',available:()=>(s.game.workers.smelter||0)>0,onChoose:done('冶炼炉少开了一班。',()=>this.resolveIssue(s,'shift'))},
-        medicine:{text:'多拨药品（药品 4）',nextScene:'end',...(s.civilization.pacingVersion===2?{available:()=>CivilRules.canPay(s,{medicine:4})}:{cost:{medicine:4}}),onChoose:done('诊所多拿到一批药。',()=>this.resolveIssue(s,'medicine'))},
-        keep:{text:'照常生产',nextScene:'end',onChoose:done('炉子照常运转。不少居民记下了这次议事。',()=>this.resolveIssue(s,'keep'))}}};
+      if(d.id==='commons')return {title:'收获季的课堂',text:['地里的庄稼熟得急，人手跟不上了。农户们找上门，要学堂停课两季，让先生领着半大孩子下地抢收。','先生却摁着课本说，这一停，今年孩子们的功课就全落下了。'],buttons:{
+        harvest:{text:'停课帮收（两名教师改去种田）',nextScene:'end',available:()=>(s.game.workers.teacher||0)>0&&(!pacing||CivilCatalog.jobCapacity(s,'farmer')>(s.game.workers.farmer||0)),onChoose:done((pacing?'教师':'两名教师')+'挽起裤腿下了田。学堂里暂且只留识字课。'+(pacing&&CivilPacing.data(s)?.enabled?'轮值分工切回手动，岗位按这次商定的结果保留。':''),()=>this.resolveIssue(s,'harvest'))},
+        school:{text:'课照常上',nextScene:'end',onChoose:done('学堂照旧敲钟上课。农户们只得把抢收的班次排得更紧了。',()=>this.resolveIssue(s,'school'))}}};
+      return {title:'烟尘与诊所',text:['冶炼炉的黑烟成天压着镇子。诊所里咳喘的人排起了队，医护找来讨个说法。','炉火不停，铁锭才跟得上；可歇上一班，孩子们的肺能好受几天。'],buttons:{
+        shift:{text:'冶炼减一班（两名冶炼工改回空闲）',nextScene:'end',available:()=>(s.game.workers.smelter||0)>0,onChoose:done('冶炼炉撤下了一班人手。',()=>this.resolveIssue(s,'shift'))},
+        medicine:{text:'多拨药品（药品 4）',nextScene:'end',...(s.civilization.pacingVersion===2?{available:()=>CivilRules.canPay(s,{medicine:4})}:{cost:{medicine:4}}),onChoose:done('诊所多领到了一批止咳与清肺的药。',()=>this.resolveIssue(s,'medicine'))},
+        keep:{text:'照常生产',nextScene:'end',onChoose:done('炉火照旧昼夜不息。不少人默默记下了今天这笔账。',()=>this.resolveIssue(s,'keep'))}}};
     }
     if(id==='course_coop'){
       if(!this.coopReady(s))return null;
-      return {title:'工具台归谁管',text:['制器工提出把工具台交给他们自己经营：他们照看炉子和夹具，产量能多两成。','条件是每批工具留四分之一归合作社；镇上工具不足 15 件时，再按每件 1 份食物买回。公营则全部入公库，产量照旧。'],buttons:{
-        coop:{text:'交给制器合作社',nextScene:'end',onChoose:done('工具台由制器合作社经营。合作社库存与买回记录单独记账。',()=>this.arrange(s,'coop'))},
-        public:{text:'仍由公共工坊经营',nextScene:'end',onChoose:done('工具台仍归公共工坊，全部产出入公库。',()=>this.arrange(s,'public'))}}};
+      return {title:'工具台归谁管',text:['几个制器工联名提议，把工具台包给他们自己管：由他们日夜看顾炉火和夹具，产出能多上两成。','条件是每批工具得留四分之一归合作社自存；等镇上公库工具少于 15 件时，再按每件 1 份食物的价钱回购。若维持公营，则产出一律入公库，快慢照旧。'],buttons:{
+        coop:{text:'交给制器合作社',nextScene:'end',onChoose:done('工具台交由制器合作社经营。社仓存量与公库回购单独立账。',()=>this.arrange(s,'coop'))},
+        public:{text:'仍由公共工坊经营',nextScene:'end',onChoose:done('工具台仍归公共工坊，打出的器具悉数入公库。',()=>this.arrange(s,'public'))}}};
     }
     if(id==='course_craftsman'){
       if(!this.craftsmanReady(s))return null;
-      return {title:'老工匠的工具箱',text:['最早倒在炉边的那位工匠，手已经握不稳刨子了。她把工具箱推到桌上。','“炉子、门窗、陷阱，这些年都是我在弄。往后得有人接着做。”'],buttons:{
-        apprentice:{text:'交给工坊学徒（需要有制器工在岗）',nextScene:'end',onChoose:done('工坊学徒接过了工具箱。只要有制器工在岗，炉边每 10 秒仍多 2 份木料。',()=>this.retireCraftsman(s,'apprentice'))},
-        rota:{text:'改由居民轮值',nextScene:'end',onChoose:done('炉火和维修改由居民轮流照看。每 10 秒多 1 份木料。',()=>this.retireCraftsman(s,'rota'))}}};
+      return {title:'老工匠的工具箱',text:['当年最先倒在炉边的那位工匠，如今手已经推不动刨子了。她把磨得发亮的工具箱推到桌心。','“炉子、门窗、外头的陷阱，这些年都是我盯着。往后，得换双稳当的手接着干了。”'],buttons:{
+        apprentice:{text:'交给工坊学徒（需要有制器工在岗）',nextScene:'end',onChoose:done('学徒接过了沉甸甸的工具箱。只要工坊里有制器工当值，炉边每 10 秒仍能多攒下 2 份木料。',()=>this.retireCraftsman(s,'apprentice'))},
+        rota:{text:'改由居民轮值',nextScene:'end',onChoose:done('看火与日常修补改由街坊轮流搭手。每 10 秒可多攒下 1 份木料。',()=>this.retireCraftsman(s,'rota'))}}};
     }
     return null;
   },
@@ -172,7 +172,7 @@ var CivilCourse={
 CivilCatalog.limits.commonhouse=12;
 CivilText.labels.commonhouse='合作联排';
 if(typeof CivilUrban!=='undefined')CivilUrban.buildings.commonhouse={cost:()=>({wood:300+(State.game.buildings.commonhouse||0)*40,tools:16}),max:12,gate:()=>CivilCourse.is(State,'commons')&&!!State.civilization.tech.standards&&CivilUrban.publicServices(State)};
-CivilText.buildings.commonhouse=['工匠和农户画出了一排排夯土联排的图样。只用木料、工具和人手。','合作联排完工了，添了三十二张床。修缮由住户轮流负责。'];
+CivilText.buildings.commonhouse=['工匠与农户合力画出了夯土联排屋的图样。不费寸铁，全凭木料、工具和街坊的力气。','合作联排落成，屋檐下添了三十二张床位。往后的修缮由住户轮流担待。'];
 (function(){
   const preCapacity=CivilCatalog.capacity;
   CivilCatalog.capacity=function(s){return preCapacity(s)+(s.game.buildings.commonhouse||0)*32;};

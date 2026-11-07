@@ -165,10 +165,10 @@ var CivilExpedition={
       if(k==='water'||k==='archive'||n<=1e-9)continue;
       if(CivilCatalog.resources.includes(k)){s.stores[k]=(s.stores[k]||0)+n;brought[k]=n;}
     }
-    if(p.pack.archive){d.sites.ruin.state='preserved';this.record(s,'ruin','旧气象站档案入库','风速纸带和撤离前的值班日志被晾干、编号，放进了工坊。');}
+    if(p.pack.archive){d.sites.ruin.state='preserved';this.record(s,'ruin','旧气象站档案入库','风速纸带与撤离前的值班日志被逐页晾干、编上号，收进了工坊。');}
     if(p.hurt>0)d.resting={count:p.hurt,until:s.civilization.elapsed+C.injuryRest};
     const text=Object.entries(brought).map(([k,n])=>(CivilText.labels[k]||k)+' '+Math.round(n*100)/100).join('、');
-    this.record(s,'trip','第'+d.trips+'次近郊往返',p.members+'人出发，走了'+p.steps+'步。'+(text?'带回 '+text+'。':'没有带回物资。')+(p.hurt?p.hurt+'人受伤需要休养。':''));
+    this.record(s,'trip','第'+d.trips+'次近郊往返',p.members+'人出发，走了'+p.steps+'步。'+(text?'带回 '+text+'。':'两手空空地回来了。')+(p.hurt?p.hurt+'人负伤，需卧床休养。':''));
     d.party=null;
     return brought;
   },
@@ -177,7 +177,7 @@ var CivilExpedition={
     if((typeof CivilEquipment!=='undefined'&&CivilEquipment.enabled(s)))s.civilization.fieldEquipment.ammoSpent+=p.pack.ammunition||0;
     if(p.pack.archive&&d.sites.ruin.state==='carried')d.sites.ruin.state='new';
     d.resting={count:p.members,until:c.elapsed+(paid?C.injuryRest:C.injuryRest*2)};
-    this.record(s,'rescue','近郊救援',p.members+'人在离家'+p.steps+'步处耗尽补给。'+(paid?'聚落拿出食物 '+C.rescue.food+'、木料 '+C.rescue.wood+' 组织救援，':'聚落拿不出救援物资，他们自己拖着身子回来，')+'背包里的东西都留在了荒地。');
+    this.record(s,'rescue','近郊救援',p.members+'人在离家'+p.steps+'步外断了补给。'+(paid?'聚落凑出食物 '+C.rescue.food+'、木料 '+C.rescue.wood+' 前去接应，':'聚落匀不出救援物资，他们只能自己一步步挪回来，')+'背囊里的东西全丢在了荒野上。');
     d.party=null;return paid;
   },
   // --- site and encounter choices; each returns a message or false ---
@@ -223,43 +223,43 @@ var CivilExpedition={
     const opt=info?.options.find(o=>o.id===id);if(!opt||opt.reason)return false;
     const C=this.C(),site=info.site,c=s.civilization;
     if(site==='beetle'){
-      if(id==='shoot'){p.pack.ammunition-=2;c.fieldEquipment.ammoSpent+=2;p.noise=6;p.encounter=null;p.smoke=true;this.record(s,'beetle','近郊枪声','两发弹药实耗；眼前甲虫退开，枪声引来新的追随者。');return '枪声越过了荒地。眼前的虫群退开，远处有什么东西开始移动。';}
-      if(id==='silent'){this.consume(p,2);p.encounter=null;p.smoke=true;p.noise=0;this.record(s,'beetle','静默绕行','小队花两步补给绕开，没有留下枪声。');return '脚步埋进湿土里。小队慢慢绕过洼地。';}
+      if(id==='shoot'){p.pack.ammunition-=2;c.fieldEquipment.ammoSpent+=2;p.noise=6;p.encounter=null;p.smoke=true;this.record(s,'beetle','近郊枪声','打空两发弹药；眼前的甲虫退散了，枪声却惊动了远处的窥伺者。');return '枪声荡过荒原。面前的虫群缩回石缝，更远处却有什么东西动了起来。';}
+      if(id==='silent'){this.consume(p,2);p.encounter=null;p.smoke=true;p.noise=0;this.record(s,'beetle','静默绕行','小队多花两步补给绕过洼地，没有惊动周围。');return '靴子陷进湿泥里。小队屏住呼吸，从洼地外围摸了过去。';}
       if(id==='back'){p.pos=[...p.prev];p.encounter=null;return '小队退回了洼地边缘。';}
-      if(id==='smoke'){p.pack.wood=Math.round((p.pack.wood-2)*100)/100;p.smoke=true;p.encounter=null;this.record(s,'beetle','烟驱甲虫','湿枝的烟让甲虫缩回了石缝。这次能过去，下次它们还会出来。');return '浓烟压低了洼地。甲虫缩回了碎石下面。';}
-      if(id==='observe'){this.consume(p,5);d.beetles='observed';p.encounter=null;this.record(s,'beetle','记下灰壳甲虫的习性','甲虫在气温最低时停止活动。之后小队只在寒冷时段穿过洼地。');return '你们趴在碎石后面看了很久。气温降下来后，甲虫一只只僵住不动了。';}
-      if(id==='rush'){const lost=Math.round((p.pack.food||0)*.4*100)/100;p.pack.food=Math.round(((p.pack.food||0)-lost)*100)/100;p.hurt=Math.min(p.members,p.hurt+1);p.smoke=true;p.encounter=null;this.record(s,'beetle','硬闯甲虫洼地','一人被咬伤，口粮袋被咬破，丢了 '+lost+' 份食物。');return '甲虫扑了上来。一个人的小腿被咬伤，口粮袋也破了。';}
+      if(id==='smoke'){p.pack.wood=Math.round((p.pack.wood-2)*100)/100;p.smoke=true;p.encounter=null;this.record(s,'beetle','烟驱甲虫','湿柴闷出的浓烟逼退了甲虫。这回能过去，下次它们还会爬出来。');return '浓烟贴着洼地漫开。甲虫纷纷缩回碎石底下。';}
+      if(id==='observe'){this.consume(p,5);d.beetles='observed';p.encounter=null;this.record(s,'beetle','记下灰壳甲虫的习性','甲虫在温度跌到底时会冻僵。往后小队只挑最冷的时辰穿过洼地。');return '你们伏在碎石后盯了许久。寒气一上来，甲虫便一只接一只僵在原地。';}
+      if(id==='rush'){const lost=Math.round((p.pack.food||0)*.4*100)/100;p.pack.food=Math.round(((p.pack.food||0)-lost)*100)/100;p.hurt=Math.min(p.members,p.hurt+1);p.smoke=true;p.encounter=null;this.record(s,'beetle','硬闯甲虫洼地','一人被咬伤，干粮袋也被扯破，撒了 '+lost+' 份食物。');return '甲虫群扑了上来。一名队员小腿见了血，干粮袋也被大颚剪破了。';}
     }
-    if(id==='leave')return '小队没有动这里的东西。';
+    if(id==='leave')return '小队没动这里的东西。';
     if(site==='station'){
       const st=d.sites.station;
       if(id==='recover'){
         st.state='recovered';st.stock=40;c.station=true;c.visited.station=true;
         const got=this.load(p,'scrap',24);st.stock+=Math.round((24-got)*100)/100;
-        this.record(s,'station','旧交通站','候车厅的货运表最后一班没有注销，目的地仍写着火星。维修图背面标着一座泵站。');
+        this.record(s,'station','旧交通站','候车厅墙上的货运表停在最后一班，终点栏仍印着“火星”。翻过来的维修图背面，标着一座泵站。');
         this.reveal(d,4,19,0);
-        return '带回了泵站路线和 '+got+' 份废料'+(got<24?'；背不下的留在站台。':'。');
+        return '带回了泵站路线图与 '+got+' 份废料'+(got<24?'；背不动的暂且留在站台。':'。');
       }
-      if(id==='strip'){const got=this.load(p,'scrap',Math.min(8,st.stock));st.stock=Math.round((st.stock-got)*100)/100;return '拆下了 '+got+' 份废料。站台还剩约 '+Math.floor(st.stock)+' 份。';}
+      if(id==='strip'){const got=this.load(p,'scrap',Math.min(8,st.stock));st.stock=Math.round((st.stock-got)*100)/100;return '撬下 '+got+' 份废料。站台上大约还能拆出 '+Math.floor(st.stock)+' 份。';}
     }
     if(site==='pump'){
       const st=d.sites.pump;
-      if(id==='survey'){st.state='surveyed';this.record(s,'pump','泵站勘明','控制柜断电，机械旁路还在。需要净水工艺与维修件。');return '控制柜停了电，但机械旁路还在。带上木料与废料，再来就能修。';}
+      if(id==='survey'){st.state='surveyed';this.record(s,'pump','泵站勘明','配电柜死了，但机械旁路完好。修复需要净水工艺与维修件。');return '配电柜早断了电，好在机械旁路还能用。下次备齐木料和废料就能修。';}
       if(id==='repair'){p.pack.wood=Math.round((p.pack.wood-C.repairKit.wood)*100)/100;p.pack.scrap=Math.round((p.pack.scrap-C.repairKit.scrap)*100)/100;st.state='repaired';c.pump=true;c.visited.pump=true;
-        this.record(s,'pump','泵站重新转动','照工坊的试制记录接好了过滤管。泵站成为小队的补水点，聚落可以沿管线设补给外站。');return '泵轮重新转动。这里成了小队的补水点。';}
+        this.record(s,'pump','泵站重新转动','照着工坊的试制记录接通了滤水管。泵站成了近郊的补水点，聚落也能顺着管线设立补给外站了。');return '叶轮重新转了起来。往后小队路过这里都能补水。';}
       if(id==='refill'){const before=p.pack.water||0;this.load(p,'water',p.cap);return '水壶灌满了（+'+Math.round(((p.pack.water||0)-before)*100)/100+'）。';}
     }
     if(site==='ruin'){
       const st=d.sites.ruin;
-      if(id==='preserve'){p.pack.archive=1;st.state='carried';return '你们把纸带卷好包进油布。它很重，但只要带回去，工坊就能读懂这片天气。';}
-      if(id==='dismantle'){st.state='dismantled';const got=this.load(p,'scrap',st.stock);st.stock=Math.round((st.stock-got)*100)/100;this.record(s,'ruin','拆解旧气象站','仪器拆成了废料，纸质档案受潮散落，无法再整理。');return '拆下 '+got+' 份废料。湿透的纸带落了一地。';}
-      if(id==='strip'){const got=this.load(p,'scrap',st.stock);st.stock=Math.round((st.stock-got)*100)/100;return '又搬走 '+got+' 份废料。';}
+      if(id==='preserve'){p.pack.archive=1;st.state='carried';return '你们把纸带仔细卷好，裹进油布。分量不轻，但只要背回去，工坊就能摸准这片荒原的脾气。';}
+      if(id==='dismantle'){st.state='dismantled';const got=this.load(p,'scrap',st.stock);st.stock=Math.round((st.stock-got)*100)/100;this.record(s,'ruin','拆解旧气象站','仪器被拆成废铁，受潮的纸带散落一地，再也没法拼凑了。');return '拆下 '+got+' 份废料。泡烂的纸带踩进泥里，模糊成一团。';}
+      if(id==='strip'){const got=this.load(p,'scrap',st.stock);st.stock=Math.round((st.stock-got)*100)/100;return '又拆走了 '+got+' 份废料。';}
     }
     if(site==='cellar'){
       const st=d.sites.cellar;
-      if(id==='share'){p.pack.food=Math.round((p.pack.food-3)*100)/100;st.state='helped';this.revealHints(s);this.record(s,'cellar','储藏室里的幸存者','小队留下 3 份口粮。老测量员画出了泵站与甲虫洼地的位置。');return '老测量员收下口粮，在地上画出泵站的方位，又提醒你们：洼地里的甲虫怕冷也怕烟。';}
-      if(id==='ask'){st.state=st.state==='new'?'met':st.state;this.revealHints(s);return '他们不肯开门，只从缝里说：西南洼地有甲虫，泵站在更远的西边。';}
-      if(id==='invite'){st.state='invited';d.survivors={count:3,invitedAt:c.elapsed};this.record(s,'cellar','邀请储藏室的人','他们答应等聚落空出三张床就搬过去。');return '老测量员说，等你们那边空出三张床、口粮够吃，他们就过去。';}
+      if(id==='share'){p.pack.food=Math.round((p.pack.food-3)*100)/100;st.state='helped';this.revealHints(s);this.record(s,'cellar','储藏室里的幸存者','小队分出 3 份口粮。老测量员在地上画出了泵站与甲虫洼地的方位。');return '老测量员接过口粮，拿树枝在灰土上标出泵站的方位，末了又叮嘱一句：洼地里的甲虫怕冷，也怕烟熏。';}
+      if(id==='ask'){st.state=st.state==='new'?'met':st.state;this.revealHints(s);return '里头的人没开门，只隔着门缝传话：西南洼地有甲虫，泵站在更远的西边。';}
+      if(id==='invite'){st.state='invited';d.survivors={count:3,invitedAt:c.elapsed};this.record(s,'cellar','邀请储藏室的人','他们应下了，只等聚落腾出三张空床就动身。');return '老测量员说，等你们那儿腾出三张空床、锅里有余粮了，他们师徒就搬过去。';}
     }
     return false;
   },
@@ -273,7 +273,7 @@ var CivilExpedition={
     if(beds<v.count||(s.stores.food||0)<12||s.civilization.hunger)return null;
     s.game.population+=v.count;if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'cellar','home',v.count,'储藏室居民迁入');d.sites.cellar.state='joined';d.survivors=null;
     if(typeof CivilSociety!=='undefined')CivilSociety.sync(s);
-    this.record(s,'cellar','储藏室的人搬进聚落','老测量员和两个徒弟住进了聚落。他记得旧城的道路编号。');
+    this.record(s,'cellar','储藏室的人搬进聚落','老测量员带着两个徒弟在聚落安了家。他脑子里还记着旧城的道路编号。');
     return 'joined';
   },
   validate(state){
@@ -347,10 +347,10 @@ var CivilExpedition={
     const r=this.act(()=>this.move(State,dx,dy));
     if(r&&typeof CivilSound!=='undefined')CivilSound.effect(r==='encounter'?'audio/encounter-tier-1.flac':'audio/footsteps-1.flac');
     if(r==='home')Civilization.notify(this.C().text.home);
-    else if(r==='collapse')Civilization.notify(this.C().text.collapse+' 背包留在了荒地，小队带伤回到聚落。');
+    else if(r==='collapse')Civilization.notify(this.C().text.collapse+' 背囊丢在了荒野，小队带伤退回聚落。');
     else if(r==='encounter')this.openChoices();
     else if(r==='site')this.openChoices();
-    else if(r==='cache')Civilization.notify('在路边的翻倒车厢里找到了一些还能用的东西。');
+    else if(r==='cache')Civilization.notify('在路边倾覆的车厢里翻出了几件还能派上用场的东西。');
     else if(r==='short')Civilization.notify(this.C().text.hungry);
     return r;
   },
@@ -358,11 +358,11 @@ var CivilExpedition={
   openChoices(){
     const info=this.choices(State);if(!info||Events.activeEvent())return false;
     const C=this.C(),d=this.data(State),title=info.site==='beetle'?'甲虫洼地':C.siteNames[info.site],buttons={};
-    const text={beetle:[C.text.beetle,'可以退回绕路，也可以想办法过去。'],
-      station:d.sites.station.state==='new'?['候车厅的墙上挂着地球与火星之间的货运表。最后一班没有注销。','你认得表格上的航运标准。火星上的人曾经也是这里的乘客。维修图背面标着一座泵站。']:['站台空荡荡的。还有些固定件能拆。'],
-      pump:d.sites.pump.state==='repaired'?['泵轮在转。清水从过滤管里流出来。']:['水从裂开的管道漏进地下。控制柜已经停电，机械旁路还在。'],
-      ruin:d.sites.ruin.state==='new'?['屋顶的风杯早就不转了。值班室里堆着一卷卷风速纸带，最后一页写着：轨道补给中断，全员撤离。','纸带能告诉你们这里的寒潮什么时候来；仪器外壳和支架则是现成的金属。只能二选一。']:['旧气象站只剩空架子。']
-      ,cellar:['半埋的储藏室门口压着沙袋。门缝里有灯，一位老测量员带着两个年轻徒弟守在里面。',d.sites.cellar.state==='helped'?'他们认得你们了。':'他们不认识你们，也不急着出来。']}[info.site];
+    const text={beetle:[C.text.beetle,'可以退回去绕路，也可以寻个法子穿过去。'],
+      station:d.sites.station.state==='new'?['候车厅墙上还挂着地火航线的货运表。最后一班船期没有注销。','你认得表格上的旧航运编码。当年去火星的人，也是从这里登船的。翻过来的维修图背面，标着一座泵站。']:['站台空空荡荡，只剩些金属扣件还能撬下来。'],
+      pump:d.sites.pump.state==='repaired'?['叶轮转个不停，清水顺着滤管涌出来。']:['水从冻裂的管子里漏进地底。配电柜早死了，但机械旁路还能扳动。'],
+      ruin:d.sites.ruin.state==='new'?['屋顶的风杯早就锈死了。值班室里堆着一卷卷风速纸带，值班日志的末页停在一行字上：轨道补给中断，全员撤离。','纸带记着这片土地寒潮的规律；而仪器的铁壳与支架是现成的金属。保档案还是拆废铁，只能选一样。']:['旧气象站已被拆得只剩空架子。']
+      ,cellar:['半埋在地下的储藏室门前堆着沙袋。门缝里透出灯光，老测量员带着两个年轻徒弟守在里头。',d.sites.cellar.state==='helped'?'他们认出你们了。':'他们还不认得你们，也没打算轻易开门。']}[info.site];
     for(const o of info.options)buttons['ex_'+o.id]={text:o.text+(o.reason?'（'+o.reason+'）':''),nextScene:'end',available:()=>!o.reason,onChoose:()=>{const msg=this.choose(State,o.id);if(msg){Civilization.notify(msg);if(o.id==='shoot'&&typeof CivilSound!=='undefined')CivilSound.effect('audio/weapon-ranged-1.flac');}this.after();}};
     Events.startEvent({title,scenes:{start:{text,buttons}}});return true;
   },

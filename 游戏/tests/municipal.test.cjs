@@ -93,7 +93,7 @@ test('local forecast is isolated and service checks include real inputs, educati
   const sample=[{age:8,count:2,identity:'mutant'},{age:24,count:6,identity:'human'}],before=JSON.stringify(s),f=m.forecast(s,id,sample);assert.equal(JSON.stringify(s),before);assert.equal(f.copy.civilization.regions.nodes[id].population,20);assert.equal(f.copy.game.population,s.game.population);assert.equal(m.serviceCheck(s,id,sample),null);
   n.stores.food=0;assert.match(m.serviceCheck(s,id,sample),/120秒/);assert.equal(m.canAccept(s,id),true);n.stores.food=100;n.stores.scrap=0;n.workers.salvager=0;
   // Removing the actual recycling capacity, not merely its auto-assigned worker count, exposes the medicine input dependency.
-  const fixture=structuredClone(s),mf=m.data(fixture,id);mf.baseWorkers.salvager=0;mf.buildings.salvageyard=0;assert.match(m.serviceCheck(fixture,id,sample),/药品/);
+  const fixture=structuredClone(s),mf=m.data(fixture,id);mf.baseWorkers.salvager=0;mf.buildings.salvageyard=0;assert.match(m.serviceCheck(fixture,id,sample),/产药能力/);
   assert.equal(m.admit(s,id,sample),8);assert.equal(n.population,20);assert.equal(n.cohorts.at(-2).age,8);assert.equal(s.game.population,44);
 });
 test('legacy production is not counted twice and new facilities require their own tools and raw materials',()=>{

@@ -116,7 +116,7 @@ test('the first city needs 400 local people, productive power, fulfilled service
   for(let i=0;i<30;i++){s.civilization.elapsed+=10;settle(h);}assert.equal(s.civilization.urban.cityStable,0);
   s.game.population++;s.civilization.society.cohorts[0].count++;
   for(let i=0;i<29;i++){s.civilization.elapsed+=10;settle(h);}assert.equal(u.nextEvent(s),null);s.civilization.elapsed+=10;settle(h);assert.equal(u.nextEvent(s),'urban_city');
-  const event=u.event('urban_city',(msg,fn)=>()=>{h.messages.push(msg);fn();});s.stores.tools=0;event.buttons.city.onChoose();assert.equal(s.civilization.urban.city,false);assert.match(h.messages.at(-1),/已有变化/);
+  const event=u.event('urban_city',(msg,fn)=>()=>{h.messages.push(msg);fn();});s.stores.tools=0;event.buttons.city.onChoose();assert.equal(s.civilization.urban.city,false);assert.match(h.messages.at(-1),/条件有所波动/);
   s.civilization.elapsed+=10;settle(h);assert.equal(s.civilization.urban.cityStable,0);
   s.stores.tools=1000;for(let i=0;i<30;i++){s.civilization.elapsed+=10;settle(h);}assert.equal(u.nextEvent(s),'urban_city');u.event('urban_city',(msg,fn)=>()=>fn()).buttons.city.onChoose();assert.equal(s.civilization.urban.city,true);assert.equal(u.nextEvent(s),null);
   s.game.workers.electrician=0;s.civilization.elapsed+=10;settle(h);assert.equal(s.civilization.urban.cityStable,0);assert.equal(s.civilization.urban.city,true);assert.equal(s.civilization.regions.cityCluster,undefined);

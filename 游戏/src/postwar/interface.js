@@ -36,7 +36,7 @@ var CivilInterface={
     if(typeof CivilHeating!=='undefined'&&CivilHeating.data(s,id)){const h=CivilHeating;cards.push(['实际供暖',h.capacity(s,id)+' / '+n.population+' 人份',h.handed(s,id)&&!h.covered(s,id)]);if(h.handed(s,id)&&!h.covered(s,id))notices.push('当地供暖覆盖不足');}
     const project=this.projectText(s,id);if(project)notices.push('在建：'+project);
     if(typeof CivilFinance!=='undefined'){const waiting=CivilFinance.waitingReturn(s,id);if(waiting?.constructionWaiting)notices.push(CivilFinance.waitingText(s,id)+'；议事屋→共同约定可安排返车');}
-    return {title:CivilRegionContent[id].name+' · '+(m?.city?'城市':m?.town?'镇':'聚居地'),cards,notices,brief:m&&!m.city?(m.town?'城市准备 '+m.cityStable+' / 300秒':'镇制准备 '+m.townStable+' / 180秒'):null,details:[['住房预留',CivilUrban.reservedBeds(s,id)+' 床'],['当地储备','粮 '+Math.floor(n.stores.food||0)+' · 药 '+this.number(n.stores.medicine)+' · 工具 '+this.number(n.stores.tools)],['烟尘',this.number(m?.pollution)],['仓库原则','当地人口、仓库和供电分别结算；在途尚未入库']]};
+    return {title:CivilRegionContent[id].name+' · '+(m?.city?'城市':m?.town?'镇':'聚居地'),cards,notices,brief:m&&!m.city?(m.town?'城市准备 '+m.cityStable+' / 300秒':'镇制准备 '+m.townStable+' / 180秒'):null,details:[['住房预留',CivilUrban.reservedBeds(s,id)+' 床'],['当地储备','粮 '+Math.floor(n.stores.food||0)+' · 药 '+this.number(n.stores.medicine)+' · 工具 '+this.number(n.stores.tools)],['烟尘',this.number(m?.pollution)],['仓库原则','各聚落人口、仓储与电网负荷各自独立核算；在途调拨物资未实际运抵前，不计入本地结存']]};
   },
   summary(selector,model){
     const root=$(selector);if(!root.length)return;
@@ -150,12 +150,12 @@ var CivilInterface={
     const n=s.civilization.origins.nodes[id],cfg=CivilOriginContent[id];
     if(!['contacted','agreed'].includes(n.status))return null;
     const reason=n.status==='agreed'?CivilOrigins.quoteReason(s,id,s.civilization.tech?.passenger_transport?24:8,{mode:'convoy',capacity:s.civilization.tech?.passenger_transport?24:8}):CivilOrigins.agreementReason(s,id);
-    return {title:cfg.name,cards:[['来源居民',n.population],['成年劳力',CivilPopulation.workforce(n.cohorts)],['儿童',CivilPopulation.children(n.cohorts)],['健康',Math.floor(n.health)+' / 100']],brief:n.status==='agreed'?'批次协议已登记 · 余量 '+CivilOrigins.remaining(s,id):'已取得联系 · 可逐人到访',notices:reason?[reason]:[],details:[['最低留守',cfg.retained+' 人'],['预留住房',CivilOrigins.reservedBeds(s,id)+' 床'],['教育',CivilOrigins.schoolStatus(s,id)],['迁居费用','实际规模仍由车组、旅费与目的地供养决定；来源居民不会直接计入本城。']]};
+    return {title:cfg.name,cards:[['来源居民',n.population],['成年劳力',CivilPopulation.workforce(n.cohorts)],['儿童',CivilPopulation.children(n.cohorts)],['健康',Math.floor(n.health)+' / 100']],brief:n.status==='agreed'?'批次协议已登记 · 余量 '+CivilOrigins.remaining(s,id):'已取得联系 · 可逐人到访',notices:reason?[reason]:[],details:[['最低留守',cfg.retained+' 人'],['预留住房',CivilOrigins.reservedBeds(s,id)+' 床'],['教育',CivilOrigins.schoolStatus(s,id)],['迁居费用','实际接纳规模受制于在编车组、开拔旅费及目的地供养底线；来源地居民在途期间不计入受援城邦名册。']]};
   },
   researchRows(s){
     const c=s.civilization,frontier=new Set(Object.keys(CivilText.research).filter(id=>c.tech[id]||CivilCatalog.researchAvailable(s,id)));
     const C=typeof CivilCourse!=='undefined'&&c.course?CivilCourse:null,req=id=>C?C.requires(s,id):(CivilText.research[id].requires||[]),disc=(id,r)=>C?C.discover(s,id):(!r.discover||r.discover(s));
-    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||c.research?.id===id||(req(id).length&&req(id).every(key=>frontier.has(key))&&disc(id,r))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:req(id).map(key=>({id:key,name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:C?C.researchCost(s,id):r.cost,duration:r.duration,detail:r.done+(CivilPacing.enabled(s)&&id==='publicHealth'?' 公共诊疗站的可建上限从8所扩至12所；每所仍须实付材料并安排医护。':'')}));
+    return Object.entries(CivilText.research).filter(([id,r])=>frontier.has(id)||c.research?.id===id||(req(id).length&&req(id).every(key=>frontier.has(key))&&disc(id,r))).map(([id,r])=>({id,name:r.name,done:!!c.tech[id],active:c.research?.id===id,available:!!CivilCatalog.researchAvailable(s,id),requires:req(id).map(key=>({id:key,name:CivilText.research[key]?.name||key,done:!!c.tech[key]})),cost:C?C.researchCost(s,id):r.cost,duration:r.duration,detail:r.done+(CivilPacing.enabled(s)&&id==='publicHealth'?' 全域公共诊疗站之规制上限由8所扩充至12所；每一站点均须据实划拨建材并指派在编医护。':'')}));
   },
   research(s){
     if(!s.game.buildings.workshop)return;

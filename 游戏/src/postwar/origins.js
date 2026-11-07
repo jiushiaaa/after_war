@@ -37,9 +37,9 @@ var CivilOrigins={
   jobLimits(s,id){return {...CivilOriginContent[id].limits,teacher:this.schoolCapacity(s,id)};},
   schoolWorkReason(s,id){
     const n=s.civilization.origins.nodes[id],plan=this.plan(n.cohorts),limits=this.jobLimits(s,id),needed=Object.entries(plan).reduce((sum,[k,v])=>sum+Math.min(v,limits[k]),0),contact=s.civilization.origins.contactTrip?.source===id?2:0;
-    if(n.health<60||n.hunger)return '先恢复来源居民的健康与口粮';
-    if(CivilPopulation.workforce(n.cohorts)<needed+contact+2)return '来源先维持供养与教学，尚缺2名空余成年建设者';
-    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(n.cohorts)*.12*12||(n.stores.medicine||0)+1e-8<n.population*.01*12)return '来源先备足120秒粮药，扩班暂缓';
+    if(n.health<60||n.hunger)return '先恢复来源地居民的健康与口粮';
+    if(CivilPopulation.workforce(n.cohorts)<needed+contact+2)return '来源地须先维持供养与课堂，目前还缺2名空闲成年劳力动工';
+    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(n.cohorts)*.12*12||(n.stores.medicine||0)+1e-8<n.population*.01*12)return '来源地需先留足120秒粮药，扩班暂缓';
     return null;
   },
   schoolBuilders(s,id){return s.civilization.origins.nodes[id].schooling?.project&&!this.schoolWorkReason(s,id)?2:0;},
@@ -55,13 +55,13 @@ var CivilOrigins={
     const p=e.project,t=s.civilization.elapsed;if(p.lastWorkedAt>=t)return;p.lastWorkedAt=t;
     if(this.schoolBuilders(s,id)!==2)return;
     p.remaining=Math.max(0,p.remaining-1);
-    if(!p.remaining){e.completed.push({startedAt:p.startedAt,completedAt:t,paid:{...p.paid}});e.project=null;this.assign(s,id);if(['contacted','agreed'].includes(n.status))this.note(CivilOriginContent[id].name+'用自己的材料建成了新课堂，增加10个教师岗位。');}
+    if(!p.remaining){e.completed.push({startedAt:p.startedAt,completedAt:t,paid:{...p.paid}});e.project=null;this.assign(s,id);if(['contacted','agreed'].includes(n.status))this.note(CivilOriginContent[id].name+'用自家的木料与工具搭起了新学舍，添了10个教师席位。');}
   },
   schoolStatus(s,id){
     const n=s.civilization.origins.nodes[id],e=n.schooling,cfg=CivilOriginContent[id].school,capacity=this.schoolCapacity(s,id),need=this.plan(n.cohorts).teacher;
-    let text='学舍教师 '+(n.workers.teacher||0)+' / '+capacity+' 席，'+CivilPopulation.children(n.cohorts)+' 名儿童需要 '+need+' 位教师。';
-    if(e?.project)return text+(this.schoolWorkReason(s,id)||'2名来源建设者正在扩班，还需 '+e.project.remaining+' 秒。');
-    if(need>capacity&&(!e||e.completed.length<cfg.max)){const reason=this.schoolWorkReason(s,id);return text+(reason||(!this.canPay(n.stores,cfg.cost)?'扩班待备来源木料120、工具12、知识20。':'来源正在筹办扩班。'));}
+    let text='学舍教师 '+(n.workers.teacher||0)+' / '+capacity+' 席，当地 '+CivilPopulation.children(n.cohorts)+' 名孩童共需 '+need+' 位先生。';
+    if(e?.project)return text+(this.schoolWorkReason(s,id)||'2名当地劳力正在扩建学舍，还需 '+e.project.remaining+' 秒。');
+    if(need>capacity&&(!e||e.completed.length<cfg.max)){const reason=this.schoolWorkReason(s,id);return text+(reason||(!this.canPay(n.stores,cfg.cost)?'扩建学舍需由来源地自备木料120、工具12、知识20。':'来源地正在筹办学舍扩班。'));}
     return text;
   },
   plan(cohorts){
@@ -100,18 +100,18 @@ var CivilOrigins={
   },
   contactWorkReason(s,id){
     const n=s.civilization.origins?.nodes[id];if(!n)return '尚未取得这条来源线索';
-    if(n.health<60 || n.hunger)return '来源人员先恢复健康与口粮，联络暂缓';
+    if(n.health<60 || n.hunger)return '来源地居民需先恢复健康与口粮，联络暂缓';
     const needed=Object.values(this.plan(n.cohorts)).reduce((a,b)=>a+b,0);
-    if(CivilPopulation.workforce(n.cohorts)<needed+2+this.schoolBuilders(s,id))return '来源须先维持供养与教学，联络尚缺2名空余成人';
-    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(n.cohorts)*.12*12 || (n.stores.medicine||0)+1e-8<n.population*.01*12)return '来源先备足120秒粮药，联络暂缓';
+    if(CivilPopulation.workforce(n.cohorts)<needed+2+this.schoolBuilders(s,id))return '来源地须先维持供养与教学，目前还缺2名空闲劳力出面联络';
+    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(n.cohorts)*.12*12 || (n.stores.medicine||0)+1e-8<n.population*.01*12)return '来源地需先留足120秒粮药，联络暂缓';
     return null;
   },
   contactReason(s,id='river_network'){
     const r=s.civilization.origins,n=r?.nodes[id],cfg=CivilOriginContent[id];
     if(!n || !cfg || !this.discoverable(s,id))return '尚未取得这条来源线索';
-    if(r.contactTrip)return r.contactTrip.source===id?this.contactWorkReason(s,id)||'联络人员仍在途中':'等待上一支联络队回来';
-    if(n.status!=='unknown')return '这条来源已经取得联系';
-    return this.contactWorkReason(s,id) || (!this.canPay(n.stores,cfg.contactCost)?'来源先备足联络旅粮和工具':null);
+    if(r.contactTrip)return r.contactTrip.source===id?this.contactWorkReason(s,id)||'联络信使仍在途中':'等待上一支联络队归来';
+    if(n.status!=='unknown')return '已与该来源地搭上话';
+    return this.contactWorkReason(s,id) || (!this.canPay(n.stores,cfg.contactCost)?'来源地需先备足信使的旅粮与工具':null);
   },
   beginContact(s,id='river_network'){
     this.init(s);const r=s.civilization.origins,n=r.nodes[id],d=CivilOriginContent[id];
@@ -120,9 +120,9 @@ var CivilOrigins={
   },
   agreementReason(s,id='river_network'){
     const n=s.civilization.origins?.nodes[id],d=CivilOriginContent[id];
-    if(!n || !d || n.status!=='contacted' || n.permit.paid)return '来源尚未完成联络，或协议已经登记';
-    if(!this.canPay(s.stores,d.agreementCost))return '本地尚缺登记知识';
-    if(!this.canPay(n.stores,d.sourceAgreementCost))return d.name+'尚缺自己的名册木料或知识';
+    if(!n || !d || n.status!=='contacted' || n.permit.paid)return '尚未完成联络，或批次协议已登记';
+    if(!this.canPay(s.stores,d.agreementCost))return '本地尚缺登记所需的知识';
+    if(!this.canPay(n.stores,d.sourceAgreementCost))return d.name+'尚缺自备的名册木料或知识';
     return null;
   },
   agree(s,id='river_network'){
@@ -151,19 +151,19 @@ var CivilOrigins={
   remaining(s,id){const n=s.civilization.origins?.nodes[id],extra=typeof CivilDiplomacy!=='undefined'?CivilDiplomacy.usableAllowance(s,id):0;const joined=typeof CivilAccession!=='undefined'&&CivilAccession.operational(s)?CivilAccession.migrationLimit(s,id):null;return n?Math.max(0,(joined??(n.permit.limit+extra))-n.admitted-n.transitDeaths-this.inTransit(n)):0;},
   sustainabilityReason(s,id,cohorts){
     const d=CivilOriginContent[id],p=CivilPopulation.count(cohorts);
-    if(p<d.retained)return '来源至少需要留守'+d.retained+'位居民';
-    for(const b of d.fertilityBands)if(CivilPopulation.count(cohorts.filter(c=>c.age>=b.min&&c.age<=b.max))<b.retained)return '来源'+b.min+'—'+b.max+'岁居民须至少留守'+b.retained+'人';
+    if(p<d.retained)return '来源地至少需留守'+d.retained+'位居民';
+    for(const b of d.fertilityBands)if(CivilPopulation.count(cohorts.filter(c=>c.age>=b.min&&c.age<=b.max))<b.retained)return '来源地'+b.min+'—'+b.max+'岁的居民至少须留守'+b.retained+'人';
     return this.supplyReason(s,id,cohorts);
   },
   supplyReason(s,id,cohorts){
     const n=s.civilization.origins.nodes[id],p=CivilPopulation.count(cohorts),plan=this.plan(cohorts),limits=this.jobLimits(s,id);
-    if(n.health<60||n.hunger)return '来源居民尚需恢复健康与口粮';
-    if(plan.teacher>limits.teacher)return '来源学舍现有'+limits.teacher+'个教师席，安置后'+CivilPopulation.children(cohorts)+'名儿童仍需'+plan.teacher+'席；'+(n.schooling?.project?'扩班施工还需'+n.schooling.project.remaining+'秒':'等待来源自费扩班');
-    if(Object.entries(plan).some(([k,v])=>v>limits[k]))return '来源的实际生产岗位尚不能覆盖留守居民';
-    if(Object.values(plan).reduce((sum,v)=>sum+v,0)+this.sourceStaff(s,id)>CivilPopulation.workforce(cohorts))return '来源须留下足够成年居民维持生产、教学与施工';
-    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(cohorts)*.12*12)return '来源须自行备足安置后120秒口粮';
-    if((n.stores.medicine||0)+1e-8<p*.01*12)return '来源须自行备足安置后120秒药品';
-    if((n.stores.wood||0)+1e-8<plan.teacher*.1)return '来源课堂尚缺本轮教材木料';
+    if(n.health<60||n.hunger)return '来源地居民尚需恢复健康与口粮';
+    if(plan.teacher>limits.teacher)return '来源地学舍现有'+limits.teacher+'个教师席位，迁出后留守的'+CivilPopulation.children(cohorts)+'名孩童仍需'+plan.teacher+'席；'+(n.schooling?.project?'扩班施工还需'+n.schooling.project.remaining+'秒':'等待来源地自费扩班');
+    if(Object.entries(plan).some(([k,v])=>v>limits[k]))return '来源地的生产工位尚不足以养活留守居民';
+    if(Object.values(plan).reduce((sum,v)=>sum+v,0)+this.sourceStaff(s,id)>CivilPopulation.workforce(cohorts))return '来源地须留足成年劳力，以维持当地生产、课堂与施工';
+    if((n.stores.food||0)+1e-8<CivilPopulation.foodPopulation(cohorts)*.12*12)return '来源地须自行留足迁出后120秒的口粮';
+    if((n.stores.medicine||0)+1e-8<p*.01*12)return '来源地须自行留足迁出后120秒的药品';
+    if((n.stores.wood||0)+1e-8<plan.teacher*.1)return '来源地学堂尚缺本轮授课所需的木料';
     return null;
   },
   sustainable(s,id,cohorts){return this.sustainabilityReason(s,id,cohorts)===null;},
@@ -231,13 +231,13 @@ var CivilOrigins={
     if(!n)return '尚未取得来源名册';
     if(!capacity||!Number.isInteger(maxPeople)||maxPeople<1)return '接纳人数、方式或运力无效';
     if(!['contacted','agreed'].includes(n.status))return '来源联络尚未完成';
-    if(mode==='convoy'&&n.status!=='agreed')return '来源尚未登记批次迁居协议';
+    if(mode==='convoy'&&n.status!=='agreed')return '来源地尚未登记批次迁居协议';
     if(this.quoteParty(s,id,maxPeople,options))return null;
-    if(this.remaining(s,id)<=0)return '来源的累计迁居额度已经用完';
+    if(this.remaining(s,id)<=0)return '该来源地的累计迁居额度已用尽';
     const max=Math.min(capacity,maxPeople,this.remaining(s,id),n.population-CivilOriginContent[id].retained);
-    if(max<=0)return '来源至少需要留守'+CivilOriginContent[id].retained+'位居民';
+    if(max<=0)return '来源地至少需留守'+CivilOriginContent[id].retained+'位居民';
     for(let count=max;count>0;count--){const choice=this.choose(n.cohorts,count,mode,id);if(CivilPopulation.count(choice.selected)===count){const reason=this.sustainabilityReason(s,id,choice.remaining);if(reason)return reason.replace(/^来源/,CivilOriginContent[id].name);}}
-    return '来源须保留各年龄段的育龄居民，暂不能组成迁居家庭';
+    return '来源地须留足各年龄段的育龄居民，眼下凑不出可迁居的家庭';
   },
   target(d){return d.target===undefined?'home':d.target;},
   validTarget(s,target){return target==='home' || typeof target==='string' && typeof CivilMunicipal!=='undefined' && CivilMunicipal.has(s,target);},
@@ -338,7 +338,7 @@ var CivilOrigins={
     }
     const u=s.civilization.urban;
     if(u?.registered && !r.warned && (CivilPopulation.count(u.source)===0 || u.source.filter(c=>c.age>=18&&c.age<=49).reduce((a,c)=>a+c.count,0)<16)){
-      r.warned=true;this.note('原有接纳名册正在衰老。河谷之外还有散居家庭；沿河网联络后，可按真实粮食与床位接纳新居民。');
+      r.warned=true;this.note('最初那份名册上的人正渐渐老去。河谷之外还散落着其他聚居户；顺着河网搭上话后，便可凭实打实的存粮与空床迎他们入城。');
     }
     return {storesChanged:false,populationChanged:false};
   },
@@ -349,14 +349,14 @@ var CivilOrigins={
   event(id,done){
     const s=State,source=this.eventSource(id),n=s.civilization.origins?.nodes[source],cfg=CivilOriginContent[source];if(!n || !cfg)return null;
     if(id===this.eventId('Contact',source) && ['contacted','agreed'].includes(n.status))return {title:cfg.name+'的名册',text:[
-      cfg.name+'的联络人员用自己的旅粮确认了这条路。名册上现有'+n.population+'位居民，孩子会长大，老人也会离世。',
-      '这次联系不会给聚落增加任何居民。已联系的来源可逐人到访，每人实际支付6食物；即使本地已没有成年劳动力，也可先手动备粮恢复。',
-      '批次接纳由本地支付'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，对方自己支付'+this.costText(cfg.sourceAgreementCost):'')+'登记。最多迁出'+cfg.permit+'人，并保证来源至少留下'+cfg.retained+'人及必要供养岗位。'
-    ],buttons:{record:{text:'记录来源与接纳条件',nextScene:'end',onChoose:done(cfg.name+'的名册已记录。居民按真实费用、住房与供养逐步安置。',()=>{n.announced=true;})}}};
+      cfg.name+'的信使背着自家的干粮探通了这条路。名册上共记着'+n.population+'口人，那里的孩童一样会抽条长大，老人一样会入土安息。',
+      '搭上话并不会让聚落凭空多出人手。已联络的来源地可开放零星来访，每收留一人耗6食物；即便本地已无成年劳力，也能先靠手工攒粮引来帮手。',
+      '批次接纳协议需由本地支取'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，对方自行承担'+this.costText(cfg.sourceAgreementCost):'')+'完成登记。最多可迁出'+cfg.permit+'人，且须给来源地至少留下'+cfg.retained+'口人及维持生计的岗位。'
+    ],buttons:{record:{text:'记录来源与接纳条件',nextScene:'end',onChoose:done(cfg.name+'的名册已存档。往后将按实际路费、空床与供养余力分批迎人。',()=>{n.announced=true;})}}};
     if(id===this.eventId('Agreement',source) && n.status==='contacted')return {title:cfg.name+'迁居登记',text:[
-      '本地支付'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，'+cfg.name+'自己支付'+this.costText(cfg.sourceAgreementCost):'')+'。双方材料齐备才一起登记；协议总额'+cfg.permit+'，不随出生或换任重新分配。',
-      '登记后每人仍需6食物、0.2药品、0.2工具和已预留床位。小队需要两名实际运输工'+(s.civilization.tech?.passenger_transport?'，扩容大队需要四人及装备维护':'')+'。逐人到访不要求先签这份批次协议。'
-    ],buttons:{agree:{text:'登记批次协议（'+this.costText(cfg.agreementCost)+'）',nextScene:'end',onChoose:()=>{const reason=this.agreementReason(s,source),ok=!reason && this.agree(s,source);return done(ok?cfg.name+'的批次迁居协议已经登记。':(reason||'登记条件已变化')+'，本次未扣款。')();}},later:{text:'先维持逐人到访',nextScene:'end',onChoose:done('保留逐人到访，稍后再商议批次接纳。')}}};
+      '本地支取'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'，'+cfg.name+'自行承担'+this.costText(cfg.sourceAgreementCost):'')+'。须两头物资齐备方可一同立契；协议总额度为'+cfg.permit+'，不因添丁或换届而重算。',
+      '立契后，每迎一人仍需耗6食物、0.2药品、0.2工具及预留空床。发运小队需两名运输工'+(s.civilization.tech?.passenger_transport?'，发运大队需四人并付装备维护':'')+'。零星来访无需先签这份批次协议。'
+    ],buttons:{agree:{text:'登记批次协议（'+this.costText(cfg.agreementCost)+'）',nextScene:'end',onChoose:()=>{const reason=this.agreementReason(s,source),ok=!reason && this.agree(s,source);return done(ok?cfg.name+'的批次迁居协议已登记在册。':(reason||'登记条件已有变动')+'，本次未扣料。')();}},later:{text:'先维持逐人到访',nextScene:'end',onChoose:done('暂且维持零星来访，容后再议成批接纳之事。')}}};
     return null;
   },
   note(message){if(typeof Civilization!=='undefined' && Civilization.notify)Civilization.notify(message);},
@@ -366,12 +366,12 @@ var CivilOrigins={
     const s=State,r=s.civilization.origins,ids=this.visibleIds(s),id=this.selected(s);if(!r || !id || !$('#roadPanel').length)return;
     const n=r.nodes[id],cfg=CivilOriginContent[id];
     const select=Civilization.button('originSourceButton','来源线索：'+cfg.name,'#roadPanel',()=>{const available=this.visibleIds(State),current=this.selected(State);this.selection=available[(available.indexOf(current)+1)%available.length];this.refresh();});
-    select.text('来源线索：'+cfg.name+'（'+(ids.indexOf(id)+1)+'/'+ids.length+'）').toggle(ids.length>1);select.attr('title','切换已经发现的来源线索；在途旅队仍按原来源和目的地行进');
+    select.text('来源线索：'+cfg.name+'（'+(ids.indexOf(id)+1)+'/'+ids.length+'）').toggle(ids.length>1);select.attr('title','切换已发现的来源线索；在途旅队仍按原定来源与目的地行进');
     const start=Civilization.button('originContactButton','派出联络信使','#roadPanel',()=>{if(this.beginContact(State,this.selected(State))){Engine.saveGame();this.refresh();}});
-    start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,!!this.contactReason(s,id));start.attr('title',cfg.name+'自己承担2名联络人员、'+this.costText(cfg.contactCost)+'；'+cfg.contactDuration+'个实际工作秒后取得联系');
+    start.toggle(n.status==='unknown' || n.status==='contacting');Button.setDisabled(start,!!this.contactReason(s,id));start.attr('title',cfg.name+'自行抽调2名信使、承担'+this.costText(cfg.contactCost)+'；满'+cfg.contactDuration+'个工作秒后即可搭上话');
     let info=$('#originSourceInfo');if(!info.length)info=$('<div>').attr('id','originSourceInfo').css({width:'410px',lineHeight:'1.8',marginTop:'15px'}).appendTo('#roadPanel');
-    if(typeof CivilInterface!=='undefined' && ['contacted','agreed'].includes(n.status))CivilInterface.summary('#originSourceInfo',CivilInterface.originSummary(s,id));else info.text(n.status==='contacting'?cfg.name+'的人员正在联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。'+(this.contactWorkReason(s,id)||''):n.status==='unknown'?cfg.name+'留下了可以联络的线索。由当地人员自备旅粮勘路，取得联系后再核对真实名册。'+(this.contactReason(s,id)||''):
-      cfg.name+'：现有 '+n.population+' 人，成年劳动力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,id)?'为未安置旅客保留 '+this.reservedBeds(s,id)+' 床。':'')+(n.legacyHousingOverflow?'原有住房仍挤缺 '+n.legacyHousingOverflow+' 床，新生家庭须等空床。':'')+'协议余量 '+this.remaining(s,id)+'；至少留守'+cfg.retained+'人。'+(n.status==='agreed'?(this.quoteReason(s,id,s.civilization.tech?.passenger_transport?24:8,{mode:'convoy',capacity:s.civilization.tech?.passenger_transport?24:8})||'来源可安排迁居家庭；实际规模仍由车组、旅费与目的地供养决定。'):'已可逐人到访，每人6粮；批次需登记。'+(this.agreementReason(s,id)||''))+' '+this.schoolStatus(s,id));
+    if(typeof CivilInterface!=='undefined' && ['contacted','agreed'].includes(n.status))CivilInterface.summary('#originSourceInfo',CivilInterface.originSummary(s,id));else info.text(n.status==='contacting'?cfg.name+'的信使正在探路联络，还需 '+Math.ceil(r.contactTrip.remaining)+' 秒。'+(this.contactWorkReason(s,id)||''):n.status==='unknown'?cfg.name+'留下了可供寻访的线索。由当地人自备干粮探通道路，搭上话后再核对在册人口。'+(this.contactReason(s,id)||''):
+      cfg.name+'：现有 '+n.population+' 人，成年劳力 '+CivilPopulation.workforce(n.cohorts)+'，儿童 '+CivilPopulation.children(n.cohorts)+'；健康 '+Math.floor(n.health)+'。'+(this.reservedBeds(s,id)?'为在途未落户旅客预留 '+this.reservedBeds(s,id)+' 床。':'')+(n.legacyHousingOverflow?'当地房舍仍短缺 '+n.legacyHousingOverflow+' 张床铺，新生家庭须等腾出空床。':'')+'协议余量 '+this.remaining(s,id)+'；至少留守'+cfg.retained+'人。'+(n.status==='agreed'?(this.quoteReason(s,id,s.civilization.tech?.passenger_transport?24:8,{mode:'convoy',capacity:s.civilization.tech?.passenger_transport?24:8})||'来源地可组织家庭外迁；每批人数仍受车组运力、旅费与目的地供养能力制约。'):'已开放零星来访，每人耗6粮；成批迎人需先立契登记。'+(this.agreementReason(s,id)||''))+' '+this.schoolStatus(s,id));
     const agree=Civilization.button('originAgreementButton','商议批次接纳','#roadPanel',()=>{const selected=this.selected(State);if(!Events.activeEvent() && !State.civilization.pending && State.civilization.origins.nodes[selected].status==='contacted'){State.civilization.pending=this.eventId('Agreement',selected);Civilization.showPending();}});
     Button.setDisabled(agree,!!this.agreementReason(s,id));agree.attr('title','本地：'+this.costText(cfg.agreementCost)+(Object.keys(cfg.sourceAgreementCost).length?'；来源：'+this.costText(cfg.sourceAgreementCost):''));
     $('#originAgreementButton').toggle(n.status==='contacted');

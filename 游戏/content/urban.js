@@ -16,14 +16,14 @@ CivilCatalog.buildingLimit=function(s,id){
 };
 Object.assign(CivilText.labels,{publicclinic:'公共诊疗站',publicschool:'公共学舍',irrigatedfield:'灌溉田片',toolworks:'制器间',residential:'居住街区',blockhousing:'街坊住宅'});
 Object.assign(CivilText.buildings,{
-  publicclinic:['统一器具可以供一整组医护使用。先扩诊疗，再接纳新的家庭。','公共诊疗站开门了。增加四个医护岗位，药品仍需食物、废料和实际劳动。'],
-  publicschool:['公共学舍为儿童留下课桌，也让教师能整理旧知识。','学舍增加四个教师岗位。每位在岗教师能照顾二十名儿童的学习。'],
-  irrigatedfield:['维护好的泵站能把水送到更远的田埂。','田片增加八个农夫岗位。没有农夫就没有收成，泵站断供也会减产。'],
-  toolworks:['标准规格让更多制器工共用夹具。','制器间增加四个岗位。木料与废料仍需源源不断地送来。'],
-  residential:['诊疗与课堂已有值守的人。现在可以为更多家庭修建住处。','居住街区添了二十四张床。住房不会自行带来居民。'],
-  blockhousing:['城镇工程把道路、排水与住房连在一起。下一批居民仍需要足够的粮食和诊疗。','街坊住宅添了九十六张床。接纳车队仍按名册、物资和服务能力分批出发。']
+  publicclinic:['标准化的医疗器械足够支起一整班医护。先把诊疗底子打牢，再迎新的家庭进城。','公共诊疗站开诊了。新增四个医护岗位，制药仍需耗用食物、废料与在岗人力。'],
+  publicschool:['公共学舍给适龄孩童留出了课桌，也让先生们有地方整理旧时代的学问。','学舍新增四个教师岗位。每位在岗先生可照看二十名孩童的功课。'],
+  irrigatedfield:['检修妥当的泵站，能把活水引向更远的田垄。','新辟的田片添了八个农夫岗位。田要人种才有收成，泵站断供同样会让庄稼减产。'],
+  toolworks:['统一的量规与夹具，让更多制器工得以同台干活。','制器间添了四个工位。木料与废料还得源源不断供上。'],
+  residential:['诊所与学堂都有人当值了。现在可以动工为更多家庭盖房。','居住街区落成，添了二十四张床位。但空房子不会自己生出居民。'],
+  blockhousing:['城镇工程把路面、暗渠与屋舍连成了一片。迎接下一批流民前，仍得备足口粮与医药。','街坊住宅落成，添了九十六张床位。接纳车队仍将按名册、路费与公共服务承载力分批启程。']
 });
 Object.assign(CivilText.research,{
-  standards:{name:'标准与计量',requires:['school','mechanics'],cost:{knowledge:60,iron:20,parts:8},duration:300,done:'器具、梁柱和货箱终于有了共同的尺度。公共设施可以分批扩建。'},
-  urbanworks:{name:'城镇工程',requires:['standards','administration','power'],discover:s=>!!s.civilization.urban?.chartered && s.game.population>=80 && CivilUrban.publicServices(s),cost:{knowledge:100,iron:40,parts:16,tools:20},duration:420,done:'道路、排水、住宅与工区写进同一份工程记录。可以修建街坊住宅，并付费扩建第三、第四座工业设施。'}
+  standards:{name:'标准与计量',requires:['school','mechanics'],cost:{knowledge:60,iron:20,parts:8},duration:300,done:'器具、梁木与货箱总算用上了同一把尺子。公共设施可以分批扩建了。'},
+  urbanworks:{name:'城镇工程',requires:['standards','administration','power'],discover:s=>!!s.civilization.urban?.chartered && s.game.population>=80 && CivilUrban.publicServices(s),cost:{knowledge:100,iron:40,parts:16,tools:20},duration:420,done:'道路、排水渠、住宅与工区绘入了同一张总图。现可兴建街坊住宅，并拨料扩建第三、第四座工业设施。'}
 });

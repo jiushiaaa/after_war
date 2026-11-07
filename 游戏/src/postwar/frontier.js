@@ -23,14 +23,14 @@ var CivilFrontier={
   sameCohort(c,p,age){return c.age===age&&(c.identity||'human')===(p.identity||'human')&&c.cohortId===p.cohortId&&c.originId===p.originId;},
   rosterReady(s,m){return m.roster.every((p,i)=>{const age=p.age+s.civilization.society.year-m.year,needed=m.roster.slice(0,i+1).filter(r=>this.sameCohort(r,p,p.age)).length;return age<65&&s.civilization.society.cohorts.filter(c=>this.sameCohort(c,p,age)).reduce((n,c)=>n+c.count,0)>=needed;});},
   reason(s,kind){
-    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在地区商约途中，等待返城';
-    if(!this.available(s)||!CivilNation.operational(s)||!CivilFinance.political(s))return '等待共同法与现任行政正常运作';
-    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '先完成原车往返并撤销剩余商队委托';
-    if(kind==='scout'?!!this.node(s):!this.node(s)||this.data(s).peace||this.data(s).occupation)return '当前渡口关系不需要这次行动';
-    const cfg=CivilFrontierContent[kind];if(!cfg||!CivilCommerce.asset(s)||!CivilSecurity.asset(s))return '先备好实际车辆与守备训练场';
-    if(CivilSecurity.guards(s)<cfg.guards||!this.trained(s,cfg.guards)||this.roster(s,cfg.guards).length<cfg.guards)return '先安排足额守备，连续实付训练300秒；出征者须为18—40岁现有成年人';
-    if(CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)<2)return '等待两名空闲运输工';
-    if(!CivilFinance.reserveCheck(s,'home',cfg.cost))return '先备足行囊并保留本城供养';
+    if(typeof CivilPartnership!=='undefined'&&CivilPartnership.active(s))return '原商车正在跑地区商约，请候其归城';
+    if(!this.available(s)||!CivilNation.operational(s)||!CivilFinance.political(s))return '等待国家共同法与现任行政恢复正常运转';
+    if(this.active(s)||CivilCommerce.active(s)||CivilCommerce.plan(s)||typeof CivilIntercity!=='undefined'&&CivilIntercity.active(s))return '请先等原商车归城，并撤销尚未发车的商队委托';
+    if(kind==='scout'?!!this.node(s):!this.node(s)||this.data(s).peace||this.data(s).occupation)return '眼下与旧渡口的关系无需采取此行动';
+    const cfg=CivilFrontierContent[kind];if(!cfg||!CivilCommerce.asset(s)||!CivilSecurity.asset(s))return '请先备妥商车与守备训练场';
+    if(CivilSecurity.guards(s)<cfg.guards||!this.trained(s,cfg.guards)||this.roster(s,cfg.guards).length<cfg.guards)return '请先分派足额守备在岗、付清耗材实训满300秒；出征人选须为18—40岁的在册成年人';
+    if(CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)<2)return '等待两名空闲的运输工';
+    if(!CivilFinance.reserveCheck(s,'home',cfg.cost))return '请先备足随军行囊，并留足本城保底供养';
     return null;
   },
   dispatch(s,kind){
@@ -61,10 +61,10 @@ var CivilFrontier={
     }
     m.battle={at,defenders:enemy,dead,wounded,localDead};m.phase='inbound';
     d.occupation={startedAt:at,retreatAt:null,retreatCost:null,endedAt:null,reason:null,missed:0,records:[]};n.relation='trade';n.trust=Math.max(0,n.trust-20);n.unrest=Math.min(100,n.unrest+30);
-    CivilRegions.planWorkers(s,'ford',n);Civilization.notify('旧渡口停止抵抗。'+(enemy?'双方名册各有一人死亡，一名伤员随原车返城。':'对方已无足额供给，守备放下器械。')+'两名守备驻防；地方仓库和公民资格仍独立，须修复并恢复自治。');
+    CivilRegions.planWorkers(s,'ford',n);Civilization.notify('旧渡口放下了武器。'+(enemy?'交火中双方各有一人阵亡，我方另有一名伤员随原车拉回城里救治。':'渡口守备粮尽援绝，只得缴械罢兵。')+'我方留下两名守备驻防；但当地公仓与户籍仍不归本城，须先助其修复堤岸诊所并恢复地方自治。');
   },
   endOccupation(s,reason='withdraw'){
-    const o=this.occupation(s);if(!o||o.retreatAt!==null)return false;const cost={food:4,tools:.2},paid=CivilFinance.reserveCheck(s,'home',cost);if(!paid&&reason!=='supply')return false;if(paid)CivilServices.pay(s.stores,cost);o.retreatAt=s.civilization.elapsed;o.retreatCost=paid?cost:{};o.reason=reason;o.missed=0;if(s===State)Civilization.notify('两名驻防守备开始徒步返城，180秒后释放岗位。'+(reason==='autonomy'?'地方自治议约已生效；共同治理仍需公民资格与持续履约。':'已交付物资保留，修复与自治议约仍需完成。'));return true;
+    const o=this.occupation(s);if(!o||o.retreatAt!==null)return false;const cost={food:4,tools:.2},paid=CivilFinance.reserveCheck(s,'home',cost);if(!paid&&reason!=='supply')return false;if(paid)CivilServices.pay(s.stores,cost);o.retreatAt=s.civilization.elapsed;o.retreatCost=paid?cost:{};o.reason=reason;o.missed=0;if(s===State)Civilization.notify('两名驻防守备已拔营徒步返城，180秒后归建并释放工位。'+(reason==='autonomy'?'旧渡口地方自治议约已生效；若要正式并入共同治理，仍须落实公民资格并完成持续履约。':'此前运抵的物资照旧保留，堤岸修复与自治议约仍待完成。'));return true;
   },
   agreement(s){
     const d=this.data(s),n=this.node(s);if(!d||!n||d.peace||this.active(s)||!CivilNation.operational(s)||!CivilFinance.political(s))return false;
@@ -86,21 +86,21 @@ var CivilFrontier={
       const cost={food:.5,medicine:.2},paid=(s.game.workers.medic||0)>0&&CivilFinance.reserveCheck(s,'home',cost);
       if(paid){CivilServices.pay(s.stores,cost);for(const [k,v]of Object.entries(cost))flow[k]=(flow[k]||0)-v;p.recovery+=10;}
       p.records.push({at,paid,costs:paid?cost:{}});
-      if(p.recovery>=120){if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'patients','home',1,'伤员康复');p.recoveredAt=at;s.civilization.society.cohorts.push({...p.person,age});s.game.population++;if(s===State)Civilization.notify('返城伤员完成120秒实付治疗，回到原居民名册；岗位须重新安排。');}
+      if(p.recovery>=120){if(typeof CivilCensus!=='undefined')CivilCensus.move(s,'patients','home',1,'伤员康复');p.recoveredAt=at;s.civilization.society.cohorts.push({...p.person,age});s.game.population++;if(s===State)Civilization.notify('归城伤员历经120秒的医药调理终于痊愈，重回在册劳力池；具体工位需重新分派。');}
     }
     return flow;
   },
   returnMission(s,m){
     m.returnedAt=s.civilization.elapsed;m.phase='returned';m.refunded={...m.buffer};CivilRegions.credit(s.stores,m.buffer);m.buffer={};
     for(const p of this.data(s).patients)if(p.missionId===m.id)p.arrivedAt=m.returnedAt;
-    Civilization.notify('原车实际返城，行囊余量已退回原仓，已消耗的军需不退。');
+    Civilization.notify('原商车已返抵本城，行囊中未用完的物资退回原仓，沿途已耗掉的军需不退。');
   },
   tick(s){
-    const at=s.civilization.elapsed,o=this.occupation(s);if(o?.retreatAt!==null&&o?.retreatAt!==undefined&&at-o.retreatAt>=180){o.endedAt=at;Civilization.notify('两名撤防守备走完180秒返程，已经回到本城，岗位可以重新安排。');}
+    const at=s.civilization.elapsed,o=this.occupation(s);if(o?.retreatAt!==null&&o?.retreatAt!==undefined&&at-o.retreatAt>=180){o.endedAt=at;Civilization.notify('两名撤防守备走完了180秒的归途，平安回到本城，现可重新分派差事。');}
     const m=this.active(s);if(!m||m.lastTickAt>=at)return;m.lastTickAt=at;
     if(m.phase!=='inbound'&&(CivilSecurity.guards(s)<this.guardFloor(s)||!this.rosterReady(s,m))){
       if(m.kind==='expedition'){m.choice='withdraw';m.choiceAt=at;}m.phase='inbound';
-      Civilization.notify('出征人员已经不足或退休，队伍开始按原路返城。已消耗的军需不会退回。');
+      Civilization.notify('出征在外的队员缺额或已到龄退休，分队只得顺原路撤回。已耗用的随军物资不予退回。');
     }
     if(m.phase==='inbound'&&m.inboundSeconds===(m.arrivedAt===null?m.outboundSeconds:180)){this.returnMission(s,m);return;}
     if(CivilPassenger.actualWorkers(s)-CivilUrban.reservedTransport(s)-CivilRegions.reservedTransport(s)<2)return;
@@ -108,7 +108,7 @@ var CivilFrontier={
     if((total+1)%10===0){const staff=m.guards-(m.battle?.dead.length||0);if(!this.use(m,at,{food:staff*.5,tools:staff*.01},'march'))return;}
     if(m.phase==='outbound'){
       m.outboundSeconds++;
-      if(m.outboundSeconds===180){m.arrivedAt=at;if(m.kind==='scout'){if(!this.node(s)){this.data(s).discoveredAt=at;CivilRegions.createNode(s,'ford');Civilization.notify('勘察队登记旧渡口原有60位居民。当地保有仓库与守备，未加入共同法。');}m.phase='inbound';}else m.phase='waiting';}
+      if(m.outboundSeconds===180){m.arrivedAt=at;if(m.kind==='scout'){if(!this.node(s)){this.data(s).discoveredAt=at;CivilRegions.createNode(s,'ford');Civilization.notify('勘察队摸清了旧渡口的底数：渡口住着60口人，自有公仓与守备，尚未加入国家共同法。');}m.phase='inbound';}else m.phase='waiting';}
     }else if(m.phase==='waiting'){m.waitingSeconds++;if(m.waitingSeconds>=60)this.choose(s,'withdraw');}
     else if(m.phase==='battle'){m.battleSeconds++;if(m.battleSeconds===180)this.fight(s,m);}
     else if(m.phase==='inbound'){
@@ -118,23 +118,23 @@ var CivilFrontier={
     }
   },
   status(s){
-    const d=this.data(s),m=this.active(s);if(m)return (m.kind==='scout'?'勘察队':'渡口分队')+'：'+({outbound:'去程 '+m.outboundSeconds+'/180秒',waiting:'抵达待议 '+m.waitingSeconds+'/60秒',battle:'行动 '+m.battleSeconds+'/180秒',inbound:'返程 '+m.inboundSeconds+'/'+(m.arrivedAt===null?m.outboundSeconds:180)+'秒'}[m.phase])+'；行囊 '+CivilHistory.costText(m.buffer);
-    if(!this.node(s))return '加盟公共货车已带回渡口线索。两名现有守备与两名司机可用原车勘察';
-    return '旧渡口 '+this.node(s).population+'人；'+(d.peace?'已恢复地方议约，修复与持续履约仍按地区账册执行'+(this.occupation(s)?'；撤防守备返城还需'+Math.max(0,180-(s.civilization.elapsed-this.occupation(s).retreatAt))+'秒':''):this.occupation(s)?(this.occupation(s).retreatAt===null?'两名守备驻防，地方产出八成；修复后才能议和自治':'驻防守备徒步返城，还需'+Math.max(0,180-(s.civilization.elapsed-this.occupation(s).retreatAt))+'秒'):d.occupation?'已经撤防，修复与议和自治尚待完成':'尚未议约：可和平交涉；四人足额训练'+this.trainingSeconds(s,4)+'/300秒，可实付派分队')+'；返城治疗 '+this.wounded(s)+'人';
+    const d=this.data(s),m=this.active(s);if(m)return (m.kind==='scout'?'勘察队':'渡口分队')+'：'+({outbound:'去程 '+m.outboundSeconds+'/180秒',waiting:'抵岸待决 '+m.waitingSeconds+'/60秒',battle:'现场行动 '+m.battleSeconds+'/180秒',inbound:'返程 '+m.inboundSeconds+'/'+(m.arrivedAt===null?m.outboundSeconds:180)+'秒'}[m.phase])+'；随车行囊 '+CivilHistory.costText(m.buffer);
+    if(!this.node(s))return '跑加盟线的货车捎回了旧渡口的线索。可抽调两名在岗守备与两名司机，借原商车前去勘察';
+    return '旧渡口 '+this.node(s).population+'人；'+(d.peace?'已恢复地方议约，后续堤岸修复与持续履约仍按地区账册推进'+(this.occupation(s)?'；撤防守备徒步归城尚需'+Math.max(0,180-(s.civilization.elapsed-this.occupation(s).retreatAt))+'秒':''):this.occupation(s)?(this.occupation(s).retreatAt===null?'两名守备驻防中，当地产出降至八成；须先完成修复方能议和恢复自治':'驻防守备徒步返城中，尚需'+Math.max(0,180-(s.civilization.elapsed-this.occupation(s).retreatAt))+'秒'):d.occupation?'守备已撤防，但堤岸修复与议和自治尚待完成':'尚未议约：可走和平交涉；若满四人实训'+this.trainingSeconds(s,4)+'/300秒，亦可支取军需派出武装分队')+'；归城养伤 '+this.wounded(s)+'人';
   },
   event(id,done){
     if(id!=='fordCouncil'&&!(id==='regionFord'&&this.node(State)?.relation==='contacted'))return null;
-    const s=State,d=this.data(s),m=this.active(s),buttons={},finish=(ok,text)=>done(ok?text:'人员、供给或政治条件尚未满足；未执行。')();
-    if(!this.node(s)&&!m)buttons.scout={text:'实付派出勘察队',nextScene:'end',onChoose:()=>finish(this.dispatch(s,'scout'),'勘察队携原仓军需出发。')};
-    if(this.node(s)&&!m&&!d.peace){buttons.peace={text:d.occupation?'修复后议和恢复自治':'双方实付和平议约',nextScene:'end',onChoose:()=>finish(this.agreement(s),'双方知识已支付；货车、公共项目和共同治理仍需实际完成。')};if(!d.occupation)buttons.expedition={text:'实付派四人分队',nextScene:'end',onChoose:()=>finish(this.dispatch(s,'expedition'),'四名守备与两名司机携实物军需出发，原商车暂不可贸易。')};}
-    if(m?.kind==='expedition'&&['outbound','waiting'].includes(m.phase)){buttons.withdraw={text:'原路撤回分队',nextScene:'end',onChoose:()=>finish(this.choose(s,'withdraw'),'分队按实际已走路程返城；余粮到仓才退回。')};if(m.phase==='waiting')buttons.attack={text:'承担伤亡继续行动',nextScene:'end',onChoose:()=>finish(this.choose(s,'attack'),'行动开始，仍需180秒、真实人员与军需。')};}
-    if(this.occupation(s)?.retreatAt===null)buttons.withdrawOccupation={text:'结束驻防',nextScene:'end',onChoose:()=>finish(this.endOccupation(s),'实付食物4、工具0.2，守备开始180秒徒步返程。')};
-    buttons.close={text:'合上渡口记录',nextScene:'end',onChoose:done('旧渡口的居民、库存与已付成本按原账继续。')};
+    const s=State,d=this.data(s),m=this.active(s),buttons={},finish=(ok,text)=>done(ok?text:'人手、军需或政治前提尚未齐备；本次未执行。')();
+    if(!this.node(s)&&!m)buttons.scout={text:'实付派出勘察队',nextScene:'end',onChoose:()=>finish(this.dispatch(s,'scout'),'勘察队装好原仓拨出的军需，动身出发。')};
+    if(this.node(s)&&!m&&!d.peace){buttons.peace={text:d.occupation?'修复后议和恢复自治':'双方实付和平议约',nextScene:'end',onChoose:()=>finish(this.agreement(s),'两地已付清立约知识；后续货车往来、堤岸修复与共同治理仍须一步步落到实处。')};if(!d.occupation)buttons.expedition={text:'实付派四人分队',nextScene:'end',onChoose:()=>finish(this.dispatch(s,'expedition'),'四名守备与两名司机携实有军需登车出征，期间原商车无法跑外贸。')};}
+    if(m?.kind==='expedition'&&['outbound','waiting'].includes(m.phase)){buttons.withdraw={text:'原路撤回分队',nextScene:'end',onChoose:()=>finish(this.choose(s,'withdraw'),'分队按已走路程折返归城；未用完的余粮须等抵仓后方才退回。')};if(m.phase==='waiting')buttons.attack={text:'承担伤亡继续行动',nextScene:'end',onChoose:()=>finish(this.choose(s,'attack'),'分队发起行动，需耗时180秒并持续消耗在场人手与随军补给。')};}
+    if(this.occupation(s)?.retreatAt===null)buttons.withdrawOccupation={text:'结束驻防',nextScene:'end',onChoose:()=>finish(this.endOccupation(s),'支取干粮4、工具0.2，两名驻防守备拔营，开始180秒的徒步归途。')};
+    buttons.close={text:'合上渡口记录',nextScene:'end',onChoose:done('旧渡口的居民、公仓与已支用度继续按原账核算。')};
     const text=[this.status(s)];
-    if(!this.node(s))text.push('勘察需守备2、司机2，足额训练300秒。携食物40、工具1、药1；单程180秒，消耗后余额随车返回。');
-    else if(!d.peace&&!d.occupation)text.push('和平：本城知识80、当地20；之后实际贸易、修复与600秒履约。','分队：守备4、司机2，足额训练300秒；携食物120、工具4、药4。抵达后60秒决定，行动180秒。有防务时双方各死1人、我方另伤1人；胜利仅驻防。');
-    else if(d.occupation&&!d.peace)text.push('驻防占2名守备，每10秒食物2、知识0.2、工具0.05、药0.1。主动撤防备粮4、工具0.2；断供60秒也会撤防。徒步返城180秒后释放岗位。','用地区原车交付、恢复地方信任并完成堤岸诊疗修复后，本城知识120、当地20议和。恢复自治后议加盟，满足公民资格并履约600秒才登记居民。');
-    if(this.wounded(s))text.push('伤员原床预留，不参加生产。实际返城后，每10秒食物0.5、药0.2，累计120秒返回名册。');
+    if(!this.node(s))text.push('外出勘察需抽调守备2、司机2，且须实训满300秒。随车携食物40、工具1、药1；单程180秒，扣除沿途消耗后，余粮随车退回原仓。');
+    else if(!d.peace&&!d.occupation)text.push('和平交涉：本城出知识80、当地出20；立约后仍须跑通贸易、修妥堤岸诊所并连续履约600秒。','武装分队：需抽调守备4、司机2，且实训满300秒；随车携食物120、工具4、药4。抵岸后有60秒拍板窗口，现场交火耗时180秒。若对方有防务，交火将致双方各阵亡1人、我方另负伤1人；打赢仅能派兵驻防，无法直接吞并。');
+    else if(d.occupation&&!d.peace)text.push('驻防占用2名守备工位，每10秒耗食物2、知识0.2、工具0.05、药0.1。主动撤防需备路粮4、工具0.2；若断供满60秒亦会自动撤防。守备需徒步180秒归城，抵城后方释放工位。','须先派地区货车通商、挽回当地信任并修妥“渡口诊疗与堤岸修复”，再由本城出知识120、当地出20正式议和。恢复自治后方可商议加盟，待落实公民资格并连续履约600秒后，当地居民方正式载入共同法总册。');
+    if(this.wounded(s))text.push('伤员原床位照旧预留，养伤期间无法上工。待随车返抵本城后，每10秒耗食物0.5、药0.2，调理满120秒即可康复归建。');
     if(!m&&!d?.peace&&!d?.occupation){const why=this.reason(s,this.node(s)?'expedition':'scout');if(why)text.push((this.node(s)?'分队出发：':'勘察出发：')+why+'。');}
     return {title:'旧渡口的往来与冲突',text,buttons};
   },
