@@ -39,6 +39,7 @@ test('compiled catalog translates stitched history while preserving dates and re
  const source='重建 0 年　首任工匠·阿岑第一次进入共同记录，时年50岁。工坊轮值会接续这份职责。';
  const translated=e.format(source);assert.doesNotMatch(translated,/[\u4e00-\u9fff]/);assert.match(translated,/Year 0/);assert.match(translated,/age 50/);
  e.nodes=new WeakMap();e.locale='en';const node={nodeValue:source,parentElement:{closest:()=>null}};e.textNode(node);e.locale='zh';e.textNode(node);assert.equal(node.nodeValue,source);
+ const stove=e.format('火势：微火；室温：适宜。工匠已接手看顾炉火。维持余火每5分钟耗1木料；手动添火可临时升温。断柴后火势会转弱，熄灭后需重新引火。');assert.doesNotMatch(stove,/[\u4e00-\u9fff]/);assert.match(stove,/1 wood every 5 minutes/);
  assert.equal(e.format('定位可研究（5）'),'Find researchable (5)');
  assert.equal(e.format('自愿采纳12位辅助义体'),'Voluntary adoption: 12 residents · Assistive Prosthetics');
 });
