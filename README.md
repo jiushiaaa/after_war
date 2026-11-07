@@ -2,7 +2,7 @@
 
 **从一团火，到重返星空。**
 
-[在幻光游玩](https://lumi.66rpg.com/works/4vkszlfyi9s0) · [幻光开源工程](https://lumi.66rpg.com/projects/4vli2ypu26m8)
+[网页版游玩](https://jiushiaaa.github.io/suiren/) · [在幻光游玩](https://lumi.66rpg.com/works/4vkszlfyi9s0) · [幻光开源工程](https://lumi.66rpg.com/projects/4vli2ypu26m8)
 
 战争之后，你从一间冰冷的维修间醒来。先点燃炉火，收集干柴，为敲门的人准备口粮与床铺；再修复道路、建设城市，联结失散的共同体，直到人类再次仰望星空。
 
@@ -20,7 +20,7 @@
 
 ## 当前接力
 
-**当前候选在 `feat/a7-polish`，按设计74完成A1—A6，完成A7功能与工程收口。** 新规则从独立新档逐步经历求生、近郊探索、公共或工业城镇、万人城市、城市群、真实地区人口与公共责任，接入先进身体社会、八区共同法和地球首航。主线可延续多代，人口、物资、在途、债务与身体身份分别记账。
+**当前版本在 `main`，按设计74完成A1—A6，完成A7功能与工程收口。** 新规则从独立新档逐步经历求生、近郊探索、公共或工业城镇、万人城市、城市群、真实地区人口与公共责任，接入先进身体社会、八区共同法和地球首航。主线可延续多代，人口、物资、在途、债务与身体身份分别记账。
 
 A7包括渐进导航与状态卡、时代交接、有限岗位委托、法律与群体诉求、装备、17条配乐/环境声、档案与文明回顾、三个本地存档槽和两份自动备份。界面保持A Dark Room原生文字与按钮，不使用UI框架。工业岗位、城市燃料维护与受损工坊的恢复都有真实劳力和材料成本。
 
@@ -33,7 +33,7 @@ A7包括渐进导航与状态卡、时代交接、有限岗位委托、法律与
 使用 Git 和 Node.js 24。正常游戏运行与构建无需额外依赖；测试位置记忆、完整开发与文案工具请先安装声明的开发依赖。
 
 ```sh
-git clone --branch feat/a7-polish https://github.com/jiushiaaa/suiren.git
+git clone --branch main https://github.com/jiushiaaa/suiren.git
 cd suiren/游戏
 npm install --ignore-scripts
 npm test
@@ -70,10 +70,10 @@ Windows PowerShell 如遇 `npm.ps1` 策略阻止，使用 `npm.cmd test` 和 `np
 
 开始前确认另一台已停止开发并推送，再在仓库根目录执行 `git status`、`git pull --ff-only`。若有未提交改动或分叉，保留本地工作并先处理差异，不强制覆盖。
 
-交班前完成相关验证，正常 UI 导出最新自然进度到HANDOFF指明的验证目录，更新 `HANDOFF.md`（当前提交、存档、已完成、未完成、测试、下一步），提交并推送当前工作分支（本候选为 `feat/a7-polish`，尚未合并main）。新机通过游戏正常存档入口导入该文件。浏览器 live、Codex 聊天、goal 和本机登录凭据不会随 Git 同步，不上传凭据。仅一台电脑同时推进主线。
+交班前完成相关验证，正常 UI 导出最新自然进度到HANDOFF指明的验证目录，更新 `HANDOFF.md`（当前提交、存档、已完成、未完成、测试、下一步），提交并推送当前工作分支（当前为 `main`）。新机通过游戏正常存档入口导入该文件。浏览器 live、Codex 聊天、goal 和本机登录凭据不会随 Git 同步，不上传凭据。仅一台电脑同时推进主线。
 
 ## 来源与发布边界
 
 上游 https://github.com/doublespeakgames/adarkroom ，基线 `1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7`。现有上游及本作提交历史完整保留；仓库整理前游戏提交为 `0a739c9`，之后把原根文件移动到 `游戏/` 并纳入设计与验证。保留 [MPL-2.0 许可](游戏/LICENSE.md) 及原作者署名；源码来源和改动记录可查。
 
-本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 与英文版尚未上线。
+本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 由 main 的构建产物部署；英文版正在独立校译，中文基线保持。
