@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-11-07 16:44:53",
-  "revision": "61fdcd1c3b11ab438a15158ba1f1231f8d6bfb13",
+  "exportedAt": "2026-11-07 18:03:29",
+  "revision": "5e4da8ac29ee396cdc5949aff837cc11e653c114",
   "files": 210,
-  "records": 10303,
-  "chineseLiteralSpans": 11169,
+  "records": 10305,
+  "chineseLiteralSpans": 11171,
   "uncoveredChinese": 0,
-  "uniqueIDs": 10303,
+  "uniqueIDs": 10305,
   "batches": [
     {
       "file": "分卷/01_求生与近郊探索.md",
@@ -213,7 +213,7 @@
     },
     {
       "file": "分卷/35_通用界面与存档.md",
-      "count": 119,
+      "count": 121,
       "first": "cw.22b9bba8f41e40",
       "last": "cw.ed3baa4aaad6ca"
     },
@@ -317,7 +317,7 @@
     },
     {
       "name": "通用界面与存档",
-      "count": 1512
+      "count": 1514
     },
     {
       "name": "旧版兼容与原作译文",
@@ -333,7 +333,7 @@
     }
   ],
   "numericContentRows": 1971,
-  "numericProgramLiterals": 16640,
+  "numericProgramLiterals": 16644,
   "sourceHashes": [
     {
       "file": "游戏/content/accession.js",
@@ -1366,8 +1366,8 @@
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "sha256": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
-      "bytes": 9684,
+      "sha256": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
+      "bytes": 10625,
       "kind": "javascript",
       "loaded": true
     },

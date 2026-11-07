@@ -1,18 +1,28 @@
 {
-  "status": "local-draft-only",
+  "status": "platform-draft-saved-awaiting-screenshots",
   "publiclyPublished": false,
-  "platformDraftCreated": false,
-  "codeCommit": "61fdcd1",
+  "platformDraftCreated": true,
+  "codeCommit": "5e4da8a",
   "checks": {
     "relatedTests": 54,
     "passed": 54,
     "syntax": true,
-    "copyRecords": 10303,
+    "copyRecords": 10305,
     "copyVolumes": 47,
     "unchangedOriginalSaves": 619,
     "screenshotPages": 7,
-    "narrowChronicleScroll": true
+    "narrowChronicleScroll": true,
+    "soundRelatedTests": 56,
+    "soundRelatedPassed": 56,
+    "soundReloadMemory": true
   },
-  "pending": "lumimaker 提示从 0.1.59 更新至 0.1.61，等待用户选择更新或沿用当前版本。尚未发送游戏包、封面或文案。",
-  "releasePreflight": "构建309文件，全部静态引用存在，未包含测试页、原始存档、文案原稿或生成服务记录。sound.js 仍含本机音频偏好存储，需在平台正式上传前按平台检查处理；目前不声称包已获平台验收。"
+  "pending": "简介、正文格式、标签、更新说明与操作信息已存草稿。Chrome截图上传要求文件网址权限，系统选择器无法确认；已请求临时开启并于上传后关闭，等待作者答复。",
+  "releasePreflight": "309文件，34952687字节；压缩包31.78MB，平台已接收第1版并等待审核。作者运行入口暂显示未配置在线运行地址，平台启动/云存档尚未实测。",
+  "gameId": "4vkszl1o36kg",
+  "postId": "4vkszlfyi9s0",
+  "draftUrl": "https://lumi.66rpg.com/edit-works/4vkszlfyi9s0",
+  "version": "1.0.0",
+  "cliVersion": "0.1.61",
+  "reviewStatus": "pending",
+  "platformScreenshots": 0
 }

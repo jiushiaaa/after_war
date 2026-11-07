@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "revision": "61fdcd1c3b11ab438a15158ba1f1231f8d6bfb13",
+  "revision": "5e4da8ac29ee396cdc5949aff837cc11e653c114",
   "staticContent": [
     {
       "file": "游戏/content/accession.js",
@@ -241326,7 +241326,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[0].value",
       "value": 1.7334,
       "expression": "ong to this device, never a save. */\nvar CivilSound={\n levels:{\"room\":1.7334,\"village\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nati",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241342,7 +241342,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[1].value",
       "value": 0.9137,
       "expression": "e, never a save. */\nvar CivilSound={\n levels:{\"room\":1.7334,\"village\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advan",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241358,7 +241358,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[2].value",
       "value": 0.4944,
       "expression": "e. */\nvar CivilSound={\n levels:{\"room\":1.7334,\"village\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"e",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241374,7 +241374,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[3].value",
       "value": 0.725,
       "expression": "ound={\n levels:{\"room\":1.7334,\"village\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"fl",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241390,7 +241390,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[4].value",
       "value": 0.4007,
       "expression": "room\":1.7334,\"village\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\"",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241406,7 +241406,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[5].value",
       "value": 1.0219,
       "expression": "llage\":0.9137,\"town\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.24",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241422,7 +241422,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[6].value",
       "value": 0.8161,
       "expression": "n\":0.4944,\"public\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241438,7 +241438,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[7].value",
       "value": 1.7885,
       "expression": "lic\":0.725,\"industry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241454,7 +241454,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[8].value",
       "value": 1.016,
       "expression": "stry\":0.4007,\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241470,7 +241470,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[9].value",
       "value": 2.5,
       "expression": "\"nation\":1.0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"cit",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241486,7 +241486,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[10].value",
       "value": 1.2447,
       "expression": "0219,\"advanced\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"fut",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241502,7 +241502,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[11].value",
       "value": 1.3528,
       "expression": "\":0.8161,\"echo\":1.7885,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beet",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241518,7 +241518,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[12].value",
       "value": 1.3184,
       "expression": "85,\"flight\":1.016,\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beetle\":1.0614},\n key:'p",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241534,7 +241534,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[13].value",
       "value": 0.9197,
       "expression": ",\"wind\":2.5,\"fire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beetle\":1.0614},\n key:'postwar.sound.v1',",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241550,7 +241550,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[14].value",
       "value": 1.9793,
       "expression": "ire\":1.2447,\"rain\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beetle\":1.0614},\n key:'postwar.sound.v1',context:null,u",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241566,7 +241566,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[15].value",
       "value": 2.5,
       "expression": "n\":1.3528,\"settlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beetle\":1.0614},\n key:'postwar.sound.v1',context:null,unlocked:false",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241582,7 +241582,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.properties[16].value",
       "value": 1.0614,
       "expression": "ttlement\":1.3184,\"factory\":0.9197,\"city\":1.9793,\"future\":2.5,\"beetle\":1.0614},\n key:'postwar.sound.v1',context:null,unlocked:false,channels:{},ret",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241598,7 +241598,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[9].value.body.body[0].argument.properties[3].value",
       "value": 0.55,
       "expression": "(mobile=false){return {music:true,ambient:!mobile,effects:true,volume:.55};},\n normalize(raw,mobile=false){const d=this.defaults(mobile);for(co",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241614,7 +241614,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[10].value.body.body[2].consequent.expression.right.arguments[0]",
       "value": 0,
       "expression": "oolean')d[k]=raw[k];if(Number.isFinite(raw?.volume))d.volume=Math.max(0,Math.min(1,raw.volume));return d;},\n mobile(){return window.matchMedi",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
@@ -241630,12 +241630,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[10].value.body.body[2].consequent.expression.right.arguments[1].arguments[0]",
       "value": 1,
       "expression": "]=raw[k];if(Number.isFinite(raw?.volume))d.volume=Math.max(0,Math.min(1,raw.volume));return d;},\n mobile(){return window.matchMedia?.('(point",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 1921,
-      "end": 1925,
+      "start": 1895,
+      "end": 1899,
       "loc": {
         "start": {
           "line": 11,
@@ -241646,12 +241646,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[12].value.body.body[2].consequent.body[4].expression.right.arguments[1]",
       "value": 1000,
       "expression": "eydown',this.gesture);this.timer=window.setInterval(()=>this.update(),1000);}\n  this.menu();this.update();\n },\n async unlock(){if(typeof CivilLa",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2438,
-      "end": 2440,
+      "start": 2465,
+      "end": 2467,
       "loc": {
         "start": {
           "line": 15,
@@ -241659,15 +241659,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[4].consequent.body[1].expression.right.argument",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[4].consequent.body[1].expression.right.argument",
       "value": -1,
       "expression": "=this.context.createDynamicsCompressor();this.limiter.threshold.value=-1;this.limiter.knee.value=0;this.limiter.ratio.value=20;this.limiter.at",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2465,
-      "end": 2466,
+      "start": 2492,
+      "end": 2493,
       "loc": {
         "start": {
           "line": 15,
@@ -241675,15 +241675,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[4].consequent.body[2].expression.right",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[4].consequent.body[2].expression.right",
       "value": 0,
       "expression": "sCompressor();this.limiter.threshold.value=-1;this.limiter.knee.value=0;this.limiter.ratio.value=20;this.limiter.attack.value=.003;this.limit",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2492,
-      "end": 2494,
+      "start": 2519,
+      "end": 2521,
       "loc": {
         "start": {
           "line": 15,
@@ -241691,15 +241691,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[4].consequent.body[3].expression.right",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[4].consequent.body[3].expression.right",
       "value": 20,
       "expression": "threshold.value=-1;this.limiter.knee.value=0;this.limiter.ratio.value=20;this.limiter.attack.value=.003;this.limiter.release.value=.2;this.mas",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2521,
-      "end": 2525,
+      "start": 2548,
+      "end": 2552,
       "loc": {
         "start": {
           "line": 15,
@@ -241707,15 +241707,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[4].consequent.body[4].expression.right",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[4].consequent.body[4].expression.right",
       "value": 0.003,
       "expression": "er.knee.value=0;this.limiter.ratio.value=20;this.limiter.attack.value=.003;this.limiter.release.value=.2;this.master.connect(this.limiter);this.",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2553,
-      "end": 2555,
+      "start": 2580,
+      "end": 2582,
       "loc": {
         "start": {
           "line": 15,
@@ -241723,15 +241723,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[4].consequent.body[5].expression.right",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[4].consequent.body[5].expression.right",
       "value": 0.2,
       "expression": "io.value=20;this.limiter.attack.value=.003;this.limiter.release.value=.2;this.master.connect(this.limiter);this.limiter.connect(this.context.d",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 2799,
-      "end": 2800,
+      "start": 2826,
+      "end": 2827,
       "loc": {
         "start": {
           "line": 15,
@@ -241739,15 +241739,15 @@
         }
       },
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[6].body.body[1].expression.right",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[6].body.body[1].expression.right",
       "value": 0,
       "expression": ",'ambient','effects']){const g=this.context.createGain();g.gain.value=0;g.connect(this.master);this.buses[name]=g;}}\n  await this.context.res",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 3905,
-      "end": 3908,
+      "start": 3932,
+      "end": 3935,
       "loc": {
         "start": {
           "line": 22,
@@ -241758,12 +241758,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[16].value.params[2].right",
       "value": 0.15,
       "expression": "m?'fire':'wind';return {music,ambient};\n },\n ramp(param,value,seconds=.15){const now=this.context.currentTime;if(param.cancelAndHoldAtTime)para",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4287,
-      "end": 4289,
+      "start": 4314,
+      "end": 4316,
       "loc": {
         "start": {
           "line": 23,
@@ -241774,12 +241774,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].consequent.left",
       "value": 0.6,
       "expression": "n,this.prefs.volume);this.ramp(this.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,thi",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4306,
-      "end": 4308,
+      "start": 4333,
+      "end": 4335,
       "loc": {
         "start": {
           "line": 23,
@@ -241790,12 +241790,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].consequent.right.consequent.arguments[0]",
       "value": 10,
       "expression": ");this.ramp(this.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4309,
-      "end": 4311,
+      "start": 4336,
+      "end": 4338,
       "loc": {
         "start": {
           "line": 23,
@@ -241806,12 +241806,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].consequent.right.consequent.arguments[1].left.argument",
       "value": -6,
       "expression": "his.ramp(this.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4312,
-      "end": 4314,
+      "start": 4339,
+      "end": 4341,
       "loc": {
         "start": {
           "line": 23,
@@ -241822,12 +241822,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].consequent.right.consequent.arguments[1].right",
       "value": 20,
       "expression": ".ramp(this.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4316,
-      "end": 4317,
+      "start": 4343,
+      "end": 4344,
       "loc": {
         "start": {
           "line": 23,
@@ -241838,12 +241838,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].consequent.right.alternate",
       "value": 1,
       "expression": "p(this.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);thi",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4319,
-      "end": 4320,
+      "start": 4346,
+      "end": 4347,
       "loc": {
         "start": {
           "line": 23,
@@ -241854,12 +241854,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[2].expression.arguments[1].alternate",
       "value": 0,
       "expression": "his.buses.music.gain,this.prefs.music?.6*(event?Math.pow(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);this.r",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4375,
-      "end": 4377,
+      "start": 4402,
+      "end": 4404,
       "loc": {
         "start": {
           "line": 23,
@@ -241870,12 +241870,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[3].expression.arguments[1].consequent.left",
       "value": 0.6,
       "expression": "(10,-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);this.ramp(this.buses.effects.gain,this.prefs.effects?.6:0);},\n ",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4378,
-      "end": 4380,
+      "start": 4405,
+      "end": 4407,
       "loc": {
         "start": {
           "line": 23,
@@ -241886,12 +241886,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[3].expression.arguments[1].consequent.right",
       "value": 0.4,
       "expression": ",-6/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);this.ramp(this.buses.effects.gain,this.prefs.effects?.6:0);},\n dis",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4381,
-      "end": 4382,
+      "start": 4408,
+      "end": 4409,
       "loc": {
         "start": {
           "line": 23,
@@ -241902,12 +241902,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[3].expression.arguments[1].alternate",
       "value": 0,
       "expression": "/20):1):0);this.ramp(this.buses.ambient.gain,this.prefs.ambient?.6*.4:0);this.ramp(this.buses.effects.gain,this.prefs.effects?.6:0);},\n dispo",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4437,
-      "end": 4439,
+      "start": 4464,
+      "end": 4466,
       "loc": {
         "start": {
           "line": 23,
@@ -241918,12 +241918,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[4].expression.arguments[1].consequent",
       "value": 0.6,
       "expression": "ambient?.6*.4:0);this.ramp(this.buses.effects.gain,this.prefs.effects?.6:0);},\n dispose(c){if(!c)return;clearTimeout(c.stopTimer);c.audio.paus",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4440,
-      "end": 4441,
+      "start": 4467,
+      "end": 4468,
       "loc": {
         "start": {
           "line": 23,
@@ -241934,12 +241934,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[17].value.body.body[4].expression.arguments[1].alternate",
       "value": 0,
       "expression": "ient?.6*.4:0);this.ramp(this.buses.effects.gain,this.prefs.effects?.6:0);},\n dispose(c){if(!c)return;clearTimeout(c.stopTimer);c.audio.pause(",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4941,
-      "end": 4942,
+      "start": 4968,
+      "end": 4969,
       "loc": {
         "start": {
           "line": 25,
@@ -241950,12 +241950,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[6].declarations[0].init.right.left.right",
       "value": 0,
       "expression": "ed[name]=path;const version=this.versions[name]=(this.versions[name]||0)+1;\n  if(!path){const old=this.channels[name];delete this.channels[na",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 4944,
-      "end": 4945,
+      "start": 4971,
+      "end": 4972,
       "loc": {
         "start": {
           "line": 25,
@@ -241966,12 +241966,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[6].declarations[0].init.right.right",
       "value": 1,
       "expression": "name]=path;const version=this.versions[name]=(this.versions[name]||0)+1;\n  if(!path){const old=this.channels[name];delete this.channels[name]",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5048,
-      "end": 5049,
+      "start": 5075,
+      "end": 5076,
       "loc": {
         "start": {
           "line": 26,
@@ -241982,12 +241982,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[7].consequent.body[2].consequent.body[0].expression.arguments[1]",
       "value": 0,
       "expression": "nels[name];delete this.channels[name];if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(o",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5050,
-      "end": 5051,
+      "start": 5077,
+      "end": 5078,
       "loc": {
         "start": {
           "line": 26,
@@ -241998,12 +241998,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[7].consequent.body[2].consequent.body[0].expression.arguments[2]",
       "value": 3,
       "expression": "ls[name];delete this.channels[name];if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(old",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5123,
-      "end": 5127,
+      "start": 5150,
+      "end": 5154,
       "loc": {
         "start": {
           "line": 26,
@@ -242014,12 +242014,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[7].consequent.body[2].consequent.body[2].expression.right.arguments[1]",
       "value": 3100,
       "expression": "this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(old),3100);}return;}\n  if(!this.files[id])return;const audio=new Audio(path),so",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5361,
-      "end": 5362,
+      "start": 5388,
+      "end": 5389,
       "loc": {
         "start": {
           "line": 27,
@@ -242030,12 +242030,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[12].expression.right",
       "value": 0,
       "expression": "ce,gain,path,id};audio.preload='none';audio.loop=true;gain.gain.value=0;source.connect(gain);gain.connect(this.buses[name]);\n  // Begin the f",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5699,
-      "end": 5700,
+      "start": 5726,
+      "end": 5727,
       "loc": {
         "start": {
           "line": 29,
@@ -242046,12 +242046,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[4].expression.arguments[1].right",
       "value": 1,
       "expression": "nels[name];this.channels[name]=c;this.ramp(gain.gain,this.levels[id]||1,3);if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.st",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5701,
-      "end": 5702,
+      "start": 5728,
+      "end": 5729,
       "loc": {
         "start": {
           "line": 29,
@@ -242062,12 +242062,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[4].expression.arguments[2]",
       "value": 3,
       "expression": "ls[name];this.channels[name]=c;this.ramp(gain.gain,this.levels[id]||1,3);if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.stop",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5736,
-      "end": 5737,
+      "start": 5763,
+      "end": 5764,
       "loc": {
         "start": {
           "line": 29,
@@ -242078,12 +242078,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[5].consequent.body[0].expression.arguments[1]",
       "value": 0,
       "expression": ".ramp(gain.gain,this.levels[id]||1,3);if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(o",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5738,
-      "end": 5739,
+      "start": 5765,
+      "end": 5766,
       "loc": {
         "start": {
           "line": 29,
@@ -242094,12 +242094,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[5].consequent.body[0].expression.arguments[2]",
       "value": 3,
       "expression": "amp(gain.gain,this.levels[id]||1,3);if(old){this.ramp(old.gain.gain,0,3);this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(old",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5811,
-      "end": 5815,
+      "start": 5838,
+      "end": 5842,
       "loc": {
         "start": {
           "line": 29,
@@ -242110,12 +242110,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[5].consequent.body[2].expression.right.arguments[1]",
       "value": 3100,
       "expression": "this.retiring.add(old);old.stopTimer=setTimeout(()=>this.dispose(old),3100);}audio.ontimeupdate=()=>{if(this.channels[name]===c&&audio.duration>",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5885,
-      "end": 5886,
+      "start": 5912,
+      "end": 5913,
       "loc": {
         "start": {
           "line": 29,
@@ -242126,12 +242126,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[6].expression.right.body.body[0].test.left.left.right.right",
       "value": 8,
       "expression": ");}audio.ontimeupdate=()=>{if(this.channels[name]===c&&audio.duration>8&&audio.duration-audio.currentTime<3&&!c.loopStarting){c.loopStarting=",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 5921,
-      "end": 5922,
+      "start": 5948,
+      "end": 5949,
       "loc": {
         "start": {
           "line": 29,
@@ -242142,12 +242142,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[19].value.body.body[15].block.body[6].expression.right.body.body[0].test.left.right.right",
       "value": 3,
       "expression": "hannels[name]===c&&audio.duration>8&&audio.duration-audio.currentTime<3&&!c.loopStarting){c.loopStarting=true;this.switch(name,id,true);}};\n ",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7295,
-      "end": 7296,
+      "start": 7322,
+      "end": 7323,
       "loc": {
         "start": {
           "line": 34,
@@ -242158,12 +242158,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[2].test.left.right",
       "value": 4,
       "expression": "meat|use-meds)\\.flac$/.test(path||''))return;\n  if(this.effects.size>=4||Date.now()-(this.effectAt||0)<90)return;this.effectAt=Date.now();con",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7325,
-      "end": 7326,
+      "start": 7352,
+      "end": 7353,
       "loc": {
         "start": {
           "line": 34,
@@ -242174,12 +242174,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[2].test.right.left.right.right",
       "value": 0,
       "expression": "th||''))return;\n  if(this.effects.size>=4||Date.now()-(this.effectAt||0)<90)return;this.effectAt=Date.now();const audio=new Audio(path),sourc",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7328,
-      "end": 7330,
+      "start": 7355,
+      "end": 7357,
       "loc": {
         "start": {
           "line": 34,
@@ -242190,12 +242190,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[2].test.right.right",
       "value": 90,
       "expression": "|''))return;\n  if(this.effects.size>=4||Date.now()-(this.effectAt||0)<90)return;this.effectAt=Date.now();const audio=new Audio(path),source=th",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7512,
-      "end": 7514,
+      "start": 7539,
+      "end": 7541,
       "loc": {
         "start": {
           "line": 34,
@@ -242206,12 +242206,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[5].expression.right",
       "value": 0.7,
       "expression": ",gain=this.context.createGain(),c={audio,source,gain};gain.gain.value=.7;source.connect(gain);gain.connect(this.buses.effects);this.effects.ad",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7694,
-      "end": 7695,
+      "start": 7721,
+      "end": 7722,
       "loc": {
         "start": {
           "line": 34,
@@ -242222,12 +242222,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[10].block.body[1].expression.right.arguments[0].body.body[0].expression.arguments[1]",
       "value": 0,
       "expression": "ry{await audio.play();c.stopTimer=setTimeout(()=>{this.ramp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{th",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7696,
-      "end": 7698,
+      "start": 7723,
+      "end": 7725,
       "loc": {
         "start": {
           "line": 34,
@@ -242238,12 +242238,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[10].block.body[1].expression.right.arguments[0].body.body[0].expression.arguments[2]",
       "value": 0.2,
       "expression": "{await audio.play();c.stopTimer=setTimeout(()=>{this.ramp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{this.",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7743,
-      "end": 7746,
+      "start": 7770,
+      "end": 7773,
       "loc": {
         "start": {
           "line": 34,
@@ -242253,13 +242253,13 @@
       "anchor": "CivilSound.effect",
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[10].block.body[1].expression.right.arguments[0].body.body[1].expression.right.arguments[1]",
       "value": 250,
-      "expression": "{this.ramp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{this.dispose(c);}},\n save(){try{localStorage.setItem(",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "expression": "{this.ramp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{this.dispose(c);}},\n // Sound belongs to this browser",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 7750,
-      "end": 7754,
+      "start": 7777,
+      "end": 7781,
       "loc": {
         "start": {
           "line": 34,
@@ -242269,88 +242269,152 @@
       "anchor": "CivilSound.effect",
       "astPath": "root.body[0].declarations[0].init.properties[21].value.body.body[10].block.body[1].expression.right.arguments[1]",
       "value": 4000,
-      "expression": "amp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{this.dispose(c);}},\n save(){try{localStorage.setItem(this.key",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "expression": "amp(gain.gain,0,.2);c.stopTimer=setTimeout(()=>this.dispose(c),250);},4000);}catch{this.dispose(c);}},\n // Sound belongs to this browser, outsid",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 8625,
-      "end": 8626,
+      "start": 7964,
+      "end": 7965,
       "loc": {
         "start": {
           "line": 36,
+          "column": 68
+        }
+      },
+      "anchor": "CivilSound.restorePreferences.revision",
+      "astPath": "root.body[0].declarations[0].init.properties[22].value.body.body[0].declarations[0].init.right",
+      "value": 0,
+      "expression": ".\n async restorePreferences(){const revision=this.preferenceRevision||0;try{const raw=await CivilLocalSaves.readRaw('preferences:'+this.key);",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
+    },
+    {
+      "file": "游戏/src/postwar/sound.js",
+      "start": 8064,
+      "end": 8065,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 168
+        }
+      },
+      "anchor": "CivilSound.restorePreferences",
+      "astPath": "root.body[0].declarations[0].init.properties[22].value.body.body[1].block.body[1].test.left.right",
+      "value": 0,
+      "expression": "alSaves.readRaw('preferences:'+this.key);if((this.preferenceRevision||0)===revision){this.prefs=this.normalize(raw,this.mobile());this.menu()",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
+    },
+    {
+      "file": "游戏/src/postwar/sound.js",
+      "start": 8556,
+      "end": 8557,
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 58
+        }
+      },
+      "anchor": "CivilSound.save",
+      "astPath": "root.body[0].declarations[0].init.properties[24].value.body.body[0].expression.right.left.right",
+      "value": 0,
+      "expression": "保存'));});},\n save(){this.preferenceRevision=(this.preferenceRevision||0)+1;const prefs=this.normalize(this.prefs,this.mobile());this.preferen",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
+    },
+    {
+      "file": "游戏/src/postwar/sound.js",
+      "start": 8559,
+      "end": 8560,
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 61
+        }
+      },
+      "anchor": "CivilSound.save",
+      "astPath": "root.body[0].declarations[0].init.properties[24].value.body.body[0].expression.right.right",
+      "value": 1,
+      "expression": "));});},\n save(){this.preferenceRevision=(this.preferenceRevision||0)+1;const prefs=this.normalize(this.prefs,this.mobile());this.preferenceW",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
+    },
+    {
+      "file": "游戏/src/postwar/sound.js",
+      "start": 9522,
+      "end": 9523,
+      "loc": {
+        "start": {
+          "line": 39,
           "column": 719
         }
       },
       "anchor": "CivilSound.menu.min",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[2].value",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[2].value",
       "value": 0,
       "expression": ").appendTo(box);$('<input>').attr({id:'sound_volume',type:'range',min:0,max:100,step:5,'aria-label':'声音音量'}).on('input',e=>{this.prefs.volume",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 8631,
-      "end": 8634,
+      "start": 9528,
+      "end": 9531,
       "loc": {
         "start": {
-          "line": 36,
+          "line": 39,
           "column": 725
         }
       },
       "anchor": "CivilSound.menu.max",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[3].value",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[3].value",
       "value": 100,
       "expression": "ndTo(box);$('<input>').attr({id:'sound_volume',type:'range',min:0,max:100,step:5,'aria-label':'声音音量'}).on('input',e=>{this.prefs.volume=Number(",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 8640,
-      "end": 8641,
+      "start": 9537,
+      "end": 9538,
       "loc": {
         "start": {
-          "line": 36,
+          "line": 39,
           "column": 734
         }
       },
       "anchor": "CivilSound.menu.step",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[4].value",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[4].value",
       "value": 5,
       "expression": ";$('<input>').attr({id:'sound_volume',type:'range',min:0,max:100,step:5,'aria-label':'声音音量'}).on('input',e=>{this.prefs.volume=Number(e.targe",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 8720,
-      "end": 8723,
+      "start": 9617,
+      "end": 9620,
       "loc": {
         "start": {
-          "line": 36,
+          "line": 39,
           "column": 814
         }
       },
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[5].expression.callee.object.arguments[1].body.body[0].expression.right.right",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[5].expression.callee.object.arguments[1].body.body[0].expression.right.right",
       "value": 100,
       "expression": "bel':'声音音量'}).on('input',e=>{this.prefs.volume=Number(e.target.value)/100;this.save();}).appendTo(line);$('<p>').attr('id','civilSoundStatus').",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/sound.js",
-      "start": 9003,
-      "end": 9006,
+      "start": 9900,
+      "end": 9903,
       "loc": {
         "start": {
-          "line": 37,
+          "line": 40,
           "column": 150
         }
       },
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[4].expression.arguments[0].arguments[0].right",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[4].expression.arguments[0].arguments[0].right",
       "value": 100,
       "expression": ",this.prefs[key]);$('#sound_volume').val(Math.round(this.prefs.volume*100));\n },\n install(engine){engine.init=()=>this.init();engine.playSound=",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067"
     },
     {
       "file": "游戏/src/postwar/space.js",

@@ -11,9 +11,9 @@
 ## 1. 版本与交付物
 
 <!-- export-meta-start -->
-- 导出时间：2026-11-07 16:44:53（北京时间）
-- 源码提交：`61fdcd1c3b11ab438a15158ba1f1231f8d6bfb13`
-- 文案：10303 条；分卷：47；静态数值：1971 项。
+- 导出时间：2026-11-07 18:03:29（北京时间）
+- 源码提交：`5e4da8ac29ee396cdc5949aff837cc11e653c114`
+- 文案：10305 条；分卷：47；静态数值：1971 项。
 <!-- export-meta-end -->
 
 - `作品完整文案.md`：全量中文文案、动态模板、界面文字、原作旧译与错误说明。不是一本道线性剧本。
@@ -263,7 +263,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/settlement.js`|是|81|聚居与收容|
 |`游戏/src/postwar/setup.js`|是|18|新世界设定|
 |`游戏/src/postwar/society.js`|是|110|制度与代际|
-|`游戏/src/postwar/sound.js`|是|13|声音菜单|
+|`游戏/src/postwar/sound.js`|是|15|声音菜单|
 |`游戏/src/postwar/space.js`|是|51|航天旧制|
 |`游戏/src/postwar/statecraft.js`|是|67|国家利益|
 |`游戏/src/postwar/tech-sources.js`|是|18|补充·补充|

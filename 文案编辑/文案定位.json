@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "exportedAt": "2026-11-07 16:44:53",
-  "revision": "61fdcd1c3b11ab438a15158ba1f1231f8d6bfb13",
+  "exportedAt": "2026-11-07 18:03:29",
+  "revision": "5e4da8ac29ee396cdc5949aff837cc11e653c114",
   "offsetConvention": "JavaScript UTF-16 offsets; start inclusive, end exclusive; not an import command",
   "records": [
     {
@@ -303334,19 +303334,19 @@
       "file": "游戏/src/postwar/sound.js",
       "line": 15,
       "column": 117,
-      "start": 2222,
-      "end": 2234,
+      "start": 2249,
+      "end": 2261,
       "original": "'浏览器未提供声音接口'",
       "originalHash": "636a777378747056dd6fa14d4e1a70c02d7b907f3c258bcd4422b1d4a794e4a0",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "浏览器未提供声音接口",
       "context": "",
       "spans": [
         {
-          "start": 2222,
-          "end": 2234,
+          "start": 2249,
+          "end": 2261,
           "loc": {
             "start": {
               "line": 15,
@@ -303357,7 +303357,7 @@
       ],
       "variables": [],
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].block.body[0].consequent.body[1].consequent.body[0].expression.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].block.body[0].consequent.body[1].consequent.body[0].expression.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
@@ -303366,19 +303366,19 @@
       "file": "游戏/src/postwar/sound.js",
       "line": 17,
       "column": 21,
-      "start": 2974,
-      "end": 2990,
+      "start": 3001,
+      "end": 3017,
       "original": "'声音暂未启用；下次操作会重试'",
       "originalHash": "93b7a4358a8352231fcfa744641d0cedb90865fa0eb9126a771d1dd1cd97637e",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "声音暂未启用；下次操作会重试",
       "context": "",
       "spans": [
         {
-          "start": 2974,
-          "end": 2990,
+          "start": 3001,
+          "end": 3017,
           "loc": {
             "start": {
               "line": 17,
@@ -303389,7 +303389,7 @@
       ],
       "variables": [],
       "anchor": "CivilSound.unlock",
-      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].handler.body.body[0].expression.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].handler.body.body[0].expression.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
@@ -303398,19 +303398,19 @@
       "file": "游戏/src/postwar/sound.js",
       "line": 18,
       "column": 136,
-      "start": 3132,
-      "end": 3150,
+      "start": 3159,
+      "end": 3177,
       "original": "message+'。游戏仍可继续。'",
       "originalHash": "6fccb367f28af85bb358a112920c785fbe134191c7cc0dc35cea82d99c0b0445",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "template",
       "tag": "动态文本",
       "text": "{变量1}。游戏仍可继续。",
       "context": "",
       "spans": [
         {
-          "start": 3140,
-          "end": 3150,
+          "start": 3167,
+          "end": 3177,
           "loc": {
             "start": {
               "line": 18,
@@ -303423,8 +303423,8 @@
         {
           "placeholder": "{变量1}",
           "expression": "message",
-          "start": 3132,
-          "end": 3139,
+          "start": 3159,
+          "end": 3166,
           "loc": {
             "start": {
               "line": 18,
@@ -303444,19 +303444,19 @@
       "file": "游戏/src/postwar/sound.js",
       "line": 30,
       "column": 146,
-      "start": 6137,
-      "end": 6147,
+      "start": 6164,
+      "end": 6174,
       "original": "'部分声音未能加载'",
       "originalHash": "7913c47760fd22201fac3008878e460a4a7e5a1e4c3da7b171c485e4388042c8",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "部分声音未能加载",
       "context": "",
       "spans": [
         {
-          "start": 6137,
-          "end": 6147,
+          "start": 6164,
+          "end": 6174,
           "loc": {
             "start": {
               "line": 30,
@@ -303476,19 +303476,19 @@
       "file": "游戏/src/postwar/sound.js",
       "line": 32,
       "column": 721,
-      "start": 6876,
-      "end": 6914,
+      "start": 6903,
+      "end": 6941,
       "original": "'背景音轨依当前时代阶段与地理疆域自动切替；音频偏好设置仅存储于本地设备。'",
       "originalHash": "2d23f7d42bcc5496e4d3883b83841a015c098c6c67ec79c62783d39d63e632d9",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "叙述与说明",
       "text": "背景音轨依当前时代阶段与地理疆域自动切替；音频偏好设置仅存储于本地设备。",
       "context": "",
       "spans": [
         {
-          "start": 6876,
-          "end": 6914,
+          "start": 6903,
+          "end": 6941,
           "loc": {
             "start": {
               "line": 32,
@@ -303504,58 +303504,122 @@
       "section": "声音菜单"
     },
     {
-      "id": "cw.0da28538331798",
+      "id": "cw.0859dd05b13242",
       "file": "游戏/src/postwar/sound.js",
-      "line": 35,
-      "column": 90,
-      "start": 7873,
-      "end": 7886,
+      "line": 36,
+      "column": 275,
+      "start": 8171,
+      "end": 8184,
       "original": "'声音设置无法在本机保存'",
       "originalHash": "b0a52e7b00cc2991226de8974a32b201ef10ee8fc4d443bcbc7e09a7688bd153",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "声音设置无法在本机保存",
       "context": "",
       "spans": [
         {
-          "start": 7873,
-          "end": 7886,
+          "start": 8171,
+          "end": 8184,
           "loc": {
             "start": {
-              "line": 35,
-              "column": 90
+              "line": 36,
+              "column": 275
+            }
+          }
+        }
+      ],
+      "variables": [],
+      "anchor": "CivilSound.restorePreferences",
+      "astPath": "root.body[0].declarations[0].init.properties[22].value.body.body[1].handler.body.body[0].expression.arguments[0]",
+      "chapter": 6,
+      "section": "声音菜单"
+    },
+    {
+      "id": "cw.ed31fbd980a997",
+      "file": "游戏/src/postwar/sound.js",
+      "line": 37,
+      "column": 286,
+      "start": 8476,
+      "end": 8489,
+      "original": "'声音设置无法在本机保存'",
+      "originalHash": "b0a52e7b00cc2991226de8974a32b201ef10ee8fc4d443bcbc7e09a7688bd153",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
+      "kind": "text",
+      "tag": "界面文字",
+      "text": "声音设置无法在本机保存",
+      "context": "",
+      "spans": [
+        {
+          "start": 8476,
+          "end": 8489,
+          "loc": {
+            "start": {
+              "line": 37,
+              "column": 286
+            }
+          }
+        }
+      ],
+      "variables": [],
+      "anchor": "CivilSound.writePreferences",
+      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[1].argument.arguments[0].body.body[3].expression.right.right.body.arguments[0].right.arguments[0]",
+      "chapter": 6,
+      "section": "声音菜单"
+    },
+    {
+      "id": "cw.0da28538331798",
+      "file": "游戏/src/postwar/sound.js",
+      "line": 38,
+      "column": 243,
+      "start": 8741,
+      "end": 8754,
+      "original": "'声音设置无法在本机保存'",
+      "originalHash": "b0a52e7b00cc2991226de8974a32b201ef10ee8fc4d443bcbc7e09a7688bd153",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
+      "kind": "text",
+      "tag": "界面文字",
+      "text": "声音设置无法在本机保存",
+      "context": "",
+      "spans": [
+        {
+          "start": 8741,
+          "end": 8754,
+          "loc": {
+            "start": {
+              "line": 38,
+              "column": 243
             }
           }
         }
       ],
       "variables": [],
       "anchor": "CivilSound.save",
-      "astPath": "root.body[0].declarations[0].init.properties[22].value.body.body[0].handler.body.body[0].expression.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[24].value.body.body[2].expression.right.arguments[0].body.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.64e68c96f8e696",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 221,
-      "start": 8127,
-      "end": 8131,
+      "start": 9024,
+      "end": 9028,
       "original": "'声音'",
       "originalHash": "52954358eb8da084a941948b619e422a9f36834cf660afb9716066385a04a47c",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "声音",
       "context": "",
       "spans": [
         {
-          "start": 8127,
-          "end": 8131,
+          "start": 9024,
+          "end": 9028,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 221
             }
           }
@@ -303563,31 +303627,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[1].expression.callee.object.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[1].expression.callee.object.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.a5e868edf62ace",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 344,
-      "start": 8250,
-      "end": 8254,
+      "start": 9147,
+      "end": 9151,
       "original": "'音乐'",
       "originalHash": "8cc3d8235b78aed4ec31345e30856ebced8e98cf3a98909e5bf609e733dcde78",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "音乐",
       "context": "",
       "spans": [
         {
-          "start": 8250,
-          "end": 8254,
+          "start": 9147,
+          "end": 9151,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 344
             }
           }
@@ -303595,31 +303659,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[3].right.elements[0].elements[1]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[3].right.elements[0].elements[1]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.4b3f73ee85e6e6",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 361,
-      "start": 8267,
-      "end": 8271,
+      "start": 9164,
+      "end": 9168,
       "original": "'环境'",
       "originalHash": "123004ca5384aea8a413c47fe959aba75f83469e95a2700c15361007b8beef78",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "环境",
       "context": "",
       "spans": [
         {
-          "start": 8267,
-          "end": 8271,
+          "start": 9164,
+          "end": 9168,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 361
             }
           }
@@ -303627,31 +303691,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[3].right.elements[1].elements[1]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[3].right.elements[1].elements[1]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.a93e38f96b07af",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 378,
-      "start": 8284,
-      "end": 8288,
+      "start": 9181,
+      "end": 9185,
       "original": "'音效'",
       "originalHash": "aeb23966df78ed44b3ab5bd5c2ff5053d22258970293a491cfd84c4af5d3cb0b",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "音效",
       "context": "",
       "spans": [
         {
-          "start": 8284,
-          "end": 8288,
+          "start": 9181,
+          "end": 9185,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 378
             }
           }
@@ -303659,31 +303723,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[3].right.elements[2].elements[1]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[3].right.elements[2].elements[1]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.6460628e95a9fc",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 644,
-      "start": 8550,
-      "end": 8555,
+      "start": 9447,
+      "end": 9452,
       "original": "'音量 '",
       "originalHash": "f80700a71f7e85f2f5b201c587bedc37815e213c21d5c30604a4d790539b9c28",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "音量 ",
       "context": "",
       "spans": [
         {
-          "start": 8550,
-          "end": 8555,
+          "start": 9447,
+          "end": 9452,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 644
             }
           }
@@ -303691,31 +303755,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu.line",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[4].declarations[0].init.callee.object.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[4].declarations[0].init.callee.object.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.a7d79b8538630b",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 749,
-      "start": 8655,
-      "end": 8661,
+      "start": 9552,
+      "end": 9558,
       "original": "'声音音量'",
       "originalHash": "ba9ac3e7abd17ba3495ea31c046ed34d686479c65911501da432ecab0f3eee7d",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "界面文字",
       "text": "声音音量",
       "context": "",
       "spans": [
         {
-          "start": 8655,
-          "end": 8661,
+          "start": 9552,
+          "end": 9558,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 749
             }
           }
@@ -303723,31 +303787,31 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu.aria-label",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[5].value",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[5].expression.callee.object.callee.object.arguments[0].properties[5].value",
       "chapter": 6,
       "section": "声音菜单"
     },
     {
       "id": "cw.ae968f19eac3fb",
       "file": "游戏/src/postwar/sound.js",
-      "line": 36,
+      "line": 39,
       "column": 892,
-      "start": 8798,
-      "end": 8835,
+      "start": 9695,
+      "end": 9732,
       "original": "'首度击键或交互操作后自适应激活；音频状态对游戏存续与数值逻辑全无影响。'",
       "originalHash": "b645aa8ed6015ce8400b94a208d48d8b7d751e3406be75f8be50dd19007c0c65",
-      "sourceHash": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528",
+      "sourceHash": "59c8bf594e74ca5c61ac780e1dd99505a5881cc43dea89adbc3ede96a3276067",
       "kind": "text",
       "tag": "叙述与说明",
       "text": "首度击键或交互操作后自适应激活；音频状态对游戏存续与数值逻辑全无影响。",
       "context": "",
       "spans": [
         {
-          "start": 8798,
-          "end": 8835,
+          "start": 9695,
+          "end": 9732,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 39,
               "column": 892
             }
           }
@@ -303755,7 +303819,7 @@
       ],
       "variables": [],
       "anchor": "CivilSound.menu",
-      "astPath": "root.body[0].declarations[0].init.properties[23].value.body.body[2].consequent.body[6].expression.callee.object.arguments[0]",
+      "astPath": "root.body[0].declarations[0].init.properties[25].value.body.body[2].consequent.body[6].expression.callee.object.arguments[0]",
       "chapter": 6,
       "section": "声音菜单"
     },
