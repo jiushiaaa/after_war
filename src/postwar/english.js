@@ -106,17 +106,28 @@ var CivilEnglish = {
   },
   menu(){
     const menu=document.querySelector('.menu');if(!menu||document.getElementById('civilLanguage'))return;
-    const button=document.createElement('button');button.id='civilLanguage';button.className='menuBtn';button.type='button';
-    button.textContent=this.locale==='en'?'简体中文':'English';button.dataset.noTranslate='true';
-    button.addEventListener('click',()=>this.select(this.locale==='en'?'zh':'en'));menu.appendChild(button);
+    const chooser=document.createElement('details');chooser.id='civilLanguage';chooser.dataset.noTranslate='true';
+    const trigger=document.createElement('summary');trigger.textContent='language';trigger.setAttribute('aria-label','language');chooser.appendChild(trigger);
+    const choices=document.createElement('div');choices.className='civil-language-options';choices.setAttribute('role','group');choices.setAttribute('aria-label','language');
+    for(const [locale,label] of [['zh','简体中文'],['en','English']]){
+      const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.locale=locale;button.setAttribute('aria-pressed',String(this.locale===locale));
+      button.addEventListener('click',()=>{this.select(locale);chooser.open=false;trigger.focus();});choices.appendChild(button);
+    }
+    chooser.appendChild(choices);menu.appendChild(chooser);
+    chooser.addEventListener('keydown',event=>{if(event.key==='Escape'&&chooser.open){event.preventDefault();event.stopPropagation();chooser.open=false;trigger.focus();}});
+    document.addEventListener('click',event=>{if(chooser.open&&!chooser.contains(event.target))chooser.open=false;});
   },
   async select(locale){
     this.locale=locale==='en'?'en':'zh';this.observer.disconnect();
     document.documentElement.lang=this.locale==='en'?'en':'zh-CN';
     this.paint(document.documentElement);
-    const button=document.getElementById('civilLanguage');if(button)button.textContent=this.locale==='en'?'简体中文':'English';
+    const chooser=document.getElementById('civilLanguage');
+    if(chooser){chooser.open=false;for(const button of chooser.querySelectorAll('button[data-locale]'))button.setAttribute('aria-pressed',String(button.dataset.locale===this.locale));}
     this.observe();
-    try{await CivilLocalSaves.writeRaw(this.key,this.locale);}catch{/* Device preference failure never touches the world. */}
+    // Explicit language links should not override the player's next choice on reload.
+    const url=new URL(location.href);if(url.searchParams.has('lang')){url.searchParams.set('lang',this.locale);history.replaceState(history.state,'',url.href);}
+    const selected=this.locale;this.preferenceWrite=(this.preferenceWrite||Promise.resolve()).catch(()=>{}).then(()=>CivilLocalSaves.writeRaw(this.key,selected));
+    try{await this.preferenceWrite;}catch{/* Device preference failure never touches the world. */}
   },
   async install(){
     if(this.observer||typeof CivilEnglishText==='undefined')return;

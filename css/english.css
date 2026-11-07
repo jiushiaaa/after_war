@@ -6,3 +6,13 @@ html[lang="en"] .region-map-node { font-size:13px; }
 html[lang="en"] .menu { flex-wrap:wrap; }
 html[lang="en"] .location .button,html[lang="en"] #event .button { white-space:normal; overflow-wrap:normal; word-break:normal; }
 html[lang="en"] .civil-kv dd { overflow-wrap:anywhere; }
+
+/* The ADR language entry is shared by both languages; only two installed locales. */
+#civilLanguage { position:relative; margin:0; color:inherit; font:inherit; }
+#civilLanguage > summary { list-style:none; cursor:pointer; padding:0; }
+#civilLanguage > summary::-webkit-details-marker { display:none; }
+#civilLanguage > summary:hover { text-decoration:underline; }
+#civilLanguage .civil-language-options { position:absolute; right:0; bottom:calc(100% + 10px); min-width:120px; padding:8px 12px; background:var(--civil-paper,#fff); border:1px solid var(--civil-rule,#999); box-shadow:2px 2px 0 rgba(0,0,0,.12); }
+#civilLanguage .civil-language-options button { display:block; width:100%; min-height:36px; padding:5px 0; border:0; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; white-space:nowrap; }
+#civilLanguage .civil-language-options button[aria-pressed="true"] { text-decoration:underline; text-underline-offset:4px; }
+@media (max-width:600px) { #civilLanguage .civil-language-options button { min-height:44px; } }
