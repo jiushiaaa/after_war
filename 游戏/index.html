@@ -198,6 +198,7 @@
   <script src="src/postwar/landing.js"></script>
   <script src="src/postwar/archives.js"></script>
   <script src="src/postwar/local-saves.js"></script>
+  <script src="src/postwar/preferences.js"></script>
   <script src="content/editorial.js"></script>
   <script src="src/postwar/editorial.js"></script>
   <script src="src/postwar/adapter.js"></script>
@@ -226,6 +227,7 @@
   <link rel="stylesheet" href="css/narrow.css">
   <link rel="stylesheet" href="css/city.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link id="civilDarkTheme" rel="stylesheet" href="css/dark.css" media="not all">
 
 </head>
 <body class="civil-entry">
@@ -233,7 +235,7 @@
     <button id="civilStartButton" type="button" disabled>开始游戏</button>
   </main>
 	<div id="wrapper">
-		<div id="saveNotify"><script>document.write(_("saved."));</script></div>
+		<div id="saveNotify" role="status" aria-live="polite"></div>
 		<div id="content">
 			<div id="outerSlider">
 				<div id="main">

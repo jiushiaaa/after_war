@@ -37,7 +37,7 @@ test('technology and city flags remain undated and source introduction is never 
   const {s,history}=harness(),c=s.civilization;c.urban.city=true;c.urban.chartered=true;
   const river=c.origins.nodes.river_network;river.status='agreed';river.permit.paid=true;delete river.agreement;river.introducedAt=600;
   const old=c.origins.nodes.old_city_fringe;old.status='agreed';old.permit.paid=true;old.agreement={agreedAt:1201,home:{knowledge:20},source:{wood:10,knowledge:10}};
-  const view=history.snapshot(s);for(const entry of view.entries.filter(e=>e.category==='technology'||e.category==='cities')){assert.equal(entry.at,null);assert.match(history.line(entry),/已有成果，原存档未记达成年份/);}
+  const view=history.snapshot(s);for(const entry of view.entries.filter(e=>e.category==='technology'||e.category==='cities')){assert.equal(entry.at,null);assert.match(history.line(entry),/未记年/);}
   const legacy=view.entries.find(e=>e.key==='origin_agreement_river_network'),known=view.entries.find(e=>e.key==='origin_agreement_old_city_fringe');assert.equal(legacy.at,null);assert.equal(known.at,1201);assert.equal(history.date(known),'重建 2 年');assert.match(known.detail,/本地实付：知识 20/);assert.match(known.detail,/来源实付：木料 10、知识 10/);
 });
 test('only contacted sources and discovered towns expose completed records; paid in-progress projects never become achievements',()=>{

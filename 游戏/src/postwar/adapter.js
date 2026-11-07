@@ -46,6 +46,7 @@ var Civilization = {
     $('<span>').attr('id','speedMenu').appendTo(menu);
     this.renderSpeed();
     if(typeof CivilSound!=='undefined')CivilSound.init();
+    if(typeof CivilPreferences!=='undefined')CivilPreferences.menu();
     if(!State.civilization.events.awake)this.opening();
     else if(!openingShown)this.notify('你重新翻开了'+CivilNarrative.community(State)+'的记录。');
     this.refresh();

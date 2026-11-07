@@ -143,6 +143,7 @@
     },
 
     isLightsOff: function() {
+      if(typeof CivilPreferences!=='undefined')return CivilPreferences.prefs.dark;
       var darkCss = Engine.findStylesheet('darkenLights');
       if ( darkCss != null && !darkCss.disabled ) {
         return true;
@@ -151,6 +152,7 @@
     },
 
     turnLightsOff: function() {
+      if(typeof CivilPreferences!=='undefined')return CivilPreferences.toggleTheme();
       var darkCss = Engine.findStylesheet('darkenLights');
       if (darkCss == null) {
         $('head').append('<link rel="stylesheet" href="css/dark.css" type="text/css" title="darkenLights" />');
@@ -518,7 +520,7 @@ $(function() {
       if(!window.LumiMakerSdk&&typeof CivilLocalSaves!=='undefined')CivilLocalSaves.recovery(box,boot);
   }
   async function boot() {
-    try { const state=await CivilPlatform.load(); $('#startupError').remove(); CivilLanding.show(state,failed); }
+    try { if(typeof CivilPreferences!=='undefined')await CivilPreferences.load(); const state=await CivilPlatform.load(); $('#startupError').remove(); CivilLanding.show(state,failed); }
     catch(error) { failed(error); }
   }
   boot();

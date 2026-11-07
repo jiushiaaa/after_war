@@ -2,7 +2,7 @@
 var CivilHistory={
   PAGE_SIZE:6,
   categories:{archives:'档案',achievements:'里程碑',people:'人物与机构',tenures:'全部任期',policy:'配给抉择',governance:'制度议决',technology:'科技',cities:'城市与镇制',agreements:'来源协议',projects:'竣工工程',budgets:'共同约定',metro:'城市群',nation:'国家共同法',diplomacy:'对外公约',transport:'国家交通',incidents:'道路抉择',heating:'供暖交接',relief:'地方救济',culture:'社群公共空间',cooperative:'作坊经营',ruins:'遗迹探索',expedition:'近郊勘察'},
-  unknownDate:'已有成果，原存档未记达成年份',
+  unknownDate:'未记年',
   available(s){const c=s?.civilization;return !!c&&(c.settled===true||Object.values(c.tech||{}).some(v=>v===true)||(c.society?.history?.length||0)>0);},
   time(s,value){return Number.isFinite(value)&&value>=0&&value<=s.civilization.elapsed?value:null;},
   place(s,id){return id==='home'?(s.civilization.urban?.city?'炉火城':'本地聚落'):(typeof CivilRegionContent!=='undefined'?CivilRegionContent[id]?.name:null)||id;},
@@ -57,7 +57,8 @@ var CivilHistory={
         if(r.kind==='cancel')add(key,'governance','保留现制：'+axisTitle,term+'继续采用'+previous+'。'+reference+'实际退回'+r.knowledge+'知识。',r.at);
       }
     }
-    for(const [id,learned]of Object.entries(c.tech||{}))if(learned===true)add('technology_'+id,'technology',(typeof CivilText!=='undefined'?CivilText.research[id]?.name:null)||id,'课题研究已结项。');
+    // A dated research completion already represents this technology; the legacy flag is a fallback.
+    for(const [id,learned]of Object.entries(c.tech||{}))if(learned===true&&c.modern?.learned?.[id]===undefined)add('technology_'+id,'technology',(typeof CivilText!=='undefined'?CivilText.research[id]?.name:null)||id,'课题研究已结项。');
     if(c.settled)add('settlement_home','cities','聚落形成','炉火、口粮与基础分工曾达成自持平衡。');
     if(c.urban?.chartered)add('town_home','cities','本地镇制登记','公共治理权责已正式立案入册。');
     if(c.urban?.city)add('city_home','cities','炉火城登记','首座城市的公共职责已登记建档。');
@@ -227,20 +228,27 @@ var CivilHistory={
     if(entry.category==='tenures')return entry.current?'重建 '+entry.from+' 年起':'重建 '+entry.from+'—'+entry.to+' 年';
     return entry.at===null?this.unknownDate:'重建 '+Math.floor(entry.at/600)+' 年';
   },
-  line(entry){return entry.title+' · '+this.date(entry)+(entry.detail?'。'+entry.detail:'');},
+  detail(entry){
+    if(entry.category==='achievements'||entry.key.startsWith('city_district_'))return '';
+    const text=entry.detail||'';
+    if(['机构接续记录','课题研究已结项。','市政基础设施竣工归档。','公用工程施工已验收完毕。','城市共同事务 · 地方承诺与实付工程','并入系统时已存之口粮定额；原始底档未载明采纳时点及此前沿革。','并入系统时既有之规章制度；原始底档未载明确立时点及此前更迭。'].includes(text)||text===entry.title)return '';
+    return text.replace(/^公用工程竣工记录。/,'').replace(/行政职责按制度持续结算。|口粮与产出按新配给持续结算。|按实际公共服务、权利边界和地方同意表决|这次诊断不发资源或人口。/g,'').replace(/，建材与工时均已实付。|，已据实核销全部建材与轮班工时。|；具体效能仍须依托实体设施与轮班工位运转。|；在册居民与已付用度照旧保留。|，材料和工时已经消耗。|，已消耗实际材料与工时。|；能力仍需实际设施与工位。|；既有居民与费用保留。/g,'。').trim();
+  },
+  line(entry){const detail=this.detail(entry);return this.date(entry)+'　'+entry.title+(detail?(/[。！？；]$/.test(entry.title)?' ':'。')+detail:'');},
+  chronicleBody(entry){if(entry.category==='tenures')return entry.title+'，'+this.detail(entry);return entry.key.startsWith('city_district_')?entry.title:this.detail(entry)||entry.title;},
   sorted(entries,category){
     return entries.filter(e=>!category||e.category===category).sort((a,b)=>{
-      if(category==='tenures')return b.generation-a.generation;
-      const time=e=>e.at!==null?e.at:e.category==='tenures'&&!e.current?e.to*600:-1;
-      return time(b)-time(a)||a.key.localeCompare(b.key);
+      if(category==='tenures')return a.generation-b.generation;
+      const time=e=>e.at!==null?e.at:e.category==='tenures'?e.from*600:Infinity;
+      return time(a)-time(b)||a.key.localeCompare(b.key);
     });
   },
   event(s){
-    const view=this.snapshot(s),scenes={},go=name=>({1:name}),recent=this.sorted(view.entries.filter(e=>e.at!==null||e.category==='tenures'&&!e.current)).slice(0,this.PAGE_SIZE);
+    const view=this.snapshot(s),scenes={},go=name=>({1:name}),first=this.sorted(view.entries.filter(e=>e.at!==null||e.category==='tenures')).slice(0,this.PAGE_SIZE);
     const intro=['重建 '+view.year+' 年。'+(s.civilization.decisions?'配给与制度议决从重建 '+Math.floor(s.civilization.decisions.introducedAt/600)+' 年起记录；更早的变更与未知日期不补写。':'这里只翻阅现存档案；旧存档的政策与制度改革尚无完整记录。')];
-    if(view.current)intro.push(view.current.title+' · 重建 '+view.current.from+' 年起。'+view.current.detail);
-    intro.push(recent.length?'近期有年份的记录：':'尚无编入年份之已结事项，既有成果可依分类索引查阅。');
-    scenes.start={text:[...intro,...recent.map(e=>this.line(e))],buttons:{}};
+    if(view.current)intro.push('重建 '+view.current.from+' 年起　'+view.current.title+'。'+view.current.detail);
+    intro.push(first.length?'最早有年份的记录：':'尚无编入年份之已结事项，既有成果可依分类索引查阅。');
+    scenes.start={text:[...intro,...first.map(e=>this.line(e))],buttons:{}};
     for(const [category,label]of Object.entries(this.categories)){
       const list=this.sorted(view.entries,category);if(!list.length)continue;
       scenes.start.buttons['history_'+category]={text:label+'（'+list.length+'）',nextScene:go(category+'_0')};

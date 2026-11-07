@@ -141,17 +141,20 @@
       return JSON.stringify({format:id,version:1,savedAt:new Date().toISOString(),state:State});
     },
     changed() {
-      if(!this.loaded || !root.State?.civilization || root.State.civilization.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
+      if(this.transitioning || !this.loaded || !root.State?.civilization || root.State.civilization.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
       this.dirty=true;
       if(typeof CivilLocalSaves!=='undefined')CivilLocalSaves.changed();
       if(this.sdk && !this.timer && !this.busy) this.timer=setTimeout(()=>{this.timer=null;this.flush();},2500);
     },
     async flush() {
-      if(!this.sdk || !this.loaded || this.busy || !this.dirty || root.State?.civilization?.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
+      if(this.transitioning || !this.sdk || !this.loaded || this.busy || !this.dirty || root.State?.civilization?.setup?.confirmed===false || typeof CivilLanding!=='undefined'&&CivilLanding.held()) return;
       this.busy=true; this.dirty=false;
-      try { await this.sdk.writeSave(await this.encode()); this.error=null; this.status('云端已保存'); }
+      this.writePromise=(async()=>{
+      try { await this.sdk.writeSave(await this.encode()); this.error=null; }
       catch(error) { this.dirty=true; this.error=error; this.status('云端未保存，打开存档重试'); }
-      finally { this.busy=false; if(this.dirty && !this.error) this.changed(); }
+      finally { this.busy=false; this.writePromise=null; if(this.dirty && !this.error) this.changed(); }
+      })();
+      return this.writePromise;
     },
     status(message) { $('#saveNotify').text(message).stop(true).css('opacity',1).delay(2200).animate({opacity:0},700); },
     async download() {
@@ -186,7 +189,7 @@
         download:{text:'导出进度',onChoose:()=>this.download()},
         import:{text:'导入进度',nextScene:{1:'import'}},
         local:{text:'三个本地存档槽',onChoose:()=>CivilLocalSaves.menu()},
-        theme:{text:'切换明暗',nextScene:'end',onChoose:()=>Engine.turnLightsOff()},
+        restartBackup:{text:'重开前的备份',onChoose:()=>CivilLocalSaves.restartBackup(Events.activeEvent())},
         ...(this.sdk ? {save:{text:'保存到云端',onChoose:()=>{this.dirty=true;this.flush();}}}:{}),
         close:{text:'关闭',nextScene:'end'}
       }},import:{text:['载入本地备份文件，或直接粘贴明码字符进行结构复核。全字段校验无误后，再行确认是否覆盖当前游玩进度。'],textarea:'',buttons:{
