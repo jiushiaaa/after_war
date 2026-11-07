@@ -62,10 +62,11 @@ var CivilEnglish = {
     output=output.replace(/。/g,'.').replace(/，/g,', ').replace(/：/g,': ').replace(/；/g,'; ').replace(/（/g,' (').replace(/）/g,')').replace(/、/g,', ');
     if(/[\u4e00-\u9fff]/.test(output)&&value.includes('\n'))output=value.split('\n').map(s=>this.format(s,depth+1)).join('\n');
     if(/[\u4e00-\u9fff]/.test(output)&&value.includes('　'))output=value.split('　').map(s=>this.format(s,depth+1)).join(' — ');
-    if(/[\u4e00-\u9fff]/.test(output)&&/[。；\n]/.test(value)){
-      const pieces=value.split(/([。；\n])/);
-      if(pieces.length>1)output=pieces.map(s=>/^[。；·\n]$/.test(s)?({'。':'. ','；':'; ','·':' · ','\n':'\n'}[s]):this.format(s.trim(),depth+1)).join('');
+    for(const separator of ['。','；'])if(/[\u4e00-\u9fff]/.test(output)&&value.includes(separator)){
+      const pieces=value.match(new RegExp('[^'+separator+']+'+separator+'?','g'))||[];
+      if(pieces.length>1)output=pieces.map(s=>this.format(s.trim(),depth+1)).join(' ');
     }
+    if(/[\u4e00-\u9fff]/.test(output)&&/[。；]$/.test(value))output=this.format(value.slice(0,-1),depth+1)+(value.endsWith('。')?'.':';');
     if(/[\u4e00-\u9fff]/.test(output)&&value.includes('·'))output=value.split('·').map(s=>this.format(s.trim(),depth+1)).join(' · ');
     if(/[\u4e00-\u9fff]/.test(output)){if(this.untranslated.size<512)this.untranslated.add(value);output=value;}
     output=output.replace(/([.!?])(?=[A-Z])/g,'$1 ');
