@@ -2,12 +2,16 @@
 
 本文件给研发和接手的 AI。润色者先看《给Gemini的润色提示词.md》，再编辑完整文稿或分卷。收到“导出文案”或“导入改稿”时先读本文件。
 
+2026-11-07：Gemini 回稿已收回并逐项导入。桌面五份合卷 RTF（第1—24卷）、Cohub 的19份 Markdown（第20卷修正尾稿及第25—42卷）、原始导出基线和来源哈希均保存在 `历史版本/2026-11-07_Gemini交回稿/`。第20卷以 Cohub 第136—250条续稿修正桌面错误尾段。当前完整稿／分卷已更新为导入后的源码基线；11月6日 ZIP 仅作历史交付，不是当前文案。
+
+本次采纳2961条，2542条直接写入显示源文案，419条涉及历史回执／幂等状态，通过 `游戏/content/editorial.js` 的406组去重显示映射呈现；账本原始值不改。保留最近的首页“进入世界”、阶段导航与统一科技图谱。详细取舍和验收见 `验证/Gemini文案导入_验收.md`、`验证/Gemini文案导入/逐条审阅.json`。
+
 ## 1. 版本与交付物
 
 <!-- export-meta-start -->
-- 导出时间：2026-11-06 21:25:34（北京时间）
-- 源码提交：`daa8b18387326abfd15597d26b70433bb4715977`
-- 文案：9310 条；分卷：42；静态数值：1971 项。
+- 导出时间：2026-11-07 16:22:03（北京时间）
+- 源码提交：`6edf99e26b4d5fc58939083ad59106a993174747`
+- 文案：10303 条；分卷：47；静态数值：1971 项。
 <!-- export-meta-end -->
 
 - `作品完整文案.md`：全量中文文案、动态模板、界面文字、原作旧译与错误说明。不是一本道线性剧本。
@@ -51,6 +55,8 @@
 - `numericContentRows` 对应数值参考表；程序数字定位包含更多内部常量。公式、上下限和分支判断应回源文件审核，不从一段润色稿推导玩法。
 
 ### 3.3 样式与完整性
+
+**历史回执的特别约定：** `content/editorial.js` 的 `source` 是兼容匹配键，不能润色；`text` 才是玩家看到的文案。导出把两组分段各自还原为完整句，类型为 `display-template`，变量位置在 `displaySlots`、分段在 `displayParts`，不伪造源码变量表达式。旧模型文件中标为“历史回执原文·只读”的条目也保持原样。`CivilEditorial` 只在文字、提示和读屏标签呈现时替换；表单输入、代码块、原生导出内容与账本校验不经过替换。后续调整必须继续验旧账回放及动态变量，不在历史原文上直接全局替换。
 
 HTML字面量以可读文字和可读属性呈现，源码标签保存在映射中。实体已解码；实际换行保留为换行。文稿不暴露CSS选择器或JavaScript表达式。导入时若要合并动态片段，应逐句调整代码，重新验证，不做无条件字符串替换。
 
@@ -99,6 +105,8 @@ npm run copy:export -- --out /临时目录/战后文明文案
 
 ## 7. 变更记录
 
+- 2026-11-07：收回42卷交回稿，审阅2973处差异；采纳2961条，另12处保留原文或现行界面。桌面第20卷的72个异常标记不写入游戏，使用Cohub修正续稿覆盖对应合法标记。对供暖／道路误配、粮水“或／且”、退任／去世、一次性费用／利息和动态片段错配作人工修正。刷新文案与来源映射；原稿、旧基线另存，未创建永久导入器。
+
 - 2026-11-06：首次导出，按用户要求供Gemini润色；建立完整稿、分卷、动态模板、数值参考、来源映射、基线与覆盖校验。游戏文案与玩法尚未修改，未把内容发送给外部模型。
 
 ## 8. 逐文件对应清单
@@ -115,6 +123,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/content/corridor.js`|是|0|运输走廊|
 |`游戏/content/development.js`|是|48|复兴科技|
 |`游戏/content/earth.js`|是|58|地球共同法|
+|`游戏/content/editorial.js`|是|812|历史回执与显示文案|
 |`游戏/content/expedition.js`|是|26|近郊出行与遗迹|
 |`游戏/content/finance.js`|是|1|互助与财政|
 |`游戏/content/foreign.js`|是|5|国家自主交涉|
@@ -154,7 +163,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/city-continuity-view.js`|是|52|城市经营·代际补员·界面|
 |`游戏/src/postwar/city-continuity.js`|是|37|城市经营·代际补员|
 |`游戏/src/postwar/city-council-validation.js`|是|67|城市经营·共同委托·校验|
-|`游戏/src/postwar/city-council-view.js`|是|148|城市经营·共同委托·界面|
+|`游戏/src/postwar/city-council-view.js`|是|143|城市经营·共同委托·界面|
 |`游戏/src/postwar/city-council.js`|是|61|城市经营·共同委托|
 |`游戏/src/postwar/city-dispatch-validation.js`|是|20|城市经营·货运调度·校验|
 |`游戏/src/postwar/city-dispatch-view.js`|是|30|城市经营·货运调度·界面|
@@ -171,17 +180,18 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/city-labor-validation.js`|是|36|城市经营·岗位与工资·校验|
 |`游戏/src/postwar/city-labor-view.js`|是|65|城市经营·岗位与工资·界面|
 |`游戏/src/postwar/city-labor.js`|是|46|城市经营·岗位与工资|
-|`游戏/src/postwar/city-network-view.js`|是|114|城市经营·跨城物流·界面|
+|`游戏/src/postwar/city-map.js`|是|73|城市经营·补充|
+|`游戏/src/postwar/city-network-view.js`|是|112|城市经营·跨城物流·界面|
 |`游戏/src/postwar/city-network.js`|是|96|城市经营·跨城物流|
 |`游戏/src/postwar/city-registry-view.js`|是|27|城市经营·人口登记·界面|
 |`游戏/src/postwar/city-registry.js`|是|20|城市经营·人口登记|
-|`游戏/src/postwar/city-view.js`|是|138|城市经营·界面|
+|`游戏/src/postwar/city-view.js`|是|142|城市经营·界面|
 |`游戏/src/postwar/city.js`|是|34|城市经营|
 |`游戏/src/postwar/civic.js`|是|230|补充|
 |`游戏/src/postwar/clock.js`|是|2|时间|
 |`游戏/src/postwar/commerce.js`|是|64|商贸|
 |`游戏/src/postwar/congress.js`|是|58|联盟会议|
-|`游戏/src/postwar/conurbation-view.js`|是|129|真实城市接入·界面|
+|`游戏/src/postwar/conurbation-view.js`|是|136|真实城市接入·界面|
 |`游戏/src/postwar/conurbation.js`|是|63|真实城市接入|
 |`游戏/src/postwar/cooperative.js`|是|48|合作社|
 |`游戏/src/postwar/corridor.js`|是|26|运输走廊|
@@ -190,11 +200,12 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/decisions.js`|是|1|早期抉择|
 |`游戏/src/postwar/diplomacy.js`|是|31|外交|
 |`游戏/src/postwar/domain-validation.js`|是|36|地区共同职责·校验|
-|`游戏/src/postwar/domain-view.js`|是|70|地区共同职责·界面|
+|`游戏/src/postwar/domain-view.js`|是|69|地区共同职责·界面|
 |`游戏/src/postwar/domain.js`|是|36|地区共同职责|
 |`游戏/src/postwar/earth-flight.js`|是|51|地球共同法·首航与返航|
-|`游戏/src/postwar/earth-view.js`|是|147|地球共同法·界面|
+|`游戏/src/postwar/earth-view.js`|是|145|地球共同法·界面|
 |`游戏/src/postwar/earth.js`|是|78|地球共同法|
+|`游戏/src/postwar/editorial.js`|是|0|历史回执与显示文案|
 |`游戏/src/postwar/equipment.js`|是|34|装备与护送|
 |`游戏/src/postwar/expedition.js`|是|188|近郊出行与遗迹|
 |`游戏/src/postwar/finance.js`|是|68|互助与财政|
@@ -203,17 +214,18 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/frontier.js`|是|68|开拓|
 |`游戏/src/postwar/future-echo.js`|是|10|先进社会·回响调查|
 |`游戏/src/postwar/future-people.js`|是|8|先进社会·居民身体与身份|
-|`游戏/src/postwar/future-view.js`|是|160|先进社会·界面|
+|`游戏/src/postwar/future-view.js`|是|154|先进社会·界面|
 |`游戏/src/postwar/future.js`|是|110|先进社会|
 |`游戏/src/postwar/generations.js`|是|35|人物与机构接续|
-|`游戏/src/postwar/guide.js`|是|136|下一步指引|
+|`游戏/src/postwar/guide.js`|是|151|下一步指引|
 |`游戏/src/postwar/hearth.js`|是|37|炉火管理|
 |`游戏/src/postwar/heating.js`|是|29|供热|
 |`游戏/src/postwar/history.js`|是|344|发展史|
 |`游戏/src/postwar/incidents.js`|是|41|日常与随机事件|
 |`游戏/src/postwar/industry.js`|是|29|工业与岗位|
 |`游戏/src/postwar/intercity.js`|是|44|城际接续|
-|`游戏/src/postwar/interface.js`|是|187|建造与科技界面|
+|`游戏/src/postwar/interface.js`|是|184|建造与科技界面|
+|`游戏/src/postwar/landing.js`|是|2|补充|
 |`游戏/src/postwar/leagues.js`|是|99|联盟与退出|
 |`游戏/src/postwar/local-saves.js`|是|57|本地·存档槽|
 |`游戏/src/postwar/markets.js`|是|32|自主市场|
@@ -229,7 +241,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/platform.js`|是|61|导入导出与存档|
 |`游戏/src/postwar/polity-foreign.js`|是|58|国家国约·国家自主交涉|
 |`游戏/src/postwar/polity-validation.js`|是|14|国家国约·校验|
-|`游戏/src/postwar/polity-view.js`|是|173|国家国约·界面|
+|`游戏/src/postwar/polity-view.js`|是|172|国家国约·界面|
 |`游戏/src/postwar/polity.js`|是|35|国家国约|
 |`游戏/src/postwar/population.js`|是|0|年龄与人口|
 |`游戏/src/postwar/precision.js`|是|2|精密制造|
@@ -252,6 +264,8 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/src/postwar/sound.js`|是|13|声音菜单|
 |`游戏/src/postwar/space.js`|是|51|航天旧制|
 |`游戏/src/postwar/statecraft.js`|是|67|国家利益|
+|`游戏/src/postwar/tech-sources.js`|是|18|补充·补充|
+|`游戏/src/postwar/tech-tree.js`|是|79|补充·补充|
 |`游戏/src/postwar/transit.js`|是|84|贸易中转|
 |`游戏/src/postwar/urban.js`|是|165|城镇建设|
 |`游戏/src/postwar/village.js`|是|33|村镇生活|
@@ -262,7 +276,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/script/audioLibrary.js`|是|0|原生声音清单|
 |`游戏/script/dropbox.js`|否或经运行时使用|0|补充|
 |`游戏/script/engine.js`|是|8|通用操作|
-|`游戏/script/events.js`|是|7|原生事件|
+|`游戏/script/events.js`|是|8|原生事件|
 |`游戏/script/events/encounters.js`|否或经运行时使用|4|补充|
 |`游戏/script/events/executioner.js`|否或经运行时使用|190|补充|
 |`游戏/script/events/global.js`|否或经运行时使用|0|补充|
@@ -286,7 +300,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/testing/hub.js`|否或经运行时使用|18|测试目录|
 |`游戏/testing/session.js`|否或经运行时使用|32|测试副本|
 |`游戏/lang/zh_cn/strings.js`|是|786|简体中文旧译|
-|`游戏/index.html`|是|2|补充|
+|`游戏/index.html`|是|4|补充|
 |`游戏/体验测试.html`|否或经运行时使用|29|补充|
 |`游戏/browserWarning.html`|否或经运行时使用|18|补充|
 |`游戏/mobileWarning.html`|否或经运行时使用|6|补充|
@@ -305,6 +319,7 @@ npm run copy:export -- --out /临时目录/战后文明文案
 |`游戏/css/room.css`|否或经运行时使用|0|维修间|
 |`游戏/css/ship.css`|否或经运行时使用|0|原作飞船|
 |`游戏/css/space.css`|否或经运行时使用|0|航天旧制|
+|`游戏/css/tech-tree.css`|否或经运行时使用|0|补充·补充|
 |`游戏/css/world.css`|否或经运行时使用|0|原作地图|
 |`游戏/lang/zh_cn/main.css`|否或经运行时使用|0|补充|
 |`游戏/testing/catalog.json`|否或经运行时使用|145|测试节点|

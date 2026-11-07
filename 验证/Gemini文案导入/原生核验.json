@@ -1,0 +1,224 @@
+{
+  "kind": "read-only native replay, not natural gameplay",
+  "checked": [
+    {
+      "id": "exploration",
+      "source": "验证/A7收口/public/village/workshop/战后文明-存档.json",
+      "sha256": "f3f2dfaaf4c07857f3cc221b4aaf6078b4ac2808397d8a3566e47e3d82b36351",
+      "elapsed": 603
+    },
+    {
+      "id": "public-town",
+      "source": "验证/A7收口/public/town-classroom-gate/战后文明-存档.json",
+      "sha256": "3769f35359d8b4b141005126fe96b632fe240b448a0696435bd2f2e3e946cf0a",
+      "elapsed": 5345
+    },
+    {
+      "id": "public-city",
+      "source": "验证/A7收口/public/village/city/战后文明-存档.json",
+      "sha256": "f302aca001c94dcf54846b915c4f5517beac2bf9dee59f0fde31eadd0e9decce",
+      "elapsed": 13380
+    },
+    {
+      "id": "public-institutions",
+      "source": "验证/A7收口/public/institutions/native/战后文明-存档.json",
+      "sha256": "55db5f3d3f10e16158c8c736715be775905fa4b332ec34dca3a369d2d01d911c",
+      "elapsed": 15028
+    },
+    {
+      "id": "public-two-cities",
+      "source": "验证/A7收口/public/two-cities/connected/战后文明-存档.json",
+      "sha256": "f9665846b3ef624773fbb62016de2b89503f02d34904000b0025de5afcfb1702",
+      "elapsed": 16130
+    },
+    {
+      "id": "public-three-cities",
+      "source": "验证/A7收口/public/three-cities/A7_three_cities/战后文明-存档.json",
+      "sha256": "29bbeb0fe48f5ba6f0760b7f1d789eb1938847f720d1a973b4951c2b4f6dd9fe",
+      "elapsed": 18280
+    },
+    {
+      "id": "public-budget",
+      "source": "验证/A7收口/public/three-cities/正常推进共同维护一周期/战后文明-存档.json",
+      "sha256": "a05200e9232fdd3d0f20acdf20a9fa34fae7dc045add07650769e273e4ee2055",
+      "elapsed": 20913
+    },
+    {
+      "id": "public-regions",
+      "source": "验证/A7收口/public/regions/city_received/战后文明-存档.json",
+      "sha256": "7839e069a8439ffea8c9d9de5717f0ae22e4df9790f5b04f1477d5f412b4fc42",
+      "elapsed": 32232
+    },
+    {
+      "id": "public-nation",
+      "source": "验证/A7收口/public/nation/323_public_charter/战后文明-存档.json",
+      "sha256": "3852a889e2f16278e9fc268ee97f7a405f67607e4931b815f6a48815e21fec77",
+      "elapsed": 33202
+    },
+    {
+      "id": "public-echo",
+      "source": "验证/A7收口/public/advanced/356_public_echo_choice/战后文明-存档.json",
+      "sha256": "90342a057e0b471993872cae153b73b24c0f30db56c8be0f76e50b70ce78d84e",
+      "elapsed": 52161
+    },
+    {
+      "id": "public-earth",
+      "source": "验证/A7收口/public/earth/01_global_start/战后文明-存档.json",
+      "sha256": "7e72f3becd33d732b4e5a7b4a5ad54997d0c91db31cb1ce69d4a79078a537bbf",
+      "elapsed": 57049
+    },
+    {
+      "id": "public-unified",
+      "source": "验证/A7收口/public/earth/06_earth_unified/战后文明-存档.json",
+      "sha256": "67d1e98f0949c3a7677f9a72b2919e45e350fc4e5261cfce61d8e0cb38a68b98",
+      "elapsed": 63803
+    },
+    {
+      "id": "public-launch",
+      "source": "验证/A7收口/public/earth/09_orbit_verified/战后文明-存档.json",
+      "sha256": "e0d8cdd46821d7444533969b61502ccdcc719c9d333a089fd2c17de8400bc0b9",
+      "elapsed": 67600
+    },
+    {
+      "id": "public-ending",
+      "source": "验证/A7收口/public/earth/12_first_flight_complete/战后文明-存档.json",
+      "sha256": "2202e5445bd9ba04211986fc75297bd3eedf27fbf5bacfea61de5aa31d2e26c7",
+      "elapsed": 68323
+    },
+    {
+      "id": "industry-town",
+      "source": "验证/A7收口/industry/town-classroom-gate/战后文明-存档.json",
+      "sha256": "f41dddb2ceb0928997f93854a89572b6b88c2e1729ab1d783a54692f5fc54245",
+      "elapsed": 5351
+    },
+    {
+      "id": "industry-city",
+      "source": "验证/A7收口/industry/village/city/战后文明-存档.json",
+      "sha256": "ba6d075df78d44c524d4695a3f07434355d9e3d9fea6f7c4728daeb24d157857",
+      "elapsed": 15333
+    },
+    {
+      "id": "industry-institutions",
+      "source": "验证/A7收口/industry/institutions/native/战后文明-存档.json",
+      "sha256": "2b8a4eee04843641712ff3dcd497453e34dba644dd9488df9db0c3327471e30a",
+      "elapsed": 16963
+    },
+    {
+      "id": "industry-two-cities",
+      "source": "验证/A7收口/industry/two-cities/connected/战后文明-存档.json",
+      "sha256": "1e1c3369230c498fa02dc213e7fbaad8bca877fbabd706960b23e1c4dc0e733f",
+      "elapsed": 25657
+    },
+    {
+      "id": "industry-three-cities",
+      "source": "验证/A7收口/industry/three-cities/A7_three_cities/战后文明-存档.json",
+      "sha256": "d3cb19c0446fe9cbb65f03b97800020ae2f0b8e28deaed0bad7b5a86c4b54e61",
+      "elapsed": 27624
+    },
+    {
+      "id": "industry-budget",
+      "source": "验证/A7收口/industry/three-cities/正常推进共同维护一周期/战后文明-存档.json",
+      "sha256": "6bf6f5d32bc8a5590af3384ecd6a7ce019ed6eaa764dc274e4b26ecb52fb3614",
+      "elapsed": 30186
+    },
+    {
+      "id": "industry-regions",
+      "source": "验证/A7收口/industry/regions/city_received/战后文明-存档.json",
+      "sha256": "4a22091cf0ab3465fcab90be83431f85305d0ae2ca616f741fb97434da4c4cc4",
+      "elapsed": 33128
+    },
+    {
+      "id": "industry-nation",
+      "source": "验证/A7收口/industry/nation/335_industrial_charter/战后文明-存档.json",
+      "sha256": "233cc4e16efa2c8c6b5d895a8b678eacf53d0123bbf33497c196ceb926c301e9",
+      "elapsed": 34106
+    },
+    {
+      "id": "industry-echo",
+      "source": "验证/A7收口/industry/advanced/369_industrial_echo_choice/战后文明-存档.json",
+      "sha256": "b64292dcad7cfc8bbb056b5100a6a1985ea78f29e83504a3ecc0ce34ee102e7c",
+      "elapsed": 95904
+    },
+    {
+      "id": "industry-earth",
+      "source": "验证/A7收口/industry/earth/01_global_start/战后文明-存档.json",
+      "sha256": "db291cd36fc67e1be9bef4844f7b7fac8660b2e42e7dcf6da9bcdf611f1d460b",
+      "elapsed": 101346
+    },
+    {
+      "id": "industry-unified",
+      "source": "验证/A7收口/industry/earth/06_earth_unified/战后文明-存档.json",
+      "sha256": "dc02b6a2ab73c58d6e78f9fd7f1d9c5cec316f23e85ae940e9eb13a7b7fee449",
+      "elapsed": 105795
+    },
+    {
+      "id": "industry-launch",
+      "source": "验证/A7收口/industry/earth/09_orbit_verified/战后文明-存档.json",
+      "sha256": "3f44aa3603e7cff44914de690798ffedaa9ffd35e5d67479c59a5e044801f816",
+      "elapsed": 109459
+    },
+    {
+      "id": "industry-ending",
+      "source": "验证/A7收口/industry/earth/12_first_flight_complete/战后文明-存档.json",
+      "sha256": "e463bbc9aed211eedbfb73890286c0f870d64dd60ebadd71bebee15319b6ce77",
+      "elapsed": 110189
+    },
+    {
+      "id": "public-trade",
+      "source": "验证/A7收口/public/nation/325_public_trade/战后文明-存档.json",
+      "sha256": "5ca9b79bf6bbba6f90e3f34735be34a099473bbe502a293505c0e97fe9d411dd",
+      "elapsed": 38596
+    },
+    {
+      "id": "industry-war",
+      "source": "验证/A7收口/industry/nation/341_industrial_actual_losses/战后文明-存档.json",
+      "sha256": "ca01dff2a49edc8afc58016f5b54b3d89837ffd370457948f5bb711bbf391614",
+      "elapsed": 52877
+    },
+    {
+      "id": "industry-peace",
+      "source": "验证/A7收口/industry/nation/343_industrial_paid_reconstruction/战后文明-存档.json",
+      "sha256": "4f4190e73c17377b1cefabb305203375a4c02e1fc18fa4a6aa684f95bd90fd4b",
+      "elapsed": 84060
+    },
+    {
+      "id": "public-ecology",
+      "source": "验证/A7收口/public/advanced/352_public_ecology/战后文明-存档.json",
+      "sha256": "1d7b1d127fcb9b3ed1d3f4757f5673a3d372413e8f597344f38ca0367aa679dd",
+      "elapsed": 44966
+    },
+    {
+      "id": "public-genetics",
+      "source": "验证/A7收口/public/advanced/353_public_gene_life/战后文明-存档.json",
+      "sha256": "eb066b3ef6946a89307acfc91905c873a19fe6fa1e19b09d6ca6d356f5ec12b4",
+      "elapsed": 46815
+    },
+    {
+      "id": "industry-mechanical",
+      "source": "验证/A7收口/industry/advanced/362_industrial_full_body/战后文明-存档.json",
+      "sha256": "b277c801962e5b165ca2020b824a6b3ab9d0d346a070cd4d0cca6ce7443f7d30",
+      "elapsed": 92661
+    },
+    {
+      "id": "industry-synthetic",
+      "source": "验证/A7收口/industry/advanced/365_industrial_synthetic_society/战后文明-存档.json",
+      "sha256": "35f9c69069f5652a37b4fa37f65bed088ad6f8b6d1bc10c36b17a6c3a049d4f5",
+      "elapsed": 94574
+    },
+    {
+      "id": "industry-fuel",
+      "source": "验证/A7收口/industry/institution-fuel-handoff/战后文明-存档.json",
+      "sha256": "28ddaa35bfd71de7b989f17dcb01e6d280a244adb97032bd66ef87f6b7cf5c64",
+      "elapsed": 23224
+    },
+    {
+      "id": "industry-repair",
+      "source": "验证/A7收口/industry/repair-bootstrap-reviewed/战后文明-存档.json",
+      "sha256": "c813b67a4cada0ac45b10062c9c8377951db5b82c5b96a88d20b5f2652405db0",
+      "elapsed": 72629
+    }
+  ],
+  "failures": [],
+  "unchangedOriginals": 619,
+  "pass": true
+}

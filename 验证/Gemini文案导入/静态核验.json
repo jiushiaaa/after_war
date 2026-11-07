@@ -1,0 +1,597 @@
+{
+  "acceptedEntries": 2961,
+  "originalCurrentEntries": 9491,
+  "unchangedOtherEntries": 6530,
+  "contentNumericRows": 1971,
+  "numericValuesUnchanged": true,
+  "nonStringASTUnchanged": true,
+  "presentationHookException": "CivilEditorial.install() at Civilization.init; two new scripts registered in index.html",
+  "sources": [
+    {
+      "file": "游戏/content/zh.js",
+      "before": "851de062ddcf000c601b7969a0b8493014ceba43ee6cb5951afaecdb845c7960",
+      "after": "2fb1d8543450c8283aa5cc644e2666725780127160f018e28c6f39f61c0c12ba"
+    },
+    {
+      "file": "游戏/src/postwar/setup.js",
+      "before": "0cee621258619f1b23c2d1f819ed4e20e3acca51440c892e1a6c6a6fa8de4df6",
+      "after": "1c7d8adeb006811a98d6460fe7a4b7fdae43789a9f70642870f598828852e5d9"
+    },
+    {
+      "file": "游戏/src/postwar/hearth.js",
+      "before": "e083a0bb245523a95b64735036ccbe776ec4ee2d8d5ec7cca82c1abc017d7210",
+      "after": "fdb078ad7c77b4074017b27a6e8534bdb4f7c484980ff0ca332dcbf5fdf2d559"
+    },
+    {
+      "file": "游戏/src/postwar/village.js",
+      "before": "db6d099d1e05324f1b383b87e106e3d67785c8f28b24c284569cf290043f49d6",
+      "after": "0d9d6ad84fc10f28f97088ac83fa94b893a59b5b8e4ee0283bdfb715b4b31018"
+    },
+    {
+      "file": "游戏/src/postwar/adapter.js",
+      "before": "24a43de02080456938931c41e76da9d5e43467155a4a8b900b5bea32fa1b1735",
+      "after": "ccefc9a1a970eddaa5cfab840f984e8819babad81a814b80ecea914cd8c8c293"
+    },
+    {
+      "file": "游戏/content/expedition.js",
+      "before": "75cef406d72533e43de1c14f3359c904ff79c33c8747734090445ff0bb16960d",
+      "after": "9a4e90472efbf209e6ecedd53bdfdb8e4880e0cc7a71ea9352bf814c9d87c6c5"
+    },
+    {
+      "file": "游戏/src/postwar/expedition.js",
+      "before": "451725f2b6411aac58d2b6c936add380e14aa508373a38d8ebb6c68cf4bc43a4",
+      "after": "82187beee8fb14b932be81fe3d68525d5565a3d5b14a5dc6559d5dede7af5c3d"
+    },
+    {
+      "file": "游戏/src/postwar/incidents.js",
+      "before": "580543ca09c965b5c0c95897e54c66c9ec173acd08bdd9f8008f0e364eed9e44",
+      "after": "695a1ad55b60394b76e0cdca16ff5afd13cf1409109d62665100c44cc839f179"
+    },
+    {
+      "file": "游戏/src/postwar/wind.js",
+      "before": "a6245c70ae19f5b12856d0789a4fce9249ed0bcc08aa142c7caddd587ef9aff9",
+      "after": "04729b3432ebd3569c3fb56b469a1db828007dad3d9d4d69b0f5e76dc979c96a"
+    },
+    {
+      "file": "游戏/src/postwar/generations.js",
+      "before": "8a5e2cbfa21e600246e77c71efd14bf787bde96fa6aeb609d5887693f6d4f350",
+      "after": "6dffc7068e104b7ac07aa6b7f03b6c14f503f99903a594b4322cd526dc7591a5"
+    },
+    {
+      "file": "游戏/src/postwar/society.js",
+      "before": "e7e587fd275c079b01a80d871f13f6c67044ae78a8c542200f6c614016e15b39",
+      "after": "517ba456ec279da81970f13bbbf27b8256e909ae884bb2b38f60919b081fb399"
+    },
+    {
+      "file": "游戏/src/postwar/course.js",
+      "before": "5684e5976954098a95da28e15919b8e418614c035976ab082667601a9e16f338",
+      "after": "27e1cf2c9b46eb0001d4ab6e7c0aab2b8f9f26add2c3c1684a04043d1141726f"
+    },
+    {
+      "file": "游戏/content/development.js",
+      "before": "594193032532d0b42452c73d3b13c9fc9a1c3af2e5597541c904e98f488a08b3",
+      "after": "69e25dd107c1c75949e94deb2d3c205aa74b31971175e9d975ebcb9ffe0828ba"
+    },
+    {
+      "file": "游戏/content/industry.js",
+      "before": "dadfde3a3b39fca22cfebe2ee72f2de6176316c7352fbb9f54bf99a53da80bb3",
+      "after": "2df85b75f3b951889590d3d6130e9405641c2e899afd48f5320f7e0d6b44d581"
+    },
+    {
+      "file": "游戏/src/postwar/industry.js",
+      "before": "288dee7eaf975f2ea8c9f9916ed3d72d1fee6a8933555961c31f3c12eed0f7aa",
+      "after": "b9769afaad9b230ddbe326a5e401e50f1274e724f03db185b9150d1e6afd8fce"
+    },
+    {
+      "file": "游戏/content/modern.js",
+      "before": "b19c0c85382e9483e692757d6d4601a3264e330e90cf69a3c3a5155f325486d2",
+      "after": "8ca731d63017dca2b3d1fc2023a56c39467e162f0cd7066eedd5a5bb2b88a6d8"
+    },
+    {
+      "file": "游戏/src/postwar/modern.js",
+      "before": "56ab927d67d7be99b920f674d021eb9d5c828a2c68ae7f581f66ab4a9f3075d6",
+      "after": "d1af45dc6d478bc1f0945591a140d0dae60432ec4c430672705b916c57b5f5ee"
+    },
+    {
+      "file": "游戏/src/postwar/pacing.js",
+      "before": "e5257ccff739ce54e2d45fa6a8e722b40ae30e8b6f7a59e90db59c1b4f106a8c",
+      "after": "ccfa7d1467a500cebdd1101154e8ab2eeb5535dd50e4d9fb0227437af7c2f5fe"
+    },
+    {
+      "file": "游戏/content/urban.js",
+      "before": "9b83266196ebedafa0b04e14230a9bf383366567e26bff7d4bd89989ba63ecc1",
+      "after": "193fb856953fa7ec12377bd24d174c5c6cb9ad60e723bc40cd2784688eba3f19"
+    },
+    {
+      "file": "游戏/src/postwar/urban.js",
+      "before": "565c7dc55ad3af7fdd3c3163e62b2ebd5cb33a990f6096cacd39717e43d0d124",
+      "after": "b8ccbe2c273eb15f425337309851973645c3b366298315635978e8d44ece4469"
+    },
+    {
+      "file": "游戏/src/postwar/municipal.js",
+      "before": "a79847d98f80366430bb2d290d19d8fcf032bc40976d09405d8b32a8d7a83f77",
+      "after": "669bd406a0204d84e4773c3114253bdfdb609232c274b1b55fb267713f2e52e4"
+    },
+    {
+      "file": "游戏/content/services.js",
+      "before": "8c96ceee40a210a3b2faeb471766cfdc21bf9cdda28e35757bd3f21886e85dc1",
+      "after": "7066835249b4227eb20bd3a39e5c5be1ec10e90ca19ebff96bc8e2933fdf528d"
+    },
+    {
+      "file": "游戏/src/postwar/services.js",
+      "before": "dc4c28667d195e9a754942276694a0728fc4f196427d77097c1c385e9d74d7c5",
+      "after": "2f57f21d816e431e082b4a99718217c6dad3f83614a41ae5f3799a838f434411"
+    },
+    {
+      "file": "游戏/content/advanced.js",
+      "before": "0570e4b5240350f1d097d2643ea6e961152ac649116892858ea95d8d0b902156",
+      "after": "2cd69951cb7291f6e7450b9dc6565580bd89131e8590afa144c9ec139f7cd7b9"
+    },
+    {
+      "file": "游戏/content/precision.js",
+      "before": "96bf53850c159702c98533fd1309f6b73feb92ba93b30b7f9b720da0c6c0022b",
+      "after": "20ba04eca8471be5d23f968722115e0ef5d5638266a63f863877c7bff029204b"
+    },
+    {
+      "file": "游戏/src/postwar/advanced.js",
+      "before": "2504160ade72ded1e994d5920328037fc376580cbde8e7153c3f88e7763e6df2",
+      "after": "327dcaede941e3dab1340070727ec257266afff4123a2355d4fcd38612e6764e"
+    },
+    {
+      "file": "游戏/src/postwar/cooperative.js",
+      "before": "410357ac075108d21c9cb278dff805be6847756781ac823ec57e1bafda57d2ad",
+      "after": "5804c516b72167afecdd67ba5eabbe10d11b241e303bfae302c58b2940fcc8a1"
+    },
+    {
+      "file": "游戏/src/postwar/culture.js",
+      "before": "32895237f9e032b38db626fa2e1c829ba0eb5ddce1bf26739d7d88f4d1ac7814",
+      "after": "28068bb525e4a110d93f23d89848f46797fd23fddd8f0479131e83fad0138a62"
+    },
+    {
+      "file": "游戏/src/postwar/heating.js",
+      "before": "127e424404a20db0503f727730cf68570f33a9ffee9e557119bbe00dd9be0a40",
+      "after": "971f1684989e256a7269eb624ccaa86ecdef1ba34684c2a25b4cfaae97ee038a"
+    },
+    {
+      "file": "游戏/src/postwar/origins.js",
+      "before": "27f96f8de2e34fa0dd04f5dfd9d2f707b8b80a8c3b21a2b3b0e446a05dabc213",
+      "after": "c8be34186d4d670107786e04d8881f04bce39298534ff63834d0c78545f8d3c2"
+    },
+    {
+      "file": "游戏/src/postwar/precision.js",
+      "before": "cd74f090c1818b63aeaff85382173e39956b92dc2f08047fd009218913716dde",
+      "after": "341985238b752e1304ca215655c60c333a5b99a79196ede20545e80c4a3f24bc"
+    },
+    {
+      "file": "游戏/content/city.js",
+      "before": "f7fc940ca53d7238b4fa01fc2619ab6178ddc0cc56da683e958c19bb5ce816fc",
+      "after": "2e695107b590637bf09afc18dbcc694d4085baf974227d6fa1217c4736fde325"
+    },
+    {
+      "file": "游戏/src/postwar/city.js",
+      "before": "a5e0d62a1c8f83f7efb5c54f03b918e9648fa8d6ce0003bd6f1a74d6576c8ed7",
+      "after": "ef73aebcbb85190ca18b194a7afafcc60bf58bcdef5244ee8e5486318223e30f"
+    },
+    {
+      "file": "游戏/src/postwar/census.js",
+      "before": "2ff5745871ae426b87db763c44e0efc4711d66ac8042d37e75a0b5fee2c166b0",
+      "after": "279abaee7a0eb1a2e0bc08d3923573c23e563f0d933f71c0a7ff37c46a335a82"
+    },
+    {
+      "file": "游戏/src/postwar/city-institutions.js",
+      "before": "c060d935fa49bed8a6ffeb75c171506ef1665e75a23a6e79c5d141d44692eaa2",
+      "after": "39e53068e979b70ed898310d5a592484655677eb4efaf834a3fb7de580859e65"
+    },
+    {
+      "file": "游戏/src/postwar/city-labor.js",
+      "before": "255bcdc1891f65c5919142cc54d72d63b5d2cf8beff7949c9e3fd7bc79e8eba0",
+      "after": "03d4832e2fa038d44d6939c166a29b63329b8f2c3a461da8aa3d01768d56ca0a"
+    },
+    {
+      "file": "游戏/src/postwar/city-homes.js",
+      "before": "eb7a43153dc9067412c42b079f5e4eeb9aaa190f146862b3b5c0d5f3ebc4ee79",
+      "after": "7c3f3b5ee19885cb26d8319fc2cd41a00ee687d0fbeea13b2600849e25d6bb7e"
+    },
+    {
+      "file": "游戏/src/postwar/city-network.js",
+      "before": "1df2ebe4c15a0e2ee3d5c1324ad24dcfbd44450977036c1fd888bebb07360e87",
+      "after": "52c56478036ee02da0bbb12ad936fefbf5f3b658af631456c7b8b428ef329750"
+    },
+    {
+      "file": "游戏/src/postwar/conurbation.js",
+      "before": "37b1d986c7022971654abd76b82c9a3ff2d6a6a1fb027be0cf9e5ab79854f745",
+      "after": "690f074851bcc4fa9f9dae691157dee312057c15266b31c5156e405fe231da0c"
+    },
+    {
+      "file": "游戏/src/postwar/city-council.js",
+      "before": "a7f77c3544f8eb726c8a78dcc9ff9204cd1b1264210e0d6e8b0ffae216121e6e",
+      "after": "735a06da1d072b0e71a2f53bbc88a0f23e59ae30811e98c9bf9f93b11dda4fec"
+    },
+    {
+      "file": "游戏/src/postwar/city-budget.js",
+      "before": "cb7bd645abde00306b73f9461a6ad64cc314008393dcf837f12d6813cd38f37f",
+      "after": "77e56a75993b9aa8e2f3d7fd26e981075586bc3ffd8d85751cd2f466d79e32e2"
+    },
+    {
+      "file": "游戏/src/postwar/city-governance.js",
+      "before": "9c6e947a44a63a29a3382d1cdfebe1b20350b7b19d37398fdf38e05cc91cbef9",
+      "after": "f3d5d01960bd8d5d9f7f0d0b7203aacd1719f23c2de7f747ed4d299882b346de"
+    },
+    {
+      "file": "游戏/content/passenger.js",
+      "before": "8bd43d5b5cbea1a21ec2855347d740e637bf3d400a81f3d8b411be842606afa4",
+      "after": "dc83269cc3a5f99eddd3cb646ee97922c964ddecff8b77f31c42227c6de93db8"
+    },
+    {
+      "file": "游戏/src/postwar/city-budget-view.js",
+      "before": "160ad669069c2b4ef79bc158a42a602c934500a4cf09725bd9cfb7a0c50f4858",
+      "after": "25b08bc27d68f79d87443c203c049e53bb8263f8c57b4b204a28318ba959d4a9"
+    },
+    {
+      "file": "游戏/src/postwar/city-continuity-view.js",
+      "before": "b8073d4376eed413fdaeb794c32fedb2b1fb39dde9625a42219752dd3ab914ba",
+      "after": "8ffb747b7b6754111876898c1296c9e55cd22ccdb87c53f518648518885411ac"
+    },
+    {
+      "file": "游戏/src/postwar/city-continuity.js",
+      "before": "ee3ffc30ec01ef88720c0dbb8740f4ae8a78892f1f53d4d247bf26bddbe09d35",
+      "after": "e94512ec81a4515dd51de33e9c6ed134ba7d42d353a0956df807383113d526c7"
+    },
+    {
+      "file": "游戏/src/postwar/city-council-view.js",
+      "before": "80a4ec1d353cf4f91fa2c0df5ef08a78be428b19d965fee600a5515bd7c68ab1",
+      "after": "b12b7eab1e3c732c40732ae5dd1441aa3552045c9231a292d122fba464d1e2a8"
+    },
+    {
+      "file": "游戏/src/postwar/city-dispatch-view.js",
+      "before": "0689ae6f3d05271375a6739f47bcad0d1a5012d76c1c3b87fe1e970bbb89483e",
+      "after": "5848ae290d67a5a4ab6841a389e56dda34c9dfcaf261c9b74c6d64ec2ab0be15"
+    },
+    {
+      "file": "游戏/src/postwar/city-dispatch.js",
+      "before": "73be8f2486756ae4f1cc120121782618c0004a820cba004d5af707323e214a20",
+      "after": "15b4af15b00b235874f64ab42e5a78ec547f537759dc1a0618f10f063186da9a"
+    },
+    {
+      "file": "游戏/src/postwar/city-governance-view.js",
+      "before": "d0ed77fb6b99db4a01956fb1f0276981312d95b0bdb9b007f7b8c642f438f0c4",
+      "after": "0878e517c773029705f639dfe4b21356cb4cdb199de5b468cdcd3ba2b0efca9d"
+    },
+    {
+      "file": "游戏/src/postwar/city-homes-view.js",
+      "before": "4e89f08a958a53005db391ffcd9ff669c89922e74f335e3e7cdf2f7ea61b52f7",
+      "after": "e874a286f911dc639f16805b90d660e5e71321e55c6705c02016bb99c0c97a78"
+    },
+    {
+      "file": "游戏/src/postwar/city-institutions-view.js",
+      "before": "26c4c8b5a38e39fa3ae73d08412bb7375b9c01df1d5dd098f1ad2e8463c110e6",
+      "after": "f899d9c4c0a788b4065221cf995db4e933b26a3ea24ea17e32befb851e18e5b0"
+    },
+    {
+      "file": "游戏/src/postwar/city-labor-skills.js",
+      "before": "15ec940b3dd8966de4b0f5f23895638fb351fc547d5bb07c83ab295d605fc3eb",
+      "after": "8ed01694825877138e036c09be72579a3dd9aefcf462c0a34c0a42df7ca2d697"
+    },
+    {
+      "file": "游戏/src/postwar/city-labor-view.js",
+      "before": "e9870d10f44910f2a008166f4b4f8397e410199227cba009ed9349de6ff8f27d",
+      "after": "176fd87fe62eb6f52aceb5361a85d6291fe97273cb71b52a248f760ce7fbd890"
+    },
+    {
+      "file": "游戏/src/postwar/city-network-view.js",
+      "before": "a5ffb95169dde557c64854df1652fced9729116bb1174798d26e1fca2e575c2f",
+      "after": "c0414edbed5501e8e676a4f0fe221f7fd70cd472ad1d5a5fe4c46854d4a118d8"
+    },
+    {
+      "file": "游戏/src/postwar/city-registry-view.js",
+      "before": "391426e9ac2797c6e0616f7bf63325e44ad123fc8d15fa266f61aa3a051ee2b9",
+      "after": "3f99cd47ad62aa44e061c1d83e3e2c7e3f91368deaf3712a06fe1e6a166584a5"
+    },
+    {
+      "file": "游戏/src/postwar/city-registry.js",
+      "before": "00cd581963d068b5a2f9eedb470b202f111abd00f5869e36b25af9b5f8d7bc11",
+      "after": "52b65d6e82af7d830e9fd83f240063faf4de860fe19e2b63e0e20e08103af5b1"
+    },
+    {
+      "file": "游戏/src/postwar/city-view.js",
+      "before": "646850605e264bce023644c960f02f3f3a0d0b74f2b6a97ade2363cafbbf419b",
+      "after": "e401e36e9856018e011af9bf78c6534294fa984259a3c7d8f72a39df5745fff2"
+    },
+    {
+      "file": "游戏/src/postwar/conurbation-view.js",
+      "before": "264be410e02b9773ce81488679641f3992d43e4593a7da6329c18aeb5e369ea6",
+      "after": "10be77396bcc19a949d6179af2d629e05d9d73a0f061736762b6168fb92add1e"
+    },
+    {
+      "file": "游戏/src/postwar/corridor.js",
+      "before": "dc90a33134d45c5fb56a2877430488829b288299e327293c619b04bcaaee94b0",
+      "after": "c3c8b882b6a00cb38fa0a637db32681fbebfad302dbd9b8e9cc539e4080569eb"
+    },
+    {
+      "file": "游戏/src/postwar/intercity.js",
+      "before": "16d6bf432a85e3ce215d8be2e4d92ed749a3d67bdbdc46c70e242e7e923c125d",
+      "after": "4084d1b152164aec224b57f0249d5ace25d3f278ab554b72a4319117cff54561"
+    },
+    {
+      "file": "游戏/src/postwar/metro.js",
+      "before": "9da443aa5f8f05138927f989154ad73c7921b0f7eb2c163aea56df33865c301c",
+      "after": "7df45af1a76e9d29341e223add7695beacfe3c433ad8eb1a4fb9b80df34b4ff5"
+    },
+    {
+      "file": "游戏/src/postwar/passenger.js",
+      "before": "119298b54ab0100eeeb3ddcfd659f2798b6a2773174baa0367a96a2dce4a3e98",
+      "after": "e33217ec30ce39c871ceef78df53bfdcc329531a9075311a02cfe1f8b9b34e4e"
+    },
+    {
+      "file": "游戏/src/postwar/domain.js",
+      "before": "463dda6051f32cd508bf2dde7a74fc223f752a834505093a9d6667d130f918bf",
+      "after": "846468defe796e0ca1fe21fb3c856d950c36f5c12d9b73b873f3f87e2fdfaa11"
+    },
+    {
+      "file": "游戏/src/postwar/regional.js",
+      "before": "2b05da67784ff2ffe0a36895599d6bad6639d61e52be6cd56d4a393062499cde",
+      "after": "8a624afb328bb3bbbceafbd8d10a37e935169a382d4d825ceccc9424d5ec895f"
+    },
+    {
+      "file": "游戏/src/postwar/polity.js",
+      "before": "8e43f517a301bafbf8202c7bed18b3bc625712688c2082bb97d49ea37423d0e4",
+      "after": "8e43f517a301bafbf8202c7bed18b3bc625712688c2082bb97d49ea37423d0e4"
+    },
+    {
+      "file": "游戏/src/postwar/nation.js",
+      "before": "482b59ab44d2ee44c0def01e48605e7781cf64e6553fff8fe5a6e0be8fd0dbd9",
+      "after": "e345b0707eb297de9c6e3ad4a92a020a2ceaaab0310b6487a0935faa01d734d3"
+    },
+    {
+      "file": "游戏/content/commerce.js",
+      "before": "296b407ab444c370eb5bf18b583c9008207e5268a8705c4ddc0b59a31970aa1a",
+      "after": "74a8c7525b5056afedabdbee8b612a582c6eb4caaa2747644cd0b16a1b44e50c"
+    },
+    {
+      "file": "游戏/content/railway.js",
+      "before": "018763f8df66005345e48f53036265e8cf54e9622dda05df17f02ca66d57ac33",
+      "after": "877ea5f22f2911331ed559508dd78fa57f854827046348e07383670cff8a6e72"
+    },
+    {
+      "file": "游戏/content/regions.js",
+      "before": "e85389d7b7c29945518e67a6bbfcd5bd9b08e28784b5b2e85e63e081c5965b8d",
+      "after": "0ebf120b8887ef14629748780283cf7931fe4583e10d8f2fb88b6ca0435b32ce"
+    },
+    {
+      "file": "游戏/content/security.js",
+      "before": "36a1d4e81bd4bd6784aa6330ac634028091bd44e0526462cd526f085f67a0597",
+      "after": "19f001bcb903b6c9449b63732b7e0e4afe02a6e5503f55cb61fbbb95b3ad19b7"
+    },
+    {
+      "file": "游戏/content/worldstage.js",
+      "before": "0bbda794c58a618c07b8ac16060725952cac2bd51dc5d13c03aa1b7e5b124a55",
+      "after": "57ba9c3dc7cc7900f9b3692571827f79c1e5dc935bc4a435f179199f36d8b1a5"
+    },
+    {
+      "file": "游戏/src/postwar/accession.js",
+      "before": "add8ff1c3acabb2c766260396780e5577999ae19ec461c1b7766266d2b762c62",
+      "after": "af9844445ee7113baa73d3f1ceb221a67013ab4e33ec73cb8bc28a879d097e26"
+    },
+    {
+      "file": "游戏/src/postwar/aftermath.js",
+      "before": "407ae311c74665891cf039538fa635019b1a0b834e243de4107af5b3fe7d74cf",
+      "after": "05e5c5fca1327f3c76bd6bb2f57c3ad691ae2fb8725f162497ce18837d6e4516"
+    },
+    {
+      "file": "游戏/src/postwar/commerce.js",
+      "before": "ba5a1e1c620ecd01c8ead55a85ece9661929511cb61e8de1346d521b00163468",
+      "after": "e67471f69fd5ec8163a01adffa0ba2ba0288de22482c3ac4a5ed4e55b8b15334"
+    },
+    {
+      "file": "游戏/src/postwar/congress.js",
+      "before": "b527ec35a2518838de97061cda06572313bc249ff077f39f16c2e60b0261c20e",
+      "after": "44048b3a083f016f6d0cc10836930393adcb400da1b740ff415aa3372ad5b2aa"
+    },
+    {
+      "file": "游戏/src/postwar/diplomacy.js",
+      "before": "8db6d473e373b7e64684540591925e751b207298ce78ed305677238a938517ed",
+      "after": "7211e0f60480a2ed2031f180c400781147d2251f3f14fc72e1a563388b1b1957"
+    },
+    {
+      "file": "游戏/src/postwar/domain-view.js",
+      "before": "6b6a9b737cfd595fd928327caaaaa5ad26ce1b5d95db4f42da6abdae66835178",
+      "after": "ca1fd505f013314151b52afb1ab86d27e8ccae1b2e272434fe82add4c76fc690"
+    },
+    {
+      "file": "游戏/src/postwar/equipment.js",
+      "before": "55eb479140af5d5429770e874993a0e39b40a329324ab4a6a3d38162941005f9",
+      "after": "88af7e26c7e8315d38eae36f92842fddf2f6f32c09c9f5865dda396308b5bc25"
+    },
+    {
+      "file": "游戏/src/postwar/finance.js",
+      "before": "4f750a4b2e178280e0e5f3d840569a58510d75b193869e7b5797e947793986ed",
+      "after": "5d548423c9ec43016abdd662211f597f6c8e96c69cdef16fc15986e3d04618c7"
+    },
+    {
+      "file": "游戏/src/postwar/foreign.js",
+      "before": "d879f477fa0d84ee9f9646777ffe3e20bc24b68a63044cdbb478aac8590ad9c7",
+      "after": "dec2cebcc9f0c671ad7961647641086f15469e73d2134be94d8015d946e676c0"
+    },
+    {
+      "file": "游戏/src/postwar/frontier.js",
+      "before": "2ba83e5f8be3ab8e81ad3733485ef1e96d9ce9e42115c3899b6916ff6917eb42",
+      "after": "e05c4c449a8b142de89d93c7ae893f885991b7417285a441f7f26ca753780490"
+    },
+    {
+      "file": "游戏/src/postwar/leagues.js",
+      "before": "507a726f3504e097ead7e3f59965fd023f6ec4ddca96ec7ea6411cd58adbeec2",
+      "after": "2b2ad7aa728cdfd2dc9f4add41d9bee7e6a1a4f28a07d87415e41e8dff165b79"
+    },
+    {
+      "file": "游戏/src/postwar/markets.js",
+      "before": "8dc3f7eac92e34f55ca9f2cbd4536222fe76b287e0099d9eb75d0236398b3cb4",
+      "after": "c919d3bcdf2206c92b0263e5e720900af5efbb98eb64115ef8c1c60948a300b4"
+    },
+    {
+      "file": "游戏/src/postwar/partnership.js",
+      "before": "df996fad6fba5ad88497f12a6a606d438fc1eb182823df41986444d881aa4fc7",
+      "after": "3960760731715899881581ffb1c65f4000248da0bb6c64668745189f502b09f7"
+    },
+    {
+      "file": "游戏/src/postwar/polity-foreign.js",
+      "before": "6651ecf45d45094200a2a7b0a5ace648fc748b7d3913cc0863cf90829557950f",
+      "after": "6651ecf45d45094200a2a7b0a5ace648fc748b7d3913cc0863cf90829557950f"
+    },
+    {
+      "file": "游戏/src/postwar/polity-view.js",
+      "before": "12dcf19a06e97d15d7d6aa767b946ca93352576bd011f2a0e41fd630faca053c",
+      "after": "895c0f1b7738ffe32aa2be2b1e3971225ee8439d6e32196348d44bd3bdacf7e4"
+    },
+    {
+      "file": "游戏/src/postwar/railway.js",
+      "before": "b6ee4727ee16dacf4ccb555e21217c72a34cc37b1e7b7ef76db25bbcae0e2329",
+      "after": "05f12a1258492ddd68ed55c31bd8ec57bc29fc760e9d15d526c2f69bfd45b762"
+    },
+    {
+      "file": "游戏/src/postwar/regional-view.js",
+      "before": "742531f6ef4d77f4050a2f8f5a5729a3112ef6c2118d9b4d5e7061ee0c0320a8",
+      "after": "faad0566afe7e4d83dee9b138bf7d26be5475b5442990a36f5e14c91812e46d8"
+    },
+    {
+      "file": "游戏/src/postwar/regions.js",
+      "before": "ce7690185c05e69fc25eafe82b76f8bdbb92eb9378354527edc525fe0b3b82cd",
+      "after": "ecbd8dcfc3edc6291dbfee2dbcd8083943bfbfe41b0c9a853532559a9b506fe0"
+    },
+    {
+      "file": "游戏/src/postwar/relief.js",
+      "before": "29c799857c5d491ebe02a7cc60592b863f8438bebfc37dd129f4ece336f9b436",
+      "after": "ae23ec404eeca01f9684a53be2146a3fb0ef6cf8d1fc6faad31f9306a20025ac"
+    },
+    {
+      "file": "游戏/src/postwar/security.js",
+      "before": "1963a8afdab1d0e738b14e922d7e76bc40dc8a4c087d1f9f02d66ce7e4022f85",
+      "after": "b46fd2a1bf59887698f880044eb5524f08bb2e70eb591b4cf56b498cbb020ee1"
+    },
+    {
+      "file": "游戏/src/postwar/settlement.js",
+      "before": "79381ef2012b3d7e9c50d64df5b3061f53c2e779b7c6c44194a10d4a0c99f8d6",
+      "after": "9ebadcaa91dda28eac1b8c8dd5e85e84fd1383bd887afa76656617a484865d95"
+    },
+    {
+      "file": "游戏/src/postwar/statecraft.js",
+      "before": "587c32b1191cfd9651ab663b443e768bd489b2fcdb8da2f53fa657ed9c42214e",
+      "after": "d913f3e938e36a9676718d5b5ed5edf28ffe1fb0dc1b159d1683f78a19f7aa3b"
+    },
+    {
+      "file": "游戏/src/postwar/transit.js",
+      "before": "abd361bf86d7a39d60eded0792c0eb7bf52c67282bdc34b7dcd5d5c7f3168ba5",
+      "after": "73057fac96bb5ef0cb691de8b6c5955b53b640051bac17e044395baa733508d6"
+    },
+    {
+      "file": "游戏/src/postwar/worldstage.js",
+      "before": "e53baa688b125a59cbb7c25d45d02e1ee1d03e732a0ce14f2b99047fba7d7469",
+      "after": "7b4a636547db8396677f76d4b994e4eda1ebd50bc5e9a61a060c89126afb6dad"
+    },
+    {
+      "file": "游戏/content/future.js",
+      "before": "54087e171c6a628bd00ba47f72e27381ab2913c729a9a8cf6af1fa8d78c074e0",
+      "after": "df775bb93218b9e9013cc5cacd5dbd2a220ab47e4573608118310487da49865b"
+    },
+    {
+      "file": "游戏/src/postwar/future.js",
+      "before": "7d6939fcec61628ccc391d0a8405f2a53b90f6ca61d6b29a664a745845282fe1",
+      "after": "7d6939fcec61628ccc391d0a8405f2a53b90f6ca61d6b29a664a745845282fe1"
+    },
+    {
+      "file": "游戏/src/postwar/future-echo.js",
+      "before": "701e32b0a0738309e6c39c81cf336752a034a0d24ea08983dcd7e2eaea342c09",
+      "after": "701e32b0a0738309e6c39c81cf336752a034a0d24ea08983dcd7e2eaea342c09"
+    },
+    {
+      "file": "游戏/src/postwar/future-view.js",
+      "before": "d530b968f906c633b14fdb6e633f03b820b702264919850575787a79a05a6573",
+      "after": "1c3c2b01addd7324348404a25a8e95944805dcf943a8076dbb6f9a2fcdb1b584"
+    },
+    {
+      "file": "游戏/content/earth.js",
+      "before": "b48d0a17a199ae0765d654bfe6ac3004ad3557b7a5fd331a60a8a616409e110a",
+      "after": "339743c955898249412cac87ee9ec60a386c5cbb173d1eb7080aad6ebc026958"
+    },
+    {
+      "file": "游戏/src/postwar/earth.js",
+      "before": "f7afdba3d4edc1b334616424e2f2612643e55ad73ac71bfe212a73fa41b3c131",
+      "after": "f7afdba3d4edc1b334616424e2f2612643e55ad73ac71bfe212a73fa41b3c131"
+    },
+    {
+      "file": "游戏/src/postwar/earth-flight.js",
+      "before": "de335aac5bbb1978ebf53f02868f3c792449754e1cb45fe599fa9ea95476db97",
+      "after": "de335aac5bbb1978ebf53f02868f3c792449754e1cb45fe599fa9ea95476db97"
+    },
+    {
+      "file": "游戏/src/postwar/archives.js",
+      "before": "ffc356224fa609545f4f572b7b984d949b5cdabf775fdfc00dce4750e196bf9e",
+      "after": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+    },
+    {
+      "file": "游戏/src/postwar/history.js",
+      "before": "4c62ecf81791200b3d9cd5e67cc4c285d63d30133a384790dca4f38bbf008634",
+      "after": "aef9ad227b8fd920b83b32052470a24ac5306853f13bfbe4f3455dcff7ffa32c"
+    },
+    {
+      "file": "游戏/content/space.js",
+      "before": "cdb4725bff2069b88768c0fea7eaa609539fb33330a51e9ed8d228b88648f611",
+      "after": "a3f7329d1c851063dd9c5ffdbe34fdd58db39e5cf839d418705664e2ba8d5ad3"
+    },
+    {
+      "file": "游戏/src/postwar/earth-view.js",
+      "before": "47f194a23467224892798e3e84aaa3d25a8c6798d9763284f5bfd13a6d1326b4",
+      "after": "5de825d6fdb62796a643bcabfd84d06a9cf1517caf404220442d0e5cd417628b"
+    },
+    {
+      "file": "游戏/src/postwar/space.js",
+      "before": "a405653107f4dbeb0517454adcca9753cb50e6f287e40faa1254886de845f9d3",
+      "after": "bca85588e7d4e1f2f93bcbe4b0bf1b51c73050d67e35db7b520d8ccc3a1dd03a"
+    },
+    {
+      "file": "游戏/src/postwar/civic.js",
+      "before": "3c7606d10fc5c88461511dddd357c260c2307f48063cc98223547e77a1546de9",
+      "after": "9be4f377057d6d28fed68894ae67be3c15bcdc2726cbdf4db45390a0298c1d51"
+    },
+    {
+      "file": "游戏/src/postwar/guide.js",
+      "before": "69bb92c0e89688718488ddf85f15a63668cf477b59b0b2382b94ce75da3d15b2",
+      "after": "35e2ab556e1fc256716ac7a942ee296d5a49229975d1eb77492b3e0553a10bfe"
+    },
+    {
+      "file": "游戏/src/postwar/interface.js",
+      "before": "a27b6131b7b039389d0737f52442cba9ba252269492d8c75a2939017df3ead71",
+      "after": "ec330eca91b50ddd32b0cfc9398c5d6ded5275fe96208478d01ba7dcd3ec58d1"
+    },
+    {
+      "file": "游戏/src/postwar/local-saves.js",
+      "before": "4963a2fb0013f7cd1c2834eed51ffc7bdf47d777013b3b456d691ae412bf321e",
+      "after": "7d2dd9d679f9572c548381462ffd0ead188e86c9b5cbf6b1810290fe243d2358"
+    },
+    {
+      "file": "游戏/src/postwar/planning.js",
+      "before": "b359778a6fbbbde094cde35b4b87a005bb77f79625b39b89eedb048f3b53b58b",
+      "after": "711c1a839d209eacee4b68c2c61ada60aa5b255ca3d2e17a942c2bf6cbe96a58"
+    },
+    {
+      "file": "游戏/src/postwar/platform.js",
+      "before": "deb206df6d5af3ba1ec72595ce74d4ed97ecf1d9e2209cf8461aa8138f358229",
+      "after": "9831f137f7b908433cbebee85c6051afb47ae74d440fa8d7ce34f438a49be0f3"
+    },
+    {
+      "file": "游戏/src/postwar/readable.js",
+      "before": "6dcdc05e7f4a87c3b3ee1c523777ac7ab84bd6631376e6dadfba14819c4a10fd",
+      "after": "203b658a6e6975e630ef2fe7e2b1ef6e166702c99af5444feb4afaa0ac17161d"
+    },
+    {
+      "file": "游戏/src/postwar/ruins.js",
+      "before": "8b0f07ac45767b90e1417494d9920fd344ae134d0365a15ec6246b8bee9cd7ff",
+      "after": "52a91baa1df77c641c3c636c344f19b47f5fc10044e61907076217e435062084"
+    },
+    {
+      "file": "游戏/src/postwar/sound.js",
+      "before": "45ddf06953f2c8f64168d338041c0688c6944ebd479ad9bc5d61b66c46d4bac1",
+      "after": "cb53f609bc490c291dfea3df19625f159a63c670edfefb2a6a9e0d2789b2d528"
+    }
+  ],
+  "uncoveredChinese": 0
+}
