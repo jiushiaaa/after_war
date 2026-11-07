@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "revision": "6edf99e26b4d5fc58939083ad59106a993174747",
+  "revision": "61fdcd1c3b11ab438a15158ba1f1231f8d6bfb13",
   "staticContent": [
     {
       "file": "游戏/content/accession.js",
@@ -78542,7 +78542,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[0].value.body.body[0].argument.right",
       "value": 1,
       "expression": "ar CivilArchives={\n enabled(s){return s.civilization?.polishVersion===1;},\n init(s){if(this.enabled(s)&&!s.civilization.archives)s.civilizati",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78558,7 +78558,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[1].value.body.body[0].consequent.expression.right.properties[0].value",
       "value": 1,
       "expression": ".enabled(s)&&!s.civilization.archives)s.civilization.archives={schema:1,records:{},stages:{},achievements:{}};},\n chains:{facilities:'谁留下这些设施",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78574,7 +78574,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[3].value.body.body[4].expression.arguments[4].left.right",
       "value": 6,
       "expression": "案员坚持把油印接线图分发到每一处配电站。','不该只有某一个人，知道该怎样让灯亮起来。'],c.modern?.modernRounds>=6||c.tech.power);\n  add('belonging_ration','belonging','第一份口粮约定',['泛黄的软",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78590,7 +78590,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[3].value.body.body[8].expression.arguments[4].right",
       "value": 4,
       "expression": "的门框缝。','她说：铁料和机油总有耗尽的一天，但教会另一个人用扳手，这门手艺就不会断。'],s.game.builder?.level>=4);\n  add('inheritance_retired','inheritance','后来者的字迹',['褪色的碳素墨水旁，添了一行歪",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78606,7 +78606,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[3].value.body.body[19].expression.arguments[4].left.right",
       "value": 3,
       "expression": "令”。','档案的边界止步于地表真实的泥泞与焦土，绝不为复兴中的共同体虚构任何通向救赎的超自然捷径。'],f?.echo?.visits>=3||f?.echo?.choice==='seal'&&f.echo.stage==='complete');\n  add('mars_sc",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78622,7 +78622,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[5].value.body.body[1].argument.callee.object.elements[0].elements[2].right",
       "value": 3,
       "expression": "const c=s.civilization;return [\n ['fire','第一夜的温暖',s.game.fire?.value>=3],['settled','给后来人留一张床',c.settled],['trip','带着记录回来',c.expedition?.reco",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78638,7 +78638,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[5].value.body.body[1].argument.callee.object.elements[8].elements[2].right",
       "value": 600,
       "expression": "国约',c.polity?.foundedAt],['future','能力成为日常',c.polity?.future?.stable>=600],['person','设备名册之外',c.polity?.future?.created>0&&c.polity.future.laws",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78654,7 +78654,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[5].value.body.body[1].argument.callee.object.elements[9].elements[2].left.right",
       "value": 0,
       "expression": "ty?.future?.stable>=600],['person','设备名册之外',c.polity?.future?.created>0&&c.polity.future.laws.citizenship==='equal'],['earth','同一颗地球',c.polit",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78670,7 +78670,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[10].value.body.body[1].argument.callee.object.arguments[0].body.properties[1].value.right.consequent.right",
       "value": 600,
       "expression": "ry));return entries.map(e=>({...e,at:e.at??(e.from!==undefined?e.from*600:null)})).sort((a,b)=>(a.at??Infinity)-(b.at??Infinity));},\n openScrol",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78686,7 +78686,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[1].declarations[1].init.elements[0].elements[1]",
       "value": 0,
       "expression": "eEvent())return false;const text=this.chronicle(s),groups=[['火与最初的名字',0],['电与共同生活',s.civilization.modern?.eras.early?.at??s.civilization.city",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78702,7 +78702,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[1].declarations[1].init.elements[1].elements[1].right",
       "value": 0,
       "expression": "',s.civilization.modern?.eras.early?.at??s.civilization.city?.cityAt??0],['地区与国家',s.civilization.polity.foundedAt],['先进社会与地球',s.civilization.",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78718,7 +78718,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[2].init.declarations[0].init",
       "value": 0,
       "expression": "edAt],['先进社会与地球',s.civilization.polity.future.at]],lines=[];for(let i=0;i<groups.length;i++){const [title,start]=groups[i],end=groups[i+1]?.[",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78734,7 +78734,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[2].body.body[0].declarations[1].init.left.expression.object.property.right",
       "value": 1,
       "expression": "t i=0;i<groups.length;i++){const [title,start]=groups[i],end=groups[i+1]?.[1]??Infinity;lines.push('—— '+title+' ——',...text.filter(e=>e.at!=",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78750,7 +78750,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[2].body.body[0].declarations[1].init.left.expression.property",
       "value": 1,
       "expression": ";i<groups.length;i++){const [title,start]=groups[i],end=groups[i+1]?.[1]??Infinity;lines.push('—— '+title+' ——',...text.filter(e=>e.at!==null",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
@@ -78763,31 +78763,31 @@
         }
       },
       "anchor": "CivilArchives.openScroll",
-      "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[2].body.body[1].expression.arguments[1].argument.arguments[0].body.left.left.left.left.right.arguments[0].right",
+      "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[2].body.body[1].expression.arguments[1].argument.arguments[0].body.left.left.right.arguments[0].right",
       "value": 600,
-      "expression": "er(e=>e.at!==null&&e.at>=start&&e.at<end).map(e=>'重建'+Math.floor(e.at/600)+'年 · '+e.title+'\\n'+e.detail));}const undated=text.filter(e=>e.at===",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "expression": "er(e=>e.at!==null&&e.at>=start&&e.at<end).map(e=>'重建'+Math.floor(e.at/600)+'年\\n'+e.detail));}const undated=text.filter(e=>e.at===null);if(undat",
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
-      "start": 9914,
-      "end": 9917,
+      "start": 9887,
+      "end": 9890,
       "loc": {
         "start": {
           "line": 55,
-          "column": 828
+          "column": 801
         }
       },
       "anchor": "CivilArchives.openScroll.width",
       "astPath": "root.body[0].declarations[0].init.properties[11].value.body.body[5].expression.arguments[1].properties[0].value",
       "value": 600,
       "expression": "t:{text:lines,buttons:{close:{text:'合上长卷',nextScene:'end'}}}}},{width:600});Events.eventPanel().addClass('civil-history-event civil-chronicle')",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
-      "start": 10386,
-      "end": 10387,
+      "start": 10359,
+      "end": 10360,
       "loc": {
         "start": {
           "line": 57,
@@ -78798,12 +78798,12 @@
       "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[2].test.right.right",
       "value": 1,
       "expression": "(s)){if(d!==undefined)throw Error('档案版本不符');return;}if(!d||d.schema!==1)throw Error('档案结构无效');for(const [field,defs]of [['records',this.nodes",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/archives.js",
-      "start": 10718,
-      "end": 10719,
+      "start": 10691,
+      "end": 10692,
       "loc": {
         "start": {
           "line": 57,
@@ -78814,7 +78814,7 @@
       "astPath": "root.body[0].declarations[0].init.properties[13].value.body.body[3].body.body[1].body.test.left.right.right",
       "value": 0,
       "expression": "(d[field]))if(!defs.some(a=>a.id===id)||!Number.isSafeInteger(at)||at<0||at>s.civilization.elapsed)throw Error('档案时序无效');}}\n};\n",
-      "sourceHash": "c29c1b7fea7e2da1985b18b959750c2a2530437bba6aeb5e01cab6c66a31d238"
+      "sourceHash": "6b252e3e86d76a18be7bcbea7d4388754df920f657033d1027e486abccc9466f"
     },
     {
       "file": "游戏/src/postwar/census.js",
