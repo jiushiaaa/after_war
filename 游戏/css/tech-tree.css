@@ -47,6 +47,7 @@
 .civil-tech-detail h3 { margin:0 0 10px; font-size:20px; line-height:1.5; }
 .civil-tech-detail h4 { margin:20px 0 8px; font-size:15px; }
 .civil-tech-detail p { margin:8px 0; font-size:14px; line-height:1.7; }
+.civil-tech-detail p.civil-tech-operation,.civil-tech-description { white-space:pre-line; }
 .civil-tech-detail .civil-tech-detail-state { font-size:14px; }
 .civil-tech-prerequisites { display:flex; flex-wrap:wrap; gap:6px 14px; }
 .civil-tech-prerequisites .civil-tech-control { padding:3px 0; border:0; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:4px; white-space:normal; text-align:left; }

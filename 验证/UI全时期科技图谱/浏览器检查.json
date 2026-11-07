@@ -1,0 +1,821 @@
+{
+  "beforeFuture": {
+    "book": {
+      "consumed": {
+        "culture": 90,
+        "electronics": 8,
+        "food": 9826.000000000004,
+        "iron": 516,
+        "knowledge": 660,
+        "medicine": 990.2000000000004,
+        "parts": 194.00000000000017,
+        "tools": 452.8919999999991,
+        "wood": 920
+      },
+      "produced": {
+        "culture": 128,
+        "electronics": 28,
+        "food": 5971.199999999998,
+        "medicine": 360,
+        "parts": 216,
+        "steel": 80
+      },
+      "received": {
+        "electronics": 64,
+        "food": 7319,
+        "iron": 744,
+        "knowledge": 988,
+        "medicine": 790,
+        "parts": 142,
+        "tools": 499,
+        "wood": 1160
+      },
+      "sent": {
+        "electronics": 10,
+        "food": 570,
+        "parts": 19
+      }
+    },
+    "elapsed": 44966,
+    "home": {
+      "ammunition": 2,
+      "electronics": 40.00000000000003,
+      "food": 2410.7080000000014,
+      "fur": 90.90000000000008,
+      "iron": 80.59999999999897,
+      "knowledge": 2680.351000000237,
+      "medicine": 225.52650000002072,
+      "parts": 80.00000000000038,
+      "scrap": 2397.5,
+      "steel": 60.0000000000001,
+      "tools": 799.920000000199,
+      "wood": 183199.41499999093
+    },
+    "stock": {
+      "culture": 38,
+      "electronics": 74,
+      "food": 2894.200000000004,
+      "iron": 228,
+      "knowledge": 328,
+      "medicine": 159.79999999999993,
+      "parts": 144.99999999999983,
+      "steel": 80,
+      "tools": 46.10799999999996,
+      "wood": 240
+    }
+  },
+  "afterFuture": {
+    "book": {
+      "consumed": {
+        "culture": 90,
+        "electronics": 8,
+        "food": 9826.000000000004,
+        "iron": 516,
+        "knowledge": 760,
+        "medicine": 990.2000000000004,
+        "parts": 218.00000000000017,
+        "tools": 452.8919999999991,
+        "wood": 920
+      },
+      "produced": {
+        "culture": 128,
+        "electronics": 28,
+        "food": 5971.199999999998,
+        "medicine": 360,
+        "parts": 216,
+        "steel": 80
+      },
+      "received": {
+        "electronics": 64,
+        "food": 7319,
+        "iron": 744,
+        "knowledge": 988,
+        "medicine": 790,
+        "parts": 142,
+        "tools": 499,
+        "wood": 1160
+      },
+      "sent": {
+        "electronics": 10,
+        "food": 570,
+        "parts": 19
+      }
+    },
+    "elapsed": 44966,
+    "home": {
+      "ammunition": 2,
+      "electronics": 40.00000000000003,
+      "food": 2410.7080000000014,
+      "fur": 90.90000000000008,
+      "iron": 80.59999999999897,
+      "knowledge": 2680.351000000237,
+      "medicine": 225.52650000002072,
+      "parts": 80.00000000000038,
+      "scrap": 2397.5,
+      "steel": 60.0000000000001,
+      "tools": 799.920000000199,
+      "wood": 183199.41499999093
+    },
+    "research": {
+      "at": 44966,
+      "id": "interface",
+      "paid": {
+        "knowledge": 100,
+        "parts": 24
+      },
+      "remaining": 360
+    },
+    "stock": {
+      "culture": 38,
+      "electronics": 74,
+      "food": 2894.200000000004,
+      "iron": 228,
+      "knowledge": 228,
+      "medicine": 159.79999999999993,
+      "parts": 120.99999999999984,
+      "steel": 80,
+      "tools": 46.10799999999996,
+      "wood": 240
+    }
+  },
+  "futureReload": {
+    "at": 44966,
+    "id": "interface",
+    "paid": {
+      "knowledge": 100,
+      "parts": 24
+    },
+    "remaining": 360
+  },
+  "futureCompletion": {
+    "elapsed": 45311,
+    "history": [
+      {
+        "at": 44640,
+        "kind": "law",
+        "text": "生产责任通过：普通生态与公共供养"
+      },
+      {
+        "at": 44940,
+        "kind": "society",
+        "text": "普通生态社会连续十期承担住房、供养、维护和公共责任。"
+      },
+      {
+        "at": 45300,
+        "kind": "technology",
+        "text": "义体与神经接口完成。重返工作，不取消口粮和临床需求。"
+      }
+    ],
+    "pending": null,
+    "research": null,
+    "tech": {
+      "clinical": 43140,
+      "ecology": 42540,
+      "interface": 45300,
+      "restoration": 44040
+    }
+  },
+  "beforeEarth": {
+    "elapsed": 57049,
+    "home": {
+      "ammunition": 2,
+      "electronics": 40.00000000000003,
+      "food": 2435.664000000003,
+      "fur": 90.90000000000008,
+      "iron": 80.59999999999897,
+      "knowledge": 3999.9950000004264,
+      "medicine": 231.0895000000221,
+      "parts": 80.00000000000038,
+      "scrap": 2394.7,
+      "steel": 60.0000000000001,
+      "tools": 799.7475000002933,
+      "wood": 181345.2649999812
+    },
+    "stock": {
+      "cell": 104,
+      "culture": 80.31999999999964,
+      "electronics": 96,
+      "food": 5676.959999999968,
+      "iron": 268,
+      "knowledge": 300,
+      "medicine": 32.47999999999982,
+      "parts": 174.69999999999874,
+      "steel": 120,
+      "tools": 52.84199999999947,
+      "wood": 100
+    }
+  },
+  "parallel": {
+    "earth": {
+      "at": 57049,
+      "id": "mapping",
+      "remaining": 360
+    },
+    "elapsed": 57049,
+    "future": {
+      "at": 57049,
+      "id": "interface",
+      "paid": {
+        "knowledge": 100,
+        "parts": 24
+      },
+      "remaining": 360
+    },
+    "home": {
+      "ammunition": 2,
+      "electronics": 40.00000000000003,
+      "food": 2435.664000000003,
+      "fur": 90.90000000000008,
+      "iron": 80.59999999999897,
+      "knowledge": 3999.9950000004264,
+      "medicine": 231.0895000000221,
+      "parts": 80.00000000000038,
+      "scrap": 2394.7,
+      "steel": 60.0000000000001,
+      "tools": 799.7475000002933,
+      "wood": 181345.2649999812
+    },
+    "stock": {
+      "cell": 104,
+      "culture": 80.31999999999964,
+      "electronics": 80,
+      "food": 5676.959999999968,
+      "iron": 268,
+      "knowledge": 20,
+      "medicine": 32.47999999999982,
+      "parts": 126.69999999999874,
+      "steel": 120,
+      "tools": 52.84199999999947,
+      "wood": 100
+    }
+  },
+  "parallelReload": {
+    "earth": {
+      "at": 57049,
+      "id": "mapping",
+      "remaining": 360
+    },
+    "future": {
+      "at": 57049,
+      "id": "interface",
+      "paid": {
+        "knowledge": 100,
+        "parts": 24
+      },
+      "remaining": 360
+    }
+  },
+  "parallelOutcome": {
+    "earth": null,
+    "earthTech": {
+      "mapping": 57480
+    },
+    "elapsed": 57492,
+    "future": null,
+    "futureTech": {
+      "adaptation": 46140,
+      "automation": 47160,
+      "clinical": 43140,
+      "echo": 47460,
+      "ecology": 42540,
+      "genetics": 45480,
+      "interface": 57480,
+      "restoration": 44040
+    },
+    "pending": null,
+    "work": {
+      "at": 57480,
+      "builders": 0,
+      "control": 0,
+      "field": 0,
+      "manufacturing": 0,
+      "office": 8,
+      "power": 18,
+      "produced": [],
+      "research": 12,
+      "researchPower": true
+    }
+  },
+  "earthRevealed": [
+    {
+      "id": "earth__mapping",
+      "requires": [],
+      "state": "done"
+    },
+    {
+      "id": "earth__navigation",
+      "requires": [
+        {
+          "done": true,
+          "id": "earth__mapping",
+          "name": "全地球测绘与名册互认"
+        }
+      ],
+      "state": "ready"
+    },
+    {
+      "id": "earth__fabrication",
+      "requires": [
+        {
+          "done": true,
+          "id": "earth__mapping",
+          "name": "全地球测绘与名册互认"
+        }
+      ],
+      "state": "ready"
+    }
+  ],
+  "lateMenus": {
+    "earth": [
+      {
+        "id": "regions",
+        "label": "地区与共同责任"
+      },
+      {
+        "id": "science",
+        "label": "航天设施"
+      }
+    ],
+    "future": [
+      "construction",
+      "production",
+      "people",
+      "laws",
+      "mandate",
+      "echo"
+    ],
+    "futureDuplicates": 0
+  },
+  "matrix": [
+    {
+      "profile": "exploration",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 368.4296875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 368.4296875
+      },
+      "page": 1600,
+      "selected": "water",
+      "unknown": 2,
+      "width": 1600
+    },
+    {
+      "profile": "exploration",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 888.4296875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 368.4296875
+      },
+      "page": 1280,
+      "selected": "water",
+      "unknown": 2,
+      "width": 1280
+    },
+    {
+      "profile": "exploration",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1076.8203125
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 556.8203125
+      },
+      "page": 853,
+      "selected": "water",
+      "unknown": 2,
+      "width": 853
+    },
+    {
+      "profile": "exploration",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1081.859375
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 657.859375
+      },
+      "page": 390,
+      "selected": "water",
+      "unknown": 2,
+      "width": 390
+    },
+    {
+      "profile": "public-city",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875
+      },
+      "page": 1600,
+      "selected": "semiconductor",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "profile": "public-city",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875
+      },
+      "page": 1280,
+      "selected": "semiconductor",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "profile": "public-city",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375
+      },
+      "page": 853,
+      "selected": "semiconductor",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "profile": "public-city",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 610.3125
+      },
+      "page": 390,
+      "selected": "semiconductor",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "profile": "public-ecology",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875
+      },
+      "page": 1600,
+      "selected": "future__interface",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "profile": "public-ecology",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875
+      },
+      "page": 1280,
+      "selected": "future__interface",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "profile": "public-ecology",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375
+      },
+      "page": 853,
+      "selected": "future__interface",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "profile": "public-ecology",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 610.3125
+      },
+      "page": 390,
+      "selected": "future__interface",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "profile": "industry-synthetic",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875
+      },
+      "page": 1600,
+      "selected": "future__genetics",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "profile": "industry-synthetic",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875
+      },
+      "page": 1280,
+      "selected": "future__genetics",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "profile": "industry-synthetic",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375
+      },
+      "page": 853,
+      "selected": "future__genetics",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "profile": "industry-synthetic",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 610.3125
+      },
+      "page": 390,
+      "selected": "future__genetics",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "profile": "public-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875
+      },
+      "page": 1600,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "profile": "public-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875
+      },
+      "page": 1280,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "profile": "public-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375
+      },
+      "page": 853,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "profile": "public-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 610.3125
+      },
+      "page": 390,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 390
+    },
+    {
+      "profile": "industry-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 1032.8046875,
+        "right": 1292.8046875,
+        "top": 401.875
+      },
+      "map": {
+        "left": 307.1953125,
+        "right": 1008.8046875,
+        "top": 401.875
+      },
+      "page": 1600,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 1600
+    },
+    {
+      "profile": "industry-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 921.875
+      },
+      "map": {
+        "left": 245.75,
+        "right": 1034.25,
+        "top": 401.875
+      },
+      "page": 1280,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 1280
+    },
+    {
+      "profile": "industry-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 839,
+        "top": 1029.2734375
+      },
+      "map": {
+        "left": 14,
+        "right": 839,
+        "top": 509.2734375
+      },
+      "page": 853,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 853
+    },
+    {
+      "profile": "industry-earth",
+      "archive": false,
+      "badNames": [],
+      "detail": {
+        "left": 14,
+        "right": 376,
+        "top": 1034.3125
+      },
+      "map": {
+        "left": 14,
+        "right": 376,
+        "top": 610.3125
+      },
+      "page": 390,
+      "selected": "earth__mapping",
+      "unknown": 3,
+      "width": 390
+    }
+  ],
+  "workbenchLinks": {
+    "earth": "science",
+    "earthOpen": true,
+    "future": "construction"
+  },
+  "dark": {
+    "ink": "rgb(221, 221, 221)",
+    "paper": "rgb(39, 40, 35)"
+  },
+  "finalConsole": [],
+  "locateSequence": [
+    "earth__mapping",
+    "future__interface"
+  ]
+}
