@@ -18,7 +18,7 @@
     try{const r=await fetch(url,{signal:controller.signal,cache:'no-store'});if(!r.ok)throw Error('测试节点读取失败（'+r.status+'），请检查完整仓库与本地服务');return type==='text'?await r.text():await r.json();}
     finally{clearTimeout(timer);}
   }
-  function remember(){try{localStorage.setItem('postwar.test.last.v1',JSON.stringify({scenario,run,page:session.page,title:session.entry.title}));}catch{}}
+  function remember(){const value={scenario,run,page:session.page,title:session.entry.title};import('./bookmark.js').then(m=>m.writeBookmark(value)).catch(()=>{});}
   function option(id,value){return [...(document.getElementById(id)?.options||[])].some(o=>o.value===value);}
   function available(page){
     const exists=id=>!!document.getElementById(id),c=State.civilization;

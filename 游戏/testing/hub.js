@@ -1,11 +1,11 @@
 /* Local testing catalogue; entering a node always creates a separate browser database. */
 (() => {
   'use strict';
-  const $=s=>document.querySelector(s),key='postwar.test.last.v1';
-  let catalog,route='all',stage='recommended';
+  const $=s=>document.querySelector(s);
+  let catalog,route='all',stage='recommended',resumeRequest=0;
   const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
   function href(s,page,run=crypto.randomUUID()){return '/test-game.html?'+new URLSearchParams({scenario:s.id,page,run});}
-  function resume(){try{const last=JSON.parse(localStorage.getItem(key)||'null'),s=catalog.scenarios.find(s=>s.id===last?.scenario);if(!s||!/^[a-z0-9-]{16,64}$/.test(last.run))return;const a=$('#resume');a.href=href(s,s.pages.includes(last.page)?last.page:s.pages[0],last.run)+'&resume=1';a.textContent='继续上次测试：'+catalog.routes[s.route]+' · '+s.title+' →';a.target='_blank';a.rel='noopener';a.hidden=false;}catch{}}
+  async function resume(){const request=++resumeRequest;try{const {readBookmark}=await import('./bookmark.js'),last=await readBookmark();if(request!==resumeRequest)return;const s=catalog.scenarios.find(s=>s.id===last?.scenario),a=$('#resume');a.hidden=true;if(!s||!/^[a-z0-9-]{16,64}$/.test(last.run))return;a.href=href(s,s.pages.includes(last.page)?last.page:s.pages[0],last.run)+'&resume=1';a.textContent='继续上次测试：'+catalog.routes[s.route]+' · '+s.title+' →';a.target='_blank';a.rel='noopener';a.hidden=false;}catch{if(request===resumeRequest)$('#resume').hidden=true;}}
   function controls(id,values,current,change){const box=$(id);box.replaceChildren();for(const [id,label]of Object.entries(values)){const b=el('button',label);b.type='button';b.dataset.value=id;b.setAttribute('aria-pressed',String(id===current));b.onclick=()=>{change(id);for(const item of box.children)item.setAttribute('aria-pressed',String(item===b));render();};box.append(b);}}
   function render(){
     const q=$('#search').value.trim().toLocaleLowerCase();

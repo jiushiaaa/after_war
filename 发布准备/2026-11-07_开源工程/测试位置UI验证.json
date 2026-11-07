@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "before": {
+    "run": "49dcade4-9e28-4264-aa3e-34e628002bad",
+    "scenario": "exploration",
+    "page": "road",
+    "paused": true
+  },
+  "bookmark": {
+    "scenario": "exploration",
+    "run": "49dcade4-9e28-4264-aa3e-34e628002bad",
+    "page": "room",
+    "title": "工坊建成 · 走上旧公路"
+  },
+  "resume": {
+    "text": "继续上次测试：共同开局 · 工坊建成 · 走上旧公路 →",
+    "href": "http://127.0.0.1:4180/test-game.html?scenario=exploration&page=room&run=49dcade4-9e28-4264-aa3e-34e628002bad&resume=1"
+  },
+  "restored": {
+    "run": "49dcade4-9e28-4264-aa3e-34e628002bad",
+    "page": "room",
+    "cloud": null,
+    "paused": true
+  },
+  "databases": [
+    "postwar-test-v1-exploration-49dcade4-9e28-4264-aa3e-34e628002bad"
+  ],
+  "errors": []
+}

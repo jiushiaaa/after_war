@@ -49,3 +49,30 @@ test('corrupt copies, missing nodes and invalid links never silently become fres
 test('a fixture checksum mismatch blocks decoding and never marks the test ready to save',async()=>{
   const p=preview({badHash:true});await assert.rejects(p.platform.load(),/校验/);assert.equal(p.platform.loaded,false);assert.ok(!p.calls.includes('decode'));
 });
+
+test('test bookmark serializes SDK requests and snapshots navigation before waiting',async()=>{
+  const {createTestBookmark}=await import('../testing/bookmark.js');let release,active=0,peak=0,bytes=null;const pages=[];
+  const bookmark=createTestBookmark(async()=>({
+    writeSave:async text=>{peak=Math.max(peak,++active);pages.push(JSON.parse(text).page);if(pages.length===1)await new Promise(r=>release=r);bytes=new TextEncoder().encode(text);active--;},
+    readSave:async()=>{peak=Math.max(peak,++active);active--;return bytes;}
+  }));
+  const value={scenario:'exploration',run:'12345678-1234-4321-9876-123456789012',page:'road'};
+  const first=bookmark.write(value);value.page='room';const second=bookmark.write(value);value.page='research';const last=bookmark.read();
+  await new Promise(r=>setImmediate(r));release();await Promise.all([first,second]);
+  assert.deepEqual(pages,['road','room']);assert.equal((await last).page,'room');assert.equal(peak,1);
+});
+test('failed or corrupt test bookmarks do not become writes, and later reads can recover',async()=>{
+  const {createTestBookmark}=await import('../testing/bookmark.js');let writes=0,reads=0;
+  const bookmark=createTestBookmark(async()=>({writeSave:async()=>writes++,readSave:async()=>{reads++;if(reads===1)throw Error('offline');if(reads===2)return new TextEncoder().encode('{broken');return null;}}));
+  await assert.rejects(bookmark.write({scenario:'../normal'}),/无效/);assert.equal(reads,0);
+  await assert.rejects(bookmark.read(),/offline/);await assert.rejects(bookmark.read(),SyntaxError);assert.equal(await bookmark.read(),null);assert.equal(writes,0);
+});
+test('test bookmark rejects hosted pages before importing or calling any platform SDK',async()=>{
+  const {createTestBookmark}=await import('../testing/bookmark.js'),previous={location:globalThis.location,window:globalThis.window};let cloudCalls=0;
+  try {
+    globalThis.location={hostname:'project-v1-lumimaker.66rpg.com'};
+    globalThis.window={LumiMakerSdk:{readSave(){cloudCalls++;},writeSave(){cloudCalls++;}}};globalThis.window.top=globalThis.window;
+    const bookmark=createTestBookmark();await assert.rejects(bookmark.read(),/仅在本地/);assert.equal(cloudCalls,0);
+    globalThis.location={hostname:'127.0.0.1'};globalThis.window.org_box={};await assert.rejects(createTestBookmark().read(),/仅在本地/);assert.equal(cloudCalls,0);
+  }finally{for(const key of ['location','window'])if(previous[key]===undefined)delete globalThis[key];else globalThis[key]=previous[key];}
+});
