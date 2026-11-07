@@ -1,0 +1,242 @@
+[
+  {
+    "id": "f7d7d5b498f0d261",
+    "text": "The postwar settlement has been recorded. All terms must still be honored."
+  },
+  {
+    "id": "d9d952fc052a6b2f",
+    "text": "Conditions have changed; not carried out."
+  },
+  {
+    "id": "5f05b8979c1872ed",
+    "text": "Once Reconstruction is complete, set standing stock based on public income and production expenditure; small joint purchases need not fill a whole batch. Restoring food production and building a second unit of transport capacity must be funded, built, and maintained locally; changing diplomatic policy does not waive existing obligations."
+  },
+  {
+    "id": "af16a714590d99d4",
+    "text": "Establish postwar trade rules"
+  },
+  {
+    "id": "60689051b76394e4",
+    "text": "{变量1} · Food {变量2} / Reserves {变量3} · Transport {变量4}/{变量5}"
+  },
+  {
+    "id": "8251791e86c0e38a",
+    "text": "{变量1} · Food {变量2} / Reserves {变量3} · Food in transit {变量4} · Balance {变量5}{分支6}"
+  },
+  {
+    "id": "30f045afd961e2e5",
+    "text": "Every 300 seconds: public net food income {变量1}; workshops, production lines, and current agreements at full capacity cost {变量2}. Freight costs are separate. Food production can be increased by 40 as needed; goods in transit do not count toward stock until unloaded."
+  },
+  {
+    "id": "a4b4d00ead602f10",
+    "text": "Transport capacity occupied: {变量1}/{变量2}; {变量3}."
+  },
+  {
+    "id": "7c525e53e2eb7d0e",
+    "text": "Unassigned"
+  },
+  {
+    "id": "45185c359902526e",
+    "text": "Under construction {变量1}/3"
+  },
+  {
+    "id": "d91a36180b0d9abd",
+    "text": "Built; operated for {变量1} rounds"
+  },
+  {
+    "id": "3e23f076b207e444",
+    "text": "Diplomatic authorization: {变量1}."
+  },
+  {
+    "id": "8315db0b2805ae0d",
+    "text": "Keep current Reconstruction authorization"
+  },
+  {
+    "id": "9fa879887ee6a857",
+    "text": "Food production and transport construction"
+  },
+  {
+    "id": "15bf2e9af0c65628",
+    "text": "Diplomatic authorization and treaties"
+  },
+  {
+    "id": "a785c6ed85258683",
+    "text": "{变量1}: local construction costs {变量2}, then {变量3} is paid in each of three rounds."
+  },
+  {
+    "id": "34d1f75245d6be87",
+    "text": "Completed; operated for {变量1} rounds"
+  },
+  {
+    "id": "3f899c58dc47cb53",
+    "text": "Operation costs {变量1} per round{分支2}"
+  },
+  {
+    "id": "fd0fa716fb36a3df",
+    "text": ", produces {变量1}; production stops once the reserve target is reached."
+  },
+  {
+    "id": "6e2669fd467dedc8",
+    "text": ", adds one unit of transport capacity; goods already in transit will not be recalled if supply is cut off and operations stop."
+  },
+  {
+    "id": "03868d32c32dd10a",
+    "text": "Back to national overview"
+  },
+  {
+    "id": "b4d963910fa99db5",
+    "text": "Diplomatic authorization: {变量1}. After changing your selection, treaty negotiations can resume; existing treaties must still be exited with notice as required. Choosing mutual defense also requires an actual external threat, six rounds' worth of stored food, and no overdue debts."
+  },
+  {
+    "id": "20e494cf0883e3b1",
+    "text": "Negotiate a peace treaty with {变量1}"
+  },
+  {
+    "id": "576030396c87a54e",
+    "text": "{变量1} · {分支2}. Each side spends {变量3} on upkeep every 300 seconds; missing three consecutive rounds voids the treaty."
+  },
+  {
+    "id": "cb4b7334c2a96ffd",
+    "text": "In effect, {变量1} seconds remaining"
+  },
+  {
+    "id": "9eaadc17e565bf1d",
+    "text": "Uphold equal rights and local autonomy, and pay the costs of shared records and memorials on time. Faith cannot be forcibly changed, and past casualties cannot be undone."
+  },
+  {
+    "id": "b887d961b20f6da6",
+    "text": "{变量1} delivers food 12/parts 2/medicine 2 in three shipments and covers escort costs, using actual convoy capacity; existing debts are not waived."
+  },
+  {
+    "id": "0cc80014b9cd9754",
+    "text": "A new treaty can be negotiated only after the current one is fulfilled or expires; a second treaty cannot be added."
+  },
+  {
+    "id": "3d5dc21165cb9254",
+    "text": "For 300 seconds after the proposal, each side decides independently. Both must reach 50 points for it to take effect. Diplomatic relations, credit, war losses, economic orientation, and institutional commitments all affect the decision. The treaty lasts 6000 seconds and does not renew automatically. Missing three consecutive rounds voids it; existing debts and casualty records remain."
+  },
+  {
+    "id": "b7416807e53f309f",
+    "text": "{变量1}: each side pays {变量2} when the parties meet, then {变量3} each round."
+  },
+  {
+    "id": "cb854656102edd3a",
+    "text": "Uphold equal citizenship and local autonomy, and jointly document the fallen and preserve each group's memories."
+  },
+  {
+    "id": "c1968084aacbef82",
+    "text": "Designate one side to deliver food 12/parts 2/medicine 2 in three shipments, and pay escort costs separately."
+  },
+  {
+    "id": "e6b6ac55935c435e",
+    "text": "{变量1} covers repairs in installments"
+  },
+  {
+    "id": "21d30711eb66e2d9",
+    "text": "{变量1}: {变量2}; fulfilled {变量3} rounds{分支4}{分支5}."
+  },
+  {
+    "id": "44643f0ded7539c9",
+    "text": "In effect"
+  },
+  {
+    "id": "cc733d47362a003c",
+    "text": "Not accepted by both sides"
+  },
+  {
+    "id": "b9d8853e0ce7e6ea",
+    "text": "Expired"
+  },
+  {
+    "id": "edd4ab44fbdd1745",
+    "text": "Fulfillment interrupted"
+  },
+  {
+    "id": "fb524ffaf68720e4",
+    "text": ", decisions: {列表1}"
+  },
+  {
+    "id": "a2a6a0374b51f2fc",
+    "text": ", {变量1} shipments sent, {变量2}/3 delivered"
+  },
+  {
+    "id": "d669469990391db9",
+    "text": "Return to the postwar overview"
+  },
+  {
+    "id": "6c297fbba4d8d767",
+    "text": "Close postwar trade"
+  },
+  {
+    "id": "9bde6ac77deb9bd1",
+    "text": "Production, trade, and treaties continue based on actual investment."
+  },
+  {
+    "id": "4a3c280fc0098fc7",
+    "text": "First admit this region and sign a special treaty"
+  },
+  {
+    "id": "eadec6ca38bb07ba",
+    "text": "The special treaty must be maintained steadily for at least 60 seconds. First review the commitments and funding."
+  },
+  {
+    "id": "2ce0d50c63c5ca0d",
+    "text": "The old credit has defaulted. First settle the debt."
+  },
+  {
+    "id": "b789ec9bfcbb6ef5",
+    "text": "Local trade runs once every 600 seconds to avoid draining the public treasury."
+  },
+  {
+    "id": "61ccf4bedddb6dcf",
+    "text": "Local debt settlement is overdue. First restore regional exports and credit."
+  },
+  {
+    "id": "7980d117c996622c",
+    "text": "This period's Reconstruction credit for the region has been drawn. Debt cannot be raised in an endless loop."
+  },
+  {
+    "id": "063d9a5c769a2615",
+    "text": "There is currently no credit to repay."
+  },
+  {
+    "id": "a4af76126d73bb45",
+    "text": "The locality must first reserve enough for public support. Only its remaining capacity can be used for trade or lending."
+  },
+  {
+    "id": "619bec140d495215",
+    "text": "First research national computation and establish national liaison."
+  },
+  {
+    "id": "394a36f2a1c809ad",
+    "text": "First restore national administration and wait for the action team to return to the city."
+  },
+  {
+    "id": "16dd32607b7ed43f",
+    "text": "This system is already in use."
+  },
+  {
+    "id": "676e38abe2dec510",
+    "text": "600 seconds must pass after changing the system before it can be reconsidered."
+  },
+  {
+    "id": "802e95d93869e8fc",
+    "text": "The cooperation and mutual aid system requires local autonomy."
+  },
+  {
+    "id": "8ce3c4ecbb90fdf8",
+    "text": "Reserve knowledge 120, electronic components 10, and this city's public support."
+  },
+  {
+    "id": "1e2edf6f6d611348",
+    "text": "First establish national liaison and complete research into national computation."
+  },
+  {
+    "id": "0c3b1ed70a7ef876",
+    "text": "First end the military occupation and repair the damaged facilities."
+  },
+  {
+    "id": "cceec83e5e8f5db4",
+    "text": "A long-term treaty already exists. It can be maintained normally or reaffirmed with funding, but the initial trust bonus cannot be claimed again."
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "23a92379d5451ca8",
+    "text": "The arrangement is consistent"
+  },
+  {
+    "id": "7eba2e50a32c1de9",
+    "text": "; this period's order: {列表1}"
+  },
+  {
+    "id": "ded6944794bc0d48",
+    "text": "Takes effect once each city pays the knowledge cost. Raising the spending cap does not create stock or erase spending already recorded for this period. Paused institutions must be resumed manually at their original assignment point."
+  },
+  {
+    "id": "a1f5bc0867e89a0b",
+    "text": "Approve this arrangement"
+  },
+  {
+    "id": "e0747bac913a381c",
+    "text": "{变量1}\n{列表2}\nUpper limit for ongoing affairs this period: {变量3}; remaining allowance for new supplies: {变量4}\nSpent this period: maintenance {变量5} / training {变量6} / labor {变量7} / supplies {变量8}{分支9}{分支10}"
+  },
+  {
+    "id": "8729166505f0baef",
+    "text": "{变量1}: {变量2} rounds remaining, {变量3} per round"
+  },
+  {
+    "id": "d026f58dc4dfb563",
+    "text": "\nTraining: {分支1}"
+  },
+  {
+    "id": "0525dbbf52a20cd8",
+    "text": "A class is already in session, with {变量1} rounds of coursework remaining"
+  },
+  {
+    "id": "a6b1a1b7f1a37996",
+    "text": "Can start classes as assigned"
+  },
+  {
+    "id": "378bc06c29f2fd3f",
+    "text": "\nLabor: {变量1}"
+  },
+  {
+    "id": "bb43f3c2c404556a",
+    "text": "Can dispatch a cohort as agreed"
+  },
+  {
+    "id": "aca762181e201403",
+    "text": "Duty and position succession"
+  },
+  {
+    "id": "700c9c4e1aa981d3",
+    "text": "Old Town duty handover"
+  },
+  {
+    "id": "968cae2af8115e10",
+    "text": "Cooperative positions and staffing"
+  },
+  {
+    "id": "9ea5caeb403acafb",
+    "text": "City administration"
+  },
+  {
+    "id": "a67edf05b9fef29b",
+    "text": "How vacancies are filled"
+  },
+  {
+    "id": "63779f39abc5d281",
+    "text": "Cross-city recruitment source"
+  },
+  {
+    "id": "695ffb2a06e10a6c",
+    "text": "Training and expenditure records"
+  },
+  {
+    "id": "ee25e78d1f71d3b3",
+    "text": "All positions are filled by registered residents. Those reaching retirement age leave the labor pool; trainees, instructors, and staff on duty all count toward the workforce. Each city remains responsible for providing local daily necessities."
+  },
+  {
+    "id": "552b3bf44ec467cd",
+    "text": "First transfer Old Town's routine duties to staff with a succession pipeline, then have each city's cooperative positions handle training and cross-city recruitment. The Old Town handover costs {变量1}; building a succession workshop in this city costs an additional {变量2} and takes 30 workers 300 seconds."
+  },
+  {
+    "id": "c1e35f7110b8f4fb",
+    "text": "Arrange duty handover"
+  },
+  {
+    "id": "8d2d7842ce201575",
+    "text": "Clerk term {变量1} · On duty {变量2} / 2\n{分支3}\n{分支4}\nWhen stock is ample, basic gathering and toolmaking positions pause automatically, but residents continue to receive their daily meals. The current wood stock target is {变量5}; existing stock is left untouched.\nRoutine administration consumes {变量6} every 60 seconds; training supplies for each class consume {变量7}, and each of 30 lessons consumes {变量8}."
+  },
+  {
+    "id": "ad0ae08629ef24ac",
+    "text": "Handover course {变量1} / 30; 2 people are in full-time training."
+  },
+  {
+    "id": "9704ca9de27c6346",
+    "text": "Both successors have completed their coursework and are awaiting the current clerk's retirement."
+  },
+  {
+    "id": "7e3ed8e0b312d375",
+    "text": "When the current clerk is two years from retirement, the school will draw young people from registered residents to start training."
+  },
+  {
+    "id": "31bd1c798d75fd49",
+    "text": "Daily provisions and stock levels are now managed by public office staff."
+  },
+  {
+    "id": "74a35f114176808f",
+    "text": "The current clerk position is vacant; succession training can continue as usual, and oversight can resume once the trainees graduate."
+  },
+  {
+    "id": "ae2484061ca90560",
+    "text": "Waiting for resources to be disbursed before resuming duties."
+  },
+  {
+    "id": "5f9c1cfc07e80793",
+    "text": "Scheduling is currently manual. Emergency production can be resumed at Old Town positions at any time."
+  },
+  {
+    "id": "16a23fade6dd9551",
+    "text": "Pause Old Town oversight"
+  },
+  {
+    "id": "60f9f90ab617344f",
+    "text": "Resume Old Town oversight"
+  },
+  {
+    "id": "a12009d8ca6e1c04",
+    "text": "A residential community has been built here. You can spend {变量1}, assign {变量2} workers for {变量3} seconds, and add {变量4} cooperative positions."
+  },
+  {
+    "id": "8f7a83c4f8bceada",
+    "text": "A large residential community must first be built here and kept maintained. Positions do not appear automatically as the population grows."
+  },
+  {
+    "id": "719aa959233c056b",
+    "text": "Set up a succession workshop"
+  },
+  {
+    "id": "1d5c913d7e45d9eb",
+    "text": "Succession workshop under construction · {变量1} work hours remaining\n{变量2} has been spent locally; requires {变量3} residents on duty, stable basic provisions, and a functioning public office."
+  },
+  {
+    "id": "632519cda82ef2cf",
+    "text": "{变量1} · Cooperative positions {变量2}\nCurrent: {变量3}{分支4}\nRegistered eligibility {变量5} · Actual shifts {变量6} · Paid assignments {变量7} · Trainees {变量8}\n{分支9}\n{分支10}; consumes {变量11} every 60 seconds, charged to the local community affairs budget."
+  },
+  {
+    "id": "28365688b0bc2bd7",
+    "text": " · Source: {变量1}"
+  },
+  {
+    "id": "6ae1c2123ec88ef6",
+    "text": "{变量1} trainees this period; course progress {变量2} / 30."
+  },
+  {
+    "id": "c7f730207f0555c2",
+    "text": "A class can start next round."
+  },
+  {
+    "id": "949f382bf14223f5",
+    "text": "Operating normally"
+  },
+  {
+    "id": "77b73f89fd9da590",
+    "text": "Not renewed; current trainees and completed lessons retained"
+  },
+  {
+    "id": "275105c3ae4ed1b0",
+    "text": "Paused; current staff, completed lessons, and families in transit retained"
+  },
+  {
+    "id": "6fcfc59468c398d1",
+    "text": "No new classes will be started or recruitment contracts signed. Classes already underway will finish as usual, and registered residents must continue to receive their daily meals."
+  },
+  {
+    "id": "0bef59a37d1eaa54",
+    "text": "Prioritize training newly settled migrant families, then draw on local adults; prepare replacements in advance for positions expected to become vacant within two years."
+  },
+  {
+    "id": "c391e210284d80d9",
+    "text": "Depending on actual vacancies, sign a recruitment contract for up to one batch of 120 people every 600 seconds. Of these, 60 adults enter training in batches; accompanying children and elders also need housing, schools, and medicine. Both the source city and receiving city retain the right to refuse."
+  },
+  {
+    "id": "2dd46258177c89c3",
+    "text": "{变量1}\nEach class can take up to 24 trainees and has 2 instructors; opening a class consumes {变量2} in training supplies, and each of 30 lessons consumes {变量3}.{分支4}\nEach change to the assignment method costs 2 local knowledge."
+  },
+  {
+    "id": "66de28fb5aa52d4d",
+    "text": "\nFor each cross-city recruitment contract, the receiving city pays {变量1}; the source city must still pay transport costs and set aside provisions for the journey in advance. Current status: {变量2}"
+  },
+  {
+    "id": "b00bddbdef9f10f9",
+    "text": "Ready to arrange the next recruitment batch."
+  },
+  {
+    "id": "d5d2f5f57f3c8b3c",
+    "text": "Locally short by 2 knowledge"
+  },
+  {
+    "id": "eab5936633468827",
+    "text": "Use this staffing method"
+  },
+  {
+    "id": "94279fbf9e965a75",
+    "text": "Current method"
+  },
+  {
+    "id": "5caa3335bc8dbce7",
+    "text": "Use this recruitment source"
+  },
+  {
+    "id": "42d6b5cebe2a4356",
+    "text": "Select another city"
+  },
+  {
+    "id": "9c9f75ac61ca267f",
+    "text": "Current source"
+  },
+  {
+    "id": "8efe2942c7ba1768",
+    "text": "Pause administration and training"
+  },
+  {
+    "id": "d5896dbfc537ff95",
+    "text": "Resume administration and training"
+  },
+  {
+    "id": "58ee4b7df940d757",
+    "text": "Old Town past clerks: {列表1}\n\n{列表2}\nRecent renewals: {列表3}"
+  },
+  {
+    "id": "e02ad9ba356abab0",
+    "text": "Clerk term {变量1} took office in Reconstruction year {变量2}"
+  },
+  {
+    "id": "211ae8557cbcfde7",
+    "text": "Cohort {变量1} · {变量2} people · {变量3} · {变量4} lessons completed"
+  },
+  {
+    "id": "317b92ff47e57107",
+    "text": "Graduated"
+  }
+]

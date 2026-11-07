@@ -2,7 +2,7 @@
 
 **从一团火，到重返星空。**
 
-[网页版游玩](https://jiushiaaa.github.io/suiren/) · [在幻光游玩](https://lumi.66rpg.com/works/4vkszlfyi9s0) · [幻光开源工程](https://lumi.66rpg.com/projects/4vli2ypu26m8)
+[网页版游玩](https://jiushiaaa.github.io/suiren/) · [Play in English](https://jiushiaaa.github.io/suiren/?lang=en) · [在幻光游玩](https://lumi.66rpg.com/works/4vkszlfyi9s0) · [幻光开源工程](https://lumi.66rpg.com/projects/4vli2ypu26m8)
 
 战争之后，你从一间冰冷的维修间醒来。先点燃炉火，收集干柴，为敲门的人准备口粮与床铺；再修复道路、建设城市，联结失散的共同体，直到人类再次仰望星空。
 
@@ -14,7 +14,7 @@
 - **身体与未来**：基因技术、机械身体、合成人与生态恢复，能力变化伴随身份与权利选择。
 - **重返星空**：统一地球，完成航天制造、生命保障与首航；本版不包含星际战争和旅行。
 
-当前版本 **1.0.2**，简体中文。主线目标约 **12—15 小时**，可分多次游玩，实际时长仍在结合体验反馈校准。支持自动保存、暂停与倍率、夜间模式，以及随时代变化的音乐和环境声。已实现窄屏适配；真手机、iOS Safari 与读屏尚未完成全面验收，不将桌面模拟等同于移动版完成。
+GitHub Pages 当前版本 **1.1.0**，支持简体中文与英语；幻光现有版本仍为 **1.0.2**。主线目标约 **12—15 小时**，可分多次游玩，实际时长仍在结合体验反馈校准。支持自动保存、暂停与倍率、夜间模式，以及随时代变化的音乐和环境声。已实现窄屏适配；真手机、iOS Safari 与读屏尚未完成全面验收，不将桌面模拟等同于移动版完成。
 
 作品名取意于燧人氏传火。世界观与玩法灵感参考《这游戏也太真实了》《冰汽时代》《辐射避难所》《文明》《维多利亚》等作品；新增设定不代表原作官方内容。完整故事介绍见上方幻光作品页。
 
@@ -76,4 +76,4 @@ Windows PowerShell 如遇 `npm.ps1` 策略阻止，使用 `npm.cmd test` 和 `np
 
 上游 https://github.com/doublespeakgames/adarkroom ，基线 `1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7`。现有上游及本作提交历史完整保留；仓库整理前游戏提交为 `0a739c9`，之后把原根文件移动到 `游戏/` 并纳入设计与验证。保留 [MPL-2.0 许可](游戏/LICENSE.md) 及原作者署名；源码来源和改动记录可查。
 
-本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 将 main 的构建产物发布到 `gh-pages` 分支，见[部署说明](发布准备/GitHub-Pages.md)。Pages 使用本机自动保存，与幻光云档相互独立。英文版处于小批校译验证阶段，尚未上线；中文基线保持。
+本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 将 main 的构建产物发布到 `gh-pages` 分支，见[部署说明](发布准备/GitHub-Pages.md)。Pages 使用本机自动保存，与幻光云档相互独立。英文采用本地静态译文，游玩不调用翻译API；右下角可切换 English / 简体中文，偏好仅存本机。英文直达链接支持 `?lang=en`。中文Gemini基线保持，英文为AI辅助翻译与规则校验、关键页抽查，尚未经母语编辑逐句审校。

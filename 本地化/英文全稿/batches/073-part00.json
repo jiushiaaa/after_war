@@ -1,0 +1,82 @@
+[
+  {
+    "id": "f7d7d5b498f0d261",
+    "text": "The postwar settlement has been recorded. All terms must still be honored."
+  },
+  {
+    "id": "d9d952fc052a6b2f",
+    "text": "Conditions have changed; not carried out."
+  },
+  {
+    "id": "5f05b8979c1872ed",
+    "text": "Once Reconstruction is complete, set standing stock based on public income and production expenditure; small joint purchases need not fill a whole batch. Restoring food production and building a second unit of transport capacity must be funded, built, and maintained locally; changing diplomatic policy does not waive existing obligations."
+  },
+  {
+    "id": "af16a714590d99d4",
+    "text": "Establish postwar trade rules"
+  },
+  {
+    "id": "60689051b76394e4",
+    "text": "{变量1} · Food {变量2} / Reserves {变量3} · Transport {变量4}/{变量5}"
+  },
+  {
+    "id": "8251791e86c0e38a",
+    "text": "{变量1} · Food {变量2} / Reserves {变量3} · Food in transit {变量4} · Balance {变量5}{分支6}"
+  },
+  {
+    "id": "30f045afd961e2e5",
+    "text": "Every 300 seconds: public net food income {变量1}; workshops, production lines, and current agreements at full capacity cost {变量2}. Freight costs are separate. Food production can be increased by 40 as needed; goods in transit do not count toward stock until unloaded."
+  },
+  {
+    "id": "a4b4d00ead602f10",
+    "text": "Transport capacity occupied: {变量1}/{变量2}; {变量3}."
+  },
+  {
+    "id": "7c525e53e2eb7d0e",
+    "text": "Unassigned"
+  },
+  {
+    "id": "45185c359902526e",
+    "text": "Under construction {变量1}/3"
+  },
+  {
+    "id": "d91a36180b0d9abd",
+    "text": "Built; operated for {变量1} rounds"
+  },
+  {
+    "id": "3e23f076b207e444",
+    "text": "Diplomatic authorization: {变量1}."
+  },
+  {
+    "id": "8315db0b2805ae0d",
+    "text": "Keep current Reconstruction authorization"
+  },
+  {
+    "id": "9fa879887ee6a857",
+    "text": "Food production and transport construction"
+  },
+  {
+    "id": "15bf2e9af0c65628",
+    "text": "Diplomatic authorization and treaties"
+  },
+  {
+    "id": "a785c6ed85258683",
+    "text": "{变量1}: local construction costs {变量2}, then {变量3} is paid in each of three rounds."
+  },
+  {
+    "id": "34d1f75245d6be87",
+    "text": "Completed; operated for {变量1} rounds"
+  },
+  {
+    "id": "3f899c58dc47cb53",
+    "text": "Operation costs {变量1} per round{分支2}"
+  },
+  {
+    "id": "fd0fa716fb36a3df",
+    "text": ", produces {变量1}; production stops once the reserve target is reached."
+  },
+  {
+    "id": "6e2669fd467dedc8",
+    "text": ", adds one unit of transport capacity; goods already in transit will not be recalled if supply is cut off and operations stop."
+  }
+]

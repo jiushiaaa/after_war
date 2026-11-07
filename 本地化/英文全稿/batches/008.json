@@ -1,0 +1,242 @@
+[
+  {
+    "id": "155f7219c378897c",
+    "text": "Per person per step: {变量1}"
+  },
+  {
+    "id": "8724bf15ab2de1c7",
+    "text": "Per person per step: {变量1} · Wood per serving of boiled water: {变量2}"
+  },
+  {
+    "id": "48509720be1e1b96",
+    "text": "☑ Bring pump station repair parts"
+  },
+  {
+    "id": "0eff5d755b319a5a",
+    "text": "☐ Bring pump station repair parts"
+  },
+  {
+    "id": "accdd17ccd0d89a4",
+    "text": "Toggle whether to bring pump station repair parts"
+  },
+  {
+    "id": "22b60231cc8217dc",
+    "text": "Wood {变量1}, scrap {变量2}"
+  },
+  {
+    "id": "08616150801664c3",
+    "text": "☑ Bring hunting rifle and 4 rounds of ammunition"
+  },
+  {
+    "id": "ab89e4c5cf182804",
+    "text": "☐ Bring hunting rifle and 4 rounds of ammunition"
+  },
+  {
+    "id": "7aef2a2a3408487c",
+    "text": "Toggle whether to bring hunting rifle and ammunition"
+  },
+  {
+    "id": "602adb71ef269e9b",
+    "text": "Load {变量1} / {变量2} · Supplies last about {变量3} steps (split evenly between outbound and return trips) · Departure cost: {列表4}"
+  },
+  {
+    "id": "efdc22fca1c6310f",
+    "text": "Depart"
+  },
+  {
+    "id": "17bc1bd7951298eb",
+    "text": "Road closed, awaiting repairs"
+  },
+  {
+    "id": "e516b7d8be3f0f24",
+    "text": "The road to {变量1} is closed. Cargo and teams already en route will still be settled along their original routes. Repair it once you have 20 wood and 4 tools."
+  },
+  {
+    "id": "953072df8a82fb08",
+    "text": "{变量1} road patrol automatically used 20 wood and 4 tools as arranged, reinforcing the loose roadbed."
+  },
+  {
+    "id": "c2a636fe6d30a925",
+    "text": "{变量1} road patrol found a loose roadbed. Check the warning on the “Regions” page; the closure countdown starts only after you decide."
+  },
+  {
+    "id": "1504b0f3bf6cbad1",
+    "text": "No pending road warnings"
+  },
+  {
+    "id": "f2697a68af4e88a7",
+    "text": "Awaiting your decision; closure countdown not started"
+  },
+  {
+    "id": "9925818e69a47622",
+    "text": "Road closes in {变量1} seconds"
+  },
+  {
+    "id": "a0a3d0d646b6f829",
+    "text": "No new cargo trucks or resettlement groups dispatched until existing convoys return"
+  },
+  {
+    "id": "4ba496fc56e63045",
+    "text": "All existing convoys have returned; road closed pending repairs"
+  },
+  {
+    "id": "a7aaaee2379bc5db",
+    "text": "Road closed, awaiting repairs"
+  },
+  {
+    "id": "eca9429ed504c26f",
+    "text": "Road conditions or material stocks have changed, so no materials were deducted this time. Once you have the materials, continue from the road warning entry on the “Regions” page."
+  },
+  {
+    "id": "0dbbae791fc44c7d",
+    "text": "Reinforce and repair (20 wood, 4 tools)"
+  },
+  {
+    "id": "6a20e27b8af3d650",
+    "text": "Road repair materials paid in full; road reopened."
+  },
+  {
+    "id": "7a7d9aca06a34c65",
+    "text": "Repair and authorize automatic maintenance on all roads"
+  },
+  {
+    "id": "390b0f621326c2c2",
+    "text": "This repair has been paid in full. Each future road warning will still require 20 wood and 4 tools. If stocks are insufficient, you'll be asked to decide again."
+  },
+  {
+    "id": "5869a99d5dc07b2d",
+    "text": "Stop new dispatches; close road once existing vehicles return"
+  },
+  {
+    "id": "37a5569b2ca7d069",
+    "text": "New cargo trucks and resettlement groups will no longer be dispatched on this road. Once all vehicles and teams return, the road will close for repairs."
+  },
+  {
+    "id": "966e3bd9820c18a6",
+    "text": "Continue transport (road closes in 180 seconds)"
+  },
+  {
+    "id": "d74fcde3cad90c57",
+    "text": "Keep the road open for now. You can still allocate materials to reinforce it within 180 seconds; if it isn't repaired in time, it will close."
+  },
+  {
+    "id": "7ae9eac58e301934",
+    "text": "Prepare materials first"
+  },
+  {
+    "id": "464a3def7eacb6dc",
+    "text": "The warning will remain on the “Regions” page; the closure countdown won't start yet. Decide once the materials are ready."
+  },
+  {
+    "id": "6205212730568512",
+    "text": "The road record will remain on the “Regions” page. Return any time for emergency repairs once the materials are ready."
+  },
+  {
+    "id": "5a4ddd4ac9c82ac6",
+    "text": "Close road record"
+  },
+  {
+    "id": "8f60b2517b432ed8",
+    "text": "Road patrol log closed."
+  },
+  {
+    "id": "fcce64b40cf81b9d",
+    "text": "Cancel automatic maintenance going forward"
+  },
+  {
+    "id": "20e9031a404ec3db",
+    "text": "Future road warnings will be decided by residents again; road sections already being handled will follow the existing decision."
+  },
+  {
+    "id": "f69fd13639be8d9b",
+    "text": "Road patrol continues as usual. Standing maintenance only uses materials when a roadbed hazard is found; if stocks are insufficient, you'll still be asked to decide."
+  },
+  {
+    "id": "6aba14a8272db48c",
+    "text": "If you stop dispatches, the road will close for repairs once all en-route cargo trucks and resettlement groups return. If you keep it open, a 180-second countdown starts when you decide."
+  },
+  {
+    "id": "780c72f8b086a3d8",
+    "text": "The road will close once en-route vehicles return. When repairs are complete, existing transport schedules will resume automatically."
+  },
+  {
+    "id": "7953048f5437bf20",
+    "text": "While the road is closed, en-route convoys will stop where they are. On the “Regions” page, arrange for them to turn back along the same route, or allocate materials to repair the road and continue."
+  },
+  {
+    "id": "17169f1ddbe90a5c",
+    "text": "Signed community agreements must still be honored; delayed deliveries count as a shortfall for this period."
+  },
+  {
+    "id": "3cbda8a18b3b25fb",
+    "text": "Old road warning"
+  },
+  {
+    "id": "01b8457300f3b3f7",
+    "text": "Road maintenance record"
+  },
+  {
+    "id": "466f08f0a2ec6d4a",
+    "text": "Each reinforcement or emergency repair costs 20 wood and 4 tools."
+  },
+  {
+    "id": "97558e5fe7b2131f",
+    "text": "Standing maintenance on all roads: {分支1}"
+  },
+  {
+    "id": "1b8b672a2db72893",
+    "text": "Authorized; each repair will use the full amount of materials required."
+  },
+  {
+    "id": "b2c6583a62da6fa2",
+    "text": "Not authorized."
+  },
+  {
+    "id": "3d8c36d809216963",
+    "text": "View road warnings"
+  },
+  {
+    "id": "c83f06a81ea657ec",
+    "text": "Calm"
+  },
+  {
+    "id": "134ac8e4b6278c99",
+    "text": "Light breeze"
+  },
+  {
+    "id": "393380426f00dce9",
+    "text": "Moderate breeze"
+  },
+  {
+    "id": "bd3488d7dd10ba23",
+    "text": "Strong wind"
+  },
+  {
+    "id": "357145ac2d7d5b01",
+    "text": "Wind turbines require staff once built; backup power is needed when winds are weak"
+  },
+  {
+    "id": "f3c84e4678e2a38a",
+    "text": "Local {变量1}, turbine output {变量2}%; {分支3}. Power is for local use during the current turn only; turbines stop in calm conditions, so backup power is required"
+  },
+  {
+    "id": "6f799dc1a5a8fd95",
+    "text": "Recent-turn wind power {变量1} / rated capacity {变量2}, {变量3} staff on duty used {变量4} parts"
+  },
+  {
+    "id": "5731ad51d2c4e709",
+    "text": "Awaiting first test run"
+  },
+  {
+    "id": "050c7efb113fc546",
+    "text": "Regency Council"
+  },
+  {
+    "id": "18bd46089737f70f",
+    "text": "Residents made their choice as agreed every ten years. The current representative was re-elected; existing duties and year of taking office remain unchanged."
+  },
+  {
+    "id": "a87964eeea216050",
+    "text": "Public approval was insufficient at the handover, and residents demanded to review and confirm the succession plan themselves."
+  }
+]

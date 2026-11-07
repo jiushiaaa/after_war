@@ -1,0 +1,82 @@
+[
+  {
+    "id": "e1fc4e6ff7cc77a3",
+    "text": "No work shifts are available for this team yet"
+  },
+  {
+    "id": "ce7b2ab0541fdef2",
+    "text": "Build a labor station in the hiring city first"
+  },
+  {
+    "id": "c4b964f2ea286222",
+    "text": "Settle the existing local contract before changing the source city or shift size"
+  },
+  {
+    "id": "fb3175be05006ff1",
+    "text": "Each shift must have 24, 60, or 120 workers"
+  },
+  {
+    "id": "5def96c51642e453",
+    "text": "{变量1} prepays wages in grain per shift to recruit {变量3} {变量4} positions from {变量2}. {分支5}"
+  },
+  {
+    "id": "806dde5e419a01d7",
+    "text": "Residents stay and work in this city."
+  },
+  {
+    "id": "b5fe5f4da30092ef",
+    "text": "Their homes in their city of origin remain available. While commuting and staying for shifts, they are temporarily away from their jobs there; temporary lodging, meals, and medical care are covered by the hiring city."
+  },
+  {
+    "id": "e2bdc9684f2bc8fc",
+    "text": "{变量1} ended future labor contracts. Shifts already in transit or stationed will be settled under the original terms, and no earned grain wages will be withheld."
+  },
+  {
+    "id": "5ed8a06ea4652386",
+    "text": "The hiring city's labor contract or public station has not yet been renewed"
+  },
+  {
+    "id": "802bd83fc2522421",
+    "text": "The source city's public services have not yet been renewed"
+  },
+  {
+    "id": "0f40c221d6a5de84",
+    "text": "{变量1} positions must be set aside locally for supplementary classes; only {变量2} labor positions are currently available"
+  },
+  {
+    "id": "c5b382d0ed3f726c",
+    "text": "The previous local labor shift has not yet been settled"
+  },
+  {
+    "id": "dc4f667203f60d14",
+    "text": "Local stock is sufficient. Keep the contract, but do not dispatch a shift for now"
+  },
+  {
+    "id": "66b4e18cfe2db3d9",
+    "text": "Review this period's production, sales, and household grain reserves, then start a shift next period"
+  },
+  {
+    "id": "f854a91017fb7b4f",
+    "text": "There is no public route between the two cities yet"
+  },
+  {
+    "id": "06ad1edf4fe00f22",
+    "text": "The route exceeds the current shift vehicles' travel range"
+  },
+  {
+    "id": "ab74c2849077d11a",
+    "text": "The source city must first cover its permanent local jobs, then spare this shift's workers and a driver for the vehicle"
+  },
+  {
+    "id": "4aa9abeb412541fc",
+    "text": "The hiring city does not have enough vacant temporary beds (including beds already promised and reserved for returnees)"
+  },
+  {
+    "id": "15460d5230726a5d",
+    "text": "The source city's service vehicles have not returned to base. Commuting, relocation, and public supply all use the same fleet"
+  },
+  {
+    "id": "d7d795289616c739",
+    "text": "Fulfill existing household relocation agreements first"
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "df7f1f11fc721fba",
+    "text": "Enable standing contract"
+  },
+  {
+    "id": "3fd47edce45b3603",
+    "text": "Close"
+  },
+  {
+    "id": "4c46f90ec33c2ccb",
+    "text": "Keep public operation"
+  },
+  {
+    "id": "adc62614127f83ae",
+    "text": "{变量1}'s toolmaking cooperative"
+  },
+  {
+    "id": "4f0222584180ed60",
+    "text": "Public stores purchase: exchange 6 food for 2 tools from the cooperative store. Public stores must first reserve 120 seconds of residents' rations. Cooperative store restocking: exchange 6 food with public stores for 4 wood and 12 scrap. Goods are exchanged on delivery, one batch per transaction."
+  },
+  {
+    "id": "8fb4664d837d521d",
+    "text": "The standing contract is checked every 30 seconds: if the cooperative store has fewer than 12 food, public stores automatically buy one batch of tools; if the cooperative store lacks enough materials for 4 workers to start, it automatically buys one batch of materials. All trades require immediate delivery. Public stores first reserve public rations and the wood and scrap needed for 60 seconds of current production. Batches skipped due to shortages are not made up later."
+  },
+  {
+    "id": "2be5e507e819d919",
+    "text": "Pausing the contract only stops automatic trading. Pausing production also stops automatic trading; cooperative store stock and workshop ownership remain unchanged."
+  },
+  {
+    "id": "b11d63ac1be7bfaf",
+    "text": "The toolmakers propose pooling their shares to take over an existing workshop, run by the artisans on duty. The town's other facilities, clinic, and basic rations will remain under public management. Life can also carry on as usual if the workshop stays publicly run."
+  },
+  {
+    "id": "47b2b57a0a71c082",
+    "text": "Drawing up the agreement costs the local community 20 knowledge. One built toolmaking workshop, along with 20 wood, 60 scrap, and 24 food, must be transferred to the cooperative. This start-up stock is not refunded or taken back for free once transferred, and no workshop or workers are created from nothing."
+  },
+  {
+    "id": "aabf5f7f259c756d",
+    "text": "After the change, 4 public toolmaker positions are removed, and those artisans move into the cooperative workshop. Every 10 seconds, each takes 0.2 wood and 0.6 scrap from the cooperative store, producing tools equal to 0.25 times local efficiency. The cooperative store also provides 0.1 food as a work meal, offsetting the same amount of public rations for that turn. Materials, output, and rations are all accounted for separately by the cooperative store; the same workers will not also work for public stores."
+  },
+  {
+    "id": "533368131a41a06f",
+    "text": "Public stores purchase: public stores pay 6 food and receive 2 tools from the cooperative store, provided they reserve 120 seconds of rations. Cooperative store restocking: the cooperative store pays 6 food to the local public stores for 4 wood and 12 scrap. Both sides must deliver immediately, one batch per transaction. No credit, taxes, or free subsidies."
+  },
+  {
+    "id": "e80339937f335f00",
+    "text": "Workshop ownership"
+  },
+  {
+    "id": "cd22198559edfce4",
+    "text": "Shared rotation"
+  },
+  {
+    "id": "6d85d02adc68d090",
+    "text": "Public archives only"
+  },
+  {
+    "id": "90d481326f5d6f3a",
+    "text": "Oral history exchange"
+  },
+  {
+    "id": "b27acf3a72d07c04",
+    "text": "Lantern vigil"
+  },
+  {
+    "id": "dc6e352dc0980190",
+    "text": "Pause local agreements"
+  },
+  {
+    "id": "8a583ac33d703252",
+    "text": "Build a public hall first"
+  },
+  {
+    "id": "4965264c17ecf0bb",
+    "text": "Stabilize local health, treatment, and children's education first"
+  },
+  {
+    "id": "3b44556bdd8e7db7",
+    "text": "Free up 14 adults outside production and public services"
+  },
+  {
+    "id": "001affb1ea363cb1",
+    "text": "Reserve 120 seconds of residents' rations first"
+  },
+  {
+    "id": "195c217d66520a5a",
+    "text": "{变量1} held its first {变量2}. The hall, supplies, and time contributed by neighbors have all been entered in the local ledger."
+  },
+  {
+    "id": "d051f8f0fdd35bdf",
+    "text": "No agreement on public spaces yet"
+  },
+  {
+    "id": "3cb0852e5e32bc0b",
+    "text": "{变量1} · {变量2} held. {分支3}"
+  },
+  {
+    "id": "67de07d70a2b4101",
+    "text": "{变量1} needs {变量2} worker-seconds; {变量3}"
+  },
+  {
+    "id": "9923f523d3ccbecc",
+    "text": "2 organizers and 12 participants present"
+  },
+  {
+    "id": "9c681236cb7520d9",
+    "text": "Future gatherings have been paused."
+  },
+  {
+    "id": "a41cee93919a4c3f",
+    "text": "Next preparations in {变量1} seconds."
+  },
+  {
+    "id": "f9c4071a1d082e66",
+    "text": "Waiting for the local community to have 4 wood, 6 food, and sufficient ration reserves."
+  },
+  {
+    "id": "48c56a0d1c180f93",
+    "text": "Stop future events"
+  },
+  {
+    "id": "010fdbc8debf4ccb",
+    "text": "Resume future events"
+  },
+  {
+    "id": "2a7d302e6c0a4f77",
+    "text": "Cancel this event"
+  },
+  {
+    "id": "984218da2549a951",
+    "text": "Make no changes for now"
+  },
+  {
+    "id": "6b6b2294ce36f4fe",
+    "text": "{变量1}'s public space"
+  },
+  {
+    "id": "f10b96bf2394c65e",
+    "text": "The Archives Mutual Aid Society wants to use the space to document oral histories of displacement and Reconstruction. The Lantern Vigil Society wants to light a long-burning lantern according to its own rites, honoring the dead. Both groups are neighbors in town. Beliefs have nothing to do with whether someone is a synthetic person, and the administration does not investigate anyone's beliefs."
+  },
+  {
+    "id": "df61369a788921cf",
+    "text": "Shared rotation: The oral history exchange and lantern vigil take turns using the hall, following the same schedule rules. Archives only: The public hall hosts oral history exchanges only; private rites are not interfered with. But the Lantern Vigil Society will have no venue, and local discontent may rise by up to 4 points when the agreement is made."
+  },
+  {
+    "id": "563e3a3c777a22e5",
+    "text": "Each agreement costs the local community 10 knowledge. Afterward, a public hall can be built under “Municipal → Community.” Each event requires 4 wood and 6 food from the local community. Outside production, construction, treatment, and teaching, 2 organizers and 12 adult neighbors must also be available for 180 worker-seconds. At least 600 seconds must pass after an event before preparations for the next one begin. Events missed while paused are not made up."
+  },
+  {
+    "id": "a79ab1aeb50e0ead",
+    "text": "After an oral history exchange, the local community gains 6 knowledge. After a lantern vigil, local discontent may decrease by up to 2 points in return for honoring the venue agreement, but it does not produce medical, research, or production benefits. Pausing stops future events only; an event already underway will finish as usual. If the current event is canceled midway, the wood and food already spent on preparations are not refunded."
+  },
+  {
+    "id": "8e8b3e05581e68d3",
+    "text": "Community public space"
+  },
+  {
+    "id": "b33da894fd0be30f",
+    "text": "Actual heating does not yet cover current and prospective residents"
+  },
+  {
+    "id": "e5d732ef3aa6a3d8",
+    "text": "The next heating cycle needs more staff, coal, parts, or electricity"
+  },
+  {
+    "id": "42b19b25e2ece44e",
+    "text": "Build a heating station and complete its trial run first"
+  },
+  {
+    "id": "5e50d04ad1880d91",
+    "text": "Daily heating handover complete"
+  },
+  {
+    "id": "8a9d3ee2d2ca24c2",
+    "text": "Trial heating capacity must cover all residents and the reserved number of people in transit"
+  },
+  {
+    "id": "26d5b5353a34fe96",
+    "text": "Keep at least 2 woodcutters on duty to take over the old artisans' firewood-gathering work"
+  },
+  {
+    "id": "24473f5759898c29",
+    "text": "The next heating cycle may not be sustainable. Add staff, coal, parts, or electricity"
+  },
+  {
+    "id": "1b12bd7fe2c953ca",
+    "text": "Before the formal handover, keep enough coal and parts in storage for at least three heating cycles"
+  },
+  {
+    "id": "d966eb671874c4c4",
+    "text": "{分支1}: {变量2} / {变量3} people; {分支4}{分支5}. {分支6}"
+  },
+  {
+    "id": "b4737c85f613a8ab",
+    "text": "Daily heating"
+  },
+  {
+    "id": "8d38ce14d695db68",
+    "text": "Heating trial run"
+  },
+  {
+    "id": "c6922391834911af",
+    "text": "Manual shifts"
+  },
+  {
+    "id": "98ceba46e7b1692b",
+    "text": "Electric circulation"
+  },
+  {
+    "id": "76d09d7554d94ab1",
+    "text": ", recent cycle used {变量1} coal, {变量2} parts, and {变量3} electricity"
+  },
+  {
+    "id": "9088479b5ae6b953",
+    "text": ", waiting for staff to report for duty and the next cycle to start"
+  },
+  {
+    "id": "ca843c7e0583725b",
+    "text": "Heating coverage is insufficient. Accession of new groups has been paused."
+  },
+  {
+    "id": "2eaa926e165c978b",
+    "text": "Resume electric heating"
+  },
+  {
+    "id": "6e862fd4c7d70213",
+    "text": "Schedule manual heating"
+  },
+  {
+    "id": "6e8652b29ba148e0",
+    "text": "Every 10 seconds, each heating station: an electric shift with 2 workers uses 1 electricity, 0.8 coal, and 0.02 parts to heat 600 people; a manual shift with 4 workers uses 1.2 coal and 0.02 parts to heat 300 people. Assign heating workers to duty."
+  },
+  {
+    "id": "fba91dc075fafaf8",
+    "text": "Hand over daily heating"
+  },
+  {
+    "id": "75c36f2d49bf0872",
+    "text": "{分支1} formally transfers daily heating to the heating station. {分支2}"
+  }
+]

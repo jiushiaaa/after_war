@@ -1,0 +1,82 @@
+[
+  {
+    "id": "9c6240ebf9d1c699",
+    "text": "Active Production and Resumption"
+  },
+  {
+    "id": "078cfc591ee4b89c",
+    "text": "Pending: {变量1} · Keep daily provisions and assigned duties covered first"
+  },
+  {
+    "id": "64425305b79691cf",
+    "text": "All institutions are running smoothly under current authorizations. There are no pending tasks that need your attention right now."
+  },
+  {
+    "id": "d2cf128b13900192",
+    "text": "Process"
+  },
+  {
+    "id": "e9aa6540e85945de",
+    "text": "Other pending tasks: {变量1}"
+  },
+  {
+    "id": "7f7a216543d61118",
+    "text": "{变量1} · {变量2} · New projects can receive up to {变量3}折值 in outside contributions"
+  },
+  {
+    "id": "53ca7c1e5148bd18",
+    "text": "Each toolmaker spends 0.4 scrap and 0.08 wood every 10 seconds, producing 0.2 tools. No iron is needed, but this uses more workstations. New projects can receive up to 200折值 in outside contributions, reduced to 100 if local housing is strained."
+  },
+  {
+    "id": "1a4da184ae4924d0",
+    "text": "Each toolmaker spends 0.8 scrap, 0.1 wood, and 0.1 iron every 10 seconds, producing 0.6 tools. If iron falls below 6, production automatically switches to repair and reuse, resuming once iron reaches 60. The institution will not build a furnace or dispatch vehicles for you. New projects can receive up to 600折值 in outside contributions, reduced to 200 if local housing is strained."
+  },
+  {
+    "id": "16421fcde2a52f5a",
+    "text": "Pause the institution's ongoing operations and return to the previous toolmaking process. Claimed project shares and shipments in transit will still be fulfilled. New projects allocated under the charter will no longer assign outside support to paused cities."
+  },
+  {
+    "id": "506d07988bc5808a",
+    "text": "{变量1}\n{分支2}{列表3}\nWhen submitting a joint project, you can choose “Share costs under local charters”: within the set limits, supply materials first from cities in the relevant industries, while the beneficiary city covers any shortfall. Local housing needs remain unchanged; the charter itself will not approve projects or increase budgets automatically.{分支4}"
+  },
+  {
+    "id": "3c53fef80c4e463b",
+    "text": "Use existing local workstations and labor, and assign 2 clerks to duty. Every 60 seconds, spend 1 food, 0.2 tools, and 0.2 knowledge, charged to the shared budget.\n"
+  },
+  {
+    "id": "6de74c9244a5c19e",
+    "text": "Setting and calibration require {变量1}"
+  },
+  {
+    "id": "df988a25be4d0190",
+    "text": "\nUnable to set: {变量1}"
+  },
+  {
+    "id": "063964feb1c12de2",
+    "text": "Set Production Charter"
+  },
+  {
+    "id": "d555d6a32025d3b5",
+    "text": "{变量1} has no production charter on record"
+  },
+  {
+    "id": "0ac5e48e71c82031",
+    "text": "{变量1}\nResumed for {变量2} cycles; total materials spent: {变量3}, total tools produced: {变量4}{分支5}"
+  },
+  {
+    "id": "b99998028ffc3894",
+    "text": "\nOn duty in recent cycles: {变量1} people · {分支2} · Tools produced: {变量3}"
+  },
+  {
+    "id": "bb975a759938d047",
+    "text": "Standard Processing"
+  },
+  {
+    "id": "b54c758e5a3e7cbc",
+    "text": "Repair and Reuse"
+  },
+  {
+    "id": "a0a925f62f83e610",
+    "text": "\nNot yet in production; work will start automatically based on inventory shortages."
+  }
+]

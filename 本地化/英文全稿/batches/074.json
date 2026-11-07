@@ -1,0 +1,242 @@
+[
+  {
+    "id": "b74b30840a78da99",
+    "text": "Please restore administration first and wait for the action team to return to the city"
+  },
+  {
+    "id": "c0df87d5efa2b582",
+    "text": "This plan requires equal citizenship or local autonomy"
+  },
+  {
+    "id": "2621579314f5813b",
+    "text": "Please set aside sufficient treaty funds, while retaining enough to sustain this city"
+  },
+  {
+    "id": "a6d5279371de2097",
+    "text": "Please restore compliance with the pact first"
+  },
+  {
+    "id": "91b4eff981fae46b",
+    "text": "Trust is already at 100"
+  },
+  {
+    "id": "62554cd73c85ffd9",
+    "text": "600 seconds must have passed since the last signing or reaffirmation"
+  },
+  {
+    "id": "1a042becb7f99657",
+    "text": "Please reserve knowledge 80, tools 20, and enough to sustain this city"
+  },
+  {
+    "id": "aefb711a82e6ebfc",
+    "text": "{变量1} · {分支2}; expenditure every 10 seconds: {变量3}"
+  },
+  {
+    "id": "ea622504a13f32e4",
+    "text": "The commitment or funding has been interrupted for {变量1} seconds"
+  },
+  {
+    "id": "81f052b306b67b22",
+    "text": "No regional specialty pact has been signed yet"
+  },
+  {
+    "id": "2cde76ce40cf7336",
+    "text": "; credit {变量1}{分支2}"
+  },
+  {
+    "id": "43f21a79e00a87d8",
+    "text": "Outstanding"
+  },
+  {
+    "id": "72e4b1bc39a9e92d",
+    "text": "Defaulted; collateral has been confiscated"
+  },
+  {
+    "id": "959da70807c71981",
+    "text": "Repayment in transit"
+  },
+  {
+    "id": "2bf03f2242ebc3bf",
+    "text": "Paid in full"
+  },
+  {
+    "id": "e67c3eaff4a28f1b",
+    "text": ", {变量1} seconds remaining until due"
+  },
+  {
+    "id": "68106d81477344b8",
+    "text": "National economic system: {变量1}. A more lenient system will change subsequent mutual-trade prices, the administrative cost of each pact, and new credit interest rates; prices for shipments already in transit and existing loan contracts will not be changed retroactively."
+  },
+  {
+    "id": "dd8fc123489d6695",
+    "text": "Public planning: local mutual-trade expenditure receives a 20% discount; each pact additionally expends knowledge 0.4 every 10 seconds; interest on new credit is 8%."
+  },
+  {
+    "id": "172d95f599416322",
+    "text": "Regulated market: local mutual-trade material output increases by 25%; each pact additionally expends tools 0.08 and knowledge 0.05; interest on new credit is 15%."
+  },
+  {
+    "id": "d102236330e1d77e",
+    "text": "Cooperative mutual aid: retain local autonomy; each pact additionally expends medicine 0.04 and knowledge 0.15; interest on new credit is 5%."
+  },
+  {
+    "id": "62f740feb3e4260d",
+    "text": "Mixed pact: maintain current prices with no additional system expenditure; interest on new credit is 10%."
+  },
+  {
+    "id": "2be48be5752b2284",
+    "text": "The national economic system has been changed; existing contracts will continue at their original prices."
+  },
+  {
+    "id": "3e3a9c3349995899",
+    "text": "Each reform proposal expends knowledge 120 and electronic components 10; another proposal can be made after 600 seconds. Regional specialty pacts, mutual trade, and Reconstruction credit will gradually become available in each region's diplomatic records."
+  },
+  {
+    "id": "02c36c5f9299129d",
+    "text": "{变量1}: expenditure {变量2}; trust +{变量3}; thereafter, expenditure every 10 seconds: {变量4}.{分支5}{分支6}{变量7}"
+  },
+  {
+    "id": "75de996a035abc18",
+    "text": "Equal citizenship must be maintained continuously."
+  },
+  {
+    "id": "b2921e4abab37f94",
+    "text": "Local autonomy must be maintained continuously."
+  },
+  {
+    "id": "5550989c9239bce8",
+    "text": "Available to sign"
+  },
+  {
+    "id": "05a2735072294718",
+    "text": "The regional specialty pact has been signed; ongoing funding and the corresponding system support are required."
+  },
+  {
+    "id": "20d0e890f71f14fd",
+    "text": "A pact's funding interruption or breach of its system commitment will interrupt public services. After 60 consecutive seconds of interruption, 10 trust will be deducted for breach of trust; compliance can continue after funding is restored. A pact may be funded for reaffirmation once every 600 seconds, expending knowledge 80 and tools 20 to recover 10 trust.{变量1}"
+  },
+  {
+    "id": "a0c3354bc3f9f89f",
+    "text": "Available to reaffirm"
+  },
+  {
+    "id": "8f0e243f3f4dd895",
+    "text": "Fund pact reaffirmation"
+  },
+  {
+    "id": "63ca46c9396da710",
+    "text": "Pact reaffirmed; local trust has increased by 10."
+  },
+  {
+    "id": "b6b44251cfbda5c6",
+    "text": "{变量1}: withdraw {变量2} at departure, and bring back {变量3} on the return trip.{分支4}{变量5}"
+  },
+  {
+    "id": "e6c6cfafe6e44d03",
+    "text": "Loans are issued directly from the local public treasury; 40 tools must be pledged. The loan comes due 1800 seconds after the materials are delivered, at which point another repayment team must be sent to return {变量1}. Overdue loans will result in confiscation of collateral, a deduction of 20 trust, and suspension of mutual trade and public commitments until repayment; no compound interest is charged, and old debts are not canceled."
+  },
+  {
+    "id": "0a49d4fa8adcee95",
+    "text": "{分支1}Both parties' goods are sealed and reserved at departure, delivered at the destination, and only enter this city's warehouse after the vehicles and vessels return; each region allows one trip every 600 seconds."
+  },
+  {
+    "id": "6d0829d6c22121af",
+    "text": "The regional pricing factor for this round is {变量1}%, fluctuating with import scarcity, export stockpiles, warfare, and overdue records; prices for each trip are locked when the vehicles and vessels depart."
+  },
+  {
+    "id": "c2da6cad02736476",
+    "text": "Once the repayment team departs, overdue time stops counting. The debt is settled upon delivery at the destination; pledged tools not forfeited for default will return to this city with the team."
+  },
+  {
+    "id": "b4968db0b3eab225",
+    "text": "Can be dispatched"
+  },
+  {
+    "id": "0cf8a985305a6dda",
+    "text": "The action team has paid its expenses and departed; goods and collateral will be delivered based on the actual round trip."
+  },
+  {
+    "id": "2b1c270090e1d995",
+    "text": "Close national pacts"
+  },
+  {
+    "id": "48371c8d6e7242d8",
+    "text": "All pacts and public treasury ledgers continue operating."
+  },
+  {
+    "id": "926799ae9044342e",
+    "text": "National economy and system"
+  },
+  {
+    "id": "5ceaa475ed4cd946",
+    "text": "{变量1} · Pact"
+  },
+  {
+    "id": "86dfb0ab4e5e165d",
+    "text": "Establish the alliance and transit pact first"
+  },
+  {
+    "id": "3bf2285f7f17f4b5",
+    "text": "Network pact is active"
+  },
+  {
+    "id": "37ac0dbf9132d374",
+    "text": "Establish the transit, governance, and front-line pacts first"
+  },
+  {
+    "id": "f6b4e47501d0599c",
+    "text": "The transit party must have been contacted and must not be under an embargo, at war with, or occupied by either endpoint"
+  },
+  {
+    "id": "cfbdc87191452ff5",
+    "text": "Transit arrangements already exist on this route"
+  },
+  {
+    "id": "9cf8bc93421a751b",
+    "text": "No active transit rights"
+  },
+  {
+    "id": "48063b2abba8c803",
+    "text": "Only the deployment of the side currently at war can be adjusted"
+  },
+  {
+    "id": "b191bd84105c23d7",
+    "text": "Only members of the common law or their defensive allies can be coordinated; the opponent deploys independently"
+  },
+  {
+    "id": "02c51a2fb7dbc9c4",
+    "text": "The current deployment is identical or 300 seconds have not yet passed"
+  },
+  {
+    "id": "985696ed8128a2d0",
+    "text": "Contact this region first"
+  },
+  {
+    "id": "290a271015925267",
+    "text": "Wait for a dispatched adjustment or local public transport capacity to return empty"
+  },
+  {
+    "id": "285e493f10ebca94",
+    "text": "End the occupation first"
+  },
+  {
+    "id": "be87beced723a73f",
+    "text": "A creditor and actual export stock must exist; 600 seconds between runs in the same region, and duplicate reservations are not allowed"
+  },
+  {
+    "id": "2c609a2da641e95a",
+    "text": "No breach of trust awaiting repair"
+  },
+  {
+    "id": "12a13650323b655a",
+    "text": "A compliance review is already in progress"
+  },
+  {
+    "id": "d15ce17a336ff11b",
+    "text": "This procurement discipline is already in use"
+  },
+  {
+    "id": "66b77da9e14a549f",
+    "text": "Unknown governance action"
+  }
+]

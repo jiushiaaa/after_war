@@ -1,0 +1,242 @@
+[
+  {
+    "id": "36c92a47d2348a41",
+    "text": "Three-Warehouse Mutual Aid Agreement"
+  },
+  {
+    "id": "967d60fe95ff048f",
+    "text": "Hearth City and two neighboring communities each manage their own warehouse, and work together to maintain clinics and roads along the route."
+  },
+  {
+    "id": "4ab48c81aab6e043",
+    "text": "Initial agreement: Hearth City contributes 30 knowledge, and each neighboring community contributes 10 knowledge. Thereafter, every 600 seconds, send 12 medicine and 2 tools to each location; each location loads 12 wood in return onto the same truck for the trip back."
+  },
+  {
+    "id": "4379334a2d887d20",
+    "text": "Before dispatching, Hearth City must retain 120 seconds' worth of food, medicine, and maintenance tools for its own needs. Once the local return wood is ready, the same truck returns along the original route under escort by the same transport workers."
+  },
+  {
+    "id": "661226dc755dba18",
+    "text": "Hearth City spends 0.04 knowledge every 10 seconds"
+  },
+  {
+    "id": "ad4133f0a7b47ed8",
+    "text": "Each of the three locations spends 0.02 knowledge every 10 seconds"
+  },
+  {
+    "id": "138c379d0ebd7fcc",
+    "text": "Close the ledger"
+  },
+  {
+    "id": "2a4be169cb1cba9b",
+    "text": "The representatives closed the mutual aid ledger."
+  },
+  {
+    "id": "168dbfed86c9f87b",
+    "text": "{变量1}'s stranded truck can return empty. Medicine and tools already delivered will not be reclaimed, but this trip will not count as a full delivery. Dispatches on this route will be suspended; once the truck returns to the city, you can re-enable the route on the “Regions” page. If the location lacks wood for an extended period, you can build a local lumber camp for it under “Civic Affairs → Raw Materials”."
+  },
+  {
+    "id": "79c1dc8827d87df0",
+    "text": "{变量1} empty return"
+  },
+  {
+    "id": "37b9e795390df642",
+    "text": "{变量1}'s stranded truck has returned empty, and dispatches on this route are temporarily suspended. The medicine and tools already delivered remain with the location, and the unfinished round trip has been recorded accurately in the ledger."
+  },
+  {
+    "id": "43f1a722964a942c",
+    "text": "Resume mutual aid"
+  },
+  {
+    "id": "e3fed6cb7d539a87",
+    "text": "Pause new dispatches"
+  },
+  {
+    "id": "6ef929d2ba88ea68",
+    "text": "Withdraw from the trial agreement"
+  },
+  {
+    "id": "9675e66b344259e5",
+    "text": "The revised terms have been posted publicly and will take effect in 60 seconds."
+  },
+  {
+    "id": "0257a282b32d7642",
+    "text": "The mutual aid agreement has been updated. Convoys already en route will complete their trips under the original orders."
+  },
+  {
+    "id": "0fecad6971d2484f",
+    "text": "The mutual aid agreement cannot be revised right now."
+  },
+  {
+    "id": "a31c3ba223bbb9ab",
+    "text": "Revision notice expires in {变量1} seconds."
+  },
+  {
+    "id": "8c3c5aadb079b874",
+    "text": "New dispatches have been paused. Convoys already en route will complete their round trips as usual."
+  },
+  {
+    "id": "da5ec77358f653e9",
+    "text": "Approved convoys depart on schedule, subject to local stock."
+  },
+  {
+    "id": "33dd8d84598e008e",
+    "text": "Balancing the accounts."
+  },
+  {
+    "id": "30198f76af804d69",
+    "text": "Period {变量1} · {变量2} seconds remaining (600 seconds per period)."
+  },
+  {
+    "id": "27ce80e84263751f",
+    "text": "Expenses recorded this period: {列表1} knowledge."
+  },
+  {
+    "id": "472acbbf8e04bb57",
+    "text": "Previous period: {分支1}"
+  },
+  {
+    "id": "904a6e9d5d6a338b",
+    "text": "Full round trips still owed: {列表1}; shipments delivered late remain on the original period’s books."
+  },
+  {
+    "id": "0f8f58c65950c69c",
+    "text": "Both communities’ aid convoys completed their round trips on schedule."
+  },
+  {
+    "id": "a6937b6d4a9ca7dd",
+    "text": "{变量1} short by {变量2} (on hand: {变量3}, required: {变量4})"
+  },
+  {
+    "id": "7d7d9495652419cb",
+    "text": "Return trip loading for {变量1} seconds; {变量2}{分支3}"
+  },
+  {
+    "id": "3a01150d4357de6d",
+    "text": "Gift wood is ready; awaiting road repairs and an available transport crew"
+  },
+  {
+    "id": "18148462f97d7c66",
+    "text": "; occupying a construction materials truck"
+  },
+  {
+    "id": "167969c0be406607",
+    "text": "Not part of the aid agreement"
+  },
+  {
+    "id": "572c16e6902bba75",
+    "text": "Original vehicle returning empty{分支1}"
+  },
+  {
+    "id": "e69d07df642884b2",
+    "text": "Blocked, awaiting road repairs"
+  },
+  {
+    "id": "26843560804eb097",
+    "text": "In transit, {变量1} seconds remaining"
+  },
+  {
+    "id": "3a921e291ab28fd8",
+    "text": "Medicine and tools in transit"
+  },
+  {
+    "id": "9c8706833e00adc2",
+    "text": "Goods received, awaiting return-trip wood loading"
+  },
+  {
+    "id": "caa24fa96d05de1e",
+    "text": "Return-trip wood in transit"
+  },
+  {
+    "id": "d3d08e9c0242eca6",
+    "text": "Wood returned to its original location; empty vehicle awaiting return"
+  },
+  {
+    "id": "1c3e17caed57ab04",
+    "text": "Fulfilled this period"
+  },
+  {
+    "id": "cb8669134b27ec60",
+    "text": "This cycle's convoy returned empty"
+  },
+  {
+    "id": "be7d139696eec740",
+    "text": "New convoy departures paused"
+  },
+  {
+    "id": "df6e301c19f74f5d",
+    "text": "Community records lack sufficient knowledge"
+  },
+  {
+    "id": "f5a3f2a6e337cb0c",
+    "text": "Route service suspended"
+  },
+  {
+    "id": "ef95713d034336d8",
+    "text": "Road blocked, awaiting repairs"
+  },
+  {
+    "id": "c393587cd2e7b8f3",
+    "text": "Awaiting the cargo convoy's return"
+  },
+  {
+    "id": "586613b6db16893d",
+    "text": "Transport crew understaffed"
+  },
+  {
+    "id": "60ad8cd299ec4e70",
+    "text": "Awaiting Hearth City to prepare mutual aid supplies and a 120-second reserve"
+  },
+  {
+    "id": "8e2016d7109caf54",
+    "text": "Awaiting convoy assignment on the original route"
+  },
+  {
+    "id": "f432b56b8df9ff2c",
+    "text": "View community agreement"
+  },
+  {
+    "id": "abf6854152716653",
+    "text": "Discuss mutual aid among the three towns"
+  },
+  {
+    "id": "f0785c78710ce663",
+    "text": "The old mutual aid ledgers remain on file, and delegates can renegotiate a new agreement at any time."
+  },
+  {
+    "id": "3d181380a0fa6ac5",
+    "text": "Delegates propose using existing convoys to regularly exchange medicine, tools, and wood for road repairs."
+  },
+  {
+    "id": "e4ebd064fe02f1fb",
+    "text": "Review local industries and public reserves"
+  },
+  {
+    "id": "370a174f071dafaf",
+    "text": "Research national accounting first and contact at least two regions"
+  },
+  {
+    "id": "cff6546ddc1d0a59",
+    "text": "Joint council mechanism is operational"
+  },
+  {
+    "id": "212e5628225f0a96",
+    "text": "Set aside 180 knowledge, 20 electronics, and this city's upkeep"
+  },
+  {
+    "id": "13c98a433b4b070a",
+    "text": "Joint settlement has not been established"
+  },
+  {
+    "id": "dd7c1ee3329763fb",
+    "text": "This credit limit has already been adopted"
+  },
+  {
+    "id": "5b3ddf8ac9025b4c",
+    "text": "Credit limit adjustments must be at least 600 seconds apart"
+  },
+  {
+    "id": "a777e93ab3d1dc09",
+    "text": "Reserve 60 knowledge and provisions for this city"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "858c2a8cc976ef25",
+    "text": "City of employment"
+  },
+  {
+    "id": "2dfeb5b1b0c6a657",
+    "text": "Labor source (select this city for local hires)"
+  },
+  {
+    "id": "f74f4542675bb00f",
+    "text": "Contracted work"
+  },
+  {
+    "id": "a280ab10f25b0110",
+    "text": "Existing city supply"
+  },
+  {
+    "id": "3937c8d6723caede",
+    "text": "Workers per shift"
+  },
+  {
+    "id": "c1135c338e6a754b",
+    "text": "24 people · Small shift"
+  },
+  {
+    "id": "5e1832906bb81ec2",
+    "text": "60 people · Medium shift"
+  },
+  {
+    "id": "fd040d2e33d13909",
+    "text": "120 people · Full shift"
+  },
+  {
+    "id": "7a61ca003845d44a",
+    "text": "Current shift costs and departure costs"
+  },
+  {
+    "id": "1335a0fec5f767cd",
+    "text": "Wages, lodging, meals, and return travel"
+  },
+  {
+    "id": "12e9006e9c09a574",
+    "text": "Workers can take shifts in other cities without relocating. Contracted labor can replace some local regular shifts. Transport, temporary beds, advance food and wages, and daily provisions are accounted for separately. Shifts are assigned based on local inventory shortages or school vacancies; no shifts are assigned when stocks are full. Old Town and the other districts remain under their original administration, while this city's labor positions are based in the departure district. The work hall's 120 positions first fill vacancies at this city's school; positions assigned to classrooms are not included in labor shifts."
+  },
+  {
+    "id": "d77f068f1c9f8d7d",
+    "text": "No positions set up"
+  },
+  {
+    "id": "f9d5b2b63e5a4771",
+    "text": "Installing"
+  },
+  {
+    "id": "c773541181bae80c",
+    "text": "{变量1} · {变量2}\nResidents from this city {变量3} · Working shifts away {变量4} · Working shifts here {变量5} · Beds reserved {变量6}\n{分支7}\nPer person, every 10 seconds: uses {变量8}, produces {变量9}{分支10}"
+  },
+  {
+    "id": "6d8fdc0ecc96b6c8",
+    "text": "120 labor positions in total; requires {变量1} and 20 local residents to install over 120 seconds."
+  },
+  {
+    "id": "2c0b3d41fd7f3a97",
+    "text": "Installing; {变量1} work hours remaining."
+  },
+  {
+    "id": "d40388cb228e70d6",
+    "text": "{分支1}; {变量2} positions are assigned to supplemental classrooms, leaving {变量3} labor positions available. Public station {分支4}. Remaining allowance this period: {变量5} equivalent value."
+  },
+  {
+    "id": "2517f6442479486e",
+    "text": "Labor contract authorized"
+  },
+  {
+    "id": "df07e80b0ebf874f",
+    "text": "Labor contract paused"
+  },
+  {
+    "id": "e84957b09097bb8d",
+    "text": "Pending restoration"
+  }
+]

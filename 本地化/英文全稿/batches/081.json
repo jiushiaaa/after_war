@@ -1,0 +1,242 @@
+[
+  {
+    "id": "64b744fbecdd301c",
+    "text": "Balanced provisioning"
+  },
+  {
+    "id": "c28eb016f01801fd",
+    "text": "Prioritize clinical supplies"
+  },
+  {
+    "id": "ef41282c973052dc",
+    "text": "Prioritize body manufacturing"
+  },
+  {
+    "id": "75908ae990893db3",
+    "text": "Prioritize fuel components"
+  },
+  {
+    "id": "935d3948a7779e70",
+    "text": "Prioritize ecology and daily needs"
+  },
+  {
+    "id": "2621a653aba5efcc",
+    "text": "Reassigning existing workstations costs 4 knowledge. The same staff and power cannot cover every process at once; each process shuts down and waits once its low stock is replenished."
+  },
+  {
+    "id": "2ea1900d3fb66a48",
+    "text": "Build 4 restricted machines"
+  },
+  {
+    "id": "a609956f305947df",
+    "text": "Costs 12 parts and 8 controllers; each machine needs power and routine maintenance, does not count toward the registered population, and will not develop a personality on its own."
+  },
+  {
+    "id": "fffb5419c2c6148f",
+    "text": "Prioritize power for automated living"
+  },
+  {
+    "id": "18690bade3dafbad",
+    "text": "Shut down power sources"
+  },
+  {
+    "id": "e05c356c1d578011",
+    "text": "Use renewable power only"
+  },
+  {
+    "id": "3e148ac48df74a07",
+    "text": "Changing the settings costs 4 knowledge; after shutdown, limited stored power keeps things running at first. Once it runs out, residents with mechanical bodies enter dormancy, and public services for ordinary people also suffer. Registered identities are never erased."
+  },
+  {
+    "id": "598a5f5535d476a3",
+    "text": "Admit 240 volunteer residents"
+  },
+  {
+    "id": "2a3c23346f1b1d5f",
+    "text": "The population of the North Bank source settlement decreases accordingly, leaving the world population unchanged; first provide 240 food, 24 medicine, 12 tools, and enough beds and daily provisions."
+  },
+  {
+    "id": "8a2c44d1d9729f04",
+    "text": "{变量1} {变量2}"
+  },
+  {
+    "id": "3cf1e4dc9adcb858",
+    "text": "Register"
+  },
+  {
+    "id": "030c6cce1f9091a2",
+    "text": "Voluntary adoption"
+  },
+  {
+    "id": "e14b310a0d2b41df",
+    "text": "{变量1}; occupies 8 clinical/registration staff for 240 seconds. {分支2}{分支3}"
+  },
+  {
+    "id": "3edebfc8b91b6a70",
+    "text": "New personalities emerge only through actual manufacturing and training. Resident population and political rights are tracked separately."
+  },
+  {
+    "id": "f4045dddb3b6f043",
+    "text": "The person's original identity, property, and existing rights and obligations all continue; changing body form does not add a resident."
+  },
+  {
+    "id": "700c8dd853a31acf",
+    "text": "Residents fitted with auxiliary prosthetics still need food and routine medical care."
+  },
+  {
+    "id": "bfbcdfcab6dad360",
+    "text": "A full-body conversion completely changes daily living requirements; afterward, uninterrupted power and maintenance are required."
+  },
+  {
+    "id": "0cf0f4dd613ddafe",
+    "text": "Provide clinical treatment"
+  },
+  {
+    "id": "49ad5bb0aa9e89d8",
+    "text": "Costs 48 medicine and 24 cultures; complications can be brought under control only with reliable power, continuous follow-up, and clinical staff on duty."
+  },
+  {
+    "id": "2766e4809eb847ce",
+    "text": "Body maintenance and isolation review"
+  },
+  {
+    "id": "abd7d8460898a807",
+    "text": "Costs 24 community parts, 8 controllers, and 16 knowledge. In a total power outage, 4 repair workers must also be sent from the North Bank, carrying 40 public wood, 12 parts, 4 tools, and 24 food to deliver 120 units of startup power, wake residents, and restore their original identities."
+  },
+  {
+    "id": "1d2d4f4664f69ec2",
+    "text": "Costs 60 knowledge and 30 food; public deliberation takes 300 seconds. {变量1}"
+  },
+  {
+    "id": "22784afdacc9d345",
+    "text": "Only somatic modifications with the person's informed consent are allowed; automated genetic editing is prohibited. Voluntary enhancement requires additional monitoring and reliable basic medical care."
+  },
+  {
+    "id": "4785780ef6a84ecc",
+    "text": "Personal identity and bodily ownership continue uninterrupted; bodily ownership already vested in a person cannot be revoked afterward."
+  },
+  {
+    "id": "cd12a22f9c3fd83f",
+    "text": "All residents with independent consciousness count toward population and provisioning needs as usual; those with equal civil rights also have representative seats. Civil rights already granted cannot be revoked afterward."
+  },
+  {
+    "id": "656384004a31ebde",
+    "text": "Only adjusts the job allocation between circular farms and advanced manufacturing; it does not create extra labor."
+  },
+  {
+    "id": "0ca40ea9df74425d",
+    "text": "Commission mixed teams and clinical relief staffing"
+  },
+  {
+    "id": "fe52a31120afed9f",
+    "text": "Costs 48 knowledge, 24 food, and 8 tools; 4 teachers on duty complete the handover in 180 seconds. People receiving clinical care take leave to recover; mechanical maintenance, synthetic manufacturing, and public administration all draw on registered residents, so no extra labor is created."
+  },
+  {
+    "id": "1456fc3685a08400",
+    "text": "Commission clinical production and guaranteed supplies"
+  },
+  {
+    "id": "a180656fb1123d97",
+    "text": "Costs 12 parts, 40 knowledge, and 40 food; each period, spare medical staff at the follow-up station use 2 cultures, 8 food, 0.5 tools, and 8 power to produce 8 doses of medicine. Convoy runs prioritize maintaining four periods of food, medicine, and repair reserves; any surplus can be exported. No stock is created from nothing."
+  },
+  {
+    "id": "946d2bde20180c81",
+    "text": "Commission clinical expansion and surplus medicine production"
+  },
+  {
+    "id": "b10c30f49b1bb4a0",
+    "text": "Costs 24 parts, 60 knowledge, and 12 tools; the construction limit for follow-up stations increases from 2 to 4. Stations still require separate materials to build, and each has 8 medical staff positions. When supplying others, medicine production quotas increase; local living reserves are protected first, and surplus medicine is then sent to the public warehouse on the same convoy."
+  },
+  {
+    "id": "2dd47c5beb08ac55",
+    "text": "Costs 4 knowledge; expenses already paid are not refunded, and goods already in transit still arrive as usual. Pausing the commission does not erase registered residents or remove existing rights and obligations."
+  },
+  {
+    "id": "48830d519f6d48f0",
+    "text": "Maximum load per convoy: {变量1} items"
+  },
+  {
+    "id": "984db9f3969b8cb0",
+    "text": "Costs 4 knowledge; calculated using reserve thresholds that cover eight periods of living needs and ongoing maintenance for the round trip, local stocks are replenished before anything is exported. Each run sends 4 drivers, takes 120 seconds to reach the destination / 240 seconds for the round trip, and costs 8 food for travel and 1 tool; the departure warehouse must first retain enough stock for its own public obligations."
+  },
+  {
+    "id": "353e2f70b1b67fbe",
+    "text": "Export surplus public supplies"
+  },
+  {
+    "id": "fc3c7948f6950376",
+    "text": "Keep supplies in reserve"
+  },
+  {
+    "id": "14c88c0fc31ecd8c",
+    "text": "Costs 4 knowledge. Only food, medicine, parts, controllers, and alloys exceeding local living reserve thresholds are loaded for export, sharing the same vehicle as inbound deliveries; they are physically unloaded into the public warehouse after 120 seconds."
+  },
+  {
+    "id": "c250a6b4687ea20b",
+    "text": "Depart with supplies"
+  },
+  {
+    "id": "d4b927deef552065",
+    "text": "Assign 4 field staff, spending 96 food, 24 medicine, 12 controllers, and 8 fuel components; survey the site for 360 seconds. Echoes from old battlefields are noisy, mentally taxing residual signals, not supernatural powers or magic."
+  },
+  {
+    "id": "36979d1e4eec9845",
+    "text": "{变量1} investigators need 240 seconds to return; expenses already paid are not refunded."
+  },
+  {
+    "id": "981e5962bb54334b",
+    "text": "Costs 20 tools and 8 parts; archive historical records and disconnect the interface, gaining no additional research knowledge."
+  },
+  {
+    "id": "8655f94a168ee5f9",
+    "text": "Costs 60 knowledge, 24 medicine, and 8 controllers; cross-checking yields 80 knowledge. Team members require 3 periods of clinical follow-up after returning."
+  },
+  {
+    "id": "c6938ec722b45ab9",
+    "text": "Costs 20 fuel components, 12 medicine, and 12 controllers; forced analysis yields 180 knowledge. Team members require 12 periods of clinical follow-up after returning, with ongoing medical and care costs."
+  },
+  {
+    "id": "748fff3a829e1307",
+    "text": "Advanced communal living"
+  },
+  {
+    "id": "9fdc80cb0de72c89",
+    "text": "Communal living"
+  },
+  {
+    "id": "bc7722942eb7140d",
+    "text": "Administration"
+  },
+  {
+    "id": "c7ae38241bc94bc5",
+    "text": "Current matters"
+  },
+  {
+    "id": "8f8aef07a51f3f54",
+    "text": "Population, identity, and daily responsibilities"
+  },
+  {
+    "id": "d844cd7b61432ecc",
+    "text": "Warehouses, energy, and public exchange"
+  },
+  {
+    "id": "b8a39cd8b4ca8bb0",
+    "text": "Ongoing public services"
+  },
+  {
+    "id": "4bca29eea017ef96",
+    "text": "Community history and Echo records"
+  },
+  {
+    "id": "d2e7a6e97427b865",
+    "text": "Public institutions across regions are running smoothly, allowing research to turn to body modification, circular ecology, and autonomous machines. But every new capability must first be grounded in living residents, power, and routine maintenance."
+  },
+  {
+    "id": "9e0dc9bc3915d719",
+    "text": "Establish the community first: 240 volunteers relocate from the North Bank, leaving the world population unchanged; prepare housing and startup building materials {变量1}, as well as daily provisions and manufacturing supplies {变量2}."
+  },
+  {
+    "id": "bf3885a4c8309cf5",
+    "text": "Establish an advanced community"
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "858c2a8cc976ef25",
+    "text": "City of employment"
+  },
+  {
+    "id": "2dfeb5b1b0c6a657",
+    "text": "Labor source (select this city for local hires)"
+  },
+  {
+    "id": "f74f4542675bb00f",
+    "text": "Contracted work"
+  },
+  {
+    "id": "a280ab10f25b0110",
+    "text": "Existing city supply"
+  },
+  {
+    "id": "3937c8d6723caede",
+    "text": "Workers per shift"
+  },
+  {
+    "id": "c1135c338e6a754b",
+    "text": "24 people · Small shift"
+  },
+  {
+    "id": "5e1832906bb81ec2",
+    "text": "60 people · Medium shift"
+  },
+  {
+    "id": "fd040d2e33d13909",
+    "text": "120 people · Full shift"
+  },
+  {
+    "id": "7a61ca003845d44a",
+    "text": "Current shift costs and departure costs"
+  },
+  {
+    "id": "1335a0fec5f767cd",
+    "text": "Wages, lodging, meals, and return travel"
+  },
+  {
+    "id": "12e9006e9c09a574",
+    "text": "Workers can take shifts in other cities without relocating. Contracted labor can replace some local regular shifts. Transport, temporary beds, advance food and wages, and daily provisions are accounted for separately. Shifts are assigned based on local inventory shortages or school vacancies; no shifts are assigned when stocks are full. Old Town and the other districts remain under their original administration, while this city's labor positions are based in the departure district. The work hall's 120 positions first fill vacancies at this city's school; positions assigned to classrooms are not included in labor shifts."
+  },
+  {
+    "id": "d77f068f1c9f8d7d",
+    "text": "No positions set up"
+  },
+  {
+    "id": "f9d5b2b63e5a4771",
+    "text": "Installing"
+  },
+  {
+    "id": "c773541181bae80c",
+    "text": "{变量1} · {变量2}\nResidents from this city {变量3} · Working shifts away {变量4} · Working shifts here {变量5} · Beds reserved {变量6}\n{分支7}\nPer person, every 10 seconds: uses {变量8}, produces {变量9}{分支10}"
+  },
+  {
+    "id": "6d8fdc0ecc96b6c8",
+    "text": "120 labor positions in total; requires {变量1} and 20 local residents to install over 120 seconds."
+  },
+  {
+    "id": "2c0b3d41fd7f3a97",
+    "text": "Installing; {变量1} work hours remaining."
+  },
+  {
+    "id": "d40388cb228e70d6",
+    "text": "{分支1}; {变量2} positions are assigned to supplemental classrooms, leaving {变量3} labor positions available. Public station {分支4}. Remaining allowance this period: {变量5} equivalent value."
+  },
+  {
+    "id": "2517f6442479486e",
+    "text": "Labor contract authorized"
+  },
+  {
+    "id": "df07e80b0ebf874f",
+    "text": "Labor contract paused"
+  },
+  {
+    "id": "e84957b09097bb8d",
+    "text": "Pending restoration"
+  },
+  {
+    "id": "030e7375eeee2d08",
+    "text": ", while also teaching 20 children; stops accumulating once the knowledge reserve is full."
+  },
+  {
+    "id": "61739f2ca3167d87",
+    "text": "Actual workstation setup cost"
+  },
+  {
+    "id": "3866f3567934d211",
+    "text": "Estimated for 30 full rounds (payment is based on rounds actually worked):\nProduction materials {变量1}; advance food wages {变量2}{分支3}.\n{分支4}\n{分支5}\nAdvance food wages, production materials, and lodging and meals during the assignment all count against the hiring city's public budget; travel rations and vehicle costs count against the source city's budget. Any surplus food returned early does not restore this period's spent budget. If the budget runs out, the assignment will stop, but workers keep every bit of food wages they've already earned.\n"
+  },
+  {
+    "id": "dd9845f4aaeb8ed6",
+    "text": "; after deducting rations during the assignment, {变量1} food can be returned to the source city"
+  },
+  {
+    "id": "e4d992dd753307c3",
+    "text": "The source city must provide travel rations {变量1} and fare {变量2}; the service vehicle and its 4 drivers are occupied for about {变量3} seconds. The round trip takes {变量4} seconds, with 300 seconds of work on assignment; work time is {变量5}% of the total journey.\nTemporary housing setup costs {变量6}; maintenance costs {变量7} every 60 seconds. Beds remain reserved while workers wait for an assignment."
+  },
+  {
+    "id": "9309f10d7cac6d12",
+    "text": "Local residents are scheduled to work here, requiring no vehicles or temporary beds."
+  },
+  {
+    "id": "4cab75a16c2d6c21",
+    "text": "Registering for qualification recognition costs {变量1}; from the team's departure until they return home, the source city's cooperative jobs will have {变量2} fewer people, reducing the original process's output by up to {变量3} every 10 seconds (if the source city already has ample stock, those staying home would be on rest rotation anyway). The source city must retain at least half of its qualified workers and two instructors."
+  },
+  {
+    "id": "c92a028918794cc6",
+    "text": "The source city has not yet built a training workshop or qualified cooperative jobs, so it cannot send out a specialist team."
+  },
+  {
+    "id": "642d444d46637803",
+    "text": "General labor teams are drawn from ordinary residents who do not occupy specialist workstations."
+  },
+  {
+    "id": "3336ee69fc7b93ea",
+    "text": "{变量1}\nFood wages {变量2} must be set aside before work begins. Workers are paid based on rounds actually worked, earning 0.24 food per person per round, for up to 30 rounds per team. If supplies run out or the job is halted, the assignment ends; unearned advance food is returned to the public store, while workers take home what they have earned.\n{变量3}"
+  },
+  {
+    "id": "a3ef5265294f491b",
+    "text": "{变量1} qualified workers registered in the source city; up to {变量2} can be sent out after meeting the minimum staffing requirement. Qualification recognition costs 4 knowledge.\n"
+  },
+  {
+    "id": "16ebf8f8fad38fe0",
+    "text": "Local labor; no vehicle dispatch or temporary beds required."
+  },
+  {
+    "id": "663fe0bbe0260109",
+    "text": "One-way trip: {变量1} seconds; reserve {变量2} temporary beds in the hiring city. Workers' homes in their source city remain available."
+  },
+  {
+    "id": "194c3a794508e9a9",
+    "text": "Not connected"
+  },
+  {
+    "id": "3776eeee7f1b8d71",
+    "text": "Requirements met; the contract can be signed. Assignments will then renew automatically based on stock shortages, public budget, and vehicle capacity. See below for a breakdown of costs."
+  },
+  {
+    "id": "58e1bcd55c80c13a",
+    "text": "Sign labor contract"
+  },
+  {
+    "id": "44ee1e680bb62603",
+    "text": "Current process: {变量1}\nLabor source: {变量2} · {变量3} people per team\n{分支4}"
+  },
+  {
+    "id": "c053df49a5983c37",
+    "text": "On the way to work; arriving in {变量1} seconds"
+  },
+  {
+    "id": "69f052b32a52d3fe",
+    "text": "Working on assignment: {变量1} / 30 rounds; food wages earned {变量2}"
+  },
+  {
+    "id": "74f959c94ec9524f",
+    "text": "On the way home; {变量1} seconds remaining; carrying food wages {变量2}"
+  },
+  {
+    "id": "70248e8c29f642ca",
+    "text": "Next shift: {变量1}"
+  },
+  {
+    "id": "cb2d93886177838c",
+    "text": "Requirements met, awaiting assignment"
+  },
+  {
+    "id": "31da8d52cb2c1a6a",
+    "text": "No further labor contracts available. {分支1}"
+  },
+  {
+    "id": "9ca864784c74b6a7",
+    "text": "Shifts already underway will still be settled as agreed."
+  },
+  {
+    "id": "82cd23ea7b34f220",
+    "text": "Pause labor contracts"
+  },
+  {
+    "id": "fce0e4e046fd481a",
+    "text": "Resume labor contracts"
+  },
+  {
+    "id": "6917852967dfe9a6",
+    "text": "Build a labor station first"
+  },
+  {
+    "id": "49d199f618275d0d",
+    "text": "End future labor contracts"
+  },
+  {
+    "id": "73869cae8c36d77c",
+    "text": "{变量1} household: total grain wages earned {变量2}, daily rations deducted {变量3}, grain remaining at home {变量4}"
+  },
+  {
+    "id": "2164422c82ba1ac9",
+    "text": "No grain wages received yet."
+  },
+  {
+    "id": "28c112674f43e12b",
+    "text": "Shift {变量1} · {变量2} → {变量3} · {变量4} people · {变量5}\nCompleted {变量6} rounds, earned grain wages {变量7} / advance {变量8}; public storehouse lodging and meals reimbursed {变量9}\n{分支10}{分支11}"
+  },
+  {
+    "id": "ad0f8a1794211ce2",
+    "text": "Accounts settled. Unused advance grain {变量1} returned to the hiring city; the source city's public storehouse reclaimed {变量2}."
+  },
+  {
+    "id": "44c159fa8f3c3995",
+    "text": "Unused advance grain has been returned. The crew is still on its way home."
+  },
+  {
+    "id": "5ac40cac5c648953",
+    "text": "This shift has not been settled yet. Advance grain wages and travel rations remain held in their respective accounts."
+  },
+  {
+    "id": "149cd68ebc134877",
+    "text": "Workshop District"
+  },
+  {
+    "id": "e29a33f3e30a0d71",
+    "text": "Smelting District"
+  },
+  {
+    "id": "3722a3c72171fbe7",
+    "text": "Medical District"
+  },
+  {
+    "id": "3928a6da4154546e",
+    "text": "School District"
+  },
+  {
+    "id": "7804127a25097e60",
+    "text": "Not yet connected"
+  },
+  {
+    "id": "167914d80e318e62",
+    "text": "Road under construction"
+  }
+]

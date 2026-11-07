@@ -7,6 +7,10 @@ import {execFileSync} from 'node:child_process';
 import {parse} from 'acorn';
 import {parse as parseHTML, parseFragment} from 'parse5';
 
+const args=process.argv.slice(2);
+if(args.includes('--help')){console.log('Usage: node tools/export-copy.mjs [--out <independent-output-directory>]');process.exit(0);}
+if(args.length && (args.length!==2 || args[0]!=='--out' || !args[1] || args[1].startsWith('--')))throw Error('Unsupported arguments. Use --help or --out <directory>.');
+
 const game=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.dirname(game);
 const arg=process.argv.indexOf('--out'),out=arg>=0?path.resolve(process.argv[arg+1]):path.join(root,'文案编辑');
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');

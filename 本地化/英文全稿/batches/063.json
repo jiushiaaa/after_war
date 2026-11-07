@@ -1,0 +1,242 @@
+[
+  {
+    "id": "f1f205509c1a8c63",
+    "text": "The direct freight convoy from {变量1} to {变量2} is held up by conflict; if the route is still blocked after 600 seconds, the cargo will be returned."
+  },
+  {
+    "id": "06580a2971d0dfa4",
+    "text": "Batch {变量1} of the direct shipment has been returned to its original warehouse; the original settlement balance has been reversed, and travel costs are non-refundable."
+  },
+  {
+    "id": "39bf0aa4b5e1b948",
+    "text": "Pact matters have been recorded. Future obligations must be met through actual upkeep and dispatched aid."
+  },
+  {
+    "id": "9238519a87385c73",
+    "text": "Activating the Alliance and Transit Pact lets regions propose alliances, share routine upkeep, and fulfill wartime aid requests. Betrayal damages standing and credit limits. New trade orders can choose an escort or a longer detour; existing orders in transit are unchanged. Debt extensions require approval from the largest creditor. Outstanding principal and extension fees must still be repaid with goods available for export."
+  },
+  {
+    "id": "c76f78faa11a6b09",
+    "text": "Establish the Alliance and Transit Pact"
+  },
+  {
+    "id": "53e6782ee00dfe6c",
+    "text": "Routes, Front Lines, and Governance"
+  },
+  {
+    "id": "bb37db6a53143300",
+    "text": "There are currently {变量1} active alliances; each party can hold at most two pact commitments at a time. Select a region to view its bilateral pacts, trade route preferences, or settlement debts."
+  },
+  {
+    "id": "b089d1532d78e12c",
+    "text": "{变量1} · {变量2} · fulfilled {变量3} rounds{分支4}"
+  },
+  {
+    "id": "819ccd3709b7576f",
+    "text": " · During withdrawal notice period"
+  },
+  {
+    "id": "98a3ffa95fd1737e",
+    "text": "{变量1}: settlement balance {变量2}, breach record {变量3}; after pact bonuses and breach penalties, credit limit adjusted to {变量4}."
+  },
+  {
+    "id": "67147dfff9f07e97",
+    "text": "Debt extensions must be reviewed by the largest creditor, the party holding the largest positive balance. The debtor must have goods available for export, the parties must not be at war, and the breach record must be below 40. A debt can be extended only once per round. If approved, the principal remains, a fee equal to 10% of the reviewing party's share of the debt is added to the balance, and the due date is extended by 600 seconds. Time until due: {变量1} seconds."
+  },
+  {
+    "id": "ccb172e021717fc4",
+    "text": "Request Export Credit Extension"
+  },
+  {
+    "id": "01888e5e722c47ec",
+    "text": "Choose route (direct): costs 8 food/1 parts, 300 seconds one way; if the route passes through a third party's war zone at departure, it automatically takes a detour. Escort transport: costs 12 food/3 parts/2 tools, 600 seconds one way. Long detour: costs 20 food/2 parts, 900 seconds one way. The actual buyer pays route fees; a trade pact saves 2 food. No new orders are sent while both parties are under a trade embargo."
+  },
+  {
+    "id": "8fa294034f572be7",
+    "text": "If hostilities break out while a direct freight convoy is en route, it will be held in place. If the route remains blocked after 600 seconds, the goods are returned, the balance is reversed, and spent travel costs are non-refundable. Choosing an escort or detour ensures that shipments in transit are delivered, but does not lift a trade embargo between the parties. Each region starts with one unit of public freight capacity. Completing “Expand Public Freight Depot” and maintaining it on schedule adds one more. Changing route preferences does not affect shipments already sent."
+  },
+  {
+    "id": "093eb6602f800529",
+    "text": "Batch {变量1} {变量2} · {分支3} · {分支4} · Balance {变量5}"
+  },
+  {
+    "id": "3f05b198e36b070c",
+    "text": "Old Direct-Route Agreement"
+  },
+  {
+    "id": "dbd1e0670c49c988",
+    "text": "Returned"
+  },
+  {
+    "id": "624ecd8431832fac",
+    "text": "Delivered"
+  },
+  {
+    "id": "47b074467b7e3323",
+    "text": "Held up by conflict"
+  },
+  {
+    "id": "38055d6faddd9d26",
+    "text": "{变量1} upkeep per party every 300 seconds: {变量2}; current consideration score {变量3}/50."
+  },
+  {
+    "id": "cc96f79d7376296e",
+    "text": "Propose {变量1}"
+  },
+  {
+    "id": "ad6b4c620f72604e",
+    "text": "A trade pact saves some route food and raises the credit limit by 40. Under a mutual defense pact, when an ally is drawn into an external conflict, you must actually send an aid shipment of 24 grain/4 medicine/4 tools, plus escort fees, within 600 seconds. Both pact types ease bilateral tensions, but each party has limited pact slots and cannot ally with everyone."
+  },
+  {
+    "id": "d3d2f072ccb96d73",
+    "text": "Propose Upgrade to Mutual Defense"
+  },
+  {
+    "id": "ce8d996cef7755d7",
+    "text": "Both parties agreed to downgrade to a trade pact; past aid and casualty records remain on file."
+  },
+  {
+    "id": "e0d53949391850ce",
+    "text": "Upgraded jointly from the original trade pact. Past upkeep records and shipments in transit remain unchanged; no additional pact slot is used."
+  },
+  {
+    "id": "e7c4b0bd463e73ca",
+    "text": "{变量1} has fulfilled {变量2} rounds; each party must pay upkeep of {变量3} every 300 seconds. Missing upkeep for two consecutive rounds or refusing to send aid during conflict counts as a breach."
+  },
+  {
+    "id": "e5bdbf6d19b4d197",
+    "text": "{变量1} Give Notice to Withdraw"
+  },
+  {
+    "id": "b90cf3d9872faa96",
+    "text": "{变量1} Unilaterally Break Pact"
+  },
+  {
+    "id": "c8dbe1b69a9a0aac",
+    "text": "Give advance notice to withdraw and continue meeting obligations during the 600-second notice period. Breaking the pact unilaterally on the spot adds 20 to the breach record, lowers standing with all nations by 6, sharply reduces standing with the former ally by 25, and cuts the credit limit. Existing debts remain fully payable."
+  },
+  {
+    "id": "1c2e6a6e4176db1a",
+    "text": "{变量1} seconds remain in the withdrawal notice period. The pact will formally end at the next round of joint settlement."
+  },
+  {
+    "id": "ffadca880800b956",
+    "text": "{变量1} has missed upkeep for {变量2} consecutive rounds."
+  },
+  {
+    "id": "b49eb5226ee43726",
+    "text": "Wartime aid request from {变量1}: {变量2}."
+  },
+  {
+    "id": "79b2ef50353000dc",
+    "text": "Waiting for ally to dispatch aid"
+  },
+  {
+    "id": "1292e44861a7eeb6",
+    "text": "Escorted aid shipment dispatched"
+  },
+  {
+    "id": "606ff3aa2f186464",
+    "text": "Fulfillment deadline missed"
+  },
+  {
+    "id": "ddba48cd99179c56",
+    "text": "Conflict has ended or the pact has been withdrawn; aid request canceled"
+  },
+  {
+    "id": "1a41786eb14fa8a7",
+    "text": "Previous pact: {分支1}; past obligations and unpaid balances remain in effect."
+  },
+  {
+    "id": "8d7c2a157f3db04f",
+    "text": "Withdraw Amicably"
+  },
+  {
+    "id": "69983cf611b0a95b",
+    "text": "Current negotiations: {分支1}"
+  },
+  {
+    "id": "f0c489dc2296f0dc",
+    "text": "Accepted"
+  },
+  {
+    "id": "68384bf031845c85",
+    "text": "View Trade Routes"
+  },
+  {
+    "id": "e74c9d11bdca6e43",
+    "text": "Close Alliance Records"
+  },
+  {
+    "id": "1615c654764eeddc",
+    "text": "Alliances, trade routes, and interregional settlements continue under the terms of the actual treaties."
+  },
+  {
+    "id": "1ad8127dff4cefcc",
+    "text": "Establish the Transit and Governance Pact first"
+  },
+  {
+    "id": "451857ec5725ae51",
+    "text": "Supply-and-demand pact active"
+  },
+  {
+    "id": "572112ea679f4ab5",
+    "text": "This turnover policy is not in effect"
+  },
+  {
+    "id": "6139edc70b5dbc63",
+    "text": "Policy changes require a 600-second interval"
+  },
+  {
+    "id": "772ec1cda8429887",
+    "text": "This policy is already in effect"
+  },
+  {
+    "id": "010fa59db9e879aa",
+    "text": "Reserve council costs and local provisions"
+  },
+  {
+    "id": "62b19ed5b8eae813",
+    "text": "{变量1} independently exports {变量2}, settling a balance of {变量3}; the creditor repurchases it using actual funds, and the cargo is still in transit."
+  },
+  {
+    "id": "bfac480dc0e03cb8",
+    "text": "Prioritize exports to repay {变量1}; no new purchases on credit"
+  },
+  {
+    "id": "d6331c1d16de85a8",
+    "text": "{变量1} exchanges goods based on each side's actual shortfalls. Both parties pay travel costs, no new net debt is added, and the two shipments are fulfilled separately."
+  },
+  {
+    "id": "388bd0e477bfc2cd",
+    "text": "{变量1} purchases {变量2} based on actual shortfalls, at price {变量3}, balance {变量4}; goods in transit count toward the restocking target."
+  },
+  {
+    "id": "bba562bf735cb7ba",
+    "text": "Import {变量1} as needed{分支2}"
+  },
+  {
+    "id": "9ef036a70f7fc5e7",
+    "text": "，pay with actual exports"
+  },
+  {
+    "id": "ff5b016793b1a21c",
+    "text": "，limit revolving credit"
+  },
+  {
+    "id": "8e908f0900e1e101",
+    "text": "；short of {变量1}; waiting for export payment or an exchange acceptable to both parties"
+  },
+  {
+    "id": "a23fb076f6756de0",
+    "text": "Supply-and-demand and turnover terms have been recorded."
+  },
+  {
+    "id": "11551166786d788a",
+    "text": "Each nation decides what to restock based on actual supply consumption and shipments in transit, prioritizing export shipments to offset overdue debts. If both sides have shortages, they can barter directly. Wartime aid is reassessed every 900 seconds; each arriving aid shipment can support only one round of front-line settlement. Existing shipments in transit continue as usual."
+  },
+  {
+    "id": "0c3ef15fe789cbe8",
+    "text": "Establish the Supply, Demand, and Turnover Pact"
+  }
+]

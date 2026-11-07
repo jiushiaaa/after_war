@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4cfc2a569104643a",
+    "text": "After a ceasefire, either side may propose downgrading a defense pact to a trade pact. The proposal is decided after 300 seconds based on bilateral relations, past aid, and credit history. Each side must contribute 6 food/12 knowledge to submit. Until a new pact is reached, both sides must continue to honor the original defense terms."
+  },
+  {
+    "id": "24017f8919385a66",
+    "text": "Propose downgrading to a trade pact"
+  },
+  {
+    "id": "0fa1a46794b24ca7",
+    "text": "View exit notice and past aid requests"
+  },
+  {
+    "id": "59f1b8b7d8718241",
+    "text": "No active pact. Existing aid shipments in transit and outstanding debts remain unchanged."
+  },
+  {
+    "id": "00471544d21757e6",
+    "text": "{变量1}: Facilities {变量2}%, total casualties {变量3}; {变量4} stock {变量5}, target stock {变量6}."
+  },
+  {
+    "id": "dbd657ad97b8b841",
+    "text": "Local workshop: {变量1}."
+  },
+  {
+    "id": "de19a6fa4c126a24",
+    "text": "Alliance upkeep every 300 seconds: {变量1}; total aid goods and travel costs: {变量2}; {变量3} shipments in transit, {变量4} aid requests pending."
+  },
+  {
+    "id": "248b3d1581deb0e9",
+    "text": "No active pact"
+  },
+  {
+    "id": "c1d793a6e0adafc3",
+    "text": "“Prioritize repairs” spends 24 food/8 tools/8 parts per round and restores 10% of facilities. “Repair while resuming production” spends 16 food/5 tools/5 parts per round and restores 5% of facilities. Once facilities reach 60%, also invest workshop materials; output is scaled by the proportion of facilities in working order. If a remote Reconstruction team is already working on-site, local materials will not be spent on duplicate work."
+  },
+  {
+    "id": "9cd6e81a002c3e83",
+    "text": "Current plan: {分支1}."
+  },
+  {
+    "id": "147239ef850baf5c",
+    "text": "Use standard repairs; resume production after facilities are fully repaired"
+  },
+  {
+    "id": "eed2b8ba167fd90f",
+    "text": "{变量1}: Startup requires {变量2} from local stocks and three consecutive rounds of construction, each costing {变量3}; once operational, each round costs {变量4} and produces {变量5}. Production stops when storage is full."
+  },
+  {
+    "id": "907e8d0cc05a1b7b",
+    "text": "Production line repairs: {分支1}."
+  },
+  {
+    "id": "baf7827ebf53a2f0",
+    "text": "Construction progress: {变量1}/3 rounds"
+  },
+  {
+    "id": "159be525ec7815ac",
+    "text": "Operational for {变量1} rounds"
+  },
+  {
+    "id": "f91b9d87fcc7d044",
+    "text": "Pact authorization: {分支1}. During Reconstruction, production line inputs are also included in restocking needs. Shortages with no goods currently available for purchase are skipped. Adjustments can be made once every 600 seconds. Existing pacts must still be downgraded through negotiation or ended with proper notice."
+  },
+  {
+    "id": "a4af1040db3b16b0",
+    "text": "New and upgraded pacts are paused during Reconstruction; production line inputs are included in restocking, with available scarce goods prioritized; existing pacts, aid requests, and shipments in transit continue as usual"
+  },
+  {
+    "id": "539f9252515f3181",
+    "text": "Allow independent pact negotiations"
+  },
+  {
+    "id": "2a676087c9478714",
+    "text": "Resume independent pact-making"
+  },
+  {
+    "id": "11b0f3bc20d9db35",
+    "text": "New pacts paused during Reconstruction"
+  }
+]

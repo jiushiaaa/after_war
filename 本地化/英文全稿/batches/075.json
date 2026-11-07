@@ -1,0 +1,242 @@
+[
+  {
+    "id": "c51d93074afe5b2b",
+    "text": "Reserve council and goods payments, while maintaining local support"
+  },
+  {
+    "id": "db2fdabb0863c8b6",
+    "text": "{变量1} ends new transit bookings; existing shipments still proceed according to the actual state of affairs."
+  },
+  {
+    "id": "61d1f790ccb0acee",
+    "text": "{变量1} settles {变量2} of the balance with actual exports; goods are awaiting delivery. Returned shipments restore the original debt."
+  },
+  {
+    "id": "ada1da4a8624caab",
+    "text": "{变量1} received an actual treasury allocation of {变量2}; no local debt was forgiven."
+  },
+  {
+    "id": "16f951c479931d98",
+    "text": "Transit shipment {变量1} returned; the original balance was voided. Actual travel costs are nonrefundable."
+  },
+  {
+    "id": "474997b0420e77e5",
+    "text": "Shipment {变量1} arrived at the {变量2} transit port and paid 4 grain and 1 tool; the goods are still in transit."
+  },
+  {
+    "id": "009e81f7f977ee70",
+    "text": "Transit access for {变量1}; pay per shipment, up to 3600 seconds."
+  },
+  {
+    "id": "8cbe697b157364a5",
+    "text": "Approve"
+  },
+  {
+    "id": "f6d09cc9b0de14bc",
+    "text": "{变量1}'s transit booking expired or was closed due to the situation; dispatched goods proceed or return according to actual conditions."
+  },
+  {
+    "id": "43cc0f87d24933cd",
+    "text": "{变量1} restored 20 trust through actual exports, a debt-free record, and four consecutive rounds of fulfillment; past breaches remain on record."
+  },
+  {
+    "id": "c3e53b5ceea99447",
+    "text": "The front with {变量1} has a ceasefire at position {变量2}; this does not automatically annex the entire region."
+  },
+  {
+    "id": "688b36d1a778380e",
+    "text": "Front position with {变量1}: {变量2}; {列表3}."
+  },
+  {
+    "id": "24ed7dc31420580d",
+    "text": ", supplies paid"
+  },
+  {
+    "id": "3bb279ae46c93492",
+    "text": ", stalled due to supply shortages"
+  },
+  {
+    "id": "3b947f50b8f1add8",
+    "text": ", actual allied supplies received"
+  },
+  {
+    "id": "a10fd07dedf01dc1",
+    "text": "The arrangement has been recorded. Goods delivery, transit access, and all obligations must still be fulfilled as agreed."
+  },
+  {
+    "id": "4f52d939ed410fce",
+    "text": "Transit via a third party requires approval and a fee for each shipment. Front lines depend on actual supplies, troop deployments, and allied aid that has reached port. Trust can only be restored by repaying debts with goods on hand and fulfilling obligations over time; spending knowledge alone cannot erase breaches."
+  },
+  {
+    "id": "bd62c8a3a46e69a1",
+    "text": "Establish a Transit and Governance Pact"
+  },
+  {
+    "id": "d5ec9b311e6ab3fc",
+    "text": "{变量1}: settled {变量2}{分支3}, breaches {变量4}, public services {变量5}/600 seconds"
+  },
+  {
+    "id": "1e4f7290245b8c59",
+    "text": "(overdue debt)"
+  },
+  {
+    "id": "40ecbcc72c4a98bf",
+    "text": "Select a region to view production inputs, debt, and governance; then select another to view transit access, bookings, and the front situation."
+  },
+  {
+    "id": "c7dd73dfa726a22c",
+    "text": "{变量1}: {变量2} stock {变量3}, three-round safety threshold {变量4}, purchase target {变量5}; settled balance {变量6}, breaches {变量7}, continuous public services {变量8}/600 seconds."
+  },
+  {
+    "id": "1f66e8cbe0507e60",
+    "text": "The treasury can allocate 70 rounds of production inputs, plus 40 grain/6 parts for freight. Arrival takes 600 seconds; one shipment at a time, using the destination's public capacity. Export settlement bookings last up to 1800 seconds and take priority once earlier goods arrive and free capacity. The creditor clears the balance upon receiving the goods; if they are returned en route, the original debt is restored. Switching to purchases using only your own balance avoids adding new debt, but does not forgive existing debt."
+  },
+  {
+    "id": "eb280d69c95e13b1",
+    "text": "Allocate production inputs from the treasury"
+  },
+  {
+    "id": "3a46ba0abb1374e9",
+    "text": "Arrange export settlement"
+  },
+  {
+    "id": "7bfe65cff42d7232",
+    "text": "Resume purchases on standard credit"
+  },
+  {
+    "id": "1287ac96c67b5b25",
+    "text": "Purchase using own balance only"
+  },
+  {
+    "id": "0893e93c679a5fb9",
+    "text": "Apply to restore fulfillment credit"
+  },
+  {
+    "id": "ed702078291be7f9",
+    "text": "Settlement booking: {变量1}"
+  },
+  {
+    "id": "557909f76afc6a76",
+    "text": "Awaiting both sides' earlier goods to arrive"
+  },
+  {
+    "id": "3b6907c5cabfa645",
+    "text": "Goods dispatched"
+  },
+  {
+    "id": "6845bde633450f59",
+    "text": "Booking expired or debt cleared"
+  },
+  {
+    "id": "bf5df5832eb991d3",
+    "text": "Credit review: {分支1}"
+  },
+  {
+    "id": "87217fbe051894ea",
+    "text": "20 breach points cleared"
+  },
+  {
+    "id": "e9491411982bb0b0",
+    "text": "Qualified for {变量1}/4 consecutive rounds; exports arrived during review: {变量2}/2 shipments. Must last at least 1200 seconds, with arrivals worth at least 40. During this period: no debt, no hostilities, sound production inputs, and full fulfillment of alliance obligations."
+  },
+  {
+    "id": "c49de954b76538f2",
+    "text": "Route: {变量1}"
+  },
+  {
+    "id": "18089bdf646816f6",
+    "text": "Via {变量1} transit; booking has {变量2} seconds remaining. Each leg takes 300 seconds and uses 18 grain/2 parts/1 tool, including 4 grain/1 tool paid to the transit provider upon arrival. All three parties use public capacity. If blocked, the shipment waits in place; after 600 seconds, it returns by the same route over 300 seconds and the original goods payment is voided. Only new shipments set to \"choose route automatically\" use transit routes; escort and detour settings remain unchanged."
+  },
+  {
+    "id": "46a140ba571814e6",
+    "text": "Withdraw new transit bookings"
+  },
+  {
+    "id": "12de67c2ab369c4d",
+    "text": "Request transit via {变量1}"
+  },
+  {
+    "id": "8a2d7cd747a1162e",
+    "text": "Most recent transit request: {变量1}"
+  },
+  {
+    "id": "8b629ad2b1d374ab",
+    "text": "Awaiting third-party response"
+  },
+  {
+    "id": "b42cb548c1d411c9",
+    "text": "Approved"
+  },
+  {
+    "id": "d3b00e2f012a72ae",
+    "text": "Expired or closed due to the situation"
+  },
+  {
+    "id": "0f848a0f188692b5",
+    "text": "New bookings ended voluntarily"
+  },
+  {
+    "id": "2dab7a3a9caaf29a",
+    "text": "Transit shipment {变量1}: {变量2}, via {变量3}; {分支4}; {分支5}."
+  },
+  {
+    "id": "5380f65d5f6cdf2f",
+    "text": "Returned; balance voided"
+  },
+  {
+    "id": "69161a220f6475f2",
+    "text": "Delivered"
+  },
+  {
+    "id": "070b6e3a624f55b2",
+    "text": "Delayed by hostilities"
+  },
+  {
+    "id": "a888b1a0c23d2832",
+    "text": "En route to transit port"
+  },
+  {
+    "id": "d9672c7209aa34f1",
+    "text": "Transit fee paid; departed port"
+  },
+  {
+    "id": "5585e2558be929b4",
+    "text": "Arriving at port for delivery"
+  },
+  {
+    "id": "38d29d797bddce98",
+    "text": "Returning"
+  },
+  {
+    "id": "2e3f805bd73d30f6",
+    "text": "Transit fee paid"
+  },
+  {
+    "id": "c2c1b99499020333",
+    "text": "Transit fee due on arrival"
+  },
+  {
+    "id": "d63a7bcccff4587b",
+    "text": "Front {分支1}: current line {变量2} (positive means the former side advances, negative the latter); {变量3} rounds of fighting. A ceasefire follows when either side advances 60 or after six rounds, when the troops are exhausted; this does not automatically annex the whole territory. If raiding advances 20, it cuts transit trade routes through the war zone."
+  },
+  {
+    "id": "6e6bc0e3272e523a",
+    "text": "At war"
+  },
+  {
+    "id": "8df1a7e57baab271",
+    "text": "Ceasefire"
+  },
+  {
+    "id": "c04529b1ccdff72e",
+    "text": "Close transit and governance records"
+  },
+  {
+    "id": "f497de9369de02fd",
+    "text": "Supplies, trade, credit, and the conflict continue to be settled on schedule."
+  },
+  {
+    "id": "80c7843574e67b1a",
+    "text": "Complete near-Earth orbital mapping first"
+  }
+]

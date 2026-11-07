@@ -1,0 +1,242 @@
+[
+  {
+    "id": "dccf5e9e127ad1a1",
+    "text": "Power: {变量1}"
+  },
+  {
+    "id": "326119431ba234e9",
+    "text": "Process matters "
+  },
+  {
+    "id": "2713a34ef53d915f",
+    "text": "Provisions and reserves"
+  },
+  {
+    "id": "2dc781afb21f5879",
+    "text": "Construction and salvage"
+  },
+  {
+    "id": "30ad4086c5058df4",
+    "text": "Industrial production"
+  },
+  {
+    "id": "d5d47926e9589899",
+    "text": "Apprentices and maintenance"
+  },
+  {
+    "id": "35a054be3c37b7b6",
+    "text": "Mining, coal mining, smelting, and mechanical workers on shift"
+  },
+  {
+    "id": "234b81a1f232b9dd",
+    "text": "Industrial power ≥4"
+  },
+  {
+    "id": "c90e01d3ca590ae2",
+    "text": "Once a workshop is built and the population reaches 8, you can set a work rotation; the town office takes over once established"
+  },
+  {
+    "id": "975bd33cd8576419",
+    "text": "Choose a work rotation"
+  },
+  {
+    "id": "f62b56870d59fe89",
+    "text": "An industrial town can take over industrial production and apprentice rotations once a smelting furnace is built"
+  },
+  {
+    "id": "bae4b0b568c7a62b",
+    "text": "Already assigned to this rotation"
+  },
+  {
+    "id": "a1bb40dfdf37a481",
+    "text": "At least four available workers must remain to assign one person to coordination"
+  },
+  {
+    "id": "b19d96b181843673",
+    "text": "Rotation coordination costs 2 wood and 1 food; it can resume once supplies are replenished"
+  },
+  {
+    "id": "9de23ce41fcea108",
+    "text": "Set rotations and priorities"
+  },
+  {
+    "id": "700fd70f7922732e",
+    "text": "Roles and manual assignment"
+  },
+  {
+    "id": "0dfdae41eea8f88e",
+    "text": "{变量1} · 1 coordinator · next renewal in {变量2} seconds"
+  },
+  {
+    "id": "1acedc39caa5689b",
+    "text": "Assign manually{分支1}"
+  },
+  {
+    "id": "02dedb3cebc04bcc",
+    "text": " · Paused due to maintenance shortages; resumes when supplies are replenished"
+  },
+  {
+    "id": "258f621ef5d7e03f",
+    "text": "Assign one adult resident to coordinate rotations, spending 2 wood and 1 food every 60 seconds. Keep three workers in reserve; {分支1}, and do not assign drivers, guards, or people away from town. Manually changing assigned roles pauses the rotation. The town office takes over once established."
+  },
+  {
+    "id": "c6db754cbbf702e0",
+    "text": "Currently managing civilian roles and five industrial roles"
+  },
+  {
+    "id": "bde9b94f5053142e",
+    "text": "Currently assigning only six civilian roles"
+  },
+  {
+    "id": "b959d016145c2fe8",
+    "text": "Assigned: {变量1} · 1 coordinator"
+  },
+  {
+    "id": "f56837a3ecc9e521",
+    "text": "Assign civilian roles manually"
+  },
+  {
+    "id": "f323aae38128e66f",
+    "text": "Rotation policy "
+  },
+  {
+    "id": "99fda834cb4b5350",
+    "text": "Assign this policy"
+  },
+  {
+    "id": "7258b75d10586c8c",
+    "text": "Assign manually"
+  },
+  {
+    "id": "214517d597995dab",
+    "text": "Currently assigning manually"
+  },
+  {
+    "id": "fdd7e5c1ea18028b",
+    "text": "“Provisions and reserves” first builds up 24 rounds of rations, then returns to basic farming; when wood reaches 120, it replenishes scrap to 60 and tools to 24. “Construction and salvage” prioritizes replenishing scrap and tools to 120, and puts the expanded toolmaking station to work; once tools are sufficient, four workers return to reserve. Actual output is still limited by available workers, health, and raw materials."
+  },
+  {
+    "id": "14952588a37e16a0",
+    "text": "Build up 24 rounds of rations first, then return to basic farming once supplies are sufficient; keep 60 scrap and 24 tools in reserve. Assign industrial roles manually."
+  },
+  {
+    "id": "8fc7e47fa1516c30",
+    "text": "Prioritize replenishing scrap and tools to 120; put the expanded toolmaking station to work, then return four workers to reserve once supplies are sufficient. Assign industrial roles manually."
+  },
+  {
+    "id": "6fef24b5f7d5b346",
+    "text": "Fill industrial roles first, replenishing stocks to: ore 200, coal 240, iron 200, parts 120. Assign any remaining workers to classrooms."
+  },
+  {
+    "id": "c48a8649ea8fb87d",
+    "text": "Prioritize filling teacher roles; keep only the minimum industrial staffing for routine maintenance: ore 60, coal 80, iron 60, parts 40. Stockpiling for expansion will slow accordingly."
+  },
+  {
+    "id": "3a009c343d6c55b0",
+    "text": "{变量1} All assignments are limited by available workers, health, raw materials, and role capacity."
+  },
+  {
+    "id": "118e20ecc14c289b",
+    "text": " Once the remaining conditions for the Old Town handover are met, a minimal trial production crew will be retained; raw materials and power will still be consumed as usual."
+  },
+  {
+    "id": "09cb934c827e6f93",
+    "text": "Public clinic"
+  },
+  {
+    "id": "1b8b249f9d027f40",
+    "text": "Public school"
+  },
+  {
+    "id": "41658f59620fc65d",
+    "text": "Irrigated plots"
+  },
+  {
+    "id": "4cd4975416f96af4",
+    "text": "Toolmaking shop"
+  },
+  {
+    "id": "d007f1757e90beb8",
+    "text": "Residential district"
+  },
+  {
+    "id": "2338e4aa31105b16",
+    "text": "Neighborhood housing"
+  },
+  {
+    "id": "b504bafc03bd0c9f",
+    "text": "Standardized medical equipment is enough to staff a full medical shift. Establish basic care first, then welcome new families to town."
+  },
+  {
+    "id": "235a287d099d7174",
+    "text": "The public clinic is now open. It adds four medical roles; producing medicine still consumes food, scrap, and labor."
+  },
+  {
+    "id": "9813b4aa317178cf",
+    "text": "The public school provides desks for school-age children and a place for teachers to study the knowledge of the old world."
+  },
+  {
+    "id": "e6062093b96aa8f4",
+    "text": "The school adds four teacher roles. Each teacher on duty can teach twenty children."
+  },
+  {
+    "id": "4e7fb998368abb07",
+    "text": "A properly maintained pumping station can carry fresh water to more distant fields."
+  },
+  {
+    "id": "647787d857f4eaf9",
+    "text": "The new plots add eight farming roles. Fields must be worked to yield crops, and a loss of water from the pumping station will also reduce yields."
+  },
+  {
+    "id": "2656e66fb74e2f67",
+    "text": "Standard gauges and jigs let more toolmakers work together."
+  },
+  {
+    "id": "f24f2a88bf6a8e5c",
+    "text": "The toolmaking shop adds four workstations. It still needs a steady supply of wood and scrap."
+  },
+  {
+    "id": "f0e007e9fbbca6fc",
+    "text": "The clinic and school are both staffed. Work can now begin on homes for more families."
+  },
+  {
+    "id": "93ccfe901ca4003e",
+    "text": "The residential district is complete, adding twenty-four beds. Empty houses will not bring in residents on their own."
+  },
+  {
+    "id": "a842fc45879d7fcd",
+    "text": "Town works connect the roads, drains, and homes. Rations and medicine must still be stocked before the next group of displaced people arrives."
+  },
+  {
+    "id": "085535298a3da144",
+    "text": "Neighborhood housing is complete, adding ninety-six beds. Convoy admissions will still depart in groups according to rosters, travel costs, and public service capacity."
+  },
+  {
+    "id": "af19c1b53a1dcc75",
+    "text": "Standards and measures"
+  },
+  {
+    "id": "e08325c63b820402",
+    "text": "Tools, beams, and cargo crates finally use the same measures. Public facilities can now be expanded in stages."
+  },
+  {
+    "id": "dd18e416ceac842f",
+    "text": "Town works"
+  },
+  {
+    "id": "5495e2a39ea2f546",
+    "text": "Roads, drainage, housing, and work areas are now on one master plan. Neighborhood housing can now be built, and materials allocated to expand the third and fourth industrial facilities."
+  },
+  {
+    "id": "d6aac4246bc91ef1",
+    "text": "Waiting for regional roster"
+  },
+  {
+    "id": "8465fa9732550102",
+    "text": "Roadside roster"
+  },
+  {
+    "id": "ca93b0677b9581b0",
+    "text": "Unregistered origin"
+  }
+]

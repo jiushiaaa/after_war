@@ -1,0 +1,242 @@
+[
+  {
+    "id": "06ea368e97070c06",
+    "text": "Survey the Eastern Plain along the canal"
+  },
+  {
+    "id": "b8e5fa9ae3123ad0",
+    "text": "Two surveyors are still on the canal route. {变量1} seconds remain; provisions for the journey and relay road materials on the north bank have been paid for."
+  },
+  {
+    "id": "6a8eeec8386c1a95",
+    "text": "Draw {变量1} from this city's departure depot; the north bank also provides relay road materials {变量2}.{变量3}"
+  },
+  {
+    "id": "bbad7d1b44870cdb",
+    "text": "Assign two local residents to leave their posts and explore for 480 seconds."
+  },
+  {
+    "id": "7fdfcb472d008478",
+    "text": "Eastern Plain surveyed · Remaining interior out of contact"
+  },
+  {
+    "id": "d9837b70673b7ad2",
+    "text": "The Eastern Plain's river levee condition has fallen below 60, and the docks are shut. Local surplus medical stations can brew emergency disease-prevention medicine for now. Boat schedules can resume once the levee is repaired."
+  },
+  {
+    "id": "de5af340b7eb1ef3",
+    "text": "As the Eastern Plain's population grows, its shortage of disease-prevention medicine has widened. The current share of medicine sent to Old Town needs to be renegotiated."
+  },
+  {
+    "id": "088c0919354c1de1",
+    "text": "North Bank–Eastern Plain Public Cooperation"
+  },
+  {
+    "id": "e2c7ea6815e24fed",
+    "text": "Eastern Plain residents"
+  },
+  {
+    "id": "0d314904962d1cdf",
+    "text": "Shared responsibilities of the two districts"
+  },
+  {
+    "id": "a8e704d3c3acc7a5",
+    "text": "Eastern Plain health / levee"
+  },
+  {
+    "id": "325bc30fb74846de",
+    "text": "Medicine received by Old Town"
+  },
+  {
+    "id": "a6e1ef8868990ef8",
+    "text": "{分支1} The two regions manage their resources independently, {分支2}"
+  },
+  {
+    "id": "3d49b30981c1a8f2",
+    "text": "Current agreement: Each boat sets aside {变量1} medicine to send to Old Town, {分支2}"
+  },
+  {
+    "id": "cfce32974e57fe9b",
+    "text": "Shared expenses have been authorized."
+  },
+  {
+    "id": "41ae20ced82cfcf2",
+    "text": "New shared expenses have been suspended."
+  },
+  {
+    "id": "c83335243211ce89",
+    "text": "Shared responsibilities for the two districts have not been agreed on."
+  },
+  {
+    "id": "433f3b1d6f2d1148",
+    "text": "The common charter is now in effect."
+  },
+  {
+    "id": "9eed875eda706b4f",
+    "text": "The nation has not yet been founded."
+  },
+  {
+    "id": "dd5245fc52a23dde",
+    "text": "Surveyed population"
+  },
+  {
+    "id": "3c9fc46d959f7c5b",
+    "text": "North Shore {变量1} + Eastplain {变量2}; population of the former urban cluster listed separately and not included in either district"
+  },
+  {
+    "id": "b013e21fe1ed0a1c",
+    "text": "Division of responsibilities"
+  },
+  {
+    "id": "c8f185ea1f594060",
+    "text": "Old City serves as intermediary and receives medicine; North Shore and Eastplain exchange bulk goods and manage local welfare independently. Meeting the population target alone does not automatically confer statehood."
+  },
+  {
+    "id": "54bbcac53db9a872",
+    "text": "Next: Open the negotiation panel and calculate whether the remaining medicine will see Eastplain through one full round-trip voyage after setting aside Old City's share."
+  },
+  {
+    "id": "8d80f14080959c75",
+    "text": "North Shore ships 24000 medicine per run, and Eastplain returns 12000 tools; the proposed amounts are {变量1} medicine for Eastplain levee work and {变量2} medicine sealed for delivery to Old City. Eastplain needs a total of {变量3} epidemic-control medicine during the next 960-second round trip.\n{变量4}\nSigning or amending the pact costs: this city {变量5}, North Shore {变量6}, Eastplain {变量7}.\nEvery 60 seconds after that: this city's liaison office consumes {变量8}; North Shore's liaison office consumes {变量9}; Eastplain's levee team consumes {变量10}. Suspending, resuming, or ending the pact costs this city 4 knowledge each time.\n{变量11}"
+  },
+  {
+    "id": "02f712c033091a31",
+    "text": "Eastplain's current surplus capacity can sustain this allocation, and North Shore's public services are ready. Until the first medicine ship under the new pact arrives, Eastplain will continue using its own medicine reserves to maintain the levees."
+  },
+  {
+    "id": "14b6d25c1e72df9d",
+    "text": "All three parties are ready to sign; local household registers and public warehouses will remain separate."
+  },
+  {
+    "id": "8831e0bdb50b1002",
+    "text": "Set district responsibilities"
+  },
+  {
+    "id": "94c0c79424c7bae6",
+    "text": "Pause new shared expenditure"
+  },
+  {
+    "id": "5adba84a06bf0ab2",
+    "text": "Resume shared expenditure"
+  },
+  {
+    "id": "ea4881a5812a520a",
+    "text": "End the district pact"
+  },
+  {
+    "id": "a4bec879abd630b5",
+    "text": "Eastplain has fertile land and produces plenty through farming and woodworking, but has little smelting capacity. Work schedules there also prioritize water services, farmland, medical care, and schools. The 16 sail barges on the river and public buses on shore will only run cross-district errands after an agreement is signed and fees are paid.\nEastplain's public warehouse has separate accounts and is not merged with Hearth City: {变量1} tools, {变量2} wood, {变量3} food in stock.\nEpidemic-control medicine for levee work is tracked separately: {变量4} in stock; of that, {变量5} funded locally, {变量6} delivered by North Shore ships, and {变量7} used for routine levee maintenance. The minimum medicine stock reserved for local residents' routine care is never used.\nIf shared expenditure is paused, the local area will be left without support due to interrupted supplies. If levee integrity falls below 60, flooding will destroy stored food and force the docks to suspend sailings. Emergency local production can use only unscheduled treatment capacity for the current period and local stored food or waste; it cannot conjure finished medicine from nothing."
+  },
+  {
+    "id": "03b7cb20aa2bddbb",
+    "text": "Establish a local epidemic-control fund"
+  },
+  {
+    "id": "a901b8a54ea81551",
+    "text": "\nLocal epidemic-control fund established: when a ship schedule is interrupted, surplus medical staff will automatically use local stored food and waste to cover the epidemic-control shortfall; local expenditure will rise with population."
+  },
+  {
+    "id": "710da73ea73a9c55",
+    "text": "\nThis round of emergency local production can brew {变量1} medicine, using {变量2} local food and {变量3} waste; once North Shore's medicine ships resume normal round trips, no further manual emergency measures will be needed."
+  },
+  {
+    "id": "f9f7cb285ca42419",
+    "text": "Fund half a voyage's worth of epidemic-control medicine locally"
+  },
+  {
+    "id": "05b2ee2315e53ba4",
+    "text": "Two-district sail-barge fleet: North Shore and Eastplain each assign 16 sailors to leave their posts and crew the ships. Each one-way trip carries up to 96000 items, arrives in 480 seconds, and completes a round trip in 960 seconds; each run costs {变量1} at both ends.\n{分支2}\nCity medicine sealed at the docks: {变量3}; transfer carts can carry up to 2400 medicine per one-way trip. Each end assigns 4 drivers; arrival takes 240 seconds and a round trip takes 480 seconds. Each trip costs {变量4} at both ends.\n{分支5}\nAfter the pact is paused, sail barges already en route and city medicine sealed at the docks will still be delivered as usual. To amend the allocation or withdraw from the pact, all accounts for cargo in transit and sealed medicine must first be settled."
+  },
+  {
+    "id": "1e4a3f254eff20a1",
+    "text": "Run {变量1} {分支2}; 24000 medicine ⇄ 12000 tools."
+  },
+  {
+    "id": "697ad7bd0fc0bae5",
+    "text": "Loaded and en route"
+  },
+  {
+    "id": "648ec7ea40ffea0a",
+    "text": "Delivered; returning"
+  },
+  {
+    "id": "d8b7f53ad5489a3f",
+    "text": "Fleet anchored and standing by."
+  },
+  {
+    "id": "f6040a29f6185739",
+    "text": "Convoy {变量1}: {变量2}, {分支3}."
+  },
+  {
+    "id": "312b4c83097ee992",
+    "text": "In transit; not yet delivered to the Old Town warehouse"
+  },
+  {
+    "id": "dc331bde8a03be2c",
+    "text": "Unloaded at the Old Town warehouse; returning empty"
+  },
+  {
+    "id": "550dd20a655df8fa",
+    "text": "Verified breakdown from the ledger when contact with the Eastern Continent was lost: {变量1} people; since then, {变量2} births and {变量3} deaths; current population {变量4} people. The global population changes only with births, deaths, and newly registered synthetic persons; migration does not change the total.\n{列表5}\nEast Plain levee-work medicines, city medicines sealed at the docks, and cargo manifests in transit by water and land are listed separately; after reaching the station and entering the warehouse, they are not counted again. Levee maintenance: {变量6} periods paid / {变量7} periods pending restoration."
+  },
+  {
+    "id": "b9ac60046b62c912",
+    "text": "{变量1}: opening balance {变量2} + production {变量3} + incoming {变量4} − expenditure {变量5} − outgoing {变量6} = {变量7}"
+  },
+  {
+    "id": "2211d5ea27b8d300",
+    "text": "Institutions {分支1}"
+  },
+  {
+    "id": "cbc4b13b5f66bc5e",
+    "text": "Archives {变量1}"
+  },
+  {
+    "id": "af4c9826f8651e03",
+    "text": "Nation {变量1}"
+  },
+  {
+    "id": "037d028228ebcd5f",
+    "text": "Accession {变量1}"
+  },
+  {
+    "id": "bf3556f3efc58dac",
+    "text": "Coordination responsibility {变量1} / {变量2} ({列表3})."
+  },
+  {
+    "id": "57d8e80dd7594769",
+    "text": "{变量1} units of coordination capacity still needed; {分支2}"
+  },
+  {
+    "id": "04b648a0fc13c874",
+    "text": "Please replenish knowledge stocks first to resume routine maintenance of existing administrative archives at 0.04 knowledge per archive every 10 seconds."
+  },
+  {
+    "id": "d7a8d10a79c7dc5a",
+    "text": "You can expand administrative archives on the “Regions” page. Each costs 180 wood, 20 iron, 10 parts, and 40 knowledge, and provides 2 units of coordination capacity once routine maintenance is paid."
+  },
+  {
+    "id": "08c7b90ac1b3e62e",
+    "text": "Administrative archives are at capacity. Go to the Meeting Hall to reconsider “Boundaries of the Community” or “What Localities Can Decide” and use a new institution to support more coordination capacity."
+  },
+  {
+    "id": "bfba6813a93c207c",
+    "text": "No agreement signed yet"
+  },
+  {
+    "id": "5c3d0ca2ddc64899",
+    "text": "Awaiting departure"
+  },
+  {
+    "id": "58f33cdbed853ef3",
+    "text": "Regional records"
+  },
+  {
+    "id": "bec07641294a2bb3",
+    "text": "Coordination over capacity"
+  },
+  {
+    "id": "d765eddae6234b87",
+    "text": "Stop dispatching after this trip is complete"
+  }
+]

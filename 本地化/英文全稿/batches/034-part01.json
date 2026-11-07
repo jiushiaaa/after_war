@@ -1,0 +1,82 @@
+[
+  {
+    "id": "59d2e264ed56c1df",
+    "text": "Vehicle Assignments"
+  },
+  {
+    "id": "3cd131889dc00f9c",
+    "text": "Each city has one 4-person service vehicle group. Cities with a completed intermodal freight yard also have one 8-person direct freight train. Vehicles cannot be reassigned until they return to base; intercity transfers are handled in relays by service vehicles along the route."
+  },
+  {
+    "id": "b8b696c75655ac34",
+    "text": "Public Allowance"
+  },
+  {
+    "id": "39a65d73e72c46a2",
+    "text": "Recalculated every 600 seconds. This is only the cap on supplies that can be drawn during the current period; it does not create stock. Agreed fees are separate."
+  },
+  {
+    "id": "21138f1b0642c3f7",
+    "text": "Maintenance"
+  },
+  {
+    "id": "68cdadcee180f032",
+    "text": "Each station draws {变量1} every 60 seconds. If not renewed within 120 seconds, no new assignments will be dispatched."
+  },
+  {
+    "id": "82c04637d9707d25",
+    "text": "Construction on this end is complete; awaiting connection to the other end before opening."
+  },
+  {
+    "id": "cd64a7cda78c0709",
+    "text": "Construction Complete"
+  },
+  {
+    "id": "e5bf80824e103ffa",
+    "text": "Materials ready; {变量1} work-hours remaining"
+  },
+  {
+    "id": "5ec83ec78334e6de",
+    "text": "Materials ready; awaiting restoration of local public commissions before work can begin"
+  },
+  {
+    "id": "2eb6473004f3c638",
+    "text": "Materials received: {变量1} / {变量2} value; loaded as they arrive"
+  },
+  {
+    "id": "cf6f3f569807ff12",
+    "text": "No joint projects are currently underway. First review each city's needs, then discuss a proposal for the next project."
+  },
+  {
+    "id": "9d30404c7ba623a2",
+    "text": "Awaiting renewal or authorization"
+  },
+  {
+    "id": "1cb5211cfb639eb0",
+    "text": "Current allowance is tight; wait for the next recalculation or raise the limit"
+  },
+  {
+    "id": "9e079dac9801996a",
+    "text": "Set aside the local reserve first, then prepare and ship supplies in vehicle-group order"
+  },
+  {
+    "id": "3d066daad7239876",
+    "text": "{变量1} · Empty beds {变量2} · Supplies offered {变量3} / Received {变量4} value{分支5}"
+  },
+  {
+    "id": "496b8e5c6dd9bed6",
+    "text": "\nLocal needs: Wants to address housing in this city first; not willing to shoulder another large share of supplies for other cities for now."
+  },
+  {
+    "id": "8227b14e743e8e09",
+    "text": "{变量1} · Housing Mutual Aid"
+  },
+  {
+    "id": "6f2dc415b4cf682d",
+    "text": "{变量1} people work for {变量2} seconds. {分支3}"
+  },
+  {
+    "id": "da002d97701c943f",
+    "text": "Build 3200 beds in each city; both ends must be complete before either can open. Each city"
+  }
+]

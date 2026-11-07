@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4813cbbb78695296",
+    "text": "{分支1}, once complete, heating workers must be assigned and coal supplied continuously"
+  },
+  {
+    "id": "bffeaa0cc4c6b717",
+    "text": "Queued: Heating Station"
+  },
+  {
+    "id": "c8fef47cd54179c0",
+    "text": "Build Heating Station"
+  },
+  {
+    "id": "8818731bff9926fc",
+    "text": "{变量1}; requires 2 adult workers to build for {变量2} seconds. {分支3}{分支4}"
+  },
+  {
+    "id": "280b4d7fdf9f1191",
+    "text": "Construction materials are deducted from local stocks in full when construction begins. Assign construction workers from the local town page in the top bar."
+  },
+  {
+    "id": "99dd2abd16d59df5",
+    "text": "Construction materials are delivered by truck in batches, and local residents build the structure."
+  },
+  {
+    "id": "07a5f84b15595d96",
+    "text": "Adds 160 beds when complete; requires existing public healthcare and classroom coverage, and enough water capacity for current residents plus 160 more."
+  },
+  {
+    "id": "dff4ca1fd68548b6",
+    "text": "Only upgrades irrigated plots; next round, with enough water, each new farmer produces 2 food. With insufficient water, production falls back to 1.4 food."
+  },
+  {
+    "id": "35546cf2ee4d34ad",
+    "text": "Houses up to 12 teachers when complete. Each teacher looks after 20 children, and daily lessons still consume wood."
+  },
+  {
+    "id": "9963643112038bb7",
+    "text": "Adds 2 transport worker positions when complete; dispatching a migration convoy requires 4 transport workers. Residents must have a continuous food supply during construction."
+  },
+  {
+    "id": "0168346d4500bae1",
+    "text": "Each set requires 2 wind turbine operators and generates 12 power at rated output. Each operator consumes 0.04 parts every 10 seconds for maintenance. Actual output varies with local wind; turbines stop in still air. A backup power source is required."
+  },
+  {
+    "id": "4b4c4f6ad2e51a2a",
+    "text": "Each Heating Station: the electric shift requires 2 heating workers and consumes 1 electricity, 0.8 coal, and 0.02 parts every 10 seconds, heating 600 people; the manual shift requires 4 workers and consumes 1.2 coal and 0.02 parts, heating 300 people. Day-to-day heating can be formally handed over only after the trial run covers everyone."
+  },
+  {
+    "id": "a38213c73cac3736",
+    "text": "{变量1} has been added to the queue and will start in order. Materials are not deducted while it waits."
+  },
+  {
+    "id": "5ff1115165d13c02",
+    "text": "Restore Electric Waterworks"
+  },
+  {
+    "id": "d9b5b02022cfa3c5",
+    "text": "Assign Manual Waterworks"
+  },
+  {
+    "id": "ae1e1571ac7338b2",
+    "text": "Each Waterworks Station: the electric shift requires 4 waterworks workers and consumes 4 electricity, supplying water for 600 people; the manual shift requires 8 waterworks workers and supplies water for 300 people. Both methods consume 0.2 chemicals and 0.02 parts each round."
+  },
+  {
+    "id": "73361652013152c4",
+    "text": "Mineral collector"
+  },
+  {
+    "id": "e7655d9e05596dfa",
+    "text": "Chemical worker"
+  },
+  {
+    "id": "a708151e5f08a587",
+    "text": "Steelworker"
+  },
+  {
+    "id": "1f7ed95f85e729fa",
+    "text": "Glassworker"
+  }
+]

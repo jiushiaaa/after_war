@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3c9fc46d959f7c5b",
+    "text": "North Shore {变量1} + Eastplain {变量2}; population of the former urban cluster listed separately and not included in either district"
+  },
+  {
+    "id": "b013e21fe1ed0a1c",
+    "text": "Division of responsibilities"
+  },
+  {
+    "id": "c8f185ea1f594060",
+    "text": "Old City serves as intermediary and receives medicine; North Shore and Eastplain exchange bulk goods and manage local welfare independently. Meeting the population target alone does not automatically confer statehood."
+  },
+  {
+    "id": "54bbcac53db9a872",
+    "text": "Next: Open the negotiation panel and calculate whether the remaining medicine will see Eastplain through one full round-trip voyage after setting aside Old City's share."
+  },
+  {
+    "id": "8d80f14080959c75",
+    "text": "North Shore ships 24000 medicine per run, and Eastplain returns 12000 tools; the proposed amounts are {变量1} medicine for Eastplain levee work and {变量2} medicine sealed for delivery to Old City. Eastplain needs a total of {变量3} epidemic-control medicine during the next 960-second round trip.\n{变量4}\nSigning or amending the pact costs: this city {变量5}, North Shore {变量6}, Eastplain {变量7}.\nEvery 60 seconds after that: this city's liaison office consumes {变量8}; North Shore's liaison office consumes {变量9}; Eastplain's levee team consumes {变量10}. Suspending, resuming, or ending the pact costs this city 4 knowledge each time.\n{变量11}"
+  },
+  {
+    "id": "02f712c033091a31",
+    "text": "Eastplain's current surplus capacity can sustain this allocation, and North Shore's public services are ready. Until the first medicine ship under the new pact arrives, Eastplain will continue using its own medicine reserves to maintain the levees."
+  },
+  {
+    "id": "14b6d25c1e72df9d",
+    "text": "All three parties are ready to sign; local household registers and public warehouses will remain separate."
+  },
+  {
+    "id": "8831e0bdb50b1002",
+    "text": "Set district responsibilities"
+  },
+  {
+    "id": "94c0c79424c7bae6",
+    "text": "Pause new shared expenditure"
+  },
+  {
+    "id": "5adba84a06bf0ab2",
+    "text": "Resume shared expenditure"
+  },
+  {
+    "id": "ea4881a5812a520a",
+    "text": "End the district pact"
+  },
+  {
+    "id": "a4bec879abd630b5",
+    "text": "Eastplain has fertile land and produces plenty through farming and woodworking, but has little smelting capacity. Work schedules there also prioritize water services, farmland, medical care, and schools. The 16 sail barges on the river and public buses on shore will only run cross-district errands after an agreement is signed and fees are paid.\nEastplain's public warehouse has separate accounts and is not merged with Hearth City: {变量1} tools, {变量2} wood, {变量3} food in stock.\nEpidemic-control medicine for levee work is tracked separately: {变量4} in stock; of that, {变量5} funded locally, {变量6} delivered by North Shore ships, and {变量7} used for routine levee maintenance. The minimum medicine stock reserved for local residents' routine care is never used.\nIf shared expenditure is paused, the local area will be left without support due to interrupted supplies. If levee integrity falls below 60, flooding will destroy stored food and force the docks to suspend sailings. Emergency local production can use only unscheduled treatment capacity for the current period and local stored food or waste; it cannot conjure finished medicine from nothing."
+  },
+  {
+    "id": "03b7cb20aa2bddbb",
+    "text": "Establish a local epidemic-control fund"
+  },
+  {
+    "id": "a901b8a54ea81551",
+    "text": "\nLocal epidemic-control fund established: when a ship schedule is interrupted, surplus medical staff will automatically use local stored food and waste to cover the epidemic-control shortfall; local expenditure will rise with population."
+  },
+  {
+    "id": "710da73ea73a9c55",
+    "text": "\nThis round of emergency local production can brew {变量1} medicine, using {变量2} local food and {变量3} waste; once North Shore's medicine ships resume normal round trips, no further manual emergency measures will be needed."
+  },
+  {
+    "id": "f9f7cb285ca42419",
+    "text": "Fund half a voyage's worth of epidemic-control medicine locally"
+  },
+  {
+    "id": "05b2ee2315e53ba4",
+    "text": "Two-district sail-barge fleet: North Shore and Eastplain each assign 16 sailors to leave their posts and crew the ships. Each one-way trip carries up to 96000 items, arrives in 480 seconds, and completes a round trip in 960 seconds; each run costs {变量1} at both ends.\n{分支2}\nCity medicine sealed at the docks: {变量3}; transfer carts can carry up to 2400 medicine per one-way trip. Each end assigns 4 drivers; arrival takes 240 seconds and a round trip takes 480 seconds. Each trip costs {变量4} at both ends.\n{分支5}\nAfter the pact is paused, sail barges already en route and city medicine sealed at the docks will still be delivered as usual. To amend the allocation or withdraw from the pact, all accounts for cargo in transit and sealed medicine must first be settled."
+  },
+  {
+    "id": "1e4a3f254eff20a1",
+    "text": "Run {变量1} {分支2}; 24000 medicine ⇄ 12000 tools."
+  },
+  {
+    "id": "697ad7bd0fc0bae5",
+    "text": "Loaded and en route"
+  },
+  {
+    "id": "648ec7ea40ffea0a",
+    "text": "Delivered; returning"
+  }
+]

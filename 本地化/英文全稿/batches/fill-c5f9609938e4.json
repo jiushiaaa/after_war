@@ -1,0 +1,82 @@
+[
+  {
+    "id": "555c2d61c1a0f540",
+    "text": "Adds beds on completion: {变量1}; local"
+  },
+  {
+    "id": "6b781ca052e47dec",
+    "text": "For every 800 beds, the new community draws 4 wood, 0.8 tools, 1 medicine, and 0.2 knowledge every 60 seconds. It includes limited admission cooperation workstations and maintenance crews. Limited to one per city."
+  },
+  {
+    "id": "02966d109da63995",
+    "text": "Building homes does not create people. After new households move in, their daily needs still fall to the local public stores."
+  },
+  {
+    "id": "d904fd719cfa6ca8",
+    "text": "The cities at both ends each assign 20 people to build for 300 seconds. Traffic can begin only once the sections connect. Cities without road access must first choose “Local Funding” to open a road; one-way travel time depends on the actual route."
+  },
+  {
+    "id": "fb6ceb4d68d682b1",
+    "text": "Await completion of the public stations in the relevant cities."
+  },
+  {
+    "id": "a360f94e53eb0d87",
+    "text": "Submitting a proposal costs this city 4 knowledge. Even if the vote fails, the knowledge expenditure and voting record remain on file."
+  },
+  {
+    "id": "fb97048f07884b99",
+    "text": "Submit project proposal"
+  },
+  {
+    "id": "e0bf7718963af6a0",
+    "text": "{变量1} · {分支2} · Current: {变量3}\nSpent this period: {变量4} / {变量5} equivalent value. Changing to “{变量6}” sets the limit per period to {变量7}; expenditure already made this period does not reset.\nEquivalent value is used only to calculate each city's share: wood 1, tools 8, medicine 4, knowledge 2. Adjusting the limit or pausing/resuming the commission costs 4 local knowledge each time. Supplies already sent are not returned, and previously assumed debts are not cleared."
+  },
+  {
+    "id": "d6f42c3fc27a3d95",
+    "text": "Complete the local public station first."
+  },
+  {
+    "id": "a546a24ef0079c83",
+    "text": "Local knowledge is still 4 points short"
+  },
+  {
+    "id": "d5436595b02ede6b",
+    "text": "Apply expenditure limit"
+  },
+  {
+    "id": "9251ea0bed6bd5c6",
+    "text": "Current allowance"
+  },
+  {
+    "id": "ba509cd455f2e2cf",
+    "text": "Pause local commission"
+  },
+  {
+    "id": "bcc1fab002c36601",
+    "text": "Resume local commission"
+  },
+  {
+    "id": "0e599cb00d03d1c8",
+    "text": "After completing a joint project, Lakeside City can send 2 census workers along the river for 480 seconds, drawing {变量1}."
+  },
+  {
+    "id": "730eb1678fafc2ae",
+    "text": "The census workers are still traveling. Time remaining: {变量1} seconds. The local population remains in the out-of-contact ledger for now."
+  },
+  {
+    "id": "3e84f1e96aacaa7e",
+    "text": "Estuary City population registered in the census: {变量1}. Building a local public station requires a local payment of {变量2}, with 20 people working for 300 seconds. Once complete, “Local Funding” can be used to open the road connecting both ends."
+  },
+  {
+    "id": "85fb77c6c9d187c3",
+    "text": "River census"
+  },
+  {
+    "id": "b508f633e93ee827",
+    "text": "Estuary funds its station"
+  },
+  {
+    "id": "f2026fb04202d364",
+    "text": "{分支1}Batch {变量2} · {变量3} → {变量4}\n{变量5} · {列表6}\n{分支7}"
+  }
+]

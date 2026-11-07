@@ -1,0 +1,8 @@
+/* English uses the same quiet ADR layout; long labels wrap at word boundaries. */
+html[lang="en"] .civil-tech-node-name { white-space:normal; text-align:center; font-size:13px; line-height:1.25; }
+html[lang="en"] .civil-tech-node-status { font-size:11px; line-height:1.2; }
+html[lang="en"] .civil-tech-era { font-size:14px; }
+html[lang="en"] .region-map-node { font-size:13px; }
+html[lang="en"] .menu { flex-wrap:wrap; }
+html[lang="en"] .location .button,html[lang="en"] #event .button { white-space:normal; overflow-wrap:normal; word-break:normal; }
+html[lang="en"] .civil-kv dd { overflow-wrap:anywhere; }

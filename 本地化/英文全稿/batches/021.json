@@ -1,0 +1,242 @@
+[
+  {
+    "id": "952d613c20ab43be",
+    "text": "The glass kiln has heated the sand. Adding coal can maintain slow melting, while connecting power can greatly increase output."
+  },
+  {
+    "id": "b2cf44f1dcd1d43f",
+    "text": "The newly opened workshops are all drawing power from the same cable. Another public power station is needed."
+  },
+  {
+    "id": "0aa3e22e0f8288f5",
+    "text": "The public power station is now staffed. Each electrician adds coal to tend the generator and can supply ten units of immediate power steadily to the grid."
+  },
+  {
+    "id": "b8cd21db49b32640",
+    "text": "The new furnaces have large appetites, and the ore supply is gradually falling behind. The old mine still needs reinforced pit timber and widened haulage tunnels."
+  },
+  {
+    "id": "11530c9fac3abb94",
+    "text": "Mine support expansion is complete, adding eight mining stations underground."
+  },
+  {
+    "id": "c50d20ac5e895900",
+    "text": "After adding blowers and a hoist, the depths of the coal kiln can accommodate more miners."
+  },
+  {
+    "id": "97594c2333330059",
+    "text": "Coal-zone ventilation expansion is complete, adding eight coal-mining stations underground."
+  },
+  {
+    "id": "8dc78a52fc0c2334",
+    "text": "The chemical engineer has drawn up spray absorption and filtration pipelines. Filtering the furnace smoke also requires power and spare parts."
+  },
+  {
+    "id": "563e138a1979bfe9",
+    "text": "The work area's purification facilities have been connected to the flue. Each cycle expends power, chemicals, wood, and parts to wash toxic dust out of the dense smoke."
+  },
+  {
+    "id": "2f466eb7798b67ab",
+    "text": "Basic Chemicals"
+  },
+  {
+    "id": "16546b9e7add47fe",
+    "text": "Screening, acid washing, and purification have been set into reproducible procedures. Crude ore has been turned into the first batch of basic chemicals in coal-fired furnaces."
+  },
+  {
+    "id": "02f72aa5a9c801f1",
+    "text": "Steelmaking"
+  },
+  {
+    "id": "25361d72f61d170a",
+    "text": "The trial steel bars showed no cracking under the heavy hammer. Steelmakers can continue exploring furnace temperatures and mixtures."
+  },
+  {
+    "id": "8dc4954ced8e416b",
+    "text": "River-Network Settlements"
+  },
+  {
+    "id": "2310d792d03a6ef6",
+    "text": "Old City's Outskirts"
+  },
+  {
+    "id": "587dd48d528f9243",
+    "text": "Mountain Settlements"
+  },
+  {
+    "id": "57c976c72ee52913",
+    "text": "Precision Machine Shop"
+  },
+  {
+    "id": "a079fce15bd185f0",
+    "text": "Each precision machinist every 10 seconds expends 3 power, 0.4 steel, 0.2 mechanical parts, and 0.02 tools, producing 0.25 precision parts by turning; work stops when power is cut."
+  },
+  {
+    "id": "0b10db03a7f3d7d7",
+    "text": "Electronics Assembly Room"
+  },
+  {
+    "id": "6c05ef1d3a766c73",
+    "text": "Each electronics worker every 10 seconds expends 4 power, 0.1 precision parts, 0.3 glass, 0.2 chemicals, and 0.1 mechanical parts, producing 0.2 electronic components by packaging; work stops when power is cut."
+  },
+  {
+    "id": "f1b6a6641f88e3e0",
+    "text": "Precision Machinist"
+  },
+  {
+    "id": "2ecf9ace3c6ead51",
+    "text": "Electronics Worker"
+  },
+  {
+    "id": "99055fd4afe7fb10",
+    "text": "Precision Parts"
+  },
+  {
+    "id": "5b79bd095dd3f882",
+    "text": "Electronic Components"
+  },
+  {
+    "id": "f89c7977ad39081c",
+    "text": "Precision Machine Tool"
+  },
+  {
+    "id": "22d901f1c5c66848",
+    "text": "The vernier calipers, carbide turning tools, and lead screw test pieces all meet tolerance requirements. A precision machine shop can be built under the \"Processing\" category in a district; once complete, assign precision machinists on the Hearth City page. The lathe must not lose power while running."
+  },
+  {
+    "id": "603fe987ea9eee36",
+    "text": "Basic Electronics Processes"
+  },
+  {
+    "id": "5c704f1bfb3392ec",
+    "text": "Stable manual procedures have been established for insulated packaging, solder joints, and control circuits. An electronics assembly room can be built under the \"Processing\" category in a district or municipal government; components still require on-duty workers to expend materials and power to produce them."
+  },
+  {
+    "id": "ea0c32758a686fde",
+    "text": "Insufficient power; some processes have reverted to slow coal-fired heating"
+  },
+  {
+    "id": "e739908db4678aab",
+    "text": "Cooperative Toolmaker"
+  },
+  {
+    "id": "1383888ff57a368c",
+    "text": "The local toolmaking room is still operated by the public storehouse"
+  },
+  {
+    "id": "fea2017f6cbd8b4e",
+    "text": "Under the cooperative: 1 local toolmaking room. Cooperative storehouse stock: wood{变量1}, scrap{变量2}, food{变量3}, tools{变量4}. {分支5}{分支6}"
+  },
+  {
+    "id": "4b34169e5cf29736",
+    "text": "Cooperative production has been suspended; the workshops and storehouse stock remain as they are."
+  },
+  {
+    "id": "c66b6b9a338e5c81",
+    "text": "The cooperative storehouse lacks raw materials or work-meal rations and is awaiting trade resupply."
+  },
+  {
+    "id": "19dfeadbb4055dac",
+    "text": "Cooperative toolmakers on duty {变量1} / 4."
+  },
+  {
+    "id": "4f45270a776b2141",
+    "text": "In the latest cycle, produced tools {变量1} and the storehouse issued work meals {变量2}; these offset the same amount of public rations, with no double serving."
+  },
+  {
+    "id": "31d1748eb56501f1",
+    "text": "Toolmaking Cooperative · Independent Storehouse"
+  },
+  {
+    "id": "62c659c488a82140",
+    "text": "Actually on duty"
+  },
+  {
+    "id": "70b55bd76545d0dd",
+    "text": "Latest cycle's tools"
+  },
+  {
+    "id": "6da564934a06e544",
+    "text": "Continuous contract active · checked every 30 seconds; automatic trading stops during downtime"
+  },
+  {
+    "id": "8f9b77d8704e9984",
+    "text": "Production suspended; ownership of the storehouse and workshop retained"
+  },
+  {
+    "id": "a821017991eb12da",
+    "text": "Insufficient raw materials or work meals; awaiting trade resupply"
+  },
+  {
+    "id": "26b31ccc80412818",
+    "text": "Ownership"
+  },
+  {
+    "id": "ca53662d65fd6525",
+    "text": "The cooperative owns 1 completed toolmaking room; produced tools go into the cooperative storehouse"
+  },
+  {
+    "id": "a75eda4497611d32",
+    "text": "Work Meals"
+  },
+  {
+    "id": "9ad9cddf9ee711e1",
+    "text": "Food actually issued in the latest cycle {变量1}, offsetting the same amount of public rations"
+  },
+  {
+    "id": "4118be31e7869673",
+    "text": "Production Materials"
+  },
+  {
+    "id": "8f6804454d1a1f6b",
+    "text": "Every 10 seconds per person: expends 0.2 wood, 0.6 scrap, and 0.1 food; produces 0.25 tools, affected by local production efficiency"
+  },
+  {
+    "id": "fbfeff5a6522d48d",
+    "text": "Public Storehouse Purchase"
+  },
+  {
+    "id": "c5ea632173d6f889",
+    "text": "The public storehouse pays 6 food in exchange for 2 tools; 120 seconds of public rations must be reserved first"
+  },
+  {
+    "id": "43b206fd8ef90a24",
+    "text": "Cooperative Storehouse Supplies"
+  },
+  {
+    "id": "db0140b6ea64fd2b",
+    "text": "The cooperative storehouse pays 6 food to the public storehouse in exchange for 4 wood and 12 scrap"
+  },
+  {
+    "id": "2472fb242efb9614",
+    "text": "Completed"
+  },
+  {
+    "id": "f5436df25f8b8c12",
+    "text": "{变量1} batches"
+  },
+  {
+    "id": "8ade73a41898d040",
+    "text": "Buy 2 tools from the public storehouse"
+  },
+  {
+    "id": "5cb1fbeb4573aaa7",
+    "text": "Cooperative storehouse buys raw materials"
+  },
+  {
+    "id": "3973083bc5fe0378",
+    "text": "Suspend cooperative production"
+  },
+  {
+    "id": "1dc27c6936dbc888",
+    "text": "Resume cooperative production"
+  },
+  {
+    "id": "62e0811ec56734cb",
+    "text": "Establish cooperative workshop"
+  },
+  {
+    "id": "a917cc6f4f9b2647",
+    "text": "Suspend continuous contract"
+  }
+]

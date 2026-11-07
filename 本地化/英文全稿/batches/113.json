@@ -1,0 +1,242 @@
+[
+  {
+    "id": "cb50a0663a239376",
+    "text": "Save exported"
+  },
+  {
+    "id": "2af86695c59ae3e6",
+    "text": "Export incomplete: {变量1}"
+  },
+  {
+    "id": "96f02681ba674716",
+    "text": "Import not performed: {变量1}"
+  },
+  {
+    "id": "1ad99cb08b181eef",
+    "text": "Import not performed: file read failed"
+  },
+  {
+    "id": "263ca1965ad6adf2",
+    "text": "Cloud sync failed. Your current local progress is intact. Export a plain-text backup or try again later."
+  },
+  {
+    "id": "3b8f8a6757feae0b",
+    "text": "Cloud sync channel established. Progress will be archived automatically at regular intervals."
+  },
+  {
+    "id": "a19d95d988b05cb3",
+    "text": "The local auto-archive process has stopped. The original slot and existing backups are intact. Export your data first or choose another slot."
+  },
+  {
+    "id": "e054f2485d722fab",
+    "text": "This device automatically saves to slot {变量1} every 30 seconds and keeps the two most recent backups. Export to transfer progress to another computer."
+  },
+  {
+    "id": "5d1b890abcd1ca4a",
+    "text": "Read-only mode. Automatic archiving is suspended; select a physical slot to save your progress."
+  },
+  {
+    "id": "c73a6774d91ca0f6",
+    "text": "Save"
+  },
+  {
+    "id": "3ac2b9ba621558ce",
+    "text": "Export Progress"
+  },
+  {
+    "id": "5b676bd12914a5ab",
+    "text": "Import Progress"
+  },
+  {
+    "id": "b65963dc6d91c9b0",
+    "text": "Three Local Save Slots"
+  },
+  {
+    "id": "c1118b92e02e4b61",
+    "text": "Backup Before Restart"
+  },
+  {
+    "id": "c6a1f219cdc86e48",
+    "text": "Save to Cloud"
+  },
+  {
+    "id": "25c8245f30d7fa60",
+    "text": "Load a local backup file or paste plain text to validate its structure. Once all fields pass validation, confirm whether to overwrite your current progress."
+  },
+  {
+    "id": "696344729f0eb456",
+    "text": "Select Save File"
+  },
+  {
+    "id": "3ae0d1177c723e66",
+    "text": "Check Save"
+  },
+  {
+    "id": "2cd0f3be8738a86c",
+    "text": "Cancel"
+  },
+  {
+    "id": "15c4f20c2acf234d",
+    "text": "Overwrite your current progress with this archive? We recommend exporting your current progress first to keep a backup."
+  },
+  {
+    "id": "b30a58872a4b4e9b",
+    "text": "Export current progress"
+  },
+  {
+    "id": "14f660c058357fcc",
+    "text": "Replace current progress"
+  },
+  {
+    "id": "9e939b154056ae5d",
+    "text": "Settings have not been saved on this device"
+  },
+  {
+    "id": "fc094ee7e00f0f72",
+    "text": "Day mode"
+  },
+  {
+    "id": "e0f0f9fddd9e112d",
+    "text": "Night mode"
+  },
+  {
+    "id": "19518c53cd6ea0f2",
+    "text": "Restart"
+  },
+  {
+    "id": "765dd94d88af3840",
+    "text": "Restart?"
+  },
+  {
+    "id": "d71316e75bebaf20",
+    "text": "Restart the game?"
+  },
+  {
+    "id": "b5141d3d19e9a048",
+    "text": "Yes"
+  },
+  {
+    "id": "0c70665b6eb65f1a",
+    "text": "No"
+  },
+  {
+    "id": "217fb2d8d7d9b451",
+    "text": "Preserving the current world…"
+  },
+  {
+    "id": "f25aee222834c795",
+    "text": "Restart canceled: {变量1}. The current world remains."
+  },
+  {
+    "id": "3b89f77556d75c2d",
+    "text": "The new world could not be opened. Refresh to restore your previous progress; a backup made before the restart has been kept."
+  },
+  {
+    "id": "395ae225e5b85b5e",
+    "text": "hundred million"
+  },
+  {
+    "id": "fc227df4fc949728",
+    "text": "ten thousand"
+  },
+  {
+    "id": "732c29ca7ec57a11",
+    "text": "{变量1}: {变量2}, expand source"
+  },
+  {
+    "id": "7d580ab209a5c41f",
+    "text": "tonne"
+  },
+  {
+    "id": "fe6b35284ad4e7ea",
+    "text": "kilogram"
+  },
+  {
+    "id": "5589308e20fb7d5a",
+    "text": "{列表1}. Cargo in transit has not been stored."
+  },
+  {
+    "id": "e55d920863db0bb1",
+    "text": "Mass units for this game: 1 standard unit equals 1 kilogram; 1000 kilograms equals 1 metric tonne. Crafting recipes and vehicle capacity are calculated using the original accounting units."
+  },
+  {
+    "id": "7f82ace8f819a42a",
+    "text": "Original ledger unit; not converted to physical mass."
+  },
+  {
+    "id": "ce6d77629dda35ed",
+    "text": "Opening {变量1}"
+  },
+  {
+    "id": "6ace9ef11fbea439",
+    "text": "Received {变量1}"
+  },
+  {
+    "id": "9b99004219e9a4f5",
+    "text": "Produced {变量1}"
+  },
+  {
+    "id": "525928e901510503",
+    "text": "Net external change {变量1}"
+  },
+  {
+    "id": "7c7382bb2eca82d0",
+    "text": "Consumed −{变量1}"
+  },
+  {
+    "id": "d34f12083a02c4d0",
+    "text": "Shipped −{变量1}"
+  },
+  {
+    "id": "2772922d391bea5c",
+    "text": "Current {变量1}"
+  },
+  {
+    "id": "fceac0b3401a10fc",
+    "text": "Relocating"
+  },
+  {
+    "id": "1690563b5faa8476",
+    "text": "Recovering, off duty"
+  },
+  {
+    "id": "06e1aaf4648052e2",
+    "text": "Space crew in transit"
+  },
+  {
+    "id": "7599204733a09081",
+    "text": "Other roster: {变量1}"
+  },
+  {
+    "id": "dfd9159d33b75076",
+    "text": "Other covered roster · {变量1}"
+  },
+  {
+    "id": "04936bf5941e0593",
+    "text": "Expand population sources and changes over the past decade"
+  },
+  {
+    "id": "b21b49f487cf714b",
+    "text": "Sources over the past decade (currently known roster; arrivals/departures include moves within the roster and should be read as pairs)"
+  },
+  {
+    "id": "62ef900a8f5d5bff",
+    "text": "Year"
+  },
+  {
+    "id": "2241802ddc48f3de",
+    "text": "Census contact"
+  },
+  {
+    "id": "f1106441b0af7af6",
+    "text": "Arrivals"
+  },
+  {
+    "id": "d4b00e8fab2accc2",
+    "text": "Departures"
+  },
+  {
+    "id": "7bae7d9026d006d5",
+    "text": "New personalities"
+  }
+]

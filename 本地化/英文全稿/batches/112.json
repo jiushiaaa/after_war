@@ -1,0 +1,242 @@
+[
+  {
+    "id": "72f13554cb40af8f",
+    "text": "Local selection not saved"
+  },
+  {
+    "id": "52e17541afb5b1bc",
+    "text": "Undecided"
+  },
+  {
+    "id": "358f29499d48bf5a",
+    "text": "Local save incomplete; original slot and backups retained"
+  },
+  {
+    "id": "445d5df98c9fb0a6",
+    "text": "Local slot {变量1} saved"
+  },
+  {
+    "id": "b8cf82d248e9dbbe",
+    "text": "Could not save locally. Check your browser storage space."
+  },
+  {
+    "id": "8706f3bb90b24440",
+    "text": "Slot {变量1} · {分支2}"
+  },
+  {
+    "id": "18c2ae8067a5b7a5",
+    "text": "Reconstruction Year {变量1} · {变量2} · {变量3}"
+  },
+  {
+    "id": "029c1a5b9a1b1453",
+    "text": "Public Route"
+  },
+  {
+    "id": "659aac1102cf8021",
+    "text": "Industrial Route"
+  },
+  {
+    "id": "e88fb7abde0d2354",
+    "text": "Early Game"
+  },
+  {
+    "id": "b7e0ea1c2f0740c1",
+    "text": "Content needs checking"
+  },
+  {
+    "id": "2f8267a89ad55e6b",
+    "text": "Empty"
+  },
+  {
+    "id": "d02b5531b538fe2b",
+    "text": "Each of the three slots saves separately. Current autosave: {分支1}. Changes are saved every 30 seconds, with the two most recent backups kept unchanged."
+  },
+  {
+    "id": "93d092ee9bba6375",
+    "text": "Slot {变量1}"
+  },
+  {
+    "id": "86c0447a0a215cf6",
+    "text": "Closed. Choose a slot to save."
+  },
+  {
+    "id": "e7164235443f40fa",
+    "text": "The previous load failed validation, so the autosave process has stopped. We recommend exporting a backup of your current progress first, or loading from another slot."
+  },
+  {
+    "id": "13b51ad54f19bce3",
+    "text": "Save current progress to this slot"
+  },
+  {
+    "id": "3a1cbffb82b64d1f",
+    "text": "Save to slot {变量1}? {分支2}"
+  },
+  {
+    "id": "81704758026eb7a1",
+    "text": "The slot's current data will become the first backup; the oldest third backup will be removed from the rotation."
+  },
+  {
+    "id": "e231e8caff1a177c",
+    "text": "This slot is empty."
+  },
+  {
+    "id": "4a1edb18155e988e",
+    "text": "Confirm Save"
+  },
+  {
+    "id": "f10a4182d72013a2",
+    "text": "Load this slot"
+  },
+  {
+    "id": "f2691da0804a535b",
+    "text": "Load backup {变量1} · Reconstruction Year {变量2}"
+  },
+  {
+    "id": "a417fdcb22537356",
+    "text": "Start a new game in this slot"
+  },
+  {
+    "id": "9dca29589834b8fb",
+    "text": "Start a separate new world in slot {变量1}? You can still export the current world. This slot will only be replaced when the new game is first saved, and the two most recent backups will be kept."
+  },
+  {
+    "id": "0ab08edc6b9a6476",
+    "text": "Export current world first"
+  },
+  {
+    "id": "32f7014dc9fc09e9",
+    "text": "Start Separate New Game"
+  },
+  {
+    "id": "0c8a94f592949d77",
+    "text": "Return to the three slots"
+  },
+  {
+    "id": "a31d4a0af07e1651",
+    "text": "The full ledger is validated before loading progress. If validation fails, no empty save will be started and the original data will not be overwritten. After loading a backup, autosave is paused until you choose another slot or explicitly save."
+  },
+  {
+    "id": "370d1bfa43aa5bdf",
+    "text": "Local save access did not open: {变量1}"
+  },
+  {
+    "id": "67bd32581fbb8080",
+    "text": "Validation passed. Slot {变量1}{分支2} will be loaded, Reconstruction Year {变量3}."
+  },
+  {
+    "id": "187220b55594faad",
+    "text": " backup {变量1}"
+  },
+  {
+    "id": "4ababe8ed808fab8",
+    "text": "Unsaved actions will be lost when you leave; you can export first. {分支1}"
+  },
+  {
+    "id": "32e221135730b6f9",
+    "text": "The original slot data was not overwritten. After loading successfully, choose a new slot to save your progress."
+  },
+  {
+    "id": "fc024925095653c0",
+    "text": "Load validated progress"
+  },
+  {
+    "id": "7abed2b5e5de43cf",
+    "text": "Load not performed: {变量1}. The original slot and backups are unchanged; autosave has stopped."
+  },
+  {
+    "id": "c49d101556e86c51",
+    "text": "Restore from export file"
+  },
+  {
+    "id": "320a9ccc7ae17c48",
+    "text": "File loaded. Save to another slot; the original slot was not overwritten."
+  },
+  {
+    "id": "b5ddb7763887b3f7",
+    "text": "File not loaded: {变量1}. Original data retained."
+  },
+  {
+    "id": "3aadeb0f5a82e313",
+    "text": "Check slot {变量1}{分支2}"
+  },
+  {
+    "id": "5cecedfbff5b2ad8",
+    "text": "Backup {变量1}"
+  },
+  {
+    "id": "4db3875fbf80f87f",
+    "text": "Loaded from backup. Save to another slot; the original slot was not overwritten."
+  },
+  {
+    "id": "f9d0f97ed53cb6aa",
+    "text": "Still unable to load: {变量1}. Original data retained."
+  },
+  {
+    "id": "98562cf59ec0a2fb",
+    "text": "No projects queued"
+  },
+  {
+    "id": "1fd04ae2aa5830b7",
+    "text": "Plan paused; current construction continues"
+  },
+  {
+    "id": "f974bbc90312dee9",
+    "text": "Waiting for the area to resume community construction"
+  },
+  {
+    "id": "f2cd46d454ced2f0",
+    "text": "{变量1}; this can be agreed on together at the council hall"
+  },
+  {
+    "id": "8c617082ef73226e",
+    "text": "Waiting for the current project to finish; does not take workers or trucks away from construction"
+  },
+  {
+    "id": "0f7bf34de7c70824",
+    "text": "The first item does not meet the conditions or the limit has been reached; remove it to reschedule"
+  },
+  {
+    "id": "af2c046b750bdcd8",
+    "text": "The next item will be handed to local construction in one second"
+  },
+  {
+    "id": "645c32fcfa798121",
+    "text": "{变量1} will arrange {变量2} according to the construction plan. Building materials still need to be delivered by truck; the project is not counted as complete."
+  },
+  {
+    "id": "eba2994f78c49ced",
+    "text": "The construction queue holds up to 6 items, built in sequence. Building materials are paid for as they are shipped by truck. Pausing does not affect a project already under construction; queued projects that have not started can be removed at any time."
+  },
+  {
+    "id": "1637829c5cce0314",
+    "text": "Upcoming Construction ({变量1} / {变量2}){分支3}"
+  },
+  {
+    "id": "c7ca66931ca9775e",
+    "text": " · Paused"
+  },
+  {
+    "id": "7f1954b6a47d8384",
+    "text": "Pause Upcoming Construction"
+  },
+  {
+    "id": "75a4556b4d5e8aea",
+    "text": "Resume Upcoming Construction"
+  },
+  {
+    "id": "26a87f9f96b4d1f1",
+    "text": "{变量1}; construction takes {变量2} seconds after materials arrive"
+  },
+  {
+    "id": "982e1131067fa147",
+    "text": "Remove this item"
+  },
+  {
+    "id": "380d333f3d3003c6",
+    "text": "Not saved to cloud yet; retrying automatically"
+  },
+  {
+    "id": "b147bb03e3c920b4",
+    "text": "Post-Apocalyptic Civilization - Save.json"
+  }
+]

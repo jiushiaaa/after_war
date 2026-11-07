@@ -1,0 +1,242 @@
+[
+  {
+    "id": "e143de043769240e",
+    "text": "Pay to build freight yard"
+  },
+  {
+    "id": "841dfebe8a996e43",
+    "text": "Pause freight yard operations"
+  },
+  {
+    "id": "27ee36356523fc44",
+    "text": "Resume freight yard operations"
+  },
+  {
+    "id": "c77a3d5027b09917",
+    "text": "Local knowledge required: 4"
+  },
+  {
+    "id": "722ac7ecb7c6b1fc",
+    "text": "Cities with freight yards dispatch to each beneficiary in turn, prioritizing worksites that have gone longest without building materials from that city so cities further down the list are not left waiting."
+  },
+  {
+    "id": "c0e932550eb636dc",
+    "text": "Concentrate shipments in proposal order, fully supplying the first worksites before moving on. Later worksites must wait their turn."
+  },
+  {
+    "id": "b9147666beab3ee1",
+    "text": "\nOnly changes shipment order for projects already taken on. Does not change each city's share, recall vehicles in transit, or increase local budget limits. Approval requires an expenditure of 4 knowledge from this city."
+  },
+  {
+    "id": "9b85e6f2417247ca",
+    "text": "Adopt transport contract"
+  },
+  {
+    "id": "09dead415285d7a6",
+    "text": "Build a freight yard first"
+  },
+  {
+    "id": "1c92556b6240ad18",
+    "text": "Current contract"
+  },
+  {
+    "id": "ae61ceedc98e38c6",
+    "text": "Knowledge required from this city: 4"
+  },
+  {
+    "id": "d5d18772615b0aea",
+    "text": "Rotating deliveries"
+  },
+  {
+    "id": "0fb4e3fa68277a9e",
+    "text": "Concentrated supply"
+  },
+  {
+    "id": "0d3f7d03f2e9fbfd",
+    "text": "First approve a joint budget for the three cities and complete one actual handover of public supplies"
+  },
+  {
+    "id": "4cfb56594220af09",
+    "text": "Local freight yard already registered"
+  },
+  {
+    "id": "4ceec724b68597ab",
+    "text": "First approve a joint budget locally"
+  },
+  {
+    "id": "11281eb10631679b",
+    "text": "{变量1} allocates materials to build an intermodal freight yard and heavy trailers, assembled by 30 local residents over 360 seconds. Completion adds an 8-person freight convoy that can carry 768 items per direct shipment. Existing service vehicles continue handling relocation, commuting, and transfer relays."
+  },
+  {
+    "id": "b2345669fcd9db20",
+    "text": "Network freight is changed to “{变量1}”. Only the dispatch order for approved material supplies changes. Each city's share and waybills in transit remain unchanged."
+  },
+  {
+    "id": "ffa754f64dd031a8",
+    "text": "Resume freight yard maintenance and bulk convoy dispatches."
+  },
+  {
+    "id": "0b5042dd51466b04",
+    "text": "Pause freight yard operations and new bulk waybills. Convoys in transit unload as usual and return empty to the yard. Existing 4-person service vehicles are retained."
+  },
+  {
+    "id": "e44a7c9d3ccd2941",
+    "text": "Local freight yard unfinished, closed, or awaiting maintenance payment"
+  },
+  {
+    "id": "48593d5446af6fd3",
+    "text": "Freight train has not returned empty to the yard"
+  },
+  {
+    "id": "930abfc2436344ed",
+    "text": "8 available adult drivers still needed"
+  },
+  {
+    "id": "c45bd33e91aace27",
+    "text": "Intermodal freight yard {变量1} completed; pay the current maintenance costs to dispatch bulk direct trains under network contracts."
+  },
+  {
+    "id": "cd55bae7b33a254c",
+    "text": "Carried by the original service vehicle"
+  },
+  {
+    "id": "c221896502e1f391",
+    "text": "Assembly requires {变量1} more hours"
+  },
+  {
+    "id": "1da1201efe5700af",
+    "text": "Freight yard closed; trains already en route will complete their runs"
+  },
+  {
+    "id": "aff2dc15363841af",
+    "text": "Freight yard awaiting maintenance; no new trains can depart"
+  },
+  {
+    "id": "0a25d2bd65633910",
+    "text": "{变量1} sec{分支2}"
+  },
+  {
+    "id": "38e8e51648246c03",
+    "text": "Loaded,"
+  },
+  {
+    "id": "0efb8d189295812c",
+    "text": "Returning empty,"
+  },
+  {
+    "id": "8c2d9dd7767526d6",
+    "text": "Arrived"
+  },
+  {
+    "id": "86b3649a2e9e428f",
+    "text": "Returned to yard"
+  },
+  {
+    "id": "a7da150f1b81747d",
+    "text": "Freight trains available"
+  },
+  {
+    "id": "63e8795963fdf070",
+    "text": "Local Affairs and Institutions"
+  },
+  {
+    "id": "ff042736eaeec8b4",
+    "text": "Joint Projects and Transport"
+  },
+  {
+    "id": "5835adf8d4dfaf38",
+    "text": "Budget and Accounts"
+  },
+  {
+    "id": "e8e0513ff6b3af9f",
+    "text": "Set Local Production Rules"
+  },
+  {
+    "id": "6ab97a9a4a29aa35",
+    "text": "Production and Supply Arrangements"
+  },
+  {
+    "id": "1c029ca03ce43718",
+    "text": "View Lakeside's Iron Supply and Agreement"
+  },
+  {
+    "id": "9c6240ebf9d1c699",
+    "text": "Active Production and Resumption"
+  },
+  {
+    "id": "078cfc591ee4b89c",
+    "text": "Pending: {变量1} · Keep daily provisions and assigned duties covered first"
+  },
+  {
+    "id": "64425305b79691cf",
+    "text": "All institutions are running smoothly under current authorizations. There are no pending tasks that need your attention right now."
+  },
+  {
+    "id": "d2cf128b13900192",
+    "text": "Process"
+  },
+  {
+    "id": "e9aa6540e85945de",
+    "text": "Other pending tasks: {变量1}"
+  },
+  {
+    "id": "7f7a216543d61118",
+    "text": "{变量1} · {变量2} · New projects can receive up to {变量3}折值 in outside contributions"
+  },
+  {
+    "id": "53ca7c1e5148bd18",
+    "text": "Each toolmaker spends 0.4 scrap and 0.08 wood every 10 seconds, producing 0.2 tools. No iron is needed, but this uses more workstations. New projects can receive up to 200折值 in outside contributions, reduced to 100 if local housing is strained."
+  },
+  {
+    "id": "1a4da184ae4924d0",
+    "text": "Each toolmaker spends 0.8 scrap, 0.1 wood, and 0.1 iron every 10 seconds, producing 0.6 tools. If iron falls below 6, production automatically switches to repair and reuse, resuming once iron reaches 60. The institution will not build a furnace or dispatch vehicles for you. New projects can receive up to 600折值 in outside contributions, reduced to 200 if local housing is strained."
+  },
+  {
+    "id": "16421fcde2a52f5a",
+    "text": "Pause the institution's ongoing operations and return to the previous toolmaking process. Claimed project shares and shipments in transit will still be fulfilled. New projects allocated under the charter will no longer assign outside support to paused cities."
+  },
+  {
+    "id": "506d07988bc5808a",
+    "text": "{变量1}\n{分支2}{列表3}\nWhen submitting a joint project, you can choose “Share costs under local charters”: within the set limits, supply materials first from cities in the relevant industries, while the beneficiary city covers any shortfall. Local housing needs remain unchanged; the charter itself will not approve projects or increase budgets automatically.{分支4}"
+  },
+  {
+    "id": "3c53fef80c4e463b",
+    "text": "Use existing local workstations and labor, and assign 2 clerks to duty. Every 60 seconds, spend 1 food, 0.2 tools, and 0.2 knowledge, charged to the shared budget.\n"
+  },
+  {
+    "id": "6de74c9244a5c19e",
+    "text": "Setting and calibration require {变量1}"
+  },
+  {
+    "id": "df988a25be4d0190",
+    "text": "\nUnable to set: {变量1}"
+  },
+  {
+    "id": "063964feb1c12de2",
+    "text": "Set Production Charter"
+  },
+  {
+    "id": "d555d6a32025d3b5",
+    "text": "{变量1} has no production charter on record"
+  },
+  {
+    "id": "0ac5e48e71c82031",
+    "text": "{变量1}\nResumed for {变量2} cycles; total materials spent: {变量3}, total tools produced: {变量4}{分支5}"
+  },
+  {
+    "id": "b99998028ffc3894",
+    "text": "\nOn duty in recent cycles: {变量1} people · {分支2} · Tools produced: {变量3}"
+  },
+  {
+    "id": "bb975a759938d047",
+    "text": "Standard Processing"
+  },
+  {
+    "id": "b54c758e5a3e7cbc",
+    "text": "Repair and Reuse"
+  },
+  {
+    "id": "a0a925f62f83e610",
+    "text": "\nNot yet in production; work will start automatically based on inventory shortages."
+  }
+]

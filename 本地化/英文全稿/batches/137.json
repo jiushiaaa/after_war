@@ -1,0 +1,242 @@
+[
+  {
+    "id": "519bede05857111f",
+    "text": "Admission stay reason invalid"
+  },
+  {
+    "id": "6fc57cff2c6440c5",
+    "text": "Waiting bed and road positions do not match"
+  },
+  {
+    "id": "13ed46e0113c4097",
+    "text": "Local admission stay record invalid"
+  },
+  {
+    "id": "0ee5642f159a8730",
+    "text": "Admission return position invalid"
+  },
+  {
+    "id": "40db013ee6cbe78a",
+    "text": "Local return cannot cross a broken road"
+  },
+  {
+    "id": "2f8bd6898ab65e93",
+    "text": "Migrating population ledger mismatch"
+  },
+  {
+    "id": "0101bd5db06193b2",
+    "text": "Town stability invalid"
+  },
+  {
+    "id": "782f497e2a56e966",
+    "text": "City support record invalid"
+  },
+  {
+    "id": "451a2fbea2e15b7c",
+    "text": "City actual expenditure record invalid"
+  },
+  {
+    "id": "da4b6e9abde48afa",
+    "text": "Registration task invalid"
+  },
+  {
+    "id": "e7327ab4076b5ae7",
+    "text": "Duplicate establishment task"
+  },
+  {
+    "id": "ead4ffcdd149e479",
+    "text": "Municipal ledger invalid"
+  },
+  {
+    "id": "bc8e9dfc129d8fa9",
+    "text": "Local municipal status invalid"
+  },
+  {
+    "id": "b8bece914ca3e0c1",
+    "text": "Municipal facility capacity invalid"
+  },
+  {
+    "id": "a304eb9ec4b48a73",
+    "text": "Municipal completion record invalid"
+  },
+  {
+    "id": "3bd4db960aab0850",
+    "text": "Municipal completion does not match facility"
+  },
+  {
+    "id": "7ffac34ab00700d2",
+    "text": "Municipal project invalid"
+  },
+  {
+    "id": "6beb5de4e16fe1d7",
+    "text": "Municipal project materials or duration invalid"
+  },
+  {
+    "id": "4b9c1a85c74b2829",
+    "text": "Municipal project sequence number invalid"
+  },
+  {
+    "id": "75daa21281a7f0c4",
+    "text": "Local jobs or housing exceed capacity"
+  },
+  {
+    "id": "3918277a4636f7b7",
+    "text": "Local economic evidence invalid"
+  },
+  {
+    "id": "55343fd895467928",
+    "text": "Local actual expenditure record invalid"
+  },
+  {
+    "id": "101abf9404e6f5f3",
+    "text": "Municipal project in-transit record invalid"
+  },
+  {
+    "id": "fd2eec6a070cca1c",
+    "text": "Heating and power budget invalid"
+  },
+  {
+    "id": "749fc419c27d89c1",
+    "text": "Public utility service status invalid"
+  },
+  {
+    "id": "4c3ae65c641c2a2b",
+    "text": "Public utility facility record invalid"
+  },
+  {
+    "id": "9e4fc651a4ff12a0",
+    "text": "Public utility project completion record invalid"
+  },
+  {
+    "id": "0c219807115c29e2",
+    "text": "Relocation equipment lacks paid materials or construction record"
+  },
+  {
+    "id": "95210f72689bc5f2",
+    "text": "Energy facility lacks paid materials or construction record"
+  },
+  {
+    "id": "506e934faf3f7545",
+    "text": "Public utility facilities cannot increase without basis"
+  },
+  {
+    "id": "1cc42f21286932dd",
+    "text": "Public utility facility lacks completion record"
+  },
+  {
+    "id": "35aff90ae8adb89e",
+    "text": "Public utility project transaction invalid"
+  },
+  {
+    "id": "7866a69980af1648",
+    "text": "Public utility project materials invalid"
+  },
+  {
+    "id": "0c6609f6d3f4c2b2",
+    "text": "Public utility project progress invalid"
+  },
+  {
+    "id": "48d409c2e246f17a",
+    "text": "Local project cannot borrow a material transport receipt"
+  },
+  {
+    "id": "19e8c4a3213ad5e8",
+    "text": "Relocation equipment construction record invalid"
+  },
+  {
+    "id": "6d378968aebdf3e3",
+    "text": "Relocation equipment does not match completed asset"
+  },
+  {
+    "id": "fdb8be6b3a80511f",
+    "text": "Energy facility construction record invalid"
+  },
+  {
+    "id": "112f945efb58c048",
+    "text": "Energy facility construction order invalid"
+  },
+  {
+    "id": "ecbbd2f35c6701fa",
+    "text": "Energy facility does not match completed asset"
+  },
+  {
+    "id": "d748189ebcf7c082",
+    "text": "Local builders cannot work on construction simultaneously"
+  },
+  {
+    "id": "8b7e0fd74cad3170",
+    "text": "Public utility project sequence number invalid"
+  },
+  {
+    "id": "b886ff34d91e6bbc",
+    "text": "Public utility service round record invalid"
+  },
+  {
+    "id": "1e3b37a8cfcaff3b",
+    "text": "Water supply certificate invalid"
+  },
+  {
+    "id": "79cb36ee95e36d9c",
+    "text": "Agricultural water use record invalid"
+  },
+  {
+    "id": "153d7c521c984274",
+    "text": "Water supply does not match actual operation record"
+  },
+  {
+    "id": "7cc510d0052107f8",
+    "text": "District roster can only be established at the start of a New World"
+  },
+  {
+    "id": "399b3076d11e0e99",
+    "text": "Old save data cannot be mixed into district management"
+  },
+  {
+    "id": "9ef6381e885c562e",
+    "text": "District management data invalid"
+  },
+  {
+    "id": "3fc66d5ee5bfd113",
+    "text": "New World baseline ledger can only be established at the start"
+  },
+  {
+    "id": "72c36e18d2b22350",
+    "text": "Population change invalid"
+  },
+  {
+    "id": "1e5f9333869047ba",
+    "text": "Unknown population source"
+  },
+  {
+    "id": "da50c1ce7af76452",
+    "text": "Population change direction invalid"
+  },
+  {
+    "id": "17b5b4246f1e0c0b",
+    "text": "Distant population does not match casualties"
+  },
+  {
+    "id": "49bf9e602790db2e",
+    "text": "Distant population source does not match"
+  },
+  {
+    "id": "d5973d800c2097b4",
+    "text": "Old rules cannot be mixed into the New World baseline ledger"
+  },
+  {
+    "id": "4dd7651c0f1ca9ce",
+    "text": "World population baseline ledger mismatch"
+  },
+  {
+    "id": "d77515949a211c7f",
+    "text": "Population roster does not match: {变量1}"
+  },
+  {
+    "id": "00aa8e9b7c6eb156",
+    "text": "City institution, training roster, or commission ledger invalid"
+  },
+  {
+    "id": "fddf17ca1273c271",
+    "text": "Insufficient rations in commuter reserves"
+  }
+]

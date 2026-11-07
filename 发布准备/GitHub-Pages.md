@@ -1,4 +1,4 @@
-# GitHub Pages 中文版
+# GitHub Pages 中英文版
 
 地址：https://jiushiaaa.github.io/suiren/
 

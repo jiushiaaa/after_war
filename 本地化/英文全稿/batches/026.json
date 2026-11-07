@@ -1,0 +1,242 @@
+[
+  {
+    "id": "187663d431d52998",
+    "text": "Complete the public health study and train at least two clinicians first"
+  },
+  {
+    "id": "97ae8d86e59bf525",
+    "text": "This area lacks materials for job transfers. Restore transport first or send aid vehicles from Old Town"
+  },
+  {
+    "id": "d3a06cbb13ce11e3",
+    "text": "{变量1} switched to {分支2}; materials for job transfers and work calibration have been paid in full."
+  },
+  {
+    "id": "d43c29e2bca555d4",
+    "text": "Clinical pharmacy"
+  },
+  {
+    "id": "cd4f4f192069038c",
+    "text": "Basic compounding"
+  },
+  {
+    "id": "e4d440b5eed09aac",
+    "text": "{变量2} residents from {变量1} graduated from the {变量3} training course. They are still the same neighbors, but can now take on the relevant professional roles."
+  },
+  {
+    "id": "c9c4f0faa2ecc902",
+    "text": "Routine scheduling in Old Town has been entrusted to the administration: every 60 seconds, it checks support and workstations and draws office supplies. You still make the decisions on major projects, technology initiatives, changes to laws and institutions, and external affairs."
+  },
+  {
+    "id": "1a44cf626e6be73d",
+    "text": "The scheduling arrangement for Old Town has been paused. Current job assignments will remain in place."
+  },
+  {
+    "id": "1a2a543ffdea60b8",
+    "text": "Woodworking supply"
+  },
+  {
+    "id": "407bc474fa8e3fca",
+    "text": "Crop supply"
+  },
+  {
+    "id": "f523cb1dc8633dca",
+    "text": "Recycling supply"
+  },
+  {
+    "id": "1f5c5dec038acdc1",
+    "text": "Medical supply"
+  },
+  {
+    "id": "a1d93c124e59bdab",
+    "text": "Teaching assistant"
+  },
+  {
+    "id": "3eb5d307c647d507",
+    "text": "Build the follow-up workshop and the three-city shared station first"
+  },
+  {
+    "id": "394089d0d38288c7",
+    "text": "No shared station has been registered here yet"
+  },
+  {
+    "id": "ba8c4939673dd2ba",
+    "text": "Local labor positions have already been registered"
+  },
+  {
+    "id": "316576d33d9a88d7",
+    "text": "Renew the local shared station first"
+  },
+  {
+    "id": "000d922e267079d4",
+    "text": "{变量1} allocates materials to add 120 {变量2} labor positions. 20 local residents will install them in 120 seconds; after work begins, grain wages must still be set aside in advance for each shift."
+  },
+  {
+    "id": "2be4b24adeeeced2",
+    "text": "Resume the labor arrangement and continue scheduling based on the selected source area and actual shortfall."
+  },
+  {
+    "id": "1bde7c893a9a7ae1",
+    "text": "Pause the labor arrangement. Wages already earned will still be paid, and stationed workers will return home after completing this shift."
+  },
+  {
+    "id": "e1fc4e6ff7cc77a3",
+    "text": "No work shifts are available for this team yet"
+  },
+  {
+    "id": "ce7b2ab0541fdef2",
+    "text": "Build a labor station in the hiring city first"
+  },
+  {
+    "id": "c4b964f2ea286222",
+    "text": "Settle the existing local contract before changing the source city or shift size"
+  },
+  {
+    "id": "fb3175be05006ff1",
+    "text": "Each shift must have 24, 60, or 120 workers"
+  },
+  {
+    "id": "5def96c51642e453",
+    "text": "{变量1} prepays wages in grain per shift to recruit {变量3} {变量4} positions from {变量2}. {分支5}"
+  },
+  {
+    "id": "806dde5e419a01d7",
+    "text": "Residents stay and work in this city."
+  },
+  {
+    "id": "b5fe5f4da30092ef",
+    "text": "Their homes in their city of origin remain available. While commuting and staying for shifts, they are temporarily away from their jobs there; temporary lodging, meals, and medical care are covered by the hiring city."
+  },
+  {
+    "id": "e2bdc9684f2bc8fc",
+    "text": "{变量1} ended future labor contracts. Shifts already in transit or stationed will be settled under the original terms, and no earned grain wages will be withheld."
+  },
+  {
+    "id": "5ed8a06ea4652386",
+    "text": "The hiring city's labor contract or public station has not yet been renewed"
+  },
+  {
+    "id": "802bd83fc2522421",
+    "text": "The source city's public services have not yet been renewed"
+  },
+  {
+    "id": "0f40c221d6a5de84",
+    "text": "{变量1} positions must be set aside locally for supplementary classes; only {变量2} labor positions are currently available"
+  },
+  {
+    "id": "c5b382d0ed3f726c",
+    "text": "The previous local labor shift has not yet been settled"
+  },
+  {
+    "id": "dc4f667203f60d14",
+    "text": "Local stock is sufficient. Keep the contract, but do not dispatch a shift for now"
+  },
+  {
+    "id": "66b4e18cfe2db3d9",
+    "text": "Review this period's production, sales, and household grain reserves, then start a shift next period"
+  },
+  {
+    "id": "f854a91017fb7b4f",
+    "text": "There is no public route between the two cities yet"
+  },
+  {
+    "id": "06ad1edf4fe00f22",
+    "text": "The route exceeds the current shift vehicles' travel range"
+  },
+  {
+    "id": "ab74c2849077d11a",
+    "text": "The source city must first cover its permanent local jobs, then spare this shift's workers and a driver for the vehicle"
+  },
+  {
+    "id": "4aa9abeb412541fc",
+    "text": "The hiring city does not have enough vacant temporary beds (including beds already promised and reserved for returnees)"
+  },
+  {
+    "id": "15460d5230726a5d",
+    "text": "The source city's service vehicles have not returned to base. Commuting, relocation, and public supply all use the same fleet"
+  },
+  {
+    "id": "d7d795289616c739",
+    "text": "Fulfill existing household relocation agreements first"
+  },
+  {
+    "id": "82b15e9f859ce41d",
+    "text": "Temporary housing maintenance has not been renewed. Restore the local public budget first."
+  },
+  {
+    "id": "8d68d8fa1133df60",
+    "text": "Both cities must first stabilize basic provisioning."
+  },
+  {
+    "id": "d75d601eb485e13e",
+    "text": "Workstations reassigned to supplementary classes; pay for this shift settled early."
+  },
+  {
+    "id": "e8ca9ae0898cce89",
+    "text": "Suspended locally or not renewed"
+  },
+  {
+    "id": "9ec2e19bc965fe1e",
+    "text": "Temporary housing maintenance not renewed"
+  },
+  {
+    "id": "63d8b64b90b21651",
+    "text": "Water supply interrupted"
+  },
+  {
+    "id": "9c298be21d62d920",
+    "text": "Local storage full; shift ended early"
+  },
+  {
+    "id": "d84cd97abab05524",
+    "text": "Complete this shift"
+  },
+  {
+    "id": "da19f037b027e9f6",
+    "text": "Residents from {变量1}: {变量2}. They {分支3} and returned home with grain pay: {变量4}. Rounds completed this shift: {变量5}. Unused grain pay deposited in advance has been returned to the hiring city's public granary. Remaining travel rations and grain offset against on-site shift rations have both been returned to the home city's public granary."
+  },
+  {
+    "id": "8bc4950fbd3ff910",
+    "text": "Settle this shift"
+  },
+  {
+    "id": "221e51ea0ca05105",
+    "text": "Return home in the same vehicle"
+  },
+  {
+    "id": "b1b595a07a934f7a",
+    "text": "Shift term ended"
+  },
+  {
+    "id": "a2cecb690d0a48ca",
+    "text": "Settled Housing District"
+  },
+  {
+    "id": "e9515d4bf5fd4492",
+    "text": "Contiguous Community"
+  },
+  {
+    "id": "32e15fb7aa179872",
+    "text": "Cooperative Farming"
+  },
+  {
+    "id": "efb229dbdeae3d45",
+    "text": "Cooperative Toolmaking"
+  },
+  {
+    "id": "552ce7e1358ee792",
+    "text": "Resume settled community maintenance."
+  },
+  {
+    "id": "abd3bbe663d6d5d3",
+    "text": "Suspend settled community maintenance. Existing households remain housed as before; admission of new households and community cooperative jobs are temporarily suspended."
+  },
+  {
+    "id": "bcd61e3247d54762",
+    "text": "Integrate qualified community cooperative jobs into the daily supply network, replacing permanent workstations according to actual output."
+  },
+  {
+    "id": "578cda23c7264815",
+    "text": "Return community cooperative jobs to supplementary production. Permanent workstations remain the mainstay of daily supply."
+  }
+]

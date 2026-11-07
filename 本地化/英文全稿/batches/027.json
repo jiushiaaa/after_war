@@ -1,0 +1,242 @@
+[
+  {
+    "id": "9ba0e2cec517fb74",
+    "text": "Reassign community admission jobs to {变量1}; all consumed materials and output are recorded in the local public storehouse ledger."
+  },
+  {
+    "id": "e9c08489cbe81bbc",
+    "text": "The receiving city must first complete a residential district or a contiguous community"
+  },
+  {
+    "id": "f43c4dac29cc265e",
+    "text": "Receiving community maintenance has not been renewed, or housing condition is below 60"
+  },
+  {
+    "id": "97a41dc14fb0e8d1",
+    "text": "Public services in the receiving city have not been renewed"
+  },
+  {
+    "id": "307e26a5deda4a6a",
+    "text": "Basic provisions in the receiving city have not stabilized"
+  },
+  {
+    "id": "276b226b539a540a",
+    "text": "The receiving city does not have enough vacant beds (including in-transit reservations and guaranteed return-home beds)"
+  },
+  {
+    "id": "ea2a4e7fac20b72c",
+    "text": "The receiving community does not have enough reserved cooperative jobs"
+  },
+  {
+    "id": "10ee95f7b39be39b",
+    "text": "The receiving city must have 6 rounds of food and 4 rounds of medicine ready after new households settle"
+  },
+  {
+    "id": "6c84075f864ad557",
+    "text": "Please select another source city"
+  },
+  {
+    "id": "7c923d1ba75dd9db",
+    "text": "Both cities must first complete public service station registration"
+  },
+  {
+    "id": "0509277a98c30d78",
+    "text": "The source city must have 60 adults, 36 children, and 24 elders volunteering to relocate, without occupying specialized workstations or existing settlement places"
+  },
+  {
+    "id": "1661ee24fda5159c",
+    "text": "The source city's service vehicles have not returned; relocation and public supply deliveries use the same vehicle group"
+  },
+  {
+    "id": "2c1ef3ead79ec308",
+    "text": "The source city must first cover its permanent local jobs, then free up 60 relocating adults and 4 accompanying drivers"
+  },
+  {
+    "id": "4889d8eddf6a6b38",
+    "text": "Each trip can be set for about 120 or 480 people"
+  },
+  {
+    "id": "bd860560e8500d10",
+    "text": "Please fulfill or cancel the current relocation agreement first"
+  },
+  {
+    "id": "4cfdb371a5dc9f18",
+    "text": "{变量1} and {变量2} signed a relocation agreement for {变量3} people, in groups of 120. Housing, reserved jobs, food, medicine, and vehicles will be checked group by group; families whose vehicles have not departed remain at their place of origin."
+  },
+  {
+    "id": "88f1ac64ba6773c4",
+    "text": "The groups that had not departed when the relocation agreement was canceled have been canceled. Families already in transit will settle in the reserved beds or return home along the original route."
+  },
+  {
+    "id": "4804a80dac6c542e",
+    "text": "Residential relocation #{变量1} departs"
+  },
+  {
+    "id": "6990da51ab9898c4",
+    "text": "Residential relocation #{变量1}{分支2}"
+  },
+  {
+    "id": "4dbf2806204de8e0",
+    "text": "Return home"
+  },
+  {
+    "id": "067a7f0a2675417c",
+    "text": "Settle in"
+  },
+  {
+    "id": "486c1f604e7fc177",
+    "text": "{变量1} household members arrived at the station; remaining travel rations, {变量2}, were transferred to the local public storehouse. {分支3}"
+  },
+  {
+    "id": "dbce59f5b32ef580",
+    "text": "Receive back"
+  },
+  {
+    "id": "b04ed136a9c5b6f9",
+    "text": "Admit"
+  },
+  {
+    "id": "ab4aeb6cc8f13b32",
+    "text": "The reserved beds at the place of origin have been unlocked."
+  },
+  {
+    "id": "5e0970b74b7160e9",
+    "text": "The receiving city now bears responsibility for the reserved jobs and daily provisions; the service vehicle returns empty."
+  },
+  {
+    "id": "4a8d54efccdeccc1",
+    "text": "Residential relocation #{变量1} died en route"
+  },
+  {
+    "id": "4e0068d02ab7c67b",
+    "text": "The {变量1}th group of relocating families exceeded its bed-waiting time and is returning to its place of origin in the original vehicle. Return-trip rations and beds at the place of origin have been reserved."
+  },
+  {
+    "id": "261d2afd126a272f",
+    "text": "Defer transport"
+  },
+  {
+    "id": "873c44cca7bb3656",
+    "text": "Maintain operations"
+  },
+  {
+    "id": "018882c9a0a7cb99",
+    "text": "Increase transport"
+  },
+  {
+    "id": "cd11f9c13170993a",
+    "text": "Alternate dispatch"
+  },
+  {
+    "id": "4fe53c210a281696",
+    "text": "Prioritize food and medicine"
+  },
+  {
+    "id": "da258b0b7f6918bf",
+    "text": "Prioritize industrial materials"
+  },
+  {
+    "id": "8bd096810b8c4287",
+    "text": "Local departure storehouse"
+  },
+  {
+    "id": "af1c18b2a434c0ba",
+    "text": "Get cooperation between the two cities running first"
+  },
+  {
+    "id": "60d4c7345d2dcdad",
+    "text": "Joint dispatch office established"
+  },
+  {
+    "id": "5e9f318b5d3ba692",
+    "text": "The two cities jointly established a dispatch office. The local vehicle groups have been merged into unified dispatch; the two public storehouses still keep separate accounts, and each city's public storehouse pays actual operating expenses."
+  },
+  {
+    "id": "101e6c4a01addd3d",
+    "text": "Establish the joint dispatch office first"
+  },
+  {
+    "id": "a005306b7e0d53e2",
+    "text": "Mining Ridge survey already recorded"
+  },
+  {
+    "id": "e9596b23b5a0c8ea",
+    "text": "Two surveyors followed the old railway west to survey Mining Ridge City. Their travel rations were paid in full at departure, and both temporarily left their workstations in this city."
+  },
+  {
+    "id": "280c8aaf0a11feee",
+    "text": "Mining Ridge City has {变量1} people on the survey register, verified and itemized from the disconnected base ledger of the Western Continent. It has its own housing, furnaces, and public storehouse; this survey did not create additional people in the world."
+  },
+  {
+    "id": "ae51968bafa43a0a",
+    "text": "{变量1}: insufficient operating allowance for {变量2} this period"
+  },
+  {
+    "id": "0eeb78ff0b5a8ee7",
+    "text": "{变量1} adjusted the subsequent operating allowance to “{变量2}”. Materials already spent this period will not be refunded; basic food, medical visits, and schooling remain provided locally."
+  },
+  {
+    "id": "6923721d6e7106d8",
+    "text": "Shared vehicle dispatch has been changed to “{变量1}”; another route meeting departure conditions may yield priority at most twice in succession."
+  },
+  {
+    "id": "9a835311fd87031b",
+    "text": "Complete the Mining Ridge survey first"
+  },
+  {
+    "id": "10e44de5468d31b2",
+    "text": "Mining Ridge road engineering already recorded"
+  },
+  {
+    "id": "fd4cfbbce71c755e",
+    "text": "This city and Mining Ridge will each provide road materials and assign 20 construction workers to repair the roads along the old railway in sections."
+  },
+  {
+    "id": "7d8bd9e59a9563ce",
+    "text": "Build the road to the third city first"
+  },
+  {
+    "id": "9683d3321c260d09",
+    "text": "Vehicle depot expansion already recorded"
+  },
+  {
+    "id": "eb4e05bf7a78853b",
+    "text": "Unknown vehicle depot plan"
+  },
+  {
+    "id": "a8660a86e718ec22",
+    "text": "A steel-frame vehicle depot requires prior knowledge of mechanical transmission and standardized measurement"
+  },
+  {
+    "id": "40cd176771542222",
+    "text": "This city will provide materials to expand the {分支1} vehicle depot, with 20 construction workers starting work. Once complete, it can add one shared vehicle group, while the daily maintenance burden will also increase."
+  },
+  {
+    "id": "8f26b08b99076456",
+    "text": "Steel frame"
+  },
+  {
+    "id": "7cb14cf07b866493",
+    "text": "Wooden structure"
+  },
+  {
+    "id": "7549f8b608ae4584",
+    "text": "The Mining Ridge industrial materials exchange has been approved by both cities. New waybills will be dispatched on schedule according to both sides' actual shortfalls, available vehicle groups, and local operating budgets."
+  },
+  {
+    "id": "9358fd68c91c4de8",
+    "text": "The Mining Ridge route has suspended issuing new waybills; goods already in transit with freight paid in full will be delivered as usual, and the vehicle group will return by the original route after unloading."
+  },
+  {
+    "id": "b9a8b7f49610dd19",
+    "text": "The shared departure storehouse does not match the old road records"
+  },
+  {
+    "id": "863adaf99013b20c",
+    "text": "{变量1}: transport maintenance awaiting renewal"
+  },
+  {
+    "id": "dd57108863552bc0",
+    "text": "The shared vehicle group is currently occupied by other routes"
+  }
+]

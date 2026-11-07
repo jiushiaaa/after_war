@@ -1,0 +1,242 @@
+[
+  {
+    "id": "c3c3ebc9325ead44",
+    "text": "Resettlement convoy equipment"
+  },
+  {
+    "id": "20d905f67bdd43b9",
+    "text": "High-density housing"
+  },
+  {
+    "id": "724b17988158c163",
+    "text": "Wind turbine operator"
+  },
+  {
+    "id": "7496351f0e47a1e5",
+    "text": "Waterworks technician"
+  },
+  {
+    "id": "c96fb8f887fb6920",
+    "text": "Heating technician"
+  },
+  {
+    "id": "1a65e11cd0f6448f",
+    "text": "Construction worker"
+  },
+  {
+    "id": "8f327edb986bcb38",
+    "text": "Medicine production"
+  },
+  {
+    "id": "f150ac60dfe779a1",
+    "text": "Formulas, sterile equipment, and sampling procedures have been compiled. Production requires basic chemicals, food, and a steady power supply."
+  },
+  {
+    "id": "42ed97eb85990224",
+    "text": "Public utilities"
+  },
+  {
+    "id": "3d822ae08cbaba1f",
+    "text": "Plans for pumps, water networks, and the structural supports of multi-story housing are finalized. Building materials still need to be delivered to the site, where local workers will build it section by section."
+  },
+  {
+    "id": "de91dc95c1dae28a",
+    "text": "Wind turbine engineering"
+  },
+  {
+    "id": "ccc1006a6cec15e9",
+    "text": "Prototype plans for blades, gearboxes, and grid connections are ready. Wind turbines can be built under the “Energy” category in a district or location. They need operators and parts for maintenance, and backup power is still required when the wind is weak."
+  },
+  {
+    "id": "2bd9cd6ea2d8f0e9",
+    "text": "District heating"
+  },
+  {
+    "id": "04f61daa940ef930",
+    "text": "Plans for boilers, circulation pumps, and insulated piping are ready. Once the heating plant is complete, it still needs operators and a sufficient coal supply. The plant can take over citywide heating once its trial run is stable."
+  },
+  {
+    "id": "128e66d400762a47",
+    "text": "{变量1} is complete. Residents have taken over the newly built facility."
+  },
+  {
+    "id": "8d9a20228fe7cc2f",
+    "text": "Recent water supply: {变量1} people; medicine produced: {变量2}; utility load: {变量3} / {变量4}."
+  },
+  {
+    "id": "0627d82c63af9f8f",
+    "text": "Building materials are being delivered in batches. Arrived: {变量1}; total required: {变量2}"
+  },
+  {
+    "id": "b336a174cd1fad05",
+    "text": "None"
+  },
+  {
+    "id": "b9fe05efc3bffdea",
+    "text": "Construction will take another {变量1} seconds. Assign 2 {分支2}"
+  },
+  {
+    "id": "03a2b9be7c6688c7",
+    "text": "Local builders"
+  },
+  {
+    "id": "4813cbbb78695296",
+    "text": "{分支1}, once complete, heating workers must be assigned and coal supplied continuously"
+  },
+  {
+    "id": "bffeaa0cc4c6b717",
+    "text": "Queued: Heating Station"
+  },
+  {
+    "id": "c8fef47cd54179c0",
+    "text": "Build Heating Station"
+  },
+  {
+    "id": "8818731bff9926fc",
+    "text": "{变量1}; requires 2 adult workers to build for {变量2} seconds. {分支3}{分支4}"
+  },
+  {
+    "id": "280b4d7fdf9f1191",
+    "text": "Construction materials are deducted from local stocks in full when construction begins. Assign construction workers from the local town page in the top bar."
+  },
+  {
+    "id": "99dd2abd16d59df5",
+    "text": "Construction materials are delivered by truck in batches, and local residents build the structure."
+  },
+  {
+    "id": "07a5f84b15595d96",
+    "text": "Adds 160 beds when complete; requires existing public healthcare and classroom coverage, and enough water capacity for current residents plus 160 more."
+  },
+  {
+    "id": "dff4ca1fd68548b6",
+    "text": "Only upgrades irrigated plots; next round, with enough water, each new farmer produces 2 food. With insufficient water, production falls back to 1.4 food."
+  },
+  {
+    "id": "35546cf2ee4d34ad",
+    "text": "Houses up to 12 teachers when complete. Each teacher looks after 20 children, and daily lessons still consume wood."
+  },
+  {
+    "id": "9963643112038bb7",
+    "text": "Adds 2 transport worker positions when complete; dispatching a migration convoy requires 4 transport workers. Residents must have a continuous food supply during construction."
+  },
+  {
+    "id": "0168346d4500bae1",
+    "text": "Each set requires 2 wind turbine operators and generates 12 power at rated output. Each operator consumes 0.04 parts every 10 seconds for maintenance. Actual output varies with local wind; turbines stop in still air. A backup power source is required."
+  },
+  {
+    "id": "4b4c4f6ad2e51a2a",
+    "text": "Each Heating Station: the electric shift requires 2 heating workers and consumes 1 electricity, 0.8 coal, and 0.02 parts every 10 seconds, heating 600 people; the manual shift requires 4 workers and consumes 1.2 coal and 0.02 parts, heating 300 people. Day-to-day heating can be formally handed over only after the trial run covers everyone."
+  },
+  {
+    "id": "a38213c73cac3736",
+    "text": "{变量1} has been added to the queue and will start in order. Materials are not deducted while it waits."
+  },
+  {
+    "id": "5ff1115165d13c02",
+    "text": "Restore Electric Waterworks"
+  },
+  {
+    "id": "d9b5b02022cfa3c5",
+    "text": "Assign Manual Waterworks"
+  },
+  {
+    "id": "ae1e1571ac7338b2",
+    "text": "Each Waterworks Station: the electric shift requires 4 waterworks workers and consumes 4 electricity, supplying water for 600 people; the manual shift requires 8 waterworks workers and supplies water for 300 people. Both methods consume 0.2 chemicals and 0.02 parts each round."
+  },
+  {
+    "id": "73361652013152c4",
+    "text": "Mineral collector"
+  },
+  {
+    "id": "e7655d9e05596dfa",
+    "text": "Chemical worker"
+  },
+  {
+    "id": "a708151e5f08a587",
+    "text": "Steelworker"
+  },
+  {
+    "id": "1f7ed95f85e729fa",
+    "text": "Glassworker"
+  },
+  {
+    "id": "08495aeef14561d7",
+    "text": "Utility Power Station Operations"
+  },
+  {
+    "id": "040be1ce6d70fec1",
+    "text": "Mineral Extraction Site"
+  },
+  {
+    "id": "0577dfd2c5403770",
+    "text": "Basic Chemical Workshop"
+  },
+  {
+    "id": "3a6f2e9030457833",
+    "text": "Steel Furnace"
+  },
+  {
+    "id": "513530afa92de20a",
+    "text": "Glass Furnace"
+  },
+  {
+    "id": "527148160eff3a55",
+    "text": "Utility Power Station"
+  },
+  {
+    "id": "c09020b8d0fdf77f",
+    "text": "Mine Support Expansion"
+  },
+  {
+    "id": "cec851eac01b02bf",
+    "text": "Coalfield Ventilation Expansion"
+  },
+  {
+    "id": "20a950eac1f5fcc8",
+    "text": "Worksite Purification Facility"
+  },
+  {
+    "id": "d88cc392642e404b",
+    "text": "Mineral Feedstock"
+  },
+  {
+    "id": "9c4821a4f0b7f38d",
+    "text": "Basic Chemicals"
+  },
+  {
+    "id": "b3d69c72423a2c15",
+    "text": "Steel"
+  },
+  {
+    "id": "1cf9f76e181da84d",
+    "text": "Glass"
+  },
+  {
+    "id": "7f6241affebecfb0",
+    "text": "Craftspeople marked deposits of quartz sand, clay, and salts along the edge of an old mine map. We can build an extraction site there."
+  },
+  {
+    "id": "a6529063f1fcd342",
+    "text": "Collectors brought back sorted mineral feedstock, giving chemical production and glassmaking the materials they need."
+  },
+  {
+    "id": "07c14237dd02b6b8",
+    "text": "The mineral feedstock has been sorted. With old iron cans and firebrick, we can put together a crude chemical reactor."
+  },
+  {
+    "id": "7578e107edda50fa",
+    "text": "The chemical workshop has fired up. Production is faster when powered; if the power goes out, coal can keep it simmering."
+  },
+  {
+    "id": "b212c76cd1459303",
+    "text": "The ratios of pig iron, furnace charge, and deoxidizer have been recorded in a new process sheet. Wrought iron and old parts are enough to put up a steel furnace frame for now."
+  },
+  {
+    "id": "fea7aea8f73b623b",
+    "text": "Molten steel slowly sets in the mold, glowing dark red. Steelworkers still need a steady supply of iron ingots, coal, chemicals, and maintenance tools."
+  },
+  {
+    "id": "d041fef5e9b1cb51",
+    "text": "Quartz and soda ash purified in the chemical workshop have been delivered to the glassmakers. They now have a workable process for making clear vessels and window glass."
+  }
+]

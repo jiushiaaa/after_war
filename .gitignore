@@ -15,3 +15,8 @@
 游戏/dist/
 游戏/.build/
 **/.lumimaker/
+
+# Local translation preview and Python bytecode
+**/__pycache__/
+游戏/english-preview.html
+游戏/english-test-preview.html

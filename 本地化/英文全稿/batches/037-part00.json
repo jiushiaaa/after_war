@@ -1,0 +1,82 @@
+[
+  {
+    "id": "dea50552d92c1fa1",
+    "text": "Housing and Relocation"
+  },
+  {
+    "id": "ce0d1c11d8ed03b6",
+    "text": "Community Maintenance and Accession Jobs"
+  },
+  {
+    "id": "ac70899cf708b177",
+    "text": "Community City"
+  },
+  {
+    "id": "eb20566ef8ab7ad1",
+    "text": "Accession Job Process"
+  },
+  {
+    "id": "383e848739588e68",
+    "text": "Arrange a Batch of Families to Relocate"
+  },
+  {
+    "id": "4871d4858968fe22",
+    "text": "Relocation Origin"
+  },
+  {
+    "id": "94dc641688ba4e3a",
+    "text": "Receiving City"
+  },
+  {
+    "id": "3ad0731336dad6b6",
+    "text": "People in This Agreement"
+  },
+  {
+    "id": "43f1ec9a4d37112d",
+    "text": "120 people · 1 batch"
+  },
+  {
+    "id": "f981c6c620135e04",
+    "text": "480 people · 4 batches, processed automatically"
+  },
+  {
+    "id": "1f90fcbdd5b9043b",
+    "text": "Families in Transit and Settlement"
+  },
+  {
+    "id": "ec2715d800d43654",
+    "text": "{变量1} · {变量2}-bed community · Condition {变量3}\nVacant beds available {变量4} · Reserved jobs {变量5} / {变量6} · {分支7}"
+  },
+  {
+    "id": "fffe1cfaca6a0b04",
+    "text": "Maintenance running"
+  },
+  {
+    "id": "f9520269abe8fd1e",
+    "text": "Maintenance paused"
+  },
+  {
+    "id": "39b984c526365591",
+    "text": "Awaiting renewal/repair"
+  },
+  {
+    "id": "7b64544266facdc1",
+    "text": "Current relocation agreement: {变量1} → {变量2} · Departed {变量3} / {变量4}\n{分支5}"
+  },
+  {
+    "id": "0292a8a6c36bd30b",
+    "text": "Batch {变量1} is en route; the next batch can depart only after the service vehicle returns empty"
+  },
+  {
+    "id": "fb58d90ea8833987",
+    "text": "Conditions met; dispatch next convoy"
+  },
+  {
+    "id": "b53011c26593b4b1",
+    "text": "Previous relocation agreement: {分支1}; final settlement and the empty vehicle's return are subject to the actual transport order."
+  },
+  {
+    "id": "a9c8af566763f7bd",
+    "text": "Canceled batches that had not departed"
+  }
+]

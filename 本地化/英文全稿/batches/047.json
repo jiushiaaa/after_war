@@ -1,0 +1,242 @@
+[
+  {
+    "id": "b0247dfc2cc67e62",
+    "text": "The intercity merchant vehicle has returned empty to the city, and its driver is back on standby; goods from both places have been recorded according to actual delivery or return records."
+  },
+  {
+    "id": "be8c3d5c417347fc",
+    "text": "Rail Town trades parts for Valley food; all three parties may expend knowledge to formalize the agreement"
+  },
+  {
+    "id": "515dd71669410fee",
+    "text": "The original merchant vehicle and goods from both places are ready; awaiting dispatch"
+  },
+  {
+    "id": "54925c7265b352eb",
+    "text": "{变量1}; loaded aboard: {变量2}"
+  },
+  {
+    "id": "6320104d73d8c853",
+    "text": "Waiting for two drivers"
+  },
+  {
+    "id": "c944bfda4cdc3c76",
+    "text": "Empty vehicle heading to Rail Town"
+  },
+  {
+    "id": "f130ffb4868ec35e",
+    "text": "Waiting in Rail Town to load 24 parts"
+  },
+  {
+    "id": "3f357321f5e9ae65",
+    "text": "Carrying 24 parts to Valley"
+  },
+  {
+    "id": "8ee51074fac783f9",
+    "text": "Waiting in Valley to exchange for 120 food"
+  },
+  {
+    "id": "4df6a719e5c515c3",
+    "text": "Carrying 120 food back to Rail Town"
+  },
+  {
+    "id": "75f3dda0bb7e8a7d",
+    "text": "Returning the original parts to Rail Town"
+  },
+  {
+    "id": "ca0f8e1404317343",
+    "text": "Empty vehicle returning to the home city"
+  },
+  {
+    "id": "4ee1aac10a231938",
+    "text": " · {变量1} / {变量2} seconds"
+  },
+  {
+    "id": "ec4efeac8fab0cda",
+    "text": "Conditions have changed; this run was not executed. Supplies in storage and existing transport orders remain unchanged."
+  },
+  {
+    "id": "1f7abe56050d5462",
+    "text": "Three-party paid intercity transport agreement"
+  },
+  {
+    "id": "68d231bd19c7f8dd",
+    "text": "The home city and both places have each expended knowledge to formalize the agreement. Intercity transport occupies one unit of coordination capacity."
+  },
+  {
+    "id": "29777567ed2a90ec",
+    "text": "Cancel subsequent intercity transport"
+  },
+  {
+    "id": "f0de56b9adb59a71",
+    "text": "Unstarted intercity transport orders have been canceled. Merchant vehicles already en route will still complete their original orders."
+  },
+  {
+    "id": "2874474d151b52db",
+    "text": "Commission up to three intercity trips"
+  },
+  {
+    "id": "73815a6181bd6178",
+    "text": "Up to three intercity transport orders have been queued. Travel expenses are expended only when each trip actually departs."
+  },
+  {
+    "id": "5cca40c1685eb3f9",
+    "text": "Return original goods if no deal is reached"
+  },
+  {
+    "id": "4c790410c1c56b3e",
+    "text": "The merchant vehicle turns back according to the distance traveled. Once the parts reach Rail Town, they are returned to the original storage; travel expenses already spent are not refunded."
+  },
+  {
+    "id": "7596920d1b8ba1a1",
+    "text": "Close the intercity transport ledger"
+  },
+  {
+    "id": "3e5f5c43a1f76ffe",
+    "text": "The public warehouses in both places and goods in transit continue to be recorded separately."
+  },
+  {
+    "id": "6d8785717adda984",
+    "text": "Formalization requires expenditure of knowledge: 60 from the home city, 30 from Rail Town, and 30 from Valley, and occupies 1 unit of coordination capacity. The national common law must be operating normally, and the local city and rail transfer station must already be built. The coordination limit supported by basic administration and an administrative archive with normal provisioning must also have room to spare, to prevent an overload shutdown during the transition between administrations."
+  },
+  {
+    "id": "7b3d209c9cbe208d",
+    "text": "Rail Town sends 24 parts in exchange for 120 food from Valley. The entire route occupies the home city's original merchant vehicle and two drivers, and cannot depart at the same time as external trade or ferry operations. Each trip expends travel expenses from the home city: 8 food, 2 wood, 0.2 tools, and 0.1 parts."
+  },
+  {
+    "id": "17355e592e3ccfd6",
+    "text": "The empty vehicle takes 90 seconds to reach Rail Town, 150 seconds to carry the parts to Valley, 150 seconds to carry the food back to Rail Town, and 90 seconds to return to the city empty. Time spent waiting for repairs due to blocked roads is added separately. Road merchant vehicles do not benefit from the speed of scheduled railway trains."
+  },
+  {
+    "id": "20c703de53904c4b",
+    "text": "Rail Town currently has {变量1} parts; Valley currently has {变量2} food. Both places must first reserve enough for 120 seconds of provisioning and routine maintenance. When goods are unavailable, the merchant vehicle waits there to load. It can be recalled to return the goods before delivery; once delivery is completed, it continues on to Rail Town. Total completed trips returned to the city: {变量3}."
+  },
+  {
+    "id": "1e9b310332b9b5e0",
+    "text": "Rail Town–Valley intercity transport"
+  },
+  {
+    "id": "1462a7d8531ef5d2",
+    "text": "Local"
+  },
+  {
+    "id": "5655cbf7f68f7cc1",
+    "text": "The mutual aid agreement is not currently active"
+  },
+  {
+    "id": "c9ce0abfe2e63ff5",
+    "text": "The current mutual aid cycle is awaiting its record"
+  },
+  {
+    "id": "df2fa4b075887bf0",
+    "text": "The previous complete mutual aid cycle is still awaiting continuous records"
+  },
+  {
+    "id": "361f3ff09b9d16fe",
+    "text": "{变量1} failed to fulfill its obligation on schedule in the previous cycle"
+  },
+  {
+    "id": "ee963b111c153911",
+    "text": "Some commitments from the previous cycle remain unmet"
+  },
+  {
+    "id": "ec71b38e44da1bfb",
+    "text": "The common record for this cycle was interrupted; the next complete cycle is required before recalculation"
+  },
+  {
+    "id": "a0f73ed1d0870d45",
+    "text": "First maintain the mutual aid agreement shared by all three places"
+  },
+  {
+    "id": "f657e3c91ec93d82",
+    "text": "The members of all three places have not yet been fully registered"
+  },
+  {
+    "id": "570399efc87bbf2e",
+    "text": "Newly admitted mutual aid members are awaiting their first production settlement"
+  },
+  {
+    "id": "6bb4245830c58124",
+    "text": "{变量1} has not yet registered its city responsibilities"
+  },
+  {
+    "id": "9465afbc8c3bf99e",
+    "text": "{变量1} has fewer than 400 residents actually living there"
+  },
+  {
+    "id": "1230b5c7433cd656",
+    "text": "{变量1} has insufficient housing beds, including reserved beds in transit"
+  },
+  {
+    "id": "88e1a1baef4d99f5",
+    "text": "The shared civic status of {变量1} has not yet been established"
+  },
+  {
+    "id": "793739d31a9bae4b",
+    "text": "The three cities have fewer than 3000 residents actually living there in total"
+  },
+  {
+    "id": "3153cb20f7b205b2",
+    "text": "The three cities are awaiting verification of the same production cycle"
+  },
+  {
+    "id": "f64dc2f4ad606e65",
+    "text": "Accumulating three consecutive maintenance records"
+  },
+  {
+    "id": "f674288947d60fdb",
+    "text": "{变量1}'s household registry has changed; awaiting the next provisioning verification"
+  },
+  {
+    "id": "8c53690f9466be8f",
+    "text": "Public administration expenses for this cycle have not been fully paid. Restore this city's food and knowledge supply first."
+  },
+  {
+    "id": "e9bc0a4991efb6fa",
+    "text": "Insufficient coordination capacity among the three places"
+  },
+  {
+    "id": "677e62bdf0112a42",
+    "text": "There is still a shortage of transport workers needed for freight and passenger service"
+  },
+  {
+    "id": "e264629007dfac68",
+    "text": "{变量1}'s route is awaiting a complete crew, road repairs, or the recent arrival of goods at the warehouse"
+  },
+  {
+    "id": "5f7600a631870cc2",
+    "text": "{变量1} has not yet fully paid for this cycle's food or medical treatment"
+  },
+  {
+    "id": "59b40c431919f3d4",
+    "text": "{变量1}'s food and medicine, school, or industrial operations have not yet stabilized for this cycle"
+  },
+  {
+    "id": "bcd5204e32f9305f",
+    "text": "{变量1}'s actual water supply has not yet reached all residents this cycle"
+  },
+  {
+    "id": "b7eb224fed23ca1d",
+    "text": "{变量1} has insufficient actual power for local electricity supply or machine workshops"
+  },
+  {
+    "id": "1d47496f5bf5311f",
+    "text": "{变量1} lacks enough food and medicine, water-service supplies, or industrial materials for the next cycle"
+  },
+  {
+    "id": "0b593fe3e635a32c",
+    "text": "{变量1} must reserve 300 seconds of {变量2} and committed expenses"
+  },
+  {
+    "id": "d8e9913ef7cba9ae",
+    "text": "The three cities' shared responsibilities"
+  },
+  {
+    "id": "7321365fa19bd742",
+    "text": "The clinics, schools, fields, and workshops of the three cities have upheld their shared agreement for three consecutive cycles. Convoys on the roads have delivered goods to the warehouses as agreed, and representatives from all three places have gathered with their respective public ledgers."
+  },
+  {
+    "id": "4d649b522259fd4c",
+    "text": "They are preparing to formally record the shared rights and responsibilities of the cities in a master ledger that this generation and the next can consult at any time."
+  }
+]

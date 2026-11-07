@@ -1,0 +1,82 @@
+[
+  {
+    "id": "fc6d43b10bb26779",
+    "text": "Once the joint clearing system is established, each district will independently run workshops, procure raw materials, and assess the diplomatic situation."
+  },
+  {
+    "id": "312c72a5ec4e5eb0",
+    "text": "Joint session {变量1} · In transit: {变量2} shipments · Disputes: {变量3} · Overdue: {变量4} parties"
+  },
+  {
+    "id": "4a9622466a73eb53",
+    "text": "Establishing a standing joint council and clearing network costs 180 knowledge and 20 electronic components. Once established, every 300 seconds each district will use its own public warehouse stock to schedule workshops, procure raw materials, and weigh its diplomatic ties. During this time, disputes, embargoes, and even border clashes may arise from credit defaults or supply cuts. Members bound by common law will only have budget disputes; they will not resume hostilities."
+  },
+  {
+    "id": "8fc80e7a014436bd",
+    "text": "Each district's workshops use its actual stock of raw materials. Regional convoys use each district's own public transport capacity and pay their own travel costs; they do not use this city's six-person long-range expedition team. Clearing balances represent only payment claims between districts and cannot be withdrawn directly as goods from this city's warehouses."
+  },
+  {
+    "id": "097e95cc295835d5",
+    "text": "Establish a standing joint council and clearing system"
+  },
+  {
+    "id": "d701290d8b37e7f4",
+    "text": "The standing joint council is established. Each district will now independently account for its industries, credit, and bilateral relations."
+  },
+  {
+    "id": "b3ece6432633f1e1",
+    "text": "View interdistrict clearing and credit"
+  },
+  {
+    "id": "db32d51cc186c264",
+    "text": "Alliances and Trade Routes"
+  },
+  {
+    "id": "6ef9ee46e8fd606d",
+    "text": "Current scale: {变量1}. The sum of all districts' clearing balances is always 0: a positive value represents a receivable for goods already shipped; a negative value represents a debt to be offset with goods for export. The balance cannot be directly converted into this city's inventory. {分支2}"
+  },
+  {
+    "id": "6da11f095bc34ec4",
+    "text": "Trade goods leave the warehouse when dispatched and arrive for delivery after the time specified by the selected route: direct, escorted, or detoured. If a shipment is returned in transit, its original balance entry is reversed."
+  },
+  {
+    "id": "fc11c9d1cb6d9532",
+    "text": "Each shipment leaves the warehouse when dispatched and arrives at port for delivery after 300 seconds."
+  },
+  {
+    "id": "c387a6588613bec4",
+    "text": "From the first time an account goes negative, the debt must be settled within 1800 seconds. Additional credit purchases during this period do not reset the deadline. Once overdue, new credit purchases are suspended, and export goods must be used to repay the debt. Creditors may also use their positive balance to buy back the debtor's export goods; any fraction below one item is settled at a discount. Each party's credit limit fluctuates with bilateral trust and the risk of war."
+  },
+  {
+    "id": "e88c0baba2bdd65a",
+    "text": "{变量1}: clearing balance {变量2}; credit limit {变量3}{分支4}{分支5}."
+  },
+  {
+    "id": "b11219986ccba5f2",
+    "text": "; {变量1} seconds until due"
+  },
+  {
+    "id": "ed446c97c0ebfdf7",
+    "text": "; overdue"
+  },
+  {
+    "id": "e17794262249ca42",
+    "text": "Each trade pact signed adds 40 to the credit limit; each point of infamy reduces it by 3. A debt extension takes effect only with the creditor's approval. The original principal and extension fees must still be repaid with export goods. See the records below for each district's deadline."
+  },
+  {
+    "id": "0345070cbb2ef054",
+    "text": "The three base credit limits are 120 / 240 / 480, plus bilateral trust ×2; being at war deducts 100. Each adjustment costs 60 knowledge and has a 600-second cooldown. Existing debts and claims are unchanged by a tier adjustment. Higher credit limits can enable more trade, but also make it easier to build up unpayable deficits."
+  },
+  {
+    "id": "6e765385e190aa66",
+    "text": "Interdistrict credit limits have been adjusted. Existing claims and debts remain unchanged."
+  },
+  {
+    "id": "93b62581aba557c6",
+    "text": "{变量1}: {变量2}; relations {变量3}, tension {变量4}."
+  },
+  {
+    "id": "f169cf570301a27d",
+    "text": "{变量1}: shortage {变量2}, stock {变量3} / target stock {变量4}; clearing balance {变量5}. {变量6}"
+  }
+]

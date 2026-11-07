@@ -1,0 +1,242 @@
+[
+  {
+    "id": "dbc152fafafdcf6e",
+    "text": "Standing Offices"
+  },
+  {
+    "id": "88d8d4632bc7c848",
+    "text": "Production across the region is coordinated by broad occupation groups. The local liaison office is staffed by 2 residents on a permanent basis; daily duties in other cities continue as usual."
+  },
+  {
+    "id": "ede3c39f9739ea07",
+    "text": "Next: Open “Pact and Public Duties” to weigh the pros and cons of “Trade Access” and “Shared Services”."
+  },
+  {
+    "id": "f14fd7dccebb17bc",
+    "text": "The cargo ships are underway. No new ships will be dispatched until the fleet returns to port."
+  },
+  {
+    "id": "08f5ce0deab2d2ed",
+    "text": "Requirements met. Ships will depart at the next 60-second settlement."
+  },
+  {
+    "id": "9be27a88860f2f41",
+    "text": "{分支1}\nTo establish the pact, spend: this city {变量2}; Lakeside City 120 wood, 24 tools; North Shore 1200 wood, 240 tools. Afterward, every 60 seconds the local liaison office consumes {变量3}, deducted directly from the departure district's public warehouse and recorded separately. {分支4}"
+  },
+  {
+    "id": "47454a6f27680933",
+    "text": "Trade Access: Trade by water with Lakeside and North Shore only; each ship can carry up to 80 items. North Shore maintains its own facilities, and its population is not included in Shared Services coverage."
+  },
+  {
+    "id": "38723109fc57c1b3",
+    "text": "Shared Services: Choose “Civilian Repairs” to supply 320 medicine and 80 iron per ship, or “Industrial Supplies” to supply 320 iron and 80 medicine per ship. With Industrial Supplies, local wood and tool requirements for maintenance each period are doubled."
+  },
+  {
+    "id": "0fb4483b5c2d0e1b",
+    "text": "Set Pact"
+  },
+  {
+    "id": "aa2f9f1e11433ca3",
+    "text": "Pause Shared Commission"
+  },
+  {
+    "id": "63c8a2b4459482eb",
+    "text": "Resume Shared Commission"
+  },
+  {
+    "id": "ab464274b1da93f4",
+    "text": "No Pact Yet"
+  },
+  {
+    "id": "b193cfcbfcae01f7",
+    "text": "North Shore has {变量1} beds, local waterworks and workshops, and an old fleet ready to sail once repaired. Local schedules prioritize farms, medical care, and schools.\n{分支2}\n“Industrial Supplies” diverts more smelting capacity, scrap, and wood. Local wood and tool requirements for facility maintenance each period are doubled, and the dock's cargo manifest shifts to iron; the medicine supply limit falls back to 80. If supplies run out, the dock will suspend sailings first. Each commission change costs 4 knowledge from this city."
+  },
+  {
+    "id": "adda9757d2e320af",
+    "text": "Net local production and basic supply over the last 60 seconds: food {变量1}, medicine {变量2}, iron {变量3}; maintenance this period {分支4}."
+  },
+  {
+    "id": "36cbffd01834170d",
+    "text": "Paid in Full"
+  },
+  {
+    "id": "b40fd38af5061be1",
+    "text": "Waiting for the first production settlement."
+  },
+  {
+    "id": "45aad6079373af61",
+    "text": "Adjust Local Commission"
+  },
+  {
+    "id": "9a58a0a2201739bc",
+    "text": "Set the Pact First"
+  },
+  {
+    "id": "64a4ed6e6a44ec11",
+    "text": "Already Set This Way"
+  },
+  {
+    "id": "38c7ef6779727633",
+    "text": "A Shared Services pact must be established and maintenance must reach 80 before commissions can be assigned"
+  },
+  {
+    "id": "c9f29ef455a76ba2",
+    "text": "Adjust imports"
+  },
+  {
+    "id": "04ae01ed6e5dedfe",
+    "text": "Already arranged for this cargo"
+  },
+  {
+    "id": "308fa68025b04deb",
+    "text": "Lakeside and North Shore each assign 4 sailors to a shared fleet, carrying up to 2048 items each way; delivery takes 360 seconds, and a round trip takes 720 seconds. All travel provisions are paid at departure. Sailors draw no household rations while underway.\nExchange rates: 1 iron for 6 food; 1 medicine for 4 food. Each side also pays {变量1} per trip. North Shore's public stores must first retain a minimum reserve of food and medicine for 18 rounds. Medicine for export is prepared separately using surplus treatment capacity for the current period; local life-saving medicine is never diverted.\n{分支2}\nTrips delivered: {变量3}; pausing the commission will not recall cargo already loaded and shipped."
+  },
+  {
+    "id": "131c45e711f709b2",
+    "text": "Trip {变量1}: Lakeside {变量2} ⇄ North Shore {变量3}; {分支4} seconds."
+  },
+  {
+    "id": "d40f80d962016d04",
+    "text": "Time to arrival: {变量1}"
+  },
+  {
+    "id": "f91c50577f027612",
+    "text": "Delivered; return time remaining: {变量1}"
+  },
+  {
+    "id": "7c5330a2b5c738e5",
+    "text": "Fleet docked and standing by: {变量1}"
+  },
+  {
+    "id": "7f0f76af3869d81c",
+    "text": "Awaiting next dispatch"
+  },
+  {
+    "id": "cc5bc6f9a2c7688a",
+    "text": "The census verified and classified people from Northland's records before contact was lost: {变量1}; births since then: {变量2}, deaths: {变量3}, migration to advanced communities: {变量4}, current population: {变量5}. Existing city populations are not included in North Shore's register.\nTotal filled jobs: {变量6} / working-age labor force: {变量7}.\n{列表8}\nLiaison office continuation: periods paid: {变量9} / periods due: {变量10}; figures for the years without contact are estimates based on annual quotas, not itemized transactions."
+  },
+  {
+    "id": "8c69262092a71e0c",
+    "text": "Infantry"
+  },
+  {
+    "id": "25ee118c551b966b",
+    "text": "Mobility"
+  },
+  {
+    "id": "9aa79fc65004f2ee",
+    "text": "Support"
+  },
+  {
+    "id": "22fcc58e62cc6307",
+    "text": "Bows, crossbows, hunting guns with reloaded ammunition, and makeshift armor"
+  },
+  {
+    "id": "98e88a7725d36abb",
+    "text": "Pack caravans and light patrols"
+  },
+  {
+    "id": "94923b4d365f9f16",
+    "text": "Observation posts and field medical aid"
+  },
+  {
+    "id": "fb596ec95d5388fd",
+    "text": "Standard-issue rifles and machine guns"
+  },
+  {
+    "id": "98c48a670f8651a6",
+    "text": "Armored vehicles and mechanized transport"
+  },
+  {
+    "id": "eab142cc1344206b",
+    "text": "Artillery, radios, and field hospitals"
+  },
+  {
+    "id": "0f512185fa06beaa",
+    "text": "Exoskeleton infantry"
+  },
+  {
+    "id": "88026140b8772284",
+    "text": "Drone swarms"
+  },
+  {
+    "id": "53be950fd3e84a0d",
+    "text": "Precision Strikes and Orbital Reconnaissance"
+  },
+  {
+    "id": "739b00564faf1af6",
+    "text": "Equipment maintenance arrangements registered; ongoing journeys and existing casualties will not be undone."
+  },
+  {
+    "id": "1cda13f497e4972d",
+    "text": "Patrols deploy with actual equipment and personnel; mutant residents are not targets for eradication."
+  },
+  {
+    "id": "6378335a30f278ef",
+    "text": "{变量1} begins {变量2} training; equipment has been paid for in full. Training pauses if personnel or maintenance is insufficient. Payment alone cannot provide immediate combat strength."
+  },
+  {
+    "id": "0eeaf7fb724c19b8",
+    "text": "Patrol Equipment"
+  },
+  {
+    "id": "101328004f40aa51",
+    "text": "The hunting gun for reloaded ammunition has been repaired; rounds in storage: {变量1}. Each trip can carry 4 rounds, and each shot uses 2 rounds; but gunfire in the wilderness draws more watchers."
+  },
+  {
+    "id": "e2b0f25c4c774934",
+    "text": "Wooden spears, bows and crossbows provide protection on routine trips. You can also spend 24 scrap, 4 tools and 4 knowledge to repair an old hunting gun; ammunition must be reloaded separately."
+  },
+  {
+    "id": "6229e8cab45a610e",
+    "text": "Reload 4 rounds"
+  },
+  {
+    "id": "7dabb3059e0618c3",
+    "text": "Repair hunting gun for reloaded ammunition"
+  },
+  {
+    "id": "52af027c34bd4f4d",
+    "text": "Insufficient materials"
+  },
+  {
+    "id": "573d2bc1da5ad279",
+    "text": "12 rounds ready; use existing ammunition first"
+  },
+  {
+    "id": "5a8114a4b3320ccb",
+    "text": "Ammunition"
+  },
+  {
+    "id": "df08db91b141fae4",
+    "text": "{变量1} accepted the medicine and tools delivered. The same vehicle brought wood back to Hearth City in return. This first mutual aid exchange has been entered in the public ledger."
+  },
+  {
+    "id": "3f2ff39e9f1d7087",
+    "text": "Negotiate an agreement with {列表1}"
+  },
+  {
+    "id": "beae4a7ce1f2933f",
+    "text": "Representatives from all three settlements solemnly signed the medical care and road mutual aid agreement in the public ledger."
+  },
+  {
+    "id": "4ddb2f592587ecf8",
+    "text": "The three parties' conditions have not all been met, or there is insufficient knowledge to make the agreement. The ledger remains on the desk, awaiting signatures."
+  },
+  {
+    "id": "6f12922817999eaa",
+    "text": "Postpone talks"
+  },
+  {
+    "id": "41f37b524b14b21c",
+    "text": "The representatives set aside the mutual aid draft and agreed to discuss it another time."
+  },
+  {
+    "id": "23db48671ad05e7a",
+    "text": "Hearth City: {变量1}/30 knowledge"
+  },
+  {
+    "id": "9818da03eb6b32a4",
+    "text": "{变量1}: {变量2}/10 knowledge"
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "c20739b29be66ed9",
+    "text": "{变量1} per-load limit: This city can send up to {变量2}; Lakeside City can send up to {变量3}. Exchange goods of equal value based on each side's actual shortfall (conversion rates: tools 8, medicine 4, iron 5, food and waste 1 each); goods are exchanged on delivery, with no credit. Each city assigns 6 drivers. One way takes {变量4} seconds, with a load of 1600 in each direction; each side must provide {变量5} for the journey. Operating supplies of {变量6} are charged each round, and road maintenance of {变量7} every 5 rounds, split according to “{变量8}”. Both cities must first set aside 6 rounds of food and 4 rounds of medicine; shipments stop if supplies fall short."
+  },
+  {
+    "id": "d3b504b5feabbf93",
+    "text": "\n\n“Process restocking” prioritizes filling Lakeside City's iron shortfall up to a reserve of 600, with a maximum of 240 iron per trip. The departure depot targets 300 iron in stock, with 60 held in reserve, and prioritizes assigning certified technical workers to fill smelting shifts, reducing toolmaking positions accordingly (still subject to worker qualifications, furnace capacity, and local support constraints). Trade continues to exchange goods of equal value based on each side's actual shortfall; it does not create vehicles, inventory, or operating capacity. Revising the agreement costs each city 12 knowledge. If Lakeside switches back to another production policy, no new restocking orders will be sent; orders already in transit will still be settled as usual."
+  },
+  {
+    "id": "d55a9b1569bb2f6b",
+    "text": "Lakeside iron ledger · In stock {变量1}; iron actually spent in the last 600 seconds {变量2} / delivered {变量3}.\nThe current agreement allows up to {变量4} iron per trip, and a round trip takes at least {变量5} seconds; iron still in transit cannot be used at the workbench. If iron runs short, switch back to circular production, or wait for the current vehicle to return before revising the agreement to “Process restocking”."
+  },
+  {
+    "id": "a309c0878db60e47",
+    "text": "Joint roadwork"
+  },
+  {
+    "id": "a245b79473a2248d",
+    "text": "Set cooperation terms"
+  },
+  {
+    "id": "d61085d40a66b4b8",
+    "text": "Set cost-sharing terms"
+  },
+  {
+    "id": "63a52b56b06f42f4",
+    "text": "Set cooperation terms first"
+  },
+  {
+    "id": "43deb823306d9286",
+    "text": "Current cost-sharing method"
+  },
+  {
+    "id": "de1ef4200da0d9d1",
+    "text": "Departure depot is short 6 knowledge"
+  },
+  {
+    "id": "fa57bedc8c57bcdc",
+    "text": "Resume shipments"
+  },
+  {
+    "id": "5afb17fbdc10888a",
+    "text": "Pause shipments"
+  },
+  {
+    "id": "6f9ba4d82c74b650",
+    "text": "Send a batch of repair supplies"
+  },
+  {
+    "id": "4e38a095ed39e17a",
+    "text": "The departure depot provides {变量1} free of charge and covers all transport costs; uses the same vehicle and six local drivers; no return cargo is required, and Lakeside incurs no debt."
+  },
+  {
+    "id": "489ed6b0bb032669",
+    "text": "End agreement"
+  },
+  {
+    "id": "4483566bb48fead4",
+    "text": "Pay for road maintenance"
+  },
+  {
+    "id": "cee820bf1e4f192e",
+    "text": "Arrived at destination: {变量1} loads; returned with original vehicle: {变量2} loads.\n{列表3}\nRoad maintenance paid {变量4} times; total goods sent by this city {变量5}, by Lakeside {变量6}."
+  },
+  {
+    "id": "8a31fd1e09b3ea6d",
+    "text": "Waybill {变量1} · {分支2} · {变量3} · Sent {变量4} / received {变量5} · {变量6} · Operating costs paid: this city {变量7} / Lakeside {变量8}"
+  },
+  {
+    "id": "3cab1a3cf6b369a3",
+    "text": "Free repair supplies"
+  },
+  {
+    "id": "bf64334e4d8552fb",
+    "text": "Return and settle"
+  },
+  {
+    "id": "c941f4d127853642",
+    "text": "Reconstruction year {变量1}: {变量2}"
+  },
+  {
+    "id": "fb54b07744334fbd",
+    "text": "Joint Dispatch Office: each city contributes {变量1}. Add one existing vehicle from this city to joint dispatch; routine support in both locations remains independent."
+  },
+  {
+    "id": "d9bc0488e2f8aca9",
+    "text": "Establish Joint Dispatch Office"
+  },
+  {
+    "id": "8e1167515e8b7831",
+    "text": "First complete the Community Common Law accession, build the rail spur, and run two three-city transport trips"
+  },
+  {
+    "id": "f443c70ff220464f",
+    "text": "First restore the state, the member settlements' ongoing obligations, and current administration"
+  },
+  {
+    "id": "c70bd500c3133eda",
+    "text": "The accompanying trade convoy unloaded {变量1} into the member roadwork ledger; trade goods on its waybill are settled separately as usual."
+  },
+  {
+    "id": "f5cc109d58dc72e6",
+    "text": "The member road station is complete. Local staff must be on duty and both locations must pay maintenance supplies on schedule; only then can newly dispatched merchant convoys use the shortened route."
+  },
+  {
+    "id": "d6c48b66a645ed89",
+    "text": "Both locations can contribute materials to build a road station; remaining construction materials will be carried in batches by regular merchant convoys"
+  },
+  {
+    "id": "8f87cf0a4507d494",
+    "text": "Construction materials delivered to {变量1}; still needed: {列表2}. Each regular merchant convoy can carry up to 32 units as extra cargo; no separate vehicle is dispatched."
+  },
+  {
+    "id": "08fe95f229b2841b",
+    "text": "Local workers on site {变量1}/2; construction progress {变量2}/{变量3} seconds. Work pauses if staffing is short or local support is insufficient."
+  },
+  {
+    "id": "180a4f5cdfc9a36e",
+    "text": "Local station staff on duty {变量1}/1; {分支2} older trade orders already in transit keep their original travel time."
+  },
+  {
+    "id": "8df9e86c1a10f808",
+    "text": "Both locations have paid maintenance; newly dispatched merchant convoys now take {变量1} seconds one way under normal conditions."
+  },
+  {
+    "id": "685f6d7e69cd0e30",
+    "text": "Maintenance is not fully paid; newly dispatched merchant convoys will use the original route for now (one way takes {变量1} seconds under normal conditions)."
+  },
+  {
+    "id": "eefff2df53265b47",
+    "text": "Conditions have changed; this action was not carried out. Materials in storage and existing waybills remain unchanged."
+  },
+  {
+    "id": "23c4a3f3f1d73f72",
+    "text": "Both sides paid their shares toward road preparations"
+  },
+  {
+    "id": "c197591587605b48",
+    "text": "This city and the local settlement have each paid their preparation costs. Construction materials will be sent in batches with merchant convoys."
+  },
+  {
+    "id": "8c0d5f65e5fa0b5c",
+    "text": "Assign up to six material-carrying trade trips"
+  },
+  {
+    "id": "65548b4e140d618b",
+    "text": "Use the existing six-trip merchant convoy assignment. Trade goods, construction materials, and travel provisions are charged only when each trip actually departs."
+  },
+  {
+    "id": "cddb88d8fc33d3d6",
+    "text": "Cancel merchant convoys not yet dispatched"
+  },
+  {
+    "id": "37895f9c321ad63d",
+    "text": "Undispatched assignments have been canceled; trade orders already in transit will continue as usual, and delivered construction materials remain in the project ledger."
+  },
+  {
+    "id": "78f2893303dbb0a0",
+    "text": "Close roadwork ledger"
+  },
+  {
+    "id": "173a7d2ba30003dd",
+    "text": "Waybills in transit and both cities' public warehouses will continue to keep separate accounts."
+  },
+  {
+    "id": "98179c1f26c3bb48",
+    "text": "{变量1} Road Station"
+  },
+  {
+    "id": "0517273215eead5d",
+    "text": "Prepare the project: this city contributes 100 knowledge; the local settlement contributes 80 knowledge, 60 wood, 6 tools, and 120 food. Also transport 96 wood, 48 steel, 24 parts, and 24 tools. Existing merchant convoys carry up to 32 units per trip as extra cargo, for a total of 6 trips."
+  },
+  {
+    "id": "60b4a7ea46477636",
+    "text": "Once all construction materials arrive, the local settlement assigns 2 available workers to build for 600 seconds. Local support and the school must be prioritized during construction. Delivered materials go directly into the project ledger and are not returned even if the accompanying trade does not go through."
+  },
+  {
+    "id": "ec1b9d7555be3c47",
+    "text": "Once complete, 1 local person must staff the station. Every 10 seconds, this city provides 0.02 parts and the local settlement provides 0.2 wood and 0.02 tools; supplies are charged only when both sides can cover the cost. With maintenance paid, the normal one-way travel time for newly dispatched merchant convoys is reduced to 3/4; escort costs and time spent driving off beasts are unchanged."
+  },
+  {
+    "id": "f4f9356df5d385a1",
+    "text": "Uses the same merchant vehicle, drivers, and escort team as regular foreign trade. Older waybills already in transit keep their original travel time; if maintenance runs out, newly dispatched merchant convoys return to the original travel time."
+  },
+  {
+    "id": "c8057524ad4de31f",
+    "text": "Join Road Station"
+  },
+  {
+    "id": "ddc3c31636b7ac8c",
+    "text": "First establish the three-city state, build the rail transfer station, and complete two foreign trade trips"
+  },
+  {
+    "id": "a2df6ab4c98293fa",
+    "text": "First restore the state's Common Law and current administration"
+  },
+  {
+    "id": "6a07a1746e707051",
+    "text": "Waiting for Rail Town and River Valley to restore their common agreement"
+  },
+  {
+    "id": "c113ad0161b2ea26",
+    "text": "First expand and maintain the administrative archives to provide basic coordination capacity during the transition between administrations"
+  },
+  {
+    "id": "a717afabf345c09b",
+    "text": "Waiting for one unit of available coordination capacity"
+  },
+  {
+    "id": "75e0119392620368",
+    "text": "Intercity road is closed; cargo in transit is held until repairs are complete"
+  },
+  {
+    "id": "82564292a9d7e451",
+    "text": "Road repairs are waiting for an empty vehicle to return; new dispatches are paused"
+  },
+  {
+    "id": "639d76b2e0cd9b67",
+    "text": "No pending assignments; up to three trips can be scheduled"
+  },
+  {
+    "id": "c57e91a31ace70f7",
+    "text": "First wait for the original merchant vehicle to return and cancel any foreign trade assignments that have not departed"
+  },
+  {
+    "id": "599eacfdb03776ae",
+    "text": "The original merchant vehicle is fulfilling a regional trade agreement; wait for it to return"
+  },
+  {
+    "id": "ac12083ba13e1c29",
+    "text": "Waiting for two available transport workers"
+  },
+  {
+    "id": "a459831ab65673c0",
+    "text": "This city must provide travel provisions and keep the residents' minimum food reserve intact"
+  },
+  {
+    "id": "7d9fb713046c847b",
+    "text": "Rail Town and River Valley must each have the goods for exchange ready and keep their own minimum reserves intact"
+  }
+]

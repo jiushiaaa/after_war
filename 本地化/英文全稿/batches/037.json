@@ -1,0 +1,242 @@
+[
+  {
+    "id": "dea50552d92c1fa1",
+    "text": "Housing and Relocation"
+  },
+  {
+    "id": "ce0d1c11d8ed03b6",
+    "text": "Community Maintenance and Accession Jobs"
+  },
+  {
+    "id": "ac70899cf708b177",
+    "text": "Community City"
+  },
+  {
+    "id": "eb20566ef8ab7ad1",
+    "text": "Accession Job Process"
+  },
+  {
+    "id": "383e848739588e68",
+    "text": "Arrange a Batch of Families to Relocate"
+  },
+  {
+    "id": "4871d4858968fe22",
+    "text": "Relocation Origin"
+  },
+  {
+    "id": "94dc641688ba4e3a",
+    "text": "Receiving City"
+  },
+  {
+    "id": "3ad0731336dad6b6",
+    "text": "People in This Agreement"
+  },
+  {
+    "id": "43f1ec9a4d37112d",
+    "text": "120 people · 1 batch"
+  },
+  {
+    "id": "f981c6c620135e04",
+    "text": "480 people · 4 batches, processed automatically"
+  },
+  {
+    "id": "1f90fcbdd5b9043b",
+    "text": "Families in Transit and Settlement"
+  },
+  {
+    "id": "ec2715d800d43654",
+    "text": "{变量1} · {变量2}-bed community · Condition {变量3}\nVacant beds available {变量4} · Reserved jobs {变量5} / {变量6} · {分支7}"
+  },
+  {
+    "id": "fffe1cfaca6a0b04",
+    "text": "Maintenance running"
+  },
+  {
+    "id": "f9520269abe8fd1e",
+    "text": "Maintenance paused"
+  },
+  {
+    "id": "39b984c526365591",
+    "text": "Awaiting renewal/repair"
+  },
+  {
+    "id": "7b64544266facdc1",
+    "text": "Current relocation agreement: {变量1} → {变量2} · Departed {变量3} / {变量4}\n{分支5}"
+  },
+  {
+    "id": "0292a8a6c36bd30b",
+    "text": "Batch {变量1} is en route; the next batch can depart only after the service vehicle returns empty"
+  },
+  {
+    "id": "fb58d90ea8833987",
+    "text": "Conditions met; dispatch next convoy"
+  },
+  {
+    "id": "b53011c26593b4b1",
+    "text": "Previous relocation agreement: {分支1}; final settlement and the empty vehicle's return are subject to the actual transport order."
+  },
+  {
+    "id": "a9c8af566763f7bd",
+    "text": "Canceled batches that had not departed"
+  },
+  {
+    "id": "0f2f4334be8cdf25",
+    "text": "All departures complete"
+  },
+  {
+    "id": "86994643d86b110f",
+    "text": "Hearth City's housing communities and resettlement services are both based in {变量1}. Old Town and the other districts retain their separate registers."
+  },
+  {
+    "id": "748f10e0dff68ed9",
+    "text": "{变量1} · Current: {变量2}\nExpenditure every 60 seconds: {变量3}; maintenance workers: {变量4}; costs count toward the local shared affairs allowance.\nCommunity admission jobs: {变量5}; staffed last round: {变量6}. Per person every 10 seconds: farming spends 0.015 tools to produce 1.6 food; toolmaking spends 0.8 scrap and 0.2 wood to produce 0.3 tools. When stocks are ample, production pauses for rotating rest breaks. Residents still receive their daily rations.\n{分支7}\nPausing maintenance stops new household admissions and cooperative production; condition −4 each round without maintenance, +5 when maintenance is paid in full. Existing households will not be evicted. Each adjustment costs 2 knowledge."
+  },
+  {
+    "id": "e7b7c3244cd46027",
+    "text": "Qualified cooperative jobs now carry the bulk of daily supply, replacing permanent workstations according to actual output. If maintenance stops or staffing falls short, permanent workstations take over again."
+  },
+  {
+    "id": "81cf1e79e9345e92",
+    "text": "Currently used only for supplementary production. Cooperative jobs can only be formally entrusted with daily supply once a local succession workshop is built."
+  },
+  {
+    "id": "cd71b14c6185a689",
+    "text": "Local knowledge is still 2 points short"
+  },
+  {
+    "id": "7f452d84c9e7f819",
+    "text": "Use cooperative production"
+  },
+  {
+    "id": "3baa8539ea41ef2d",
+    "text": "Current process"
+  },
+  {
+    "id": "4d2eb42827335f06",
+    "text": "Pause community maintenance"
+  },
+  {
+    "id": "268bf5c030eb1d58",
+    "text": "Resume community maintenance"
+  },
+  {
+    "id": "cd236ccbfe784e38",
+    "text": "Resume supplementary production"
+  },
+  {
+    "id": "fe196b80ef1932e1",
+    "text": "Have cooperative jobs take over supply"
+  },
+  {
+    "id": "4f2ac43ad5971c95",
+    "text": "Build a local succession workshop first"
+  },
+  {
+    "id": "9e0b0f382214b261",
+    "text": "Each batch includes 60 adults, 36 children and 24 elders; all migrate as whole households, retaining the ages and statuses recorded at their place of origin. Housing and jobs are reserved by batch. Families that have not departed remain at their place of origin.\n{分支1}Receiving city's available beds: {变量2}; reserved jobs: {变量3}. After this batch settles, residents to support: adults: {变量4}, children: {变量5}, elders: {变量6}.\n{分支7}\n{分支8}{变量9}"
+  },
+  {
+    "id": "0122772be590dc0d",
+    "text": "Route: {列表1}, {变量2} seconds one way; uses the source city's service vehicle and 4 drivers. No public freight orders are accepted until the vehicle returns empty to the depot.\nRations set aside at departure: {变量3}; round-trip fare: {变量4}. Rations left over from the journey go to the receiving city's public stores on arrival.\n"
+  },
+  {
+    "id": "eb43f496dddfa427",
+    "text": "After settling, the adults in this batch will need at most {变量1} job training classes. Teaching materials and class hours for the full program cost {变量2}.{分支3}"
+  },
+  {
+    "id": "436a9a56d207bfab",
+    "text": "After regular maintenance costs are deducted, completion will take at least {变量1} periods under the current allowance. Ongoing assignments, changes in support needs or a shortage of instructors will cause delays."
+  },
+  {
+    "id": "efeb4dc40853e852",
+    "text": "The current shared budget allowance cannot cover the full training costs."
+  },
+  {
+    "id": "42fff7b514fc0955",
+    "text": "Funds will be drawn for each class under the current itemized commissions."
+  },
+  {
+    "id": "88618bd8a7bae00d",
+    "text": "There is no local succession workshop yet. New households will first take the community's existing cooperative jobs after moving in. To qualify for formal succession, a workshop must be built and training classes held."
+  },
+  {
+    "id": "2c8abc8759dbb9e5",
+    "text": "Upkeep for existing and claimed local facilities totals {变量1} per period. This preview is only an estimate; new households will add to local daily support needs only after they settle here.\n"
+  },
+  {
+    "id": "815f254cf0b746d3",
+    "text": "All conditions are met; an agreement can be signed. Admission requirements will be rechecked at departure and arrival. If the travelers cannot be admitted for over 120 seconds after arrival, they will return to their place of origin in the same vehicle."
+  },
+  {
+    "id": "4dfecddfab92ab64",
+    "text": "Finalize relocation agreement"
+  },
+  {
+    "id": "9f02a6998adad568",
+    "text": "Cancel pending departures"
+  },
+  {
+    "id": "11d6edfca380540f",
+    "text": "Batch {变量1} · {变量2} → {变量3}\n{变量4}\nPeople in transit: {变量5} · Deaths en route: {变量6} · Rations remaining: {变量7} / consumed: {变量8} / stored: {变量9}"
+  },
+  {
+    "id": "0f448c5f33b772db",
+    "text": "En route, arriving in {变量1}s"
+  },
+  {
+    "id": "fdb0735e479eaded",
+    "text": "Waiting for beds outside the station {变量1}/120s: {变量2}"
+  },
+  {
+    "id": "f465fd6a9a62e9ad",
+    "text": "Arrangements in progress"
+  },
+  {
+    "id": "bf96b444a777eb3d",
+    "text": "Returning home by the same route, {变量1}s remaining"
+  },
+  {
+    "id": "c66243cf17425f9d",
+    "text": "Settled in; empty vehicle returning, {变量1}s remaining"
+  },
+  {
+    "id": "07d5610564f498c9",
+    "text": "Returned home; transport closed out"
+  },
+  {
+    "id": "6c81661bfd33fbcb",
+    "text": "Moved in; transport closed out"
+  },
+  {
+    "id": "aebc6b55177cf944",
+    "text": "No current relocation batches."
+  },
+  {
+    "id": "7740591ee4acbd43",
+    "text": "Jobs and available workers"
+  },
+  {
+    "id": "60f784499a8ae304",
+    "text": "Specialist jobs and training"
+  },
+  {
+    "id": "9526c2a6580a1168",
+    "text": "Training focus"
+  },
+  {
+    "id": "ec23a835d88d8f40",
+    "text": "Adjust district production"
+  },
+  {
+    "id": "d60fbadc24715a24",
+    "text": "Division of labor by district"
+  },
+  {
+    "id": "58ca935a32da7895",
+    "text": "Medicine preparation process"
+  },
+  {
+    "id": "405d5eeebe6f64a1",
+    "text": "Commissions from Old Town institutions"
+  }
+]

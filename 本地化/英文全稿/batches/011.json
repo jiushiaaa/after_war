@@ -1,0 +1,242 @@
+[
+  {
+    "id": "5d5a856ad4a07b0a",
+    "text": "The town sets its course: {变量1}."
+  },
+  {
+    "id": "503e090ebe7aa00d",
+    "text": "Where should the town go?"
+  },
+  {
+    "id": "148007f6c48eccac",
+    "text": "Farmers want more irrigation channels and clinics. Salvage workers want to explore for ore below the hillside. The craftsmen spread their hands: both sides are short-staffed."
+  },
+  {
+    "id": "860fc66d97ae4810",
+    "text": "Farming and public services: {变量1}"
+  },
+  {
+    "id": "2634e4854ba4029e",
+    "text": "Salvage and industry: {变量1}"
+  },
+  {
+    "id": "32176ecb661bf717",
+    "text": "This policy will set the town's research priorities for this phase. Once chosen, it cannot be changed."
+  },
+  {
+    "id": "a76f1a7e63edc04f",
+    "text": "Lessons During Harvest"
+  },
+  {
+    "id": "77491cea9c6cf9d2",
+    "text": "The crops are ripening fast, and there aren't enough hands. The farmers have come asking the school to close for two seasons so the teachers can take the older children to help bring in the harvest."
+  },
+  {
+    "id": "f9649fb4ef309b10",
+    "text": "But the teacher presses a hand on the textbook and says that if classes stop now, the children will fall behind for the whole year."
+  },
+  {
+    "id": "049f74711d20a8cd",
+    "text": "Pause classes to help harvest (assign two teachers to farming)"
+  },
+  {
+    "id": "39debba1cde59352",
+    "text": "{分支1} rolled up their trousers and went to the fields. For now, the school will keep only its literacy classes. {分支2}"
+  },
+  {
+    "id": "a6654120cbecdd3d",
+    "text": "Teacher"
+  },
+  {
+    "id": "174aa5f49fec75f7",
+    "text": "Two teachers"
+  },
+  {
+    "id": "a9ead1316e6e87e2",
+    "text": "Shift assignments returned to manual control. Jobs will remain as agreed this time."
+  },
+  {
+    "id": "36677da2ab62ac60",
+    "text": "Keep classes running"
+  },
+  {
+    "id": "04d24bd138855c4b",
+    "text": "The school bell rings as usual. The farmers have no choice but to pack the harvest shifts more tightly."
+  },
+  {
+    "id": "d1223b91e9b2d1a8",
+    "text": "Smoke and the Clinic"
+  },
+  {
+    "id": "a8032a64847f960f",
+    "text": "Black smoke from the smelting furnace hangs over the town all day. People with coughs and wheezing line up at the clinic, and the medical staff come asking for an explanation."
+  },
+  {
+    "id": "982d53cffc8940ba",
+    "text": "The furnace must keep running to meet the demand for iron ingots. But if one shift takes a break, the children's lungs might get a few days of relief."
+  },
+  {
+    "id": "7b830b58766962a3",
+    "text": "Cut one smelting shift (return two smelters to idle)"
+  },
+  {
+    "id": "9df47777f62b89dd",
+    "text": "One shift of workers has been pulled from the smelting furnace."
+  },
+  {
+    "id": "692f1492db05fe9a",
+    "text": "Allocate more medicine (Medicine 4)"
+  },
+  {
+    "id": "f8c013545d687ad8",
+    "text": "The clinic has received a new supply of cough and lung medicine."
+  },
+  {
+    "id": "528a2fde35ec5180",
+    "text": "Keep production running"
+  },
+  {
+    "id": "205878bfcc10eeae",
+    "text": "The furnace burns day and night as usual. Many people quietly take note of the cost."
+  },
+  {
+    "id": "1727c53e0039eb7a",
+    "text": "Who Runs the Tool Bench?"
+  },
+  {
+    "id": "3d97f443ecc49d1e",
+    "text": "Several toolmakers have jointly proposed running the tool bench themselves: if they tend the furnace and tools day and night, output could increase by two-tenths."
+  },
+  {
+    "id": "e594ec0e1307353f",
+    "text": "In return, one quarter of each batch of tools must be kept by the cooperative. When the town's public stores have fewer than 15 tools, the town will buy them back at 1 food per tool. If the public workshop keeps running it, all output goes to the public stores, and production stays at its current pace."
+  },
+  {
+    "id": "0d0ee0898e37a107",
+    "text": "Hand it over to the Toolmakers' Cooperative"
+  },
+  {
+    "id": "dd02cdcd638d864c",
+    "text": "The Toolmakers' Cooperative now runs the tool bench. Cooperative stores and public-store buybacks are accounted for separately."
+  },
+  {
+    "id": "8c06dd22f419799e",
+    "text": "Keep it under the public workshop"
+  },
+  {
+    "id": "867f2f276f7bb5ec",
+    "text": "The tool bench remains with the public workshop. All tools produced go to the public stores."
+  },
+  {
+    "id": "5f0b09331c2984a6",
+    "text": "The Old Craftswoman's Toolbox"
+  },
+  {
+    "id": "73a417f6e6d193e9",
+    "text": "The craftswoman who was the first to fall by the furnace can no longer push a plane. She slides her polished toolbox to the center of the table."
+  },
+  {
+    "id": "ab01f88c9b540ac4",
+    "text": "“The furnace, the doors and windows, the traps outside. I've kept an eye on them all these years. Now it's time for a steadier pair of hands to take over.”"
+  },
+  {
+    "id": "d58487be50c7f162",
+    "text": "Hand it to a workshop apprentice (requires a toolmaker on duty)"
+  },
+  {
+    "id": "21906ce862706879",
+    "text": "The apprentice takes the heavy toolbox. As long as a toolmaker is on duty in the workshop, the furnace will still produce 2 extra wood every 10 seconds."
+  },
+  {
+    "id": "a0936560ad0a462d",
+    "text": "Switch to resident shifts"
+  },
+  {
+    "id": "319e2376a57dff8d",
+    "text": "Residents will take turns tending the fire and making routine repairs. They can gather 1 extra wood every 10 seconds."
+  },
+  {
+    "id": "27aba26bbbd1319a",
+    "text": "Residents {变量1}/400"
+  },
+  {
+    "id": "28cc0dd946bfd00c",
+    "text": "Health {变量1}/75"
+  },
+  {
+    "id": "81380f449b53ccc9",
+    "text": "Research Town Engineering"
+  },
+  {
+    "id": "41a3ab02d1a6a10b",
+    "text": "Complete one joint project with a neighbor"
+  },
+  {
+    "id": "1ca599641b1ad400",
+    "text": "Regional Administrative Services"
+  },
+  {
+    "id": "02e750c3edb349fb",
+    "text": "Irrigated fields {变量1}/2"
+  },
+  {
+    "id": "a301f125ad287b53",
+    "text": "Public clinics {变量1}/2"
+  },
+  {
+    "id": "b66ae8e09f0f3e54",
+    "text": "Public schools {变量1}/2"
+  },
+  {
+    "id": "02044f4e821068e6",
+    "text": "Net food supply ≥ +3"
+  },
+  {
+    "id": "ce15b2e8cad16c29",
+    "text": "Tools {变量1}/60"
+  },
+  {
+    "id": "695e68b681ff91c4",
+    "text": "Cooperative Row Houses"
+  },
+  {
+    "id": "53284771181bc189",
+    "text": "Craftsmen and farmers have drawn up plans for earthen row houses. They require no metal, only wood, tools, and the neighbors' labor."
+  },
+  {
+    "id": "0643e789e779036b",
+    "text": "The cooperative row houses are complete, adding thirty-two beds beneath their roofs. Residents will take turns handling repairs from now on."
+  },
+  {
+    "id": "5aae92bc026a6ab8",
+    "text": "Farmer"
+  },
+  {
+    "id": "89d16cd6563210d8",
+    "text": "Medical staff"
+  },
+  {
+    "id": "5ca6730d44152201",
+    "text": "Tools"
+  },
+  {
+    "id": "8975502270131a5a",
+    "text": "Medicine"
+  },
+  {
+    "id": "2ce2847cbc4743b6",
+    "text": "Knowledge"
+  },
+  {
+    "id": "4b91a7ac716a7557",
+    "text": "Test plot"
+  },
+  {
+    "id": "9dba7394098a5aaa",
+    "text": "Tool bench"
+  },
+  {
+    "id": "bd81c1860bcf5c86",
+    "text": "Longhouse"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "dbc152fafafdcf6e",
+    "text": "Standing Offices"
+  },
+  {
+    "id": "88d8d4632bc7c848",
+    "text": "Production across the region is coordinated by broad occupation groups. The local liaison office is staffed by 2 residents on a permanent basis; daily duties in other cities continue as usual."
+  },
+  {
+    "id": "ede3c39f9739ea07",
+    "text": "Next: Open “Pact and Public Duties” to weigh the pros and cons of “Trade Access” and “Shared Services”."
+  },
+  {
+    "id": "f14fd7dccebb17bc",
+    "text": "The cargo ships are underway. No new ships will be dispatched until the fleet returns to port."
+  },
+  {
+    "id": "08f5ce0deab2d2ed",
+    "text": "Requirements met. Ships will depart at the next 60-second settlement."
+  },
+  {
+    "id": "9be27a88860f2f41",
+    "text": "{分支1}\nTo establish the pact, spend: this city {变量2}; Lakeside City 120 wood, 24 tools; North Shore 1200 wood, 240 tools. Afterward, every 60 seconds the local liaison office consumes {变量3}, deducted directly from the departure district's public warehouse and recorded separately. {分支4}"
+  },
+  {
+    "id": "47454a6f27680933",
+    "text": "Trade Access: Trade by water with Lakeside and North Shore only; each ship can carry up to 80 items. North Shore maintains its own facilities, and its population is not included in Shared Services coverage."
+  },
+  {
+    "id": "38723109fc57c1b3",
+    "text": "Shared Services: Choose “Civilian Repairs” to supply 320 medicine and 80 iron per ship, or “Industrial Supplies” to supply 320 iron and 80 medicine per ship. With Industrial Supplies, local wood and tool requirements for maintenance each period are doubled."
+  },
+  {
+    "id": "0fb4483b5c2d0e1b",
+    "text": "Set Pact"
+  },
+  {
+    "id": "aa2f9f1e11433ca3",
+    "text": "Pause Shared Commission"
+  },
+  {
+    "id": "63c8a2b4459482eb",
+    "text": "Resume Shared Commission"
+  },
+  {
+    "id": "ab464274b1da93f4",
+    "text": "No Pact Yet"
+  },
+  {
+    "id": "b193cfcbfcae01f7",
+    "text": "North Shore has {变量1} beds, local waterworks and workshops, and an old fleet ready to sail once repaired. Local schedules prioritize farms, medical care, and schools.\n{分支2}\n“Industrial Supplies” diverts more smelting capacity, scrap, and wood. Local wood and tool requirements for facility maintenance each period are doubled, and the dock's cargo manifest shifts to iron; the medicine supply limit falls back to 80. If supplies run out, the dock will suspend sailings first. Each commission change costs 4 knowledge from this city."
+  },
+  {
+    "id": "adda9757d2e320af",
+    "text": "Net local production and basic supply over the last 60 seconds: food {变量1}, medicine {变量2}, iron {变量3}; maintenance this period {分支4}."
+  },
+  {
+    "id": "36cbffd01834170d",
+    "text": "Paid in Full"
+  },
+  {
+    "id": "b40fd38af5061be1",
+    "text": "Waiting for the first production settlement."
+  },
+  {
+    "id": "45aad6079373af61",
+    "text": "Adjust Local Commission"
+  },
+  {
+    "id": "9a58a0a2201739bc",
+    "text": "Set the Pact First"
+  },
+  {
+    "id": "64a4ed6e6a44ec11",
+    "text": "Already Set This Way"
+  },
+  {
+    "id": "38c7ef6779727633",
+    "text": "A Shared Services pact must be established and maintenance must reach 80 before commissions can be assigned"
+  }
+]

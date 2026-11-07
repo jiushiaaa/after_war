@@ -1,0 +1,82 @@
+[
+  {
+    "id": "39b55eabc124666b",
+    "text": "Please complete the current leadership handover or system vote first."
+  },
+  {
+    "id": "36c92a47d2348a41",
+    "text": "Three-Warehouse Mutual Aid Agreement"
+  },
+  {
+    "id": "967d60fe95ff048f",
+    "text": "Hearth City and two neighboring communities each manage their own warehouse, and work together to maintain clinics and roads along the route."
+  },
+  {
+    "id": "4ab48c81aab6e043",
+    "text": "Initial agreement: Hearth City contributes 30 knowledge, and each neighboring community contributes 10 knowledge. Thereafter, every 600 seconds, send 12 medicine and 2 tools to each location; each location loads 12 wood in return onto the same truck for the trip back."
+  },
+  {
+    "id": "4379334a2d887d20",
+    "text": "Before dispatching, Hearth City must retain 120 seconds' worth of food, medicine, and maintenance tools for its own needs. Once the local return wood is ready, the same truck returns along the original route under escort by the same transport workers."
+  },
+  {
+    "id": "661226dc755dba18",
+    "text": "Hearth City spends 0.04 knowledge every 10 seconds"
+  },
+  {
+    "id": "ad4133f0a7b47ed8",
+    "text": "Each of the three locations spends 0.02 knowledge every 10 seconds"
+  },
+  {
+    "id": "138c379d0ebd7fcc",
+    "text": "Close the ledger"
+  },
+  {
+    "id": "2a4be169cb1cba9b",
+    "text": "The representatives closed the mutual aid ledger."
+  },
+  {
+    "id": "168dbfed86c9f87b",
+    "text": "{变量1}'s stranded truck can return empty. Medicine and tools already delivered will not be reclaimed, but this trip will not count as a full delivery. Dispatches on this route will be suspended; once the truck returns to the city, you can re-enable the route on the “Regions” page. If the location lacks wood for an extended period, you can build a local lumber camp for it under “Civic Affairs → Raw Materials”."
+  },
+  {
+    "id": "79c1dc8827d87df0",
+    "text": "{变量1} empty return"
+  },
+  {
+    "id": "37b9e795390df642",
+    "text": "{变量1}'s stranded truck has returned empty, and dispatches on this route are temporarily suspended. The medicine and tools already delivered remain with the location, and the unfinished round trip has been recorded accurately in the ledger."
+  },
+  {
+    "id": "43f1a722964a942c",
+    "text": "Resume mutual aid"
+  },
+  {
+    "id": "e3fed6cb7d539a87",
+    "text": "Pause new dispatches"
+  },
+  {
+    "id": "6ef929d2ba88ea68",
+    "text": "Withdraw from the trial agreement"
+  },
+  {
+    "id": "9675e66b344259e5",
+    "text": "The revised terms have been posted publicly and will take effect in 60 seconds."
+  },
+  {
+    "id": "0257a282b32d7642",
+    "text": "The mutual aid agreement has been updated. Convoys already en route will complete their trips under the original orders."
+  },
+  {
+    "id": "0fecad6971d2484f",
+    "text": "The mutual aid agreement cannot be revised right now."
+  },
+  {
+    "id": "a31c3ba223bbb9ab",
+    "text": "Revision notice expires in {变量1} seconds."
+  },
+  {
+    "id": "8c3c5aadb079b874",
+    "text": "New dispatches have been paused. Convoys already en route will complete their round trips as usual."
+  }
+]

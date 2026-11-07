@@ -1,0 +1,242 @@
+[
+  {
+    "id": "4cc03e9ea4bf89b6",
+    "text": "The bureau only assigns workers to farming, hunting, medical care, school, recycling, and fabrication. It does not draw on drivers, guards, or personnel in transit, and always keeps at least two workers idle; the bureau will not independently start construction, initiate research, enact reforms, or dispatch squads. Manually assigning workers to the above posts automatically pauses the commission."
+  },
+  {
+    "id": "68f796757a417e0f",
+    "text": "Old Town Priorities"
+  },
+  {
+    "id": "a073be988e7dbfcb",
+    "text": "Rations and Building Materials"
+  },
+  {
+    "id": "d785c693d23f2994",
+    "text": "Recent Assignment Log"
+  },
+  {
+    "id": "f8e08028034f3680",
+    "text": "The city bureau has been established. Posts, professional qualifications, and local warehouses are accounted for separately in each district."
+  },
+  {
+    "id": "ceff6a3efc9d1ab8",
+    "text": "A city of ten thousand residents can establish a city bureau, placing professional apprenticeships and routine scheduling under a permanent institution. Establishment requires: Old Town wood 120, tools 20, knowledge 60; each district contributes wood 80, tools 12, knowledge 30."
+  },
+  {
+    "id": "069f90d2f0b87870",
+    "text": "Establish City Bureau"
+  },
+  {
+    "id": "e4c6efbf2fca04d3",
+    "text": "This district has not yet established a professional qualification registry. Registration requires local wood 80, tools 12, knowledge 30; existing production and public services continue as normal during the process."
+  },
+  {
+    "id": "aeea7ca4aa946c3e",
+    "text": "Register District Institution"
+  },
+  {
+    "id": "21608578985a3e2e",
+    "text": "Among working-age workers: {变量1} hold technical qualifications, and {变量2} hold clinical qualifications. If this district adopts clinical medicine production, it needs approximately {变量3} clinical workers to maintain a stable medicine supply. Earning qualifications does not create additional people; workers leave professional posts upon reaching retirement age. Standard-parts fabrication and smelting share technical workers."
+  },
+  {
+    "id": "4c0357f2739d5efe",
+    "text": "Training {变量1}: progress {变量2} / {变量3} lessons; {变量4} working-age trainees and 2 instructors are temporarily away from permanent posts. {分支5}"
+  },
+  {
+    "id": "e8eee4499b586159",
+    "text": "Because classes have been suspended for so long, some trainees in this cohort have reached retirement age. This training cycle must be ended before a new one can begin."
+  },
+  {
+    "id": "92efaf905c405bfb",
+    "text": "Lessons automatically pause when rations, children's classes, water supply, or teaching materials are insufficient."
+  },
+  {
+    "id": "3c93d77a65a25d80",
+    "text": "Each cycle enrolls 24 trainees and assigns 2 instructors; starting a cycle costs 12 tools and 30 knowledge. Every 10 seconds of instruction also costs 2 rations, 0.2 tools, and 1 knowledge. A professional instructor requires 30 lessons to complete the training; if all professional instructors have retired, a schoolteacher can instead run a basic course of 60 lessons using the textbook. {分支1}"
+  },
+  {
+    "id": "84c4e18415e2ec1e",
+    "text": "Current direction: {变量1}."
+  },
+  {
+    "id": "6b5daa1d61c5b813",
+    "text": "Start Training Cycle"
+  },
+  {
+    "id": "62f878d94adedb40",
+    "text": "Stop Training Cycle"
+  },
+  {
+    "id": "db6a35d2a207333e",
+    "text": "{变量1} prepares replacements for posts nearing retirement two years in advance; each cycle draws teaching materials, lesson supplies, and personnel according to policy. The local warehouse must retain at least 6 rounds of rations, 60 tools, and 60 knowledge before a new cycle can begin. {分支2}"
+  },
+  {
+    "id": "12c1e5b9fbca5862",
+    "text": "The school has been assigned to replenish personnel automatically."
+  },
+  {
+    "id": "3c98fd0e62c60062",
+    "text": "The school can be commissioned to automatically start training cycles and replenish personnel according to the current process."
+  },
+  {
+    "id": "e6b9f83c50a383c9",
+    "text": "Under the “Food and Medicine” division of labor, the school will prioritize training enough clinical reserve personnel while maintaining basic medicine preparation for the time being; you still decide when to switch to the medicine production process."
+  },
+  {
+    "id": "8412290b6bcccc76",
+    "text": "Only automatically replenishes personnel for currently enabled clinical medicine production and standard-parts posts."
+  },
+  {
+    "id": "3bc1e874f8f18b5c",
+    "text": "{变量1} currently requires {变量2} workers on duty and is expected to retain {变量3} workers in two years."
+  },
+  {
+    "id": "23e46404cc8f87a7",
+    "text": "The current process does not lack workers."
+  },
+  {
+    "id": "b1a26ba43566f137",
+    "text": "Pause School Replenishment"
+  },
+  {
+    "id": "40b386d3bb1ccfb6",
+    "text": "Commission School Replenishment"
+  },
+  {
+    "id": "6843e3d844235f04",
+    "text": "Current: {变量1}. “Food and Medicine” builds up a larger food reserve and halts local fabrication, so tools must be transported from outside; “Recycling and Fabrication” expands workshop posts and reduces farmland capacity, so food must be supplied from outside. If external transport is interrupted, you can switch back to local self-sufficiency at any time. Each change in the division of labor costs 4 knowledge and 1 tool."
+  },
+  {
+    "id": "89a2d36c2a4da09a",
+    "text": "Apply Division of Labor"
+  },
+  {
+    "id": "b2f6f24d336c9360",
+    "text": "Apply Medicine Preparation Process"
+  },
+  {
+    "id": "c2f39653ac365f13",
+    "text": "{变量1}. Basic medicine preparation produces 0.15 medicine per worker; clinical medicine production produces 0.3 medicine per worker, also costs 0.01 tools and 0.02 knowledge, and requires clinical qualifications."
+  },
+  {
+    "id": "f0ca3901b4ee4b21",
+    "text": "Calibration costs 6 knowledge and 2 tools"
+  },
+  {
+    "id": "03662b168b727953",
+    "text": "Calibrating the process costs 6 knowledge and 2 tools. Every 10 seconds: basic medicine preparation produces 0.15 medicine per worker; clinical medicine production produces 0.3 medicine per worker, also costs 0.01 tools and 0.02 knowledge. This district has {变量1} clinical workers; approximately {变量2} are needed to maintain a stable medicine supply. If staffing is insufficient, rely on stockpiles, medicine transfers from other districts, or continued training."
+  },
+  {
+    "id": "5c749316a002e083",
+    "text": "{变量1} does not draw on drivers, guards, or personnel in transit, and always keeps at least two workers idle. Manually assigning commissioned posts automatically pauses the commission; major construction, technology, law, and external decisions still require your personal approval."
+  },
+  {
+    "id": "fddd9fa1a272dd34",
+    "text": "Old Town has been placed in the care of on-duty clerks and the succession cohort; when stocks are sufficient, surplus workers rotate off duty, and residents continue to receive three meals a day."
+  },
+  {
+    "id": "ff1e76657ff84403",
+    "text": "Manages the six post categories of farming, hunting, medical care, school, recycling, and fabrication."
+  },
+  {
+    "id": "9594f5beb2d27473",
+    "text": "It also takes over commissioned industrial teams, replenishing coal, ore, iron ingots, and repair parts according to stock levels to stabilize power output; if building materials are prioritized, it increases the industrial materials reserve line."
+  },
+  {
+    "id": "d16b26fae0e28bd3",
+    "text": "{分支1}; every 60 seconds, it spends 2 rations, 0.2 tools, and 0.1 knowledge before checking the schedule. {分支2} can be stopped at any time; after stopping, the current post assignments are retained."
+  },
+  {
+    "id": "4fb1f2076e9acfa0",
+    "text": "Commissioned"
+  },
+  {
+    "id": "21db6353edcb3e77",
+    "text": "Current Manual Assignments"
+  },
+  {
+    "id": "9f594524ac71bff8",
+    "text": "Routine office supplies are insufficient this cycle. The current schedule is being maintained until supplies are replenished, after which assignment will resume."
+  },
+  {
+    "id": "9a88d29f17f9895c",
+    "text": "Save Priorities"
+  },
+  {
+    "id": "1fe33c1a21309441",
+    "text": "Pause Old Town Commission"
+  },
+  {
+    "id": "92f0fc1718032c2c",
+    "text": "Enable Old Town Commission"
+  },
+  {
+    "id": "a46706741b5ed12b",
+    "text": "Year {变量1} {分支2}"
+  },
+  {
+    "id": "518be7ae9bd89655",
+    "text": "Clerk shortage; awaiting successors"
+  },
+  {
+    "id": "9da7fe331fc54308",
+    "text": "Office supplies insufficient; no posts reassigned this cycle"
+  },
+  {
+    "id": "ada4ec030210390a",
+    "text": "Schedule is appropriate; routine verification supplies have been spent"
+  },
+  {
+    "id": "6469a0dd8ab4fe67",
+    "text": "No assignment records."
+  },
+  {
+    "id": "e743efd70cde6773",
+    "text": "Old Town Posts Assigned by Institution · Open Emergency Adjustments"
+  },
+  {
+    "id": "8f5ee2bf06545e04",
+    "text": "Old Town Manual Posts · Open Adjustments"
+  },
+  {
+    "id": "74c152e4dfed8701",
+    "text": "Qualified Team · Crop Production"
+  },
+  {
+    "id": "4891d831b8ebc9af",
+    "text": "Qualified Team · Fabrication"
+  },
+  {
+    "id": "523d6d52e5ed7daf",
+    "text": "No qualified team process for this category yet"
+  },
+  {
+    "id": "79b4a5f6bcafaa62",
+    "text": "The source city’s continuation workshop and residential community must remain operational before qualified teams can be dispatched"
+  },
+  {
+    "id": "52edbabaa8685a0a",
+    "text": "The source city must have enough registered qualified personnel, and after dispatching, must still retain at least half of its qualified personnel and two instructors to keep things running"
+  },
+  {
+    "id": "1d15d867f7f9c8a6",
+    "text": "Employment, Commuting, and Household Income"
+  },
+  {
+    "id": "f022eb748fecb32a",
+    "text": "City Posts and Housing"
+  },
+  {
+    "id": "8162d1b132cdecd1",
+    "text": "Workers rotating off duty continue to receive rations; being on standby during rotation does not mean being displaced or losing one's livelihood."
+  },
+  {
+    "id": "456f41ccb0f000f5",
+    "text": "City Mobile Workers On Duty / Available Beds for Workers"
+  },
+  {
+    "id": "adda0b14abd5fed1",
+    "text": "Select a City and Assign Workers"
+  }
+]

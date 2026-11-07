@@ -1,0 +1,242 @@
+[
+  {
+    "id": "f725b59c5f707daa",
+    "text": "Tools 40"
+  },
+  {
+    "id": "7301e4e9a811fb37",
+    "text": "Iron ingots 40"
+  },
+  {
+    "id": "704ec0bafcc99f13",
+    "text": "Parts 20"
+  },
+  {
+    "id": "f64891cd37e47cd1",
+    "text": "The roadside roster"
+  },
+  {
+    "id": "7ad6b2e26a6de649",
+    "text": "Guides from two settlements have brought a roster of scattered households, totaling 480 people. Native humans and mutants, children and elders alike, are hoping for a place to settle with beds, medical care, and a school."
+  },
+  {
+    "id": "f3ea185700b7d443",
+    "text": "Registering the roster only establishes contact. Large-scale admission requires convoys, travel rations, medicine, and tools, with enough food set aside for new arrivals. If convoys are paused, individual travelers who show up can still be admitted from the roster."
+  },
+  {
+    "id": "6748f5533e7359ec",
+    "text": "Register Households and Admission Terms"
+  },
+  {
+    "id": "c657d81e840bd8eb",
+    "text": "All registered residents receive the same food rations, medical care, and school access for children. Convoys will bring people in batches, depending on available housing and food and medicine stocks."
+  },
+  {
+    "id": "fe7185da6408b674",
+    "text": "The Town's Public Responsibilities"
+  },
+  {
+    "id": "fd1b495718a5f7b3",
+    "text": "With 80 residents, a clinic, classrooms, and roads for travel, the town has been running steadily. Neighbors support formally establishing housing, provisions, and public accounts as town governance."
+  },
+  {
+    "id": "1d3c58d5ff784087",
+    "text": "Establishing town governance will not create extra workers or supplies. Future expansion of neighborhoods and work zones will still depend on research, construction, and everyone's hard work."
+  },
+  {
+    "id": "0bd0745cdef5f8f9",
+    "text": "Formal town governance has been entered into the public record. The workshop can begin researching town projects."
+  },
+  {
+    "id": "69e3dc56b433dfda",
+    "text": "Provisions are fluctuating. Revisit town governance once things are stable again."
+  },
+  {
+    "id": "d2b07aa619cdeb22",
+    "text": "Core Town Service Handover"
+  },
+  {
+    "id": "84102f7f4ba74a01",
+    "text": "With 400 residents and provisions, schools, and public works running steadily, the town has the foundation to connect surrounding districts."
+  },
+  {
+    "id": "de152172c8051fc2",
+    "text": "Registration alone will not add residents to Old Town. Next, connect nearby settlements on the “City Region” page. Once at least two districts are connected, the population reaches 10,000, and public services are stable, the town can be formally registered as a city of 10,000."
+  },
+  {
+    "id": "cba158dab9009f34",
+    "text": "Register Core Town Public Responsibilities"
+  },
+  {
+    "id": "af7a17fb66943966",
+    "text": "The core town has completed its public service handover. Continue surveying nearby areas, building roads, and sharing responsibility for the districts on the “City Region” page."
+  },
+  {
+    "id": "c509e75b47723d6d",
+    "text": "Stabilize the core town's daily provisions first."
+  },
+  {
+    "id": "05484be322b102ee",
+    "text": "The First City"
+  },
+  {
+    "id": "11cbf90ea256bce8",
+    "text": "With 400 residents who have made their homes here, irrigation channels, clinics, and classrooms running day and night, rows of cooperative housing, and projects built with neighbors, the foundations of a city are finally in place."
+  },
+  {
+    "id": "f79d9b585887b2af",
+    "text": "With 400 residents who have made their homes here, farms, clinics, classrooms, work zones, and the power grid running day and night, a city has finally taken shape. The public projects promised to neighbors have also been delivered."
+  },
+  {
+    "id": "42fdb51d83eb0067",
+    "text": "But the people in the city still need to eat tomorrow. Settlements beyond the walls still govern themselves, and this land is still far from a true urban cluster."
+  },
+  {
+    "id": "7fdc384248c7bed1",
+    "text": "Register the City and Its Public Responsibilities"
+  },
+  {
+    "id": "89669ee5b1dd283c",
+    "text": "The people have registered the home they built with their own hands as “Hearth City.” Its homes, fields, work zones, and responsibilities will be left to those who come after."
+  },
+  {
+    "id": "af946be02c9ed6d6",
+    "text": "Provisions are fluctuating. Revisit establishing the city once things are stable again."
+  },
+  {
+    "id": "1398734fc6ba29cd",
+    "text": "Admission source: {变量1}"
+  },
+  {
+    "id": "f5ccbb0faed6a7e5",
+    "text": "Verifying the roster and provisions at {变量1}"
+  },
+  {
+    "id": "0649d86c080426c1",
+    "text": "Switch the admission source for future batches; convoys already en route will continue along their original routes. The new source will retain its residents who stay behind, and the completed roadside roster of 480 people will not reset."
+  },
+  {
+    "id": "593a3d34fe2cd6bd",
+    "text": "District"
+  },
+  {
+    "id": "8bdc07f2713bffdc",
+    "text": "{变量1} people on the roadside roster awaiting settlement"
+  },
+  {
+    "id": "c491258411054e72",
+    "text": "{变量1}: {变量2} residents remain (including residents who stay behind)"
+  },
+  {
+    "id": "b45c41de200445b5",
+    "text": " Future batches to {变量1}: local residents {变量2} / {变量3}, with {变量4} beds reserved."
+  },
+  {
+    "id": "0c78f0d3727c06a7",
+    "text": "{分支1} · Residents {变量2} / {变量3}, with {变量4} beds reserved en route. {分支5}{分支6}{分支7}{变量8}"
+  },
+  {
+    "id": "0ef2d1a577107ef1",
+    "text": "Formal Town Governance"
+  },
+  {
+    "id": "b98d16e6b067685f",
+    "text": "Provision surplus every 10 seconds: food {变量1}, medicine {变量2}; children's schooling {分支3}."
+  },
+  {
+    "id": "4ae1bfcb6bbe1c2e",
+    "text": "Covered"
+  },
+  {
+    "id": "1a5219a8272afb13",
+    "text": "Insufficient"
+  },
+  {
+    "id": "3eaaa8ceb049bc72",
+    "text": " Registering town governance requires 80 residents and 180 seconds of stable provisions, classrooms, and roads for travel: {变量1}/180."
+  },
+  {
+    "id": "465bafa4969b1dcd",
+    "text": " Registering a city requires 400 residents, health 70, low smoke and dust, actual industrial power use of 4, delivered public works for neighboring districts, and a sustained surplus of food and medicine: {变量1}/300 seconds."
+  },
+  {
+    "id": "2d965adc2c5b2f98",
+    "text": " {变量1}, {变量2} convoy groups. {分支3}"
+  },
+  {
+    "id": "07cb3be46e526475",
+    "text": "Batch admission is paused; convoys already en route will continue, and individual travelers who arrive on their own will still be admitted locally from the selected roster."
+  },
+  {
+    "id": "1d43eeb42b1ef0f4",
+    "text": "Admission destination: {变量1}"
+  },
+  {
+    "id": "490dcd2b9a4a8060",
+    "text": "Only future departing batches will be redirected; residents already en route will continue to their original destination, and individual arrivals will still settle locally. The source pays travel costs, while the destination prepares housing and food for new arrivals."
+  },
+  {
+    "id": "2b5d19e83e03aa93",
+    "text": "Recall the convoy to {变量1}"
+  },
+  {
+    "id": "d0992c62408a5999",
+    "text": "They will return to the original source along the route they came by; travel costs already spent will not be refunded. If the convoy has reached its destination, it must wait until the return road is repaired before heading back."
+  },
+  {
+    "id": "8f790ffcbb688d53",
+    "text": "Pause Batch Admission"
+  },
+  {
+    "id": "68523080854400ac",
+    "text": "Arrange Batch Admission"
+  },
+  {
+    "id": "d603d285442101cd",
+    "text": "Admission trips go directly from the source to the selected destination and take 120 seconds each way; {分支1} each person costs 6 food, 0.2 medicine, and 0.2 tools; local transport workers are shared, with at most 2 groups departing at once across all destinations; both locations must reserve enough food for 120 seconds"
+  },
+  {
+    "id": "bd58b16ae5b5c5cd",
+    "text": "Regular groups can carry up to 8 people. Once relocation convoy equipment is built, large groups of 24 can be sent; large groups require additional equipment maintenance."
+  },
+  {
+    "id": "709f3adf7b902ce8",
+    "text": "Up to 8 people per batch;"
+  },
+  {
+    "id": "b0fe80e31c9974fe",
+    "text": "Community Hall"
+  },
+  {
+    "id": "45270a2ad992e87e",
+    "text": "Local Farmland"
+  },
+  {
+    "id": "0f5cba74dc741310",
+    "text": "Local Clinic"
+  },
+  {
+    "id": "250a7e09bfd89845",
+    "text": "Local School"
+  },
+  {
+    "id": "f4f7459632cda60a",
+    "text": "Local Workshop"
+  },
+  {
+    "id": "a74a92dd4687b376",
+    "text": "Local Recycling Yard"
+  },
+  {
+    "id": "0f209b4d956e59ac",
+    "text": "Local Lumber Camp"
+  },
+  {
+    "id": "e629de0cfb860901",
+    "text": "Local Mine"
+  },
+  {
+    "id": "0e3e49c2ecdca9e7",
+    "text": "Local Coal Mine"
+  }
+]
