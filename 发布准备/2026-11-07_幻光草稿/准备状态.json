@@ -1,5 +1,5 @@
 {
-  "status": "platform-draft-saved-awaiting-screenshots",
+  "status": "platform-draft-saved-with-screenshots",
   "publiclyPublished": false,
   "platformDraftCreated": true,
   "codeCommit": "5e4da8a",
@@ -16,13 +16,19 @@
     "soundRelatedPassed": 56,
     "soundReloadMemory": true
   },
-  "pending": "简介、正文格式、标签、更新说明与操作信息已存草稿。Chrome截图上传要求文件网址权限，系统选择器无法确认；已请求临时开启并于上传后关闭，等待作者答复。",
-  "releasePreflight": "309文件，34952687字节；压缩包31.78MB，平台已接收第1版并等待审核。作者运行入口暂显示未配置在线运行地址，平台启动/云存档尚未实测。",
+  "pending": "六张截图与城市封面已保存，刷新后仍显示未公开；等待作者修改。用户已手动开启文件网址权限用于上传，已提醒手动关闭，关闭状态尚未确认。",
+  "releasePreflight": "309文件，34952687字节；压缩包31.78MB，第1版1.0.0已通过审核。作者运行入口已加载开始游戏首页；未进入新局，平台云存档尚未验证。",
   "gameId": "4vkszl1o36kg",
   "postId": "4vkszlfyi9s0",
   "draftUrl": "https://lumi.66rpg.com/edit-works/4vkszlfyi9s0",
   "version": "1.0.0",
   "cliVersion": "0.1.61",
-  "reviewStatus": "pending",
-  "platformScreenshots": 0
+  "reviewStatus": "approved",
+  "platformScreenshots": 6,
+  "platformScreenshotOrder": ["03-city.png", "01-room.png", "02-exploration.png", "04-tech.png", "05-network.png", "06-society.png"],
+  "platformCover": "03-city.png",
+  "draftReloadVerified": true,
+  "platformStartScreenLoaded": true,
+  "platformCloudSaveVerified": false,
+  "extensionFileAccessCleanup": "manual-disable-requested-not-confirmed"
 }
