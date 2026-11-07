@@ -1,0 +1,187 @@
+[
+  {
+    "id": "cw.43a52845986587",
+    "text": "记忆停在撤离那刻。舱外断了电，墙角只剩几根干柴。",
+    "context": "CivilText.opening"
+  },
+  {
+    "id": "cw.95e748a020be53",
+    "text": "金属舱盖从内推开。每一次呼吸都结成白雾。",
+    "context": "CivilText.opening"
+  },
+  {
+    "id": "cw.380205bb880e23",
+    "text": "冰冷的维修间",
+    "context": "CivilText.labels.A Dark Room"
+  },
+  {
+    "id": "cw.678b195ffab349",
+    "text": "温暖的维修间",
+    "context": "CivilText.labels.A Firelit Room"
+  },
+  {
+    "id": "cw.174ffafdb15542",
+    "text": "灰白荒林",
+    "context": "CivilText.labels.A Silent Forest"
+  },
+  {
+    "id": "cw.4104fae382343e",
+    "text": "林边木屋",
+    "context": "CivilText.labels.A Lonely Hut"
+  },
+  {
+    "id": "cw.3ad6fb3f55ea32",
+    "text": "荒林聚落",
+    "context": "CivilText.labels.A Tiny Village"
+  },
+  {
+    "id": "cw.396f93b1dd9d94",
+    "text": "荒林聚落",
+    "context": "CivilText.labels.A Modest Village"
+  },
+  {
+    "id": "cw.b8216fc0a13a4b",
+    "text": "荒林聚落",
+    "context": "CivilText.labels.A Large Village"
+  },
+  {
+    "id": "cw.897f19fb1017f3",
+    "text": "荒林聚落",
+    "context": "CivilText.labels.A Raucous Village"
+  },
+  {
+    "id": "cw.f308b06dd7cb84",
+    "text": "木料",
+    "context": "CivilText.labels.wood"
+  },
+  {
+    "id": "cw.26b1832b15f568",
+    "text": "食物",
+    "context": "CivilText.labels.food"
+  },
+  {
+    "id": "cw.05d4b27949cea8",
+    "text": "一份尚未写下的记录",
+    "context": "CivilSetup.event.title"
+  },
+  {
+    "id": "cw.1206c6393381ca",
+    "text": "在结霜的维修间醒来。炉火、口粮，加上最先聚拢的几个人，就是你手头的全部。",
+    "context": "CivilSetup.event.text"
+  },
+  {
+    "id": "cw.b4736d7cffe071",
+    "text": "地形与近郊物资由世界种子生成；而此后的每一次取舍，都将写下这一局的历史。",
+    "context": "CivilSetup.event.text"
+  },
+  {
+    "id": "cw.062d80d8b3c67d",
+    "text": "首次游玩建议保持默认局势。附加局势不会赠送资源，也不改变世界总人口。",
+    "context": "CivilSetup.event.text"
+  },
+  {
+    "id": "cw.2a4829b9a8d0e1",
+    "text": "世界种子 ",
+    "context": "CivilSetup.event.onLoad.line"
+  },
+  {
+    "id": "cw.194b08d040b54e",
+    "text": "梯田片区",
+    "context": "CivilCityContent.wards.terraces.name"
+  },
+  {
+    "id": "cw.eae97fa2f57102",
+    "text": "顺山坡开垦的梯田养活了不少人家；只是当地废料匮乏，日常工具得靠外头补给。",
+    "context": "CivilCityContent.wards.terraces.description"
+  },
+  {
+    "id": "cw.1d79dc4969ce08",
+    "text": "旧厂街区",
+    "context": "CivilCityContent.wards.yards.name"
+  },
+  {
+    "id": "cw.ba79cba7573c28",
+    "text": "旧厂棚与住区挨在一处，这里的回收工摸透了废墟的门道；但口粮与净水还得搭进更多人手。",
+    "context": "CivilCityContent.wards.yards.description"
+  },
+  {
+    "id": "cw.51e94dbfc28dd9",
+    "text": "临床与长期随访",
+    "context": "CivilFutureContent.tech.clinical.name"
+  },
+  {
+    "id": "cw.290f343f46e2cb",
+    "text": "培育临床材料，开展配有长期随访的体细胞治疗。",
+    "context": "CivilFutureContent.tech.clinical.ability"
+  },
+  {
+    "id": "cw.f4bdf8807afa05",
+    "text": "治疗从一次性救济变成连续服务。",
+    "context": "CivilFutureContent.tech.clinical.life"
+  },
+  {
+    "id": "cw.c2e9f59da83ffa",
+    "text": "先保日常看诊，还是将培养材料拨去改造？",
+    "context": "CivilFutureContent.tech.clinical.choice"
+  },
+  {
+    "id": "cw.7b2fdf1c5fb0f5",
+    "text": "北陆全域议会",
+    "context": "CivilEarthContent.regions.north.name"
+  },
+  {
+    "id": "cw.2f774fc3e609e6",
+    "text": "冬季通行与分散供暖",
+    "context": "CivilEarthContent.regions.north.issue"
+  },
+  {
+    "id": "cw.c7a580cd754748",
+    "text": "联接分散热网",
+    "context": "CivilEarthContent.regions.north.options.network.name"
+  },
+  {
+    "id": "cw.5d606acc648f75",
+    "text": "共同燃料储备",
+    "context": "CivilEarthContent.regions.north.options.reserve.name"
+  },
+  {
+    "id": "cw.07b3f5ac02fef3",
+    "text": "{分支1}在{变量2}降生。口粮与药品都已备妥，{分支3}",
+    "context": "CivilNarrative.birth"
+  },
+  {
+    "id": "cw.0ef37bf2d90c16",
+    "text": "{变量1}名孩子",
+    "context": "CivilNarrative.birth"
+  },
+  {
+    "id": "cw.bca9022424b08b",
+    "text": "{变量1}位年长居民在这一年走完了人生。他们留下的屋舍与手艺仍留在共同体里。",
+    "context": "CivilNarrative.death"
+  },
+  {
+    "id": "cw.ced09a0a09fc1f",
+    "text": "{变量1}的公共仓储完成了门窗检修。木料与工具损耗已记入本地公共开支。",
+    "context": "CivilNarrative.maintenance"
+  },
+  {
+    "id": "cw.ef10633b5dbfff",
+    "text": "{变量1}的巡路员记下了郊外兽群的踪迹，提醒居民避开那片洼地。",
+    "context": "CivilNarrative.wildlife"
+  },
+  {
+    "id": "cw.f79a8b75ae1377",
+    "text": "{变量1}生态巡护记录：郊外发现变异生物活动痕迹。巡护员已通知居民绕行。",
+    "context": "CivilNarrative.wildlife"
+  },
+  {
+    "id": "cw.b55e51ffda5d30",
+    "text": "联运线路例行检修，{变量1}秒后恢复发车；在途车队照常抵达",
+    "context": "CivilSetup.freightReason"
+  },
+  {
+    "id": "cw.20e5cb97dd3a7e",
+    "text": "应急工作间尚余{变量1}秒",
+    "context": "CivilHearth.status.warning"
+  }
+]

@@ -76,4 +76,4 @@ Windows PowerShell 如遇 `npm.ps1` 策略阻止，使用 `npm.cmd test` 和 `np
 
 上游 https://github.com/doublespeakgames/adarkroom ，基线 `1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7`。现有上游及本作提交历史完整保留；仓库整理前游戏提交为 `0a739c9`，之后把原根文件移动到 `游戏/` 并纳入设计与验证。保留 [MPL-2.0 许可](游戏/LICENSE.md) 及原作者署名；源码来源和改动记录可查。
 
-本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 由 main 的构建产物部署；英文版正在独立校译，中文基线保持。
+本作作者与维护者为旧石（jiushiaaa）；GitHub Contributors 同时包含保留历史中的 A Dark Room 上游贡献者，不代表他们参与了本作新增设计。原作者署名与许可保留，详见 [来源说明](游戏/UPSTREAM.md)。幻光版已交付；GitHub Pages 将 main 的构建产物发布到 `gh-pages` 分支，见[部署说明](发布准备/GitHub-Pages.md)。Pages 使用本机自动保存，与幻光云档相互独立。英文版处于小批校译验证阶段，尚未上线；中文基线保持。
