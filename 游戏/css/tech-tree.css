@@ -11,7 +11,10 @@
 .civil-tech-zoom output { min-width:3em; text-align:center; font-variant-numeric:tabular-nums; }
 .civil-tech-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:24px; }
 .civil-tech-map { min-width:0; }
-.civil-tech-caption { min-height:24px; margin-bottom:10px; font-size:14px; }
+.civil-tech-caption { display:flex; align-items:center; flex-wrap:wrap; gap:8px 18px; min-height:34px; margin-bottom:12px; font-size:14px; }
+.civil-tech-caption[hidden] { display:none; }
+.civil-tech-caption select { width:230px; }
+.civil-tech-caption > span { font-size:13px; }
 .civil-tech-viewport { position:relative; overflow:auto; height:420px; max-height:58dvh; min-height:260px; border:1px solid var(--civil-rule); background:var(--civil-paper,#fff); cursor:grab; overscroll-behavior:contain; scrollbar-width:thin; touch-action:pan-x pan-y; }
 .civil-tech-viewport.dragging { cursor:grabbing; user-select:none; }
 .civil-tech-viewport:focus-visible,.civil-tech-detail:focus-visible,.civil-tech-choice select:focus-visible { outline:1px dashed var(--civil-ink,#222); outline-offset:3px; }
@@ -20,9 +23,10 @@
 .civil-tech-lines { position:absolute; inset:0; pointer-events:none; overflow:visible; }
 .civil-tech-era { position:absolute; top:26px; font-size:16px; font-weight:bold; white-space:nowrap; }
 .civil-tech-era-line { stroke:var(--civil-rule); fill:none; stroke-width:1; stroke-dasharray:2 6; }
-.civil-tech-edge { stroke:var(--civil-rule); fill:none; stroke-width:1; stroke-dasharray:5 5; }
+.civil-tech-edge { stroke:var(--civil-rule); fill:none; stroke-width:1; stroke-dasharray:5 5; opacity:.35; }
 .civil-tech-edge.satisfied { stroke-dasharray:none; }
-.civil-tech-edge.on-path { stroke:var(--civil-ink,#222); stroke-width:2; }
+.civil-tech-edge.next-step { stroke:var(--civil-ink,#222); opacity:.8; }
+.civil-tech-edge.on-path { stroke:var(--civil-ink,#222); stroke-width:2; opacity:1; }
 .civil-tech-node { position:absolute; display:flex; flex-direction:column; justify-content:center; align-items:center; box-sizing:border-box; padding:8px 10px; border:1px solid var(--civil-rule); border-radius:0; background:var(--civil-paper,#fff); color:inherit; cursor:pointer; font:inherit; line-height:1.4; }
 .civil-tech-node-name { display:flex; gap:7px; align-items:center; white-space:nowrap; font-size:16px; }
 .civil-tech-mark { font-family:monospace; }
@@ -43,7 +47,9 @@
 .civil-tech-mini-node { fill:var(--civil-paper,#fff); stroke:var(--civil-muted); stroke-width:3; }
 .civil-tech-mini-node.active,.civil-tech-mini-node.ready { fill:var(--civil-ink,#222); }
 #civilTechMiniViewport { fill:none; stroke:var(--civil-ink,#222); stroke-width:1; vector-effect:non-scaling-stroke; }
-.civil-tech-detail { min-width:0; max-height:490px; overflow-y:auto; overflow-x:hidden; scrollbar-width:thin; overscroll-behavior:contain; border-top:1px solid var(--civil-rule); padding:18px 8px 8px 0; box-sizing:border-box; }
+.civil-tech-detail { min-width:0; max-height:490px; overflow-y:auto; overflow-x:hidden; scrollbar-width:thin; overscroll-behavior:contain; border-top:1px solid var(--civil-rule); padding:0 8px 8px 0; box-sizing:border-box; scroll-margin-top:18px; }
+.civil-tech-detail-heading { position:sticky; top:0; z-index:1; padding:14px 0 6px; background:var(--civil-paper,#fff); border-bottom:1px solid var(--civil-rule); margin-bottom:12px; }
+#civilTechBack { float:right; margin:0 0 6px 12px; padding:3px 6px; min-height:34px; font-size:13px; }
 .civil-tech-detail h3 { margin:0 0 10px; font-size:20px; line-height:1.5; }
 .civil-tech-detail h4 { margin:20px 0 8px; font-size:15px; }
 .civil-tech-detail p { margin:8px 0; font-size:14px; line-height:1.7; }
@@ -60,7 +66,8 @@
 .civil-tech-legend { display:flex; flex-wrap:wrap; gap:8px 20px; border-top:1px solid var(--civil-rule); margin-top:20px; padding-top:12px; font-size:13px; line-height:1.6; }
 @container(min-width:960px) {
   .civil-tech-layout { grid-template-columns:minmax(0,1fr) 260px; gap:24px; }
-  .civil-tech-detail { border-top:0; border-left:1px solid var(--civil-rule); padding:0 6px 8px 22px; margin-top:34px; }
+  .civil-tech-detail { border-top:0; border-left:1px solid var(--civil-rule); padding:0 6px 8px 22px; margin-top:46px; }
+  #civilTechBack { display:none; }
 }
 @media(max-width:600px) {
   .civil-tech-toolbar { gap:10px; }
@@ -69,6 +76,9 @@
   .civil-tech-control { min-height:40px; }
   .civil-tech-viewport { height:330px; }
   .civil-tech-layout { gap:18px; }
-  .civil-tech-detail { max-height:450px; }
+  .civil-tech-detail { max-height:min(560px,calc(100dvh - 100px)); min-height:200px; }
+  .civil-tech-caption .civil-tech-choice { width:auto; }
+  .civil-tech-caption > span { display:none; }
+  #civilTechBack { min-height:40px; }
   .civil-tech-map-footer { gap:12px; }
 }

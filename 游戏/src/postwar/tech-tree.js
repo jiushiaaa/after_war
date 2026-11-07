@@ -1,6 +1,7 @@
 /* MPL-2.0 — Read-only technology atlas. Research authority stays in the original rules. */
 var CivilTechTree={
   selected:null,zoom:1,signature:'',detailSignature:'',model:null,observer:null,drag:null,
+  columnPitch:300,rowPitch:128,
   eras:['早期 · 生存与公共工艺','中期 · 电与通信','后期 · 自动化与新生活','后期 · 先进社会','后期 · 地球与航天'],
   middle:new Set(['mining','furnace','mechanics','power','localgrid','chemistry','steel','medicine','municipal_engineering','wind_power','district_heating','machine_tools','electronics','railway_engineering','passenger_transport']),
   late:new Set(['computing','national_logistics','automation','orbital_survey','ocean_navigation','ecological_recovery','space_manufacturing','closed_ecology']),
@@ -42,20 +43,53 @@ var CivilTechTree={
     }
     // Stable topological columns; related branches share nearby rows. Long edges use
     // the gutters between rows instead of crossing through other node labels.
-    const slots=new Map();let maxRow=0;
+    let maxRow=0;
     for(let col=0;col<offset;col++){
       const group=nodes.filter(n=>n.column===col);
-      const preferred=n=>{const ps=n.requires.map(r=>byId.get(r.id)).filter(p=>p?.row!==undefined);return ps.length?ps.reduce((v,p)=>v+p.row,0)/ps.length:group.indexOf(n);};
-      group.sort((a,b)=>preferred(a)-preferred(b));const used=new Set();slots.set(col,used);
-      group.forEach(n=>{let row=Math.round(preferred(n));while(used.has(row))row++;used.add(row);n.row=row;maxRow=Math.max(maxRow,row);n.x=30+col*276;n.y=88+row*112;n.width=n.unknown?72:224;n.height=64;});
+      const preferred=new Map(group.map((n,i)=>{const ps=n.requires.map(r=>byId.get(r.id)).filter(p=>p?.row!==undefined);return [n.id,ps.length?ps.reduce((v,p)=>v+p.row,0)/ps.length:i];}));
+      group.sort((a,b)=>preferred.get(a.id)-preferred.get(b.id));const used=new Set();
+      group.forEach(n=>{let row=Math.round(preferred.get(n.id));while(used.has(row))row++;used.add(row);n.row=row;maxRow=Math.max(maxRow,row);n.x=30+col*this.columnPitch;n.y=88+row*this.rowPitch;n.width=n.unknown?72:224;n.height=64;});
     }
-    const edges=nodes.flatMap(n=>n.requires.filter(r=>byId.has(r.id)).map((r,i)=>{
-      const p=byId.get(r.id),x=p.x+p.width,y=p.y+32,endX=n.x,endY=n.y+32;
-      const path=n.column-p.column===1?`M${x},${y} H${x+22+i*7} V${endY} H${endX}`:
-        `M${x},${y} H${x+14+i*6} V${p.y-16-i*5} H${endX-16-i*6} V${endY} H${endX}`;
-      return {from:p.id,to:n.id,done:!!r.done,path};
-    }));
-    return {nodes,edges,eras,width:Math.max(360,offset*276+12),height:Math.max(350,88+(maxRow+1)*112)};
+    const edges=this.routeEdges(nodes);
+    return {nodes,edges,eras,width:Math.max(360,offset*this.columnPitch+12),height:Math.max(350,88+(maxRow+1)*this.rowPitch)};
+  },
+  routeEdges(nodes){
+    const byId=new Map(nodes.map(n=>[n.id,n])),edges=nodes.flatMap(n=>n.requires.filter(r=>byId.has(r.id)).map(r=>({from:r.id,to:n.id,done:!!r.done})));
+    const outgoing=new Map(),incoming=new Map(),lanes=new Map();
+    for(const n of nodes){outgoing.set(n.id,edges.filter(e=>e.from===n.id).sort((a,b)=>byId.get(a.to).row-byId.get(b.to).row));incoming.set(n.id,edges.filter(e=>e.to===n.id).sort((a,b)=>byId.get(a.from).row-byId.get(b.from).row));}
+    for(const e of edges){
+      const p=byId.get(e.from),n=byId.get(e.to),out=outgoing.get(p.id),into=incoming.get(n.id),oi=out.indexOf(e),ii=into.indexOf(e);
+      const x=p.x+p.width,y=p.y+32+(oi-(out.length-1)/2)*Math.min(8,40/out.length),endX=n.x,endY=n.y+32+(ii-(into.length-1)/2)*Math.min(8,40/into.length);
+      const exit=p.x+224+14+(oi%5)*9,entry=endX-14-(ii%5)*9;
+      let points;
+      if(n.column-p.column===1){points=[[x,y],[exit,y],[exit,endY],[endX,endY]];}
+      else{
+        // Every long horizontal segment stays in an empty row gutter. Reserve
+        // separate tracks for overlapping spans; never route through a label.
+        const tracks=[60,68,76];for(let row=0;row<=Math.max(...nodes.map(v=>v.row));row++)for(let lane=0;lane<5;lane++)tracks.push(88+row*this.rowPitch+76+lane*8);
+        tracks.sort((a,b)=>Math.abs(a-(y+endY)/2)-Math.abs(b-(y+endY)/2)||a-b);
+        const track=tracks.find(t=>!(lanes.get(t)||[]).some(span=>exit<span[1]+8&&entry>span[0]-8));
+        if(track===undefined)throw Error('科技图谱缺少连线通道');
+        if(!lanes.has(track))lanes.set(track,[]);lanes.get(track).push([exit,entry]);
+        points=[[x,y],[exit,y],[exit,track],[entry,track],[entry,endY],[endX,endY]];
+      }
+      e.path=points.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
+    }
+    return edges;
+  },
+  findGroups(m){
+    const visible=m.nodes.filter(n=>!n.unknown),groups=[];
+    for(const [label,states]of [['正在研究',['active']],['可研究',['ready']],['待准备',['materials','blocked','locked']]]){const nodes=visible.filter(n=>states.includes(n.state)).sort((a,b)=>b.era-a.era||a.column-b.column||a.row-b.row);if(nodes.length)groups.push({label:label+'（'+nodes.length+'）',nodes});}
+    for(const era of m.eras){const nodes=visible.filter(n=>n.done&&n.era===era.id).sort((a,b)=>a.column-b.column||a.row-b.row);if(nodes.length)groups.push({label:'已掌握 · '+era.title,nodes});}
+    return groups;
+  },
+  locateTargets(m){
+    const active=m.nodes.filter(n=>n.active),ready=m.nodes.filter(n=>n.state==='ready').sort((a,b)=>b.era-a.era||a.column-b.column||a.row-b.row);
+    return active.length?active:ready.length?ready:m.nodes.filter(n=>!n.done&&!n.unknown).sort((a,b)=>b.era-a.era);
+  },
+  neighbor(m,id,key){
+    const from=m.nodes.find(n=>n.id===id),direction={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[key];if(!from||!direction)return;
+    return m.nodes.filter(n=>n.id!==id).map(n=>{const dx=n.x-from.x,dy=n.y-from.y;return {node:n,forward:dx*direction[0]+dy*direction[1],side:Math.abs(dx*direction[1]+dy*direction[0])};}).filter(n=>n.forward>0).sort((a,b)=>(a.forward+a.side*2)-(b.forward+b.side*2))[0]?.node;
   },
   ancestors(model,id){
     const nodes=new Map(model.nodes.map(n=>[n.id,n])),result=new Set();
@@ -72,21 +106,22 @@ var CivilTechTree={
     document.getElementById('civilResearchTree')?.remove();
     const root=this.element('section','civil-tech-atlas',null);root.id='civilTechAtlas';root.setAttribute('aria-label','科技路线图谱');document.getElementById('civilResearchIntro').after(root);
     const bar=this.element('div','civil-tech-toolbar',root);
-    const choice=this.element('label','civil-tech-choice',bar,'查找工艺 '),select=this.element('select','',choice);select.id='civilTechSelect';select.addEventListener('change',()=>this.select(select.value,true));
-    this.control(bar,'civilTechLocate','定位研究',()=>{const m=this.model,active=m.nodes.filter(n=>n.active),index=active.findIndex(n=>n.id===this.selected);this.select(active[(index+1)%active.length]?.id||this.preferred(m)?.id||this.selected,true);});
+    const choice=this.element('label','civil-tech-choice',bar,'查找工艺 '),select=this.element('select','',choice);select.id='civilTechSelect';select.addEventListener('change',()=>this.select(select.value,true,true));
+    this.control(bar,'civilTechLocate','定位研究',()=>{const list=this.locateTargets(this.model),index=list.findIndex(n=>n.id===this.selected);this.select(list[(index+1)%list.length]?.id||this.selected,true);this.mapFocus();});
     const zoom=this.element('div','civil-tech-zoom',bar);this.control(zoom,'civilTechZoomOut','−',()=>this.scale(this.zoom-.1),'缩小科技图谱');
     const level=this.element('output','',zoom,'100%');level.id='civilTechZoom';level.setAttribute('aria-label','图谱缩放比例');
     this.control(zoom,'civilTechZoomIn','＋',()=>this.scale(this.zoom+.1),'放大科技图谱');this.control(zoom,'civilTechReset','复位',()=>{this.scale(1);this.center(this.selected);},'恢复原始字号并定位所选工艺');
     const layout=this.element('div','civil-tech-layout',root),map=this.element('div','civil-tech-map',layout);
-    const caption=this.element('div','civil-tech-caption',map);caption.id='civilTechCaption';
-    const viewport=this.element('div','civil-tech-viewport',map);viewport.id='civilTechViewport';viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label','科技地图。拖动空白处或用方向键平移，滚轮缩放。');
+    const caption=this.element('div','civil-tech-caption',map),eraLabel=this.element('label','civil-tech-choice',caption,'定位时代 '),eraSelect=this.element('select','',eraLabel);caption.id='civilTechEraNav';eraSelect.id='civilTechEra';eraSelect.addEventListener('change',()=>this.showEra(Number(eraSelect.value)));
+    const current=this.element('span','civil-secondary',caption);current.id='civilTechCaption';current.setAttribute('aria-live','polite');
+    const viewport=this.element('div','civil-tech-viewport',map);viewport.id='civilTechViewport';viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label','科技地图。拖动空白处、滑动或用方向键平移，Ctrl加滚轮缩放。');
     const plane=this.element('div','civil-tech-plane',viewport),world=this.element('div','civil-tech-world',plane);world.id='civilTechWorld';
     const footer=this.element('div','civil-tech-map-footer',map),mini=this.element('div','civil-tech-mini',footer);mini.id='civilTechMini';mini.setAttribute('aria-hidden','true');
-    this.element('p','civil-secondary',footer,'拖动空白处查看 · 滚轮缩放\n键盘：方向键平移，Tab 选择工艺');
+    this.element('p','civil-secondary',footer,'拖动或滑动平移 · Ctrl＋滚轮缩放\n键盘：Tab 进入节点，方向键选点，Enter 查看');
     const detail=this.element('aside','civil-tech-detail',layout);detail.id='civilTechDetail';detail.tabIndex=0;detail.setAttribute('aria-label','所选工艺详情');
     const legend=this.element('div','civil-tech-legend',root);for(const text of ['✓ 已掌握','○ 可研究 / 待准备','▰ 研究中','┄ 待前置','？ 未发现'])this.element('span','',legend,text);
     viewport.addEventListener('scroll',()=>this.miniViewport(),{passive:true});
-    viewport.addEventListener('wheel',e=>{if(e.shiftKey)return;e.preventDefault();const r=viewport.getBoundingClientRect();this.scale(this.zoom*Math.exp(-e.deltaY*.0015),{x:e.clientX-r.left,y:e.clientY-r.top});},{passive:false});
+    viewport.addEventListener('wheel',e=>{if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();const r=viewport.getBoundingClientRect();this.scale(this.zoom*Math.exp(-e.deltaY*.0015),{x:e.clientX-r.left,y:e.clientY-r.top});},{passive:false});
     viewport.addEventListener('pointerdown',e=>{
       if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('button'))return;
       this.drag={x:e.clientX,y:e.clientY,left:viewport.scrollLeft,top:viewport.scrollTop};viewport.setPointerCapture(e.pointerId);viewport.classList.add('dragging');
@@ -105,7 +140,7 @@ var CivilTechTree={
     const m=this.model,world=document.getElementById('civilTechWorld'),focused=document.activeElement?.dataset?.techId;world.replaceChildren();
     world.style.width=m.width+'px';world.style.height=m.height+'px';
     const lines=this.svg('svg',{width:m.width,height:m.height,'aria-hidden':'true',class:'civil-tech-lines'},world);
-    for(const era of m.eras){const label=this.element('div','civil-tech-era',world,era.title);label.style.left=(30+era.start*276)+'px';if(era.start)this.svg('path',{d:`M${era.start*276+8},20 V${m.height-16}`,class:'civil-tech-era-line'},lines);}
+    for(const era of m.eras){const label=this.element('div','civil-tech-era',world,era.title);label.style.left=(30+era.start*this.columnPitch)+'px';if(era.start)this.svg('path',{d:`M${era.start*this.columnPitch+8},20 V${m.height-16}`,class:'civil-tech-era-line'},lines);}
     for(const edge of m.edges)this.svg('path',{d:edge.path,class:'civil-tech-edge'+(edge.done?' satisfied':''),'data-from':edge.from,'data-to':edge.to},lines);
     for(const n of [...m.nodes].sort((a,b)=>a.column-b.column||a.row-b.row)){
       const button=this.element('button','civil-tech-node '+n.state,world);button.type='button';button.dataset.techId=n.id;button.id='techNode_'+n.id;
@@ -114,13 +149,13 @@ var CivilTechTree={
       this.element('small','civil-tech-node-status',button,this.label(n));
       if(n.active){const progress=this.element('span','civil-tech-node-progress',button);this.element('span','',progress);}
       button.setAttribute('aria-label',(n.unknown?'尚未发现的后续工艺':n.name)+'，'+this.label(n)+'。查看详情');button.setAttribute('aria-controls','civilTechDetail');
-      button.addEventListener('click',()=>this.select(n.id));button.addEventListener('focus',()=>this.highlight(n.id));button.addEventListener('blur',()=>this.highlight(this.selected));button.addEventListener('mouseenter',()=>this.highlight(n.id));button.addEventListener('mouseleave',()=>this.highlight(this.selected));
+      button.addEventListener('click',()=>this.select(n.id,false,true));button.addEventListener('focus',()=>this.highlight(n.id));button.addEventListener('blur',()=>this.highlight(this.selected));button.addEventListener('mouseenter',()=>this.highlight(n.id));button.addEventListener('mouseleave',()=>this.highlight(this.selected));
+      button.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();e.stopPropagation();const next=this.neighbor(this.model,n.id,e.key);if(next){this.select(next.id,true);document.getElementById('techNode_'+next.id)?.focus({preventScroll:true});}});
     }
-    const select=document.getElementById('civilTechSelect'),eras=new Map();select.replaceChildren();
-    for(const n of m.nodes.filter(n=>!n.unknown).sort((a,b)=>a.era-b.era||a.column-b.column||a.row-b.row)){
-      if(!eras.has(n.era)){const group=this.element('optgroup','',select);group.label=this.eras[n.era];eras.set(n.era,group);}
-      const option=this.element('option','',eras.get(n.era),n.name+' · '+this.label(n));option.value=n.id;
-    }
+    const select=document.getElementById('civilTechSelect');select.replaceChildren();
+    for(const {label,nodes}of this.findGroups(m)){const group=this.element('optgroup','',select);group.label=label;for(const n of nodes){const option=this.element('option','',group,n.name+' · '+this.label(n));option.value=n.id;}}
+    const eraSelect=document.getElementById('civilTechEra');eraSelect.replaceChildren();for(const era of m.eras){const option=this.element('option','',eraSelect,era.title);option.value=era.id;}
+    document.getElementById('civilTechEraNav').hidden=m.eras.length<2;
     const mini=document.getElementById('civilTechMini');mini.replaceChildren();
     const overview=this.svg('svg',{viewBox:`0 0 ${m.width} ${m.height}`,preserveAspectRatio:'none'},mini);
     for(const edge of m.edges)this.svg('path',{d:edge.path,class:'civil-tech-mini-edge'},overview);
@@ -130,12 +165,23 @@ var CivilTechTree={
   },
   highlight(id){
     if(!this.model)return;const path=this.ancestors(this.model,id);
-    for(const e of document.querySelectorAll('#civilTechWorld .civil-tech-edge'))e.classList.toggle('on-path',path.has(e.dataset.from)&&path.has(e.dataset.to));
-    for(const e of document.querySelectorAll('#civilTechWorld .civil-tech-node')){e.classList.toggle('on-path',path.has(e.dataset.techId));e.classList.toggle('selected',e.dataset.techId===this.selected);e.setAttribute('aria-pressed',String(e.dataset.techId===this.selected));}
+    for(const e of document.querySelectorAll('#civilTechWorld .civil-tech-edge')){const active=path.has(e.dataset.from)&&path.has(e.dataset.to),next=e.dataset.from===id;e.classList.toggle('on-path',active);e.classList.toggle('next-step',next);if(active||next)e.parentElement.append(e);}
+    for(const e of document.querySelectorAll('#civilTechWorld .civil-tech-node')){const selected=e.dataset.techId===this.selected;e.classList.toggle('on-path',path.has(e.dataset.techId));e.classList.toggle('selected',selected);e.setAttribute('aria-pressed',String(selected));e.tabIndex=selected?0:-1;}
   },
-  select(id,locate=false){
+  select(id,locate=false,showDetail=false){
     if(!this.model?.nodes.some(n=>n.id===id))return;this.selected=id;this.highlight(id);this.detail(State);
     document.getElementById('civilTechSelect').value=id.startsWith('unknown-')?'':id;if(locate)this.center(id);
+    if(showDetail&&this.stacked()){const detail=document.getElementById('civilTechDetail');detail.scrollIntoView({block:'start'});detail.focus({preventScroll:true});}
+  },
+  stacked(){return document.getElementById('civilTechAtlas').clientWidth<960;},
+  mapFocus(){
+    const v=document.getElementById('civilTechViewport');if(this.stacked())v.scrollIntoView({block:'center'});v.focus({preventScroll:true});
+  },
+  showEra(id){
+    const era=this.model?.eras.find(e=>e.id===id),v=document.getElementById('civilTechViewport');if(!era||!v)return;
+    const first=this.model.nodes.filter(n=>n.era===id&&!n.unknown).sort((a,b)=>a.column-b.column||a.row-b.row)[0];
+    this.select(first?.id);this.scale(Math.max(.75,Math.min(1,(v.clientWidth-32)/(era.columns*this.columnPitch))));
+    v.scrollLeft=era.start*this.columnPitch*this.zoom;v.scrollTop=0;this.miniViewport();this.mapFocus();
   },
   center(id){
     const n=this.model?.nodes.find(n=>n.id===id),v=document.getElementById('civilTechViewport');if(!n||!v?.clientWidth)return;
@@ -158,20 +204,23 @@ var CivilTechTree={
   },
   detail(s){
     const n=this.model?.nodes.find(n=>n.id===this.selected),root=document.getElementById('civilTechDetail');if(!n||!root)return;
-    document.getElementById('civilTechCaption').textContent=this.eras[n.era]+(n.unknown?' · 未知边界':'');
+    document.getElementById('civilTechEra').value=n.era;
+    document.getElementById('civilTechCaption').textContent=n.unknown?'未知边界':this.label(n)+' · '+n.name;
     const signature=JSON.stringify([n.id,n.state,n.cost,n.requires,n.detail,CivilTechSources.research(s,n)?.id]);
     if(signature!==this.detailSignature){
       this.detailSignature=signature;
       // Reuse the original action, with its existing callback and final rule/cost check.
       $('#civilTechAction > .button[data-base-research]').appendTo('#researchBtns');root.replaceChildren();root.scrollTop=0;
-      this.element('h3','',root,n.unknown?'尚未发现':n.name);
+      const heading=this.element('div','civil-tech-detail-heading',root);
+      this.control(heading,'civilTechBack','返回图谱',()=>this.mapFocus());
+      this.element('h3','',heading,n.unknown?'尚未发现':n.name);
       const status=this.element('p','civil-tech-detail-state',root,this.label(n));status.id='civilTechState';
       if(n.unknown){this.element('p','',root,'这条路线还没有新的记录。继续探索与发展，后续工艺会逐步显现。');return;}
       this.element('p','civil-secondary',root,n.source==='base'?'原镇公仓 · 复兴研究班组':'共同体仓 · '+(n.source==='future'?'共同体':'航天')+'研究班组');
       const p=this.element('div','civil-tech-progress',root);p.id='civilTechProgress';p.setAttribute('role','progressbar');p.setAttribute('aria-label',n.name+'研究进度');p.setAttribute('aria-valuemin','0');p.setAttribute('aria-valuemax','100');this.element('span','',p);
       this.element('h4','',root,'前置');const prerequisites=this.element('div','civil-tech-prerequisites',root);
       if(!n.requires.length)this.element('p','',prerequisites,n.source==='base'?'工坊':n.source==='future'?'先进共同体 · 临床与研究楼':'全球议约');
-      for(const req of n.requires){const visible=this.model.nodes.some(x=>x.id===req.id);if(visible)this.control(prerequisites,'techReq_'+req.id,req.name+(req.done?' ✓':' · 未完成'),()=>this.select(req.id,true));else this.element('p','',prerequisites,'？ · 待发现');}
+      for(const req of n.requires){const visible=this.model.nodes.some(x=>x.id===req.id);if(visible)this.control(prerequisites,'techReq_'+req.id,req.name+(req.done?' ✓':' · 未完成'),()=>{this.select(req.id,true);this.mapFocus();});else this.element('p','',prerequisites,'？ · 待发现');}
       this.element('h4','',root,n.active||n.done?'材料参考':'准备材料');
       const costs=this.element('dl','civil-kv civil-tech-costs',root);costs.id='civilTechCosts';
       for(const [key,amount]of Object.entries(n.cost)){this.element('dt','',costs,CivilTechSources.resource(key));const val=this.element('dd','',costs,String(amount));val.dataset.resource=key;}
@@ -221,7 +270,7 @@ var CivilTechTree={
     if(signature!==this.signature){this.signature=signature;this.draw();}
     document.getElementById('civilTechSelect').value=this.selected?.startsWith('unknown-')?'':this.selected;
     this.detail(s);
-    const activeCount=m.nodes.filter(n=>n.active).length,locate=document.getElementById('civilTechLocate');locate.textContent='定位研究'+(activeCount>1?'（'+activeCount+'）':'');locate.title=activeCount>1?'依次定位各研究班组的当前项目':'定位当前研究或可研究工艺';
+    const targets=this.locateTargets(m),active=targets.some(n=>n.active),ready=targets.some(n=>n.state==='ready'),locate=document.getElementById('civilTechLocate');locate.textContent=(active?'定位研究':ready?'定位可研究':'定位待准备')+(targets.length?'（'+targets.length+'）':'');locate.title=active?'依次定位各研究班组的当前项目':ready?'依次定位材料与条件齐备的工艺':'依次查看尚缺的材料或条件';locate.disabled=!targets.length;
     for(const active of m.nodes.filter(n=>n.active)){const bar=document.querySelector('#techNode_'+active.id+' .civil-tech-node-progress > span');if(bar)bar.style.width=Math.max(0,Math.min(100,100*(1-CivilTechSources.research(s,active).remaining/active.duration)))+'%';}
     if(initial)this.center(this.selected);
   },

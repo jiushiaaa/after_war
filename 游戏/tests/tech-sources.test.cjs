@@ -66,3 +66,49 @@ test('all late technologies coexist without key collisions, missing prerequisite
   const pathSet=[...ctx.CivilTechTree.ancestors(m,'earth__guidance')].sort();assert.deepEqual(pathSet,['earth__fabrication','earth__guidance','earth__mapping','earth__navigation']);
   assert.equal(JSON.stringify(s),before);
 });
+
+test('paths stay outside unrelated nodes at every stage, including constructed complete graphs',()=>{
+  const {ctx}=fresh();
+  const intersects=(a,b,n)=>a[0]===b[0]
+    ?a[0]>n.x&&a[0]<n.x+n.width&&Math.max(a[1],b[1])>n.y&&Math.min(a[1],b[1])<n.y+n.height
+    :a[1]>n.y&&a[1]<n.y+n.height&&Math.max(a[0],b[0])>n.x&&Math.min(a[0],b[0])<n.x+n.width;
+  for(const id of ['exploration','public-city','industry-city','public-ecology','industry-synthetic','public-earth','industry-earth']){
+    const s=saved(id);
+    for(const complete of [false,true]){
+      if(complete){for(const k of Object.keys(ctx.CivilText.research))s.civilization.tech[k]=true;for(const f of ctx.CivilTechSources.families(s))if(f.data)for(const k of Object.keys(f.content))f.data.tech[k]=1;}
+      const before=JSON.stringify(s),m=ctx.CivilTechTree.build(s);
+      for(const e of m.edges){
+        const points=[...e.path.matchAll(/[ML]([\d.]+),([\d.]+)/g)].map(x=>[+x[1],+x[2]]);
+        assert.ok(points.length>=2);
+        for(let i=1;i<points.length;i++){
+          const a=points[i-1],b=points[i];assert.ok(a[0]===b[0]||a[1]===b[1]);
+          for(const n of m.nodes)if(n.id!==e.from&&n.id!==e.to)assert.equal(intersects(a,b,n),false,`${id} ${e.from} → ${e.to} crosses ${n.id}`);
+        }
+      }
+      assert.equal(JSON.stringify(s),before);
+    }
+  }
+});
+
+test('research finding prioritizes actual active and ready projects, retaining every known technology exactly once',()=>{
+  const h=harness(saved('public-earth')),t=h.ctx.CivilTechTree,S=h.ctx.CivilTechSources;
+  for(const stage of ['ready','active','shortage']){
+    if(stage==='active'){S.start(h.s,node(h,'earth__mapping'));S.start(h.s,node(h,'future__interface'));}
+    if(stage==='shortage'){h.s.civilization.polity.earth.research=null;h.s.civilization.polity.future.research=null;for(const key of Object.keys(h.s.civilization.polity.future.stock))h.s.civilization.polity.future.stock[key]=0;}
+    const before=JSON.stringify(h.s),m=t.build(h.s),groups=t.findGroups(m),ids=groups.flatMap(g=>g.nodes.map(n=>n.id)),known=m.nodes.filter(n=>!n.unknown),targets=t.locateTargets(m);
+    assert.equal(new Set(ids).size,known.length);assert.deepEqual(copy(ids).sort(),copy(known.map(n=>n.id)).sort());
+    const desired=stage==='ready'?'ready':stage==='active'?'active':'materials';
+    assert.ok(groups[0].nodes.every(n=>n.state===desired));assert.ok(targets.length>=2);assert.ok(targets.every(n=>n.state===desired));
+    if(stage==='active')assert.deepEqual(copy(targets.map(n=>n.id)).sort(),['earth__mapping','future__interface']);
+    assert.equal(JSON.stringify(h.s),before);
+  }
+});
+
+test('directional keyboard traversal reaches every revealed node and anonymous frontier without changing the world',()=>{
+  const {ctx}=fresh(),t=ctx.CivilTechTree;
+  for(const id of ['exploration','public-city','industry-city','industry-synthetic','industry-earth']){
+    const s=saved(id),before=JSON.stringify(s),m=t.build(s),seen=new Set(),queue=[m.nodes[0].id];
+    while(queue.length){const id=queue.shift();if(seen.has(id))continue;seen.add(id);for(const key of ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown']){const n=t.neighbor(m,id,key);if(n&&!seen.has(n.id))queue.push(n.id);}}
+    assert.deepEqual([...seen].sort(),copy(m.nodes.map(n=>n.id)).sort());assert.equal(JSON.stringify(s),before);
+  }
+});
